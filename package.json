@@ -4,6 +4,9 @@
   "description": "Framework-agnostic library controlling various aspects of user input, such as form validation",
   "keywords": [
     "form-validation",
+    "forms",
+    "input-validation",
+    "input",
     "library",
     "typescript"
   ],
