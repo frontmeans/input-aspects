@@ -3,6 +3,7 @@ import { AfterEvent__symbol, afterEventFrom, EventEmitter, EventInterest, EventK
 import { InControl } from '../in-control';
 import { InValue } from '../in-value';
 import { InValidation } from './in-validation.aspect';
+import { InValidator } from './in-validator';
 import Mock = jest.Mock;
 
 describe('InValidation', () => {
@@ -156,6 +157,45 @@ describe('InValidation', () => {
     expect(validatorFunction).toHaveBeenCalledWith(control);
     expect([...lastResult()]).toEqual([message]);
   });
+
+  describe('Simple validator', () => {
+
+    let validate: Mock<ReturnType<InValidator.Simple<any>['validate']>, [InControl<string>]>;
+
+    beforeEach(() => {
+      validate = jest.fn();
+    });
+
+    it('reports message', () => {
+      validate.mockImplementation(control => ({ value: control.it }));
+
+      validation.by({ validate });
+      expect([...lastResult()]).toEqual([{ value: 'test' }]);
+
+      control.it = 'other';
+      expect([...lastResult()]).toEqual([{ value: 'other' }]);
+    });
+    it('reports multiple messages', () => {
+
+      const messages = [{ message: 1 }, { message: 2 }];
+
+      validate.mockImplementation(() => messages);
+
+      validation.by({ validate });
+      expect([...lastResult()]).toEqual(messages);
+    });
+    it('reports no messages', () => {
+      validate.mockImplementation(control => ({ value: control.it }));
+
+      validation.by({ validate });
+      expect([...lastResult()]).toEqual([{ value: 'test' }]);
+
+      validate.mockImplementation(() => null);
+      control.it = 'other';
+      expect(lastResult().ok).toBe(true);
+    });
+  });
+
   it('accepts messages from multiple validators', () => {
 
     const message1 = { message: 'message1' };

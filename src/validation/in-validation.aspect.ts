@@ -1,4 +1,4 @@
-import { asis, noop } from 'call-thru';
+import { NextArgs, nextArgs, noop } from 'call-thru';
 import {
   AfterEvent,
   AfterEvent__symbol,
@@ -219,11 +219,8 @@ class InValidationMessages<Value> implements EventKeeper<InValidation.Message[]>
     }).share();
 
     this.from = validator => {
-      if (!isEventKeeper(validator)) {
-        validator = validator(control); // Convert function to event keeper
-      }
 
-      const source = afterEventFrom(validator); // Convert to `AfterEvent`
+      const source = controlValidator(control, validator);
       const validatorInterest = eventInterest(() => {
         // Remove the validator
         validators.delete(source);
@@ -246,6 +243,36 @@ class InValidationMessages<Value> implements EventKeeper<InValidation.Message[]>
     }
   }
 
+}
+
+function controlValidator<Value>(
+    control: InControl<Value>,
+    validator: InValidator<Value>
+): AfterEvent<InValidation.Message[]> {
+  if (isEventKeeper(validator)) {
+    return afterEventFrom(validator);
+  }
+  if (typeof validator === 'function') {
+    return afterEventFrom(validator(control));
+  }
+
+  return control.read.keep.thru(simpleValidator(control, validator))
+}
+
+function simpleValidator<Value>(
+    control: InControl<Value>,
+    validator: InValidator.Simple<Value>,
+): <NextReturn>(value: Value) => NextArgs<InValidation.Message[], NextReturn> | InValidation.Message {
+  return <NextReturn>() => {
+
+    const messages = validator.validate(control);
+
+    return messages == null
+        ? nextArgs()
+        : Array.isArray(messages)
+            ? nextArgs(...messages)
+            : messages;
+  }
 }
 
 const noValidationErrors: InValidation.Result = {
