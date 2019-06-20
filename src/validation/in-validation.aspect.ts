@@ -256,7 +256,7 @@ function controlValidator<Value>(
     return afterEventFrom(validator(control));
   }
 
-  return control.read.keep.thru(simpleValidator(control, validator))
+  return control.read.keep.thru(simpleValidator(control, validator));
 }
 
 function simpleValidator<Value>(
@@ -272,7 +272,7 @@ function simpleValidator<Value>(
         : Array.isArray(messages)
             ? nextArgs(...messages)
             : messages;
-  }
+  };
 }
 
 const noValidationErrors: InValidation.Result = {

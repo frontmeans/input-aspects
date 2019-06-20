@@ -167,9 +167,10 @@ describe('InValidation', () => {
     });
 
     it('reports message', () => {
-      validate.mockImplementation(control => ({ value: control.it }));
+      validate.mockImplementation(ctr => ({ value: ctr.it }));
 
       validation.by({ validate });
+      expect(validate).toHaveBeenCalledWith(control);
       expect([...lastResult()]).toEqual([{ value: 'test' }]);
 
       control.it = 'other';
@@ -185,7 +186,7 @@ describe('InValidation', () => {
       expect([...lastResult()]).toEqual(messages);
     });
     it('reports no messages', () => {
-      validate.mockImplementation(control => ({ value: control.it }));
+      validate.mockImplementation(ctr => ({ value: ctr.it }));
 
       validation.by({ validate });
       expect([...lastResult()]).toEqual([{ value: 'test' }]);
