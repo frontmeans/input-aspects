@@ -1,5 +1,5 @@
 import { noop } from 'call-thru';
-import { InAspect } from './in-aspect';
+import { InAspect } from './aspect';
 
 /**
  * @internal

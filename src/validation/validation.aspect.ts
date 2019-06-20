@@ -10,9 +10,9 @@ import {
   EventKeeper,
   isEventKeeper,
 } from 'fun-events';
-import { InAspect, InAspect__symbol } from '../in-aspect';
-import { InControl } from '../in-control';
-import { InValidator } from './in-validator';
+import { InAspect, InAspect__symbol } from '../aspect';
+import { InControl } from '../control';
+import { InValidator } from './validator';
 
 const InValidation__aspect: Aspect = {
   applyTo<Value>(control: InControl<Value>): Applied<Value> {
@@ -360,7 +360,7 @@ class InControlValidation<Value> extends InValidation<Value> {
 
 }
 
-declare module '../in-aspect' {
+declare module '../aspect' {
 
   export namespace InAspect.Application {
 

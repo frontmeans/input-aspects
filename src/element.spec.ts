@@ -1,10 +1,10 @@
 import { asis } from 'call-thru';
 import { EventInterest } from 'fun-events';
-import { InAspect__symbol } from './in-aspect';
-import { inAspectValue } from './in-aspect.impl';
-import { InElement } from './in-element';
-import { inElt } from './in-element.control';
-import { InValue } from './in-value';
+import { InAspect__symbol } from './aspect';
+import { inAspectValue } from './aspect.impl';
+import { InElement } from './element';
+import { inElt } from './element.control';
+import { InValue } from './value';
 import Mock = jest.Mock;
 
 describe('InElement', () => {

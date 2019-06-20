@@ -1,6 +1,6 @@
 import { EventInterest } from 'fun-events';
-import { InControl } from './in-control';
-import { InValue } from './in-value';
+import { InControl } from './control';
+import { InValue } from './value';
 import Mock = jest.Mock;
 
 describe('InValue', () => {

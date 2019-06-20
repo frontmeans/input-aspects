@@ -1,4 +1,4 @@
-import { InControl } from './in-control';
+import { InControl } from './control';
 
 /**
  * Some aspect of the user input. Such as input focus or validity.

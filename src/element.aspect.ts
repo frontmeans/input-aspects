@@ -1,6 +1,6 @@
-import { InAspect } from './in-aspect';
-import { inAspectNull } from './in-aspect.impl';
-import { InElement } from './in-element';
+import { InAspect } from './aspect';
+import { inAspectNull } from './aspect.impl';
+import { InElement } from './element';
 
 /**
  * @internal

@@ -1,6 +1,6 @@
-import { InAspect, InAspect__symbol } from './in-aspect';
-import { InControl } from './in-control';
-import { InElement__aspect } from './in-element.aspect';
+import { InAspect, InAspect__symbol } from './aspect';
+import { InControl } from './control';
+import { InElement__aspect } from './element.aspect';
 
 /**
  * Input element control.

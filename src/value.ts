@@ -1,5 +1,5 @@
 import { trackValue, ValueTracker } from 'fun-events';
-import { InControl } from './in-control';
+import { InControl } from './control';
 
 /**
  * Simple input control implementation.

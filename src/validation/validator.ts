@@ -1,6 +1,6 @@
 import { EventKeeper } from 'fun-events';
-import { InControl } from '../in-control';
-import { InValidation } from './in-validation.aspect';
+import { InControl } from '../control';
+import { InValidation } from './validation.aspect';
 
 /**
  * Input validator.

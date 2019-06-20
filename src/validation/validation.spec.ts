@@ -1,9 +1,9 @@
 import { asis } from 'call-thru';
 import { AfterEvent__symbol, afterEventFrom, EventEmitter, EventInterest, EventKeeper, trackValue } from 'fun-events';
-import { InControl } from '../in-control';
-import { InValue } from '../in-value';
-import { InValidation } from './in-validation.aspect';
-import { InValidator } from './in-validator';
+import { InControl } from '../control';
+import { InValue } from '../value';
+import { InValidation } from './validation.aspect';
+import { InValidator } from './validator';
 import Mock = jest.Mock;
 
 describe('InValidation', () => {

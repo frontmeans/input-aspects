@@ -1,2 +1,2 @@
-export * from './in-validation.aspect';
-export * from './in-validator';
+export * from './validation.aspect';
+export * from './validator';

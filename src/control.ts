@@ -1,6 +1,6 @@
 import { valueProvider } from 'call-thru';
 import { EventEmitter, OnEvent, trackValue, ValueTracker } from 'fun-events';
-import { InAspect, InAspect__symbol } from './in-aspect';
+import { InAspect, InAspect__symbol } from './aspect';
 
 /**
  * User input control.

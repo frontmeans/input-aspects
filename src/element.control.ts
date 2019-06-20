@@ -1,10 +1,10 @@
 import { DomEventDispatcher, EventEmitter, eventInterest, EventInterest } from 'fun-events';
-import { InAspect } from './in-aspect';
-import { inAspectValue } from './in-aspect.impl';
-import { InElement } from './in-element';
-import { InElement__aspect } from './in-element.aspect';
+import { InAspect } from './aspect';
+import { inAspectValue } from './aspect.impl';
+import { InElement } from './element';
+import { InElement__aspect } from './element.aspect';
 
-declare module './in-element' {
+declare module './element' {
 
   export namespace InElement {
 
