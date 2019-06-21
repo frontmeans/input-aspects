@@ -101,14 +101,14 @@ export abstract class InControl<Value = string> extends ValueTracker<Value> {
    * Converts this control to another one with value of different type potentially depending on various input aspects.
    *
    * @typeparam To Converted input value type.
-   * @param by Input value converter generator function.
+   * @param by Input control converter.
    *
    * @returns Converted control.
    */
-  convert<To>(by: InControl.ConverterGenerator<Value, To>): InControl<To>;
+  convert<To>(by: InControl.Converter<Value, To>): InControl<To>;
 
   convert<To>(
-      setOrBy: ((this: void, from: Value) => To) | InControl.ConverterGenerator<Value, To>,
+      setOrBy: ((this: void, from: Value) => To) | InControl.Converter<Value, To>,
       get?: (this: void, from: To) => Value,
   ): InControl<To> {
 
@@ -122,7 +122,7 @@ export abstract class InControl<Value = string> extends ValueTracker<Value> {
         ];
 
     if (get == null) {
-      by = setOrBy as InControl.ConverterGenerator<Value, To>;
+      by = setOrBy as InControl.Converter<Value, To>;
     } else {
       by = valueProvider([(setOrBy as (this: void, from: Value) => To), get]);
     }
@@ -171,9 +171,9 @@ export abstract class InControl<Value = string> extends ValueTracker<Value> {
 export namespace InControl {
 
   /**
-   * Input control converted generator functional interface.
+   * Input control converter.
    *
-   * It is called by `InControl.convert()` method to construct value converters.
+   * It is a function called by `InControl.convert()` method to construct value converters.
    *
    * This function should not access converted control value as the one does not exist at calling time.
    *
@@ -184,7 +184,7 @@ export namespace InControl {
    *
    * @returns A tuple containing value conversion function and reverse value conversion function.
    */
-  export type ConverterGenerator<From, To> = (
+  export type Converter<From, To> = (
       this: void,
       from: InControl<From>,
       to: InControl<To>,
@@ -203,7 +203,7 @@ class InConverted<From, To> extends InControl<To> {
 
   constructor(
       private readonly _src: InControl<From>,
-      by: InControl.ConverterGenerator<From, To>,
+      by: InControl.Converter<From, To>,
   ) {
     super();
 

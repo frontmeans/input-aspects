@@ -1,9 +1,9 @@
 import { InControl } from '../control';
 
 /**
- * Input control converter that trims input value.
+ * Input control converter that trims input values.
  *
- * Removing leading and trailing white space of converted control using `Spring.prototype.trim()` method.
+ * Removes leading and trailing white space of input values using `Spring.prototype.trim()` method.
  *
  * Can be applied to input controls with string values only.
  */
