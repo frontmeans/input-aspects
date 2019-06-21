@@ -49,4 +49,10 @@ describe('intoInteger', () => {
     expect(intControl.it).toBe(321);
     expect(textControl.it).toBe('321');
   });
+  it('removes parse errors when converting back to text', () => {
+    textControl.it = 'wrong';
+    expect(validationResult.ok).toBe(false);
+    intControl.it = 13;
+    expect(validationResult.ok).toBe(true);
+  });
 });

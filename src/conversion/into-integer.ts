@@ -16,9 +16,9 @@ export function intoInteger(
     to: InControl<number>,
 ): [(this: void, value: string) => number, (this: void, value: number) => string] {
 
-  const parseError = new EventEmitter<InValidation.Message[]>();
+  const parseErrors = new EventEmitter<InValidation.Message[]>();
 
-  to.aspect(InValidation).by(afterEventFrom(parseError, []));
+  to.aspect(InValidation).by(afterEventFrom(parseErrors, []));
 
   return [
     value => {
@@ -26,13 +26,16 @@ export function intoInteger(
       const result = parseInt(value, 10);
 
       if (isNaN(result)) {
-        parseError.send({ invalid: notInteger, NaN: notInteger, notInteger });
+        parseErrors.send({ invalid: notInteger, NaN: notInteger, notInteger });
       } else {
-        parseError.send();
+        parseErrors.send();
       }
 
       return result;
     },
-    value => String(to.it = Math.floor(value)),
+    value => {
+      parseErrors.send();
+      return String(to.it = Math.floor(value));
+    },
   ];
 }
