@@ -114,10 +114,10 @@ export abstract class InControl<Value = string> extends ValueTracker<Value> {
 
     let by: InControl.Converter<Value, To>;
 
-    if (get == null) {
+    if (!get) {
       by = setOrBy as InControl.Converter<Value, To>;
     } else {
-      by = valueProvider([(setOrBy as (this: void, from: Value) => To), get]);
+      by = valueProvider([(setOrBy as (this: void, value: Value) => To), get]);
     }
 
     return new InConverted(this, by);
