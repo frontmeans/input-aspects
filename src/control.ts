@@ -203,14 +203,8 @@ class InConverted<From, To> extends InControl<To> {
 
   constructor(
       private readonly _src: InControl<From>,
-      by: (
-          this: void,
-          from: InControl<From>,
-          to: InControl<To>,
-      ) => [
-          (this: void, from: From) => To,
-          (this: void, from: To) => From
-          ]) {
+      by: InControl.ConverterGenerator<From, To>,
+  ) {
     super();
 
     const on = new EventEmitter<[To, To]>();
