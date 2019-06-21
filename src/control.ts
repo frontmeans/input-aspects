@@ -93,8 +93,8 @@ export abstract class InControl<Value = string> extends ValueTracker<Value> {
    * @returns Converted control.
    */
   convert<To>(
-      set: (this: void, from: Value) => To,
-      get: (this: void, from: To) => Value,
+      set: (this: void, value: Value) => To,
+      get: (this: void, value: To) => Value,
   ): InControl<To>;
 
   /**
@@ -108,18 +108,11 @@ export abstract class InControl<Value = string> extends ValueTracker<Value> {
   convert<To>(by: InControl.Converter<Value, To>): InControl<To>;
 
   convert<To>(
-      setOrBy: ((this: void, from: Value) => To) | InControl.Converter<Value, To>,
-      get?: (this: void, from: To) => Value,
+      setOrBy: ((this: void, value: Value) => To) | InControl.Converter<Value, To>,
+      get?: (this: void, value: To) => Value,
   ): InControl<To> {
 
-    let by: (
-        this: void,
-        from: InControl<Value>,
-        to: InControl<To>,
-    ) => [
-        (this: void, from: Value) => To,
-        (this: void, from: To) => Value
-        ];
+    let by: InControl.Converter<Value, To>;
 
     if (get == null) {
       by = setOrBy as InControl.Converter<Value, To>;
@@ -189,8 +182,8 @@ export namespace InControl {
       from: InControl<From>,
       to: InControl<To>,
   ) => [
-      (this: void, from: From) => To,
-      (this: void, from: To) => From
+      (this: void, value: From) => To,
+      (this: void, value: To) => From
       ];
 
 }
