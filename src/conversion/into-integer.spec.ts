@@ -34,9 +34,9 @@ describe('intoInteger', () => {
     expect(intControl.it).toBeNaN();
     expect(validationResult.ok).toBe(false);
     expect([...validationResult]).toEqual([{
-      invalid: 'not integer',
-      NaN: 'not integer',
-      notInteger: 'not integer',
+      invalid: 'notInteger',
+      NaN: 'notInteger',
+      notInteger: 'notInteger',
     }]);
   });
   it('converts back from integer', () => {

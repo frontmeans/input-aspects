@@ -1,6 +1,6 @@
 import { InParser } from './parser';
 
-const notInteger = 'not integer';
+const notInteger = 'notInteger';
 
 /**
  * Input control converter that converts string values to integer ones.
