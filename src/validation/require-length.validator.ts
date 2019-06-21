@@ -10,7 +10,7 @@ import { InValidator } from './validator';
  * @param min Required minimum length. Not checked if omitted.
  * @param max Required maximum length. Not checked if omitted.
  *
- * @returns Input validator.
+ * @returns Input validator applicable to text input control.
  */
 export function requireLength(min: number | undefined, max?: number): InValidator<string> {
   return {
