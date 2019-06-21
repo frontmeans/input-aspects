@@ -14,6 +14,8 @@ import { InControl } from '../control';
 import { InValidation } from './validation.aspect';
 import { InValidator } from './validator';
 
+const dontRemove = {};
+
 /**
  * @internal
  */
@@ -42,7 +44,8 @@ export class InValidationMessages<Value> implements EventKeeper<InValidation.Mes
 
       // Enable validation using the given validator
       validate = (validator: AfterEvent<InValidation.Message[]>, validatorInterest: EventInterest) => {
-        validator((...messages) => {
+
+        const interest = validator((...messages) => {
           if (messages.length) {
             // Replace messages reported by validator.
             validatorMessages.set(validator, messages);
@@ -52,14 +55,18 @@ export class InValidationMessages<Value> implements EventKeeper<InValidation.Mes
           }
           send(); // Send all messages.
         })
-            .needs(resultInterest)
             .needs(validatorInterest)
-            .whenDone(() => {
+            .whenDone(reason => {
+              if (reason !== dontRemove) {
+                validatorInterest.off(reason);
+              }
               if (validatorMessages.delete(validator)) {
                 // Send all messages only if the removed validator reported some messages earlier
                 send();
               }
             });
+
+        resultInterest.whenDone(() => interest.off(dontRemove));
       };
 
       // Enable each validator
@@ -98,7 +105,6 @@ export class InValidationMessages<Value> implements EventKeeper<InValidation.Mes
         yield *messages;
       }
     }
-
   }
 
 }
