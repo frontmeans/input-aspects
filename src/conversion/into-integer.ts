@@ -8,6 +8,8 @@ const notInteger = 'not integer';
  * Parses the input string using `parseInt()` function. And floors numbers assigned to converted control.
  *
  * Can be applied to input controls with string values only.
+ *
+ * Reports invalid numbers with `invalid`, `NaN`, and `notInteger` message codes.
  */
 export const intoInteger = /*#__PURE__*/ InParser.converter<number>((from, to) =>
     [
