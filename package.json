@@ -1,7 +1,7 @@
 {
   "name": "input-aspects",
   "version": "1.0.0-dev.0",
-  "description": "Framework-agnostic library controlling various aspects of user input, such as form validation",
+  "description": "Controls various aspects of user input. Such as value conversion, form validation, etc.",
   "keywords": [
     "form-validation",
     "forms",

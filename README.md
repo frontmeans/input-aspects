@@ -5,7 +5,7 @@ HTML Input Aspects
 [![CircleCI][ci-image]][ci-url]
 [![codecov][codecov-image]][codecov-url]
 
-Framework-agnostic library controlling various aspects of user input, such as form validation.
+Framework-agnostic library controlling various aspects of user input. Such as value conversion, form validation, etc.
 
 
 [npm-image]: https://img.shields.io/npm/v/input-aspects.svg
