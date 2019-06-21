@@ -33,9 +33,52 @@ export abstract class InControl<Value = string> extends ValueTracker<Value> {
    * @returns An applied aspect instance.
    */
   aspect<Kind extends InAspect.Application.Kind, Instance>(
-      aspectKey: InAspect.Key<Kind, Instance>
+      aspectKey: InAspect.Key<Kind, Instance>,
   ): InAspect.Application.Instance<Kind, Instance, Value> {
     return this._aspect(aspectKey[InAspect__symbol]).instance;
+  }
+
+  /**
+   * Performs additional setup of this control.
+   *
+   * @param setup A function that accepts this control as its only parameter to configure it.
+   *
+   * @returns `this` control instance.
+   */
+  setup(setup: (this: void, control: this) => void): this;
+
+  /**
+   * Performs additional setup of this control's aspect.
+   *
+   * @typeparam Kind Aspect application kind.
+   * @typeparam Instance Aspect instance type.
+   * @param aspectKey A key of aspect to set up.
+   * @param setup A function that accepts the aspect and this control as parameters to configure them.
+   *
+   * @returns `this` control instance.
+   */
+  setup<Kind extends InAspect.Application.Kind, Instance>(
+      aspectKey: InAspect.Key<Kind, Instance>,
+      setup: (this: void, aspect: InAspect.Application.Instance<Kind, Instance, Value>, control: this) => void,
+  ): this;
+
+  setup<Kind extends InAspect.Application.Kind, Instance>(
+      aspectKeyOrSetup: InAspect.Key<Kind, Instance> | ((this: void, control: this) => void),
+      aspectSetup?: (this: void, aspect: InAspect.Application.Instance<Kind, Instance, Value>, control: this) => void,
+  ): this {
+    if (!aspectSetup) {
+
+      const controlSetup = aspectKeyOrSetup as (control: this) => void;
+
+      controlSetup(this);
+    } else {
+
+      const aspectKey = aspectKeyOrSetup as InAspect.Key<Kind, Instance>;
+
+      aspectSetup(this.aspect(aspectKey), this);
+    }
+
+    return this;
   }
 
   /**

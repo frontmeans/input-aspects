@@ -51,6 +51,23 @@ describe('InControl', () => {
     });
   });
 
+  describe('setup', () => {
+    it('configures control', () => {
+
+      const setup = jest.fn();
+
+      expect(control.setup(setup)).toBe(control);
+      expect(setup).toHaveBeenCalledWith(control);
+    });
+    it('configures aspect and control', () => {
+
+      const setup = jest.fn();
+
+      expect(control.setup(TestAspect, setup)).toBe(control);
+      expect(setup).toHaveBeenCalledWith(control.aspect(TestAspect), control);
+    });
+  });
+
   describe('convert', () => {
 
     let converted: InControl<number>;
