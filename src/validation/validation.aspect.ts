@@ -1,6 +1,7 @@
 import { AfterEvent, AfterEvent__symbol, afterEventFrom, EventInterest, EventKeeper, } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
+import { requireAll } from './require-all.validator';
 import { InValidator } from './validator';
 import { InValidationMessages } from './validator.impl';
 
@@ -86,18 +87,18 @@ export abstract class InValidation<Value> implements EventKeeper<[InValidation.R
   abstract readonly read: AfterEvent<[InValidation.Result]>;
 
   /**
-   * Validates the input using the given validator.
+   * Validates the input using the given validators.
    *
    * Messages sent by each registered validator are handled independently. This means that every time the event received
    * from validator, it replaces the list of validation messages reported previously by the same validator. But it never
    * affects messages received from other validators.
    *
-   * @param validator Input validator to use.
+   * @param validators Input validators to use.
    *
-   * @returns An event interest instance. Once this interest is lost, the validator is unregistered, while its messages
+   * @returns An event interest instance. Once this interest lost, the validators are unregistered, while their messages
    * removed.
    */
-  abstract by(validator: InValidator<Value>): EventInterest;
+  abstract by(...validators: InValidator<Value>[]): EventInterest;
 
 }
 
@@ -232,8 +233,8 @@ class InControlValidation<Value> extends InValidation<Value> {
     this.read = afterEventFrom(this._messages).keep.thru(inValidationResult);
   }
 
-  get by() {
-    return this._messages.from;
+  by(...validators: InValidator<Value>[]): EventInterest {
+    return this._messages.from(requireAll(...validators));
   }
 
 }
