@@ -177,14 +177,15 @@ export namespace InControl {
    *
    * @returns A tuple containing value conversion function and reverse value conversion function.
    */
-  export type Converter<From, To> = (
-      this: void,
-      from: InControl<From>,
-      to: InControl<To>,
-  ) => [
-      (this: void, value: From) => To,
-      (this: void, value: To) => From
-      ];
+  export type Converter<From, To> = (this: void, from: InControl<From>, to: InControl<To>) => Converters<From, To>;
+
+  /**
+   * A tuple containing value conversion function and reverse value conversion function.
+   *
+   * @typeparam From Original input value type.
+   * @typeparam To Converted input value type.
+   */
+  export type Converters<From, To> = [(this: void, value: From) => To, (this: void, value: To) => From];
 
 }
 

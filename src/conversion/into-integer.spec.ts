@@ -24,6 +24,13 @@ describe('intoInteger', () => {
     expect(intControl.it).toBe(123);
     expect(validationResult.ok).toBe(true);
   });
+  it('converts to integer with custom radix', () => {
+
+    const hexControl = textControl.convert(intoInteger(16));
+
+    textControl.it = 'ff';
+    expect(hexControl.it).toBe(0xff);
+  });
   it('converts floats to integer', () => {
     textControl.it = '123.956';
     expect(intControl.it).toBe(123);
@@ -43,6 +50,14 @@ describe('intoInteger', () => {
     intControl.it = 321;
     expect(intControl.it).toBe(321);
     expect(textControl.it).toBe('321');
+  });
+  it('converts back from integer with custom radix', () => {
+
+    const hexControl = textControl.convert(intoInteger(16));
+
+    hexControl.it = 0xabc;
+    expect(hexControl.it).toBe(0xabc);
+    expect(textControl.it).toBe('abc');
   });
   it('converts back from float', () => {
     intControl.it = 321.911;
