@@ -2,7 +2,6 @@ import { InControl } from '../control';
 import { InValue } from '../value';
 import { requirePresent } from './require-present.validator';
 import { InValidation } from './validation.aspect';
-import Mock = jest.Mock;
 
 describe('requirePresent', () => {
 
@@ -15,25 +14,28 @@ describe('requirePresent', () => {
     validation.by(requirePresent);
   });
 
-  let receiver: Mock<void, [InValidation.Result]>;
+  let validationResult: InValidation.Result;
 
   beforeEach(() => {
-    validation.read(receiver = jest.fn());
+    validation.read(result => validationResult = result);
   });
 
   it('reports missing value', () => {
-    expect([...lastResult()]).toEqual([{ missing: 'missing' }]);
+    expect([...validationResult]).toEqual([{ missing: 'missing' }]);
   });
   it('does not report when value is present', () => {
     control.it = ' ';
-    expect(lastResult().ok).toBe(true);
+    expect(validationResult.ok).toBe(true);
   });
+  it('creates validator', () => {
+    control = new InValue('');
+    validation = control.aspect(InValidation);
+    validation.by(requirePresent());
+    validation.read(result => validationResult = result);
 
-  function lastResult(): InValidation.Result {
-    expect(receiver).toHaveBeenCalled();
-
-    const calls = receiver.mock.calls;
-
-    return calls[calls.length - 1][0];
-  }
+    control.it = '';
+    expect(validationResult.ok).toBe(false);
+    control.it = ' ';
+    expect(validationResult.ok).toBe(true);
+  });
 });
