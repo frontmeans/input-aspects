@@ -21,4 +21,9 @@ describe('intoTrimmed', () => {
     expect(trimmed.it).toBe('abc');
     expect(control.it).toBe('abc');
   });
+  it('creates converter', () => {
+    trimmed = control.convert(intoTrimmed());
+    control.it = ' abc  ';
+    expect(trimmed.it).toBe('abc');
+  });
 });
