@@ -23,21 +23,21 @@ declare module './element' {
 
 class InElementControl extends InElement {
 
+  readonly events: DomEventDispatcher;
   private readonly _on = new EventEmitter<[string, string]>();
   private readonly _interest: EventInterest;
   private _value: string;
 
   constructor(readonly element: InElement.Input) {
     super();
+    this.events = new DomEventDispatcher(element);
     this._value = element.value;
 
     const self = this;
-    const events = new DomEventDispatcher(element);
-
     const interest = this._interest = eventInterest(reason => this._on.done(reason));
 
-    events.on('input')(update).needs(interest);
-    events.on('change')(update).needs(interest);
+    this.events.on('input')(update).needs(interest);
+    this.events.on('change')(update).needs(interest);
 
     function update() {
 

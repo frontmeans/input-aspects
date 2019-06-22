@@ -1,3 +1,4 @@
+import { DomEventDispatcher } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
 import { InControl } from './control';
 import { InElement__aspect } from './element.aspect';
@@ -18,6 +19,11 @@ export abstract class InElement extends InControl {
    * Typically this the element to apply styles to.
    */
   abstract readonly element?: any;
+
+  /**
+   * DOM event dispatcher of this element.
+   */
+  abstract readonly events: DomEventDispatcher;
 
   static get [InAspect__symbol](): InAspect<'default', InElement | null> {
     return InElement__aspect;
