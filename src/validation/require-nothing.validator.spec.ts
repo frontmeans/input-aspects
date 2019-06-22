@@ -5,7 +5,7 @@ describe('requireNothing', () => {
 
     const receiver = jest.fn();
 
-    requireNothing(receiver);
+    requireNothing()(receiver);
     expect(receiver).toHaveBeenCalledWith();
   });
 });
