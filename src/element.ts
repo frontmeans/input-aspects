@@ -1,4 +1,13 @@
-import { DomEventDispatcher, EventEmitter, eventInterest, EventInterest } from 'fun-events';
+import { asis, nextArgs, nextSkip } from 'call-thru';
+import {
+  AfterEvent,
+  afterEventFrom,
+  DomEventDispatcher,
+  EventEmitter,
+  eventInterest,
+  EventInterest,
+  OnEvent
+} from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
 import { inAspectNull, inAspectValue } from './aspect.impl';
 import { InControl } from './control';
@@ -24,6 +33,11 @@ export abstract class InElement extends InControl {
   abstract readonly element: InElement.Element;
 
   /**
+   * An `AfterEvent` registrar of user input receivers.
+   */
+  abstract readonly input: AfterEvent<[InElement.Input]>;
+
+  /**
    * DOM event dispatcher of this element.
    */
   abstract readonly events: DomEventDispatcher;
@@ -45,40 +59,87 @@ export namespace InElement {
    */
   export type Element = HTMLElement & { value: string };
 
+  /**
+   * User input.
+   */
+  export interface Input {
+
+    /**
+     * The value user entered.
+     */
+    value: string;
+
+    /**
+     * An event caused the value to be applied.
+     *
+     * The value has been applied programmatically if missing.
+     */
+    event?: Event;
+
+  }
+
 }
 
 class InElementControl extends InElement {
 
+  readonly input: AfterEvent<[InElement.Input]>;
+  readonly on: OnEvent<[string, string]>;
   readonly events: DomEventDispatcher;
-  private readonly _on = new EventEmitter<[string, string]>();
+  private readonly _input: EventEmitter<[InElement.Input, string]> = new EventEmitter();
   private readonly _interest: EventInterest;
   private _value: string;
+  // noinspection TypeScriptFieldCanBeMadeReadonly
+  private _update: (value: string, oldValue: string) => void;
 
   constructor(readonly element: InElement.Element) {
     super();
-    this.events = new DomEventDispatcher(element);
     this._value = element.value;
+    this._update = update;
+    this.input = afterEventFrom<[InElement.Input]>(
+        this._input.on.thru(asis),
+        () => [{ value: this.it }]);
+    this.on = this._input.on.thru(
+        ({ value: newValue }, oldValue) => newValue === oldValue ? nextSkip() : nextArgs(newValue, oldValue),
+    );
+
+    this.events = new DomEventDispatcher(element);
 
     const self = this;
-    const interest = this._interest = eventInterest(reason => this._on.done(reason));
+    const interest = this._interest = eventInterest(reason => this._input.done(reason));
 
-    this.events.on('input')(update).needs(interest);
-    this.events.on('change')(update).needs(interest);
+    this.events.on('input')(onInput).needs(interest);
+    this.events.on('change')(onInput).needs(interest);
 
-    function update() {
+    function onInput(event: Event) {
+      send({ value: self.it, event }, self._value);
+    }
 
-      const old = self._value;
-      const value = self.it;
+    function update(value: string, oldValue: string) {
+      send({ value }, oldValue);
+    }
 
-      if (value !== old) {
-        self._value = value;
-        self._on.send(value, old);
+    function send(input: InElement.Input, oldValue: string) {
+      self._value = input.value;
+
+      // Corrections are value updates performed by update event receivers
+      // The last correction is recorded and applied later, when all receivers' work is done
+      let correction: [InElement.Input, string] | undefined;
+
+      // Record corrections
+      self._update = (newValue: string, old: string) => {
+        // Corrections retain the event instance
+        correction = [{ ...input, value: newValue }, old];
+      };
+      try {
+        self._input.send(input, oldValue);
+      } finally {
+        self._update = update;
+        if (correction) {
+          // Apply las correction
+          send(...correction);
+        }
       }
     }
-  }
-
-  get on() {
-    return this._on.on;
   }
 
   get it(): string {
@@ -87,12 +148,12 @@ class InElementControl extends InElement {
 
   set it(value: string) {
 
-    const old = this.it;
+    const oldValue = this.it;
 
-    if (value !== old) {
+    if (value !== oldValue) {
       this._value = value;
       this.element.value = value;
-      this._on.send(value, old);
+      this._update(value, oldValue);
     }
   }
 

@@ -75,48 +75,88 @@ describe('InElement', () => {
     });
   });
 
-  describe('events', () => {
+  describe('input', () => {
 
-    let receiver: Mock;
-    let interest: EventInterest;
+    let changesReceiver: Mock;
+    let changesInterest: EventInterest;
+    let inputReceiver: Mock;
+    let inputInterest: EventInterest;
 
     beforeEach(() => {
-      interest = inElement.on(receiver = jest.fn());
+      changesInterest = inElement.on(changesReceiver = jest.fn());
+      inputInterest = inElement.input(inputReceiver = jest.fn());
     });
 
+    it('sends initial value', () => {
+      expect(inputReceiver).toHaveBeenLastCalledWith({ value: 'old' });
+    });
     it('sends update on input event', () => {
+
+      const event = new Event('input', { bubbles: true });
+
       input.value = 'new';
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-      expect(receiver).toHaveBeenCalledWith('new', 'old');
+      input.dispatchEvent(event);
+      expect(changesReceiver).toHaveBeenLastCalledWith('new', 'old');
+      expect(inputReceiver).toHaveBeenLastCalledWith({ value: 'new', event });
     });
     it('sends update on change event', () => {
+
+      const event = new Event('change', { bubbles: true });
+
       input.value = 'new';
-      input.dispatchEvent(new Event('change', { bubbles: true }));
-      expect(receiver).toHaveBeenCalledWith('new', 'old');
+      input.dispatchEvent(event);
+      expect(changesReceiver).toHaveBeenLastCalledWith('new', 'old');
+      expect(inputReceiver).toHaveBeenLastCalledWith({ value: 'new', event });
     });
     it('does not send update for unchanged value', () => {
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-      expect(receiver).not.toHaveBeenCalled();
+
+      const event = new Event('input', { bubbles: true });
+
+      input.dispatchEvent(event);
+      expect(changesReceiver).not.toHaveBeenCalled();
+      expect(inputReceiver).toHaveBeenLastCalledWith({ value: 'old', event });
     });
     it('sends update on value change', () => {
       inElement.it = 'new';
-      expect(receiver).toHaveBeenCalledWith('new', 'old');
+      expect(changesReceiver).toHaveBeenLastCalledWith('new', 'old');
+      expect(inputReceiver).toHaveBeenLastCalledWith({ value: 'new' });
     });
     it('does not send update on unchanged value', () => {
+      inputReceiver.mockClear();
       inElement.it = 'old';
-      expect(receiver).not.toHaveBeenCalled();
+      expect(changesReceiver).not.toHaveBeenCalled();
+      expect(inputReceiver).not.toHaveBeenCalled();
+    });
+    it('sends update when value changed by receiver', () => {
+      inElement.on(value => {
+        if (!value.endsWith('!')) {
+          inElement.it = value + '!';
+        }
+      });
+
+      const event = new Event('input', { bubbles: true });
+
+      input.value = 'new';
+      input.dispatchEvent(event);
+      expect(changesReceiver).toHaveBeenLastCalledWith('new!', 'new');
+      expect(inputReceiver).toHaveBeenLastCalledWith({ value: 'new!', event });
     });
     it('stops sending updates when done', () => {
+      inputReceiver.mockClear();
 
-      const done = jest.fn();
+      const changesDone = jest.fn();
+      const inputDone = jest.fn();
 
-      interest.whenDone(done);
+      changesInterest.whenDone(changesDone);
+      inputInterest.whenDone(inputDone);
       inElement.done('some');
-      expect(done).toHaveBeenCalledWith('some');
+      expect(changesDone).toHaveBeenCalledWith('some');
+      expect(inputDone).toHaveBeenCalledWith('some');
 
       input.value = 'new';
       input.dispatchEvent(new Event('change', { bubbles: true }));
-      expect(receiver).not.toHaveBeenCalled();
+      expect(changesReceiver).not.toHaveBeenCalled();
+      expect(inputReceiver).not.toHaveBeenCalled();
     });
   });
 });
