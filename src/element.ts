@@ -119,25 +119,31 @@ class InElementControl extends InElement {
     }
 
     function send(input: InElement.Input, oldValue: string) {
-      self._value = input.value;
+      for (;;) {
+        self._value = input.value;
 
-      // Corrections are value updates performed by update event receivers
-      // The last correction is recorded and applied later, when all receivers' work is done
-      let correction: [InElement.Input, string] | undefined;
+        // Corrections are value updates performed by update event receivers
+        // The last correction is recorded and sent later, when all receivers receive current update
+        let correction: [InElement.Input, string] | undefined;
 
-      // Record corrections
-      self._update = (newValue: string, old: string) => {
-        // Corrections retain the event instance
-        correction = [{ ...input, value: newValue }, old];
-      };
-      try {
-        self._input.send(input, oldValue);
-      } finally {
-        self._update = update;
-        if (correction) {
-          // Apply las correction
-          send(...correction);
+        // Record corrections
+        self._update = (newValue: string, old: string) => {
+          // Corrections retain the event instance
+          correction = [{ ...input, value: newValue }, old];
+        };
+        try {
+          self._input.send(input, oldValue);
+        } finally {
+          self._update = update;
         }
+
+        if (!correction) {
+          break; // No more corrections
+        }
+
+        // Apply last correction
+        // noinspection JSUnusedAssignment
+        [input, oldValue] = correction;
       }
     }
   }
@@ -151,7 +157,6 @@ class InElementControl extends InElement {
     const oldValue = this.it;
 
     if (value !== oldValue) {
-      this._value = value;
       this.element.value = value;
       this._update(value, oldValue);
     }
