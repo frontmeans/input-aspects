@@ -10,7 +10,7 @@ import { InValidator } from './validator';
  * @param min Minimum allowed value, inclusive. Not checked if omitted.
  * @param max Maximum allowed value, inclusive. Not checked if omitted.
  *
- * @returns Input validator applicable to numeric input control.
+ * @returns Element validator applicable to numeric input control.
  */
 export function requireRange(min: number | undefined, max?: number): InValidator<number> {
   return {

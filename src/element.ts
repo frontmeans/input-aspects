@@ -21,7 +21,7 @@ export abstract class InElement extends InControl {
   /**
    * HTML input element this control is based on.
    */
-  abstract readonly element: InElement.Input;
+  abstract readonly element: InElement.Element;
 
   /**
    * DOM event dispatcher of this element.
@@ -43,7 +43,7 @@ export namespace InElement {
    *
    * Input control can be built on top of this element using `inElt()` function.
    */
-  export type Input = HTMLElement & { value: string };
+  export type Element = HTMLElement & { value: string };
 
 }
 
@@ -54,7 +54,7 @@ class InElementControl extends InElement {
   private readonly _interest: EventInterest;
   private _value: string;
 
-  constructor(readonly element: InElement.Input) {
+  constructor(readonly element: InElement.Element) {
     super();
     this.events = new DomEventDispatcher(element);
     this._value = element.value;
@@ -118,6 +118,6 @@ class InElementControl extends InElement {
  *
  * @return New input element control instance.
  */
-export function inElt(element: InElement.Input): InElement {
+export function inElt(element: InElement.Element): InElement {
   return new InElementControl(element);
 }
