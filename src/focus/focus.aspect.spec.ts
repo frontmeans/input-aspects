@@ -1,6 +1,6 @@
 import { asis } from 'call-thru';
 import { InControl } from '../control';
-import { inElt } from '../element.control';
+import { inElt } from '../element';
 import { InValue } from '../value';
 import { InFocus } from './focus.aspect';
 

@@ -46,9 +46,9 @@ function inControlFocus({ element, events }: InElement): AfterEvent<[boolean]> {
   }).share();
 }
 
-function hasFocus(element: any): boolean {
+function hasFocus(element: InElement.Input): boolean {
 
-  const owner: DocumentOrShadowRoot | null = element.getRootNode ? element.getRootNode() : element.ownerDocument;
+  const owner: DocumentOrShadowRoot | null = element.getRootNode ? element.getRootNode() as any : element.ownerDocument;
 
   return !!owner && owner.activeElement === element;
 }
