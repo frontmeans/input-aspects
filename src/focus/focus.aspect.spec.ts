@@ -29,7 +29,8 @@ describe('InFocus', () => {
 
     let hasFocus: boolean | null = null;
 
-    focus(f => hasFocus = f);
+    expect(focus.it).toBe(false);
+    focus.read(f => hasFocus = f);
     expect(hasFocus).toBe(false);
   });
   it('has focus initially if element is active', () => {
@@ -37,7 +38,8 @@ describe('InFocus', () => {
 
     let hasFocus: boolean | null = null;
 
-    focus(f => hasFocus = f);
+    expect(focus.it).toBe(true);
+    focus.read(f => hasFocus = f);
     expect(hasFocus).toBe(true);
   });
   it('has focus initially if element is active and `getRootNode()` is not implemented', () => {
@@ -46,18 +48,62 @@ describe('InFocus', () => {
 
     let hasFocus: boolean | null = null;
 
-    focus(f => hasFocus = f);
+    expect(focus.it).toBe(true);
+    focus.read(f => hasFocus = f);
     expect(hasFocus).toBe(true);
   });
-  it('reflects focus gain and loss', () => {
 
-    let hasFocus: boolean | null = null;
+  describe('on', () => {
+    it('sends event on focus gain', () => {
 
-    focus(f => hasFocus = f);
-    element.focus();
-    expect(hasFocus).toBe(true);
-    element.blur();
-    expect(hasFocus).toBe(false);
+      const receiver = jest.fn();
+
+      focus.on(receiver);
+      element.focus();
+      expect(receiver).toHaveBeenCalledWith(true, false);
+    });
+    it('sends event on focus loss', () => {
+      element.focus();
+
+      const receiver = jest.fn();
+
+      focus.on(receiver);
+      element.blur();
+      expect(receiver).toHaveBeenCalledWith(false, true);
+    });
+  });
+
+  describe('it', () => {
+    it('sets focus on element', () => {
+
+      const focusSpy = jest.spyOn(element, 'focus');
+
+      focus.it = true;
+      expect(focusSpy).toHaveBeenCalled();
+    });
+    it('does not set focus on element for the second time', () => {
+      element.focus();
+
+      const focusSpy = jest.spyOn(element, 'focus');
+
+      focus.it = true;
+      expect(focusSpy).not.toHaveBeenCalled();
+    });
+    it('removes focus from element', () => {
+      element.focus();
+
+      const blurSpy = jest.spyOn(element, 'blur');
+
+      focus.it = false;
+      expect(blurSpy).toHaveBeenCalled();
+    });
+    it('does not remove focus from element for the second time', () => {
+
+      const blurSpy = jest.spyOn(element, 'blur');
+
+      focus.it = false;
+      expect(blurSpy).not.toHaveBeenCalled();
+    });
   });
 
   describe('convert', () => {
@@ -67,5 +113,21 @@ describe('InFocus', () => {
 
       expect(converted.aspect(InFocus)).toBe(focus);
     });
+  });
+
+  describe('done', () => {
+     it('stops sending events', () => {
+
+       const receiver = jest.fn();
+       const done = jest.fn();
+
+       focus.read(receiver).whenDone(done);
+       receiver.mockClear();
+
+       const reason = 'some reason';
+
+       expect(focus.done(reason)).toBe(focus);
+       expect(done).toHaveBeenCalledWith(reason);
+     });
   });
 });
