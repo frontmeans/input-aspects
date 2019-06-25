@@ -46,6 +46,14 @@ export abstract class InElement extends InControl {
     return InElement__aspect;
   }
 
+  protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
+      aspect: InAspect<Instance, Kind>
+  ): InAspect.Application.Result<Instance, string, Kind> | undefined {
+    return aspect === InElement__aspect as InAspect<any, any>
+        ? inAspectValue(this as any) as InAspect.Application.Result<Instance, string, Kind>
+        : undefined;
+  }
+
 }
 
 export namespace InElement {
@@ -165,14 +173,6 @@ class InElementControl extends InElement {
   done(reason?: any): this {
     this._interest.off(reason);
     return this;
-  }
-
-  protected _applyAspect<T, Kind extends InAspect.Application.Kind>(
-      aspect: InAspect<T, Kind>
-  ): InAspect.Application.Result<T, string, Kind> | undefined {
-    return aspect === InElement__aspect as InAspect<any, any>
-        ? inAspectValue(this as any) as InAspect.Application.Result<T, string, Kind>
-        : undefined;
   }
 
 }
