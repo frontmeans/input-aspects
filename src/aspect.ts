@@ -6,10 +6,10 @@ import { InControl } from './control';
  * An aspect is applied to input control first. This creates an aspect instance bound to that control. All
  * aspect-related operations are performed by that instance.
  *
- * @typeparam Kind Aspect application kind.
  * @typeparam Instance Aspect instance type.
+ * @typeparam Kind Aspect application kind.
  */
-export interface InAspect<Kind extends InAspect.Application.Kind, Instance> {
+export interface InAspect<Instance, Kind extends InAspect.Application.Kind = 'default'> {
 
   /**
    * Applies this aspect to the given input `control`.
@@ -39,15 +39,15 @@ export namespace InAspect {
    *
    * This interface is typically implemented by aspect instance class object. I.e. by its static methods.
    *
-   * @typeparam Kind Aspect application kind.
    * @typeparam Instance Aspect instance type.
+   * @typeparam Kind Aspect application kind.
    */
-  export interface Key<Kind extends Application.Kind, Instance> {
+  export interface Key<Instance, Kind extends Application.Kind = 'default'> {
 
     /**
      * A referenced aspect of user input.
      */
-    [InAspect__symbol]: InAspect<Kind, Instance>;
+    [InAspect__symbol]: InAspect<Instance, Kind>;
 
   }
 
@@ -94,21 +94,21 @@ export namespace InAspect {
     /**
      * A type of input aspect application result of the given application kind and input value type.
      *
-     * @typeparam OfKind Aspect application kind.
      * @typeparam OfInstance Aspect instance type.
      * @typeparam OfValue Input value type.
+     * @typeparam OfKind Aspect application kind.
      */
-    export type Result<OfKind extends Kind, OfInstance, OfValue> =
-        Applied<Instance<OfKind, OfInstance, OfValue>, OfValue>;
+    export type Result<OfInstance, OfValue, OfKind extends Kind> =
+        Applied<Instance<OfInstance, OfValue, OfKind>, OfValue>;
 
     /**
      * A type of applied aspect instance of the given application kind and input value type.
      *
-     * @typeparam OfKind Aspect application kind.
      * @typeparam OfInstance Aspect instance type.
      * @typeparam OfValue Input value type.
+     * @typeparam OfKind Aspect application kind.
      */
-    export type Instance<OfKind extends Kind, OfInstance, OfValue> =
+    export type Instance<OfInstance, OfValue, OfKind extends Kind> =
         ReturnType<Map<OfInstance, OfValue>[OfKind]>;
 
     /**

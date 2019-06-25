@@ -26,15 +26,15 @@ export abstract class InControl<Value = string> extends ValueTracker<Value> {
    *
    * If the given `aspect` is not applied yet, then applies it first.
    *
-   * @typeparam Kind Aspect application kind.
    * @typeparam Instance Aspect instance type.
+   * @typeparam Kind Aspect application kind.
    * @param aspectKey A key of aspect to apply to this control.
    *
    * @returns An applied aspect instance.
    */
-  aspect<Kind extends InAspect.Application.Kind, Instance>(
-      aspectKey: InAspect.Key<Kind, Instance>,
-  ): InAspect.Application.Instance<Kind, Instance, Value> {
+  aspect<Instance, Kind extends InAspect.Application.Kind>(
+      aspectKey: InAspect.Key<Instance, Kind>,
+  ): InAspect.Application.Instance<Instance, Value, Kind> {
     return this._aspect(aspectKey[InAspect__symbol]).instance;
   }
 
@@ -50,21 +50,21 @@ export abstract class InControl<Value = string> extends ValueTracker<Value> {
   /**
    * Performs additional setup of this control's aspect.
    *
-   * @typeparam Kind Aspect application kind.
    * @typeparam Instance Aspect instance type.
+   * @typeparam Kind Aspect application kind.
    * @param aspectKey A key of aspect to set up.
    * @param setup A function that accepts the aspect and this control as parameters to configure them.
    *
    * @returns `this` control instance.
    */
-  setup<Kind extends InAspect.Application.Kind, Instance>(
-      aspectKey: InAspect.Key<Kind, Instance>,
-      setup: (this: void, aspect: InAspect.Application.Instance<Kind, Instance, Value>, control: this) => void,
+  setup<Instance, Kind extends InAspect.Application.Kind>(
+      aspectKey: InAspect.Key<Instance, Kind>,
+      setup: (this: void, aspect: InAspect.Application.Instance<Instance, Value, Kind>, control: this) => void,
   ): this;
 
-  setup<Kind extends InAspect.Application.Kind, Instance>(
-      aspectKeyOrSetup: InAspect.Key<Kind, Instance> | ((this: void, control: this) => void),
-      aspectSetup?: (this: void, aspect: InAspect.Application.Instance<Kind, Instance, Value>, control: this) => void,
+  setup<Instance, Kind extends InAspect.Application.Kind>(
+      aspectKeyOrSetup: InAspect.Key<Instance, Kind> | ((this: void, control: this) => void),
+      aspectSetup?: (this: void, aspect: InAspect.Application.Instance<Instance, Value, Kind>, control: this) => void,
   ): this {
     if (!aspectSetup) {
 
@@ -73,7 +73,7 @@ export abstract class InControl<Value = string> extends ValueTracker<Value> {
       controlSetup(this);
     } else {
 
-      const aspectKey = aspectKeyOrSetup as InAspect.Key<Kind, Instance>;
+      const aspectKey = aspectKeyOrSetup as InAspect.Key<Instance, Kind>;
 
       aspectSetup(this.aspect(aspectKey), this);
     }
@@ -126,36 +126,36 @@ export abstract class InControl<Value = string> extends ValueTracker<Value> {
   /**
    * @internal
    */
-  _aspect<Kind extends InAspect.Application.Kind, Instance>(
-      aspect: InAspect<Kind, Instance>
-  ): InAspect.Application.Result<Kind, Instance, Value> {
+  _aspect<Instance, Kind extends InAspect.Application.Kind>(
+      aspect: InAspect<Instance, Kind>
+  ): InAspect.Application.Result<Instance, Value, Kind> {
 
     const existing = this._aspects.get(aspect);
 
     if (existing) {
-      return existing as InAspect.Application.Result<Kind, Instance, Value>;
+      return existing as InAspect.Application.Result<Instance, Value, Kind>;
     }
 
     const applied = this._applyAspect(aspect) || aspect.applyTo(this);
 
     this._aspects.set(aspect, applied);
 
-    return applied as InAspect.Application.Result<Kind, Instance, Value>;
+    return applied as InAspect.Application.Result<Instance, Value, Kind>;
   }
 
   /**
    * Applies the given aspect to this control in a custom way.
    *
-   * @typeparam Kind Aspect application kind.
    * @typeparam Instance Aspect instance type.
+   * @typeparam Kind Aspect application kind.
    * @param aspect An aspect tp apply.
    *
    * @returns Either applied aspect instance or `undefined` to apply the aspect in standard way (i.e. using
    * `InAspect.applyTo()` method).
    */
-  protected _applyAspect<Kind extends InAspect.Application.Kind, Instance>(
-      aspect: InAspect<Kind, Instance>
-  ): InAspect.Application.Result<Kind, Instance, Value> | undefined {
+  protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
+      aspect: InAspect<Instance, Kind>
+  ): InAspect.Application.Result<Instance, Value, Kind> | undefined {
     return;
   }
 
@@ -240,14 +240,14 @@ class InConverted<From, To> extends InControl<To> {
     return this;
   }
 
-  protected _applyAspect<Kind extends InAspect.Application.Kind, Instance>(
-      aspect: InAspect<Kind, Instance>
-  ): InAspect.Application.Result<Kind, Instance, To> | undefined {
+  protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
+      aspect: InAspect<Instance, Kind>
+  ): InAspect.Application.Result<Instance, To, Kind> | undefined {
 
     const applied: InAspect.Applied<any, any> = this._src._aspect(aspect);
 
     return applied.convertTo<Instance>(this as any) as
-        InAspect.Application.Result<Kind, Instance, To> | undefined;
+        InAspect.Application.Result<Instance, To, Kind> | undefined;
   }
 
 }

@@ -4,7 +4,7 @@ import { inAspectNull, inAspectValue } from '../aspect.impl';
 import { InControl } from '../control';
 import { InElement } from '../element';
 
-const InFocus__aspect: InAspect<'default', InFocus | null> = {
+const InFocus__aspect: InAspect<InFocus | null> = {
 
   applyTo<Value>(control: InControl<Value>): InAspect.Applied<InFocus | null, Value> {
 
@@ -26,7 +26,7 @@ const InFocus__aspect: InAspect<'default', InFocus | null> = {
  */
 export abstract class InFocus extends ValueTracker<boolean> {
 
-  static get [InAspect__symbol](): InAspect<'default', InFocus | null> {
+  static get [InAspect__symbol](): InAspect<InFocus | null> {
     return InFocus__aspect;
   }
 

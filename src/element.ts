@@ -12,7 +12,7 @@ import { InAspect, InAspect__symbol } from './aspect';
 import { inAspectNull, inAspectValue } from './aspect.impl';
 import { InControl } from './control';
 
-const InElement__aspect: InAspect<'default', InElement | null> = {
+const InElement__aspect: InAspect<InElement | null> = {
   applyTo() {
     return inAspectNull;
   },
@@ -42,7 +42,7 @@ export abstract class InElement extends InControl {
    */
   abstract readonly events: DomEventDispatcher;
 
-  static get [InAspect__symbol](): InAspect<'default', InElement | null> {
+  static get [InAspect__symbol](): InAspect<InElement | null> {
     return InElement__aspect;
   }
 
@@ -167,11 +167,11 @@ class InElementControl extends InElement {
     return this;
   }
 
-  protected _applyAspect<Kind extends InAspect.Application.Kind, T>(
-      aspect: InAspect<Kind, T>
-  ): InAspect.Application.Result<Kind, T, string> | undefined {
+  protected _applyAspect<T, Kind extends InAspect.Application.Kind>(
+      aspect: InAspect<T, Kind>
+  ): InAspect.Application.Result<T, string, Kind> | undefined {
     return aspect === InElement__aspect as InAspect<any, any>
-        ? inAspectValue(this as any) as InAspect.Application.Result<Kind, T, string>
+        ? inAspectValue(this as any) as InAspect.Application.Result<T, string, Kind>
         : undefined;
   }
 

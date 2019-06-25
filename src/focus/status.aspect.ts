@@ -5,7 +5,7 @@ import { InControl } from '../control';
 import { InElement } from '../element';
 import { InFocus } from './focus.aspect';
 
-const InStatus__aspect: InAspect<'default', InStatus> = {
+const InStatus__aspect: InAspect<InStatus> = {
 
   applyTo<Value>(control: InControl<Value>): InAspect.Applied<InStatus, Value> {
     return inAspectValue(new InControlStatus(control));
@@ -22,7 +22,7 @@ const InStatus__aspect: InAspect<'default', InStatus> = {
  */
 export abstract class InStatus implements EventKeeper<[InStatus.Flags]> {
 
-  static get [InAspect__symbol](): InAspect<'default', InStatus> {
+  static get [InAspect__symbol](): InAspect<InStatus> {
     return InStatus__aspect;
   }
 

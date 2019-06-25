@@ -14,7 +14,7 @@ describe('InControl', () => {
     control = new InValue('old');
   });
 
-  let TestAspect: InAspect<'default', () => string> & InAspect.Key<'default', () => string>;
+  let TestAspect: InAspect<() => string> & InAspect.Key<() => string>;
 
   beforeEach(() => {
     TestAspect = {

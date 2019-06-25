@@ -39,7 +39,7 @@ const InValidation__aspect: Aspect = {
 /**
  * Input validation aspect.
  */
-interface Aspect extends InAspect<'validation', InValidation<any>> {
+interface Aspect extends InAspect<InValidation<any>, 'validation'> {
 
   applyTo<Value>(control: InControl<Value>): Applied<Value>;
 
@@ -71,7 +71,7 @@ export abstract class InValidation<Value> implements EventKeeper<[InValidation.R
   /**
    * Input validation aspect.
    */
-  static get [InAspect__symbol](): InAspect<'validation', InValidation<any>> {
+  static get [InAspect__symbol](): InAspect<InValidation<any>, 'validation'> {
     return InValidation__aspect;
   }
 
