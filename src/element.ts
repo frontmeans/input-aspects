@@ -50,7 +50,7 @@ export abstract class InElement extends InControl {
       aspect: InAspect<Instance, Kind>
   ): InAspect.Application.Result<Instance, string, Kind> | undefined {
     return aspect === InElement__aspect as InAspect<any, any>
-        ? inAspectValue(this as any) as InAspect.Application.Result<Instance, string, Kind>
+        ? inAspectValue(this) as InAspect.Application.Result<Instance, string, Kind>
         : undefined;
   }
 
