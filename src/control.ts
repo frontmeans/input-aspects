@@ -187,6 +187,13 @@ export namespace InControl {
    */
   export type Converters<From, To> = [(this: void, value: From) => To, (this: void, value: To) => From];
 
+  /**
+   * A value type of the given input control type.
+   *
+   * @typeparam Control Input control type.
+   */
+  export type ValueType<Control extends InControl<any>> = Control extends InControl<infer Value> ? Value : never;
+
 }
 
 class InConverted<From, To> extends InControl<To> {
