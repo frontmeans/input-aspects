@@ -200,13 +200,14 @@ class InConverted<From, To> extends InControl<To> {
 
   readonly on: OnEvent<[To, To]>;
   private readonly _it: ValueTracker<[To, number]>;
-  private _rev = 0;
 
   constructor(
       private readonly _src: InControl<From>,
       by: InControl.Converter<From, To>,
   ) {
     super();
+
+    let lastRev = 0;
 
     const on = new EventEmitter<[To, To]>();
 
@@ -220,10 +221,10 @@ class InConverted<From, To> extends InControl<To> {
         on.send(newValue, oldValue);
       }
     }).whenDone(reason => on.done(reason));
-    _src.on(value => this._it.it = [set(value), ++this._rev]).whenDone(reason => this.done(reason));
+    _src.on(value => this._it.it = [set(value), ++lastRev]).whenDone(reason => this.done(reason));
     this._it.on(([value, rev]) => {
-      if (rev !== this._rev) {
-        this._rev = rev;
+      if (rev !== lastRev) {
+        lastRev = rev;
         _src.it = get(value);
       }
     });
