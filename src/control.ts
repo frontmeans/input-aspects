@@ -208,6 +208,7 @@ class InConverted<From, To> extends InControl<To> {
     super();
 
     let lastRev = 0;
+    let backward: From | undefined;
 
     const on = new EventEmitter<[To, To]>();
 
@@ -221,11 +222,20 @@ class InConverted<From, To> extends InControl<To> {
         on.send(newValue, oldValue);
       }
     }).whenDone(reason => on.done(reason));
-    _src.on(value => this._it.it = [set(value), ++lastRev]).whenDone(reason => this.done(reason));
+    _src.on(value => {
+      if (value !== backward) {
+        this._it.it = [set(value), ++lastRev];
+      }
+    }).whenDone(reason => this.done(reason));
     this._it.on(([value, rev]) => {
       if (rev !== lastRev) {
         lastRev = rev;
-        _src.it = get(value);
+        backward = get(value);
+        try {
+          _src.it = backward;
+        } finally {
+          backward = undefined;
+        }
       }
     });
   }

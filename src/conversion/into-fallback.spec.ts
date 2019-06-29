@@ -29,6 +29,6 @@ describe('intoFallback', () => {
   it('replaces `undefined` value assigned to converted control with fallback one', () => {
     converted.it = undefined;
     expect(source.it).toBe(0);
-    expect(converted.it).toBe(0);
+    expect(converted.it).toBeUndefined();
   });
 });
