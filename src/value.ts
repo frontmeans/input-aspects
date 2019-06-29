@@ -1,45 +1,40 @@
-import { trackValue, ValueTracker } from 'fun-events';
+import { trackValue } from 'fun-events';
 import { InControl } from './control';
 
 /**
- * Simple input control implementation.
+ * Constructs simple input control.
  *
- * Does not handle actual user input. Instead maintains the value set programmatically.
+ * This control does not handle actual user input. Instead, it maintains the value set programmatically.
  *
  * @typeparam Value Input value type.
+ * @param initial Initial input value.
+ *
+ * @returns New input control.
  */
-export class InValue<Value> extends InControl<Value> {
+export function inValue<Value>(initial: Value): InControl<Value> {
 
-  /**
-   * @internal
-   */
-  private readonly _it: ValueTracker<Value>;
+  const it = trackValue(initial);
 
-  /**
-   * Constructs simple input control.
-   *
-   * @param value Initial input value.
-   */
-  constructor(value: Value) {
-    super();
-    this._it = trackValue(value);
+  class InValue extends InControl<Value> {
+
+    get on() {
+      return it.on;
+    }
+
+    get it(): Value {
+      return it.it;
+    }
+
+    set it(value: Value) {
+      it.it = value;
+    }
+
+    done(reason?: any): this {
+      it.done(reason);
+      return this;
+    }
+
   }
 
-  get on() {
-    return this._it.on;
-  }
-
-  get it(): Value {
-    return this._it.it;
-  }
-
-  set it(value: Value) {
-    this._it.it = value;
-  }
-
-  done(reason?: any): this {
-    this._it.done(reason);
-    return this;
-  }
-
+  return new InValue();
 }

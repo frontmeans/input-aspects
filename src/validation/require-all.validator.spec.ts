@@ -1,6 +1,6 @@
 import { afterEventFrom, EventEmitter, EventInterest } from 'fun-events';
 import { InControl } from '../control';
-import { InValue } from '../value';
+import { inValue } from '../value';
 import { requireAll } from './require-all.validator';
 import { requireNothing } from './require-nothing.validator';
 import { InValidation } from './validation.aspect';
@@ -13,7 +13,7 @@ describe('validIfAll', () => {
   let validation: InValidation<string>;
 
   beforeEach(() => {
-    control = new InValue('test');
+    control = inValue('test');
     validation = control.aspect(InValidation);
   });
 

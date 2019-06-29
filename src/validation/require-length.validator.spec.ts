@@ -1,5 +1,5 @@
 import { InControl } from '../control';
-import { InValue } from '../value';
+import { inValue } from '../value';
 import { requireLength } from './require-length.validator';
 import { InValidation } from './validation.aspect';
 
@@ -9,7 +9,7 @@ describe('requireLength', () => {
   let validation: InValidation<string>;
 
   beforeEach(() => {
-    control = new InValue('');
+    control = inValue('');
     validation = control.aspect(InValidation);
   });
 

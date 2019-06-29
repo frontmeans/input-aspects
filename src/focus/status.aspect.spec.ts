@@ -1,6 +1,6 @@
 import { afterEventFrom } from 'fun-events';
 import { InElement, inElt } from '../element';
-import { InValue } from '../value';
+import { inValue } from '../value';
 import { InStatus } from './status.aspect';
 
 describe('InStatus', () => {
@@ -23,7 +23,7 @@ describe('InStatus', () => {
   describe('read', () => {
     it('sends default flags when element is absent', () => {
 
-      const value = new InValue('some');
+      const value = inValue('some');
       const receiver = jest.fn();
 
       value.aspect(InStatus).read(receiver);

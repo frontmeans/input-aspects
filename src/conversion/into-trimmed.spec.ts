@@ -1,5 +1,5 @@
 import { InControl } from '../control';
-import { InValue } from '../value';
+import { inValue } from '../value';
 import { intoTrimmed } from './into-trimmed';
 
 describe('intoTrimmed', () => {
@@ -8,7 +8,7 @@ describe('intoTrimmed', () => {
   let trimmed: InControl<string>;
 
   beforeEach(() => {
-    control = new InValue('');
+    control = inValue('');
     trimmed = control.convert(intoTrimmed);
   });
 

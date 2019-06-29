@@ -1,5 +1,5 @@
 import { InControl } from '../control';
-import { InValue } from '../value';
+import { inValue } from '../value';
 import { intoParsedBy } from './parser';
 
 describe('intoParsedBy', () => {
@@ -8,7 +8,7 @@ describe('intoParsedBy', () => {
   let parsedControl: InControl<number>;
 
   beforeEach(() => {
-    textControl = new InValue('old');
+    textControl = inValue('old');
     parsedControl = textControl.convert(intoParsedBy(text => text.length, value => '*'.repeat(value)));
   });
 

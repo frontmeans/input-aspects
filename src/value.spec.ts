@@ -1,6 +1,6 @@
 import { EventInterest } from 'fun-events';
 import { InControl } from './control';
-import { InValue } from './value';
+import { inValue } from './value';
 import Mock = jest.Mock;
 
 describe('InValue', () => {
@@ -8,7 +8,7 @@ describe('InValue', () => {
   let control: InControl;
 
   beforeEach(() => {
-    control = new InValue('old');
+    control = inValue('old');
   });
 
   describe('it', () => {

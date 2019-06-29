@@ -2,7 +2,7 @@ import { asis } from 'call-thru';
 import { EventInterest } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
 import { InControl } from './control';
-import { InValue } from './value';
+import { inValue } from './value';
 import Mock = jest.Mock;
 
 describe('InControl', () => {
@@ -11,7 +11,7 @@ describe('InControl', () => {
   type ConverterGenerator = InControl.Converter<string, number>;
 
   beforeEach(() => {
-    control = new InValue('old');
+    control = inValue('old');
   });
 
   let TestAspect: InAspect<() => string> & InAspect.Key<() => string>;

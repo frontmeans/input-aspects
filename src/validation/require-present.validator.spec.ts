@@ -1,5 +1,5 @@
 import { InControl } from '../control';
-import { InValue } from '../value';
+import { inValue } from '../value';
 import { requirePresent } from './require-present.validator';
 import { InValidation } from './validation.aspect';
 
@@ -9,7 +9,7 @@ describe('requirePresent', () => {
   let validation: InValidation<string>;
 
   beforeEach(() => {
-    control = new InValue('');
+    control = inValue('');
     validation = control.aspect(InValidation);
     validation.by(requirePresent);
   });
@@ -28,7 +28,7 @@ describe('requirePresent', () => {
     expect(validationResult.ok).toBe(true);
   });
   it('creates validator', () => {
-    control = new InValue('');
+    control = inValue('');
     validation = control.aspect(InValidation);
     validation.by(requirePresent());
     validation.read(result => validationResult = result);

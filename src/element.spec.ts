@@ -3,7 +3,7 @@ import { EventInterest } from 'fun-events';
 import { InAspect__symbol } from './aspect';
 import { inAspectValue } from './aspect.impl';
 import { InElement, inElt } from './element';
-import { InValue } from './value';
+import { inValue } from './value';
 import Mock = jest.Mock;
 
 describe('InElement', () => {
@@ -35,13 +35,13 @@ describe('InElement', () => {
     });
     it('is not available as aspect of non-element control', () => {
 
-      const control = new InValue('some');
+      const control = inValue('some');
 
       expect(control.aspect(InElement)).toBeNull();
     });
     it('is not available as aspect of converted non-element control', () => {
 
-      const control = new InValue('some');
+      const control = inValue('some');
       const converted = control.convert(asis, asis);
 
       expect(converted.aspect(InElement)).toBeNull();

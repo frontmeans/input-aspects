@@ -1,6 +1,6 @@
 import { InControl } from '../control';
 import { InValidation } from '../validation';
-import { InValue } from '../value';
+import { inValue } from '../value';
 import { intoInteger } from './into-integer';
 
 describe('intoInteger', () => {
@@ -9,7 +9,7 @@ describe('intoInteger', () => {
   let intControl: InControl<number>;
 
   beforeEach(() => {
-    textControl = new InValue('');
+    textControl = inValue('');
     intControl = textControl.convert(intoInteger);
   });
 

@@ -1,5 +1,5 @@
 import { InControl } from '../control';
-import { InValue } from '../value';
+import { inValue } from '../value';
 import { requireRange } from './require-range.validator';
 import { InValidation } from './validation.aspect';
 
@@ -9,7 +9,7 @@ describe('requireRange', () => {
   let validation: InValidation<number>;
 
   beforeEach(() => {
-    control = new InValue(0);
+    control = inValue(0);
     validation = control.aspect(InValidation);
   });
 

@@ -1,7 +1,7 @@
 import { asis } from 'call-thru';
 import { InControl } from '../control';
 import { inElt } from '../element';
-import { InValue } from '../value';
+import { inValue } from '../value';
 import { InFocus } from './focus.aspect';
 
 describe('InFocus', () => {
@@ -20,7 +20,7 @@ describe('InFocus', () => {
   });
 
   it('is `null` when element is absent', () => {
-    expect(new InValue('').aspect(InFocus)).toBeNull();
+    expect(inValue('').aspect(InFocus)).toBeNull();
   });
   it('is present for element', () => {
     expect(focus).toBeDefined();

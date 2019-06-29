@@ -1,7 +1,7 @@
 import { asis } from 'call-thru';
 import { AfterEvent__symbol, afterEventFrom, EventEmitter, EventInterest, EventKeeper, trackValue } from 'fun-events';
 import { InControl } from '../control';
-import { InValue } from '../value';
+import { inValue } from '../value';
 import { InValidation } from './validation.aspect';
 import { InValidator } from './validator';
 import Mock = jest.Mock;
@@ -12,7 +12,7 @@ describe('InValidation', () => {
   let validation: InValidation<string>;
 
   beforeEach(() => {
-    control = new InValue('test');
+    control = inValue('test');
     validation = control.aspect(InValidation);
   });
 
