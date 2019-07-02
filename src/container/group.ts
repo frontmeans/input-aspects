@@ -262,17 +262,6 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
 
     function removeControl<KK extends keyof Model>(key: KK) {
       self._map.delete(key);
-
-      const model = self.model.it;
-
-      if (model[key] !== undefined) {
-
-        const newModel = { ...model };
-
-        delete newModel[key];
-
-        self.model.it = newModel;
-      }
     }
   }
 

@@ -139,15 +139,9 @@ describe('InGroup', () => {
         expect(onUpdate).toHaveBeenCalledTimes(1);
         expect(readControls).toHaveBeenCalledTimes(1);
       });
-      it('updates container model', () => {
+      it('does not update container model', () => {
         group.controls.remove('ctrl2');
-        expect(group.it).toEqual({ ctrl1: 'some' });
-        expect(onModelUpdate).toHaveBeenCalledWith({ ctrl1: 'some' }, { ctrl1: 'some', ctrl2: 'other' });
-      });
-      it('does not update container model when value is undefined', () => {
-        ctrl2.it = undefined;
-        onModelUpdate.mockClear();
-        group.controls.remove('ctrl2');
+        expect(group.it).toEqual({ ctrl1: 'some', ctrl2: 'other' });
         expect(onModelUpdate).not.toHaveBeenCalled();
       });
     });
@@ -206,7 +200,7 @@ describe('InGroup', () => {
     it('stops model updates', () => {
       group.done();
       ctrl1.it = '123';
-      expect(group.it).toEqual({});
+      expect(group.it).toEqual({ ctrl1: 'some', ctrl2: 'other' });
     });
   });
 });
