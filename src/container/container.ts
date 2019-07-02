@@ -62,8 +62,7 @@ export namespace InContainer {
 /**
  * Controls of input container.
  *
- * This interface is read-only and allows to track container contents. I.e. nested controls, their additions and
- * removal.
+ * Allows to track container contents. I.e. nested controls, their additions and removal.
  *
  * Implements an `Iterable` interface by iterating over all nested controls.
  *
