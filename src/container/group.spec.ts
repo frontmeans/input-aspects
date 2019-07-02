@@ -24,7 +24,8 @@ describe('InGroup', () => {
     ctrl1 = inValue('some');
     ctrl2 = inValue('other').convert(intoFallback(''));
     ctrl3 = inValue(99).convert(intoFallback(0));
-    group = inGroup<TestModel>({ ctrl1, ctrl2, ctrl3: undefined });
+    group = inGroup<TestModel>({ ctrl1: ctrl1.it, ctrl2: ctrl2.it })
+        .setup(({ controls }) => controls.set({ ctrl1, ctrl2 }));
   });
 
   it('supports aspects', () => {
@@ -108,6 +109,22 @@ describe('InGroup', () => {
             { ctrl1: 'third', ctrl2: 'other' },
             { ctrl1: 'some', ctrl2: 'other' });
       });
+      it('sets multiple controls', () => {
+
+        const ctrl4 = inValue('third');
+
+        group.controls.set({
+          ctrl1: ctrl4,
+          ctrl3,
+        });
+        expect([...group.controls]).toEqual([ctrl4, ctrl2, ctrl3]);
+        expect([...group.controls.entries()]).toEqual([['ctrl1', ctrl4], ['ctrl2', ctrl2], ['ctrl3', ctrl3]]);
+        expect(group.controls.get('ctrl1')).toBe(ctrl4);
+        expect(group.controls.get('ctrl2')).toBe(ctrl2);
+        expect(group.controls.get('ctrl3')).toBe(ctrl3);
+        expect(onUpdate).toHaveBeenCalledWith([['ctrl1', ctrl4], ['ctrl3', ctrl3]], [['ctrl1', ctrl1]]);
+        expect(readControls).toHaveBeenCalledTimes(1);
+      });
     });
 
     describe('remove', () => {
@@ -119,6 +136,7 @@ describe('InGroup', () => {
         expect(group.controls.get('ctrl2')).toBeUndefined();
         expect(group.controls.get('ctrl3')).toBeUndefined();
         expect(onUpdate).toHaveBeenCalledWith([], [['ctrl2', ctrl2]]);
+        expect(onUpdate).toHaveBeenCalledTimes(1);
         expect(readControls).toHaveBeenCalledTimes(1);
       });
       it('updates container model', () => {

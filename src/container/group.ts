@@ -13,8 +13,26 @@ import {
 import { InControl } from '../control';
 import { InContainer, InContainerControls } from './container';
 
+/**
+ * A group of input controls.
+ *
+ * Nested controls are identified by keys and can be added and removed via `controls` property.
+ *
+ * Group value is an object formed by nested control values. The model property is the one of the control with the same
+ * key, if present. When model is updated corresponding controls are also updated.
+ *
+ * @typeparam Model Group model type, i.e. its value type.
+ */
 export abstract class InGroup<Model> extends InContainer<Model> {
 
+  /**
+   * HTML element this group is constructed for, if any.
+   */
+  abstract readonly element?: HTMLElement;
+
+  /**
+   * Input group controls.
+   */
   abstract readonly controls: InGroupControls<Model>;
 
 }
@@ -26,7 +44,7 @@ export namespace InGroup {
    *
    * This is a read-only object containing an input control per each model property under the same key.
    *
-   * @typeparam Model Input group model type.
+   * @typeparam Model Group model type, i.e. its value type.
    */
   export type Controls<Model> = {
     readonly [K in keyof Model]?: InControl<Model[K]>;
@@ -37,9 +55,7 @@ export namespace InGroup {
    *
    * This is a tuple containing model key and corresponding control.
    *
-   * Container implementations may apply limitations on the type of keys and input values they support.
-   *
-   * @typeparam Model Input group model type.
+   * @typeparam Model Group model type, i.e. its value type.
    */
   export type Entry<Model, K extends keyof Model = any> = readonly [K, InControl<Model[K]>];
 
@@ -47,6 +63,8 @@ export namespace InGroup {
 
 /**
  * Input group controls.
+ *
+ * @typeparam Model Group model type, i.e. its value type.
  */
 export abstract class InGroupControls<Model>
     extends InContainerControls
@@ -56,10 +74,45 @@ export abstract class InGroupControls<Model>
 
   abstract entries(): IterableIterator<InGroup.Entry<Model>>;
 
+  /**
+   * Returns input control with the given key, if present.
+   *
+   * @param key Control key, i.e. corresponding model property key.
+   *
+   * @returns Target control, or `undefined` if there is no control set for this key.
+   */
   abstract get<K extends keyof Model>(key: K): InGroup.Controls<Model>[K] | undefined;
 
+  /**
+   * Sets input control with the given key.
+   *
+   * Replaces existing control if already present.
+   *
+   * @param key A key of input control to set. I.e. corresponding model property key.
+   * @param control Input control to add, or `undefined` to remove control.
+   *
+   * @returns `this` controls instance.
+   */
   abstract set<K extends keyof Model>(key: K, control: InControl<Model[K]> | undefined): this;
 
+  /**
+   * Sets multiple input controls at a time.
+   *
+   * @param controls A map of controls under their keys. A value can be `undefined` to remove corresponding control.
+   *
+   * @returns `this` controls instance.
+   */
+  abstract set(controls: InGroup.Controls<Model>): this;
+
+  /**
+   * Removes input control with the given key.
+   *
+   * Calling this method is the same as calling `set(key, undefined)`
+   *
+   * @param key A key of input control to remove. I.e. corresponding model property key.
+   *
+   * @returns `this` controls instance.
+   */
   remove(key: keyof Model): this {
     return this.set(key, undefined);
   }
@@ -72,13 +125,9 @@ export interface InGroupControls<Model> {
 
 }
 
-type MutableControls<Model> = {
-  -readonly [K in keyof Model]?: InControl<Model[K]>;
-};
-
 type ControlEntry = readonly [InControl<any>, EventInterest]; // When event interest is done the control is unused
 
-const doNotUpdateModel = {};
+const controlReplacedReason = {};
 
 class InGroupControlControls<Model> extends InGroupControls<Model> {
 
@@ -87,7 +136,7 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
   private readonly _on = new EventEmitter<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>();
   private readonly _map = new Map<keyof Model, ControlEntry>();
 
-  constructor(_raw: MutableControls<Model>) {
+  constructor(initialModel: Model) {
     super();
 
     const self = this;
@@ -97,16 +146,7 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
             valueProvider(this),
         ),
         valuesProvider(this));
-    this.model = trackValue(groupModel(_raw));
-
-    for (const k of Object.keys(_raw)) {
-
-      const key = k as keyof Model;
-      const control = _raw[key];
-
-      this.set(key, control);
-    }
-
+    this.model = trackValue(initialModel);
     this.model.read(applyModelToControls);
 
     function applyModelToControls(model: Model) {
@@ -150,63 +190,90 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
     return entry && entry[0] as InGroup.Controls<Model>[K];
   }
 
-  set<K extends keyof Model>(key: K, control: InControl<Model[K]> | undefined): this {
+  set<K extends keyof Model>(
+      keyOrControls: K | InGroup.Controls<Model>,
+      newControl?: InControl<Model[K]> | undefined): this {
 
-    const existing = this._map.get(key);
-    let removed: InGroup.Entry<Model>[];
+    const self = this;
+    const added: InGroup.Entry<Model>[] = [];
+    const removed: InGroup.Entry<Model>[] = [];
 
-    if (existing) {
+    if (typeof keyOrControls === 'object') {
+      for (const k of Object.keys(keyOrControls)) {
 
-      const [existingControl, existingInterest] = existing;
+        const key = k as keyof Model;
+        const control = keyOrControls[key];
 
-      if (existingControl === control) {
-        return this; // Control is added already
+        setControl(key, control);
       }
-
-      existingInterest.off(control && doNotUpdateModel); // Removing control before replacing
-      removed = [[key, existingControl]];
     } else {
-      removed = [];
+      setControl(keyOrControls, newControl);
     }
 
-    if (isControl(control)) {
-
-      const interest = control.read(value => {
-        if (this.model.it[key] !== value) {
-          this.model.it = {
-            ...this.model.it,
-            [key]: value,
-          };
-        }
-      });
-
-      const entry: ControlEntry = [control, interest];
-
-      this._map.set(key, entry);
-      this._on.send([[key, control]], removed);
-
-      interest.whenDone(reason => {
-        if (reason !== doNotUpdateModel) {
-
-          this._map.delete(key);
-
-          const model = this.model.it;
-
-          if (model[key] !== undefined) {
-
-            const newModel = { ...model };
-
-            delete newModel[key];
-
-            this.model.it = newModel;
-          }
-
-          this._on.send([], [[key, control]]);
-        }
-      });
+    if (added.length || removed.length) {
+      this._on.send(added, removed);
     }
 
     return this;
+
+    function setControl<KK extends keyof Model>(key: KK, control: InControl<Model[KK]> | undefined) {
+
+      const existing = self._map.get(key);
+
+      if (existing) {
+
+        const [existingControl, existingInterest] = existing;
+
+        if (existingControl === control) {
+          return; // Control is added already
+        }
+
+        if (!control) {
+          removeControl(key);
+        }
+        existingInterest.off(controlReplacedReason); // Removing control before replacing
+        removed.push([key, existingControl]);
+      }
+
+      if (isControl(control)) {
+
+        const interest = control.read(value => {
+          if (self.model.it[key] !== value) {
+            self.model.it = {
+              ...self.model.it,
+              [key]: value,
+            };
+          }
+        });
+
+        const entry: ControlEntry = [control, interest];
+
+        added.push([key, control]);
+        self._map.set(key, entry);
+
+        interest.whenDone(reason => {
+          if (reason !== controlReplacedReason) {
+            removeControl(key);
+            self._on.send([], [[key, control]]);
+          }
+        });
+      }
+    }
+
+    function removeControl<KK extends keyof Model>(key: KK) {
+      self._map.delete(key);
+
+      const model = self.model.it;
+
+      if (model[key] !== undefined) {
+
+        const newModel = { ...model };
+
+        delete newModel[key];
+
+        self.model.it = newModel;
+      }
+    }
   }
 
   * entries(): IterableIterator<InGroup.Entry<Model>> {
@@ -228,9 +295,9 @@ class InGroupControl<Model> extends InGroup<Model> {
 
   readonly controls: InGroupControlControls<Model>;
 
-  constructor(controls: MutableControls<Model>, readonly element?: HTMLElement) {
+  constructor(model: Model, readonly element?: HTMLElement) {
     super();
-    this.controls = new InGroupControlControls(controls);
+    this.controls = new InGroupControlControls(model);
   }
 
   get on() {
@@ -256,26 +323,14 @@ function isControl<V>(control: InControl<V> | undefined): control is InControl<V
   return !!control;
 }
 
-function groupModel<Model>(controls: InGroup.Controls<Model>): Model {
-
-  const result: { -readonly [K in keyof Model]?: Model[K] } = {};
-
-  for (const k of Object.keys(controls)) {
-
-    const key = k as keyof Model;
-
-    assignToModel(key, controls[key]);
-  }
-
-  return result as Model;
-
-  function assignToModel<K extends keyof Model>(key: K, control?: InControl<Model[K]>) {
-    if (isControl(control)) {
-      result[key] = control.it;
-    }
-  }
-}
-
-export function inGroup<Model>(controls: InGroup.Controls<Model>, element?: HTMLElement): InGroup<Model> {
-  return new InGroupControl(controls, element);
+/**
+ * Constructs input controls group.
+ *
+ * @param model Initial model of the group.
+ * @param element Optional HTML element the group is constructed for.
+ *
+ * @returns New input controls group.
+ */
+export function inGroup<Model>(model: Model, element?: HTMLElement): InGroup<Model> {
+  return new InGroupControl(model, element);
 }
