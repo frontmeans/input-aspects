@@ -68,7 +68,7 @@ export abstract class InContainerControls
         EventKeeper<[InContainerControls]> {
 
   /**
-   * An `OnEvent` registrar of control updates receivers.
+   * An `OnEvent` registrar of container updates receivers.
    *
    * Sends two arrays on each container update: the first one contains added control entries, while the second one
    * contains removed control entries.
