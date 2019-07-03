@@ -12,6 +12,7 @@ import {
 } from 'fun-events';
 import { InControl } from '../control';
 import { InContainer, InContainerControls } from './container';
+import { InParents } from './parents.aspect';
 
 /**
  * A group of input controls.
@@ -132,11 +133,10 @@ const controlReplacedReason = {};
 class InGroupControlControls<Model> extends InGroupControls<Model> {
 
   readonly read: AfterEvent<[this]>;
-  readonly model: ValueTracker<Model>;
   private readonly _on = new EventEmitter<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>();
   private readonly _map = new Map<keyof Model, ControlEntry>();
 
-  constructor(initialModel: Model) {
+  constructor(private readonly _group: InGroupControl<Model>) {
     super();
 
     const self = this;
@@ -146,8 +146,7 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
             valueProvider(this),
         ),
         valuesProvider(this));
-    this.model = trackValue(initialModel);
-    this.model.read(applyModelToControls);
+    _group.read(applyModelToControls);
 
     function applyModelToControls(model: Model) {
 
@@ -195,6 +194,7 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
       newControl?: InControl<Model[K]> | undefined): this {
 
     const self = this;
+    const group = this._group;
     const added: InGroup.Entry<Model>[] = [];
     const removed: InGroup.Entry<Model>[] = [];
 
@@ -238,9 +238,9 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
       if (isControl(control)) {
 
         const interest = control.read(value => {
-          if (self.model.it[key] !== value) {
-            self.model.it = {
-              ...self.model.it,
+          if (group.it[key] !== value) {
+            group.it = {
+              ...group.it,
               [key]: value,
             };
           }
@@ -250,6 +250,7 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
 
         added.push([key, control]);
         self._map.set(key, entry);
+        control.aspect(InParents).add(group, key).needs(interest);
 
         interest.whenDone(reason => {
           if (reason !== controlReplacedReason) {
@@ -272,7 +273,6 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
   }
 
   _done(reason?: any) {
-    this.model.done(reason);
     for (const [, interest] of this._map.values()) {
       interest.off(reason);
     }
@@ -282,26 +282,29 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
 
 class InGroupControl<Model> extends InGroup<Model> {
 
+  private readonly _model: ValueTracker<Model>;
   readonly controls: InGroupControlControls<Model>;
 
   constructor(model: Model, readonly element?: HTMLElement) {
     super();
-    this.controls = new InGroupControlControls(model);
+    this._model = trackValue(model);
+    this.controls = new InGroupControlControls(this);
   }
 
   get on() {
-    return this.controls.model.on;
+    return this._model.on;
   }
 
   get it() {
-    return this.controls.model.it;
+    return this._model.it;
   }
 
   set it(value: Model) {
-    this.controls.model.it = value;
+    this._model.it = value;
   }
 
   done(reason?: any): this {
+    this._model.done(reason);
     this.controls._done(reason);
     return this;
   }
