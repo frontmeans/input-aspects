@@ -26,7 +26,7 @@ describe('InControl', () => {
       },
     };
 
-    function applied<V>(ctr: InControl<V>, suffix: string): InAspect.Applied<() => string, V> {
+    function applied<V>(ctr: InControl<V>, suffix: string): InAspect.Applied<() => string> {
       return {
         instance: () => `${ctr.it}${suffix}`,
         convertTo<C>(target: InControl<C>) {
@@ -122,12 +122,11 @@ describe('InControl', () => {
     describe('on', () => {
 
       let receiver: Mock;
-      let interest: EventInterest;
       let convertedReceiver: Mock;
       let convertedInterest: EventInterest;
 
       beforeEach(() => {
-        interest = control.on(receiver = jest.fn());
+        control.on(receiver = jest.fn());
         convertedInterest = converted.on(convertedReceiver = jest.fn());
       });
 

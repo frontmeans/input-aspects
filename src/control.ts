@@ -14,7 +14,7 @@ export abstract class InControl<Value = string> extends ValueTracker<Value> {
   /**
    * @internal
    */
-  private readonly _aspects = new Map<InAspect<any, any>, InAspect.Applied<any, Value>>();
+  private readonly _aspects = new Map<InAspect<any, any>, InAspect.Applied<any, any>>();
 
   /**
    * Input value.
@@ -148,13 +148,13 @@ export abstract class InControl<Value = string> extends ValueTracker<Value> {
    *
    * @typeparam Instance Aspect instance type.
    * @typeparam Kind Aspect application kind.
-   * @param aspect An aspect tp apply.
+   * @param _aspect An aspect to apply.
    *
    * @returns Either applied aspect instance or `undefined` to apply the aspect in standard way (i.e. using
    * `InAspect.applyTo()` method).
    */
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
-      aspect: InAspect<Instance, Kind>
+      _aspect: InAspect<Instance, Kind>
   ): InAspect.Application.Result<Instance, Value, Kind> | undefined {
     return;
   }

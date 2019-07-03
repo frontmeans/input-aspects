@@ -6,7 +6,7 @@ import { InElement } from '../element';
 
 const InFocus__aspect: InAspect<InFocus | null> = {
 
-  applyTo<Value>(control: InControl<Value>): InAspect.Applied<InFocus | null, Value> {
+  applyTo<Value>(control: InControl<Value>): InAspect.Applied<InFocus | null> {
 
     const element = control.aspect(InElement);
 

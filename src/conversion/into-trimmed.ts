@@ -19,7 +19,7 @@ export function intoTrimmed(): InControl.Converter<string, string>;
 export function intoTrimmed(from: InControl<string>, to: InControl<string>): InControl.Converters<string, string>;
 
 export function intoTrimmed(
-    from?: InControl<string>,
+    _from?: InControl<string>,
     to?: InControl<string>,
 ): InControl.Converter<string, string> | InControl.Converters<string, string> {
   if (!to) {

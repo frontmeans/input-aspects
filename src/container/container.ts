@@ -1,12 +1,4 @@
-import {
-  AfterEvent,
-  AfterEvent__symbol,
-  EventEmitter,
-  EventKeeper,
-  EventSender,
-  OnEvent,
-  OnEvent__symbol, trackValue, ValueTracker
-} from 'fun-events';
+import { AfterEvent, AfterEvent__symbol, EventKeeper, EventSender, OnEvent, OnEvent__symbol } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectNull, inAspectValue } from '../aspect.impl';
 import { InControl } from '../control';

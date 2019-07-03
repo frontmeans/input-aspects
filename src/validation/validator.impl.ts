@@ -127,7 +127,7 @@ function simpleValidator<Value>(
     control: InControl<Value>,
     validator: InValidator.Simple<Value>,
 ): <NextReturn>(value: Value) => NextArgs<InValidation.Message[], NextReturn> | InValidation.Message {
-  return <NextReturn>() => {
+  return () => {
 
     const messages = validator.validate(control);
 

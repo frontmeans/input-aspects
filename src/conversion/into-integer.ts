@@ -33,7 +33,7 @@ export function intoInteger(radixOrFrom: number | InControl<string> = 10, optTo?
     return intoInteger()(radixOrFrom, optTo as InControl<number>);
   }
 
-  return InParser.converter<number>((from, to) => [
+  return InParser.converter<number>((_from, to) => [
     (text, errors) => {
 
       const result = parseInt(text, radixOrFrom);

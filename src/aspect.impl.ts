@@ -12,7 +12,7 @@ export const inAspectNull: InAspect.Applied<any, any> = {
 /**
  * @internal
  */
-export function inAspectValue<Instance, Value = any>(instance: Instance): InAspect.Applied<Instance, Value> {
+export function inAspectValue<Instance>(instance: Instance): InAspect.Applied<Instance> {
   return {
     instance,
     convertTo() {

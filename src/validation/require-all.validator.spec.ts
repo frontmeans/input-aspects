@@ -1,4 +1,4 @@
-import { afterEventFrom, EventEmitter, EventInterest } from 'fun-events';
+import { afterEventFrom, EventEmitter } from 'fun-events';
 import { InControl } from '../control';
 import { inValue } from '../value';
 import { requireAll } from './require-all.validator';
@@ -20,7 +20,6 @@ describe('validIfAll', () => {
   let validator1: EventEmitter<InValidation.Message[]>;
   let validator2: EventEmitter<InValidation.Message[]>;
   let all: InValidator<string>;
-  let allInterest: EventInterest;
 
   beforeEach(() => {
     validator1 = new EventEmitter();
@@ -28,7 +27,7 @@ describe('validIfAll', () => {
     all = requireAll(
         afterEventFrom(validator1, []),
         afterEventFrom(validator2, []));
-    allInterest = validation.by(all);
+    validation.by(all);
   });
 
   let receiver: Mock;

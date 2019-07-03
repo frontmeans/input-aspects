@@ -21,7 +21,7 @@ export interface InAspect<Instance, Kind extends InAspect.Application.Kind = 'de
    *
    * @returns An aspect applied to the given `control`.
    */
-  applyTo<Value>(control: InControl<Value>): InAspect.Applied<Instance, Value>;
+  applyTo<Value>(control: InControl<Value>): InAspect.Applied<Instance>;
 
 }
 
@@ -57,11 +57,10 @@ export namespace InAspect {
    * This is what returned from `InAspect.applyTo()` method. Contains aspect instance and its manipulation methods.
    *
    * @typeparam Instance Aspect instance type.
-   * @typeparam Value Input value type.
    * @typeparam ConvertedInstance A type of aspect instance applied to converted control.
    * The same as `Instance` by default.
    */
-  export interface Applied<Instance, Value, ConvertedInstance extends Instance = Instance> {
+  export interface Applied<Instance, ConvertedInstance extends Instance = Instance> {
 
     /**
      * Input aspect instance.
@@ -78,7 +77,7 @@ export namespace InAspect {
      *
      * @returns The same aspect applied to `target` control, or `undefined` if aspect can not be converted.
      */
-    convertTo<To>(target: InControl<To>): Applied<ConvertedInstance, To> | undefined;
+    convertTo<To>(target: InControl<To>): Applied<ConvertedInstance> | undefined;
 
   }
 
@@ -99,7 +98,7 @@ export namespace InAspect {
      * @typeparam OfKind Aspect application kind.
      */
     export type Result<OfInstance, OfValue, OfKind extends Kind> =
-        Applied<Instance<OfInstance, OfValue, OfKind>, OfValue>;
+        Applied<Instance<OfInstance, OfValue, OfKind>>;
 
     /**
      * A type of applied aspect instance of the given application kind and input value type.

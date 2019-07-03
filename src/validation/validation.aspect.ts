@@ -48,7 +48,7 @@ interface Aspect extends InAspect<InValidation<any>, 'validation'> {
 /**
  * An input validation aspect applied to control.
  */
-interface Applied<Value> extends InAspect.Applied<InValidation<Value>, Value, InValidation<any>> {
+interface Applied<Value> extends InAspect.Applied<InValidation<Value>, InValidation<any>> {
 
   convertTo<To>(target: InControl<To>): Applied<To>;
 
