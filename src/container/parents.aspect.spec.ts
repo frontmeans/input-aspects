@@ -18,13 +18,16 @@ describe('InParents', () => {
 
   let parents: InParents;
   let onParents: Mock<void, [InParents.Entry[], InParents.Entry[]]>;
-  let readParents: Mock<void, [InParents]>;
+  let readParents: Mock<void, [Iterable<InParents.Entry>]>;
+  let allParents: InParents.All;
 
   beforeEach(() => {
     parents = control.aspect(InParents);
     parents.on(onParents = jest.fn());
-    parents.read(readParents = jest.fn());
-    expect(readParents).toHaveBeenCalledWith(parents);
+    parents.read(readParents = jest.fn(entries => {
+      allParents = entries;
+    }));
+    expect(readParents).toHaveBeenCalledWith(allParents);
     readParents.mockClear();
   });
 
@@ -49,7 +52,7 @@ describe('InParents', () => {
     });
 
     it('updates parents list', () => {
-      expect([...parents]).toEqual([[container, 'key']]);
+      expect([...allParents]).toEqual([[container, 'key']]);
       expect(onParents).toHaveBeenCalledWith([[container, 'key']], []);
       expect(readParents).toHaveBeenCalledTimes(1);
     });
@@ -60,7 +63,7 @@ describe('InParents', () => {
     });
     it('removes parent when interest lost', () => {
       interest.off();
-      expect([...parents]).toHaveLength(0);
+      expect([...allParents]).toHaveLength(0);
       expect(onParents).toHaveBeenCalledWith([], [[container, 'key']]);
       expect(readParents).toHaveBeenCalledTimes(2);
     });
@@ -68,22 +71,22 @@ describe('InParents', () => {
 
       const interest2 = parents.add(container, 'key2');
 
-      expect([...parents]).toEqual([[container, 'key'], [container, 'key2']]);
+      expect([...allParents]).toEqual([[container, 'key'], [container, 'key2']]);
       expect(onParents).toHaveBeenCalledWith([[container, 'key2']], []);
       expect(readParents).toHaveBeenCalledTimes(2);
 
       interest2.off();
-      expect([...parents]).toEqual([[container, 'key']]);
+      expect([...allParents]).toEqual([[container, 'key']]);
     });
     it('adds to another container', () => {
 
       const container2 = inGroup({});
       const interest2 = parents.add(container2, 'key');
 
-      expect([...parents]).toEqual([[container, 'key'], [container2, 'key']]);
+      expect([...allParents]).toEqual([[container, 'key'], [container2, 'key']]);
 
       interest2.off();
-      expect([...parents]).toEqual([[container, 'key']]);
+      expect([...allParents]).toEqual([[container, 'key']]);
     });
   });
 });

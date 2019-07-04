@@ -74,7 +74,7 @@ describe('InGroup', () => {
         expect(group.controls.get('ctrl3')).toBe(ctrl3);
         expect(onUpdate).toHaveBeenCalledWith([['ctrl3', ctrl3]], []);
         expect(readControls).toHaveBeenCalledTimes(1);
-        expect([...ctrl3.aspect(InParents)]).toEqual([[group, 'ctrl3']]);
+        expect(parentsOf(ctrl3)).toEqual([[group, 'ctrl3']]);
       });
       it('replaces control', () => {
 
@@ -89,8 +89,8 @@ describe('InGroup', () => {
         expect(group.controls.get('ctrl3')).toBeUndefined();
         expect(onUpdate).toHaveBeenCalledWith([['ctrl1', ctrl4]], [['ctrl1', ctrl1]]);
         expect(readControls).toHaveBeenCalledTimes(1);
-        expect([...ctrl1.aspect(InParents)]).toHaveLength(0);
-        expect([...ctrl4.aspect(InParents)]).toEqual([[group, 'ctrl1']]);
+        expect(parentsOf(ctrl1)).toHaveLength(0);
+        expect(parentsOf(ctrl4)).toEqual([[group, 'ctrl1']]);
       });
       it('does not replace control with itself', () => {
         group.controls.set('ctrl1', ctrl1);
@@ -142,7 +142,7 @@ describe('InGroup', () => {
         expect(onUpdate).toHaveBeenCalledWith([], [['ctrl2', ctrl2]]);
         expect(onUpdate).toHaveBeenCalledTimes(1);
         expect(readControls).toHaveBeenCalledTimes(1);
-        expect([...ctrl2.aspect(InParents)]).toHaveLength(0);
+        expect(parentsOf(ctrl2)).toHaveLength(0);
       });
       it('does not update container model', () => {
         group.controls.remove('ctrl2');
@@ -208,4 +208,14 @@ describe('InGroup', () => {
       expect(group.it).toEqual({ ctrl1: 'some', ctrl2: 'other' });
     });
   });
+
+  function parentsOf(control: InControl<any>): InParents.Entry[] {
+
+    let parents: InParents.Entry[] = [];
+
+    control.aspect(InParents).read.once(p => parents = [...p]);
+
+    return parents;
+  }
+
 });

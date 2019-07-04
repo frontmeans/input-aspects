@@ -1,9 +1,10 @@
-import { valueProvider, valuesProvider } from 'call-thru';
 import {
   AfterEvent,
   AfterEvent__symbol,
   afterEventFrom,
-  EventEmitter, eventInterest, EventInterest,
+  EventEmitter,
+  eventInterest,
+  EventInterest,
   EventKeeper,
   EventSender,
   OnEvent,
@@ -25,16 +26,12 @@ const InParents__aspect: InAspect<InParents> = {
  * Reflects all containers the control belongs to. Note that component may belong to multiple containers. Or even
  * to the same container multiple times under different keys.
  *
- * Implements `Iterable` interface by iterating over all parent entries.
- *
  * Implements `EventSender` interface by sending arrays of parent entries the control is added to and removed from.
  *
- * Implements `EventKeeper` interface by sending parents instance each time it is updated.
+ * Implements `EventKeeper` interface by sending an iterable of all parents each time it is updated.
  */
 export abstract class InParents
-    implements Iterable<InParents.Entry>,
-        EventKeeper<[InParents]>,
-        EventSender<[InParents.Entry[], InParents.Entry[]]> {
+    implements EventKeeper<[Iterable<InParents.Entry>]>, EventSender<[InParents.Entry[], InParents.Entry[]]> {
 
   static get [InAspect__symbol](): InAspect<InParents> {
     return InParents__aspect;
@@ -55,17 +52,15 @@ export abstract class InParents
   }
 
   /**
-   * An `AfterEvent` registrar of updated parents receivers.
+   * An `AfterEvent` registrar of updated parents iterable receivers.
    *
    * The `[AfterEvent__symbol]` property is an alias of this one.
    */
-  abstract readonly read: AfterEvent<[this]>;
+  abstract readonly read: AfterEvent<[InParents.All]>;
 
-  get [AfterEvent__symbol](): AfterEvent<[this]> {
+  get [AfterEvent__symbol](): AfterEvent<[InParents.All]> {
     return this.read;
   }
-
-  abstract [Symbol.iterator](): IterableIterator<InParents.Entry>;
 
   /**
    * Adds the input control to the given parent container under the given key.
@@ -90,28 +85,41 @@ export namespace InParents {
    */
   export type Entry = readonly [InContainer<any>, PropertyKey];
 
+  /**
+   * All control parents as iterable instance.
+   */
+  export type All = Iterable<Entry>;
+
 }
 
 class InControlParents extends InParents {
 
   private readonly _entries = new Map<InContainer<any>, Map<PropertyKey, EventInterest>>();
   private readonly _on = new EventEmitter<[InParents.Entry[], InParents.Entry[]]>();
-  readonly read = afterEventFrom<[this]>(
-      this._on.on.thru(
-          valueProvider(this)
-      ),
-      valuesProvider(this));
+  readonly read: AfterEvent<[InParents.All]>;
+
+  constructor() {
+    super();
+
+    const entries = this._entries;
+
+    this.read = afterEventFrom(
+        this._on.on.thru(
+            allParents
+        ),
+        () => [allParents()]);
+
+    function *allParents(): IterableIterator<InParents.Entry> {
+      for (const [container, keyMap] of entries.entries()) {
+        for (const key of keyMap.keys()) {
+          yield [container, key];
+        }
+      }
+    }
+  }
 
   get on() {
     return this._on.on;
-  }
-
-  * [Symbol.iterator](): IterableIterator<InParents.Entry> {
-    for (const [container, keyMap] of this._entries.entries()) {
-      for (const key of keyMap.keys()) {
-        yield [container, key];
-      }
-    }
   }
 
   add(container: InContainer<any>, key: PropertyKey): EventInterest {
