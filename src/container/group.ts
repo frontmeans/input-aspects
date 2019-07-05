@@ -1,9 +1,10 @@
-import { valueProvider, valuesProvider } from 'call-thru';
+import { nextArgs, noop } from 'call-thru';
 import {
   AfterEvent,
-  afterEventFrom,
-  EventEmitter,
+  AfterEvent__symbol,
+  eventInterest,
   EventInterest,
+  EventKeeper,
   EventSender,
   OnEvent,
   OnEvent__symbol,
@@ -12,6 +13,7 @@ import {
 } from 'fun-events';
 import { InControl } from '../control';
 import { InContainer, InContainerControls } from './container';
+import { dynamicMap, DynamicMap } from './dynamic-map';
 import { InParents } from './parents.aspect';
 
 /**
@@ -60,6 +62,24 @@ export namespace InGroup {
    */
   export type Entry<Model, K extends keyof Model = any> = readonly [K, InControl<Model[K]>];
 
+  /**
+   * A snapshot of input control group controls.
+   */
+  export interface Snapshot<Model> extends InContainer.Snapshot {
+
+    entries(): IterableIterator<Entry<Model>>;
+
+    /**
+     * Returns input control with the given key, if present.
+     *
+     * @param key Control key, i.e. corresponding model property key.
+     *
+     * @returns Target control, or `undefined` if there is no control set for this key.
+     */
+    get<K extends keyof Model>(key: K): InGroup.Controls<Model>[K] | undefined;
+
+  }
+
 }
 
 /**
@@ -69,20 +89,11 @@ export namespace InGroup {
  */
 export abstract class InGroupControls<Model>
     extends InContainerControls
-    implements EventSender<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]> {
+    implements EventSender<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>, EventKeeper<[InGroup.Snapshot<Model>]> {
 
   abstract readonly on: OnEvent<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>;
 
-  abstract entries(): IterableIterator<InGroup.Entry<Model>>;
-
-  /**
-   * Returns input control with the given key, if present.
-   *
-   * @param key Control key, i.e. corresponding model property key.
-   *
-   * @returns Target control, or `undefined` if there is no control set for this key.
-   */
-  abstract get<K extends keyof Model>(key: K): InGroup.Controls<Model>[K] | undefined;
+  abstract readonly read: AfterEvent<[InGroup.Snapshot<Model>]>;
 
   /**
    * Sets input control with the given key.
@@ -124,69 +135,166 @@ export interface InGroupControls<Model> {
 
   readonly [OnEvent__symbol]: OnEvent<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>;
 
+  readonly [AfterEvent__symbol]: AfterEvent<[InGroup.Snapshot<Model>]>;
+
 }
 
 type ControlEntry = readonly [InControl<any>, EventInterest]; // When event interest is done the control is unused
 
 const controlReplacedReason = {};
 
-class InGroupControlControls<Model> extends InGroupControls<Model> {
+class InGroupSnapshot<Model> implements InGroup.Snapshot<Model> {
 
-  readonly read: AfterEvent<[this]>;
-  private readonly _on = new EventEmitter<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>();
+  private readonly _map = new Map<keyof Model, InControl<any>>();
+
+  constructor(map: Map<keyof Model, ControlEntry>) {
+    for (const [key, [control]] of map.entries()) {
+      this._map.set(key, control);
+    }
+  }
+
+  get<K extends keyof Model>(key: K): InGroup.Controls<Model>[K] | undefined {
+    return this._map.get(key) as InGroup.Controls<Model>[K] | undefined;
+  }
+
+  [Symbol.iterator](): IterableIterator<InControl<any>> {
+    return this._map.values();
+  }
+
+  entries(): IterableIterator<InGroup.Entry<Model>> {
+    return this._map.entries();
+  }
+
+}
+
+class InGroupEditor<Model> implements DynamicMap.Editor<keyof Model, ControlEntry, InGroup.Snapshot<Model>> {
+
   private readonly _map = new Map<keyof Model, ControlEntry>();
 
   constructor(private readonly _group: InGroupControl<Model>) {
+  }
+
+  set(key: keyof Model, value?: ControlEntry): ControlEntry | undefined {
+
+    const replaced = this._map.get(key);
+
+    if (value) {
+      if (replaced && replaced[0] === value[0]) {
+        // Do not replace control with itself
+        value[1].off(controlReplacedReason);
+        return value;
+      }
+      this._map.set(key, value);
+    } else {
+      this._map.delete(key);
+    }
+    if (replaced) {
+      replaced[1].off(controlReplacedReason);
+    }
+
+    return replaced;
+  }
+
+  snapshot(): InGroup.Snapshot<Model> {
+    return new InGroupSnapshot<Model>(this._map);
+  }
+
+  postUpdate(added: [keyof Model, ControlEntry][]) {
+
+    let newModel: Model | undefined;
+
+    added.forEach(([key, [control, interest]]) => {
+      interest.needs(control.aspect(InParents).add(this._group, key).needs(interest));
+
+      const value = control.it;
+
+      if (newModel) {
+        newModel[key] = value;
+      } else {
+
+        const model = this._group.it;
+
+        if (model[key] !== value) {
+          newModel = { ...model, [key]: value };
+        }
+      }
+    });
+
+    if (newModel) {
+      this._group.it = newModel;
+    }
+
+    added.forEach(([key, [control, interest]]) => {
+
+      const controlInterest = control.read(value => {
+        if (this._group.it[key] !== value) {
+          this._group.it = {
+            ...this._group.it,
+            [key]: value,
+          };
+        }
+      }).needs(interest);
+
+      interest.needs(controlInterest);
+    });
+  }
+
+}
+
+class InGroupControlControls<Model> extends InGroupControls<Model> {
+
+  private _map: DynamicMap<keyof Model, ControlEntry, InGroup.Snapshot<Model>>;
+  readonly _interest = eventInterest(noop);
+  readonly on: OnEvent<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>;
+
+  constructor(group: InGroupControl<Model>) {
     super();
 
     const self = this;
 
-    this.read = afterEventFrom(
-        this.on.thru(
-            valueProvider(this),
-        ),
-        valuesProvider(this));
-    _group.read(applyModelToControls);
+    this._map = dynamicMap(new InGroupEditor(group));
+    this.on = this._map.on.thru(
+        (added, removed) => nextArgs(
+            added.map(controlEntryToGroupEntry),
+            removed.map(controlEntryToGroupEntry)),
+    );
+
+    group.read(applyModelToControls);
 
     function applyModelToControls(model: Model) {
+      self._map.read.once(snapshot => {
 
-      const withValues = new Set<keyof Model>();
+        const withValues = new Set<keyof Model>();
 
-      for (const k of Object.keys(model)) {
+        for (const k of Object.keys(model)) {
 
-        const key = k as keyof Model;
-        const value = model[key];
+          const key = k as keyof Model;
+          const value = model[key];
 
-        withValues.add(key);
+          withValues.add(key);
 
-        const control = self.get(key);
+          const control = snapshot.get(key);
 
-        if (isControl(control)) {
-          control.it = value;
+          if (isControl(control)) {
+            control.it = value;
+          }
         }
-      }
 
-      // Assign `undefined` to controls without values in model
-      for (const [k, [control]] of self._map.entries()) {
+        // Assign `undefined` to controls without values in model
+        for (const [k, control] of snapshot.entries()) {
 
-        const key = k as keyof Model;
+          const key = k as keyof Model;
 
-        if (!withValues.has(key)) {
-          control.it = undefined;
+          if (!withValues.has(key)) {
+            control.it = undefined!;
+          }
         }
-      }
+      });
     }
   }
 
-  get on(): OnEvent<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]> {
-    return this._on.on;
-  }
-
-  get<K extends keyof Model>(key: K): InGroup.Controls<Model>[K] | undefined {
-
-    const entry = this._map.get(key);
-
-    return entry && entry[0] as InGroup.Controls<Model>[K];
+  get read(): AfterEvent<[InGroup.Snapshot<Model>]> {
+    return this._map.read;
   }
 
   set<K extends keyof Model>(
@@ -194,90 +302,41 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
       newControl?: InControl<Model[K]> | undefined): this {
 
     const self = this;
-    const group = this._group;
-    const added: InGroup.Entry<Model>[] = [];
-    const removed: InGroup.Entry<Model>[] = [];
 
     if (typeof keyOrControls === 'object') {
-      for (const k of Object.keys(keyOrControls)) {
-
-        const key = k as keyof Model;
-        const control = keyOrControls[key];
-
-        setControl(key, control);
-      }
+      this._map.from(allControls(keyOrControls));
     } else {
-      setControl(keyOrControls, newControl);
-    }
-
-    if (added.length || removed.length) {
-      this._on.send(added, removed);
+      this._map.set(keyOrControls, controlEntry(keyOrControls, newControl));
     }
 
     return this;
 
-    function setControl<KK extends keyof Model>(key: KK, control: InControl<Model[KK]> | undefined) {
+    function *allControls(
+        controls: InGroup.Controls<Model>,
+    ): IterableIterator<[keyof Model, ControlEntry | undefined]> {
+      for (const k of Object.keys(controls)) {
 
-      const existing = self._map.get(key);
+        const key = k as keyof Model;
 
-      if (existing) {
-
-        const [existingControl, existingInterest] = existing;
-
-        if (existingControl === control) {
-          return; // Control is added already
-        }
-
-        if (!control) {
-          removeControl(key);
-        }
-        existingInterest.off(controlReplacedReason); // Removing control before replacing
-        removed.push([key, existingControl]);
-      }
-
-      if (isControl(control)) {
-
-        const interest = control.read(value => {
-          if (group.it[key] !== value) {
-            group.it = {
-              ...group.it,
-              [key]: value,
-            };
-          }
-        });
-
-        const entry: ControlEntry = [control, interest];
-
-        added.push([key, control]);
-        self._map.set(key, entry);
-        control.aspect(InParents).add(group, key).needs(interest);
-
-        interest.whenDone(reason => {
-          if (reason !== controlReplacedReason) {
-            removeControl(key);
-            self._on.send([], [[key, control]]);
-          }
-        });
+        yield [key, controlEntry(key, controls[key])];
       }
     }
 
-    function removeControl<KK extends keyof Model>(key: KK) {
-      self._map.delete(key);
+    function controlEntry(
+        key: keyof Model,
+        control: InControl<any> | undefined): ControlEntry | undefined {
+      return control && [control, eventInterest(reason => {
+        if (reason !== controlReplacedReason) {
+          self._map.delete(key);
+        }
+      }).needs(self._interest)];
     }
   }
 
-  * entries(): IterableIterator<InGroup.Entry<Model>> {
-    for (const [key, [control]] of this._map.entries()) {
-      yield [key, control];
-    }
-  }
+}
 
-  _done(reason?: any) {
-    for (const [, interest] of this._map.values()) {
-      interest.off(reason);
-    }
-  }
-
+function controlEntryToGroupEntry<Model>([key, [control]]: [keyof Model, ControlEntry]): InGroup.Entry<Model> {
+    return [key, control];
 }
 
 class InGroupControl<Model> extends InGroup<Model> {
@@ -305,7 +364,7 @@ class InGroupControl<Model> extends InGroup<Model> {
 
   done(reason?: any): this {
     this._model.done(reason);
-    this.controls._done(reason);
+    this.controls._interest.off(reason);
     return this;
   }
 

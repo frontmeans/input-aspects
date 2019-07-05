@@ -41,22 +41,25 @@ describe('InGroup', () => {
 
     let onModelUpdate: Mock<void, [TestModel, TestModel]>;
     let onUpdate: Mock<void, Parameters<InGroupControls<TestModel>['on']>>;
-    let readControls: Mock<void, [InGroupControls<TestModel>]>;
+    let readSnapshot: Mock<void, [InGroup.Snapshot<TestModel>]>;
+    let lastSnapshot: InGroup.Snapshot<TestModel>;
 
     beforeEach(() => {
       group.on(onModelUpdate = jest.fn());
       group.controls.on(onUpdate = jest.fn());
-      group.controls.read(readControls = jest.fn());
-      expect(readControls).toHaveBeenCalledWith(group.controls);
-      readControls.mockClear();
+      group.controls.read(readSnapshot = jest.fn(snapshot => {
+        lastSnapshot = snapshot;
+      }));
+      expect(readSnapshot).toHaveBeenCalledWith(lastSnapshot);
+      readSnapshot.mockClear();
     });
 
     it('contain initial controls', () => {
-      expect([...group.controls]).toEqual([ctrl1, ctrl2]);
-      expect([...group.controls.entries()]).toEqual([['ctrl1', ctrl1], ['ctrl2', ctrl2]]);
-      expect(group.controls.get('ctrl1')).toBe(ctrl1);
-      expect(group.controls.get('ctrl2')).toBe(ctrl2);
-      expect(group.controls.get('ctrl3')).toBeUndefined();
+      expect([...lastSnapshot]).toEqual([ctrl1, ctrl2]);
+      expect([...lastSnapshot.entries()]).toEqual([['ctrl1', ctrl1], ['ctrl2', ctrl2]]);
+      expect(lastSnapshot.get('ctrl1')).toBe(ctrl1);
+      expect(lastSnapshot.get('ctrl2')).toBe(ctrl2);
+      expect(lastSnapshot.get('ctrl3')).toBeUndefined();
     });
 
     it('updates the model by control', () => {
@@ -67,13 +70,13 @@ describe('InGroup', () => {
     describe('set', () => {
       it('adds control', () => {
         group.controls.set('ctrl3', ctrl3);
-        expect([...group.controls]).toEqual([ctrl1, ctrl2, ctrl3]);
-        expect([...group.controls.entries()]).toEqual([['ctrl1', ctrl1], ['ctrl2', ctrl2], ['ctrl3', ctrl3]]);
-        expect(group.controls.get('ctrl1')).toBe(ctrl1);
-        expect(group.controls.get('ctrl2')).toBe(ctrl2);
-        expect(group.controls.get('ctrl3')).toBe(ctrl3);
+        expect([...lastSnapshot]).toEqual([ctrl1, ctrl2, ctrl3]);
+        expect([...lastSnapshot.entries()]).toEqual([['ctrl1', ctrl1], ['ctrl2', ctrl2], ['ctrl3', ctrl3]]);
+        expect(lastSnapshot.get('ctrl1')).toBe(ctrl1);
+        expect(lastSnapshot.get('ctrl2')).toBe(ctrl2);
+        expect(lastSnapshot.get('ctrl3')).toBe(ctrl3);
         expect(onUpdate).toHaveBeenCalledWith([['ctrl3', ctrl3]], []);
-        expect(readControls).toHaveBeenCalledTimes(1);
+        expect(readSnapshot).toHaveBeenCalledTimes(1);
         expect(parentsOf(ctrl3)).toEqual([[group, 'ctrl3']]);
       });
       it('replaces control', () => {
@@ -82,26 +85,26 @@ describe('InGroup', () => {
 
         group.controls.set('ctrl1', ctrl4);
 
-        expect([...group.controls]).toEqual([ctrl4, ctrl2]);
-        expect([...group.controls.entries()]).toEqual([['ctrl1', ctrl4], ['ctrl2', ctrl2]]);
-        expect(group.controls.get('ctrl1')).toBe(ctrl4);
-        expect(group.controls.get('ctrl2')).toBe(ctrl2);
-        expect(group.controls.get('ctrl3')).toBeUndefined();
+        expect([...lastSnapshot]).toEqual([ctrl4, ctrl2]);
+        expect([...lastSnapshot.entries()]).toEqual([['ctrl1', ctrl4], ['ctrl2', ctrl2]]);
+        expect(lastSnapshot.get('ctrl1')).toBe(ctrl4);
+        expect(lastSnapshot.get('ctrl2')).toBe(ctrl2);
+        expect(lastSnapshot.get('ctrl3')).toBeUndefined();
         expect(onUpdate).toHaveBeenCalledWith([['ctrl1', ctrl4]], [['ctrl1', ctrl1]]);
-        expect(readControls).toHaveBeenCalledTimes(1);
+        expect(readSnapshot).toHaveBeenCalledTimes(1);
         expect(parentsOf(ctrl1)).toHaveLength(0);
         expect(parentsOf(ctrl4)).toEqual([[group, 'ctrl1']]);
       });
       it('does not replace control with itself', () => {
         group.controls.set('ctrl1', ctrl1);
 
-        expect([...group.controls]).toEqual([ctrl1, ctrl2]);
-        expect([...group.controls.entries()]).toEqual([['ctrl1', ctrl1], ['ctrl2', ctrl2]]);
-        expect(group.controls.get('ctrl1')).toBe(ctrl1);
-        expect(group.controls.get('ctrl2')).toBe(ctrl2);
-        expect(group.controls.get('ctrl3')).toBeUndefined();
+        expect([...lastSnapshot]).toEqual([ctrl1, ctrl2]);
+        expect([...lastSnapshot.entries()]).toEqual([['ctrl1', ctrl1], ['ctrl2', ctrl2]]);
+        expect(lastSnapshot.get('ctrl1')).toBe(ctrl1);
+        expect(lastSnapshot.get('ctrl2')).toBe(ctrl2);
+        expect(lastSnapshot.get('ctrl3')).toBeUndefined();
         expect(onUpdate).not.toHaveBeenCalled();
-        expect(readControls).not.toHaveBeenCalled();
+        expect(readSnapshot).not.toHaveBeenCalled();
       });
       it('updates container model', () => {
 
@@ -121,27 +124,27 @@ describe('InGroup', () => {
           ctrl1: ctrl4,
           ctrl3,
         });
-        expect([...group.controls]).toEqual([ctrl4, ctrl2, ctrl3]);
-        expect([...group.controls.entries()]).toEqual([['ctrl1', ctrl4], ['ctrl2', ctrl2], ['ctrl3', ctrl3]]);
-        expect(group.controls.get('ctrl1')).toBe(ctrl4);
-        expect(group.controls.get('ctrl2')).toBe(ctrl2);
-        expect(group.controls.get('ctrl3')).toBe(ctrl3);
+        expect([...lastSnapshot]).toEqual([ctrl4, ctrl2, ctrl3]);
+        expect([...lastSnapshot.entries()]).toEqual([['ctrl1', ctrl4], ['ctrl2', ctrl2], ['ctrl3', ctrl3]]);
+        expect(lastSnapshot.get('ctrl1')).toBe(ctrl4);
+        expect(lastSnapshot.get('ctrl2')).toBe(ctrl2);
+        expect(lastSnapshot.get('ctrl3')).toBe(ctrl3);
         expect(onUpdate).toHaveBeenCalledWith([['ctrl1', ctrl4], ['ctrl3', ctrl3]], [['ctrl1', ctrl1]]);
-        expect(readControls).toHaveBeenCalledTimes(1);
+        expect(readSnapshot).toHaveBeenCalledTimes(1);
       });
     });
 
     describe('remove', () => {
       it('removes control', () => {
         group.controls.remove('ctrl2');
-        expect([...group.controls]).toEqual([ctrl1]);
-        expect([...group.controls.entries()]).toEqual([['ctrl1', ctrl1]]);
-        expect(group.controls.get('ctrl1')).toBe(ctrl1);
-        expect(group.controls.get('ctrl2')).toBeUndefined();
-        expect(group.controls.get('ctrl3')).toBeUndefined();
+        expect([...lastSnapshot]).toEqual([ctrl1]);
+        expect([...lastSnapshot.entries()]).toEqual([['ctrl1', ctrl1]]);
+        expect(lastSnapshot.get('ctrl1')).toBe(ctrl1);
+        expect(lastSnapshot.get('ctrl2')).toBeUndefined();
+        expect(lastSnapshot.get('ctrl3')).toBeUndefined();
         expect(onUpdate).toHaveBeenCalledWith([], [['ctrl2', ctrl2]]);
         expect(onUpdate).toHaveBeenCalledTimes(1);
-        expect(readControls).toHaveBeenCalledTimes(1);
+        expect(readSnapshot).toHaveBeenCalledTimes(1);
         expect(parentsOf(ctrl2)).toHaveLength(0);
       });
       it('does not update container model', () => {
@@ -200,7 +203,13 @@ describe('InGroup', () => {
   describe('done', () => {
     it('removes all controls', () => {
       group.done();
-      expect([...group.controls]).toHaveLength(0);
+
+      let lastSnapshot!: InGroup.Snapshot<TestModel>;
+
+      group.controls.read(snapshot => lastSnapshot = snapshot);
+
+      // noinspection JSUnusedAssignment
+      expect([...lastSnapshot]).toHaveLength(0);
     });
     it('stops model updates', () => {
       group.done();

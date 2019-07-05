@@ -49,6 +49,24 @@ export namespace InContainer {
    */
   export type Entry = readonly [PropertyKey, InControl<any>];
 
+  /**
+   * A snapshot of input controls within container.
+   *
+   * Extends an `Iterable` interface by iterating over all nested controls.
+   */
+  export interface Snapshot extends Iterable<InControl<any>> {
+
+    [Symbol.iterator](): IterableIterator<InControl<any>>;
+
+    /**
+     * Iterates over nested control entries.
+     *
+     * @returns An iterable iterator over entries.
+     */
+    entries(): IterableIterator<InContainer.Entry>;
+
+  }
+
 }
 
 /**
@@ -56,16 +74,12 @@ export namespace InContainer {
  *
  * Allows to track container contents. I.e. nested controls, their additions and removal.
  *
- * Implements an `Iterable` interface by iterating over all nested controls.
- *
  * Implements `EventSender` interface by sending arrays of added and removed control entries.
  *
- * Implements `EventKeeper` interface by sending controls instance each time its contents changed.
+ * Implements `EventKeeper` interface by sending container contents instance each time it is changed.
  */
 export abstract class InContainerControls
-    implements Iterable<InControl<any>>,
-        EventSender<[InContainer.Entry[], InContainer.Entry[]]>,
-        EventKeeper<[InContainerControls]> {
+     implements EventSender<[InContainer.Entry[], InContainer.Entry[]]>, EventKeeper<[InContainer.Snapshot]> {
 
   /**
    * An `OnEvent` registrar of container updates receivers.
@@ -82,27 +96,14 @@ export abstract class InContainerControls
   }
 
   /**
-   * An `AfterEvent` registrar of updated controls receivers.
+   * An `AfterEvent` registrar of updated container contents receivers.
    *
    * The `[AfterEvent__symbol]` property is an alias of this one.
    */
-  abstract readonly read: AfterEvent<[this]>;
+  abstract readonly read: AfterEvent<[InContainer.Snapshot]>;
 
-  get [AfterEvent__symbol](): AfterEvent<[this]> {
+  get [AfterEvent__symbol](): AfterEvent<[InContainer.Snapshot]> {
     return this.read;
-  }
-
-  /**
-   * Iterates over nested control entries.
-   *
-   * @returns An iterable iterator over entries.
-   */
-  abstract entries(): IterableIterator<InContainer.Entry>;
-
-  * [Symbol.iterator](): IterableIterator<InControl<any>> {
-    for (const [, control] of this.entries()) {
-      yield control;
-    }
   }
 
 }
