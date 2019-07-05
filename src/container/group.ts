@@ -173,7 +173,7 @@ class InGroupSnapshot<Model> implements InGroup.Snapshot<Model> {
 class InGroupEditor<Model> implements DynamicMap.Editor<keyof Model, ControlEntry, InGroup.Snapshot<Model>> {
 
   private _map = new Map<keyof Model, ControlEntry>();
-  private _shot = false;
+  private _shot?: InGroupSnapshot<Model>;
 
   set(key: keyof Model, value?: ControlEntry): ControlEntry | undefined {
 
@@ -186,9 +186,9 @@ class InGroupEditor<Model> implements DynamicMap.Editor<keyof Model, ControlEntr
         value[1].off(controlReplacedReason);
         return value;
       }
-      map().set(key, value);
+      modify().set(key, value);
     } else if (replaced) {
-      map().delete(key);
+      modify().delete(key);
     }
     if (replaced) {
       replaced[1].off(controlReplacedReason);
@@ -196,25 +196,24 @@ class InGroupEditor<Model> implements DynamicMap.Editor<keyof Model, ControlEntr
 
     return replaced;
 
-    function map(): Map<keyof Model, ControlEntry> {
+    function modify(): Map<keyof Model, ControlEntry> {
       if (!self._shot) {
         return self._map;
       }
 
-      const modified = new Map<keyof Model, ControlEntry>();
+      const map = new Map<keyof Model, ControlEntry>();
 
       for (const [k, e] of self._map.entries()) {
-        modified.set(k, e);
+        map.set(k, e);
       }
-      self._shot = false;
+      self._shot = undefined;
 
-      return self._map = modified;
+      return self._map = map;
     }
   }
 
   snapshot(): InGroup.Snapshot<Model> {
-    this._shot = true;
-    return new InGroupSnapshot<Model>(this._map);
+    return this._shot || (this._shot = new InGroupSnapshot<Model>(this._map));
   }
 
 }
