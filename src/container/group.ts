@@ -171,9 +171,6 @@ class InGroupEditor<Model> implements DynamicMap.Editor<keyof Model, ControlEntr
 
   private readonly _map = new Map<keyof Model, ControlEntry>();
 
-  constructor(private readonly _group: InGroupControl<Model>) {
-  }
-
   set(key: keyof Model, value?: ControlEntry): ControlEntry | undefined {
 
     const replaced = this._map.get(key);
@@ -199,46 +196,6 @@ class InGroupEditor<Model> implements DynamicMap.Editor<keyof Model, ControlEntr
     return new InGroupSnapshot<Model>(this._map);
   }
 
-  postUpdate(added: [keyof Model, ControlEntry][]) {
-
-    let newModel: Model | undefined;
-
-    added.forEach(([key, [control, interest]]) => {
-      interest.needs(control.aspect(InParents).add(this._group, key).needs(interest));
-
-      const value = control.it;
-
-      if (newModel) {
-        newModel[key] = value;
-      } else {
-
-        const model = this._group.it;
-
-        if (model[key] !== value) {
-          newModel = { ...model, [key]: value };
-        }
-      }
-    });
-
-    if (newModel) {
-      this._group.it = newModel;
-    }
-
-    added.forEach(([key, [control, interest]]) => {
-
-      const controlInterest = control.read(value => {
-        if (this._group.it[key] !== value) {
-          this._group.it = {
-            ...this._group.it,
-            [key]: value,
-          };
-        }
-      }).needs(interest);
-
-      interest.needs(controlInterest);
-    });
-  }
-
 }
 
 class InGroupControlControls<Model> extends InGroupControls<Model> {
@@ -252,14 +209,54 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
 
     const self = this;
 
-    this._map = dynamicMap(new InGroupEditor(group));
+    this._map = dynamicMap(new InGroupEditor());
     this.on = this._map.on.thru(
         (added, removed) => nextArgs(
             added.map(controlEntryToGroupEntry),
             removed.map(controlEntryToGroupEntry)),
     );
-
+    this._map.on(applyControlsToModel);
     group.read(applyModelToControls);
+
+    function applyControlsToModel(added: [keyof Model, ControlEntry][]) {
+
+      let newModel: Model | undefined;
+
+      added.forEach(([key, [control, interest]]) => {
+        interest.needs(control.aspect(InParents).add(group, key).needs(interest));
+
+        const value = control.it;
+
+        if (newModel) {
+          newModel[key] = value;
+        } else {
+
+          const model = group.it;
+
+          if (model[key] !== value) {
+            newModel = { ...model, [key]: value };
+          }
+        }
+      });
+
+      if (newModel) {
+        group.it = newModel;
+      }
+
+      added.forEach(([key, [control, interest]]) => {
+
+        const controlInterest = control.read(value => {
+          if (group.it[key] !== value) {
+            group.it = {
+              ...group.it,
+              [key]: value,
+            };
+          }
+        }).needs(interest);
+
+        interest.needs(controlInterest);
+      });
+    }
 
     function applyModelToControls(model: Model) {
       self._map.read.once(snapshot => {

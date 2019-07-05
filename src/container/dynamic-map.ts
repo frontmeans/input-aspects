@@ -118,8 +118,6 @@ export namespace DynamicMap {
      */
     snapshot(): S;
 
-    postUpdate(added: [K, V][], removed: [K, V][]): void;
-
   }
 
 }
@@ -168,7 +166,6 @@ export function dynamicMap<K, V, S>(editor: DynamicMap.Editor<K, V, S>): Dynamic
 
       if (added.length || removed.length) {
         updates.send(added, removed);
-        editor.postUpdate(added, removed);
       }
 
       return this;
