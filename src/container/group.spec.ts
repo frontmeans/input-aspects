@@ -147,6 +147,10 @@ describe('InGroup', () => {
         expect(readSnapshot).toHaveBeenCalledTimes(1);
         expect(parentsOf(ctrl2)).toHaveLength(0);
       });
+      it('does nothing when there is no such control', () => {
+        group.controls.remove(('ctrl3'));
+        expect(onUpdate).not.toHaveBeenCalled();
+      });
       it('does not update container model', () => {
         group.controls.remove('ctrl2');
         expect(group.it).toEqual({ ctrl1: 'some', ctrl2: 'other' });

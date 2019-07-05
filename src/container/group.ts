@@ -146,34 +146,38 @@ const controlReplacedReason = {};
 
 class InGroupSnapshot<Model> implements InGroup.Snapshot<Model> {
 
-  private readonly _map = new Map<keyof Model, InControl<any>>();
-
-  constructor(map: Map<keyof Model, ControlEntry>) {
-    for (const [key, [control]] of map.entries()) {
-      this._map.set(key, control);
-    }
+  constructor(private readonly _map: Map<keyof Model, ControlEntry>) {
   }
 
   get<K extends keyof Model>(key: K): InGroup.Controls<Model>[K] | undefined {
-    return this._map.get(key) as InGroup.Controls<Model>[K] | undefined;
+
+    const entry = this._map.get(key);
+
+    return entry && entry[0] as InGroup.Controls<Model>[K];
   }
 
-  [Symbol.iterator](): IterableIterator<InControl<any>> {
-    return this._map.values();
+  * [Symbol.iterator](): IterableIterator<InControl<any>> {
+    for (const [control] of this._map.values()) {
+      yield control;
+    }
   }
 
-  entries(): IterableIterator<InGroup.Entry<Model>> {
-    return this._map.entries();
+  * entries(): IterableIterator<InGroup.Entry<Model>> {
+    for (const [key, [control]] of this._map.entries()) {
+      yield [key, control];
+    }
   }
 
 }
 
 class InGroupEditor<Model> implements DynamicMap.Editor<keyof Model, ControlEntry, InGroup.Snapshot<Model>> {
 
-  private readonly _map = new Map<keyof Model, ControlEntry>();
+  private _map = new Map<keyof Model, ControlEntry>();
+  private _shot = false;
 
   set(key: keyof Model, value?: ControlEntry): ControlEntry | undefined {
 
+    const self = this;
     const replaced = this._map.get(key);
 
     if (value) {
@@ -182,18 +186,34 @@ class InGroupEditor<Model> implements DynamicMap.Editor<keyof Model, ControlEntr
         value[1].off(controlReplacedReason);
         return value;
       }
-      this._map.set(key, value);
-    } else {
-      this._map.delete(key);
+      map().set(key, value);
+    } else if (replaced) {
+      map().delete(key);
     }
     if (replaced) {
       replaced[1].off(controlReplacedReason);
     }
 
     return replaced;
+
+    function map(): Map<keyof Model, ControlEntry> {
+      if (!self._shot) {
+        return self._map;
+      }
+
+      const modified = new Map<keyof Model, ControlEntry>();
+
+      for (const [k, e] of self._map.entries()) {
+        modified.set(k, e);
+      }
+      self._shot = false;
+
+      return self._map = modified;
+    }
   }
 
   snapshot(): InGroup.Snapshot<Model> {
+    this._shot = true;
     return new InGroupSnapshot<Model>(this._map);
   }
 
