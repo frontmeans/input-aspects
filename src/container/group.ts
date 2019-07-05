@@ -2,6 +2,8 @@ import { nextArgs, noop } from 'call-thru';
 import {
   AfterEvent,
   AfterEvent__symbol,
+  dynamicMap,
+  DynamicMap,
   eventInterest,
   EventInterest,
   EventKeeper,
@@ -13,7 +15,6 @@ import {
 } from 'fun-events';
 import { InControl } from '../control';
 import { InContainer, InContainerControls } from './container';
-import { dynamicMap, DynamicMap } from './dynamic-map';
 import { InParents } from './parents.aspect';
 
 /**
