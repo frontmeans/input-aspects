@@ -1,4 +1,4 @@
-import { nextArgs, noop } from 'call-thru';
+import { nextArgs } from 'call-thru';
 import {
   AfterEvent,
   AfterEvent__symbol,
@@ -22,8 +22,8 @@ import { InParents } from './parents.aspect';
  *
  * Nested controls are identified by keys and can be added and removed via `controls` property.
  *
- * Group value is an object formed by nested control values. The model property is the one of the control with the same
- * key, if present. When model is updated corresponding controls are also updated.
+ * Group value (called model) is an object formed by nested control values. The model property value is the one of the
+ * control with the same key, if present. When model is updated corresponding controls are also updated.
  *
  * @typeparam Model Group model type, i.e. its value type.
  */
@@ -65,6 +65,8 @@ export namespace InGroup {
 
   /**
    * A snapshot of input control group controls.
+   *
+   * @typeparam Model Group model type, i.e. its value type.
    */
   export interface Snapshot<Model> extends InContainer.Snapshot {
 
@@ -172,9 +174,12 @@ class InGroupSnapshot<Model> implements InGroup.Snapshot<Model> {
 
 class InGroupMap<Model> {
 
-  readonly _interest = eventInterest(noop);
+  readonly _interest = eventInterest();
   private _map = new Map<keyof Model, ControlEntry>();
   private _shot?: InGroupSnapshot<Model>;
+
+  constructor(private readonly _controls: InGroupControlControls<Model>) {
+  }
 
   set<K extends keyof Model>(
       key: K,
@@ -197,7 +202,7 @@ class InGroupMap<Model> {
 
       const entry: ControlEntry = [control, eventInterest(reason => {
         if (reason !== controlReplacedReason) {
-          self._map.delete(key);
+          self._controls.remove(key);
         }
       }).needs(self._interest)];
 
@@ -211,21 +216,19 @@ class InGroupMap<Model> {
       replaced[1].off(controlReplacedReason);
     }
 
-    return replaced;
-
     function modify(): Map<keyof Model, ControlEntry> {
-      if (!self._shot) {
-        return self._map;
+      if (self._shot) {
+
+        const map = new Map<keyof Model, ControlEntry>();
+
+        for (const [k, e] of self._map.entries()) {
+          map.set(k, e);
+        }
+        self._shot = undefined;
+        self._map = map;
       }
 
-      const map = new Map<keyof Model, ControlEntry>();
-
-      for (const [k, e] of self._map.entries()) {
-        map.set(k, e);
-      }
-      self._shot = undefined;
-
-      return self._map = map;
+      return self._map;
     }
   }
 
@@ -247,7 +250,7 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
 
     const self = this;
 
-    this._map = new InGroupMap<Model>();
+    this._map = new InGroupMap<Model>(this);
     this.on = this._updates.on.thru(
         (added, removed) => nextArgs(
             added.map(controlEntryToGroupEntry),
@@ -399,6 +402,7 @@ class InGroupControl<Model> extends InGroup<Model> {
 /**
  * Constructs input controls group.
  *
+ * @typeparam Model Group model type, i.e. its value type.
  * @param model Initial model of the group.
  * @param element Optional HTML element the group is constructed for.
  *
