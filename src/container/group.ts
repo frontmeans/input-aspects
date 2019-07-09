@@ -2,8 +2,8 @@ import { nextArgs, noop } from 'call-thru';
 import {
   AfterEvent,
   AfterEvent__symbol,
-  dynamicMap,
-  DynamicMap,
+  afterEventOr,
+  EventEmitter,
   eventInterest,
   EventInterest,
   EventKeeper,
@@ -170,24 +170,41 @@ class InGroupSnapshot<Model> implements InGroup.Snapshot<Model> {
 
 }
 
-class InGroupEditor<Model> implements DynamicMap.Editor<keyof Model, ControlEntry, InGroup.Snapshot<Model>> {
+class InGroupMap<Model> {
 
+  readonly _interest = eventInterest(noop);
   private _map = new Map<keyof Model, ControlEntry>();
   private _shot?: InGroupSnapshot<Model>;
 
-  set(key: keyof Model, value?: ControlEntry): ControlEntry | undefined {
+  set<K extends keyof Model>(
+      key: K,
+      control: InControl<Model[K]> | undefined,
+      added: [keyof Model, ControlEntry][],
+      removed: [keyof Model, ControlEntry][],
+  ) {
 
     const self = this;
     const replaced = this._map.get(key);
 
-    if (value) {
-      if (replaced && replaced[0] === value[0]) {
-        // Do not replace control with itself
-        value[1].off(controlReplacedReason);
-        return value;
+    if (control) {
+      if (replaced) {
+        if (replaced[0] === control) {
+          // Do not replace control with itself
+          return;
+        }
+        removed.push([key, replaced]);
       }
-      modify().set(key, value);
+
+      const entry: ControlEntry = [control, eventInterest(reason => {
+        if (reason !== controlReplacedReason) {
+          self._map.delete(key);
+        }
+      }).needs(self._interest)];
+
+      modify().set(key, entry);
+      added.push([key, entry]);
     } else if (replaced) {
+      removed.push([key, replaced]);
       modify().delete(key);
     }
     if (replaced) {
@@ -220,25 +237,89 @@ class InGroupEditor<Model> implements DynamicMap.Editor<keyof Model, ControlEntr
 
 class InGroupControlControls<Model> extends InGroupControls<Model> {
 
-  private _map: DynamicMap<keyof Model, ControlEntry, InGroup.Snapshot<Model>>;
-  readonly _interest = eventInterest(noop);
+  private readonly _map: InGroupMap<Model>;
+  private readonly _updates = new EventEmitter<[[keyof Model, ControlEntry][], [keyof Model, ControlEntry][]]>();
   readonly on: OnEvent<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>;
+  readonly read: AfterEvent<[InGroup.Snapshot<Model>]>;
 
-  constructor(group: InGroupControl<Model>) {
+  constructor(private readonly _group: InGroupControl<Model>) {
     super();
 
     const self = this;
 
-    this._map = dynamicMap(new InGroupEditor());
-    this.on = this._map.on.thru(
+    this._map = new InGroupMap<Model>();
+    this.on = this._updates.on.thru(
         (added, removed) => nextArgs(
             added.map(controlEntryToGroupEntry),
             removed.map(controlEntryToGroupEntry)),
     );
-    this._map.on(applyControlsToModel);
-    group.read(applyModelToControls);
+    this.read = afterEventOr(
+        this._updates.on.thru(
+            () => this._map.snapshot(),
+        ),
+        () => [this._map.snapshot()]);
+    this._map._interest.needs(_group.read(applyModelToControls));
 
-    function applyControlsToModel(added: [keyof Model, ControlEntry][]) {
+    function applyModelToControls(model: Model) {
+      self.read.once(snapshot => {
+
+        const withValues = new Set<keyof Model>();
+
+        for (const k of Object.keys(model)) {
+
+          const key = k as keyof Model;
+          const value = model[key];
+
+          withValues.add(key);
+
+          const control = snapshot.get(key);
+
+          if (control) {
+            control.it = value;
+          }
+        }
+
+        // Assign `undefined` to controls without values in model
+        for (const [k, control] of snapshot.entries()) {
+
+          const key = k as keyof Model;
+
+          if (!withValues.has(key)) {
+            control.it = undefined!;
+          }
+        }
+      });
+    }
+  }
+
+  set<K extends keyof Model>(
+      keyOrControls: K | InGroup.Controls<Model>,
+      newControl?: InControl<Model[K]> | undefined): this {
+
+    const group = this._group;
+    const added: [keyof Model, ControlEntry][] = [];
+    const removed: [keyof Model, ControlEntry][] = [];
+
+    if (typeof keyOrControls === 'object') {
+      for (const k of Reflect.ownKeys(keyOrControls)) {
+
+        const key = k as keyof Model;
+
+        this._map.set(key, keyOrControls[key], added, removed);
+      }
+    } else {
+      this._map.set(keyOrControls, newControl, added, removed);
+    }
+    if (added.length || removed.length) {
+      this._updates.send(added, removed);
+      if (added.length) {
+        applyControlsToModel();
+      }
+    }
+
+    return this;
+
+    function applyControlsToModel() {
 
       let newModel: Model | undefined;
 
@@ -277,77 +358,6 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
         interest.needs(controlInterest);
       });
     }
-
-    function applyModelToControls(model: Model) {
-      self._map.read.once(snapshot => {
-
-        const withValues = new Set<keyof Model>();
-
-        for (const k of Object.keys(model)) {
-
-          const key = k as keyof Model;
-          const value = model[key];
-
-          withValues.add(key);
-
-          const control = snapshot.get(key);
-
-          if (isControl(control)) {
-            control.it = value;
-          }
-        }
-
-        // Assign `undefined` to controls without values in model
-        for (const [k, control] of snapshot.entries()) {
-
-          const key = k as keyof Model;
-
-          if (!withValues.has(key)) {
-            control.it = undefined!;
-          }
-        }
-      });
-    }
-  }
-
-  get read(): AfterEvent<[InGroup.Snapshot<Model>]> {
-    return this._map.read;
-  }
-
-  set<K extends keyof Model>(
-      keyOrControls: K | InGroup.Controls<Model>,
-      newControl?: InControl<Model[K]> | undefined): this {
-
-    const self = this;
-
-    if (typeof keyOrControls === 'object') {
-      this._map.from(allControls(keyOrControls));
-    } else {
-      this._map.set(keyOrControls, controlEntry(keyOrControls, newControl));
-    }
-
-    return this;
-
-    function *allControls(
-        controls: InGroup.Controls<Model>,
-    ): IterableIterator<[keyof Model, ControlEntry | undefined]> {
-      for (const k of Object.keys(controls)) {
-
-        const key = k as keyof Model;
-
-        yield [key, controlEntry(key, controls[key])];
-      }
-    }
-
-    function controlEntry(
-        key: keyof Model,
-        control: InControl<any> | undefined): ControlEntry | undefined {
-      return control && [control, eventInterest(reason => {
-        if (reason !== controlReplacedReason) {
-          self._map.delete(key);
-        }
-      }).needs(self._interest)];
-    }
   }
 
 }
@@ -381,14 +391,9 @@ class InGroupControl<Model> extends InGroup<Model> {
 
   done(reason?: any): this {
     this._model.done(reason);
-    this.controls._interest.off(reason);
     return this;
   }
 
-}
-
-function isControl<V>(control: InControl<V> | undefined): control is InControl<V> {
-  return !!control;
 }
 
 /**
