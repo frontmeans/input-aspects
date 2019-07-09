@@ -1,6 +1,15 @@
-import { AfterEvent, AfterEvent__symbol, afterEventFromAll, afterEventOf, EventKeeper, trackValue } from 'fun-events';
+import {
+  AfterEvent,
+  AfterEvent__symbol,
+  afterEventFromAll,
+  afterEventOf,
+  EventKeeper,
+  trackValue,
+  ValueTracker
+} from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
+import { InContainer } from '../container';
 import { InControl } from '../control';
 import { InElement } from '../element';
 import { InFocus } from './focus.aspect';
@@ -17,6 +26,8 @@ const InStatus__aspect: InAspect<InStatus> = {
  * Aggregate status aspect of user input.
  *
  * Collects and reports input status flags. Like whether the input ever had focus or being altered.
+ *
+ * Supports input elements and containers. For the rest of input controls always sends default status flags.
  *
  * Implements `EventKeeper` interface by sending collected status flags to receivers.
  */
@@ -89,13 +100,15 @@ export namespace InStatus {
 
 }
 
+const defaultFlags: InStatus.Flags = {
+  hasFocus: false,
+  touched: false,
+  edited: false,
+};
+
 class InControlStatus extends InStatus {
 
-  private readonly _flags = trackValue<InStatus.Flags>({
-    hasFocus: false,
-    touched: false,
-    edited: false,
-  });
+  private readonly _flags = trackValue<InStatus.Flags>(defaultFlags);
 
   get read() {
     return this._flags.read;
@@ -104,16 +117,16 @@ class InControlStatus extends InStatus {
   constructor(control: InControl<any>) {
     super();
 
-    const element = control.aspect(InElement);
-    const focus = control.aspect(InFocus);
+    let flags: AfterEvent<[InStatus.Flags]>;
+    const container = control.aspect(InContainer);
 
-    this._flags.by(
-        afterEventFromAll({
-          hasFocus: focus || afterEventOf(false),
-          edited: element ? element.input.keep.thru(({ event }) => !!event) : afterEventOf(false),
-        }).keep.thru(
-            ({ hasFocus: [hasFocus], edited: [edited] }) => updateFlags(this._flags.it, hasFocus, edited),
-        ));
+    if (container) {
+      flags = containerFlags(container);
+    } else {
+      flags = elementFlags(this._flags, control);
+    }
+
+    this._flags.by(flags);
   }
 
   markTouched(touched = true): this {
@@ -153,6 +166,22 @@ class InControlStatus extends InStatus {
 
 }
 
+function elementFlags(
+    origin: ValueTracker<InStatus.Flags>,
+    control: InControl<any>,
+): AfterEvent<[InStatus.Flags]> {
+
+  const element = control.aspect(InElement);
+  const focus = control.aspect(InFocus);
+
+  return afterEventFromAll({
+    hasFocus: focus || afterEventOf(false),
+    edited: element ? element.input.keep.thru(({ event }) => !!event) : afterEventOf(false),
+  }).keep.thru(
+      ({ hasFocus: [hasFocus], edited: [edited] }) => updateFlags(origin.it, hasFocus, edited),
+  );
+}
+
 function updateFlags(flags: InStatus.Flags, hasFocus: boolean, edited: boolean): InStatus.Flags {
   if (hasFocus) {
     flags = { ...flags, hasFocus, touched: true };
@@ -163,4 +192,42 @@ function updateFlags(flags: InStatus.Flags, hasFocus: boolean, edited: boolean):
     flags = { ...flags, edited, touched: true };
   }
   return flags;
+}
+
+function containerFlags(container: InContainer<any>): AfterEvent<[InStatus.Flags]> {
+  return container.controls.read.keep.dig_(
+          snapshot => afterEventFromAll(controlStatuses(snapshot))
+      ).keep.thru(
+          combineFlags
+      );
+}
+
+function controlStatuses(snapshot: InContainer.Snapshot): { [key: string]: InStatus } {
+  return [...snapshot].map(c => c.aspect(InStatus)) as unknown as { [key: string]: InStatus };
+}
+
+function combineFlags(flagMap: { [key: string]: [InStatus.Flags] }): InStatus.Flags {
+
+  const result: { -readonly [K in keyof InStatus.Flags]: InStatus.Flags[K] } = {
+    hasFocus: false,
+    touched: false,
+    edited: false,
+  };
+
+  for (const key of Object.keys(flagMap)) {
+
+    const [{ hasFocus, touched, edited }] = flagMap[key];
+
+    if (touched) {
+      result.touched = true;
+    }
+    if (hasFocus) {
+      result.hasFocus = result.touched = true;
+    }
+    if (edited) {
+      result.edited = result.touched = true;
+    }
+  }
+
+  return result;
 }

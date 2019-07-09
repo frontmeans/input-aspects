@@ -1,4 +1,5 @@
 import { afterEventFrom } from 'fun-events';
+import { InGroup, inGroup } from '../container';
 import { InElement, inElt } from '../element';
 import { inValue } from '../value';
 import { InStatus } from './status.aspect';
@@ -20,6 +21,24 @@ describe('InStatus', () => {
     element.remove();
   });
 
+  let group: InGroup<{ element: string }>;
+  let groupFlags: InStatus.Flags;
+
+  beforeEach(() => {
+    group = inGroup({ element: '' })
+        .setup(({ controls }) => controls.set('element', control));
+    const groupStatus = group.aspect(InStatus);
+
+    groupStatus.read(f => groupFlags = f);
+  });
+
+  describe('for empty group', () => {
+    it('has default flags', () => {
+      group.controls.remove('element');
+      expect(groupFlags).toEqual({ hasFocus: false, touched: false, edited: false });
+    });
+  });
+
   describe('read', () => {
     it('sends default flags when element is absent', () => {
 
@@ -32,24 +51,29 @@ describe('InStatus', () => {
     });
     it('sends default flags initially', () => {
       expect(flags).toEqual({ hasFocus: false, touched: false, edited: false });
+      expect(groupFlags).toEqual({ hasFocus: false, touched: false, edited: false });
     });
     it('sets `hasFocus` and `touched` when element gains focus', () => {
       element.focus();
       expect(flags).toEqual({ hasFocus: true, touched: true, edited: false });
+      expect(groupFlags).toEqual({ hasFocus: true, touched: true, edited: false });
     });
     it('resets `hasFocus`, but not `touched` when element loses focus', () => {
       element.focus();
       element.blur();
       expect(flags).toEqual({ hasFocus: false, touched: true, edited: false });
+      expect(groupFlags).toEqual({ hasFocus: false, touched: true, edited: false });
     });
     it('sets `edited` and `touched` on input', () => {
       edit(false);
       expect(flags).toEqual({ hasFocus: true, touched: true, edited: true });
+      expect(groupFlags).toEqual({ hasFocus: true, touched: true, edited: true });
     });
     it('resets `hasFocus` when losing focus after edit', () => {
       edit();
 
       expect(flags).toEqual({ hasFocus: false, touched: true, edited: true });
+      expect(groupFlags).toEqual({ hasFocus: false, touched: true, edited: true });
     });
   });
 
