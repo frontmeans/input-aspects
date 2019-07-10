@@ -348,17 +348,14 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
       }
 
       added.forEach(([key, [control, interest]]) => {
-
-        const controlInterest = control.read(value => {
+        interest.needs(control.read(value => {
           if (group.it[key] !== value) {
             group.it = {
               ...group.it,
               [key]: value,
             };
           }
-        }).needs(interest);
-
-        interest.needs(controlInterest);
+        }).needs(interest));
       });
     }
   }
