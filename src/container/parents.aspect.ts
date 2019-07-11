@@ -90,7 +90,11 @@ export namespace InParents {
   /**
    * All control parents as iterable instance.
    */
-  export type All = Iterable<Entry>;
+  export interface All extends Iterable<Entry> {
+
+    [Symbol.iterator](): IterableIterator<Entry>;
+
+  }
 
 }
 
