@@ -18,7 +18,7 @@ describe('InParents', () => {
 
   let parents: InParents;
   let onParents: Mock<void, [InParents.Entry[], InParents.Entry[]]>;
-  let readParents: Mock<void, [Iterable<InParents.Entry>]>;
+  let readParents: Mock<void, [InParents.All]>;
   let allParents: InParents.All;
 
   beforeEach(() => {
