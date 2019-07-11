@@ -286,7 +286,7 @@ function controlEntry<Item>(
 function readControlValue<Item>(
     controls: InListControlControls<Item>,
     [control, interest]: ControlEntry<Item>) {
-  interest.needs(control.aspect(InParents).add(controls._list, controls._nextKey++).needs(interest));
+  interest.needs(control.aspect(InParents).add({ parent: controls._list }).needs(interest));
   interest.needs(control.read(value => {
 
     const index = controls._entries._entries.findIndex(([ctrl]) => ctrl === control);
@@ -306,7 +306,6 @@ function readControlValue<Item>(
 class InListControlControls<Item> extends InListControls<Item> {
 
   readonly _entries: InListEntries<Item>;
-  _nextKey = 0;
   private readonly _updates = new EventEmitter<[[number, ControlEntry<Item>][], [number, ControlEntry<Item>][]]>();
   readonly on: OnEvent<[InList.Entry<Item>[], InList.Entry<Item>[]]>;
   readonly read: AfterEvent<[InList.Snapshot<Item>]>;

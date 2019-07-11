@@ -327,7 +327,7 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
       let newModel: Model | undefined;
 
       added.forEach(([key, [control, interest]]) => {
-        interest.needs(control.aspect(InParents).add(group, key).needs(interest));
+        interest.needs(control.aspect(InParents).add({ parent: group }).needs(interest));
 
         const value = control.it;
 

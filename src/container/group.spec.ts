@@ -77,7 +77,7 @@ describe('InGroup', () => {
         expect(lastSnapshot.get('ctrl3')).toBe(ctrl3);
         expect(onUpdate).toHaveBeenCalledWith([['ctrl3', ctrl3]], []);
         expect(readSnapshot).toHaveBeenCalledTimes(1);
-        expect(parentsOf(ctrl3)).toEqual([[group, 'ctrl3']]);
+        expect(parentsOf(ctrl3)).toEqual([{ parent: group }]);
       });
       it('replaces control', () => {
 
@@ -93,7 +93,7 @@ describe('InGroup', () => {
         expect(onUpdate).toHaveBeenCalledWith([['ctrl1', ctrl4]], [['ctrl1', ctrl1]]);
         expect(readSnapshot).toHaveBeenCalledTimes(1);
         expect(parentsOf(ctrl1)).toHaveLength(0);
-        expect(parentsOf(ctrl4)).toEqual([[group, 'ctrl1']]);
+        expect(parentsOf(ctrl4)).toEqual([{ parent: group }]);
       });
       it('does not replace control with itself', () => {
         group.controls.set('ctrl1', ctrl1);

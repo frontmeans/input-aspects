@@ -113,7 +113,7 @@ describe('InList', () => {
         expect(list.it).toEqual(['11', '2', '33']);
       });
       it('registers control parent', () => {
-        ctrl2.aspect(InParents).read.once(parents => expect([...parents]).toEqual([[list, expect.anything()]]));
+        ctrl2.aspect(InParents).read.once(parents => expect([...parents]).toEqual([{ parent: list }]));
       });
     });
 

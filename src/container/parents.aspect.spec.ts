@@ -8,11 +8,11 @@ import Mock = jest.Mock;
 
 describe('InParents', () => {
 
-  let container: InContainer<{}>;
+  let parent: InContainer<{}>;
   let control: InControl;
 
   beforeEach(() => {
-    container = inGroup({});
+    parent = inGroup({});
     control = inValue('value');
   });
 
@@ -46,47 +46,39 @@ describe('InParents', () => {
   describe('add', () => {
 
     let interest: EventInterest;
+    let entry: InParents.Entry;
 
     beforeEach(() => {
-      interest = parents.add(container, 'key');
+      entry = { parent };
+      interest = parents.add(entry);
     });
 
     it('updates parents list', () => {
-      expect([...allParents]).toEqual([[container, 'key']]);
-      expect(onParents).toHaveBeenCalledWith([[container, 'key']], []);
+      expect([...allParents]).toEqual([entry]);
+      expect(onParents).toHaveBeenCalledWith([entry], []);
       expect(readParents).toHaveBeenCalledTimes(1);
     });
-    it('does nothing when adding under the same key', () => {
-      parents.add(container, 'key');
+    it('does nothing when adding the same entry', () => {
+      parents.add(entry);
       expect(onParents).toHaveBeenCalledTimes(1);
       expect(readParents).toHaveBeenCalledTimes(1);
     });
     it('removes parent when interest lost', () => {
       interest.off();
       expect([...allParents]).toHaveLength(0);
-      expect(onParents).toHaveBeenCalledWith([], [[container, 'key']]);
+      expect(onParents).toHaveBeenCalledWith([], [entry]);
       expect(readParents).toHaveBeenCalledTimes(2);
     });
-    it('adds under different key', () => {
+    it('adds another parent entry', () => {
 
-      const interest2 = parents.add(container, 'key2');
+      const parent2 = inGroup({});
+      const entry2: InParents.Entry = { parent: parent2 };
+      const interest2 = parents.add(entry2);
 
-      expect([...allParents]).toEqual([[container, 'key'], [container, 'key2']]);
-      expect(onParents).toHaveBeenCalledWith([[container, 'key2']], []);
-      expect(readParents).toHaveBeenCalledTimes(2);
-
-      interest2.off();
-      expect([...allParents]).toEqual([[container, 'key']]);
-    });
-    it('adds to another container', () => {
-
-      const container2 = inGroup({});
-      const interest2 = parents.add(container2, 'key');
-
-      expect([...allParents]).toEqual([[container, 'key'], [container2, 'key']]);
+      expect([...allParents]).toEqual([entry, entry2]);
 
       interest2.off();
-      expect([...allParents]).toEqual([[container, 'key']]);
+      expect([...allParents]).toEqual([entry]);
     });
   });
 });

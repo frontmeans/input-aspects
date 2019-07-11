@@ -1,7 +1,7 @@
 import {
   AfterEvent,
   AfterEvent__symbol,
-  afterEventFrom,
+  afterEventOr,
   EventEmitter,
   eventInterest,
   EventInterest,
@@ -24,11 +24,11 @@ const InParents__aspect: InAspect<InParents> = {
  * Parents of input control.
  *
  * Reflects all containers the control belongs to. Note that component may belong to multiple containers. Or even
- * to the same container multiple times under different keys.
+ * to the same container multiple times.
  *
  * Implements `EventSender` interface by sending arrays of parent entries the control is added to and removed from.
  *
- * Implements `EventKeeper` interface by sending an iterable of all parents each time it is updated.
+ * Implements `EventKeeper` interface by sending a snapshot of all parents each time it is updated.
  */
 export abstract class InParents
     implements EventKeeper<[Iterable<InParents.Entry>]>, EventSender<[InParents.Entry[], InParents.Entry[]]> {
@@ -65,25 +65,27 @@ export abstract class InParents
   /**
    * Adds the input control to the given parent container under the given key.
    *
-   * @param container A container to add input control to.
-   * @param key A key of the added control in parent `container`.
+   * @param entry Parent container entry.
    *
    * @returns An event interest instance that removes the control from the parent `container` when loses interest.
    */
-  abstract add(container: InContainer<any>, key: PropertyKey): EventInterest;
+  abstract add(entry: InParents.Entry): EventInterest;
 
 }
 
 export namespace InParents {
 
   /**
-   * Input control parent entry.
-   *
-   * This is a tuple containing a parent container control and a key under which current control added to that control.
-   *
-   * @typeparam L Input container layout interface.
+   * Parent container entry of input control.
    */
-  export type Entry = readonly [InContainer<any>, PropertyKey];
+  export interface Entry {
+
+    /**
+     * Parent container.
+     */
+    readonly parent: InContainer<any>;
+
+  }
 
   /**
    * All control parents as iterable instance.
@@ -94,27 +96,23 @@ export namespace InParents {
 
 class InControlParents extends InParents {
 
-  private readonly _entries = new Map<InContainer<any>, Map<PropertyKey, EventInterest>>();
+  private readonly _map = new Map<InParents.Entry, EventInterest>();
   private readonly _on = new EventEmitter<[InParents.Entry[], InParents.Entry[]]>();
   readonly read: AfterEvent<[InParents.All]>;
 
   constructor() {
     super();
 
-    const entries = this._entries;
+    const map = this._map;
 
-    this.read = afterEventFrom(
+    this.read = afterEventOr(
         this._on.on.thru(
             allParents
         ),
         () => [allParents()]);
 
-    function *allParents(): IterableIterator<InParents.Entry> {
-      for (const [container, keyMap] of entries.entries()) {
-        for (const key of keyMap.keys()) {
-          yield [container, key];
-        }
-      }
+    function allParents(): IterableIterator<InParents.Entry> {
+      return map.keys();
     }
   }
 
@@ -122,41 +120,23 @@ class InControlParents extends InParents {
     return this._on.on;
   }
 
-  add(container: InContainer<any>, key: PropertyKey): EventInterest {
+  add(entry: InParents.Entry): EventInterest {
 
-    let keyMap: Map<PropertyKey, EventInterest>;
-    const existing = this._entries.get(container);
+    const existingInterest = this._map.get(entry);
 
-    if (existing) {
-
-      const existingInterest = existing.get(key);
-
-      if (existingInterest) {
-        // Already added to the same container under the same key. Doing nothing
-        return existingInterest;
-      } else {
-        // Adding to the same container under different key
-        keyMap = existing;
-      }
-    } else {
-      // Adding to new container
-      this._entries.set(container, keyMap = new Map());
+    if (existingInterest) {
+      // Parent entry already added. Doing nothing
+      return existingInterest;
     }
 
+    // Adding new entry
     const interest = eventInterest(() => {
-
-      const removedKeyMap = this._entries.get(container) as Map<PropertyKey, EventInterest>;
-
-      removedKeyMap.delete(key);
-      if (!removedKeyMap.size) {
-        // No longer belongs to container under any key
-        this._entries.delete(container);
-      }
-      this._on.send([], [[container, key]]);
+      this._map.delete(entry);
+      this._on.send([], [entry]);
     });
 
-    keyMap.set(key, interest);
-    this._on.send([[container, key]], []);
+    this._map.set(entry, interest);
+    this._on.send([entry], []);
 
     return interest;
   }
