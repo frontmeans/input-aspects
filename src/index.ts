@@ -4,5 +4,6 @@ export * from './control';
 export * from './conversion';
 export * from './element';
 export * from './focus';
+export * from './mode.aspect';
 export * from './value';
 export * from './validation';
