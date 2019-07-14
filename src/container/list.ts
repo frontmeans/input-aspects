@@ -1,4 +1,4 @@
-import { nextArgs } from 'call-thru';
+import { nextArgs, noop } from 'call-thru';
 import {
   AfterEvent,
   AfterEvent__symbol,
@@ -13,6 +13,7 @@ import {
   trackValue,
   ValueTracker
 } from 'fun-events';
+import { EventReceiver } from 'fun-events/d.ts/event-receiver';
 import { InControl } from '../control';
 import { inValue } from '../value';
 import { InContainer, InContainerControls } from './container';
@@ -314,7 +315,6 @@ class InListControlControls<Item> extends InListControls<Item> {
     super();
 
     const self = this;
-    let applyingModel = false;
 
     this._entries = new InListEntries(this, controlsByModel(_list.it, 0));
     this.on = this._updates.on.thru(
@@ -331,33 +331,26 @@ class InListControlControls<Item> extends InListControls<Item> {
         .whenDone(reason => this._updates.done(reason));
     this._entries._entries.forEach(entry => readControlValue(this, entry));
 
-    function applyModelToControls(model: readonly Item[]) {
-      if (applyingModel) {
-        return; // Prevent recursion
-      }
+    function applyModelToControls(this: EventReceiver.Context<[readonly Item[]]>, model: readonly Item[]) {
+      this.afterRecurrent(noop);
 
-      applyingModel = true;
-      try {
-        const entries = self._entries._entries;
+      const entries = self._entries._entries;
 
-        model.forEach((item, index) => {
+      model.forEach((item, index) => {
 
-          const entry = entries[index];
+        const entry = entries[index];
 
-          if (entry) {
-            entry[0].it = item;
-          }
-        });
-
-        if (model.length < entries.length) {
-          // Remove controls without values in model
-          self.splice(model.length);
-        } else if (model.length > entries.length) {
-          // Create missing value controls
-          self.add(...controlsByModel(model, entries.length));
+        if (entry) {
+          entry[0].it = item;
         }
-      } finally {
-        applyingModel = false;
+      });
+
+      if (model.length < entries.length) {
+        // Remove controls without values in model
+        self.splice(model.length);
+      } else if (model.length > entries.length) {
+        // Create missing value controls
+        self.add(...controlsByModel(model, entries.length));
       }
     }
   }
