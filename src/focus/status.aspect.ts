@@ -2,6 +2,7 @@ import {
   AfterEvent,
   AfterEvent__symbol,
   afterEventFromAll,
+  afterEventFromEach,
   afterEventOf,
   EventKeeper,
   trackValue,
@@ -196,17 +197,17 @@ function updateFlags(flags: InStatus.Flags, hasFocus: boolean, edited: boolean):
 
 function containerFlags(container: InContainer<any>): AfterEvent<[InStatus.Flags]> {
   return container.controls.read.keep.dig_(
-          snapshot => afterEventFromAll(controlStatuses(snapshot))
+          snapshot => afterEventFromEach(...controlStatuses(snapshot))
       ).keep.thru(
           combineFlags
       );
 }
 
-function controlStatuses(snapshot: InContainer.Snapshot): { [key: string]: InStatus } {
-  return [...snapshot].map(c => c.aspect(InStatus)) as unknown as { [key: string]: InStatus };
+function controlStatuses(snapshot: InContainer.Snapshot): InStatus[] {
+  return [...snapshot].map(c => c.aspect(InStatus));
 }
 
-function combineFlags(flagMap: { [key: string]: [InStatus.Flags] }): InStatus.Flags {
+function combineFlags(...flags: [InStatus.Flags][]): InStatus.Flags {
 
   const result: { -readonly [K in keyof InStatus.Flags]: InStatus.Flags[K] } = {
     hasFocus: false,
@@ -214,10 +215,7 @@ function combineFlags(flagMap: { [key: string]: [InStatus.Flags] }): InStatus.Fl
     edited: false,
   };
 
-  for (const key of Object.keys(flagMap)) {
-
-    const [{ hasFocus, touched, edited }] = flagMap[key];
-
+  for (const [{ hasFocus, touched, edited }] of flags) {
     if (touched) {
       result.touched = true;
     }
