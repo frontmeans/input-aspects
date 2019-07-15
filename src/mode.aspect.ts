@@ -3,6 +3,7 @@ import {
   AfterEvent,
   AfterEvent__symbol,
   afterEventFromAll,
+  afterEventFromEach,
   afterEventOf,
   afterEventOr,
   EventEmitter,
@@ -215,26 +216,19 @@ class InControlMode extends InMode {
 
 function parentsMode(parents: InParents.All): AfterEvent<[InMode.Value]> {
 
-  interface InModeMap {
-    [index: string]: EventKeeper<[InMode.Value]>;
-  }
-
   const parentList = [...parents];
 
   if (!parentList.length) {
     return afterEventOf('on');
   }
 
-  const parentModes = parentList.map(({parent}) => parent.aspect(InMode)) as unknown as InModeMap;
+  const parentModes = parentList.map(({parent}) => parent.aspect(InMode));
 
-  return afterEventFromAll(parentModes).keep.thru_(modes => {
+  return afterEventFromEach(...parentModes).keep.thru_((...modes) => {
 
     let ro = false;
 
-    for (const index of Object.keys(modes)) {
-
-      const [mode] = modes[index];
-
+    for (const [mode] of modes) {
       switch (mode) {
         case 'off':
           return 'off';
@@ -242,7 +236,6 @@ function parentsMode(parents: InParents.All): AfterEvent<[InMode.Value]> {
           ro = true;
           break;
       }
-
     }
 
     return ro ? 'ro' : 'on';
