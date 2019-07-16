@@ -3,7 +3,7 @@ import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectNull, inAspectValue } from '../aspect.impl';
 import { InControl } from '../control';
 
-const InContainer__aspect: InAspect<InContainer<any> | null> = {
+const InContainer__aspect: InAspect<InContainer<any> | null, 'container'> = {
   applyTo() {
     return inAspectNull;
   },
@@ -18,7 +18,7 @@ const InContainer__aspect: InAspect<InContainer<any> | null> = {
  */
 export abstract class InContainer<Value> extends InControl<Value> {
 
-  static get [InAspect__symbol](): InAspect<InContainer<any> | null> {
+  static get [InAspect__symbol](): InAspect<InContainer<any> | null, 'container'> {
     return InContainer__aspect;
   }
 
@@ -34,6 +34,7 @@ export abstract class InContainer<Value> extends InControl<Value> {
         ? inAspectValue(this) as InAspect.Application.Result<Instance, Value, Kind>
         : undefined;
   }
+
 }
 
 export namespace InContainer {
@@ -104,6 +105,23 @@ export abstract class InContainerControls
 
   get [AfterEvent__symbol](): AfterEvent<[InContainer.Snapshot]> {
     return this.read;
+  }
+
+}
+
+declare module '../aspect' {
+
+  export namespace InAspect.Application {
+
+    export interface Map<OfInstance, OfValue> {
+
+      /**
+       * Input controls container application type.
+       */
+      container(): InContainer<OfValue>;
+
+    }
+
   }
 
 }
