@@ -1,7 +1,9 @@
-import { nextArgs } from 'call-thru';
+import { nextArgs, noop } from 'call-thru';
 import {
   AfterEvent,
   AfterEvent__symbol,
+  afterEventFromAll,
+  afterEventOf,
   afterEventOr,
   EventEmitter,
   eventInterest,
@@ -13,7 +15,9 @@ import {
   trackValue,
   ValueTracker
 } from 'fun-events';
+import { InAspect, InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
+import { InData, InMode } from '../submit';
 import { InContainer, InContainerControls } from './container';
 import { InParents } from './parents.aspect';
 
@@ -363,7 +367,7 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
 }
 
 function controlEntryToGroupEntry<Model>([key, [control]]: [keyof Model, ControlEntry]): InGroup.Entry<Model> {
-    return [key, control];
+  return [key, control];
 }
 
 class InGroupControl<Model> extends InGroup<Model> {
@@ -394,6 +398,64 @@ class InGroupControl<Model> extends InGroup<Model> {
     return this;
   }
 
+  protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
+      aspect: InAspect<Instance, Kind>,
+  ): InAspect.Application.Result<Instance, Model, Kind> | undefined {
+    if (aspect as InAspect<any> === InData[InAspect__symbol]) {
+      return {
+        instance: groupData(this),
+        convertTo: noop,
+      } as InAspect.Application.Result<any, any, any>;
+    }
+    return super._applyAspect(aspect);
+  }
+}
+
+function groupData<Model>(group: InGroup<Model>): InData<Model> {
+  return afterEventFromAll({
+    cs: group.controls,
+    model: group,
+    mode: group.aspect(InMode),
+  }).keep.dig_(
+      readGroupData,
+  );
+}
+
+function readGroupData<Model>(
+    {
+      cs: [controls],
+      model: [model],
+      mode: [mode],
+    }: {
+      cs: [InGroup.Snapshot<Model>];
+      model: [Model];
+      mode: [InMode.Value];
+    }
+): InData<Model> {
+  if (mode === 'off') {
+    return afterEventOf();
+  }
+
+  const csData: { [key in keyof Model]: InData<any> } = {} as any;
+
+  for (const [key, control] of controls.entries()) {
+    csData[key as keyof Model] = control.aspect(InData);
+  }
+
+  return afterEventFromAll(csData).keep.thru(controlsData => {
+
+    const data: Partial<Model> = { ...model };
+
+    for (const k of Object.keys(controlsData)) {
+
+      const key = k as keyof Model;
+      const [controlData] = controlsData[key];
+
+      data[key] = controlData;
+    }
+
+    return data as InData.DataType<Model>;
+  });
 }
 
 /**

@@ -1,6 +1,7 @@
 import { afterEventFrom, onEventFrom } from 'fun-events';
 import { InControl } from '../control';
 import { intoFallback } from '../conversion';
+import { InData, InMode } from '../submit';
 import { InValidation } from '../validation';
 import { inValue } from '../value';
 import { InContainer } from './container';
@@ -219,6 +220,33 @@ describe('InGroup', () => {
       group.done();
       ctrl1.it = '123';
       expect(group.it).toEqual({ ctrl1: 'some', ctrl2: 'other' });
+    });
+  });
+
+  describe('InData', () => {
+
+    let data: InData.DataType<TestModel>;
+
+    beforeEach(() => {
+      group.aspect(InData)(d => data = d);
+    });
+
+    it('contains all data by default', () => {
+      expect(data).toEqual({ ctrl1: 'some', ctrl2: 'other' });
+    });
+    it('has no data when group is disabled', () => {
+      group.aspect(InMode).own.it = 'off';
+      expect(data).toBeUndefined();
+    });
+    it('removes property when corresponding control is disabled', () => {
+      ctrl2.aspect(InMode).own.it = 'off';
+    });
+    it('contains data without control', () => {
+
+      const value: TestModel = { ctrl1: '1', ctrl2: '2', ctrl3: 3 };
+
+      group.it = value;
+      expect(data).toEqual(value);
     });
   });
 
