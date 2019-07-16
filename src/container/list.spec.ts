@@ -1,5 +1,6 @@
 import { EventInterest } from 'fun-events';
 import { InControl } from '../control';
+import { InData, InMode } from '../submit';
 import { inValue } from '../value';
 import { inList, InList } from './list';
 import { InParents } from './parents.aspect';
@@ -272,6 +273,27 @@ describe('InList', () => {
          list.done();
          expect(list.it).toHaveLength(0);
       });
+    });
+  });
+
+  describe('InData', () => {
+
+    let data: InData.DataType<readonly string[]>;
+
+    beforeEach(() => {
+      list.aspect(InData)(d => data = d);
+    });
+
+    it('contains all data by default', () => {
+      expect(data).toEqual(['11', '22', '33']);
+    });
+    it('has no data when list is disabled', () => {
+      list.aspect(InMode).own.it = 'off';
+      expect(data).toBeUndefined();
+    });
+    it('removes item when corresponding control is disabled', () => {
+      initControls[1].aspect(InMode).own.it = 'off';
+      expect(data).toEqual(['11', '33']);
     });
   });
 

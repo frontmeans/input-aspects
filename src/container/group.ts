@@ -409,6 +409,7 @@ class InGroupControl<Model> extends InGroup<Model> {
     }
     return super._applyAspect(aspect);
   }
+
 }
 
 function groupData<Model>(group: InGroup<Model>): InData<Model> {

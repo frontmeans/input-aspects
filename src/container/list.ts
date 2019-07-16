@@ -1,7 +1,10 @@
-import { nextArgs, noop } from 'call-thru';
+import { isPresent, nextArgs, noop } from 'call-thru';
 import {
   AfterEvent,
   AfterEvent__symbol,
+  afterEventFromAll,
+  afterEventFromEach,
+  afterEventOf,
   afterEventOr,
   EventEmitter,
   eventInterest,
@@ -14,7 +17,9 @@ import {
   ValueTracker
 } from 'fun-events';
 import { EventReceiver } from 'fun-events/d.ts/event-receiver';
+import { InAspect, InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
+import { InData, InMode } from '../submit';
 import { inValue } from '../value';
 import { InContainer, InContainerControls } from './container';
 import { InParents } from './parents.aspect';
@@ -426,6 +431,51 @@ class InListControl<Item> extends InList<Item> {
     return this;
   }
 
+  protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
+      aspect: InAspect<Instance, Kind>,
+  ): InAspect.Application.Result<Instance, readonly Item[], Kind> | undefined {
+    if (aspect as InAspect<any> === InData[InAspect__symbol]) {
+      return {
+        instance: listData(this),
+        convertTo: noop,
+      } as InAspect.Application.Result<any, any, any>;
+    }
+    return super._applyAspect(aspect);
+  }
+
+}
+
+function listData<Item>(list: InList<Item>): InData<readonly Item[]> {
+  return afterEventFromAll({
+    cs: list.controls,
+    mode: list.aspect(InMode),
+  }).keep.dig_(
+      readListData,
+  );
+}
+
+function readListData<Item>(
+    {
+      cs: [controls],
+      mode: [mode],
+    }: {
+      cs: [InList.Snapshot<Item>];
+      mode: [InMode.Value];
+    }
+): InData<readonly Item[]> {
+  if (mode === 'off') {
+    return afterEventOf();
+  }
+
+  const csData: InData<Item>[] = [];
+
+  for (const control of controls) {
+    csData.push(control.aspect(InData));
+  }
+
+  return afterEventFromEach(...csData).keep.thru((...controlsData) => {
+    return controlsData.map(([d]) => d).filter(isPresent) as InData.DataType<readonly Item[]>;
+  });
 }
 
 /**
