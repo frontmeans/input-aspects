@@ -1,6 +1,6 @@
 import { afterEventFrom, EventInterest, onEventFrom } from 'fun-events';
-import { inGroup, InGroup } from './container';
-import { InElement, inElt } from './element';
+import { inGroup, InGroup } from '../container';
+import { InElement, inElt } from '../element';
 import { InMode } from './mode.aspect';
 import Mock = jest.Mock;
 

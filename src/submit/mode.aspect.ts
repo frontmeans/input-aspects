@@ -14,11 +14,11 @@ import {
   trackValue,
   ValueTracker
 } from 'fun-events';
-import { InAspect, InAspect__symbol } from './aspect';
-import { inAspectValue } from './aspect.impl';
-import { InParents } from './container/parents.aspect';
-import { InControl } from './control';
-import { InElement } from './element';
+import { InAspect, InAspect__symbol } from '../aspect';
+import { inAspectValue } from '../aspect.impl';
+import { InParents } from '../container/parents.aspect';
+import { InControl } from '../control';
+import { InElement } from '../element';
 
 const InMode__aspect: InAspect<InMode> = {
 
