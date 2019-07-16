@@ -36,7 +36,7 @@ class InControlFocus extends InFocus {
 
   private readonly _on = new EventEmitter<[boolean, boolean]>();
 
-  constructor(private readonly _element: InElement) {
+  constructor(private readonly _element: InElement<any>) {
     super();
 
     const events = _element.events;

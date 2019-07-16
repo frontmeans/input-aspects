@@ -12,7 +12,7 @@ import { InAspect, InAspect__symbol } from './aspect';
 import { inAspectNull, inAspectValue } from './aspect.impl';
 import { InControl } from './control';
 
-const InElement__aspect: InAspect<InElement | null> = {
+const InElement__aspect: InAspect<InElement<any> | null, 'element'> = {
   applyTo() {
     return inAspectNull;
   },
@@ -24,8 +24,10 @@ const InElement__aspect: InAspect<InElement | null> = {
  * It is also available as aspect of itself and converted controls. It is not available as aspect of other controls.
  *
  * An input element control can be constructed using `inElt()` function.
+ *
+ * @typeparam Value Input value type. `string` by default.
  */
-export abstract class InElement extends InControl {
+export abstract class InElement<Value = string> extends InControl<Value> {
 
   /**
    * HTML input element this control is based on.
@@ -35,22 +37,22 @@ export abstract class InElement extends InControl {
   /**
    * An `AfterEvent` registrar of user input receivers.
    */
-  abstract readonly input: AfterEvent<[InElement.Input]>;
+  abstract readonly input: AfterEvent<[InElement.Input<Value>]>;
 
   /**
    * DOM event dispatcher of this element.
    */
   abstract readonly events: DomEventDispatcher;
 
-  static get [InAspect__symbol](): InAspect<InElement | null> {
+  static get [InAspect__symbol](): InAspect<InElement<any> | null, 'element'> {
     return InElement__aspect;
   }
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
       aspect: InAspect<Instance, Kind>
-  ): InAspect.Application.Result<Instance, string, Kind> | undefined {
+  ): InAspect.Application.Result<Instance, Value, Kind> | undefined {
     return aspect === InElement__aspect as InAspect<any, any>
-        ? inAspectValue(this) as InAspect.Application.Result<Instance, string, Kind>
+        ? inAspectValue(this) as InAspect.Application.Result<Instance, Value, Kind>
         : undefined;
   }
 
@@ -69,13 +71,15 @@ export namespace InElement {
 
   /**
    * User input.
+   *
+   * @typeparam Value Input value type.
    */
-  export interface Input {
+  export interface Input<Value> {
 
     /**
      * The value user entered.
      */
-    value: string;
+    value: Value;
 
     /**
      * An event caused the value to be applied.
@@ -90,10 +94,10 @@ export namespace InElement {
 
 class InElementControl extends InElement {
 
-  readonly input: AfterEvent<[InElement.Input]>;
+  readonly input: AfterEvent<[InElement.Input<string>]>;
   readonly on: OnEvent<[string, string]>;
   readonly events: DomEventDispatcher;
-  private readonly _input: EventEmitter<[InElement.Input, string]> = new EventEmitter();
+  private readonly _input: EventEmitter<[InElement.Input<string>, string]> = new EventEmitter();
   private readonly _interest: EventInterest;
   private _value: string;
   // noinspection TypeScriptFieldCanBeMadeReadonly
@@ -103,7 +107,7 @@ class InElementControl extends InElement {
     super();
     this._value = element.value;
     this._update = update;
-    this.input = afterEventFrom<[InElement.Input]>(
+    this.input = afterEventFrom<[InElement.Input<string>]>(
         this._input.on.thru(asis),
         () => [{ value: this.it }]);
     this.on = this._input.on.thru(
@@ -126,13 +130,13 @@ class InElementControl extends InElement {
       send({ value }, oldValue);
     }
 
-    function send(input: InElement.Input, oldValue: string) {
+    function send(input: InElement.Input<string>, oldValue: string) {
       for (;;) {
         self._value = input.value;
 
         // Corrections are value updates performed by update event receivers
         // The last correction is recorded and sent later, when all receivers receive current update
-        let correction: [InElement.Input, string] | undefined;
+        let correction: [InElement.Input<string>, string] | undefined;
 
         // Record corrections
         self._update = (newValue: string, old: string) => {
@@ -186,4 +190,21 @@ class InElementControl extends InElement {
  */
 export function inElt(element: InElement.Element): InElement {
   return new InElementControl(element);
+}
+
+declare module './aspect' {
+
+  export namespace InAspect.Application {
+
+    export interface Map<OfInstance, OfValue> {
+
+      /**
+       * Input element application type.
+       */
+      element(): InElement<OfValue>;
+
+    }
+
+  }
+
 }
