@@ -1,4 +1,4 @@
-import { afterEventFrom, EventInterest, onEventFrom } from 'fun-events';
+import { afterEventFrom, EventInterest, onEventFrom, trackValue, ValueTracker } from 'fun-events';
 import { inGroup, InGroup } from '../container';
 import { InElement, inElt } from '../element';
 import { InMode } from './mode.aspect';
@@ -208,6 +208,72 @@ describe('InMode', () => {
         expect(onModeUpdate).toHaveBeenLastCalledWith('ro', 'off');
         expect(onOwnUpdate).not.toHaveBeenCalled();
       });
+    });
+  });
+
+  describe('derived mode', () => {
+
+    let source: ValueTracker<InMode.Value>;
+    let sourceInterest: EventInterest;
+
+    beforeEach(() => {
+      source = trackValue('on');
+      sourceInterest = mode.derive(source);
+    });
+
+    it('is `on` by default', () => {
+      expect(source.it).toBe('on');
+    });
+    it('is disabled when source is `off`', () => {
+      source.it = 'off';
+      expect(readMode).toHaveBeenLastCalledWith('off');
+      expect(onModeUpdate).toHaveBeenCalledWith('off', 'on');
+      expect(onOwnUpdate).not.toHaveBeenCalled();
+    });
+    it('is read-only when source is `ro`', () => {
+      source.it = 'ro';
+      expect(readMode).toHaveBeenLastCalledWith('ro');
+      expect(onModeUpdate).toHaveBeenCalledWith('ro', 'on');
+      expect(onOwnUpdate).not.toHaveBeenCalled();
+    });
+    it('is read-only when source is `ro`, unless disabled', () => {
+      mode.own.it = 'off';
+      readMode.mockClear();
+      onModeUpdate.mockClear();
+      onOwnUpdate.mockClear();
+      source.it = 'ro';
+      expect(readMode).not.toHaveBeenCalled();
+      expect(onModeUpdate).not.toHaveBeenCalled();
+      expect(onOwnUpdate).not.toHaveBeenCalled();
+    });
+    it('is not enabled by source when explicitly disabled', () => {
+      source.it = 'off';
+      mode.own.it = 'off';
+      readMode.mockClear();
+      onModeUpdate.mockClear();
+      onOwnUpdate.mockClear();
+      source.it = 'on';
+      expect(readMode).not.toHaveBeenCalled();
+      expect(onModeUpdate).not.toHaveBeenCalled();
+      expect(onOwnUpdate).not.toHaveBeenCalled();
+    });
+    it('is read-only again when source is re-enabled', () => {
+      source.it = 'off';
+      mode.own.it = 'ro';
+      readMode.mockClear();
+      onModeUpdate.mockClear();
+      onOwnUpdate.mockClear();
+      source.it = 'on';
+      expect(readMode).toHaveBeenLastCalledWith('ro');
+      expect(onModeUpdate).toHaveBeenLastCalledWith('ro', 'off');
+      expect(onOwnUpdate).not.toHaveBeenCalled();
+    });
+    it('is reset when no more derived', () => {
+      source.it = 'off';
+      sourceInterest.off();
+      expect(readMode).toHaveBeenLastCalledWith('on');
+      expect(onModeUpdate).toHaveBeenCalledWith('on', 'off');
+      expect(onOwnUpdate).not.toHaveBeenCalled();
     });
   });
 });

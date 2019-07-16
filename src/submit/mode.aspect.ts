@@ -2,11 +2,14 @@ import { nextArgs, nextSkip, valuesProvider } from 'call-thru';
 import {
   AfterEvent,
   AfterEvent__symbol,
+  afterEventFrom,
   afterEventFromAll,
   afterEventFromEach,
   afterEventOf,
   afterEventOr,
   EventEmitter,
+  eventInterest,
+  EventInterest,
   EventKeeper,
   EventSender,
   OnEvent,
@@ -78,6 +81,18 @@ export abstract class InMode implements EventSender<[InMode.Value, InMode.Value]
   abstract readonly own: ValueTracker<InMode.Value>;
 
   /**
+   * Derives input mode from another `source`.
+   *
+   * - If the `source` reports the `off` mode, then this mode would be `off`.
+   * - If the `source` reports the `ro` mode, then this mode would be `ro`, unless it is `off` already.
+   *
+   * @param source A source to derive input mode from.
+   *
+   * @returns An event interest instance that disables `source` mode derivation when lost.
+   */
+  abstract derive(source: EventKeeper<[InMode.Value]>): EventInterest;
+
+  /**
    * Unregisters all receivers.
    *
    * @param reason Optional reason.
@@ -104,7 +119,7 @@ export namespace InMode {
 
 }
 
-class InModeTracker extends ValueTracker<InMode.Value> {
+class OwnModeTracker extends ValueTracker<InMode.Value> {
 
   private readonly _on = new EventEmitter<[InMode.Value, InMode.Value]>();
 
@@ -164,34 +179,66 @@ class InModeTracker extends ValueTracker<InMode.Value> {
 
 }
 
+class DerivedModes {
+
+  readonly read: AfterEvent<[InMode.Value]>;
+  private readonly _all = new Set<AfterEvent<[InMode.Value]>>();
+  private readonly _on = new EventEmitter<[]>();
+
+  constructor() {
+
+    const sources: AfterEvent<[Set<AfterEvent<[InMode.Value]>>]> = afterEventOr(
+        this._on.on.thru(() => this._all),
+        valuesProvider(this._all),
+    );
+
+    this.read = sources.keep.dig(set => afterEventFromEach(...set).keep.thru(mergeModes));
+  }
+
+  add(source: EventKeeper<[InMode.Value]>): EventInterest {
+
+    const src = afterEventFrom(source);
+    const interest = eventInterest(() => {
+      this._all.delete(src);
+      this._on.send();
+    });
+
+    this._all.add(src);
+    this._on.send();
+
+    return interest;
+  }
+
+}
+
 class InControlMode extends InMode {
 
   readonly own: ValueTracker<InMode.Value>;
   readonly read: AfterEvent<[InMode.Value]>;
   readonly on: OnEvent<[InMode.Value, InMode.Value]>;
+  private readonly _derived = new DerivedModes();
 
   constructor(control: InControl<any>) {
     super();
 
     const element = control.aspect(InElement);
 
-    this.own = element ? new InModeTracker(element.element) : trackValue('on');
-
-    const parents = control.aspect(InParents);
+    this.own = element ? new OwnModeTracker(element.element) : trackValue('on');
+    this.derive(control.aspect(InParents).read.keep.dig_(parentsMode));
 
     let last: InMode.Value = 'on';
 
     this.read = afterEventOr(
         afterEventFromAll({
-          parent: parents.read.keep.dig_(parentsMode),
+          derived: this._derived.read,
           own: this.own,
-        }).thru(({ parent: [parent], own: [own] }) => {
+        }).thru(({ derived: [derived], own: [own] }) => {
 
           let next: InMode.Value;
 
-          if (own === 'off' || parent === 'off') {
+          if (own === 'off' || derived === 'off') {
             next = 'off';
-          } else if (parent === 'ro') {
+          } else if (derived === 'ro') {
             next = 'ro';
           } else {
             next = own;
@@ -212,6 +259,10 @@ class InControlMode extends InMode {
     });
   }
 
+  derive(source: EventKeeper<[InMode.Value]>): EventInterest {
+    return this._derived.add(source);
+  }
+
 }
 
 function parentsMode(parents: InParents.All): AfterEvent<[InMode.Value]> {
@@ -222,23 +273,24 @@ function parentsMode(parents: InParents.All): AfterEvent<[InMode.Value]> {
     return afterEventOf('on');
   }
 
-  const parentModes = parentList.map(({parent}) => parent.aspect(InMode));
+  const parentModes = parentList.map(({ parent }) => parent.aspect(InMode));
 
-  return afterEventFromEach(...parentModes).keep.thru_((...modes) => {
+  return afterEventFromEach(...parentModes).keep.thru_(mergeModes);
+}
 
-    let ro = false;
+function mergeModes(...modes: [InMode.Value][]) {
 
-    for (const [mode] of modes) {
-      switch (mode) {
-        case 'off':
-          return 'off';
-        case 'ro':
-          ro = true;
-          break;
-      }
+  let ro = false;
+
+  for (const [mode] of modes) {
+    switch (mode) {
+      case 'off':
+        return 'off';
+      case 'ro':
+        ro = true;
+        break;
     }
+  }
 
-    return ro ? 'ro' : 'on';
-  });
-
+  return ro ? 'ro' : 'on';
 }
