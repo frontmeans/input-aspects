@@ -35,17 +35,10 @@ describe('inText', () => {
       expect(converted.aspect(InElement)).toBe(control);
     });
     it('is not available as aspect of non-element control', () => {
-
-      const control = inValue('some');
-
-      expect(control.aspect(InElement)).toBeNull();
+      expect(inValue('some').aspect(InElement)).toBeNull();
     });
     it('is not available as aspect of converted non-element control', () => {
-
-      const control = inValue('some');
-      const converted = control.convert(asis, asis);
-
-      expect(converted.aspect(InElement)).toBeNull();
+      expect(inValue('some').convert(asis, asis).aspect(InElement)).toBeNull();
     });
     it('retrieves arbitrary aspect', () => {
 
