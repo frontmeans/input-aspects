@@ -1,4 +1,4 @@
-import { isPresent, nextArgs, noop } from 'call-thru';
+import { isDefined, nextArgs, noop } from 'call-thru';
 import {
   AfterEvent,
   AfterEvent__symbol,
@@ -474,7 +474,7 @@ function readListData<Item>(
   }
 
   return afterEventFromEach(...csData).keep.thru((...controlsData) => {
-    return controlsData.map(([d]) => d).filter(isPresent) as InData.DataType<readonly Item[]>;
+    return controlsData.map(([d]) => d).filter(isDefined) as InData.DataType<readonly Item[]>;
   });
 }
 
