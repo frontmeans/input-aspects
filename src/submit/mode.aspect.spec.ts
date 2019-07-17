@@ -1,6 +1,6 @@
 import { afterEventFrom, EventInterest, onEventFrom, trackValue, ValueTracker } from 'fun-events';
 import { inGroup, InGroup } from '../container';
-import { InElement, inElt } from '../element';
+import { InElement, inText } from '../element';
 import { InMode } from './mode.aspect';
 import Mock = jest.Mock;
 
@@ -23,7 +23,7 @@ describe('InMode', () => {
   let modeInterest: EventInterest;
 
   beforeEach(() => {
-    control = inElt(element);
+    control = inText(element);
     mode = control.aspect(InMode);
     modeUpdatesInterest = mode.on(onModeUpdate = jest.fn());
     modeInterest = mode.read(readMode = jest.fn());

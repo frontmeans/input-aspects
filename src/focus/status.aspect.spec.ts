@@ -1,6 +1,6 @@
 import { afterEventFrom } from 'fun-events';
 import { InGroup, inGroup } from '../container';
-import { InElement, inElt } from '../element';
+import { InElement, inText } from '../element';
 import { inValue } from '../value';
 import { InStatus } from './status.aspect';
 
@@ -13,7 +13,7 @@ describe('InStatus', () => {
 
   beforeEach(() => {
     element = document.body.appendChild(document.createElement('input'));
-    control = inElt(element);
+    control = inText(element);
     status = control.aspect(InStatus);
     status.read(f => flags = f);
   });

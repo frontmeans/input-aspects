@@ -1,9 +1,10 @@
 import { asis } from 'call-thru';
 import { EventInterest } from 'fun-events';
-import { InAspect__symbol } from './aspect';
-import { inAspectValue } from './aspect.impl';
-import { InElement, inElt } from './element';
-import { inValue } from './value';
+import { InAspect__symbol } from '../aspect';
+import { inAspectValue } from '../aspect.impl';
+import { inValue } from '../value';
+import { InElement } from './element';
+import { inText } from './text';
 import Mock = jest.Mock;
 
 describe('InElement', () => {
@@ -14,7 +15,7 @@ describe('InElement', () => {
   beforeEach(() => {
     input = document.createElement('input');
     input.value = 'old';
-    inElement = inElt(input);
+    inElement = inText(input);
   });
 
   describe('element', () => {

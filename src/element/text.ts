@@ -8,91 +8,9 @@ import {
   EventInterest,
   OnEvent
 } from 'fun-events';
-import { InAspect, InAspect__symbol } from './aspect';
-import { inAspectNull, inAspectValue } from './aspect.impl';
-import { InControl } from './control';
+import { InElement } from './element';
 
-const InElement__aspect: InAspect<InElement<any> | null, 'element'> = {
-  applyTo() {
-    return inAspectNull;
-  },
-};
-
-/**
- * HTML input element control.
- *
- * It is also available as aspect of itself and converted controls. It is not available as aspect of other controls.
- *
- * An input element control can be constructed using `inElt()` function.
- *
- * @typeparam Value Input value type. `string` by default.
- */
-export abstract class InElement<Value = string> extends InControl<Value> {
-
-  /**
-   * HTML input element this control is based on.
-   */
-  abstract readonly element: InElement.Element;
-
-  /**
-   * An `AfterEvent` registrar of user input receivers.
-   */
-  abstract readonly input: AfterEvent<[InElement.Input<Value>]>;
-
-  /**
-   * DOM event dispatcher of this element.
-   */
-  abstract readonly events: DomEventDispatcher;
-
-  static get [InAspect__symbol](): InAspect<InElement<any> | null, 'element'> {
-    return InElement__aspect;
-  }
-
-  protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
-      aspect: InAspect<Instance, Kind>
-  ): InAspect.Application.Result<Instance, Value, Kind> | undefined {
-    return aspect === InElement__aspect as InAspect<any, any>
-        ? inAspectValue(this) as InAspect.Application.Result<Instance, Value, Kind>
-        : undefined;
-  }
-
-}
-
-export namespace InElement {
-
-  /**
-   * HTML element accepting user input.
-   *
-   * This may be e.g. `HTMLInputElement`, `HTMLSelectElement`, or `HTMLTextAreaElement`.
-   *
-   * Input control can be built on top of this element using `inElt()` function.
-   */
-  export type Element = HTMLElement & { value: string };
-
-  /**
-   * User input.
-   *
-   * @typeparam Value Input value type.
-   */
-  export interface Input<Value> {
-
-    /**
-     * The value user entered.
-     */
-    value: Value;
-
-    /**
-     * An event caused the value to be applied.
-     *
-     * The value has been applied programmatically if missing.
-     */
-    event?: Event;
-
-  }
-
-}
-
-class InElementControl extends InElement {
+class InText extends InElement {
 
   readonly input: AfterEvent<[InElement.Input<string>]>;
   readonly on: OnEvent<[string, string]>;
@@ -103,7 +21,7 @@ class InElementControl extends InElement {
   // noinspection TypeScriptFieldCanBeMadeReadonly
   private _update: (value: string, oldValue: string) => void;
 
-  constructor(readonly element: InElement.Element) {
+  constructor(readonly element: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) {
     super();
     this._value = element.value;
     this._update = update;
@@ -182,29 +100,14 @@ class InElementControl extends InElement {
 }
 
 /**
- * Constructs control for the given input element.
+ * Constructs control for the given textual input element.
  *
- * @param element Target input element.
+ * Note that this won't work for files, checkboxes, or radio buttons.
+ *
+ * @param element Target text input element. Either `<input>`, `<textarea>`, or `<select>`.
  *
  * @return New input element control instance.
  */
-export function inElt(element: InElement.Element): InElement {
-  return new InElementControl(element);
-}
-
-declare module './aspect' {
-
-  export namespace InAspect.Application {
-
-    export interface Map<OfInstance, OfValue> {
-
-      /**
-       * Input element application type.
-       */
-      element(): InElement<OfValue>;
-
-    }
-
-  }
-
+export function inText(element: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement): InElement {
+  return new InText(element);
 }

@@ -1,6 +1,6 @@
 import { asis } from 'call-thru';
 import { InControl } from '../control';
-import { inElt } from '../element';
+import { inText } from '../element';
 import { inValue } from '../value';
 import { InFocus } from './focus.aspect';
 
@@ -12,7 +12,7 @@ describe('InFocus', () => {
 
   beforeEach(() => {
     element = document.body.appendChild(document.createElement('input'));
-    control = inElt(element);
+    control = inText(element);
     focus = control.aspect(InFocus)!;
   });
   afterEach(() => {
