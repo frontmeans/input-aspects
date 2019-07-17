@@ -121,59 +121,35 @@ export namespace InMode {
 
 class OwnModeTracker extends ValueTracker<InMode.Value> {
 
-  private readonly _on = new EventEmitter<[InMode.Value, InMode.Value]>();
+  private readonly _tracker: ValueTracker<InMode.Value>;
 
-  constructor(readonly elt: InElement.Element) {
+  constructor(element?: InElement) {
     super();
+    this._tracker = trackValue(element ? actualMode(element.element) : 'on');
   }
 
   get on() {
-    return this._on.on;
+    return this._tracker.on;
   }
 
   get it(): InMode.Value {
-    return this.elt.getAttribute('disabled') != null
-        ? 'off' : (
-            this.elt.getAttribute('readonly') != null ? 'ro' : 'on'
-        );
+    return this._tracker.it;
   }
 
   set it(value: InMode.Value) {
-
-    const old = this.it;
-
-    if (old === value) {
-      return;
-    }
-
     switch (value) {
       case 'off':
-        this.elt.setAttribute('disabled', '');
-        break;
       case 'ro':
-        // Workaround of https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
-        this.elt.setAttribute('disabled', '');
-        this.elt.removeAttribute('disabled');
-        this.elt.setAttribute('readonly', '');
         break;
       default:
-        value = 'on';
-        if (old === value) {
-          return; // Handle incorrect value.
-        }
-        // Workaround of https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
-        this.elt.setAttribute('disabled', '');
-        this.elt.removeAttribute('disabled');
-        // Workaround of https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
-        this.elt.setAttribute('readonly', '');
-        this.elt.removeAttribute('readonly');
+        value = 'on'; // Correct the value.
     }
 
-    this._on.send(value, old);
+    this._tracker.it = value;
   }
 
   done(reason?: any): this {
-    this._on.done(reason);
+    this._tracker.done(reason);
     return this;
   }
 
@@ -213,7 +189,7 @@ class DerivedModes {
 
 class InControlMode extends InMode {
 
-  readonly own: ValueTracker<InMode.Value>;
+  readonly own: OwnModeTracker;
   readonly read: AfterEvent<[InMode.Value]>;
   readonly on: OnEvent<[InMode.Value, InMode.Value]>;
   private readonly _derived = new DerivedModes();
@@ -223,12 +199,12 @@ class InControlMode extends InMode {
 
     const element = control.aspect(InElement);
 
-    this.own = element ? new OwnModeTracker(element.element) : trackValue('on');
+    this.own = new OwnModeTracker(element);
     this.derive(control.aspect(InParents).read.keep.dig_(parentsMode));
 
     let last: InMode.Value = 'on';
 
-    this.read = afterEventOr(
+    this.read = afterEventOr<[InMode.Value]>(
         afterEventFromAll({
           derived: this._derived.read,
           own: this.own,
@@ -248,6 +224,9 @@ class InControlMode extends InMode {
         }),
         valuesProvider<[InMode.Value]>(last),
     );
+    if (element) {
+      this.read(value => applyMode(element.element, value));
+    }
 
     let lastUpdate: InMode.Value = 'on';
 
@@ -263,6 +242,41 @@ class InControlMode extends InMode {
     return this._derived.add(source);
   }
 
+}
+
+function actualMode(element: HTMLElement): InMode.Value {
+  return element.getAttribute('disabled') != null
+      ? 'off' : (
+          element.getAttribute('readonly') != null ? 'ro' : 'on'
+      );
+}
+
+function applyMode(element: HTMLElement, value: InMode.Value) {
+
+  const old = actualMode(element);
+
+  if (old === value) {
+    return;
+  }
+
+  switch (value) {
+    case 'off':
+      element.setAttribute('disabled', '');
+      break;
+    case 'ro':
+      // Workaround of https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
+      element.setAttribute('disabled', '');
+      element.removeAttribute('disabled');
+      element.setAttribute('readonly', '');
+      break;
+    default:
+      // Workaround of https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
+      element.setAttribute('disabled', '');
+      element.removeAttribute('disabled');
+      // Workaround of https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
+      element.setAttribute('readonly', '');
+      element.removeAttribute('readonly');
+  }
 }
 
 function parentsMode(parents: InParents.All): AfterEvent<[InMode.Value]> {

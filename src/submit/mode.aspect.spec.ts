@@ -70,15 +70,6 @@ describe('InMode', () => {
     it('is `on` by default', () => {
       expect(mode.own.it).toBe('on');
     });
-    it('is `off` when disabled', () => {
-      element.readOnly = true;
-      element.disabled = true;
-      expect(mode.own.it).toBe('off');
-    });
-    it('is `ro` when read-only', () => {
-      element.readOnly = true;
-      expect(mode.own.it).toBe('ro');
-    });
     it('disables when set to `off`', () => {
       mode.own.it = 'off';
       expect(element.disabled).toBe(true);
@@ -158,6 +149,8 @@ describe('InMode', () => {
     describe('own', () => {
       it('is `on` by default', () => {
         expect(groupMode.own.it).toBe('on');
+        expect(element.disabled).toBe(false);
+        expect(element.readOnly).toBe(false);
       });
       it('disables nested controls when set to `off`', () => {
         groupMode.own.it = 'off';
@@ -165,6 +158,7 @@ describe('InMode', () => {
         expect(readMode).toHaveBeenLastCalledWith('off');
         expect(onModeUpdate).toHaveBeenCalledWith('off', 'on');
         expect(onOwnUpdate).not.toHaveBeenCalled();
+        expect(element.disabled).toBe(true);
       });
       it('makes nested controls read-only when set to `ro`', () => {
         groupMode.own.it = 'ro';
@@ -172,6 +166,8 @@ describe('InMode', () => {
         expect(readMode).toHaveBeenLastCalledWith('ro');
         expect(onModeUpdate).toHaveBeenCalledWith('ro', 'on');
         expect(onOwnUpdate).not.toHaveBeenCalled();
+        expect(element.disabled).toBe(false);
+        expect(element.readOnly).toBe(true);
       });
       it('makes nested controls read-only when set to `ro`, unless disabled', () => {
         mode.own.it = 'off';
@@ -183,6 +179,7 @@ describe('InMode', () => {
         expect(readMode).not.toHaveBeenCalled();
         expect(onModeUpdate).not.toHaveBeenCalled();
         expect(onOwnUpdate).not.toHaveBeenCalled();
+        expect(element.disabled).toBe(true);
       });
       it('does not enable explicitly disabled nested controls', () => {
         groupMode.own.it = 'off';
@@ -195,6 +192,7 @@ describe('InMode', () => {
         expect(readMode).not.toHaveBeenCalled();
         expect(onModeUpdate).not.toHaveBeenCalled();
         expect(onOwnUpdate).not.toHaveBeenCalled();
+        expect(element.disabled).toBe(true);
       });
       it('makes nested controls read-only again when enabled', () => {
         groupMode.own.it = 'off';
@@ -207,6 +205,8 @@ describe('InMode', () => {
         expect(readMode).toHaveBeenLastCalledWith('ro');
         expect(onModeUpdate).toHaveBeenLastCalledWith('ro', 'off');
         expect(onOwnUpdate).not.toHaveBeenCalled();
+        expect(element.disabled).toBe(false);
+        expect(element.readOnly).toBe(true);
       });
     });
   });
@@ -223,18 +223,23 @@ describe('InMode', () => {
 
     it('is `on` by default', () => {
       expect(source.it).toBe('on');
+      expect(element.disabled).toBe(false);
+      expect(element.readOnly).toBe(false);
     });
     it('is disabled when source is `off`', () => {
       source.it = 'off';
       expect(readMode).toHaveBeenLastCalledWith('off');
       expect(onModeUpdate).toHaveBeenCalledWith('off', 'on');
       expect(onOwnUpdate).not.toHaveBeenCalled();
+      expect(element.disabled).toBe(true);
     });
     it('is read-only when source is `ro`', () => {
       source.it = 'ro';
       expect(readMode).toHaveBeenLastCalledWith('ro');
       expect(onModeUpdate).toHaveBeenCalledWith('ro', 'on');
       expect(onOwnUpdate).not.toHaveBeenCalled();
+      expect(element.disabled).toBe(false);
+      expect(element.readOnly).toBe(true);
     });
     it('is read-only when source is `ro`, unless disabled', () => {
       mode.own.it = 'off';
@@ -245,6 +250,7 @@ describe('InMode', () => {
       expect(readMode).not.toHaveBeenCalled();
       expect(onModeUpdate).not.toHaveBeenCalled();
       expect(onOwnUpdate).not.toHaveBeenCalled();
+      expect(element.disabled).toBe(true);
     });
     it('is not enabled by source when explicitly disabled', () => {
       source.it = 'off';
@@ -256,6 +262,7 @@ describe('InMode', () => {
       expect(readMode).not.toHaveBeenCalled();
       expect(onModeUpdate).not.toHaveBeenCalled();
       expect(onOwnUpdate).not.toHaveBeenCalled();
+      expect(element.disabled).toBe(true);
     });
     it('is read-only again when source is re-enabled', () => {
       source.it = 'off';
@@ -267,13 +274,17 @@ describe('InMode', () => {
       expect(readMode).toHaveBeenLastCalledWith('ro');
       expect(onModeUpdate).toHaveBeenLastCalledWith('ro', 'off');
       expect(onOwnUpdate).not.toHaveBeenCalled();
+      expect(element.disabled).toBe(false);
+      expect(element.readOnly).toBe(true);
     });
-    it('is reset when no more derived', () => {
+    it('is reset when no longer derived', () => {
       source.it = 'off';
       sourceInterest.off();
       expect(readMode).toHaveBeenLastCalledWith('on');
       expect(onModeUpdate).toHaveBeenCalledWith('on', 'off');
       expect(onOwnUpdate).not.toHaveBeenCalled();
+      expect(element.disabled).toBe(false);
+      expect(element.readOnly).toBe(false);
     });
   });
 });
