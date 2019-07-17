@@ -3,10 +3,6 @@ import { InElementControl } from './element.impl';
 
 class InText extends InElementControl<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement, string> {
 
-  constructor(readonly element: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) {
-    super(element);
-  }
-
   protected _get(): string {
     return this.element.value;
   }
@@ -19,7 +15,7 @@ class InText extends InElementControl<HTMLInputElement | HTMLTextAreaElement | H
 }
 
 /**
- * Constructs control for the given textual input element.
+ * Creates control for the given textual input element.
  *
  * Note that this won't work for files, checkboxes, or radio buttons.
  *

@@ -21,7 +21,7 @@ export abstract class InElementControl<E extends HTMLElement, Value> extends InE
   // noinspection TypeScriptFieldCanBeMadeReadonly
   private _update: (value: Value, oldValue: Value) => void;
 
-  protected constructor(readonly element: E) {
+  constructor(readonly element: E) {
     super();
     this._value = this.it;
     this._update = update;

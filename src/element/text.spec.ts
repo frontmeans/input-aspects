@@ -7,32 +7,32 @@ import { InElement } from './element';
 import { inText } from './text';
 import Mock = jest.Mock;
 
-describe('InElement', () => {
+describe('inText', () => {
 
   let input: HTMLInputElement;
-  let inElement: InElement;
+  let control: InElement;
 
   beforeEach(() => {
     input = document.createElement('input');
     input.value = 'old';
-    inElement = inText(input);
+    control = inText(input);
   });
 
   describe('element', () => {
     it('contains input element', () => {
-      expect(inElement.element).toBe(input);
+      expect(control.element).toBe(input);
     });
   });
 
   describe('aspect', () => {
     it('is available as aspect of itself', () => {
-      expect(inElement.aspect(InElement)).toBe(inElement);
+      expect(control.aspect(InElement)).toBe(control);
     });
     it('is available as aspect of converted control', () => {
 
-      const converted = inElement.convert(asis, asis);
+      const converted = control.convert(asis, asis);
 
-      expect(converted.aspect(InElement)).toBe(inElement);
+      expect(converted.aspect(InElement)).toBe(control);
     });
     it('is not available as aspect of non-element control', () => {
 
@@ -58,20 +58,20 @@ describe('InElement', () => {
         },
       };
 
-      expect(inElement.aspect(aspect)).toBe('abc');
+      expect(control.aspect(aspect)).toBe('abc');
     });
   });
 
   describe('it', () => {
     it('reflects input value', () => {
-      expect(inElement.it).toBe('old');
+      expect(control.it).toBe('old');
     });
     it('reflects input value changes', () => {
       input.value = 'new';
-      expect(inElement.it).toBe('new');
+      expect(control.it).toBe('new');
     });
     it('updates input value', () => {
-      inElement.it = 'new';
+      control.it = 'new';
       expect(input.value).toBe('new');
     });
   });
@@ -84,8 +84,8 @@ describe('InElement', () => {
     let inputInterest: EventInterest;
 
     beforeEach(() => {
-      changesInterest = inElement.on(changesReceiver = jest.fn());
-      inputInterest = inElement.input(inputReceiver = jest.fn());
+      changesInterest = control.on(changesReceiver = jest.fn());
+      inputInterest = control.input(inputReceiver = jest.fn());
     });
 
     it('sends initial value', () => {
@@ -118,20 +118,20 @@ describe('InElement', () => {
       expect(inputReceiver).toHaveBeenLastCalledWith({ value: 'old', event });
     });
     it('sends update on value change', () => {
-      inElement.it = 'new';
+      control.it = 'new';
       expect(changesReceiver).toHaveBeenLastCalledWith('new', 'old');
       expect(inputReceiver).toHaveBeenLastCalledWith({ value: 'new' });
     });
     it('does not send update on unchanged value', () => {
       inputReceiver.mockClear();
-      inElement.it = 'old';
+      control.it = 'old';
       expect(changesReceiver).not.toHaveBeenCalled();
       expect(inputReceiver).not.toHaveBeenCalled();
     });
     it('sends update when value changed by receiver', () => {
-      inElement.on(value => {
+      control.on(value => {
         if (!value.endsWith('!')) {
-          inElement.it = value + '!';
+          control.it = value + '!';
         }
       });
 
@@ -150,7 +150,7 @@ describe('InElement', () => {
 
       changesInterest.whenDone(changesDone);
       inputInterest.whenDone(inputDone);
-      inElement.done('some');
+      control.done('some');
       expect(changesDone).toHaveBeenCalledWith('some');
       expect(inputDone).toHaveBeenCalledWith('some');
 
