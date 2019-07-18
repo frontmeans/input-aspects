@@ -1,4 +1,4 @@
-import { InElement } from './element';
+import { InElement } from '../element.control';
 import { inSelect } from './select';
 
 describe('inSelect', () => {

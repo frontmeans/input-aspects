@@ -3,7 +3,7 @@ import { EventInterest } from 'fun-events';
 import { InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
 import { inValue } from '../value';
-import { InElement } from './element';
+import { InElement } from '../element.control';
 import { inText } from './text';
 import Mock = jest.Mock;
 
@@ -18,7 +18,7 @@ describe('inText', () => {
     control = inText(input);
   });
 
-  describe('element', () => {
+  describe('element.control.ts', () => {
     it('contains input element', () => {
       expect(control.element).toBe(input);
     });

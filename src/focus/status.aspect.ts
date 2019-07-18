@@ -13,7 +13,7 @@ import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
 import { InContainer } from '../container';
 import { InControl } from '../control';
-import { InElement } from '../element';
+import { InElement } from '../element.control';
 import { InFocus } from './focus.aspect';
 
 const InStatus__aspect: InAspect<InStatus> = {

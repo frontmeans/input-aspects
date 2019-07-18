@@ -1,5 +1,5 @@
 import { InData } from '../submit';
-import { InElement } from './element';
+import { InElement } from '../element.control';
 import { inRadio } from './radio';
 
 describe('inRadio', () => {
@@ -15,7 +15,7 @@ describe('inRadio', () => {
     control.aspect(InData)(d => data = d);
   });
 
-  describe('element', () => {
+  describe('element.control.ts', () => {
     it('contains input element', () => {
       expect(control.element).toBe(radio);
     });

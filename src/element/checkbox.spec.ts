@@ -1,5 +1,5 @@
 import { inCheckbox } from './checkbox';
-import { InElement } from './element';
+import { InElement } from '../element.control';
 
 describe('inCheckbox', () => {
 
@@ -12,7 +12,7 @@ describe('inCheckbox', () => {
     control = inCheckbox(checkbox);
   });
 
-  describe('element', () => {
+  describe('element.control.ts', () => {
     it('contains input element', () => {
       expect(control.element).toBe(checkbox);
     });

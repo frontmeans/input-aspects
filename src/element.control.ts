@@ -1,7 +1,7 @@
 import { AfterEvent, DomEventDispatcher } from 'fun-events';
-import { InAspect, InAspect__symbol } from '../aspect';
-import { inAspectNull, inAspectValue } from '../aspect.impl';
-import { InControl } from '../control';
+import { InAspect, InAspect__symbol } from './aspect';
+import { inAspectNull, inAspectValue } from './aspect.impl';
+import { InControl } from './control';
 
 const InElement__aspect: InAspect<InElement<any> | null, 'element'> = {
   applyTo() {
@@ -74,7 +74,7 @@ export namespace InElement {
 
 }
 
-declare module '../aspect' {
+declare module './aspect' {
 
   export namespace InAspect.Application {
 

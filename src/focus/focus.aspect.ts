@@ -2,7 +2,7 @@ import { EventEmitter, ValueTracker } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectNull, inAspectValue } from '../aspect.impl';
 import { InControl } from '../control';
-import { InElement } from '../element';
+import { InElement } from '../element.control';
 
 const InFocus__aspect: InAspect<InFocus | null> = {
 

@@ -8,7 +8,7 @@ import {
   EventInterest,
   OnEvent
 } from 'fun-events';
-import { InElement } from './element';
+import { InElement } from '../element.control';
 
 export abstract class InElementControl<E extends HTMLElement, Value> extends InElement<Value> {
 

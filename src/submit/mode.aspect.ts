@@ -21,7 +21,7 @@ import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
 import { InParents } from '../container/parents.aspect';
 import { InControl } from '../control';
-import { InElement } from '../element';
+import { InElement } from '../element.control';
 
 const InMode__aspect: InAspect<InMode> = {
 

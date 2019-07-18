@@ -1,6 +1,7 @@
 import { afterEventFrom, EventInterest, onEventFrom, trackValue, ValueTracker } from 'fun-events';
 import { inGroup, InGroup } from '../container';
-import { InElement, inText } from '../element';
+import { inText } from '../element';
+import { InElement } from '../element.control';
 import { InMode } from './mode.aspect';
 import Mock = jest.Mock;
 

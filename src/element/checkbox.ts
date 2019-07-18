@@ -1,4 +1,4 @@
-import { InElement } from './element';
+import { InElement } from '../element.control';
 import { InElementControl } from './element.impl';
 
 class InCheckbox extends InElementControl<HTMLInputElement & { intermediate?: boolean }, boolean | null> {

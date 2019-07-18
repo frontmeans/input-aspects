@@ -2,7 +2,7 @@ import { noop } from 'call-thru';
 import { afterEventFromAll } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InData, InMode } from '../submit';
-import { InElement } from './element';
+import { InElement } from '../element.control';
 import { InElementControl } from './element.impl';
 
 class InRadio extends InElementControl<HTMLInputElement, boolean> {

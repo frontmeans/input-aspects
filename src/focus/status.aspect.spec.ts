@@ -1,6 +1,7 @@
 import { afterEventFrom } from 'fun-events';
 import { InGroup, inGroup } from '../container';
-import { InElement, inText } from '../element';
+import { inText } from '../element';
+import { InElement } from '../element.control';
 import { inValue } from '../value';
 import { InStatus } from './status.aspect';
 

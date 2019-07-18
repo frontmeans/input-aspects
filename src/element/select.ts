@@ -1,5 +1,5 @@
 import { filterIt, itsEach, mapIt, overArray, reverseIt } from 'a-iterable';
-import { InElement } from './element';
+import { InElement } from '../element.control';
 import { InElementControl } from './element.impl';
 
 class InSelect extends InElementControl<HTMLSelectElement, string[]> {
