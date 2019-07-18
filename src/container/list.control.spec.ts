@@ -2,7 +2,7 @@ import { EventInterest } from 'fun-events';
 import { InControl } from '../control';
 import { InData, InMode } from '../submit';
 import { inValue } from '../value';
-import { inList, InList } from './list';
+import { inList, InList } from './list.control';
 import { InParents } from './parents.aspect';
 import Mock = jest.Mock;
 

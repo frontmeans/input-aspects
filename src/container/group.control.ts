@@ -19,7 +19,7 @@ import {
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
 import { InData, InMode } from '../submit';
-import { InContainer, InContainerControls } from './container';
+import { InContainer, InContainerControls } from './container.control';
 import { InParents } from './parents.aspect';
 
 /**

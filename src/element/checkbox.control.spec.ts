@@ -1,4 +1,4 @@
-import { inCheckbox } from './checkbox';
+import { inCheckbox } from './checkbox.control';
 import { InElement } from '../element.control';
 
 describe('inCheckbox', () => {

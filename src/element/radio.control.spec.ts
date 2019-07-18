@@ -1,6 +1,6 @@
 import { InData } from '../submit';
 import { InElement } from '../element.control';
-import { inRadio } from './radio';
+import { inRadio } from './radio.control';
 
 describe('inRadio', () => {
 

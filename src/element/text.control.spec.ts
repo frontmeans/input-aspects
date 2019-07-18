@@ -4,7 +4,7 @@ import { InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
 import { inValue } from '../value';
 import { InElement } from '../element.control';
-import { inText } from './text';
+import { inText } from './text.control';
 import Mock = jest.Mock;
 
 describe('inText', () => {

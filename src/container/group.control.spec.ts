@@ -4,8 +4,8 @@ import { intoFallback } from '../conversion';
 import { InData, InMode } from '../submit';
 import { InValidation } from '../validation';
 import { inValue } from '../value';
-import { InContainer } from './container';
-import { inGroup, InGroup, InGroupControls } from './group';
+import { InContainer } from './container.control';
+import { inGroup, InGroup, InGroupControls } from './group.control';
 import { InParents } from './parents.aspect';
 import Mock = jest.Mock;
 

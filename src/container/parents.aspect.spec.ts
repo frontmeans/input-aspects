@@ -1,8 +1,8 @@
 import { afterEventFrom, EventInterest, onEventFrom } from 'fun-events';
 import { InControl } from '../control';
 import { inValue } from '../value';
-import { InContainer } from './container';
-import { inGroup } from './group';
+import { InContainer } from './container.control';
+import { inGroup } from './group.control';
 import { InParents } from './parents.aspect';
 import Mock = jest.Mock;
 
