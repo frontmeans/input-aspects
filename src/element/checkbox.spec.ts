@@ -9,7 +9,6 @@ describe('inCheckbox', () => {
   beforeEach(() => {
     checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
-    checkbox.value = 'old';
     control = inCheckbox(checkbox);
   });
 
@@ -27,7 +26,7 @@ describe('inCheckbox', () => {
       checkbox.checked = true;
       expect(control.it).toBe(true);
     });
-    it('reflects checked value', () => {
+    it('reflects intermediate value', () => {
       checkbox.intermediate = true;
       expect(control.it).toBe(null);
     });
@@ -48,5 +47,4 @@ describe('inCheckbox', () => {
       expect(checkbox.intermediate).toBe(true);
     });
   });
-
 });
