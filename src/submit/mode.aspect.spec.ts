@@ -71,6 +71,18 @@ describe('InMode', () => {
     it('is `on` by default', () => {
       expect(mode.own.it).toBe('on');
     });
+    it('is `off` when element is initially disabled', () => {
+      element.disabled = true;
+      control = inText(element);
+      mode = control.aspect(InMode);
+      mode.read.once(value => expect(value).toBe('off'));
+    });
+    it('is `ro` when element is initially read-only', () => {
+      element.readOnly = true;
+      control = inText(element);
+      mode = control.aspect(InMode);
+      mode.read.once(value => expect(value).toBe('ro'));
+    });
     it('disables when set to `off`', () => {
       mode.own.it = 'off';
       expect(element.disabled).toBe(true);
@@ -93,6 +105,14 @@ describe('InMode', () => {
       expect(onModeUpdate).toHaveBeenLastCalledWith('ro', 'on');
       expect(readMode).toHaveBeenLastCalledWith('ro');
     });
+    it('makes read-only when set to `-ro`', () => {
+      mode.own.it = '-ro';
+      expect(element.disabled).toBe(false);
+      expect(element.readOnly).toBe(true);
+      expect(onOwnUpdate).toHaveBeenLastCalledWith('-ro', 'on');
+      expect(onModeUpdate).toHaveBeenLastCalledWith('-ro', 'on');
+      expect(readMode).toHaveBeenLastCalledWith('-ro');
+    });
     it('makes writable when set back to `on`', () => {
       mode.own.it = 'ro';
       mode.own.it = 'on';
@@ -101,6 +121,14 @@ describe('InMode', () => {
       expect(onOwnUpdate).toHaveBeenLastCalledWith('on', 'ro');
       expect(onModeUpdate).toHaveBeenLastCalledWith('on', 'ro');
       expect(readMode).toHaveBeenLastCalledWith('on');
+    });
+    it('makes writable when set to `-on`', () => {
+      mode.own.it = '-on';
+      expect(element.disabled).toBe(false);
+      expect(element.readOnly).toBe(false);
+      expect(onOwnUpdate).toHaveBeenLastCalledWith('-on', 'on');
+      expect(onModeUpdate).toHaveBeenLastCalledWith('-on', 'on');
+      expect(readMode).toHaveBeenLastCalledWith('-on');
     });
     it('makes writable when set back to `on` via invalid value', () => {
       mode.own.it = 'ro';
@@ -166,6 +194,15 @@ describe('InMode', () => {
         expect(readGroupMode).toHaveBeenLastCalledWith('ro');
         expect(readMode).toHaveBeenLastCalledWith('ro');
         expect(onModeUpdate).toHaveBeenCalledWith('ro', 'on');
+        expect(onOwnUpdate).not.toHaveBeenCalled();
+        expect(element.disabled).toBe(false);
+        expect(element.readOnly).toBe(true);
+      });
+      it('makes nested controls read-only when set to `-ro`', () => {
+        groupMode.own.it = '-ro';
+        expect(readGroupMode).toHaveBeenLastCalledWith('-ro');
+        expect(readMode).toHaveBeenLastCalledWith('-ro');
+        expect(onModeUpdate).toHaveBeenCalledWith('-ro', 'on');
         expect(onOwnUpdate).not.toHaveBeenCalled();
         expect(element.disabled).toBe(false);
         expect(element.readOnly).toBe(true);
@@ -238,6 +275,14 @@ describe('InMode', () => {
       source.it = 'ro';
       expect(readMode).toHaveBeenLastCalledWith('ro');
       expect(onModeUpdate).toHaveBeenCalledWith('ro', 'on');
+      expect(onOwnUpdate).not.toHaveBeenCalled();
+      expect(element.disabled).toBe(false);
+      expect(element.readOnly).toBe(true);
+    });
+    it('is read-only when source is `-ro`', () => {
+      source.it = '-ro';
+      expect(readMode).toHaveBeenLastCalledWith('-ro');
+      expect(onModeUpdate).toHaveBeenCalledWith('-ro', 'on');
       expect(onOwnUpdate).not.toHaveBeenCalled();
       expect(element.disabled).toBe(false);
       expect(element.readOnly).toBe(true);

@@ -419,7 +419,7 @@ function readGroupData<Model extends object>(
       mode: [InMode.Value];
     }
 ): InData<Model> {
-  if (mode === 'off') {
+  if (!InMode.hasData(mode)) {
     return afterEventOf();
   }
 

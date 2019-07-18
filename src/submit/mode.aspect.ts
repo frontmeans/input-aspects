@@ -81,10 +81,21 @@ export abstract class InMode implements EventSender<[InMode.Value, InMode.Value]
   abstract readonly own: ValueTracker<InMode.Value>;
 
   /**
+   * Checks whether control in the given `mode` has data to submit.
+   *
+   * @param mode Input control mode to check.
+   *
+   * @returns `true` if control in the given `mode` has data to submit, or `false` otherwise.
+   */
+  static hasData(mode: InMode.Value): boolean {
+    return mode !== 'off' && mode[0] !== '-';
+  }
+
+  /**
    * Derives input mode from another `source`.
    *
-   * - If the `source` reports the `off` mode, then this mode would be `off`.
-   * - If the `source` reports the `ro` mode, then this mode would be `ro`, unless it is `off` already.
+   * If the `source` mode is disabled, this one would be disabled too. If the `source` mode is read-only, then this one
+   * would be read-only, unless disabled already.
    *
    * @param source A source to derive input mode from.
    *
@@ -111,11 +122,13 @@ export namespace InMode {
   /**
    * Possible input control mode value:
    *
-   * - `on` when control is enabled. This is the default value.
-   * - `off` when control is disabled. Such control values are never submitted.
-   * - `ro` when control is read-only. Such controls can not be edited, but still can be submitted.
+   * - `on` when control is writable. This is the default.
+   * - `ro` when control is read-only. Such control can not be edited, but still can be submitted.
+   * - `off` when control is disabled. Such control is not submitted.
+   * - `-on` when control is writable, but not submitted.
+   * - `-ro` when control is read-only, but not submitted.
    */
-  export type Value = 'on' | 'off' | 'ro';
+  export type Value = 'on' | 'ro' | 'off' | '-on' | '-ro';
 
 }
 
@@ -125,7 +138,7 @@ class OwnModeTracker extends ValueTracker<InMode.Value> {
 
   constructor(element?: InElement) {
     super();
-    this._tracker = trackValue(element ? actualMode(element.element) : 'on');
+    this._tracker = trackValue(element ? initialMode(element.element) : 'on');
   }
 
   get on() {
@@ -140,6 +153,8 @@ class OwnModeTracker extends ValueTracker<InMode.Value> {
     switch (value) {
       case 'off':
       case 'ro':
+      case '-on':
+      case '-ro':
         break;
       default:
         value = 'on'; // Correct the value.
@@ -214,10 +229,22 @@ class InControlMode extends InMode {
 
           if (own === 'off' || derived === 'off') {
             next = 'off';
-          } else if (derived === 'ro') {
-            next = 'ro';
           } else {
-            next = own;
+
+            let off = false;
+
+            if (own[0] === '-') {
+              off = true;
+              own = own.substring(1) as InMode.Value;
+            }
+            if (derived[0] === '-') {
+              off = true;
+              derived = derived.substring(1) as InMode.Value;
+            }
+            next = derived === 'ro' ? 'ro' : own;
+            if (off) {
+              next = '-' + next as InMode.Value;
+            }
           }
 
           return last === next ? nextSkip() : nextArgs(last = next);
@@ -244,7 +271,7 @@ class InControlMode extends InMode {
 
 }
 
-function actualMode(element: HTMLElement): InMode.Value {
+function initialMode(element: HTMLElement): InMode.Value {
   return element.getAttribute('disabled') != null
       ? 'off' : (
           element.getAttribute('readonly') != null ? 'ro' : 'on'
@@ -252,18 +279,12 @@ function actualMode(element: HTMLElement): InMode.Value {
 }
 
 function applyMode(element: HTMLElement, value: InMode.Value) {
-
-  const old = actualMode(element);
-
-  if (old === value) {
-    return;
-  }
-
   switch (value) {
     case 'off':
       element.setAttribute('disabled', '');
       break;
     case 'ro':
+    case '-ro':
       // Workaround of https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
       element.setAttribute('disabled', '');
       element.removeAttribute('disabled');
@@ -295,6 +316,7 @@ function parentsMode(parents: InParents.All): AfterEvent<[InMode.Value]> {
 function mergeModes(...modes: [InMode.Value][]) {
 
   let ro = false;
+  let off = false;
 
   for (const [mode] of modes) {
     switch (mode) {
@@ -303,8 +325,15 @@ function mergeModes(...modes: [InMode.Value][]) {
       case 'ro':
         ro = true;
         break;
+      case '-on':
+        off = true;
+        break;
+      case '-ro':
+        off = true;
+        ro = true;
+        break;
     }
   }
 
-  return ro ? 'ro' : 'on';
+  return off ? (ro ? '-ro' : '-on') : (ro ? 'ro' : 'on');
 }

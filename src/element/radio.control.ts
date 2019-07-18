@@ -1,8 +1,7 @@
-import { noop } from 'call-thru';
-import { afterEventFromAll } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
-import { InData, InMode } from '../submit';
+import { inAspectValue } from '../aspect.impl';
 import { InElement } from '../element.control';
+import { InMode } from '../submit';
 import { InElementControl } from './element.impl';
 
 class InRadio extends InElementControl<HTMLInputElement, boolean> {
@@ -19,26 +18,20 @@ class InRadio extends InElementControl<HTMLInputElement, boolean> {
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
       aspect: InAspect<Instance, Kind>,
   ): InAspect.Application.Result<Instance, boolean, Kind> | undefined {
-    if (aspect as InAspect<any> === InData[InAspect__symbol]) {
-      return applyRadioData(this) as InAspect.Application.Result<Instance, boolean, Kind>;
+    if (aspect as InAspect<any> === InMode[InAspect__symbol]) {
+      return applyRadioMode(this) as InAspect.Application.Result<Instance, boolean, Kind>;
     }
     return super._applyAspect(aspect);
   }
 }
 
-function applyRadioData(radio: InRadio): InAspect.Applied<InData<boolean>, InData<any>> {
+function applyRadioMode(radio: InRadio): InAspect.Applied<InMode> {
 
-  const instance: InData<boolean> = afterEventFromAll({
-    value: radio.read.keep.thru_(value => value || undefined),
-    mode: radio.aspect(InMode),
-  }).keep.thru(
-      ({ value: [value], mode: [mode] }) => mode !== 'off' && value || undefined,
-  );
+  const { instance: mode } = InMode[InAspect__symbol].applyTo(radio);
 
-  return {
-    instance,
-    convertTo: noop,
-  };
+  mode.derive(radio.read.keep.thru_(value => value ? 'on' : '-on'));
+
+  return inAspectValue(mode);
 }
 
 /**
@@ -46,7 +39,7 @@ function applyRadioData(radio: InRadio): InAspect.Applied<InData<boolean>, InDat
  *
  * This control has `true` value when radio is checked, or `false` otherwise.
  *
- * In contrast to other input controls its data is `undefined` when radio is not checked.
+ * Sets input mode to `-on` when radio is not checked. Thus making control data `undefined`.
  *
  * @param element Target radio button element.
  *

@@ -41,7 +41,7 @@ function dataByValue<Value, NextReturn>(
     value: Value,
     mode: InMode.Value,
 ): NextArgs<[InData.DataType<Value>?], NextReturn> {
-  return mode === 'off' ? nextArgs() : nextArgs(value as InData.DataType<Value>);
+  return InMode.hasData(mode) ? nextArgs(value as InData.DataType<Value>) : nextArgs();
 }
 
 /**

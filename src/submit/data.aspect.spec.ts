@@ -28,4 +28,12 @@ describe('InData', () => {
     mode.own.it = 'off';
     expect(lastData).toBeUndefined();
   });
+  it('is undefined when mode is `-on`', () => {
+    mode.own.it = '-on';
+    expect(lastData).toBeUndefined();
+  });
+  it('is undefined when mode is `-ro`', () => {
+    mode.own.it = '-ro';
+    expect(lastData).toBeUndefined();
+  });
 });

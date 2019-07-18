@@ -462,7 +462,7 @@ function readListData<Item>(
       mode: [InMode.Value];
     }
 ): InData<readonly Item[]> {
-  if (mode === 'off') {
+  if (!InMode.hasData(mode)) {
     return afterEventOf();
   }
 
