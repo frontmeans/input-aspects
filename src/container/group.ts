@@ -1,3 +1,4 @@
+import { itsEach, itsIterable, mapIt, overEntries } from 'a-iterable';
 import { nextArgs, noop } from 'call-thru';
 import {
   AfterEvent,
@@ -31,7 +32,7 @@ import { InParents } from './parents.aspect';
  *
  * @typeparam Model Group model type, i.e. its value type.
  */
-export abstract class InGroup<Model> extends InContainer<Model> {
+export abstract class InGroup<Model extends object> extends InContainer<Model> {
 
   /**
    * HTML element this group is constructed for, if any.
@@ -162,21 +163,17 @@ class InGroupSnapshot<Model> implements InGroup.Snapshot<Model> {
     return entry && entry[0] as InGroup.Controls<Model>[K];
   }
 
-  * [Symbol.iterator](): IterableIterator<InControl<any>> {
-    for (const [control] of this._map.values()) {
-      yield control;
-    }
+  [Symbol.iterator](): IterableIterator<InControl<any>> {
+    return itsIterable(mapIt(this._map.values(), ([control]) => control));
   }
 
-  * entries(): IterableIterator<InGroup.Entry<Model>> {
-    for (const [key, [control]] of this._map.entries()) {
-      yield [key, control];
-    }
+  entries(): IterableIterator<InGroup.Entry<Model>> {
+    return itsIterable(mapIt(this._map.entries(), ([key, [control]]) => [key, control]));
   }
 
 }
 
-class InGroupMap<Model> {
+class InGroupMap<Model extends object> {
 
   readonly _interest = eventInterest();
   private _map = new Map<keyof Model, ControlEntry>();
@@ -225,9 +222,7 @@ class InGroupMap<Model> {
 
         const map = new Map<keyof Model, ControlEntry>();
 
-        for (const [k, e] of self._map.entries()) {
-          map.set(k, e);
-        }
+        itsEach(self._map.entries(), ([k, e]) => map.set(k, e));
         self._shot = undefined;
         self._map = map;
       }
@@ -242,7 +237,7 @@ class InGroupMap<Model> {
 
 }
 
-class InGroupControlControls<Model> extends InGroupControls<Model> {
+class InGroupControlControls<Model extends object> extends InGroupControls<Model> {
 
   private readonly _map: InGroupMap<Model>;
   private readonly _updates = new EventEmitter<[[keyof Model, ControlEntry][], [keyof Model, ControlEntry][]]>();
@@ -272,11 +267,7 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
 
         const withValues = new Set<keyof Model>();
 
-        for (const k of Object.keys(model)) {
-
-          const key = k as keyof Model;
-          const value = model[key];
-
+        itsEach(overEntries(model), ([key, value]) => {
           withValues.add(key);
 
           const control = snapshot.get(key);
@@ -284,17 +275,13 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
           if (control) {
             control.it = value;
           }
-        }
+        });
 
-        // Assign `undefined` to controls without values in model
-        for (const [k, control] of snapshot.entries()) {
-
-          const key = k as keyof Model;
-
+        itsEach(snapshot.entries(), ([key, control]) => {
           if (!withValues.has(key)) {
             control.it = undefined!;
           }
-        }
+        });
       });
     }
   }
@@ -308,12 +295,9 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
     const removed: [keyof Model, ControlEntry][] = [];
 
     if (typeof keyOrControls === 'object') {
-      for (const k of Reflect.ownKeys(keyOrControls)) {
-
-        const key = k as keyof Model;
-
-        this._map.set(key, keyOrControls[key], added, removed);
-      }
+      itsEach(overEntries(keyOrControls), ([key, value]) => {
+        this._map.set(key, value, added, removed);
+      });
     } else {
       this._map.set(keyOrControls, newControl, added, removed);
     }
@@ -366,11 +350,13 @@ class InGroupControlControls<Model> extends InGroupControls<Model> {
 
 }
 
-function controlEntryToGroupEntry<Model>([key, [control]]: [keyof Model, ControlEntry]): InGroup.Entry<Model> {
+function controlEntryToGroupEntry<Model extends object>(
+    [key, [control]]: [keyof Model, ControlEntry],
+): InGroup.Entry<Model> {
   return [key, control];
 }
 
-class InGroupControl<Model> extends InGroup<Model> {
+class InGroupControl<Model extends object> extends InGroup<Model> {
 
   private readonly _model: ValueTracker<Model>;
   readonly controls: InGroupControlControls<Model>;
@@ -412,7 +398,7 @@ class InGroupControl<Model> extends InGroup<Model> {
 
 }
 
-function groupData<Model>(group: InGroup<Model>): InData<Model> {
+function groupData<Model extends object>(group: InGroup<Model>): InData<Model> {
   return afterEventFromAll({
     cs: group.controls,
     model: group,
@@ -422,7 +408,7 @@ function groupData<Model>(group: InGroup<Model>): InData<Model> {
   );
 }
 
-function readGroupData<Model>(
+function readGroupData<Model extends object>(
     {
       cs: [controls],
       model: [model],
@@ -439,21 +425,17 @@ function readGroupData<Model>(
 
   const csData: { [key in keyof Model]: InData<any> } = {} as any;
 
-  for (const [key, control] of controls.entries()) {
+  itsEach(controls.entries(), ([key, control]) => {
     csData[key as keyof Model] = control.aspect(InData);
-  }
+  });
 
   return afterEventFromAll(csData).keep.thru(controlsData => {
 
     const data: Partial<Model> = { ...model };
 
-    for (const k of Object.keys(controlsData)) {
-
-      const key = k as keyof Model;
-      const [controlData] = controlsData[key];
-
+    itsEach(overEntries(controlsData), ([key, [controlData]]) => {
       data[key] = controlData;
-    }
+    });
 
     return data as InData.DataType<Model>;
   });
@@ -468,6 +450,6 @@ function readGroupData<Model>(
  *
  * @returns New input controls group.
  */
-export function inGroup<Model>(model: Model, element?: HTMLElement): InGroup<Model> {
+export function inGroup<Model extends object>(model: Model, element?: HTMLElement): InGroup<Model> {
   return new InGroupControl(model, element);
 }

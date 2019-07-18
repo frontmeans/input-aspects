@@ -1,3 +1,4 @@
+import { itsEach, mapIt } from 'a-iterable';
 import {
   AfterEvent,
   AfterEvent__symbol,
@@ -197,14 +198,14 @@ function updateFlags(flags: InStatus.Flags, hasFocus: boolean, edited: boolean):
 
 function containerFlags(container: InContainer<any>): AfterEvent<[InStatus.Flags]> {
   return container.controls.read.keep.dig_(
-          snapshot => afterEventFromEach(...controlStatuses(snapshot))
-      ).keep.thru(
-          combineFlags
-      );
+      snapshot => afterEventFromEach(...controlStatuses(snapshot)),
+  ).keep.thru(
+      combineFlags
+  );
 }
 
-function controlStatuses(snapshot: InContainer.Snapshot): InStatus[] {
-  return [...snapshot].map(c => c.aspect(InStatus));
+function controlStatuses(snapshot: InContainer.Snapshot): Iterable<InStatus> {
+  return mapIt(snapshot, c => c.aspect(InStatus));
 }
 
 function combineFlags(...flags: [InStatus.Flags][]): InStatus.Flags {
@@ -215,17 +216,21 @@ function combineFlags(...flags: [InStatus.Flags][]): InStatus.Flags {
     edited: false,
   };
 
-  for (const [{ hasFocus, touched, edited }] of flags) {
-    if (touched) {
-      result.touched = true;
-    }
-    if (hasFocus) {
-      result.hasFocus = result.touched = true;
-    }
-    if (edited) {
-      result.edited = result.touched = true;
-    }
-  }
+  itsEach(
+      flags,
+      (([{ hasFocus, touched, edited }]) => {
+            if (touched) {
+              result.touched = true;
+            }
+            if (hasFocus) {
+              result.hasFocus = result.touched = true;
+            }
+            if (edited) {
+              result.edited = result.touched = true;
+            }
+          }
+      )
+  );
 
   return result;
 }

@@ -1,3 +1,4 @@
+import { itsEach, overEntries } from 'a-iterable';
 import { AfterEvent, AfterEvent__symbol, afterEventFrom, EventInterest, EventKeeper, } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
@@ -176,28 +177,31 @@ class InValidationErrors implements InValidation.Result {
 
   constructor(messages: InValidation.Message[]) {
     this._all = [];
-    for (const message of messages) {
+    itsEach(
+        messages,
+        message => {
 
-      let nonEmpty = false;
+          let nonEmpty = false;
 
-      for (const code of Object.keys(message)) {
-        if (message[code]) {
-          nonEmpty = true;
+          itsEach(overEntries(message), ([code, codePresent]) => {
+            if (codePresent) {
+              nonEmpty = true;
 
-          const prev = this._byCode.get(code);
+              const prev = this._byCode.get(code as string);
 
-          if (prev) {
-            prev.push(message);
-          } else {
-            this._byCode.set(code, [message]);
+              if (prev) {
+                prev.push(message);
+              } else {
+                this._byCode.set(code as string, [message]);
+              }
+            }
+          });
+
+          if (nonEmpty) {
+            this._all.push(message);
           }
         }
-      }
-
-      if (nonEmpty) {
-        this._all.push(message);
-      }
-    }
+    );
   }
 
   get ok() {

@@ -1,3 +1,4 @@
+import { itsIterable, mapIt } from 'a-iterable';
 import { isDefined, nextArgs, noop } from 'call-thru';
 import {
   AfterEvent,
@@ -191,10 +192,8 @@ class InListSnapshot<Item> implements InList.Snapshot<Item> {
     return this._entries.length;
   }
 
-  * [Symbol.iterator](): IterableIterator<InControl<Item>> {
-    for (const entry of this._entries) {
-      yield entry[0];
-    }
+  [Symbol.iterator](): IterableIterator<InControl<Item>> {
+    return itsIterable(mapIt(this._entries, ([control]) => control));
   }
 
   * entries(): IterableIterator<InList.Entry<Item>> {
@@ -467,11 +466,7 @@ function readListData<Item>(
     return afterEventOf();
   }
 
-  const csData: InData<Item>[] = [];
-
-  for (const control of controls) {
-    csData.push(control.aspect(InData));
-  }
+  const csData = mapIt(controls, control => control.aspect(InData));
 
   return afterEventFromEach(...csData).keep.thru((...controlsData) => {
     return controlsData.map(([d]) => d).filter(isDefined) as InData.DataType<readonly Item[]>;

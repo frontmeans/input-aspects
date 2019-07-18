@@ -1,4 +1,5 @@
-import { nextArgs, NextArgs, noop } from 'call-thru';
+import { flatMapIt, itsEach } from 'a-iterable';
+import { asis, nextArgs, NextArgs, noop } from 'call-thru';
 import {
   AfterEvent,
   AfterEvent__symbol,
@@ -70,9 +71,7 @@ export class InValidationMessages<Value> implements EventKeeper<InValidation.Mes
       };
 
       // Enable each validator
-      for (const [validator, validatorInterest] of validators.entries()) {
-        validate(validator, validatorInterest);
-      }
+      itsEach(validators.entries(), ([validator, validatorInterest]) => validate(validator, validatorInterest));
 
       // Enable message sending
       send = () => {
@@ -100,10 +99,8 @@ export class InValidationMessages<Value> implements EventKeeper<InValidation.Mes
       return validatorInterest;
     };
 
-    function *allMessages(): Iterable<InValidation.Message> {
-      for (const messages of validatorMessages.values()) {
-        yield *messages;
-      }
+    function allMessages(): Iterable<InValidation.Message> {
+      return flatMapIt(validatorMessages.values(), asis);
     }
   }
 
@@ -119,7 +116,6 @@ function controlValidator<Value>(
   if (typeof validator === 'function') {
     return afterEventFrom(validator(control));
   }
-
   return control.read.keep.thru(simpleValidator(control, validator));
 }
 
