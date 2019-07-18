@@ -25,6 +25,7 @@
   "esm5": "dist/input-aspects.esm5.js",
   "typings": "index.d.ts",
   "dependencies": {
+    "a-iterable": "^2.4.0",
     "call-thru": "^2.5.0",
     "fun-events": "^5.0.0",
     "tslib": "^1.10.0"
