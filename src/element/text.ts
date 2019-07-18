@@ -19,6 +19,8 @@ class InText extends InElementControl<HTMLInputElement | HTMLTextAreaElement | H
  *
  * Note that this won't work for files, checkboxes, or radio buttons.
  *
+ * For `<select multiple>` this would only reflect the first option. Consider to use `inSelect()` for multi-selects.
+ *
  * @param element Target text input element. Either `<input>`, `<textarea>`, or `<select>`.
  *
  * @return New input element control instance.

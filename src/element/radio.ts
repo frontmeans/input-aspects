@@ -42,7 +42,7 @@ function applyRadioData(radio: InRadio): InAspect.Applied<InData<boolean>, InDat
 }
 
 /**
- * Creates control for the given radio button element.
+ * Creates input control for the given radio button element.
  *
  * This control has `true` value when radio is checked, or `false` otherwise.
  *
