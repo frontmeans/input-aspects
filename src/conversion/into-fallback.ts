@@ -4,7 +4,7 @@ import { InControl } from '../control';
 /**
  * Creates a converter that converts an input control to the one replacing `undefined` value with fallback one.
  *
- * Treats `null` values as `undefined`. Despite the signature doe not allow nulls they are often used instead.
+ * Treats `null` values as `undefined`. Despite the signature does not allow nulls they are often used instead.
  * E.g. when receiving JSON from server.
  *
  * @typeparam Input value type.
