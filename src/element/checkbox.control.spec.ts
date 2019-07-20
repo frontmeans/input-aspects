@@ -98,7 +98,7 @@ describe('InCheckbox', () => {
     });
   });
 
-  describe('parially customized', () => {
+  describe('partially customized', () => {
 
     let control: InCheckbox<'+' | '-' | null>;
 
