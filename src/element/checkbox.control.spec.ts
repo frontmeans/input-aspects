@@ -14,7 +14,7 @@ describe('InCheckbox', () => {
       control = inCheckbox(checkbox);
     });
 
-    describe('element.control.ts', () => {
+    describe('element', () => {
       it('contains input element', () => {
         expect(control.element).toBe(checkbox);
       });
@@ -61,7 +61,7 @@ describe('InCheckbox', () => {
       control = inCheckbox(checkbox, { checked: '+', unchecked: '-', intermediate: '*' });
     });
 
-    describe('element.control.ts', () => {
+    describe('element', () => {
       it('contains input element', () => {
         expect(control.element).toBe(checkbox);
       });
@@ -108,7 +108,7 @@ describe('InCheckbox', () => {
       control = inCheckbox(checkbox, { checked: '+', unchecked: '-' });
     });
 
-    describe('element.control.ts', () => {
+    describe('element', () => {
       it('contains input element', () => {
         expect(control.element).toBe(checkbox);
       });

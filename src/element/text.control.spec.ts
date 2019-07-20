@@ -18,7 +18,7 @@ describe('inText', () => {
     control = inText(input);
   });
 
-  describe('element.control.ts', () => {
+  describe('element', () => {
     it('contains input element', () => {
       expect(control.element).toBe(input);
     });

@@ -14,7 +14,7 @@ describe('inRadio', () => {
     control.aspect(InMode).read(value => mode = value);
   });
 
-  describe('element.control.ts', () => {
+  describe('element', () => {
     it('contains input element', () => {
       expect(control.element).toBe(radio);
     });
