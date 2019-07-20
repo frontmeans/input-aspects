@@ -4,13 +4,16 @@ describe('InCheckbox', () => {
 
   let checkbox: HTMLInputElement & { intermediate?: boolean };
 
+  beforeEach(() => {
+    checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+  });
+
   describe('default', () => {
 
     let control: InCheckbox;
 
     beforeEach(() => {
-      checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
       control = inCheckbox(checkbox);
     });
 
