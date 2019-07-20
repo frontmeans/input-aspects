@@ -9,12 +9,12 @@ import { InElementControl } from './element.impl';
  *
  * @typeparam Value Input value type. `boolean` by default.
  */
-export type InRadio<Value = boolean> = InElement<Value>;
+export type InRadio<Value = true> = InElement<Value | undefined>;
 
 export namespace InRadio {
 
   /**
-   * Possible radio button control values corresponding to different check states.
+   * Possible radio button control values corresponding to check states.
    *
    * @typeparam Value Radio button input value type.
    */
@@ -25,29 +25,23 @@ export namespace InRadio {
      */
     checked: Value;
 
-    /**
-     * Control value of unchecked radio button.
-     */
-    unchecked: Value;
-
   }
 
 }
 
-class InRadioControl<Value> extends InElementControl<Value, HTMLInputElement> {
+class InRadioControl<Value> extends InElementControl<Value | undefined, HTMLInputElement> {
 
   constructor(
       element: HTMLInputElement,
       {
         checked = true as unknown as Value,
-        unchecked = false as unknown as Value,
       }: Partial<InRadio.Values<Value>> = {}
   ) {
     super(
         element,
         {
           get() {
-            return this.element.checked ? checked : unchecked;
+            return this.element.checked ? checked : undefined;
           },
           set(value) {
             this.element.checked = value === checked;
@@ -58,9 +52,9 @@ class InRadioControl<Value> extends InElementControl<Value, HTMLInputElement> {
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
       aspect: InAspect<Instance, Kind>,
-  ): InAspect.Application.Result<Instance, Value, Kind> | undefined {
+  ): InAspect.Application.Result<Instance, Value | undefined, Kind> | undefined {
     if (aspect as InAspect<any> === InMode[InAspect__symbol]) {
-      return applyRadioMode(this) as InAspect.Application.Result<Instance, Value, Kind>;
+      return applyRadioMode(this) as InAspect.Application.Result<Instance, Value | undefined, Kind>;
     }
     return super._applyAspect(aspect);
   }
@@ -70,7 +64,7 @@ function applyRadioMode<Value>(radio: InRadioControl<Value>): InAspect.Applied<I
 
   const { instance: mode } = InMode[InAspect__symbol].applyTo(radio);
 
-  mode.derive(radio.read.keep.thru_(() => radio.element.checked ? 'on' : '-on'));
+  mode.derive(radio.read.keep.thru_(value => value !== undefined ? 'on' : '-on'));
 
   return inAspectValue(mode);
 }
@@ -78,7 +72,7 @@ function applyRadioMode<Value>(radio: InRadioControl<Value>): InAspect.Applied<I
 /**
  * Creates input control for the given radio button element.
  *
- * This control has `true` value when radio is checked, or `false` otherwise.
+ * This control has `true` value when radio button is checked.
  *
  * Sets input mode to `-on` when radio is not checked. Thus making control data `undefined`.
  *

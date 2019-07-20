@@ -28,7 +28,7 @@ describe('InRadio', () => {
 
     describe('it', () => {
       it('reflects unchecked value', () => {
-        expect(control.it).toBe(false);
+        expect(control.it).toBeUndefined();
         expect(mode).toBe('-on');
       });
       it('reflects checked value', () => {
@@ -42,10 +42,10 @@ describe('InRadio', () => {
         expect(radio.checked).toBe(true);
         expect(mode).toBe('on');
       });
-      it('un-checks radio when set to `false`', () => {
+      it('un-checks radio when set to `undefined`', () => {
         control.it = true;
         radio.dispatchEvent(new KeyboardEvent('input'));
-        control.it = false;
+        control.it = undefined;
         radio.dispatchEvent(new KeyboardEvent('input'));
         expect(radio.checked).toBe(false);
         expect(mode).toBe('-on');
@@ -55,11 +55,11 @@ describe('InRadio', () => {
 
   describe('customized', () => {
 
-    let control: InRadio<'+' | '-'>;
+    let control: InRadio<'+'>;
     let mode: InMode.Value;
 
     beforeEach(() => {
-      control = inRadio(radio, { checked: '+', unchecked: '-' });
+      control = inRadio(radio, { checked: '+' });
       control.aspect(InMode).read(value => mode = value);
     });
 
@@ -71,7 +71,7 @@ describe('InRadio', () => {
 
     describe('it', () => {
       it('reflects unchecked value', () => {
-        expect(control.it).toBe('-');
+        expect(control.it).toBeUndefined();
         expect(mode).toBe('-on');
       });
       it('reflects checked value', () => {
@@ -85,11 +85,20 @@ describe('InRadio', () => {
         expect(radio.checked).toBe(true);
         expect(mode).toBe('on');
       });
-      it('un-checks radio when set to unchecked', () => {
+      it('un-checks radio when set to `undefined`', () => {
         control.it = '+';
         radio.dispatchEvent(new KeyboardEvent('input'));
-        control.it = '-';
+        control.it = undefined;
         radio.dispatchEvent(new KeyboardEvent('input'));
+        expect(radio.checked).toBe(false);
+        expect(mode).toBe('-on');
+      });
+      it('un-checks radio when set to invalid value', () => {
+        control.it = '+';
+        radio.dispatchEvent(new KeyboardEvent('input'));
+        control.it = '-' as any;
+        radio.dispatchEvent(new KeyboardEvent('input'));
+        expect(control.it).toBeUndefined();
         expect(radio.checked).toBe(false);
         expect(mode).toBe('-on');
       });
