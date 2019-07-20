@@ -98,6 +98,12 @@ describe('InCheckbox', () => {
         expect(checkbox.checked).toBe(false);
         expect(checkbox.intermediate).toBe(true);
       });
+      it('makes checkbox state intermediate when set to invalid value', () => {
+        control.it = 'invalid' as any;
+        expect(control.it).toBe('*');
+        expect(checkbox.checked).toBe(false);
+        expect(checkbox.intermediate).toBe(true);
+      });
     });
   });
 
