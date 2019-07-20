@@ -1,10 +1,9 @@
-import { InElement } from '../element.control';
-import { inSelect } from './select.control';
+import { InSelect, inSelect } from './select.control';
 
 describe('inSelect', () => {
 
   let select: HTMLSelectElement;
-  let control: InElement<string[]>;
+  let control: InSelect;
 
   beforeEach(() => {
     select = document.createElement('select');

@@ -2,33 +2,10 @@ import { filterIt, itsEach, mapIt, overArray, reverseIt } from 'a-iterable';
 import { InElement } from '../element.control';
 import { InElementControl } from './element.impl';
 
-class InSelect extends InElementControl<HTMLSelectElement, string[]> {
-
-  protected _get(): string[] {
-    return [
-      ...mapIt(
-          filterIt(
-              overArray(this.element.options),
-              option => option.selected
-          ),
-          option => option.value
-      ),
-    ];
-  }
-
-  protected _set(value: string[]): string[] {
-
-    const selected = new Set(value);
-
-    itsEach(
-        reverseIt(overArray(this.element.options)),
-        option => option.selected = selected.has(option.value),
-    );
-
-    return this._get();
-  }
-
-}
+/**
+ * Select input control.
+ */
+export type InSelect = InElement<string[]>;
 
 /**
  * Creates input control for the given select element.
@@ -38,8 +15,32 @@ class InSelect extends InElementControl<HTMLSelectElement, string[]> {
  *
  * @param element Target select element.
  *
- * @return New input element control instance.
+ * @return New select input control instance.
  */
-export function inSelect(element: HTMLSelectElement): InElement<string[]> {
-  return new InSelect(element);
+export function inSelect(element: HTMLSelectElement): InSelect {
+  return new InElementControl(
+      element,
+      {
+        get(): string[] {
+          return [
+            ...mapIt(
+                filterIt(
+                    overArray(this.element.options),
+                    option => option.selected
+                ),
+                option => option.value
+            ),
+          ];
+        },
+        set(value) {
+
+          const selected = new Set(value);
+
+          itsEach(
+              reverseIt(overArray(this.element.options)),
+              option => option.selected = selected.has(option.value),
+          );
+        },
+      },
+  );
 }

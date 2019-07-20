@@ -16,7 +16,7 @@ describe('InMode', () => {
     element.remove();
   });
 
-  let control: InElement;
+  let control: InElement<string>;
   let mode: InMode;
   let onModeUpdate: Mock<void, [InMode.Value, InMode.Value]>;
   let modeUpdatesInterest: EventInterest;

@@ -7,7 +7,7 @@ import Mock = jest.Mock;
 
 describe('InControl', () => {
 
-  let control: InControl;
+  let control: InControl<string>;
   type ConverterGenerator = InControl.Converter<string, number>;
 
   beforeEach(() => {

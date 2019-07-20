@@ -5,7 +5,7 @@ import { InMode } from './mode.aspect';
 
 describe('InData', () => {
 
-  let control: InControl;
+  let control: InControl<string>;
   let mode: InMode;
   let data: InData<string>;
   let lastData: InData.DataType<string> | undefined;

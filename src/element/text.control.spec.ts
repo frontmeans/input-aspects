@@ -2,15 +2,15 @@ import { asis } from 'call-thru';
 import { EventInterest } from 'fun-events';
 import { InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
-import { inValue } from '../value';
 import { InElement } from '../element.control';
-import { inText } from './text.control';
+import { inValue } from '../value';
+import { InText, inText } from './text.control';
 import Mock = jest.Mock;
 
 describe('inText', () => {
 
   let input: HTMLInputElement;
-  let control: InElement;
+  let control: InText;
 
   beforeEach(() => {
     input = document.createElement('input');

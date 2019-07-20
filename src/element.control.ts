@@ -16,9 +16,9 @@ const InElement__aspect: InAspect<InElement<any> | null, 'element'> = {
  *
  * An input element control can be constructed using `inElt()` function.
  *
- * @typeparam Value Input value type. `string` by default.
+ * @typeparam Value Input value type.
  */
-export abstract class InElement<Value = string> extends InControl<Value> {
+export abstract class InElement<Value> extends InControl<Value> {
 
   /**
    * HTML input element this control is based on.

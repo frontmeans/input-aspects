@@ -7,7 +7,7 @@ import { InFocus } from './focus.aspect';
 describe('InFocus', () => {
 
   let element: HTMLInputElement;
-  let control: InControl;
+  let control: InControl<string>;
   let focus: InFocus;
 
   beforeEach(() => {

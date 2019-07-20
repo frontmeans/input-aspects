@@ -9,7 +9,7 @@ import Mock = jest.Mock;
 describe('InParents', () => {
 
   let parent: InContainer<{}>;
-  let control: InControl;
+  let control: InControl<string>;
 
   beforeEach(() => {
     parent = inGroup({});

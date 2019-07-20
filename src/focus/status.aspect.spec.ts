@@ -8,7 +8,7 @@ import { InStatus } from './status.aspect';
 describe('InStatus', () => {
 
   let element: HTMLInputElement;
-  let control: InElement;
+  let control: InElement<string>;
   let status: InStatus;
   let flags: InStatus.Flags;
 

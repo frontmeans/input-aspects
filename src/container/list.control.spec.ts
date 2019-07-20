@@ -8,9 +8,9 @@ import Mock = jest.Mock;
 
 describe('InList', () => {
 
-  let ctrl1: InControl;
-  let ctrl2: InControl;
-  let ctrl3: InControl;
+  let ctrl1: InControl<string>;
+  let ctrl2: InControl<string>;
+  let ctrl3: InControl<string>;
   let list: InList<string>;
 
   beforeEach(() => {

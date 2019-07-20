@@ -5,7 +5,7 @@ import Mock = jest.Mock;
 
 describe('InValue', () => {
 
-  let control: InControl;
+  let control: InControl<string>;
 
   beforeEach(() => {
     control = inValue('old');

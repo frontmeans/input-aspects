@@ -7,9 +7,9 @@ import { InAspect, InAspect__symbol } from './aspect';
  *
  * Maintains input value and various aspects of the user input, such as input focus, validity, etc.
  *
- * @typeparam Value Input value type. `string` by default.
+ * @typeparam Value Input value type.
  */
-export abstract class InControl<Value = string> extends ValueTracker<Value> {
+export abstract class InControl<Value> extends ValueTracker<Value> {
 
   /**
    * @internal

@@ -1,32 +1,108 @@
 import { InElement } from '../element.control';
 import { InElementControl } from './element.impl';
 
-class InCheckbox extends InElementControl<HTMLInputElement & { intermediate?: boolean }, boolean | null> {
+/**
+ * Checkbox input control.
+ *
+ * @typeparam Value Input value type.
+ */
+export type InCheckbox<Value = boolean | null> = InElement<Value>;
 
-  protected _get(): boolean | null {
-    return this.element.intermediate ? null : this.element.checked;
-  }
+export namespace InCheckbox {
 
-  protected _set(value: boolean | null): boolean | null {
-    this.element.checked = !!value;
-    this.element.intermediate = value == null;
-    return this._get();
+  /**
+   * Possible checkbox control values corresponding to different checkbox states.
+   *
+   * @typeparam Value Checkbox input value type.
+   */
+  export interface Values<Value> {
+
+    /**
+     * Control value of checked checkbox.
+     */
+    checked: Value;
+
+    /**
+     * Control value of unchecked checkbox.
+     */
+    unchecked: Value;
+
+    /**
+     * Control value of checkbox in intermediate state..
+     */
+    intermediate: Value;
+
   }
 
 }
 
 /**
- * Creates control for the given checkbox input element.
+ * Creates an input control for the given checkbox element.
  *
  * The value of checkbox control is:
  * - `true` when checkbox is checked,
- * - `false` when its not, or
- * - `null` when the value is intermediate.
+ * - `false` when it's not, or
+ * - `null` when it is in intermediate state.
  *
  * @param element Target checkbox element.
  *
  * @return New input element control instance.
  */
-export function inCheckbox(element: HTMLInputElement): InElement<boolean | null> {
-  return new InCheckbox(element);
+export function inCheckbox(element: HTMLInputElement): InCheckbox;
+
+/**
+ * Creates an input control for the given checkbox element with custom control values.
+ *
+ * @typeparam Value Input value type.
+ * @param element Target checkbox element.
+ * @param values All possible values of checkbox control.
+ *
+ * @return New radio input control instance.
+ */
+export function inCheckbox<Value>(
+    element: HTMLInputElement,
+    values: InCheckbox.Values<Value>,
+): InCheckbox<Value>;
+
+/**
+ * Creates an input control for the given checkbox element with custom checked and unchecked control values.
+ *
+ * An intermediate checkbox state is represented by `null` control value.
+ *
+ * @typeparam Value Input value type.
+ * @param element Target checkbox element.
+ * @param checked Control value of checked checkbox.
+ * @param unchecked Control value of unchecked checkbox.
+ *
+ * @return New input element control instance.
+ */
+export function inCheckbox<Value>(
+    element: HTMLInputElement,
+    {
+      checked,
+      unchecked,
+    }: Omit<InCheckbox.Values<Value>, 'intermediate'>,
+): InCheckbox<Value | null>;
+
+export function inCheckbox<Value>(
+    element: HTMLInputElement,
+    {
+      checked = true as unknown as Value,
+      unchecked = false as unknown as Value,
+      intermediate = null as unknown as Value,
+    }: Partial<InCheckbox.Values<Value>> = {},
+): InCheckbox<Value> {
+  return new InElementControl<Value, HTMLInputElement & { intermediate?: boolean }>(
+      element,
+      {
+        get() {
+          return this.element.intermediate
+              ? intermediate
+              : this.element.checked ? checked : unchecked;
+        },
+        set(value) {
+          this.element.checked = value === checked;
+          this.element.intermediate = value === intermediate;
+        }
+      });
 }

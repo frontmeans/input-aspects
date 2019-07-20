@@ -1,11 +1,10 @@
-import { InElement } from '../element.control';
 import { InMode } from '../submit';
-import { inRadio } from './radio.control';
+import { InRadio, inRadio } from './radio.control';
 
 describe('inRadio', () => {
 
   let radio: HTMLInputElement;
-  let control: InElement<boolean>;
+  let control: InRadio;
   let mode: InMode.Value;
 
   beforeEach(() => {

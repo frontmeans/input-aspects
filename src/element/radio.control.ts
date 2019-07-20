@@ -4,15 +4,25 @@ import { InElement } from '../element.control';
 import { InMode } from '../submit';
 import { InElementControl } from './element.impl';
 
-class InRadio extends InElementControl<HTMLInputElement, boolean> {
+/**
+ * Radio input control.
+ */
+export type InRadio = InElement<boolean>;
 
-  protected _get(): boolean {
-    return this.element.checked;
-  }
+class InRadioControl extends InElementControl<boolean, HTMLInputElement> {
 
-  protected _set(value: boolean): boolean {
-    this.element.checked = value;
-    return this.element.checked;
+  constructor(element: HTMLInputElement) {
+    super(
+        element,
+        {
+          get() {
+            return this.element.checked;
+          },
+          set(value) {
+            this.element.checked = value;
+          },
+        },
+    );
   }
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
@@ -25,7 +35,7 @@ class InRadio extends InElementControl<HTMLInputElement, boolean> {
   }
 }
 
-function applyRadioMode(radio: InRadio): InAspect.Applied<InMode> {
+function applyRadioMode(radio: InRadioControl): InAspect.Applied<InMode> {
 
   const { instance: mode } = InMode[InAspect__symbol].applyTo(radio);
 
@@ -43,8 +53,8 @@ function applyRadioMode(radio: InRadio): InAspect.Applied<InMode> {
  *
  * @param element Target radio button element.
  *
- * @return New input element control instance.
+ * @return New radio input control instance.
  */
-export function inRadio(element: HTMLInputElement): InElement<boolean> {
-  return new InRadio(element);
+export function inRadio(element: HTMLInputElement): InRadio {
+  return new InRadioControl(element);
 }

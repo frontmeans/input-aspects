@@ -10,19 +10,31 @@ import {
 } from 'fun-events';
 import { InElement } from '../element.control';
 
-export abstract class InElementControl<E extends HTMLElement, Value> extends InElement<Value> {
+export class InElementControl<Value, E extends HTMLElement> extends InElement<Value> {
 
   readonly input: AfterEvent<[InElement.Input<Value>]>;
   readonly on: OnEvent<[Value, Value]>;
   readonly events: DomEventDispatcher;
+  private readonly _get: (this: InElementControl<Value, E>) => Value;
+  private readonly _set: (this: InElementControl<Value, E>, value: Value) => void;
   private readonly _input: EventEmitter<[InElement.Input<Value>, Value]> = new EventEmitter();
   private readonly _interest: EventInterest;
   private _value: Value;
   // noinspection TypeScriptFieldCanBeMadeReadonly
   private _update: (value: Value, oldValue: Value) => void;
 
-  constructor(readonly element: E) {
+  constructor(
+      readonly element: E,
+      {
+        get,
+        set,
+      }: {
+        get: (this: InElementControl<Value, E>) => Value;
+        set: (this: InElementControl<Value, E>, value: Value) => void;
+      }) {
     super();
+    this._get = get;
+    this._set = set;
     this._value = this.it;
     this._update = update;
     this.input = afterEventFrom<[InElement.Input<Value>]>(
@@ -87,8 +99,8 @@ export abstract class InElementControl<E extends HTMLElement, Value> extends InE
     const oldValue = this.it;
 
     if (value !== oldValue) {
-      value = this._set(value);
-      this._update(value, oldValue);
+      this._set(value);
+      this._update(this._get(), oldValue);
     }
   }
 
@@ -96,9 +108,5 @@ export abstract class InElementControl<E extends HTMLElement, Value> extends InE
     this._interest.off(reason);
     return this;
   }
-
-  protected abstract _get(): Value;
-
-  protected abstract _set(value: Value): Value;
 
 }
