@@ -11,13 +11,13 @@ import {
   eventInterest,
   EventInterest,
   EventKeeper,
+  EventReceiver,
   EventSender,
   OnEvent,
   OnEvent__symbol,
   trackValue,
   ValueTracker
 } from 'fun-events';
-import { EventReceiver } from 'fun-events/d.ts/event-receiver';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
 import { InData, InMode } from '../submit';
