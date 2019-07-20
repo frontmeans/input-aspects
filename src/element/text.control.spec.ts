@@ -7,7 +7,7 @@ import { inValue } from '../value';
 import { InText, inText } from './text.control';
 import Mock = jest.Mock;
 
-describe('inText', () => {
+describe('InText', () => {
 
   let input: HTMLInputElement;
   let control: InText;

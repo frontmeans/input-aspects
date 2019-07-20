@@ -1,6 +1,6 @@
 import { InSelect, inSelect } from './select.control';
 
-describe('inSelect', () => {
+describe('InSelect', () => {
 
   let select: HTMLSelectElement;
   let control: InSelect;

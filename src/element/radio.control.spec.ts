@@ -1,7 +1,7 @@
 import { InMode } from '../submit';
 import { InRadio, inRadio } from './radio.control';
 
-describe('inRadio', () => {
+describe('InRadio', () => {
 
   let radio: HTMLInputElement;
   let control: InRadio;
