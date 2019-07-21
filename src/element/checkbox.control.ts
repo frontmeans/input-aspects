@@ -20,17 +20,17 @@ export namespace InCheckbox {
     /**
      * Control value of checked checkbox.
      */
-    checked: Value;
+    readonly checked: Value;
 
     /**
      * Control value of unchecked checkbox.
      */
-    unchecked: Value;
+    readonly unchecked: Value;
 
     /**
      * Control value of checkbox in intermediate state..
      */
-    intermediate: Value;
+    readonly intermediate: Value;
 
   }
 

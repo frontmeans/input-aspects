@@ -23,7 +23,7 @@ export namespace InRadio {
     /**
      * Control value of checked radio button.
      */
-    checked: Value;
+    readonly checked: Value;
 
   }
 
@@ -72,7 +72,7 @@ function applyRadioMode<Value>(radio: InRadioControl<Value>): InAspect.Applied<I
 /**
  * Creates input control for the given radio button element.
  *
- * This control has `true` value when radio button is checked.
+ * The created control has `true` value when radio button is checked.
  *
  * Sets input mode to `-on` when radio is not checked. Thus making control data `undefined`.
  *
@@ -83,13 +83,13 @@ function applyRadioMode<Value>(radio: InRadioControl<Value>): InAspect.Applied<I
 export function inRadio(element: HTMLInputElement): InRadio;
 
 /**
- * Creates input control for the given radio button element with custom control values.
+ * Creates input control for the given radio button element with custom control `values`.
  *
  * Sets input mode to `-on` when radio is not checked. Thus making control data `undefined`.
  *
  * @typeparam Value Input value type.
  * @param element Target radio button element.
- * @param values All possible values of radio button control.
+ * @param values Possible values of radio button control.
  *
  * @return New radio button input control instance.
  */
