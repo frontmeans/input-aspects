@@ -38,11 +38,6 @@ import { InParents } from './parents.aspect';
 export abstract class InList<Item> extends InContainer<readonly Item[]> {
 
   /**
-   * HTML element this list is constructed for, if any.
-   */
-  abstract readonly element?: HTMLElement;
-
-  /**
    * Input list controls.
    */
   abstract readonly controls: InListControls<Item>;
@@ -407,7 +402,7 @@ class InListControl<Item> extends InList<Item> {
   private readonly _model: ValueTracker<readonly Item[]>;
   readonly controls: InListControlControls<Item>;
 
-  constructor(model: readonly Item[], readonly element?: HTMLElement) {
+  constructor(model: readonly Item[]) {
     super();
     this._model = trackValue(model);
     this.controls = new InListControlControls(this);
@@ -478,10 +473,9 @@ function readListData<Item>(
  *
  * @typeparam Item Model item type.
  * @param model Initial model of the list.
- * @param element Optional HTML element the list is constructed for.
  *
  * @returns New input controls group.
  */
-export function inList<Item>(model: readonly Item[], element?: HTMLElement): InList<Item> {
-  return new InListControl(model, element);
+export function inList<Item>(model: readonly Item[]): InList<Item> {
+  return new InListControl(model);
 }
