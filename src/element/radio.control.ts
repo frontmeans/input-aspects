@@ -7,7 +7,11 @@ import { InElementControl } from './element.impl';
 /**
  * Radio button input control.
  *
+ * Radio buttons intended to be added to [radio groups].
+ *
  * @typeparam Value Input value type. `boolean` by default.
+ *
+ * [radio groups]: [[InRadioGroup]]
  */
 export type InRadio<Value = true> = InElement<Value | undefined>;
 
