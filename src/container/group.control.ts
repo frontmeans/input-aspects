@@ -35,11 +35,6 @@ import { InParents } from './parents.aspect';
 export abstract class InGroup<Model extends object> extends InContainer<Model> {
 
   /**
-   * HTML element this group is constructed for, if any.
-   */
-  abstract readonly element?: HTMLElement;
-
-  /**
    * Input group controls.
    */
   abstract readonly controls: InGroupControls<Model>;
@@ -361,7 +356,7 @@ class InGroupControl<Model extends object> extends InGroup<Model> {
   private readonly _model: ValueTracker<Model>;
   readonly controls: InGroupControlControls<Model>;
 
-  constructor(model: Model, readonly element?: HTMLElement) {
+  constructor(model: Model) {
     super();
     this._model = trackValue(model);
     this.controls = new InGroupControlControls(this);
@@ -446,10 +441,9 @@ function readGroupData<Model extends object>(
  *
  * @typeparam Model Group model type, i.e. its value type.
  * @param model Initial model of the group.
- * @param element Optional HTML element the group is constructed for.
  *
  * @returns New input controls group.
  */
-export function inGroup<Model extends object>(model: Model, element?: HTMLElement): InGroup<Model> {
-  return new InGroupControl(model, element);
+export function inGroup<Model extends object>(model: Model): InGroup<Model> {
+  return new InGroupControl(model);
 }
