@@ -6,7 +6,7 @@ import { InElementControl } from './element.impl';
  *
  * @typeparam Value Input value type.
  */
-export type InCheckbox<Value = boolean | null> = InElement<Value>;
+export type InCheckbox<Value = boolean | null> = InElement<Value, HTMLInputElement & { intermediate?: boolean }>;
 
 export namespace InCheckbox {
 

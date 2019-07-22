@@ -10,13 +10,13 @@ import {
 } from 'fun-events';
 import { InElement } from '../element.control';
 
-export class InElementControl<Value, E extends HTMLElement> extends InElement<Value> {
+export class InElementControl<Value, Elt extends HTMLElement> extends InElement<Value, Elt> {
 
   readonly input: AfterEvent<[InElement.Input<Value>]>;
   readonly on: OnEvent<[Value, Value]>;
   readonly events: DomEventDispatcher;
-  private readonly _get: (this: InElementControl<Value, E>) => Value;
-  private readonly _set: (this: InElementControl<Value, E>, value: Value) => void;
+  private readonly _get: (this: InElementControl<Value, Elt>) => Value;
+  private readonly _set: (this: InElementControl<Value, Elt>, value: Value) => void;
   private readonly _input: EventEmitter<[InElement.Input<Value>, Value]> = new EventEmitter();
   private readonly _interest: EventInterest;
   private _value: Value;
@@ -24,13 +24,13 @@ export class InElementControl<Value, E extends HTMLElement> extends InElement<Va
   private _update: (value: Value, oldValue: Value) => void;
 
   constructor(
-      readonly element: E,
+      readonly element: Elt,
       {
         get,
         set,
       }: {
-        get: (this: InElementControl<Value, E>) => Value;
-        set: (this: InElementControl<Value, E>, value: Value) => void;
+        get: (this: InElementControl<Value, Elt>) => Value;
+        set: (this: InElementControl<Value, Elt>, value: Value) => void;
       }) {
     super();
     this._get = get;

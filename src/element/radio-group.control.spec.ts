@@ -39,7 +39,7 @@ describe('InRadioGroup', () => {
     expect(control.it).toBe('b');
     expect(readChecked).toHaveBeenLastCalledWith('b');
     expect(onCheckUpdate).toHaveBeenLastCalledWith('b', undefined);
-    expect((radioB.element as HTMLInputElement).checked).toBe(true);
+    expect(radioB.element.checked).toBe(true);
   });
   it('checks matching radio button', () => {
     control.it = 'c';

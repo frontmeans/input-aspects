@@ -5,7 +5,7 @@ import { InElementControl } from './element.impl';
 /**
  * Select input control.
  */
-export type InSelect = InElement<string[]>;
+export type InSelect = InElement<string[], HTMLSelectElement>;
 
 /**
  * Creates input control for the given select element.

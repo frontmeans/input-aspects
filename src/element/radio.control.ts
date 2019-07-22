@@ -13,7 +13,7 @@ import { InElementControl } from './element.impl';
  *
  * [radio groups]: [[InRadioGroup]]
  */
-export type InRadio<Value = true> = InElement<Value | undefined>;
+export type InRadio<Value = true> = InElement<Value | undefined, HTMLInputElement>;
 
 export namespace InRadio {
 
