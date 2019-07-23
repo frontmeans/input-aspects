@@ -12,5 +12,10 @@ import { InControl } from '../control';
  * to converted control.
  */
 export function intoFallback<Value>(fallback: Value): InControl.Converter<Value, Value | undefined> {
-  return () => [asis, value => value != null ? value : fallback];
+  return () => ({
+    set: asis,
+    get(value) {
+      return value != null ? value : fallback;
+    },
+  });
 }

@@ -109,7 +109,7 @@ describe('InControl', () => {
     });
     it('converts with converter generator', () => {
 
-      const by = jest.fn<ReturnType<ConverterGenerator>, Parameters<ConverterGenerator>>(() => [set, get]);
+      const by = jest.fn<ReturnType<ConverterGenerator>, Parameters<ConverterGenerator>>(() => ({ set, get }));
 
       converted = control.convert(by);
       expect(by).toHaveBeenCalledWith(control, converted);

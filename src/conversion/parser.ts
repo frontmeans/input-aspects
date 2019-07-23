@@ -64,8 +64,8 @@ export const InParser = {
 
       to.aspect(InValidation).by(afterEventFrom(parseValidator, []));
 
-      return [
-        text => {
+      return {
+        set(text) {
 
           const errorList: InValidation.Message[] = [];
           const parserErrors: InParser.Errors = {
@@ -80,7 +80,7 @@ export const InParser = {
 
           return result;
         },
-        value => {
+        get(value) {
 
           const text = String(format(value));
 
@@ -88,7 +88,7 @@ export const InParser = {
 
           return text;
         },
-      ];
+      };
     };
   },
 

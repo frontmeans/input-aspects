@@ -117,7 +117,7 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
     if (!get) {
       by = setOrBy as InControl.Converter<Value, To>;
     } else {
-      by = valueProvider([(setOrBy as (this: void, value: Value) => To), get]);
+      by = valueProvider({ set: setOrBy as (value: Value) => To, get });
     }
 
     return new InConverted(this, by);
@@ -185,7 +185,27 @@ export namespace InControl {
    * @typeparam From Original input value type.
    * @typeparam To Converted input value type.
    */
-  export type Converters<From, To> = [(this: void, value: From) => To, (this: void, value: To) => From];
+  export interface Converters<From, To> {
+
+    /**
+     * Converts original value.
+     *
+     * @param value Original value to convert.
+     *
+     * @returns New value of converted control.
+     */
+    set(this: void, value: From): To;
+
+    /**
+     * Converts a value of converted control back to the value of original control.
+     *
+     * @param value A value of converted control to convert back.
+     *
+     * @returns New value of original control.
+     */
+    get(this: void, value: To): From;
+
+  }
 
   /**
    * A value type of the given input control type.
@@ -214,9 +234,9 @@ class InConverted<From, To> extends InControl<To> {
 
     this.on = on.on;
 
-    const [set, get] = by(_src, this);
+    const converters = by(_src, this);
 
-    this._it = trackValue([set(_src.it), 0]);
+    this._it = trackValue([converters.set(_src.it), 0]);
     this._it.on(([newValue], [oldValue]) => {
       if (newValue !== oldValue) {
         on.send(newValue, oldValue);
@@ -224,13 +244,13 @@ class InConverted<From, To> extends InControl<To> {
     }).whenDone(reason => on.done(reason));
     _src.on(value => {
       if (value !== backward) {
-        this._it.it = [set(value), ++lastRev];
+        this._it.it = [converters.set(value), ++lastRev];
       }
     }).whenDone(reason => this.done(reason));
     this._it.on(([value, rev]) => {
       if (rev !== lastRev) {
         lastRev = rev;
-        backward = get(value);
+        backward = converters.get(value);
         try {
           _src.it = backward;
         } finally {

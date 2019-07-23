@@ -25,5 +25,12 @@ export function intoTrimmed(
   if (!to) {
     return intoTrimmed;
   }
-  return [value => value.trim(), value => to.it = value.trim()];
+  return {
+    set(value) {
+      return value.trim();
+    },
+    get(value) {
+      return to.it = value.trim();
+    }
+  };
 }
