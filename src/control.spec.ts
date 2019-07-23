@@ -127,7 +127,7 @@ describe('InControl', () => {
 
       converted = control.convert(by);
       expect(converted.aspect(InData)).toBe(instance);
-      expect(applyAspect).toHaveBeenCalledWith(control, converted, InData[InAspect__symbol]);
+      expect(applyAspect).toHaveBeenCalledWith(InData[InAspect__symbol]);
     });
     it('converts aspect with default algorithm if `applyAspect` omitted', () => {
 
@@ -143,7 +143,7 @@ describe('InControl', () => {
 
       converted = control.convert(by);
       expect(converted.aspect(InData)).toBeDefined();
-      expect(applyAspect).toHaveBeenCalledWith(control, converted, InData[InAspect__symbol]);
+      expect(applyAspect).toHaveBeenCalledWith(InData[InAspect__symbol]);
     });
 
     describe('on', () => {

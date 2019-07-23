@@ -199,8 +199,6 @@ export namespace InControl {
      */
     readonly applyAspect?: <Instance, Kind extends InAspect.Application.Kind>(
         this: this,
-        from: InControl<From>,
-        to: InControl<To>,
         aspect: InAspect<Instance, Kind>
     ) => InAspect.Application.Result<Instance, To, Kind> | undefined;
 
@@ -264,8 +262,7 @@ class InConverted<From, To> extends InControl<To> {
             aspect: InAspect<Instance, Kind>,
         ) {
           return (
-              applyAspect.call(converters, src, this, aspect)
-              || convertAspect.call(this, aspect)
+              applyAspect.call(converters, aspect) || convertAspect.call(this, aspect)
           ) as InAspect.Application.Result<Instance, To, Kind> | undefined;
         }
         : convertAspect;
