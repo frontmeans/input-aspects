@@ -188,6 +188,23 @@ export namespace InControl {
   export interface Converters<From, To> {
 
     /**
+     * Applies the given aspect to converted control in a custom way.
+     *
+     * @typeparam Instance Aspect instance type.
+     * @typeparam Kind Aspect application kind.
+     * @param aspect An aspect to apply.
+     *
+     * @returns Either applied aspect instance or `undefined` to apply the aspect in standard way (i.e. by converting
+     * it from corresponding aspect of original control).
+     */
+    readonly applyAspect?: <Instance, Kind extends InAspect.Application.Kind>(
+        this: this,
+        from: InControl<From>,
+        to: InControl<To>,
+        aspect: InAspect<Instance, Kind>
+    ) => InAspect.Application.Result<Instance, To, Kind> | undefined;
+
+    /**
      * Converts original value.
      *
      * @param value Original value to convert.
@@ -220,9 +237,13 @@ class InConverted<From, To> extends InControl<To> {
 
   readonly on: OnEvent<[To, To]>;
   private readonly _it: ValueTracker<[To, number]>;
+  protected readonly _applyAspect: <Instance, Kind extends InAspect.Application.Kind>(
+      this: this,
+      aspect: InAspect<Instance, Kind>
+  ) => InAspect.Application.Result<Instance, To, Kind> | undefined;
 
   constructor(
-      private readonly _src: InControl<From>,
+      src: InControl<From>,
       by: InControl.Converter<From, To>,
   ) {
     super();
@@ -234,15 +255,28 @@ class InConverted<From, To> extends InControl<To> {
 
     this.on = on.on;
 
-    const converters = by(_src, this);
+    const converters = by(src, this);
+    const { applyAspect } = converters;
 
-    this._it = trackValue([converters.set(_src.it), 0]);
+    this._applyAspect = applyAspect
+        ? function<Instance, Kind extends InAspect.Application.Kind>(
+            this: InConverted<From, To>,
+            aspect: InAspect<Instance, Kind>,
+        ) {
+          return (
+              applyAspect.call(converters, src, this, aspect)
+              || convertAspect.call(this, aspect)
+          ) as InAspect.Application.Result<Instance, To, Kind> | undefined;
+        }
+        : convertAspect;
+
+    this._it = trackValue([converters.set(src.it), 0]);
     this._it.on(([newValue], [oldValue]) => {
       if (newValue !== oldValue) {
         on.send(newValue, oldValue);
       }
     }).whenDone(reason => on.done(reason));
-    _src.on(value => {
+    src.on(value => {
       if (value !== backward) {
         this._it.it = [converters.set(value), ++lastRev];
       }
@@ -252,12 +286,22 @@ class InConverted<From, To> extends InControl<To> {
         lastRev = rev;
         backward = converters.get(value);
         try {
-          _src.it = backward;
+          src.it = backward;
         } finally {
           backward = undefined;
         }
       }
     });
+
+    function convertAspect<Instance, Kind extends InAspect.Application.Kind>(
+        this: InConverted<From, To>,
+        aspect: InAspect<Instance, Kind>,
+    ): InAspect.Application.Result<Instance, To, Kind> | undefined {
+
+      const applied: InAspect.Applied<any, any> = src._aspect(aspect);
+
+      return applied.convertTo<Instance>(this as any) as InAspect.Application.Result<Instance, To, Kind> | undefined;
+    }
   }
 
   get it(): To {
@@ -276,16 +320,6 @@ class InConverted<From, To> extends InControl<To> {
   done(reason?: any): this {
     this._it.done(reason);
     return this;
-  }
-
-  protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
-      aspect: InAspect<Instance, Kind>
-  ): InAspect.Application.Result<Instance, To, Kind> | undefined {
-
-    const applied: InAspect.Applied<any, any> = this._src._aspect(aspect);
-
-    return applied.convertTo<Instance>(this as any) as
-        InAspect.Application.Result<Instance, To, Kind> | undefined;
   }
 
 }

@@ -2,6 +2,7 @@ import { asis } from 'call-thru';
 import { EventInterest } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
 import { InControl } from './control';
+import { InData } from './submit';
 import { inValue } from './value';
 import Mock = jest.Mock;
 
@@ -117,6 +118,32 @@ describe('InControl', () => {
 
       converted.it = 5;
       expect(control.it).toBe('*****');
+    });
+    it('converts aspect by `applyAspect` omitted', () => {
+
+      const instance = { name: 'data' };
+      const applyAspect = jest.fn<any, any[]>(() => ({ instance }));
+      const by = () => ({ set, get, applyAspect });
+
+      converted = control.convert(by);
+      expect(converted.aspect(InData)).toBe(instance);
+      expect(applyAspect).toHaveBeenCalledWith(control, converted, InData[InAspect__symbol]);
+    });
+    it('converts aspect with default algorithm if `applyAspect` omitted', () => {
+
+      const by = () => ({ set, get });
+
+      converted = control.convert(by);
+      expect(converted.aspect(InData)).toBeDefined();
+    });
+    it('converts aspect with default algorithm if `applyAspect` returns nothing', () => {
+
+      const applyAspect = jest.fn();
+      const by = () => ({ set, get, applyAspect });
+
+      converted = control.convert(by);
+      expect(converted.aspect(InData)).toBeDefined();
+      expect(applyAspect).toHaveBeenCalledWith(control, converted, InData[InAspect__symbol]);
     });
 
     describe('on', () => {
