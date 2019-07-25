@@ -1,5 +1,6 @@
 import { InControl } from '../control';
 import { inText, InText } from '../element';
+import { InElement } from '../element.control';
 import { intoWrapper } from './into-wrapper';
 import { InStyledElement } from './styled-element.aspect';
 
@@ -25,5 +26,8 @@ describe('intoWrapper', () => {
   it('converts to element with another styled element', () => {
     expect(wrapperControl.aspect(InStyledElement)).toBe(wrapper);
     expect(wrapperControl.aspect(InStyledElement)).not.toBe(input);
+  });
+  it('preserves input element', () => {
+    expect(wrapperControl.aspect(InElement)).toBe(control.aspect(InElement));
   });
 });
