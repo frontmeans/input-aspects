@@ -1,6 +1,15 @@
-import { itsEach, overEntries } from 'a-iterable';
-import { AfterEvent, AfterEvent__symbol, afterEventFrom, EventInterest, EventKeeper, } from 'fun-events';
+import { flatMapIt, itsEach, mapIt, overEntries } from 'a-iterable';
+import { asis, nextArgs } from 'call-thru';
+import {
+  AfterEvent,
+  AfterEvent__symbol,
+  afterEventFrom,
+  afterEventFromEach,
+  EventInterest,
+  EventKeeper,
+} from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
+import { InContainer } from '../container';
 import { InControl } from '../control';
 import { requireAll } from './require-all.validator';
 import { InValidator } from './validator';
@@ -62,8 +71,9 @@ interface Applied<Value> extends InAspect.Applied<InValidation<Value>, InValidat
  *
  * Implements event keeper interface by sending validation result whenever validation messages reported.
  *
- * A validation aspect of converted control reports all messages from original control in addition to the ones sent
- * by validators registered in converted validation aspect explicitly.
+ * A validation aspect of converted control reports all messages from original control in addition to its own.
+ *
+ * A validation aspect of input controls container reports all messages from nested controls in addition to its own.
  *
  * @typeparam Value Input value type.
  */
@@ -233,7 +243,14 @@ class InControlValidation<Value> extends InValidation<Value> {
 
   constructor(control: InControl<Value>) {
     super();
-    this._messages = new InValidationMessages<Value>(control);
+    this._messages = new InValidationMessages(control);
+
+    const container = control.aspect(InContainer);
+
+    if (container) {
+      this._messages.from(nestedMessages(container));
+    }
+
     this.read = afterEventFrom(this._messages).keep.thru(inValidationResult);
   }
 
@@ -241,6 +258,25 @@ class InControlValidation<Value> extends InValidation<Value> {
     return this._messages.from(requireAll(...validators));
   }
 
+}
+
+function nestedMessages(container: InContainer<any>): EventKeeper<InValidation.Message[]> {
+  return container.controls.read.keep.dig_(
+      nestedValidations
+  ).keep.thru(
+      combineValidationResults,
+  );
+}
+
+function nestedValidations(controls: InContainer.Snapshot) {
+  return afterEventFromEach(...mapIt(controls, control => control.aspect(InValidation)));
+}
+
+function combineValidationResults<NextReturn>(...[messages]: [InValidation.Result][]) {
+
+  const msg: Iterable<InValidation.Message> = flatMapIt(messages, asis);
+
+  return nextArgs<InValidation.Message[], NextReturn>(...msg);
 }
 
 declare module '../aspect' {

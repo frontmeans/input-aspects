@@ -1,5 +1,6 @@
 import { asis } from 'call-thru';
 import { AfterEvent__symbol, afterEventFrom, EventEmitter, EventInterest, EventKeeper, trackValue } from 'fun-events';
+import { inGroup, InGroup } from '../container';
 import { InControl } from '../control';
 import { inValue } from '../value';
 import { InValidation } from './validation.aspect';
@@ -327,6 +328,36 @@ describe('InValidation', () => {
 
         expect([...lastResult(dcReceiver)]).toEqual([message1, message2]);
       });
+    });
+  });
+
+  describe('container validation', () => {
+
+    let group: InGroup<{ ctrl: string }>;
+    let groupValidation: InValidation<{ ctrl: string }>;
+
+    beforeEach(() => {
+      group = inGroup({ ctrl: '' });
+      group.controls.set('ctrl', control);
+      groupValidation = group.aspect(InValidation);
+    });
+
+    let groupReceiver: Mock<void, [InValidation.Result]>;
+
+    beforeEach(() => {
+      groupReceiver = jest.fn();
+      groupValidation.read(groupReceiver);
+    });
+
+    it('sends nested validation result', () => {
+
+      const message = { message: 'some message' };
+
+      validator.send(message);
+
+      const result = lastResult(groupReceiver);
+
+      expect([...result]).toEqual([message]);
     });
   });
 
