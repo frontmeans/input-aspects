@@ -77,7 +77,9 @@ export namespace InData {
    *
    * This is either a partial value (for the object), or the value itself (for everything else).
    */
-  export type DataType<Value> = (Value extends object ? Partial<Value> : Value) | undefined;
+  export type DataType<Value> =
+      | (Value extends object ? { [K in keyof Value]?: DataType<Value[K]> } : Value)
+      | undefined;
 
 }
 
