@@ -120,9 +120,35 @@ export namespace InValidation {
    *
    * This is a map of key/value pairs, where the key is a message code, while the value is arbitrary. Message codes
    * are ignored when their values are falsy (i.e. `!message[code] === true`).
+   *
+   * Some message codes are treated specially by convenience.
    */
   export interface Message {
+
     [code: string]: any;
+
+    /**
+     * Missing input.
+     */
+    missing?: any;
+
+    /**
+     * Incomplete input, except missing one.
+     */
+    incomplete?: any;
+
+    /**
+     * Invalid input, except missing or incomplete one.
+     */
+    invalid?: any;
+
+    /**
+     * Submit failure.
+     *
+     * This is set by input submit aspect.
+     */
+    submit?: any;
+
   }
 
   /**
