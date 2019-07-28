@@ -189,6 +189,24 @@ export namespace InValidation {
 
   }
 
+  /**
+   * Successful input validation result.
+   */
+  export interface Ok extends Result {
+
+    readonly ok: true;
+
+  }
+
+  /**
+   * Unsuccessful input validation result.
+   */
+  export interface Errors extends Result {
+
+    readonly ok: false;
+
+  }
+
 }
 
 const noValidationErrors: InValidation.Result = {
@@ -258,7 +276,23 @@ class InValidationErrors implements InValidation.Result {
 
 }
 
-function inValidationResult(...messages: InValidation.Message[]): InValidation.Result {
+/**
+ * Returns successful input validation result.
+ *
+ * @returns Successful input validation result.
+ */
+export function inValidationResult(): InValidation.Ok;
+
+/**
+ * Creates input validation result out of validation messages.
+ *
+ * @param messages Input validation messages.
+ *
+ * @returns New input validation result containing the given `messages`.
+ */
+export function inValidationResult(...messages: InValidation.Message[]): InValidation.Result;
+
+export function inValidationResult(...messages: InValidation.Message[]): InValidation.Result {
   return messages.length ? new InValidationErrors(messages) : noValidationErrors;
 }
 
