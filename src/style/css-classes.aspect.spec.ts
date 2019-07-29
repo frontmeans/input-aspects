@@ -1,4 +1,4 @@
-import { afterEventFrom, EventInterest, trackValue, ValueTracker } from 'fun-events';
+import { afterEventFrom, afterEventOf, EventInterest, trackValue, ValueTracker } from 'fun-events';
 import { inText, InText } from '../element';
 import { inValue } from '../value';
 import { InCssClasses } from './css-classes.aspect';
@@ -49,6 +49,16 @@ describe('InCssClasses', () => {
       expect(classMap).toEqual({ class1: true, class2: true });
       expect(element.classList.contains('class1')).toBe(true);
       expect(element.classList.contains('class2')).toBe(true);
+    });
+    it('appends CSS classes from source function', () => {
+
+      const source2 = jest.fn(() => afterEventOf({ class2: true }));
+
+      cssClasses.add(source2);
+      expect(classMap).toEqual({ class1: true, class2: true });
+      expect(element.classList.contains('class1')).toBe(true);
+      expect(element.classList.contains('class2')).toBe(true);
+      expect(source2).toHaveBeenCalledWith(control);
     });
     it('overwrites CSS classes by most recent source', () => {
 

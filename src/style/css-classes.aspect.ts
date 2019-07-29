@@ -1,5 +1,5 @@
 import { filterIt, itsEach, mapIt, overEntries } from 'a-iterable';
-import { noop } from 'call-thru';
+import { noop, valueProvider } from 'call-thru';
 import {
   AfterEvent,
   AfterEvent__symbol,
@@ -9,8 +9,9 @@ import {
   eventInterest,
   EventInterest,
   EventKeeper,
+  isEventKeeper,
   trackValue,
-  ValueTracker
+  ValueTracker,
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
@@ -56,7 +57,7 @@ export abstract class InCssClasses implements EventKeeper<[InCssClasses.Map]> {
    *
    * @returns An event interest instance that, when lost, will remove CSS classes from the `source` from styled element.
    */
-  abstract add(source: EventKeeper<[InCssClasses.Map]>): EventInterest;
+  abstract add(source: InCssClasses.Source): EventInterest;
 
   /**
    * Removes all CSS class sources and stops applying CSS classes to styled element.
@@ -70,6 +71,16 @@ export abstract class InCssClasses implements EventKeeper<[InCssClasses.Map]> {
 }
 
 export namespace InCssClasses {
+
+  /**
+   * A source of CSS class names for input control.
+   *
+   * This is either an event keeper of CSS class names map, or a function returning one and accepting target input
+   * control as the only parameter.
+   */
+  export type Source =
+      | EventKeeper<[InCssClasses.Map]>
+      | ((control: InControl<any>) => EventKeeper<[InCssClasses.Map]>);
 
   /**
    * A map CSS class names to apply to styled element.
@@ -101,7 +112,7 @@ class InControlCssClasses extends InCssClasses {
   private readonly _sources: ValueTracker<[Map<AfterEvent<[InCssClasses.Map]>, EventInterest>]> =
       trackValue([new Map()]);
 
-  constructor(control: InControl<any>) {
+  constructor(private readonly _control: InControl<any>) {
     super();
     this.read = this._sources.read.keep.dig_(
         ([sources]) => sources.size ? afterEventFromEach(...sources.keys()) : afterEventOf()
@@ -123,7 +134,7 @@ class InControlCssClasses extends InCssClasses {
       return result;
     });
 
-    const element = control.aspect(InStyledElement);
+    const element = _control.aspect(InStyledElement);
 
     if (element) {
 
@@ -155,12 +166,13 @@ class InControlCssClasses extends InCssClasses {
     }
   }
 
-  add(source: EventKeeper<[InCssClasses.Map]>): EventInterest {
+  add(source: InCssClasses.Source): EventInterest {
 
+    const keeper = inCssClassesSource(source)(this._control);
     const interest = eventInterest();
     const src = afterEventBy<[InCssClasses.Map]>(receiver => {
 
-      const sourceInterest = source[AfterEvent__symbol](receiver);
+      const sourceInterest = keeper[AfterEvent__symbol](receiver);
       const subscriptionInterest = eventInterest(reason => {
         interest.off({ [UnsubscribeReason__symbol]: reason });
       });
@@ -198,4 +210,11 @@ class InControlCssClasses extends InCssClasses {
     return this;
   }
 
+}
+
+function inCssClassesSource(source: InCssClasses.Source): (control: InControl<any>) => EventKeeper<[InCssClasses.Map]> {
+  if (isEventKeeper(source)) {
+    return valueProvider(source);
+  }
+  return source;
 }
