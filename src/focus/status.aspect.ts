@@ -7,7 +7,7 @@ import {
   afterEventOf,
   EventKeeper,
   trackValue,
-  ValueTracker
+  ValueTracker,
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
@@ -19,7 +19,10 @@ import { InFocus } from './focus.aspect';
 const InStatus__aspect: InAspect<InStatus> = {
 
   applyTo<Value>(control: InControl<Value>): InAspect.Applied<InStatus> {
-    return inAspectValue(new InControlStatus(control));
+
+    const container = control.aspect(InContainer);
+
+    return inAspectValue(container ? new InContainerStatus(container) : new InControlStatus(control));
   }
 
 };
@@ -53,6 +56,8 @@ export abstract class InStatus implements EventKeeper<[InStatus.Flags]> {
   /**
    * Marks the input as touched.
    *
+   * For container invokes this method for each of the nested controls.
+   *
    * @param touched Whether to mark the input as touched or not. `true` by default. When `false` the input would be
    * marked as non-edited too. Setting to `false` affects only edited flag when input has focus.
    *
@@ -62,6 +67,8 @@ export abstract class InStatus implements EventKeeper<[InStatus.Flags]> {
 
   /**
    * Marks the input as edited by user.
+   *
+   * For container invokes this method for each of the nested controls.
    *
    * @param edited Whether to mark the input as edited by user. `true` by default, in which case the input will be
    * marked as touched as well.
@@ -118,17 +125,7 @@ class InControlStatus extends InStatus {
 
   constructor(control: InControl<any>) {
     super();
-
-    let flags: AfterEvent<[InStatus.Flags]>;
-    const container = control.aspect(InContainer);
-
-    if (container) {
-      flags = containerFlags(container);
-    } else {
-      flags = elementFlags(this._flags, control);
-    }
-
-    this._flags.by(flags);
+    this._flags.by(elementFlags(this._flags, control));
   }
 
   markTouched(touched = true): this {
@@ -196,11 +193,39 @@ function updateFlags(flags: InStatus.Flags, hasFocus: boolean, edited: boolean):
   return flags;
 }
 
+class InContainerStatus extends InStatus {
+
+  readonly read: AfterEvent<[InStatus.Flags]>;
+
+  constructor(private readonly _container: InContainer<any>) {
+    super();
+
+    this.read = containerFlags(_container);
+  }
+
+  markEdited(edited?: boolean): this {
+    this._container.controls.read.once(snapshot => itsEach(
+        snapshot,
+        control => control.aspect(InStatus).markEdited(edited)),
+    );
+    return this;
+  }
+
+  markTouched(touched?: boolean): this {
+    this._container.controls.read.once(snapshot => itsEach(
+        snapshot,
+        control => control.aspect(InStatus).markTouched(touched)),
+    );
+    return this;
+  }
+
+}
+
 function containerFlags(container: InContainer<any>): AfterEvent<[InStatus.Flags]> {
   return container.controls.read.keep.dig_(
       snapshot => afterEventFromEach(...controlStatuses(snapshot)),
   ).keep.thru(
-      combineFlags
+      combineFlags,
   );
 }
 

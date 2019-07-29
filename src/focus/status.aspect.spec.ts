@@ -23,13 +23,13 @@ describe('InStatus', () => {
   });
 
   let group: InGroup<{ element: string }>;
+  let groupStatus: InStatus;
   let groupFlags: InStatus.Flags;
 
   beforeEach(() => {
     group = inGroup({ element: '' })
         .setup(({ controls }) => controls.set('element', control));
-    const groupStatus = group.aspect(InStatus);
-
+    groupStatus = group.aspect(InStatus);
     groupStatus.read(f => groupFlags = f);
   });
 
@@ -82,6 +82,12 @@ describe('InStatus', () => {
     it('sets `touched`', () => {
       status.markTouched(true);
       expect(flags).toEqual({ hasFocus: false, touched: true, edited: false });
+      expect(groupFlags).toEqual({ hasFocus: false, touched: true, edited: false });
+    });
+    it('sets `touched` on nested controls', () => {
+      groupStatus.markTouched(true);
+      expect(flags).toEqual({ hasFocus: false, touched: true, edited: false });
+      expect(groupFlags).toEqual({ hasFocus: false, touched: true, edited: false });
     });
     it('does not set `touched` if already set', () => {
       element.focus();
@@ -95,12 +101,20 @@ describe('InStatus', () => {
 
       status.markTouched();
       expect(flags).toEqual({ hasFocus: false, touched: true,  edited: false });
+      expect(groupFlags).toEqual({ hasFocus: false, touched: true,  edited: false });
       expect(receiver).not.toHaveBeenCalled();
     });
     it('resets `touched` and `edited`', () => {
       edit();
       status.markTouched(false);
       expect(flags).toEqual({ hasFocus: false, touched: false, edited: false });
+      expect(groupFlags).toEqual({ hasFocus: false, touched: false, edited: false });
+    });
+    it('resets `touched` and `edited` on nested controls', () => {
+      edit();
+      groupStatus.markTouched(false);
+      expect(flags).toEqual({ hasFocus: false, touched: false, edited: false });
+      expect(groupFlags).toEqual({ hasFocus: false, touched: false, edited: false });
     });
     it('does not reset `touched`, but resets `edited` when still has focus', () => {
       edit(false);
@@ -125,6 +139,11 @@ describe('InStatus', () => {
     it('sets `edited` and `touched`', () => {
       status.markEdited();
       expect(flags).toEqual({ hasFocus: false, touched: true, edited: true });
+      expect(groupFlags).toEqual({ hasFocus: false, touched: true, edited: true });
+    });
+    it('sets `edited` and `touched` on nested controls', () => {
+      groupStatus.markEdited();
+      expect(groupFlags).toEqual({ hasFocus: false, touched: true, edited: true });
     });
     it('does not set `edited` if already set ', () => {
       edit();
@@ -137,12 +156,20 @@ describe('InStatus', () => {
 
       status.markEdited();
       expect(flags).toEqual({ hasFocus: false, touched: true, edited: true });
+      expect(groupFlags).toEqual({ hasFocus: false, touched: true, edited: true });
       expect(receiver).not.toHaveBeenCalled();
     });
     it('resets `edited`, but not `touched`', () => {
       edit();
       status.markEdited(false);
       expect(flags).toEqual({ hasFocus: false, touched: true, edited: false });
+      expect(groupFlags).toEqual({ hasFocus: false, touched: true, edited: false });
+    });
+    it('resets `edited`, but not `touched` on nested controls', () => {
+      edit();
+      groupStatus.markEdited(false);
+      expect(flags).toEqual({ hasFocus: false, touched: true, edited: false });
+      expect(groupFlags).toEqual({ hasFocus: false, touched: true, edited: false });
     });
     it('does not reset `edited` if not set', () => {
 
@@ -154,6 +181,7 @@ describe('InStatus', () => {
 
       status.markEdited(false);
       expect(flags).toEqual({ hasFocus: false, touched: false, edited: false });
+      expect(groupFlags).toEqual({ hasFocus: false, touched: false, edited: false });
       expect(receiver).not.toHaveBeenCalled();
     });
   });
