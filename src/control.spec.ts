@@ -2,7 +2,7 @@ import { asis } from 'call-thru';
 import { EventInterest } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
 import { InControl } from './control';
-import { InData } from './submit';
+import { InData } from './data';
 import { inValue } from './value';
 import Mock = jest.Mock;
 

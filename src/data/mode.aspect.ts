@@ -15,7 +15,7 @@ import {
   OnEvent,
   OnEvent__symbol,
   trackValue,
-  ValueTracker
+  ValueTracker,
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';

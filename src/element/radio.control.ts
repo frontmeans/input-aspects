@@ -1,7 +1,7 @@
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
+import { InMode } from '../data';
 import { InElement } from '../element.control';
-import { InMode } from '../submit';
 import { InElementControl } from './element.impl';
 
 /**

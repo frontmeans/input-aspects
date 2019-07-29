@@ -1,7 +1,7 @@
 import { afterEventFrom, onEventFrom } from 'fun-events';
 import { InControl } from '../control';
 import { intoFallback } from '../conversion';
-import { InData, InMode } from '../submit';
+import { InData, InMode } from '../data';
 import { InValidation } from '../validation';
 import { inValue } from '../value';
 import { InContainer } from './container.control';

@@ -1,6 +1,6 @@
 import { EventInterest } from 'fun-events';
 import { InControl } from '../control';
-import { InData, InMode } from '../submit';
+import { InData, InMode } from '../data';
 import { inValue } from '../value';
 import { inList, InList } from './list.control';
 import { InParents } from './parents.aspect';

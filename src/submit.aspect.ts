@@ -1,10 +1,10 @@
 import { itsEvery, mapIt } from 'a-iterable';
 import { nextArgs, noop } from 'call-thru';
 import { AfterEvent, AfterEvent__symbol, afterEventFromAll, EventKeeper, trackValue } from 'fun-events';
-import { InAspect, InAspect__symbol } from '../aspect';
-import { InControl } from '../control';
-import { InValidation, inValidationResult } from '../validation';
-import { InData } from './data.aspect';
+import { InAspect, InAspect__symbol } from './aspect';
+import { InControl } from './control';
+import { InData } from './data';
+import { InValidation, inValidationResult } from './validation';
 
 const InSubmit__aspect: InAspect<InSubmit<any>, 'submit'> = {
   applyTo<Value>(control: InControl<Value>) {
@@ -264,7 +264,7 @@ function toSubmitMessages(error: any): InValidation.Message[] {
   return [{ submit: error }];
 }
 
-declare module '../aspect' {
+declare module './aspect' {
 
   export namespace InAspect.Application {
 

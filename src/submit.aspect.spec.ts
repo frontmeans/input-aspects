@@ -1,10 +1,10 @@
 import { noop } from 'call-thru';
 import { afterEventFrom } from 'fun-events';
-import { InControl } from '../control';
-import { InValidation } from '../validation';
-import { inValue } from '../value';
-import { InMode } from './mode.aspect';
+import { InControl } from './control';
+import { InMode } from './data/mode.aspect';
 import { InSubmit, InSubmitError, InSubmitRejectedError } from './submit.aspect';
+import { InValidation } from './validation';
+import { inValue } from './value';
 import Mock = jest.Mock;
 
 describe('InSubmit', () => {

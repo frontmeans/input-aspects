@@ -16,11 +16,11 @@ import {
   OnEvent,
   OnEvent__symbol,
   trackValue,
-  ValueTracker
+  ValueTracker,
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
-import { InData, InMode } from '../submit';
+import { InData, InMode } from '../data';
 import { inValue } from '../value';
 import { InContainer, InContainerControls } from './container.control';
 import { InParents } from './parents.aspect';

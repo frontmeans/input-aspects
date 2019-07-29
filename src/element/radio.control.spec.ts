@@ -1,4 +1,4 @@
-import { InMode } from '../submit';
+import { InMode } from '../data';
 import { InRadio, inRadio } from './radio.control';
 
 describe('InRadio', () => {
