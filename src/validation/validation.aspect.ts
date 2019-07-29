@@ -133,9 +133,21 @@ export namespace InValidation {
     missing?: any;
 
     /**
+     * The message with this code would be reported by `requireNeeded()` validator despite there are messages with
+     * `missing` code.
+     */
+    despiteMissing?: any;
+
+    /**
      * Incomplete input, except missing one.
      */
     incomplete?: any;
+
+    /**
+     * The message with this code would be reported by `requireNeeded()` validator despite there are messages with
+     * `incomplete` code.
+     */
+    despiteIncomplete?: any;
 
     /**
      * Invalid input, except missing or incomplete one.
