@@ -1,4 +1,5 @@
-import { EventKeeper } from 'fun-events';
+import { nextArgs, NextArgs, valueProvider } from 'call-thru';
+import { AfterEvent, afterEventFrom, EventKeeper, isEventKeeper } from 'fun-events';
 import { InControl } from '../control';
 import { InValidation } from './validation.aspect';
 
@@ -42,4 +43,32 @@ export namespace InValidator {
 
   }
 
+}
+
+export function inValidator<Value>(
+    validator: InValidator<Value>
+): (control: InControl<Value>) => AfterEvent<InValidation.Message[]> {
+  if (isEventKeeper(validator)) {
+    return valueProvider(afterEventFrom(validator));
+  }
+  if (typeof validator === 'function') {
+    return control => afterEventFrom(validator(control));
+  }
+  return control => control.read.keep.thru(simpleValidator(control, validator));
+}
+
+function simpleValidator<Value>(
+    control: InControl<Value>,
+    validator: InValidator.Simple<Value>,
+): <NextReturn>(value: Value) => NextArgs<InValidation.Message[], NextReturn> | InValidation.Message {
+  return () => {
+
+    const messages = validator.validate(control);
+
+    return messages == null
+        ? nextArgs()
+        : Array.isArray(messages)
+            ? nextArgs(...messages)
+            : messages;
+  };
 }

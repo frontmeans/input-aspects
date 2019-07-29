@@ -1,5 +1,5 @@
 import { flatMapIt, itsEach } from 'a-iterable';
-import { asis, nextArgs, NextArgs, noop } from 'call-thru';
+import { asis, noop } from 'call-thru';
 import {
   AfterEvent,
   AfterEvent__symbol,
@@ -9,11 +9,10 @@ import {
   eventInterest,
   EventInterest,
   EventKeeper,
-  isEventKeeper
 } from 'fun-events';
 import { InControl } from '../control';
 import { InValidation } from './validation.aspect';
-import { InValidator } from './validator';
+import { inValidator, InValidator } from './validator';
 
 const dontRemove = {};
 
@@ -88,7 +87,7 @@ export class InValidationMessages<Value> implements EventKeeper<InValidation.Mes
 
     this.from = validator => {
 
-      const source = controlValidator(control, validator);
+      const source = inValidator(validator)(control);
       const validatorInterest = eventInterest(() => {
         validators.delete(source);
       });
@@ -104,33 +103,4 @@ export class InValidationMessages<Value> implements EventKeeper<InValidation.Mes
     }
   }
 
-}
-
-function controlValidator<Value>(
-    control: InControl<Value>,
-    validator: InValidator<Value>
-): AfterEvent<InValidation.Message[]> {
-  if (isEventKeeper(validator)) {
-    return afterEventFrom(validator);
-  }
-  if (typeof validator === 'function') {
-    return afterEventFrom(validator(control));
-  }
-  return control.read.keep.thru(simpleValidator(control, validator));
-}
-
-function simpleValidator<Value>(
-    control: InControl<Value>,
-    validator: InValidator.Simple<Value>,
-): <NextReturn>(value: Value) => NextArgs<InValidation.Message[], NextReturn> | InValidation.Message {
-  return () => {
-
-    const messages = validator.validate(control);
-
-    return messages == null
-        ? nextArgs()
-        : Array.isArray(messages)
-            ? nextArgs(...messages)
-            : messages;
-  };
 }
