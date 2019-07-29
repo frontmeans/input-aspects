@@ -99,7 +99,7 @@ export namespace InStatus {
     readonly touched: boolean;
 
     /**
-     * Whether the input have been edited by user.
+     * Whether the input has been edited by user.
      *
      * This flag can be set using `InStatus.markEdited()`.
      */
