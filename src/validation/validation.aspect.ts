@@ -303,7 +303,6 @@ export function inValidationResult(): InValidation.Ok;
 /**
  * Creates input validation result out of validation messages.
  *
- * @category Validation
  * @param messages  Input validation messages.
  *
  * @returns New input validation result containing the given `messages`.

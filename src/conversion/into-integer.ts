@@ -29,8 +29,6 @@ export function intoInteger(radix?: number): InControl.Converter<string, number>
  * Can be applied to input controls with string values only.
  *
  * Reports invalid numbers with `invalid`, `NaN`, and `notInteger` message codes.
- *
- * @category Converter
  */
 export function intoInteger(from: InControl<string>, to: InControl<number>): InControl.Converters<string, number>;
 

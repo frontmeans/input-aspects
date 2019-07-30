@@ -58,7 +58,6 @@ export function inCheckbox(element: HTMLInputElement): InCheckbox;
 /**
  * Creates an input control for the given checkbox element with custom control values.
  *
- * @category Control
  * @typeparam Value  Input value type.
  * @param element  Target checkbox element.
  * @param values  All possible values of checkbox control.
@@ -75,7 +74,6 @@ export function inCheckbox<Value>(
  *
  * An intermediate checkbox state is represented by `null` control value.
  *
- * @category Control
  * @typeparam Value  Input value type.
  * @param element  Target checkbox element.
  * @param checked  Control value of checked checkbox.

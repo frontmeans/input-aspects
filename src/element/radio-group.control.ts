@@ -138,7 +138,6 @@ export function inRadioGroup<Value extends string>(
 /**
  * Creates a radio group for the given radio `buttons` with custom control `values`.
  *
- * @category Control
  * @typeparam Value  Input value type.
  * @param buttons  Radio buttons map.
  * @param values  Possible values of radio group control.

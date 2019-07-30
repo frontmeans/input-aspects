@@ -20,8 +20,6 @@ export function requirePresent(): InValidator<any>;
  * Input validator that requires value to present.
  *
  * Reports empty (falsy) values with `missing` message code.
- *
- * @category Validation
  */
 export function requirePresent(control: InControl<any>): EventKeeper<InValidation.Message[]>;
 

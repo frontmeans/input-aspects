@@ -94,7 +94,6 @@ export function inRadio(element: HTMLInputElement): InRadio;
  *
  * Sets input mode to `-on` when radio is not checked. Thus making control data `undefined`.
  *
- * @category Control
  * @typeparam Value  Input value type.
  * @param element  Target radio button element.
  * @param values  Possible values of radio button control.
