@@ -62,7 +62,7 @@ jobs:
 
 workflows:
   version: 2.1
-  build_all:
+  build:
     jobs:
     - build:
         filters:
