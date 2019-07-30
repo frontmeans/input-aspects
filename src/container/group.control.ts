@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { itsEach, itsIterable, mapIt, overEntries } from 'a-iterable';
 import { nextArgs, noop } from 'call-thru';
 import {
@@ -30,7 +33,8 @@ import { InParents } from './parents.aspect';
  * Group value (called model) is an object formed by nested control values. The model property value is the one of the
  * control with the same key, if present. When model is updated corresponding controls are also updated.
  *
- * @typeparam Model Group model type, i.e. its value type.
+ * @category Control
+ * @typeparam Model  Group model type, i.e. its value type.
  */
 export abstract class InGroup<Model extends object> extends InContainer<Model> {
 
@@ -48,7 +52,7 @@ export namespace InGroup {
    *
    * This is a read-only object containing an input control per each model property under the same key.
    *
-   * @typeparam Model Group model type, i.e. its value type.
+   * @typeparam Model  Group model type, i.e. its value type.
    */
   export type Controls<Model> = {
     readonly [K in keyof Model]?: InControl<Model[K]>;
@@ -59,14 +63,14 @@ export namespace InGroup {
    *
    * This is a tuple containing model key and corresponding control.
    *
-   * @typeparam Model Group model type, i.e. its value type.
+   * @typeparam Model  Group model type, i.e. its value type.
    */
   export type Entry<Model, K extends keyof Model = any> = readonly [K, InControl<Model[K]>];
 
   /**
    * A snapshot of input control group controls.
    *
-   * @typeparam Model Group model type, i.e. its value type.
+   * @typeparam Model  Group model type, i.e. its value type.
    */
   export interface Snapshot<Model> extends InContainer.Snapshot {
 
@@ -75,7 +79,7 @@ export namespace InGroup {
     /**
      * Returns input control with the given key, if present.
      *
-     * @param key Control key, i.e. corresponding model property key.
+     * @param key  Control key, i.e. corresponding model property key.
      *
      * @returns Target control, or `undefined` if there is no control set for this key.
      */
@@ -88,7 +92,8 @@ export namespace InGroup {
 /**
  * Input group controls.
  *
- * @typeparam Model Group model type, i.e. its value type.
+ * @category Control
+ * @typeparam Model  Group model type, i.e. its value type.
  */
 export abstract class InGroupControls<Model>
     extends InContainerControls
@@ -103,8 +108,8 @@ export abstract class InGroupControls<Model>
    *
    * Replaces existing control if already present.
    *
-   * @param key A key of input control to set. I.e. corresponding model property key.
-   * @param control Input control to add, or `undefined` to remove control.
+   * @param key  A key of input control to set. I.e. corresponding model property key.
+   * @param control  Input control to add, or `undefined` to remove control.
    *
    * @returns `this` controls instance.
    */
@@ -113,7 +118,7 @@ export abstract class InGroupControls<Model>
   /**
    * Sets multiple input controls at a time.
    *
-   * @param controls A map of controls under their keys. A value can be `undefined` to remove corresponding control.
+   * @param controls  A map of controls under their keys. A value can be `undefined` to remove corresponding control.
    *
    * @returns `this` controls instance.
    */
@@ -124,7 +129,7 @@ export abstract class InGroupControls<Model>
    *
    * Calling this method is the same as calling `set(key, undefined)`
    *
-   * @param key A key of input control to remove. I.e. corresponding model property key.
+   * @param key  A key of input control to remove. I.e. corresponding model property key.
    *
    * @returns `this` controls instance.
    */
@@ -439,8 +444,9 @@ function readGroupData<Model extends object>(
 /**
  * Constructs input controls group.
  *
- * @typeparam Model Group model type, i.e. its value type.
- * @param model Initial model of the group.
+ * @category Control
+ * @typeparam Model  Group model type, i.e. its value type.
+ * @param model  Initial model of the group.
  *
  * @returns New input controls group.
  */

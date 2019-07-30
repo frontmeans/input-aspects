@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { nextArgs, nextSkip, valuesProvider } from 'call-thru';
 import {
   AfterEvent,
@@ -45,6 +48,8 @@ const InMode__aspect: InAspect<InMode> = {
  * Implements `EventSender` interface by sending new and old mode values on each update.
  *
  * Implements `EventKeeper` interface by sending actual mode value.
+ *
+ * @category Aspect
  */
 export abstract class InMode implements EventSender<[InMode.Value, InMode.Value]>, EventKeeper<[InMode.Value]> {
 
@@ -83,7 +88,7 @@ export abstract class InMode implements EventSender<[InMode.Value, InMode.Value]
   /**
    * Checks whether control in the given `mode` has data to submit.
    *
-   * @param mode Input control mode to check.
+   * @param mode  Input control mode to check.
    *
    * @returns `true` if control in the given `mode` has data to submit, or `false` otherwise.
    */
@@ -97,7 +102,7 @@ export abstract class InMode implements EventSender<[InMode.Value, InMode.Value]
    * If the `source` mode is disabled, this one would be disabled too. If the `source` mode is read-only, then this one
    * would be read-only, unless disabled already.
    *
-   * @param source A source to derive input mode from.
+   * @param source  A source to derive input mode from.
    *
    * @returns An event interest instance that disables `source` mode derivation when lost.
    */
@@ -106,7 +111,7 @@ export abstract class InMode implements EventSender<[InMode.Value, InMode.Value]
   /**
    * Unregisters all receivers.
    *
-   * @param reason Optional reason.
+   * @param reason  Optional reason.
    *
    * @returns `this` instance.
    */

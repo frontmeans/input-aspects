@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { nextArgs, NextArgs, valueProvider } from 'call-thru';
 import { AfterEvent, afterEventFrom, EventKeeper, isEventKeeper } from 'fun-events';
 import { InControl } from '../control';
@@ -13,7 +16,8 @@ import { InValidation } from './validation.aspect';
  * This can be one either a validation messages event keeper, a function returning one and accepting input control
  * as its only parameter, or simple validator instance.
  *
- * @typeparam Value Input value type.
+ * @category Validation
+ * @typeparam Value  Input value type.
  */
 export type InValidator<Value> =
     | EventKeeper<InValidation.Message[]>
@@ -24,6 +28,8 @@ export namespace InValidator {
 
   /**
    * Simple input validator.
+   *
+   * @typeparam Value  Input value type.
    */
   export interface Simple<Value> {
 
@@ -33,9 +39,7 @@ export namespace InValidator {
      * This method is called each time input value changes. The returned messages then reported by input validation
      * aspect.
      *
-     * @param control Input control to validate.
-     *
-     * @typeparam Value Input value type.
+     * @param control  Input control to validate.
      *
      * @returns Either validation message, array of validation messages, or `null`/`unknown` to indicate their absence.
      */
@@ -45,6 +49,16 @@ export namespace InValidator {
 
 }
 
+/**
+ * Converts arbitrary input validator to normalized form.
+ *
+ * @category Validation
+ * @typeparam Value  Input value type.
+ * @param validator  Validator to convert.
+ *
+ * @returns A function accepting control as its only parameter and returning an `AfterEvent` registrar of validation
+ * messages receivers.
+ */
 export function inValidator<Value>(
     validator: InValidator<Value>
 ): (control: InControl<Value>) => AfterEvent<InValidation.Message[]> {

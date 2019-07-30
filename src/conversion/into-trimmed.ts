@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { InControl } from '../control';
 
 /**
@@ -6,6 +9,8 @@ import { InControl } from '../control';
  * Removes leading and trailing white space of input values using `Spring.prototype.trim()` method.
  *
  * Can be applied to input controls with string values only.
+ *
+ * @category Converter
  */
 export function intoTrimmed(): InControl.Converter<string, string>;
 

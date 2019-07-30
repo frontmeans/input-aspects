@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { afterEventFromAll } from 'fun-events';
 import { InControl } from '../control';
 import { InMode } from '../data';
@@ -18,8 +21,9 @@ import { InCssClasses } from './css-classes.aspect';
  * - `touched` when input control is touched (i.e. had focus already),
  * - `edited` when input control is edited by user.
  *
- * @param prefix Optional prefix to add to generated class names. `inas-` by default.
- * @param suffix Optional suffix to add to generated class names.
+ * @category Style
+ * @param prefix  Optional prefix to add to generated class names. `inas-` by default.
+ * @param suffix  Optional suffix to add to generated class names.
  */
 export function inCssInfo(
     {

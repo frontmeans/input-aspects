@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { InControl } from '../control';
 import { InParser } from './parser';
 
@@ -12,7 +15,8 @@ const notInteger = 'notInteger';
  *
  * Reports invalid numbers with `invalid`, `NaN`, and `notInteger` message codes.
  *
- * @param radix An integer in the range 2 through 36 specifying the base to use for representing numeric values.
+ * @category Converter
+ * @param radix  An integer in the range 2 through 36 specifying the base to use for representing numeric values.
  * `10` by default.
  */
 export function intoInteger(radix?: number): InControl.Converter<string, number>;
@@ -25,6 +29,8 @@ export function intoInteger(radix?: number): InControl.Converter<string, number>
  * Can be applied to input controls with string values only.
  *
  * Reports invalid numbers with `invalid`, `NaN`, and `notInteger` message codes.
+ *
+ * @category Converter
  */
 export function intoInteger(from: InControl<string>, to: InControl<number>): InControl.Converters<string, number>;
 

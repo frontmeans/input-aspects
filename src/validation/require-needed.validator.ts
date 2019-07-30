@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { filterIt } from 'a-iterable';
 import { NextArgs, nextArgs } from 'call-thru';
 import { InControl } from '../control';
@@ -15,7 +18,8 @@ import { inValidator, InValidator } from './validator';
  *   code, except the ones with `despiteIncomplete` code.
  * - Otherwise report all messages.
  *
- * @param validators Validators to validate the input with.
+ * @category Validation
+ * @param validators  Validators to validate the input with.
  *
  * @returns Validator that requires all the given `validators` and filters their output.
  */

@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { itsIterable, mapIt } from 'a-iterable';
 import { isDefined, nextArgs, noop } from 'call-thru';
 import {
@@ -33,7 +36,8 @@ import { InParents } from './parents.aspect';
  * List value (called model) is an array object formed by nested control values. The item property value is the one
  * of the control with the same index, if present. When model is updated corresponding controls are also updated.
  *
- * @typeparam Item Model item type.
+ * @category Control
+ * @typeparam Item  Model item type.
  */
 export abstract class InList<Item> extends InContainer<readonly Item[]> {
 
@@ -51,14 +55,14 @@ export namespace InList {
    *
    * This is a tuple containing model index and corresponding control.
    *
-   * @typeparam Item Model item type.
+   * @typeparam Item  Model item type.
    */
   export type Entry<Item> = readonly [number, InControl<Item>];
 
   /**
    * A snapshot of input control list controls.
    *
-   * @typeparam Item Model item type.
+   * @typeparam Item  Model item type.
    */
   export interface Snapshot<Item> extends InContainer.Snapshot {
 
@@ -74,7 +78,7 @@ export namespace InList {
     /**
      * Returns input control at the given `index`, if present.
      *
-     * @param index Control index, i.e. corresponding model item index.
+     * @param index  Control index, i.e. corresponding model item index.
      *
      * @returns Target control, or `undefined` if there is no control at this `index`.
      */
@@ -87,7 +91,8 @@ export namespace InList {
 /**
  * Input list controls.
  *
- * @typeparam Item Model item type.
+ * @category Control
+ * @typeparam Item  Model item type.
  */
 export abstract class InListControls<Item>
     extends InContainerControls
@@ -102,8 +107,8 @@ export abstract class InListControls<Item>
    *
    * Replaces existing control if already present.
    *
-   * @param index An index of input control to set. I.e. corresponding model item index.
-   * @param control Input control to add.
+   * @param index  An index of input control to set. I.e. corresponding model item index.
+   * @param control  Input control to add.
    *
    * @returns `this` controls instance.
    */
@@ -114,7 +119,7 @@ export abstract class InListControls<Item>
   /**
    * Appends input controls.
    *
-   * @param controls Input controls to add after the last one.
+   * @param controls  Input controls to add after the last one.
    *
    * @returns `this` controls instance.
    */
@@ -123,8 +128,8 @@ export abstract class InListControls<Item>
   /**
    * Inserts input controls at the given position.
    *
-   * @param index An index to insert controls at.
-   * @param controls Input controls to add after the last one.
+   * @param index  An index to insert controls at.
+   * @param controls  Input controls to add after the last one.
    *
    * @returns `this` controls instance.
    */
@@ -135,8 +140,8 @@ export abstract class InListControls<Item>
   /**
    * Removes input controls starting at the given index.
    *
-   * @param start An index of the first control to remove.
-   * @param end An index of the control next to the last one to remove. Only one control will be removed if omitted.
+   * @param start  An index of the first control to remove.
+   * @param end  An index of the control next to the last one to remove. Only one control will be removed if omitted.
    *
    * @returns `this` controls instance.
    */
@@ -147,8 +152,8 @@ export abstract class InListControls<Item>
   /**
    * Changes the contents of controls array by removing existing controls.
    *
-   * @param start The index at which to start changing the array.
-   * @param deleteCount An integer indicating the number of elements in the array to remove from `start`. If omitted
+   * @param start  The index at which to start changing the array.
+   * @param deleteCount  An integer indicating the number of elements in the array to remove from `start`. If omitted
    * then all controls from `start` will be removed.
    *
    * @returns `this` controls instance.
@@ -158,9 +163,9 @@ export abstract class InListControls<Item>
   /**
    * Changes the contents of controls array by removing or replacing existing controls and/or adding new ones.
    *
-   * @param start The index at which to start changing the array.
-   * @param deleteCount An integer indicating the number of elements in the array to remove from start.
-   * @param controls Controls to add.
+   * @param start  The index at which to start changing the array.
+   * @param deleteCount  An integer indicating the number of elements in the array to remove from start.
+   * @param controls  Controls to add.
    *
    * @returns `this` controls instance.
    */
@@ -471,8 +476,9 @@ function readListData<Item>(
 /**
  * Constructs input controls list.
  *
- * @typeparam Item Model item type.
- * @param model Initial model of the list.
+ * @category Control
+ * @typeparam Item  Model item type.
+ * @param model  Initial model of the list.
  *
  * @returns New input controls group.
  */

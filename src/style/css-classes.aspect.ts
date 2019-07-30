@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { filterIt, itsEach, mapIt, overEntries } from 'a-iterable';
 import { noop, valueProvider } from 'call-thru';
 import {
@@ -32,6 +35,8 @@ const InCssClasses__aspect: InAspect<InCssClasses> = {
  * An aspect of the user input representing CSS classes to apply to styled element.
  *
  * Implements an `EventKeeper` interface by reporting all CSS classes applied to styled element.
+ *
+ * @category Aspect
  */
 export abstract class InCssClasses implements EventKeeper<[InCssClasses.Map]> {
 
@@ -53,7 +58,7 @@ export abstract class InCssClasses implements EventKeeper<[InCssClasses.Map]> {
   /**
    * Appends CSS classes from the given `source` to styled element.
    *
-   * @param source An event keeper of CSS class names map.
+   * @param source  An event keeper of CSS class names map.
    *
    * @returns An event interest instance that, when lost, will remove CSS classes from the `source` from styled element.
    */
@@ -62,7 +67,7 @@ export abstract class InCssClasses implements EventKeeper<[InCssClasses.Map]> {
   /**
    * Removes all CSS class sources and stops applying CSS classes to styled element.
    *
-   * @param reason An optional reason.
+   * @param reason  An optional reason.
    *
    * @returns `this` instance.
    */

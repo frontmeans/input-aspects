@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { flatMapIt, itsEach, mapIt, overEntries } from 'a-iterable';
 import { asis, nextArgs } from 'call-thru';
 import {
@@ -75,7 +78,8 @@ interface Applied<Value> extends InAspect.Applied<InValidation<Value>, InValidat
  *
  * A validation aspect of input controls container reports all messages from nested controls in addition to its own.
  *
- * @typeparam Value Input value type.
+ * @category Aspect
+ * @typeparam Value  Input value type.
  */
 export abstract class InValidation<Value> implements EventKeeper<[InValidation.Result]> {
 
@@ -104,7 +108,7 @@ export abstract class InValidation<Value> implements EventKeeper<[InValidation.R
    * from validator, it replaces the list of validation messages reported previously by the same validator. But it never
    * affects messages received from other validators.
    *
-   * @param validators Input validators to use.
+   * @param validators  Input validators to use.
    *
    * @returns An event interest instance. Once this interest lost, the validators are unregistered, while their messages
    * removed.
@@ -182,7 +186,7 @@ export namespace InValidation {
     /**
      * Returns messages with the given code.
      *
-     * @param code Target code. All messages reported when absent.
+     * @param code  Target code. All messages reported when absent.
      *
      * @returns An array of matching messages. Possibly empty.
      */
@@ -191,7 +195,7 @@ export namespace InValidation {
     /**
      * Checks whether there are errors with the given code.
      *
-     * @param code Target code. Any message matches when absent.
+     * @param code  Target code. Any message matches when absent.
      *
      * @returns `true` if there is at least one message with the given code, or `false` otherwise.
      */
@@ -291,6 +295,7 @@ class InValidationErrors implements InValidation.Result {
 /**
  * Returns successful input validation result.
  *
+ * @category Validation
  * @returns Successful input validation result.
  */
 export function inValidationResult(): InValidation.Ok;
@@ -298,7 +303,8 @@ export function inValidationResult(): InValidation.Ok;
 /**
  * Creates input validation result out of validation messages.
  *
- * @param messages Input validation messages.
+ * @category Validation
+ * @param messages  Input validation messages.
  *
  * @returns New input validation result containing the given `messages`.
  */

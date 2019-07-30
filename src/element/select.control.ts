@@ -1,9 +1,14 @@
+/**
+ * @module input-aspects
+ */
 import { filterIt, itsEach, mapIt, overArray, reverseIt } from 'a-iterable';
 import { InElement } from '../element.control';
 import { InElementControl } from './element.impl';
 
 /**
  * Select input control.
+ *
+ * @category Control
  */
 export type InSelect = InElement<string[], HTMLSelectElement>;
 
@@ -13,7 +18,8 @@ export type InSelect = InElement<string[], HTMLSelectElement>;
  * The value of this control is an array of selected option values. This is particularly useful for `<select multiple>`
  * elements. Consider to use `inText()` for single-selects.
  *
- * @param element Target select element.
+ * @category Control
+ * @param element  Target select element.
  *
  * @return New select input control instance.
  */

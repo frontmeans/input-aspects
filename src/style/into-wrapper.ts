@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { asis } from 'call-thru';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
@@ -10,6 +13,7 @@ import { InStyledElement } from './styled-element.aspect';
  * This is useful for controls without elements (such as input groups), or can be used to apply CSS classes to input
  * element wrappers (such as `form-group` in Bootstrap).
  *
+ * @category Converter
  * @param element
  */
 export function intoWrapper<Value>(element: InStyledElement): InControl.Converter<Value, Value> {

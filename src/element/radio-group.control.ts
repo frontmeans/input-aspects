@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { itsEach, itsEvery, overEntries } from 'a-iterable';
 import { AfterEvent, afterEventFromAll, trackValue, ValueTracker } from 'fun-events';
 import { InControl } from '../control';
@@ -7,7 +10,8 @@ import { InControl } from '../control';
  *
  * Groups several radio buttons. The value of this control is selected accordingly to the checked radio button.
  *
- * @typeparam Value Input value type. A `string` type that optionally accepting `undefined` values.
+ * @category Control
+ * @typeparam Value  Input value type. A `string` type that optionally accepting `undefined` values.
  */
 export type InRadioGroup<Value extends string | undefined = string | undefined> = InControl<Value>;
 
@@ -16,7 +20,7 @@ export namespace InRadioGroup {
   /**
    * Possible radio group control values corresponding to check states.
    *
-   * @typeparam Value Radio button input value type.
+   * @typeparam Value  Radio button input value type.
    */
   export interface Values<Value extends string | undefined> {
 
@@ -121,8 +125,9 @@ function checkedValue<Value extends string | undefined>(
  *
  * The created control has `undefined` value when none of the radio buttons is checked.
  *
- * @typeparam Value Input value type.
- * @param buttons Radio buttons map.
+ * @category Control
+ * @typeparam Value  Input value type.
+ * @param buttons  Radio buttons map.
  *
  * @returns New radio group control instance.
  */
@@ -133,9 +138,10 @@ export function inRadioGroup<Value extends string>(
 /**
  * Creates a radio group for the given radio `buttons` with custom control `values`.
  *
- * @typeparam Value Input value type.
- * @param buttons Radio buttons map.
- * @param values Possible values of radio group control.
+ * @category Control
+ * @typeparam Value  Input value type.
+ * @param buttons  Radio buttons map.
+ * @param values  Possible values of radio group control.
  *
  * @returns New radio group control instance.
  */

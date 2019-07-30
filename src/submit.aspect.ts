@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { itsEvery, mapIt } from 'a-iterable';
 import { nextArgs, noop } from 'call-thru';
 import { AfterEvent, AfterEvent__symbol, afterEventFromAll, EventKeeper, trackValue } from 'fun-events';
@@ -19,6 +22,8 @@ const InSubmit__aspect: InAspect<InSubmit<any>, 'submit'> = {
  * Input submit error.
  *
  * Contains submit messages as validation result.
+ *
+ * @category Error
  */
 export class InSubmitError extends Error {
 
@@ -30,7 +35,7 @@ export class InSubmitError extends Error {
   /**
    * Constructs input submit error.
    *
-   * @param errors Input submit error messages. A `submit` code will be added to each of them, unless already present.
+   * @param errors  Input submit error messages. A `submit` code will be added to each of them, unless already present.
    */
   constructor(...errors: [InValidation.Message, ...InValidation.Message[]]) {
     super();
@@ -45,13 +50,15 @@ export class InSubmitError extends Error {
  * Input submit rejection error.
  *
  * Raised if submit is not ready or in process already.
+ *
+ * @category Error
  */
 export class InSubmitRejectedError extends InSubmitError {
 
   /**
    * Constructs input submit rejection error.
    *
-   * @param reason A reason code.
+   * @param reason  A reason code.
    */
   constructor(reason: string) {
     super({ submit: 'rejected', rejected: reason, [reason]: true });
@@ -62,13 +69,14 @@ export class InSubmitRejectedError extends InSubmitError {
 /**
  * Input submit aspect.
  *
- * Allows to submit [input data] and reports submit status.
+ * Allows to submit {@link InData input data} and reports submit status.
  *
  * Implements an `EventKeeper` interface by sending submit status flags to registered receivers.
  *
- * @typeparam Value Input value type.
+ * [input data]: InData
  *
- * [input data]: [[InData]]
+ * @category Aspect
+ * @typeparam Value  Input value type.
  */
 export abstract class InSubmit<Value> implements EventKeeper<[InSubmit.Flags]> {
 
@@ -102,7 +110,7 @@ export abstract class InSubmit<Value> implements EventKeeper<[InSubmit.Flags]> {
    * 5.2. Otherwise, reports submit failure messages.
    * 6. Rejects the result promise.
    *
-   * @param submitter A submitter function that performs actual submit.
+   * @param submitter  A submitter function that performs actual submit.
    *
    * @returns Submit result promise.
    */
@@ -162,10 +170,10 @@ export namespace InSubmit {
    * [InSubmitError], or arbitrary error. Previously reported submit messages are replaced by the reported ones,
    * and cleared on a new submit.
    *
-   * @typeparam Value Input value type.
-   * @typeparam Result Submit result value type.
-   * @param data Input data to submit.
-   * @param control Input control the submit is performed for.
+   * @typeparam Value  Input value type.
+   * @typeparam Result  Submit result value type.
+   * @param data  Input data to submit.
+   * @param control  Input control the submit is performed for.
    *
    * @returns Submit result promise.
    */

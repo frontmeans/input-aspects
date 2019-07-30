@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { itsEach, mapIt } from 'a-iterable';
 import {
   AfterEvent,
@@ -35,6 +38,8 @@ const InStatus__aspect: InAspect<InStatus> = {
  * Supports input elements and containers. For the rest of input controls always sends default status flags.
  *
  * Implements `EventKeeper` interface by sending collected status flags to receivers.
+ *
+ * @category Aspect
  */
 export abstract class InStatus implements EventKeeper<[InStatus.Flags]> {
 
@@ -58,7 +63,7 @@ export abstract class InStatus implements EventKeeper<[InStatus.Flags]> {
    *
    * For container invokes this method for each of the nested controls.
    *
-   * @param touched Whether to mark the input as touched or not. `true` by default. When `false` the input would be
+   * @param touched  Whether to mark the input as touched or not. `true` by default. When `false` the input would be
    * marked as non-edited too. Setting to `false` affects only edited flag when input has focus.
    *
    * @returns `this` aspect instance.
@@ -70,7 +75,7 @@ export abstract class InStatus implements EventKeeper<[InStatus.Flags]> {
    *
    * For container invokes this method for each of the nested controls.
    *
-   * @param edited Whether to mark the input as edited by user. `true` by default, in which case the input will be
+   * @param edited  Whether to mark the input as edited by user. `true` by default, in which case the input will be
    * marked as touched as well.
    *
    * @returns `this` aspect instance.

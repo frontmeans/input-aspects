@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { trackValue } from 'fun-events';
 import { InControl } from './control';
 
@@ -6,8 +9,9 @@ import { InControl } from './control';
  *
  * This control does not handle actual user input. Instead, it maintains the value set programmatically.
  *
- * @typeparam Value Input value type.
- * @param initial Initial input value.
+ * @category Control
+ * @typeparam Value  Input value type.
+ * @param initial  Initial input value.
  *
  * @returns New input control.
  */

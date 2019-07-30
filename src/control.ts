@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { valueProvider } from 'call-thru';
 import { EventEmitter, OnEvent, trackValue, ValueTracker } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
@@ -7,7 +10,8 @@ import { InAspect, InAspect__symbol } from './aspect';
  *
  * Maintains input value and various aspects of the user input, such as input focus, validity, etc.
  *
- * @typeparam Value Input value type.
+ * @category Control
+ * @typeparam Value  Input value type.
  */
 export abstract class InControl<Value> extends ValueTracker<Value> {
 
@@ -26,9 +30,9 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
    *
    * If the given `aspect` is not applied yet, then applies it first.
    *
-   * @typeparam Instance Aspect instance type.
-   * @typeparam Kind Aspect application kind.
-   * @param aspectKey A key of aspect to apply to this control.
+   * @typeparam Instance  Aspect instance type.
+   * @typeparam Kind  Aspect application kind.
+   * @param aspectKey  A key of aspect to apply to this control.
    *
    * @returns An applied aspect instance.
    */
@@ -41,7 +45,7 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
   /**
    * Performs additional setup of this control.
    *
-   * @param setup A function that accepts this control as its only parameter to configure it.
+   * @param setup  A function that accepts this control as its only parameter to configure it.
    *
    * @returns `this` control instance.
    */
@@ -50,10 +54,10 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
   /**
    * Performs additional setup of this control's aspect.
    *
-   * @typeparam Instance Aspect instance type.
-   * @typeparam Kind Aspect application kind.
-   * @param aspectKey A key of aspect to set up.
-   * @param setup A function that accepts the aspect and this control as parameters to configure them.
+   * @typeparam Instance  Aspect instance type.
+   * @typeparam Kind  Aspect application kind.
+   * @param aspectKey  A key of aspect to set up.
+   * @param setup  A function that accepts the aspect and this control as parameters to configure them.
    *
    * @returns `this` control instance.
    */
@@ -86,9 +90,9 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
    *
    * The converted control's value bound to this one and wise versa.
    *
-   * @typeparam To Converted input value type.
-   * @param set Value conversion function accepting this control's value an returning converted one.
-   * @param get Reverse value conversion function accepting converted value and returning this control's one.
+   * @typeparam To  Converted input value type.
+   * @param set  Value conversion function accepting this control's value an returning converted one.
+   * @param get  Reverse value conversion function accepting converted value and returning this control's one.
    *
    * @returns Converted control.
    */
@@ -100,8 +104,8 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
   /**
    * Converts this control to another one with value of different type potentially depending on various input aspects.
    *
-   * @typeparam To Converted input value type.
-   * @param by Input control converter.
+   * @typeparam To  Converted input value type.
+   * @param by  Input control converter.
    *
    * @returns Converted control.
    */
@@ -146,9 +150,9 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
   /**
    * Applies the given aspect to this control in a custom way.
    *
-   * @typeparam Instance Aspect instance type.
-   * @typeparam Kind Aspect application kind.
-   * @param _aspect An aspect to apply.
+   * @typeparam Instance  Aspect instance type.
+   * @typeparam Kind  Aspect application kind.
+   * @param _aspect  An aspect to apply.
    *
    * @returns Either applied aspect instance or `undefined` to apply the aspect in standard way (i.e. using
    * `InAspect.applyTo()` method).
@@ -170,10 +174,10 @@ export namespace InControl {
    *
    * This function should not access converted control value as the one does not exist at calling time.
    *
-   * @typeparam From Original input value type.
-   * @typeparam To Converted input value type.
-   * @param from Original input control.
-   * @param to Converted input control.
+   * @typeparam From  Original input value type.
+   * @typeparam To  Converted input value type.
+   * @param from  Original input control.
+   * @param to  Converted input control.
    *
    * @returns A tuple containing value conversion function and reverse value conversion function.
    */
@@ -182,17 +186,17 @@ export namespace InControl {
   /**
    * A tuple containing value conversion function and reverse value conversion function.
    *
-   * @typeparam From Original input value type.
-   * @typeparam To Converted input value type.
+   * @typeparam From  Original input value type.
+   * @typeparam To  Converted input value type.
    */
   export interface Converters<From, To> {
 
     /**
      * Applies the given aspect to converted control in a custom way.
      *
-     * @typeparam Instance Aspect instance type.
-     * @typeparam Kind Aspect application kind.
-     * @param aspect An aspect to apply.
+     * @typeparam Instance  Aspect instance type.
+     * @typeparam Kind  Aspect application kind.
+     * @param aspect  An aspect to apply.
      *
      * @returns Either applied aspect instance or `undefined` to apply the aspect in standard way (i.e. by converting
      * it from corresponding aspect of original control).
@@ -205,7 +209,7 @@ export namespace InControl {
     /**
      * Converts original value.
      *
-     * @param value Original value to convert.
+     * @param value  Original value to convert.
      *
      * @returns New value of converted control.
      */
@@ -214,7 +218,7 @@ export namespace InControl {
     /**
      * Converts a value of converted control back to the value of original control.
      *
-     * @param value A value of converted control to convert back.
+     * @param value  A value of converted control to convert back.
      *
      * @returns New value of original control.
      */
@@ -225,7 +229,7 @@ export namespace InControl {
   /**
    * A value type of the given input control type.
    *
-   * @typeparam Control Input control type.
+   * @typeparam Control  Input control type.
    */
   export type ValueType<Control extends InControl<any>> = Control extends InControl<infer Value> ? Value : never;
 

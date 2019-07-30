@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { InControl } from '../control';
 import { InValidator } from './validator';
 
@@ -7,8 +10,9 @@ import { InValidator } from './validator';
  * Ignores NaN input. Reports too small values with `invalid` and `tooSmall` message codes. Reports too large values
  * with `invalid` and `tooLarge` message codes.
  *
- * @param min Minimum allowed value, inclusive. Not checked if omitted.
- * @param max Maximum allowed value, inclusive. Not checked if omitted.
+ * @category Validation
+ * @param min  Minimum allowed value, inclusive. Not checked if omitted.
+ * @param max  Maximum allowed value, inclusive. Not checked if omitted.
  *
  * @returns Element validator applicable to numeric input control.
  */

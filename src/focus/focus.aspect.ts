@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { EventEmitter, ValueTracker } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectNull, inAspectValue } from '../aspect.impl';
@@ -23,6 +26,8 @@ const InFocus__aspect: InAspect<InFocus | null> = {
  * Input focus aspect.
  *
  * This is a value tracker of element focus flag. Or `null` when [[InElement]] aspect is absent.
+ *
+ * @category Aspect
  */
 export abstract class InFocus extends ValueTracker<boolean> {
 

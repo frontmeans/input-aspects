@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { AfterEvent, AfterEvent__symbol, EventKeeper, EventSender, OnEvent, OnEvent__symbol } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectNull, inAspectValue } from '../aspect.impl';
@@ -14,7 +17,8 @@ const InContainer__aspect: InAspect<InContainer<any> | null, 'container'> = {
  *
  * Container is available as aspect of itself.
  *
- * @typeparam Value Input value type.
+ * @category Control
+ * @typeparam Value  Input value type.
  */
 export abstract class InContainer<Value> extends InControl<Value> {
 
@@ -46,7 +50,7 @@ export namespace InContainer {
    *
    * Container implementations may apply limitations on the type of keys and input values they support.
    *
-   * @typeparam L Input container layout interface.
+   * @typeparam L  Input container layout interface.
    */
   export type Entry = readonly [PropertyKey, InControl<any>];
 
@@ -78,6 +82,8 @@ export namespace InContainer {
  * Implements `EventSender` interface by sending arrays of added and removed control entries.
  *
  * Implements `EventKeeper` interface by sending container contents instance each time it is changed.
+ *
+ * @category Control
  */
 export abstract class InContainerControls
      implements EventSender<[InContainer.Entry[], InContainer.Entry[]]>, EventKeeper<[InContainer.Snapshot]> {

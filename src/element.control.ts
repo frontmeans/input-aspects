@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { AfterEvent, DomEventDispatcher } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
 import { inAspectNull, inAspectValue } from './aspect.impl';
@@ -16,8 +19,9 @@ const InElement__aspect: InAspect<InElement<any> | null, 'element'> = {
  *
  * An input element control can be constructed using `inElt()` function.
  *
- * @typeparam Value Input value type.
- * @typeparam Elt A type of input HTML element.
+ * @category Control
+ * @typeparam Value  Input value type.
+ * @typeparam Elt  A type of input HTML element.
  */
 export abstract class InElement<Value, Elt = HTMLElement> extends InControl<Value> {
 
@@ -55,7 +59,7 @@ export namespace InElement {
   /**
    * User input.
    *
-   * @typeparam Value Input value type.
+   * @typeparam Value  Input value type.
    */
   export interface Input<Value> {
 

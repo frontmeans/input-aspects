@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import {
   AfterEvent,
   AfterEvent__symbol,
@@ -29,6 +32,8 @@ const InParents__aspect: InAspect<InParents> = {
  * Implements `EventSender` interface by sending arrays of parent entries the control is added to and removed from.
  *
  * Implements `EventKeeper` interface by sending a snapshot of all parents each time it is updated.
+ *
+ * @category Aspect
  */
 export abstract class InParents
     implements EventKeeper<[Iterable<InParents.Entry>]>, EventSender<[InParents.Entry[], InParents.Entry[]]> {
@@ -65,7 +70,7 @@ export abstract class InParents
   /**
    * Adds the input control to the given parent container under the given key.
    *
-   * @param entry Parent container entry.
+   * @param entry  Parent container entry.
    *
    * @returns An event interest instance that removes the control from the parent `container` when loses interest.
    */

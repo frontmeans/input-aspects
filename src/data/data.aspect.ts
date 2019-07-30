@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { NextArgs, nextArgs, noop } from 'call-thru';
 import { AfterEvent, afterEventFromAll } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
@@ -14,7 +17,8 @@ import { InMode } from './mode.aspect';
  *
  * An aspect interface is an `AfterEvent` registrar of input data receivers.
  *
- * @typeparam Input value type.
+ * @category Aspect
+ * @typeparam Value  Input value type.
  */
 export type InData<Value> = AfterEvent<[InData.DataType<Value>?]>;
 
@@ -70,12 +74,17 @@ export const InData = {
 
 };
 
+/**
+ * @category Aspect
+ */
 export namespace InData {
 
   /**
    * Input data type.
    *
    * This is either a partial value (for the object), or the value itself (for everything else).
+   *
+   * @typeparam Value  Input value type.
    */
   export type DataType<Value> =
       | (Value extends object ? { [K in keyof Value]?: DataType<Value[K]> } : Value)

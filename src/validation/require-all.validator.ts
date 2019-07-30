@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { InControl } from '../control';
 import { requireNothing } from './require-nothing.validator';
 import { InValidator } from './validator';
@@ -6,7 +9,8 @@ import { InValidationMessages } from './validator.impl';
 /**
  * Creates input validator that validates using all listed validators.
  *
- * @param validators Validators to validate the input with.
+ * @category Validation
+ * @param validators  Validators to validate the input with.
  *
  * @returns Validator that requires all the given `validators`. Or just the given validator if it is the only one given.
  */

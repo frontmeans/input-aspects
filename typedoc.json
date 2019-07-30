@@ -1,0 +1,10 @@
+{
+  "categorizeByGroup": true,
+  "categoryOrder": ["Control", "Aspect", "Validation", "*"],
+  "exclude": ["**/*+(index|.spec|.impl).ts"],
+  "excludeNotExported": true,
+  "mode": "file",
+  "name": "Input Aspects",
+  "out": "./target/typedoc",
+  "tsconfig": "tsconfig.main.json"
+}

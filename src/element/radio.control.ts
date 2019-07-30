@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
 import { InMode } from '../data';
@@ -7,11 +10,10 @@ import { InElementControl } from './element.impl';
 /**
  * Radio button input control.
  *
- * Radio buttons intended to be added to [radio groups].
+ * Radio buttons intended to be added to {@link InRadioGroup radio groups}.
  *
- * @typeparam Value Input value type. `boolean` by default.
- *
- * [radio groups]: [[InRadioGroup]]
+ * @category Control
+ * @typeparam Value  Input value type. `boolean` by default.
  */
 export type InRadio<Value = true> = InElement<Value | undefined, HTMLInputElement>;
 
@@ -20,7 +22,7 @@ export namespace InRadio {
   /**
    * Possible radio button control values corresponding to check states.
    *
-   * @typeparam Value Radio button input value type.
+   * @typeparam Value  Radio button input value type.
    */
   export interface Values<Value> {
 
@@ -80,7 +82,8 @@ function applyRadioMode<Value>(radio: InRadioControl<Value>): InAspect.Applied<I
  *
  * Sets input mode to `-on` when radio is not checked. Thus making control data `undefined`.
  *
- * @param element Target radio button element.
+ * @category Control
+ * @param element  Target radio button element.
  *
  * @return New radio button input control instance.
  */
@@ -91,9 +94,10 @@ export function inRadio(element: HTMLInputElement): InRadio;
  *
  * Sets input mode to `-on` when radio is not checked. Thus making control data `undefined`.
  *
- * @typeparam Value Input value type.
- * @param element Target radio button element.
- * @param values Possible values of radio button control.
+ * @category Control
+ * @typeparam Value  Input value type.
+ * @param element  Target radio button element.
+ * @param values  Possible values of radio button control.
  *
  * @return New radio button input control instance.
  */

@@ -1,8 +1,13 @@
+/**
+ * @module input-aspects
+ */
 import { InElement } from '../element.control';
 import { InElementControl } from './element.impl';
 
 /**
  * Textual input control.
+ *
+ * @category Control
  */
 export type InText = InElement<string, InText.Element>;
 
@@ -24,7 +29,8 @@ export namespace InText {
  *
  * For `<select multiple>` this would only reflect the first option. Consider to use `inSelect()` for multi-selects.
  *
- * @param element Target text input element.
+ * @category Control
+ * @param element  Target text input element.
  *
  * @return New textual input control instance.
  */

@@ -1,10 +1,14 @@
+/**
+ * @module input-aspects
+ */
 import { InElement } from '../element.control';
 import { InElementControl } from './element.impl';
 
 /**
  * Checkbox input control.
  *
- * @typeparam Value Input value type.
+ * @category Control
+ * @typeparam Value  Input value type.
  */
 export type InCheckbox<Value = boolean | null> = InElement<Value, HTMLInputElement & { intermediate?: boolean }>;
 
@@ -13,7 +17,7 @@ export namespace InCheckbox {
   /**
    * Possible checkbox control values corresponding to different checkbox states.
    *
-   * @typeparam Value Checkbox input value type.
+   * @typeparam Value  Checkbox input value type.
    */
   export interface Values<Value> {
 
@@ -44,7 +48,8 @@ export namespace InCheckbox {
  * - `false` when it's not, or
  * - `null` when it is in intermediate state.
  *
- * @param element Target checkbox element.
+ * @category Control
+ * @param element  Target checkbox element.
  *
  * @return New input element control instance.
  */
@@ -53,9 +58,10 @@ export function inCheckbox(element: HTMLInputElement): InCheckbox;
 /**
  * Creates an input control for the given checkbox element with custom control values.
  *
- * @typeparam Value Input value type.
- * @param element Target checkbox element.
- * @param values All possible values of checkbox control.
+ * @category Control
+ * @typeparam Value  Input value type.
+ * @param element  Target checkbox element.
+ * @param values  All possible values of checkbox control.
  *
  * @return New radio input control instance.
  */
@@ -69,10 +75,11 @@ export function inCheckbox<Value>(
  *
  * An intermediate checkbox state is represented by `null` control value.
  *
- * @typeparam Value Input value type.
- * @param element Target checkbox element.
- * @param checked Control value of checked checkbox.
- * @param unchecked Control value of unchecked checkbox.
+ * @category Control
+ * @typeparam Value  Input value type.
+ * @param element  Target checkbox element.
+ * @param checked  Control value of checked checkbox.
+ * @param unchecked  Control value of unchecked checkbox.
  *
  * @return New input element control instance.
  */

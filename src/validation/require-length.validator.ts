@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { InControl } from '../control';
 import { InValidator } from './validator';
 
@@ -7,8 +10,9 @@ import { InValidator } from './validator';
  * Ignores empty input. Reports too short values with `incomplete` and `tooShort` message codes. Reports too long values
  * with `invalid` and `tooLong` message codes.
  *
- * @param min Required minimum length. Not checked if omitted.
- * @param max Required maximum length. Not checked if omitted.
+ * @category Validation
+ * @param min  Required minimum length. Not checked if omitted.
+ * @param max  Required maximum length. Not checked if omitted.
  *
  * @returns Element validator applicable to text input control.
  */

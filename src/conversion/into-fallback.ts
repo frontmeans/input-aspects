@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { asis } from 'call-thru';
 import { InControl } from '../control';
 
@@ -7,8 +10,9 @@ import { InControl } from '../control';
  * Treats `null` values as `undefined`. Despite the signature does not allow nulls they are often used instead.
  * E.g. when receiving JSON from server.
  *
- * @typeparam Input value type.
- * @param fallback A fallback value that is used instead of original one when `undefined` (or`null`) is assigned
+ * @category Converter
+ * @typeparam Value  Input value type.
+ * @param fallback  A fallback value that is used instead of original one when `undefined` (or`null`) is assigned
  * to converted control.
  */
 export function intoFallback<Value>(fallback: Value): InControl.Converter<Value, Value | undefined> {

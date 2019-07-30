@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { valueProvider } from 'call-thru';
 import { afterEventFrom, EventEmitter } from 'fun-events';
 import { InControl } from '../control';
@@ -11,9 +14,10 @@ import { InValidation } from '../validation';
  *
  * To convert input parser to control converter use `InParser.converter()` function.
  *
- * @typeparam Value Parsed value type.
- * @param from Text input control.
- * @param to Parsed value control.
+ * @category Converter
+ * @typeparam Value  Parsed value type.
+ * @param from  Text input control.
+ * @param to  Parsed value control.
  *
  * @returns A tuple containing text parser and text formatter functions. A standard to string conversion
  * will be used if the latter is missing.
@@ -39,7 +43,7 @@ export namespace InParser {
     /**
      * Appends parse errors.
      *
-     * @param errors Validation messages representing errors to report.
+     * @param errors  Validation messages representing errors to report.
      */
     report(...errors: InValidation.Message[]): void;
 
@@ -52,7 +56,7 @@ export const InParser = {
   /**
    * Creates input control converter out of input text parser.
    *
-   * @param parser A parser to convert.
+   * @param parser  A parser to convert.
    *
    * @returns An input control converter that parses and formats text input.
    */
@@ -97,9 +101,12 @@ export const InParser = {
 /**
  * Creates text input control converter that parses and formats input text with the given functions.
  *
- * @param parse Text parser function. Accepts input text and parse errors as its parameters and returns parsed value.
- * @param format Text formatter. Accepts value is its only parameter and returns formatted text. Standard to string
+ * @category Converter
+ * @param parse  Text parser function. Accepts input text and parse errors as its parameters and returns parsed value.
+ * @param format  Text formatter. Accepts value is its only parameter and returns formatted text. Standard to string
  * conversion is used if omitted.
+ *
+ * @returns New input converter.
  */
 export function intoParsedBy<Value>(
     parse: (this: void, text: string, errors: InParser.Errors) => Value,

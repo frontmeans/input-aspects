@@ -31,7 +31,7 @@
     "tslib": "^1.10.0"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.15",
+    "@types/jest": "^24.0.16",
     "codecov": "^3.5.0",
     "fs-extra": "^8.1.0",
     "jest": "^24.8.0",
@@ -40,14 +40,17 @@
     "rollup-plugin-commonjs": "^10.0.1",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
-    "rollup-plugin-typescript2": "^0.22.0",
+    "rollup-plugin-typescript2": "^0.22.1",
     "ts-jest": "^24.0.2",
     "tslint": "^5.18.0",
+    "typedoc": "^0.15.0",
+    "typedoc-plugin-external-module-name": "^2.1.0",
     "typescript": "^3.5.3"
   },
   "scripts": {
     "build": "rollup --config ./rollup.config.js",
     "clean": "node ./build/clean",
+    "doc": "typedoc",
     "lint": "tslint --project .",
     "test": "jest"
   }
