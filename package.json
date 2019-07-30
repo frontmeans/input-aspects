@@ -53,8 +53,9 @@
     "build": "rollup --config ./rollup.config.js",
     "clean": "node ./build/clean",
     "doc": "typedoc",
-    "doc:gh-pages": "gh-pages --dist target/typedoc ",
-    "doc:publish": "run-s doc \"doc:gh-pages {@}\" --",
+    "doc:gh-pages": "gh-pages --dist target/typedoc --dotfiles",
+    "doc:ci": "node ./build/doc-ci",
+    "doc:publish": "run-s doc doc:ci \"doc:gh-pages {@}\" --",
     "lint": "tslint --project .",
     "test": "jest"
   }
