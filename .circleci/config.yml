@@ -65,6 +65,6 @@ workflows:
   build_all:
     jobs:
     - build:
-      filters:
-        branches:
-          ignore: gh-pages
+        filters:
+          branches:
+            ignore: gh-pages
