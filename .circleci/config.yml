@@ -64,8 +64,8 @@ workflows:
   version: 2.1
   build:
     jobs:
-      build:
-        filters:
-          branches:
-            ignore:
-            - gh-pages
+    - build:
+      filters:
+        branches:
+          ignore:
+          - gh-pages
