@@ -71,6 +71,274 @@
 					<a href="https://github.com/surol/input-aspects"><img src="https://img.shields.io/static/v1?logo=github&label=GitHub&message=project&color=informational" alt="GitHub Project"></a>
 				<a href="https://surol.github.io/input-aspects/"><img src="https://img.shields.io/static/v1?logo=typescript&label=API&message=docs&color=informational" alt="API Documentation"></a></p>
 				<p>Framework-agnostic library controlling various aspects of user input. Such as value conversion, form validation, etc.</p>
+				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
+					<h2>Example</h2>
+				</a>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { DomEventDispatcher } <span class="hljs-keyword">from</span> <span class="hljs-string">'fun-events'</span>;
+<span class="hljs-keyword">import</span> {
+  inCssInfo
+  intoTrimmed,
+  inGroup,
+  inText,
+  InCssClasses,
+  InSubmit,
+  InSubmitError,
+  InValidation,
+  requirePresent,
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'input-aspects'</span>;
+
+<span class="hljs-keyword">interface</span> Saluted {
+  name: <span class="hljs-built_in">string</span>;
+  salutation: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-comment">// Create controls for input elements</span>
+<span class="hljs-keyword">const</span> name = inText(<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'name'</span>)!)
+  .convert(intoTrimmed) <span class="hljs-comment">// Remove whitespace</span>
+  .setup(InValidation, <span class="hljs-function"><span class="hljs-params">validation</span> =&gt;</span> {
+    validation.by(requirePresent); <span class="hljs-comment">// Require `name` to present      </span>
+  })
+  .setup(InCssClasses, <span class="hljs-function"><span class="hljs-params">classes</span> =&gt;</span> classes.add(inCssInfo())); <span class="hljs-comment">// Add validation status CSS classes</span>
+<span class="hljs-keyword">const</span> salutation = inText(<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'salutation'</span>)!)
+  .setup(InValidation, <span class="hljs-function"><span class="hljs-params">validation</span> =&gt;</span> {
+    validation.by(requirePresent); <span class="hljs-comment">// Require `salutation` to present   </span>
+  })
+  .setup(InCssClasses, <span class="hljs-function"><span class="hljs-params">classes</span> =&gt;</span> classes.add(inCssInfo())); <span class="hljs-comment">// Add validation status CSS classes</span>
+
+<span class="hljs-keyword">const</span> form = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'form'</span>)!;
+
+<span class="hljs-comment">// Create control group</span>
+<span class="hljs-keyword">const</span> group = inGroup&lt;Saluted&gt;({
+  <span class="hljs-comment">// Group value is initially empty</span>
+  name: <span class="hljs-string">''</span>,
+  salutation: <span class="hljs-string">''</span>,
+}).setup(<span class="hljs-function"><span class="hljs-params">control</span> =&gt;</span> {
+  control.set({ name, salutation }); <span class="hljs-comment">// Add controls to group</span>
+}).setup(InSubmit, <span class="hljs-function"><span class="hljs-params">submit</span> =&gt;</span> {
+
+  <span class="hljs-keyword">const</span> button = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'submit-button'</span>)!;
+
+  submit.read(<span class="hljs-function"><span class="hljs-params">flags</span> =&gt;</span> {
+    <span class="hljs-comment">// Disable submit button when input is invalid or submit is in process.</span>
+    button.disabled = flags.ready &amp;&amp; !flags.busy;  
+  });
+
+  <span class="hljs-comment">// Submit the form programmatically</span>
+  <span class="hljs-keyword">new</span> DomEventDispatcher(form).on(<span class="hljs-string">'submit'</span>).instead(<span class="hljs-keyword">async</span> () =&gt; {
+
+    <span class="hljs-keyword">const</span> responseText = <span class="hljs-keyword">await</span> submit.submit(<span class="hljs-keyword">async</span> (data) =&gt; {
+
+      <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> fetch(
+          <span class="hljs-string">'/greet'</span>,
+          {
+            method: <span class="hljs-string">'POST'</span>,
+            headers: {
+              <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
+            },
+            body: <span class="hljs-built_in">JSON</span>.stringify(data),    
+          });
+
+      <span class="hljs-keyword">if</span> (!response.ok) {
+        <span class="hljs-comment">// Submit failed - report errors</span>
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> InSubmitError({ submit: <span class="hljs-string">'Failed'</span> });
+      } 
+
+      <span class="hljs-comment">// Submit succeed</span>
+      <span class="hljs-keyword">return</span> response.text();
+    });
+
+    <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'response-text'</span>)!.innerText = responseText;  
+  });
+});</code></pre>
+				<a href="#input-control" id="input-control" style="color: inherit; text-decoration: none;">
+					<h2>Input Control</h2>
+				</a>
+				<p>First, an input control should be created for input element.</p>
+				<p>Input controls implementations extend <code>InControl</code> class that, in turn, extends <code>ValueTracker</code> class.</p>
+				<p>Each control has a value. It can be accessed or updated by <code>InControl.it</code> property. Input control sends an event when
+				the value change.</p>
+				<p>There are several input control implementations available. They can be used for different input elements.</p>
+				<a href="#codeltinputgtcode-codeltselectgtcode-codelttextareagtcode" id="codeltinputgtcode-codeltselectgtcode-codelttextareagtcode" style="color: inherit; text-decoration: none;">
+					<h3><code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>, <code>&lt;textarea&gt;</code></h3>
+				</a>
+				<p>Textual input control is created by <code>inText()</code> function.</p>
+				<p>The value of this control is a <code>string</code>.</p>
+				<a href="#codeltselect-multiplegtcode" id="codeltselect-multiplegtcode" style="color: inherit; text-decoration: none;">
+					<h3><code>&lt;select multiple&gt;</code></h3>
+				</a>
+				<p>Multi-select input control is created by <code>inSelect()</code> function.</p>
+				<p>The value of this control is an array of <code>string</code>s.</p>
+				<a href="#codeltinput-typequotcheckboxquotgtcode" id="codeltinput-typequotcheckboxquotgtcode" style="color: inherit; text-decoration: none;">
+					<h3><code>&lt;input type=&quot;checkbox&quot;&gt;</code></h3>
+				</a>
+				<p>Checkbox input control is created by <code>inCheckbox()</code> function.</p>
+				<p>The value of this control is three-state, corresponding to checked, unchecked, and intermediate values.</p>
+				<p>By default these are <code>true</code>, <code>false</code> and <code>null</code>. But can be configured to be arbitrary values by specifying options:</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { inCheckbox } <span class="hljs-keyword">from</span> <span class="hljs-string">'input-aspects'</span>;
+
+inCheckbox(checkboxElement, {
+  checked: <span class="hljs-string">'on'</span>,     <span class="hljs-comment">// The value is `on` when checked</span>
+  unchecked: <span class="hljs-string">'off'</span>,  <span class="hljs-comment">// The value is `off` when unchecked</span>
+  intermediate: <span class="hljs-string">'?'</span>,  <span class="hljs-comment">// The value is `?` when intermediate</span>
+});</code></pre>
+				<a href="#codeltinput-typequotradioquotgtcode" id="codeltinput-typequotradioquotgtcode" style="color: inherit; text-decoration: none;">
+					<h3><code>&lt;input type=&quot;radio&quot;&gt;</code></h3>
+				</a>
+				<p>Radio button control is created by <code>inRadio()</code> function.</p>
+				<p>By default the value of this control is <code>true</code> when the radio button is checked. This can be configured though.
+				The value of this control when the radio button is unchecked is always <code>undefined</code>.</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { inRadio } <span class="hljs-keyword">from</span> <span class="hljs-string">'input-aspects'</span>;
+
+inRadio(radioElement, {
+  checked: <span class="hljs-string">'on'</span>,     <span class="hljs-comment">// The value is `on` when checked</span>
+});</code></pre>
+				<p>It is convenient to group the radio buttons into a radio group, that can be created using <code>inRadioGroup()</code> function:</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { inRadio, inRadioGroup } <span class="hljs-keyword">from</span> <span class="hljs-string">'input-aspects'</span>;
+
+inRadioGroup({
+  <span class="hljs-comment">// Add radio buttons under unique keys</span>
+  first: inRadio(firstRadioElement),
+  second: inRadio(secondRadioElement),
+  third: inRadio(thirdRadioElement),
+});</code></pre>
+				<p>The value of radio group control is a string key corresponding to checked radio button. Or <code>undefined</code> when none
+				is checked.</p>
+				<a href="#arbitrary-value-control" id="arbitrary-value-control" style="color: inherit; text-decoration: none;">
+					<h3>Arbitrary Value Control</h3>
+				</a>
+				<p>Is created by <code>inValue()</code> function.</p>
+				<p>This control is not associated with any input element. Its value is expected to be set programmatically. </p>
+				<a href="#container" id="container" style="color: inherit; text-decoration: none;">
+					<h2>Container</h2>
+				</a>
+				<p>An input container is an input control containing other controls.</p>
+				<p>The value of such container is formed by the ones of nested controls. An update to container value updates the ones of
+				nested controls.</p>
+				<p>All containers extend <code>InContainer</code> class. A <code>controls</code> property of container grants access to nested controls.</p>
+				<p>The are two input containers implemented.</p>
+				<a href="#codeingroupcode" id="codeingroupcode" style="color: inherit; text-decoration: none;">
+					<h2><code>InGroup</code></h2>
+				</a>
+				<p>A group of input controls is created by <code>inGroup()</code> function. </p>
+				<p>Nested controls are identified by keys and can be added and removed via <code>controls</code> property.</p>
+				<p>Group value (called model) is an object formed by nested control values. The model property value is the one of the
+				control with the same key, if present. When model is updated corresponding controls are also updated.</p>
+				<p>A group model type is passed as a generic type parameter to <code>inGroup()</code> function.</p>
+				<a href="#codeinlistcode" id="codeinlistcode" style="color: inherit; text-decoration: none;">
+					<h2><code>InList</code></h2>
+				</a>
+				<p>An indexed list of input controls is created by <code>inList()</code> function.</p>
+				<p>Nested controls can be added and removed via <code>controls</code> property.</p>
+				<p>List value (called model) is an array object formed by nested control values. The item property value is the one
+				of the control with the same index, if present. When model is updated corresponding controls are also updated.</p>
+				<p>A model item type type is passed as a generic type parameter to <code>inList()</code> function.</p>
+				<a href="#input-conversion" id="input-conversion" style="color: inherit; text-decoration: none;">
+					<h2>Input Conversion</h2>
+				</a>
+				<p>An input control can be converted. E.g. to the one with another value type.</p>
+				<p>This can be done by <code>InControl.convert()</code> method that accepts a converter as parameter and returns converted input
+				control.</p>
+				<p>When original control is updated, the converted one is automatically updated with converted value.
+				When converted control is updated, the original one is automatically updated with the value restored from converted one.</p>
+				<p>There are several converters implemented:</p>
+				<ul>
+					<li><code>intoFallback()</code> converts an input control to the one replacing <code>undefined</code> value with fallback one.</li>
+					<li><code>intoInteger()</code> converts string values to integer ones.</li>
+					<li><code>intoTrimmed()</code> trims input value.</li>
+					<li><code>intoParsedBy()</code> parses and formats input text with the given functions.</li>
+				</ul>
+				<p>Simple conversions can be implemented like this:</p>
+				<pre><code class="language-typescript">control.convert(
+  <span class="hljs-function"><span class="hljs-params">text</span> =&gt;</span> text.length,        <span class="hljs-comment">// Convert a `text` to its length</span>
+  stars =&gt; <span class="hljs-string">'*'</span>.repeat(stars), <span class="hljs-comment">// Restore the text as several `stars`</span>
+);</code></pre>
+				<a href="#input-aspect" id="input-aspect" style="color: inherit; text-decoration: none;">
+					<h2>Input Aspect</h2>
+				</a>
+				<p>Once control created, input aspects can be attached to it with <code>InControl.aspect()</code> method accepting an aspect key
+					and returning the attached aspect. An aspect is attached only once and returned on subsequent <code>InControl.aspect()</code>
+				calls.</p>
+				<p>An input aspect is an arbitrary value. There are several input aspects implemented for various control use cases:</p>
+				<ul>
+					<li><p><code>InElement</code> HTML input element control available as an aspect of itself and, possibly, of converted controls.
+						Or <code>null</code> if not available.</p>
+					</li>
+					<li><p><code>InContainer</code> Input controls container available as an aspect of itself and, possibly, of converted controls.
+						Or <code>null</code> if not available. </p>
+					</li>
+					<li><p><code>InParents</code> Parents of input control.</p>
+						<p>Reflects all containers the control belongs to. Note that component may belong to multiple containers. Or even
+						to the same container multiple times.</p>
+					</li>
+					<li><p><code>InFocus</code> Input focus aspect.</p>
+						<p> This is a value tracker of element focus flag.  Or <code>null</code> when <code>InElement</code> aspect is absent.</p>
+					</li>
+					<li><p><code>InStatus</code> Aggregate status aspect of user input.</p>
+						<p>Collects and reports input status flags. Like whether the input ever had focus or being altered.</p>
+						<p>Supports input elements and containers. For the rest of input controls always sends default status flags.</p>
+					</li>
+					<li><p><code>InMode</code> Input mode aspect of control.
+						Control can be either enabled, disabled, or readonly.</p>
+						<p>Each control maintains its own state, while nested controls respect container ones. I.e. when container is disabled
+							all nested ones are also disabled. When container is readonly, all nested ones are also readonly, unless explicitly
+						disabled.</p>
+						<p>When applied to input element this aspect maintains its <code>disabled</code> and <code>readonly</code> attributes (not properties!).</p>
+					</li>
+					<li><p><code>InData</code> A data aspect of the input.</p>
+						<p>Represents input control data that will be submitted.</p>
+						<p>Input data is typically the same as control value with respect to input mode. I.e. when input mode is <code>off</code> the
+						data is <code>undefined</code>.</p>
+					</li>
+					<li><p><code>InStyledElement</code> An input aspect representing HTML element to apply styles to.</p>
+						<p>This is a HTML element for input element control, and <code>null</code> for everything else by default.</p>
+						<p>An <code>intoWrapper()</code> converter can be used to convert arbitrary control to the one with the given styled element.
+							This is useful for controls without elements (such as input groups), or can be used to apply CSS classes to input
+						element wrappers (such as <code>form-group</code> in Bootstrap).</p>
+					</li>
+					<li><p><code>InCssClasses</code> An aspect of the user input representing CSS classes to apply to styled element.</p>
+						<p>You mea wish to utilize an <code>inCssInfo()</code> function that creates a source of informative CSS classes.  </p>
+					</li>
+					<li><p><code>InValidation</code> Validation aspect of the input.</p>
+						<p>Reports validation messages sent by registered validators. </p>
+					</li>
+				</ul>
+				<a href="#input-validation" id="input-validation" style="color: inherit; text-decoration: none;">
+					<h2>Input Validation</h2>
+				</a>
+				<p>Input validation is performed by validators added to <code>InValidation</code> aspect.</p>
+				<p>A validation aspect of converted control reports all messages from original control in addition to its own.</p>
+				<p>A validation aspect of input controls container reports all messages from nested controls in addition to its own.</p>
+				<p>Validator can be added to input validation aspect using <code>InValidation.by()</code> method. After that all validation
+					messages it sends are reported by validation aspect. Multiple messages could be sent at a time. These messages
+				replace the previously sent ones. To report the absence of error just send an empty event without messages.</p>
+				<p>This can be one either a validation messages event keeper, a function returning one and accepting input control
+				as its only parameter, or simple validator instance.</p>
+				<p>Validators report validation errors as messages. Each validation message is a map of key/value pairs, where the key
+				is a message code, while the value is arbitrary.</p>
+				<p>Validation result is reported as <code>InValidation.Result</code> instance, that has methods to request all reported messages,
+				or just messages with the given message code. </p>
+				<p>There are several validators implemented:</p>
+				<ul>
+					<li><code>requireAll()</code> validates using all listed validators.</li>
+					<li><code>requireLength()</code> applies requirements on input text length.</li>
+					<li><code>requireNeeded()</code> filters validation messages from the given <code>validators</code> according to their codes.</li>
+					<li><code>requireNothing()</code> requires nothing.</li>
+					<li><code>requirePresent()</code> requires value to present.</li>
+					<li><code>requireRange()</code> applies requirements to numeric value range.</li>
+				</ul>
+				<p>Simple validator can be applied like this:</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { InValidation } <span class="hljs-keyword">from</span> <span class="hljs-string">'input-aspects'</span>;
+
+control.aspect(InValidation).by({
+  validate({it}: InControl&lt;PasswordAndConfirmation&gt;) {
+    <span class="hljs-keyword">if</span> (it.password !== it.confirmation) {
+      <span class="hljs-comment">// Return error message(s) on validation error</span>
+      <span class="hljs-keyword">return</span> { invalid: <span class="hljs-string">'Password and confirmation do not match'</span> };    
+    }
+    <span class="hljs-comment">// Return nothing (or `null`, or empty array, or empty message) on validation success</span>
+    <span class="hljs-keyword">return</span>;  
+  }
+});</code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
