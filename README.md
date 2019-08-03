@@ -200,8 +200,7 @@ All containers extend `InContainer` class. A `controls` property of container gr
 The are two input containers implemented.
 
 
-`InGroup`
----------
+### `InGroup`
 
 A group of input controls is created by `inGroup()` function. 
 
@@ -213,8 +212,7 @@ control with the same key, if present. When model is updated corresponding contr
 A group model type is passed as a generic type parameter to `inGroup()` function.
 
 
-`InList`
---------
+### `InList`
 
 An indexed list of input controls is created by `inList()` function.
 
