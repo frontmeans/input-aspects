@@ -68,11 +68,11 @@ interface Applied<Value> extends InAspect.Applied<InValidation<Value>, InValidat
 }
 
 /**
- * Input validation aspect instance.
+ * Validation aspect of the input.
  *
  * Reports validation messages sent by registered validators. To register validator call a `InValidation.by()` method.
  *
- * Implements event keeper interface by sending validation result whenever validation messages reported.
+ * Implements an `EventKeeper` interface by sending validation result whenever validation messages reported.
  *
  * A validation aspect of converted control reports all messages from original control in addition to its own.
  *

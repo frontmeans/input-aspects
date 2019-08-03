@@ -17,8 +17,6 @@ const InElement__aspect: InAspect<InElement<any> | null, 'element'> = {
  *
  * It is also available as aspect of itself and converted controls. It is not available as aspect of other controls.
  *
- * An input element control can be constructed using `inElt()` function.
- *
  * @category Control
  * @typeparam Value  Input value type.
  * @typeparam Elt  A type of input HTML element.

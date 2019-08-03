@@ -9,7 +9,7 @@ import { InValidation, inValidationResult } from './validation.aspect';
 import { inValidator, InValidator } from './validator';
 
 /**
- * Constructs input validator that filters validation messages from the given `validator` according to their codes.
+ * Constructs input validator that filters validation messages from the given `validators` according to their codes.
  *
  * The validation messages reported by `validators` are filtered according to the following rules:
  * - If at least one message with `missing` code is reported, then strip out the ones with `incomplete` and `invalid`

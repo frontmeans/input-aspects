@@ -187,7 +187,7 @@ export namespace InControl {
   export type Converter<From, To> = (this: void, from: InControl<From>, to: InControl<To>) => Converters<From, To>;
 
   /**
-   * A tuple containing value conversion function and reverse value conversion function.
+   * Value converters.
    *
    * @typeparam From  Original input value type.
    * @typeparam To  Converted input value type.
@@ -219,9 +219,9 @@ export namespace InControl {
     set(this: void, value: From): To;
 
     /**
-     * Converts a value of converted control back to the value of original control.
+     * Restores an original control value by converted one.
      *
-     * @param value  A value of converted control to convert back.
+     * @param value  A converted value to restore the original one by.
      *
      * @returns New value of original control.
      */

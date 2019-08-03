@@ -12,8 +12,8 @@ import { InMode } from './mode.aspect';
  *
  * Represents input control data that will be submitted.
  *
- * Input data is typically the same as control value with respect to [input mode]. I.e. when input mode is `off` the
- * data is `undefined`.
+ * Input data is typically the same as control value with respect to {@link InMode input mode}. I.e. when input mode is
+ * `off` the data is `undefined`.
  *
  * An aspect interface is an `AfterEvent` registrar of input data receivers.
  *
