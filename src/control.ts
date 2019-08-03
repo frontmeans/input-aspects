@@ -1,7 +1,7 @@
 /**
  * @module input-aspects
  */
-import { valueProvider } from 'call-thru';
+import { noop, valueProvider } from 'call-thru';
 import { EventEmitter, OnEvent, trackValue, ValueTracker } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
 
@@ -63,25 +63,22 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
    */
   setup<Instance, Kind extends InAspect.Application.Kind>(
       aspectKey: InAspect.Key<Instance, Kind>,
-      setup: (this: void, aspect: InAspect.Application.Instance<Instance, Value, Kind>, control: this) => void,
+      setup?: (this: void, aspect: InAspect.Application.Instance<Instance, Value, Kind>, control: this) => void,
   ): this;
 
   setup<Instance, Kind extends InAspect.Application.Kind>(
       aspectKeyOrSetup: InAspect.Key<Instance, Kind> | ((this: void, control: this) => void),
-      aspectSetup?: (this: void, aspect: InAspect.Application.Instance<Instance, Value, Kind>, control: this) => void,
+      aspectSetup: (
+          this: void,
+          aspect: InAspect.Application.Instance<Instance, Value, Kind>,
+          control: this,
+      ) => void = noop,
   ): this {
-    if (!aspectSetup) {
-
-      const controlSetup = aspectKeyOrSetup as (control: this) => void;
-
-      controlSetup(this);
+    if (isAspectKey(aspectKeyOrSetup)) {
+      aspectSetup(this.aspect(aspectKeyOrSetup), this);
     } else {
-
-      const aspectKey = aspectKeyOrSetup as InAspect.Key<Instance, Kind>;
-
-      aspectSetup(this.aspect(aspectKey), this);
+      aspectKeyOrSetup(this);
     }
-
     return this;
   }
 
@@ -163,6 +160,12 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
     return;
   }
 
+}
+
+function isAspectKey<Instance, Kind extends InAspect.Application.Kind>(
+    value: any,
+): value is InAspect.Key<Instance, Kind> {
+  return InAspect__symbol in value;
 }
 
 export namespace InControl {
