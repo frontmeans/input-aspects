@@ -12,7 +12,7 @@ Framework-agnostic library controlling various aspects of user input. Such as va
 [npm-image]: https://img.shields.io/npm/v/input-aspects.svg?logo=npm
 [npm-url]: https://www.npmjs.com/package/input-aspects
 [ci-image]: https://img.shields.io/circleci/build/github/surol/input-aspects?logo=circleci
-[ci-url]: https://img.shields.io/codecov/c/github/surol/input-aspects?logo=codecov
+[ci-url]: https://circleci.com/gh/surol/input-aspects
 [codecov-image]: https://codecov.io/gh/surol/input-aspects/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/surol/input-aspects
 [github-image]: https://img.shields.io/static/v1?logo=github&label=GitHub&message=project&color=informational
