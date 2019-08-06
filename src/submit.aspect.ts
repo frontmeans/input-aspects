@@ -172,15 +172,18 @@ export namespace InSubmit {
    *
    * @typeparam Value  Input value type.
    * @typeparam Result  Submit result value type.
+   */
+  export type Submitter<Value, Result> =
+  /**
    * @param data  Input data to submit.
    * @param control  Input control the submit is performed for.
    *
    * @returns Submit result promise.
    */
-  export type Submitter<Value, Result> = (
-      data: Value extends undefined ? never : Value,
-      control: InControl<Value>,
-  ) => Promise<Result>;
+      (
+          data: Value extends undefined ? never : Value,
+          control: InControl<Value>,
+      ) => Promise<Result>;
 
 }
 

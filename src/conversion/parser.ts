@@ -16,19 +16,22 @@ import { InValidation } from '../validation';
  *
  * @category Converter
  * @typeparam Value  Parsed value type.
+ */
+export type InParser<Value> =
+/**
  * @param from  Text input control.
  * @param to  Parsed value control.
  *
  * @returns A tuple containing text parser and text formatter functions. A standard to string conversion
  * will be used if the latter is missing.
  */
-export type InParser<Value> = (
-    this: void,
-    from: InControl<string>,
-    to: InControl<Value>,
-) => [
-    (this: void, value: string, errors: InParser.Errors) => Value,
-    ((this: void, value: Value) => string)?
+    (
+        this: void,
+        from: InControl<string>,
+        to: InControl<Value>,
+    ) => [
+      (this: void, value: string, errors: InParser.Errors) => Value,
+      ((this: void, value: Value) => string)?
     ];
 
 export namespace InParser {
