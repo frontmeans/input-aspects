@@ -33,7 +33,7 @@ describe('InCheckbox', () => {
       });
       it('reflects intermediate value', () => {
         checkbox.intermediate = true;
-        expect(control.it).toBeNull();
+        expect(control.it).toBeUndefined();
       });
       it('checks checkbox when set to `true`', () => {
         control.it = true;
@@ -46,8 +46,8 @@ describe('InCheckbox', () => {
         expect(checkbox.checked).toBe(false);
         expect(checkbox.intermediate).toBe(false);
       });
-      it('makes checkbox state intermediate when set to `null`', () => {
-        control.it = null;
+      it('makes checkbox state intermediate when set to `undefined`', () => {
+        control.it = undefined;
         expect(checkbox.checked).toBe(false);
         expect(checkbox.intermediate).toBe(true);
       });
@@ -109,7 +109,7 @@ describe('InCheckbox', () => {
 
   describe('partially customized', () => {
 
-    let control: InCheckbox<'+' | '-' | null>;
+    let control: InCheckbox<'+' | '-' | undefined>;
 
     beforeEach(() => {
       checkbox = document.createElement('input');
@@ -133,7 +133,7 @@ describe('InCheckbox', () => {
       });
       it('reflects intermediate value', () => {
         checkbox.intermediate = true;
-        expect(control.it).toBeNull();
+        expect(control.it).toBeUndefined();
       });
       it('checks checkbox when set to checked', () => {
         control.it = '+';
@@ -146,8 +146,8 @@ describe('InCheckbox', () => {
         expect(checkbox.checked).toBe(false);
         expect(checkbox.intermediate).toBe(false);
       });
-      it('makes checkbox state intermediate when set to `null`', () => {
-        control.it = null;
+      it('makes checkbox state intermediate when set to `undefined`', () => {
+        control.it = undefined;
         expect(checkbox.checked).toBe(false);
         expect(checkbox.intermediate).toBe(true);
       });

@@ -10,7 +10,7 @@ import { InElementControl } from './element.impl';
  * @category Control
  * @typeparam Value  Input value type.
  */
-export type InCheckbox<Value = boolean | null> = InElement<Value, HTMLInputElement & { intermediate?: boolean }>;
+export type InCheckbox<Value = boolean | undefined> = InElement<Value, HTMLInputElement & { intermediate?: boolean }>;
 
 export namespace InCheckbox {
 
@@ -46,7 +46,7 @@ export namespace InCheckbox {
  * The value of checkbox control is:
  * - `true` when checkbox is checked,
  * - `false` when it's not, or
- * - `null` when it is in intermediate state.
+ * - `undefined` when it is in intermediate state.
  *
  * @category Control
  * @param element  Target checkbox element.
@@ -72,7 +72,7 @@ export function inCheckbox<Value>(
 /**
  * Creates an input control for the given checkbox element with custom checked and unchecked control values.
  *
- * An intermediate checkbox state is represented by `null` control value.
+ * An intermediate checkbox state is represented by `undefined` control value.
  *
  * @typeparam Value  Input value type.
  * @param element  Target checkbox element.
@@ -87,14 +87,14 @@ export function inCheckbox<Value>(
       checked,
       unchecked,
     }: Omit<InCheckbox.Values<Value>, 'intermediate'>,
-): InCheckbox<Value | null>;
+): InCheckbox<Value | undefined>;
 
 export function inCheckbox<Value>(
     element: HTMLInputElement,
     {
       checked = true as unknown as Value,
       unchecked = false as unknown as Value,
-      intermediate = null as unknown as Value,
+      intermediate = undefined as unknown as Value,
     }: Partial<InCheckbox.Values<Value>> = {},
 ): InCheckbox<Value> {
   return new InElementControl<Value, HTMLInputElement & { intermediate?: boolean }>(

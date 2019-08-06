@@ -136,7 +136,8 @@ Checkbox input control is created by `inCheckbox()` function.
 
 The value of this control is three-state, corresponding to checked, unchecked, and intermediate values.
 
-By default these are `true`, `false` and `null`. But can be configured to be arbitrary values by specifying options:
+By default these are `true`, `false` and `undefined`. But can be configured to be arbitrary values by specifying
+options:
 ```typescript
 import { inCheckbox } from 'input-aspects';
 
