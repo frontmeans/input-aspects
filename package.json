@@ -22,7 +22,6 @@
   },
   "main": "dist/input-aspects.js",
   "module": "dist/input-aspects.mjs",
-  "esm5": "dist/input-aspects.esm5.js",
   "typings": "index.d.ts",
   "dependencies": {
     "a-iterable": "^2.4.2",
