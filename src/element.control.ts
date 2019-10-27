@@ -29,7 +29,7 @@ export abstract class InElement<Value, Elt = HTMLElement> extends InControl<Valu
   abstract readonly element: Elt;
 
   /**
-   * An `AfterEvent` registrar of user input receivers.
+   * An `AfterEvent` keeper of user input.
    */
   abstract readonly input: AfterEvent<[InElement.Input<Value>]>;
 

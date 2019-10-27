@@ -48,7 +48,7 @@ export abstract class InStatus implements EventKeeper<[InStatus.Flags]> {
   }
 
   /**
-   * An `AfterEvent` registrar of status flags receivers.
+   * An `AfterEvent` keeper of input status flags.
    *
    * The `[AfterEvent__symbol]` property is an alias of this one.
    */

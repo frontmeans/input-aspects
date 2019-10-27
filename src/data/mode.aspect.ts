@@ -58,8 +58,7 @@ export abstract class InMode implements EventSender<[InMode.Value, InMode.Value]
   }
 
   /**
-   * An `OnEvent` registrar of actual input mode updates receivers. Sends the new mode value along with old one as
-   * second parameter.
+   * An `OnEvent` sender of input mode updates. Sends a new mode value along with old one as second parameter.
    *
    * The `[OnEvent__symbol]` property is an alias of this one.
    */
@@ -70,7 +69,7 @@ export abstract class InMode implements EventSender<[InMode.Value, InMode.Value]
   }
 
   /**
-   * An `AfterEvent` registrar of actual input mode receivers.
+   * An `AfterEvent` keeper of input mode.
    *
    * The `[AfterEvent__symbol]` property is an alias of this one.
    */
@@ -104,7 +103,7 @@ export abstract class InMode implements EventSender<[InMode.Value, InMode.Value]
    *
    * @param source  A source to derive input mode from.
    *
-   * @returns An event supply that disables `source` mode derivation when cut off.
+   * @returns Derived input mode supply. Disables `source` mode derivation once cut off.
    */
   abstract derive(source: EventKeeper<[InMode.Value]>): EventSupply;
 

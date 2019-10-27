@@ -45,7 +45,7 @@ export abstract class InCssClasses implements EventKeeper<[InCssClasses.Map]> {
   }
 
   /**
-   * An `AfterEvent` registrar of receivers of CSS classes applied to styled element.
+   * An `AfterEvent` keeper of CSS classes applied to styled element.
    *
    * The `[AfterEvent__symbol]` property is an alias of this one.
    */
@@ -58,9 +58,9 @@ export abstract class InCssClasses implements EventKeeper<[InCssClasses.Map]> {
   /**
    * Appends CSS classes from the given `source` to styled element.
    *
-   * @param source  An event keeper of CSS class names map.
+   * @param source  A source of CSS class names.
    *
-   * @returns An event supply that removes `source` CSS classes from styled element when cut off.
+   * @returns CSS class names supply. Removes `source` CSS classes from styled element once cut off.
    */
   abstract add(source: InCssClasses.Source): EventSupply;
 

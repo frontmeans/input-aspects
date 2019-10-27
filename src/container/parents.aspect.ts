@@ -43,7 +43,7 @@ export abstract class InParents
   }
 
   /**
-   * An `OnEvent` registrar of parent updates receivers.
+   * An `OnEvent` sender of parent updates.
    *
    * Sends two arrays on each parents update: the first one contains added parent entries, while the second one
    * contains removed parent entries.
@@ -57,7 +57,7 @@ export abstract class InParents
   }
 
   /**
-   * An `AfterEvent` registrar of updated parents iterable receivers.
+   * An `AfterEvent` keeper of control parents.
    *
    * The `[AfterEvent__symbol]` property is an alias of this one.
    */
@@ -72,7 +72,7 @@ export abstract class InParents
    *
    * @param entry  Parent container entry.
    *
-   * @returns An event supply that removes the control from the parent `container` when cut off.
+   * @returns A parent container supply. Removes the control from the parent container once cut off.
    */
   abstract add(entry: InParents.Entry): EventSupply;
 

@@ -56,12 +56,12 @@ export namespace InValidator {
  * @typeparam Value  Input value type.
  * @param validator  Validator to convert.
  *
- * @returns A function accepting control as its only parameter and returning an `AfterEvent` registrar of validation
- * messages receivers.
+ * @returns A function accepting input control as its only parameter and returning an `AfterEvent` keeper of validation
+ * messages.
  */
 export function inValidator<Value>(
     validator: InValidator<Value>
-): (control: InControl<Value>) => AfterEvent<InValidation.Message[]> {
+): (this: void, control: InControl<Value>) => AfterEvent<InValidation.Message[]> {
   if (isEventKeeper(validator)) {
     return valueProvider(afterSupplied(validator));
   }

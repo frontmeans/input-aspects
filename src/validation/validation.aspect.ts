@@ -88,7 +88,7 @@ export abstract class InValidation<Value> implements EventKeeper<[InValidation.R
   }
 
   /**
-   * An `AfterEvent` registrar of validation result receivers.
+   * An `AfterEvent` keeper of input validation result.
    *
    * An `[AfterEvent__symbol]` property is an alias of this one.
    */
@@ -103,7 +103,7 @@ export abstract class InValidation<Value> implements EventKeeper<[InValidation.R
    *
    * @param validators  Input validators to use.
    *
-   * @returns An event supply. Once cut off, the validators are unregistered and their messages removed.
+   * @returns Validators supply. Removes validators and their messages once cut off.
    */
   abstract by(...validators: InValidator<Value>[]): EventSupply;
 

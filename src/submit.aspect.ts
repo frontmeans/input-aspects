@@ -85,7 +85,7 @@ export abstract class InSubmit<Value> implements EventKeeper<[InSubmit.Flags]> {
   }
 
   /**
-   * An `AfterEvent` registrar of submit status flags receivers.
+   * An `AfterEvent` keeper of submit status flag.
    *
    * The `[AfterEvent__symbol]` property is an alias of this one.
    */
