@@ -1,4 +1,4 @@
-import { afterEventOf } from 'fun-events';
+import { afterThe } from 'fun-events';
 import { inValue } from '../value';
 import { requireNeeded } from './require-needed.validator';
 import { InValidation } from './validation.aspect';
@@ -14,7 +14,7 @@ describe('requireNeeded', () => {
 
     validate = (...messages) => {
 
-      const validator = inValidator<string>(requireNeeded(afterEventOf(...messages)));
+      const validator = inValidator<string>(requireNeeded(afterThe(...messages)));
       let result: InValidation.Message[] = [];
 
       validator(control).once(

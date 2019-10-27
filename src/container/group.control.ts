@@ -4,16 +4,16 @@
 import { itsEach, itsIterable, mapIt, overEntries } from 'a-iterable';
 import { nextArgs, noop } from 'call-thru';
 import {
+  afterAll,
   AfterEvent,
   AfterEvent__symbol,
-  afterEventFromAll,
-  afterEventOf,
-  afterEventOr,
+  afterEventBy,
+  afterThe,
   EventEmitter,
-  eventInterest,
-  EventInterest,
   EventKeeper,
   EventSender,
+  eventSupply,
+  EventSupply,
   OnEvent,
   OnEvent__symbol,
   trackValue,
@@ -147,7 +147,7 @@ export interface InGroupControls<Model> {
 
 }
 
-type ControlEntry = readonly [InControl<any>, EventInterest]; // When event interest is done the control is unused
+type ControlEntry = readonly [InControl<any>, EventSupply]; // When event supply is done the control is unused
 
 const controlReplacedReason = {};
 
@@ -175,7 +175,7 @@ class InGroupSnapshot<Model> implements InGroup.Snapshot<Model> {
 
 class InGroupMap<Model extends object> {
 
-  readonly _interest = eventInterest();
+  readonly _supply = eventSupply();
   private _map = new Map<keyof Model, ControlEntry>();
   private _shot?: InGroupSnapshot<Model>;
 
@@ -201,11 +201,11 @@ class InGroupMap<Model extends object> {
         removed.push([key, replaced]);
       }
 
-      const entry: ControlEntry = [control, eventInterest(reason => {
+      const entry: ControlEntry = [control, eventSupply(reason => {
         if (reason !== controlReplacedReason) {
           self._controls.remove(key);
         }
-      }).needs(self._interest)];
+      }).needs(self._supply)];
 
       modify().set(key, entry);
       added.push([key, entry]);
@@ -255,12 +255,12 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
             added.map(controlEntryToGroupEntry),
             removed.map(controlEntryToGroupEntry)),
     );
-    this.read = afterEventOr(
+    this.read = afterEventBy(
         this._updates.on.thru(
             () => this._map.snapshot(),
         ),
         () => [this._map.snapshot()]);
-    this._map._interest.needs(_group.read(applyModelToControls));
+    this._map._supply.needs(_group.read(applyModelToControls));
 
     function applyModelToControls(model: Model) {
       self.read.once(snapshot => {
@@ -314,8 +314,8 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
 
       let newModel: Model | undefined;
 
-      added.forEach(([key, [control, interest]]) => {
-        interest.needs(control.aspect(InParents).add({ parent: group }).needs(interest));
+      added.forEach(([key, [control, supply]]) => {
+        supply.needs(control.aspect(InParents).add({ parent: group }).needs(supply));
 
         const value = control.it;
 
@@ -335,15 +335,15 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
         group.it = newModel;
       }
 
-      added.forEach(([key, [control, interest]]) => {
-        interest.needs(control.read(value => {
+      added.forEach(([key, [control, supply]]) => {
+        supply.needs(control.read(value => {
           if (group.it[key] !== value) {
             group.it = {
               ...group.it,
               [key]: value,
             };
           }
-        }).needs(interest));
+        }).needs(supply));
       });
     }
   }
@@ -399,7 +399,7 @@ class InGroupControl<Model extends object> extends InGroup<Model> {
 }
 
 function groupData<Model extends object>(group: InGroup<Model>): InData<Model> {
-  return afterEventFromAll({
+  return afterAll({
     cs: group.controls,
     model: group,
     mode: group.aspect(InMode),
@@ -420,7 +420,7 @@ function readGroupData<Model extends object>(
     }
 ): InData<Model> {
   if (!InMode.hasData(mode)) {
-    return afterEventOf();
+    return afterThe();
   }
 
   const csData: { [key in keyof Model]: InData<any> } = {} as any;
@@ -429,7 +429,7 @@ function readGroupData<Model extends object>(
     csData[key as keyof Model] = control.aspect(InData);
   });
 
-  return afterEventFromAll(csData).keep.thru(controlsData => {
+  return afterAll(csData).keep.thru(controlsData => {
 
     const data: Partial<Model> = { ...model };
 

@@ -1,4 +1,4 @@
-import { EventInterest } from 'fun-events';
+import { EventSupply } from 'fun-events';
 import { InControl } from './control';
 import { inValue } from './value';
 import Mock = jest.Mock;
@@ -24,11 +24,11 @@ describe('InValue', () => {
   describe('read', () => {
 
     let receiver: Mock;
-    let interest: EventInterest;
+    let supply: EventSupply;
 
     beforeEach(() => {
       receiver = jest.fn();
-      interest = control.read(receiver);
+      supply = control.read(receiver);
     });
 
     it('sends current value', () => {
@@ -42,22 +42,22 @@ describe('InValue', () => {
 
       const done = jest.fn();
 
-      interest.whenDone(done);
+      supply.whenOff(done);
 
       control.done('reason');
       expect(done).toHaveBeenCalledWith('reason');
-      expect(interest.done).toBe(true);
+      expect(supply.isOff).toBe(true);
     });
   });
 
   describe('on', () => {
 
     let receiver: Mock;
-    let interest: EventInterest;
+    let supply: EventSupply;
 
     beforeEach(() => {
       receiver = jest.fn();
-      interest = control.on(receiver);
+      supply = control.on(receiver);
     });
 
     it('sends value update', () => {
@@ -70,11 +70,11 @@ describe('InValue', () => {
 
       const done = jest.fn();
 
-      interest.whenDone(done);
+      supply.whenOff(done);
 
       control.done('reason');
       expect(done).toHaveBeenCalledWith('reason');
-      expect(interest.done).toBe(true);
+      expect(supply.isOff).toBe(true);
     });
   });
 });

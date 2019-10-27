@@ -1,5 +1,5 @@
 import { asis } from 'call-thru';
-import { EventInterest } from 'fun-events';
+import { EventSupply } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
 import { InControl } from './control';
 import { InData } from './data';
@@ -150,11 +150,11 @@ describe('InControl', () => {
 
       let receiver: Mock;
       let convertedReceiver: Mock;
-      let convertedInterest: EventInterest;
+      let convertedSupply: EventSupply;
 
       beforeEach(() => {
         control.on(receiver = jest.fn());
-        convertedInterest = converted.on(convertedReceiver = jest.fn());
+        convertedSupply = converted.on(convertedReceiver = jest.fn());
       });
 
       it('receives updates from origin', () => {
@@ -180,7 +180,7 @@ describe('InControl', () => {
 
         const done = jest.fn();
 
-        convertedInterest.whenDone(done);
+        convertedSupply.whenOff(done);
 
         control.done('reason');
         expect(done).toHaveBeenCalledWith('reason');
@@ -189,7 +189,7 @@ describe('InControl', () => {
 
         const done = jest.fn();
 
-        convertedInterest.whenDone(done);
+        convertedSupply.whenOff(done);
 
         control.done('reason');
         expect(done).toHaveBeenCalledWith('reason');

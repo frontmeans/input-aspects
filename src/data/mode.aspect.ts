@@ -3,18 +3,18 @@
  */
 import { nextArgs, nextSkip, valuesProvider } from 'call-thru';
 import {
+  afterAll,
+  afterEach,
   AfterEvent,
   AfterEvent__symbol,
-  afterEventFrom,
-  afterEventFromAll,
-  afterEventFromEach,
-  afterEventOf,
-  afterEventOr,
+  afterEventBy,
+  afterSupplied,
+  afterThe,
   EventEmitter,
-  eventInterest,
-  EventInterest,
   EventKeeper,
   EventSender,
+  eventSupply,
+  EventSupply,
   OnEvent,
   OnEvent__symbol,
   trackValue,
@@ -104,9 +104,9 @@ export abstract class InMode implements EventSender<[InMode.Value, InMode.Value]
    *
    * @param source  A source to derive input mode from.
    *
-   * @returns An event interest instance that disables `source` mode derivation when lost.
+   * @returns An event supply that disables `source` mode derivation when cut off.
    */
-  abstract derive(source: EventKeeper<[InMode.Value]>): EventInterest;
+  abstract derive(source: EventKeeper<[InMode.Value]>): EventSupply;
 
   /**
    * Unregisters all receivers.
@@ -183,18 +183,18 @@ class DerivedModes {
 
   constructor() {
 
-    const sources: AfterEvent<[Set<AfterEvent<[InMode.Value]>>]> = afterEventOr(
+    const sources: AfterEvent<[Set<AfterEvent<[InMode.Value]>>]> = afterEventBy(
         this._on.on.thru(() => this._all),
         valuesProvider(this._all),
     );
 
-    this.read = sources.keep.dig(set => afterEventFromEach(...set).keep.thru(mergeModes));
+    this.read = sources.keep.dig(set => afterEach(...set).keep.thru(mergeModes));
   }
 
-  add(source: EventKeeper<[InMode.Value]>): EventInterest {
+  add(source: EventKeeper<[InMode.Value]>): EventSupply {
 
-    const src = afterEventFrom(source);
-    const interest = eventInterest(() => {
+    const src = afterSupplied(source);
+    const supply = eventSupply(() => {
       this._all.delete(src);
       this._on.send();
     });
@@ -202,7 +202,7 @@ class DerivedModes {
     this._all.add(src);
     this._on.send();
 
-    return interest;
+    return supply;
   }
 
 }
@@ -224,8 +224,8 @@ class InControlMode extends InMode {
 
     let last: InMode.Value = 'on';
 
-    this.read = afterEventOr<[InMode.Value]>(
-        afterEventFromAll({
+    this.read = afterEventBy<[InMode.Value]>(
+        afterAll({
           derived: this._derived.read,
           own: this.own,
         }).thru(({ derived: [derived], own: [own] }) => {
@@ -270,7 +270,7 @@ class InControlMode extends InMode {
     });
   }
 
-  derive(source: EventKeeper<[InMode.Value]>): EventInterest {
+  derive(source: EventKeeper<[InMode.Value]>): EventSupply {
     return this._derived.add(source);
   }
 
@@ -310,12 +310,12 @@ function parentsMode(parents: InParents.All): AfterEvent<[InMode.Value]> {
   const parentList = [...parents];
 
   if (!parentList.length) {
-    return afterEventOf('on');
+    return afterThe('on');
   }
 
   const parentModes = parentList.map(({ parent }) => parent.aspect(InMode));
 
-  return afterEventFromEach(...parentModes).keep.thru_(mergeModes);
+  return afterEach(...parentModes).keep.thru_(mergeModes);
 }
 
 function mergeModes(...modes: [InMode.Value][]) {

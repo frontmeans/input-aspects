@@ -1,5 +1,5 @@
 import { noop } from 'call-thru';
-import { afterEventFrom } from 'fun-events';
+import { afterSupplied } from 'fun-events';
 import { InControl } from './control';
 import { InMode } from './data/mode.aspect';
 import { InSubmit, InSubmitError, InSubmitRejectedError } from './submit.aspect';
@@ -39,7 +39,7 @@ describe('InSubmit', () => {
 
   describe('[AfterEvent__symbol]', () => {
     it('is the same as `read`', () => {
-      expect(afterEventFrom(submit)).toBe(submit.read);
+      expect(afterSupplied(submit)).toBe(submit.read);
     });
   });
 

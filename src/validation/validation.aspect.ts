@@ -3,14 +3,7 @@
  */
 import { flatMapIt, itsEach, mapIt, overEntries } from 'a-iterable';
 import { asis, nextArgs } from 'call-thru';
-import {
-  AfterEvent,
-  AfterEvent__symbol,
-  afterEventFrom,
-  afterEventFromEach,
-  EventInterest,
-  EventKeeper,
-} from 'fun-events';
+import { afterEach, AfterEvent, AfterEvent__symbol, afterSupplied, EventKeeper, EventSupply } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InContainer } from '../container';
 import { InControl } from '../control';
@@ -110,10 +103,9 @@ export abstract class InValidation<Value> implements EventKeeper<[InValidation.R
    *
    * @param validators  Input validators to use.
    *
-   * @returns An event interest instance. Once this interest lost, the validators are unregistered, while their messages
-   * removed.
+   * @returns An event supply. Once cut off, the validators are unregistered and their messages removed.
    */
-  abstract by(...validators: InValidator<Value>[]): EventInterest;
+  abstract by(...validators: InValidator<Value>[]): EventSupply;
 
 }
 
@@ -328,10 +320,10 @@ class InControlValidation<Value> extends InValidation<Value> {
       this._messages.from(nestedMessages(container));
     }
 
-    this.read = afterEventFrom(this._messages).keep.thru(inValidationResult);
+    this.read = afterSupplied(this._messages).keep.thru(inValidationResult);
   }
 
-  by(...validators: InValidator<Value>[]): EventInterest {
+  by(...validators: InValidator<Value>[]): EventSupply {
     return this._messages.from(requireAll(...validators));
   }
 
@@ -346,7 +338,7 @@ function nestedMessages(container: InContainer<any>): EventKeeper<InValidation.M
 }
 
 function nestedValidations(controls: InContainer.Snapshot) {
-  return afterEventFromEach(...mapIt(controls, control => control.aspect(InValidation)));
+  return afterEach(...mapIt(controls, control => control.aspect(InValidation)));
 }
 
 function combineValidationResults<NextReturn>(...[messages]: [InValidation.Result][]) {

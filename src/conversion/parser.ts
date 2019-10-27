@@ -1,8 +1,8 @@
 /**
  * @module input-aspects
  */
-import { valueProvider } from 'call-thru';
-import { afterEventFrom, EventEmitter } from 'fun-events';
+import { valueProvider, valuesProvider } from 'call-thru';
+import { afterSupplied, EventEmitter } from 'fun-events';
 import { InControl } from '../control';
 import { InValidation } from '../validation';
 
@@ -69,7 +69,7 @@ export const InParser = {
       const [parse, format = String] = parser(from, to);
       const parseValidator = new EventEmitter<InValidation.Message[]>();
 
-      to.aspect(InValidation).by(afterEventFrom(parseValidator, []));
+      to.aspect(InValidation).by(afterSupplied(parseValidator, valuesProvider()));
 
       return {
         set(text) {

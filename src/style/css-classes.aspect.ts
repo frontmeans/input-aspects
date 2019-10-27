@@ -4,14 +4,14 @@
 import { filterIt, itsEach, mapIt, overEntries } from 'a-iterable';
 import { noop, valueProvider } from 'call-thru';
 import {
+  afterEach,
   AfterEvent,
   AfterEvent__symbol,
   afterEventBy,
-  afterEventFromEach,
-  afterEventOf,
-  eventInterest,
-  EventInterest,
+  afterThe,
   EventKeeper,
+  eventSupply,
+  EventSupply,
   isEventKeeper,
   trackValue,
   ValueTracker,
@@ -60,9 +60,9 @@ export abstract class InCssClasses implements EventKeeper<[InCssClasses.Map]> {
    *
    * @param source  An event keeper of CSS class names map.
    *
-   * @returns An event interest instance that, when lost, will remove CSS classes from the `source` from styled element.
+   * @returns An event supply that removes `source` CSS classes from styled element when cut off.
    */
-  abstract add(source: InCssClasses.Source): EventInterest;
+  abstract add(source: InCssClasses.Source): EventSupply;
 
   /**
    * Removes all CSS class sources and stops applying CSS classes to styled element.
@@ -114,13 +114,13 @@ function isUnsubscribeReason(reason: any): reason is UnsubscribeReason {
 class InControlCssClasses extends InCssClasses {
 
   readonly read: AfterEvent<[InCssClasses.Map]>;
-  private readonly _sources: ValueTracker<[Map<AfterEvent<[InCssClasses.Map]>, EventInterest>]> =
+  private readonly _sources: ValueTracker<[Map<AfterEvent<[InCssClasses.Map]>, EventSupply>]> =
       trackValue([new Map()]);
 
   constructor(private readonly _control: InControl<any>) {
     super();
     this.read = this._sources.read.keep.dig_(
-        ([sources]) => sources.size ? afterEventFromEach(...sources.keys()) : afterEventOf()
+        ([sources]) => sources.size ? afterEach(...sources.keys()) : afterThe()
     ).keep.thru((...classes) => {
 
       const result: { [name: string]: boolean | undefined } = {};
@@ -171,30 +171,32 @@ class InControlCssClasses extends InCssClasses {
     }
   }
 
-  add(source: InCssClasses.Source): EventInterest {
+  add(source: InCssClasses.Source): EventSupply {
 
     const keeper = inCssClassesSource(source)(this._control);
-    const interest = eventInterest();
+    const classesSupply = eventSupply();
     const src = afterEventBy<[InCssClasses.Map]>(receiver => {
 
-      const sourceInterest = keeper[AfterEvent__symbol](receiver);
-      const subscriptionInterest = eventInterest(reason => {
-        interest.off({ [UnsubscribeReason__symbol]: reason });
+      const supply = keeper[AfterEvent__symbol]({
+        receive(context, ...event) {
+          receiver.receive(context, ...event);
+        },
       });
 
-      interest.needs(sourceInterest).whenDone(reason => {
+      receiver.supply.whenOff(reason => {
+        classesSupply.off({ [UnsubscribeReason__symbol]: reason });
+      });
+      classesSupply.needs(supply).whenOff(reason => {
         if (isUnsubscribeReason(reason)) {
-          sourceInterest.off(reason[UnsubscribeReason__symbol]);
+          supply.off(reason[UnsubscribeReason__symbol]);
         }
       });
-
-      return subscriptionInterest;
     }).share();
 
     const [sources] = this._sources.it;
 
-    sources.set(src, interest);
-    interest.whenDone(reason => {
+    sources.set(src, classesSupply);
+    classesSupply.whenOff(reason => {
       if (!isUnsubscribeReason(reason)) {
         sources.delete(src);
         this._sources.it = [sources];
@@ -203,13 +205,13 @@ class InControlCssClasses extends InCssClasses {
 
     this._sources.it = [sources];
 
-    return interest;
+    return classesSupply;
   }
 
   done(reason?: any): this {
     itsEach(
         this._sources.it[0].values(),
-        interest => interest.off(reason),
+        supply => supply.off(reason),
     );
     this._sources.done(reason);
     return this;

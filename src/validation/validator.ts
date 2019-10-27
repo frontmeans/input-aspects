@@ -2,7 +2,7 @@
  * @module input-aspects
  */
 import { nextArgs, NextArgs, valueProvider } from 'call-thru';
-import { AfterEvent, afterEventFrom, EventKeeper, isEventKeeper } from 'fun-events';
+import { AfterEvent, afterSupplied, EventKeeper, isEventKeeper } from 'fun-events';
 import { InControl } from '../control';
 import { InValidation } from './validation.aspect';
 
@@ -63,10 +63,10 @@ export function inValidator<Value>(
     validator: InValidator<Value>
 ): (control: InControl<Value>) => AfterEvent<InValidation.Message[]> {
   if (isEventKeeper(validator)) {
-    return valueProvider(afterEventFrom(validator));
+    return valueProvider(afterSupplied(validator));
   }
   if (typeof validator === 'function') {
-    return control => afterEventFrom(validator(control));
+    return control => afterSupplied(validator(control));
   }
   return control => control.read.keep.thru(simpleValidator(control, validator));
 }

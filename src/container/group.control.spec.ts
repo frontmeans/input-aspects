@@ -1,4 +1,4 @@
-import { afterEventFrom, onEventFrom } from 'fun-events';
+import { afterSupplied, onSupplied } from 'fun-events';
 import { InControl } from '../control';
 import { intoFallback } from '../conversion';
 import { InData, InMode } from '../data';
@@ -161,13 +161,13 @@ describe('InGroup', () => {
 
     describe('[OnEvent__symbol]', () => {
       it('is the same as `on`', () => {
-        expect(onEventFrom(group.controls)).toBe(group.controls.on);
+        expect(onSupplied(group.controls)).toBe(group.controls.on);
       });
     });
 
     describe('[AfterEvent__symbol]', () => {
       it('is the same as `read`', () => {
-        expect(afterEventFrom(group.controls)).toBe(group.controls.read);
+        expect(afterSupplied(group.controls)).toBe(group.controls.read);
       });
     });
   });

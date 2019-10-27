@@ -1,4 +1,4 @@
-import { afterEventFrom, EventInterest, onEventFrom } from 'fun-events';
+import { afterSupplied, EventSupply, onSupplied } from 'fun-events';
 import { InControl } from '../control';
 import { inValue } from '../value';
 import { InContainer } from './container.control';
@@ -33,24 +33,24 @@ describe('InParents', () => {
 
   describe('[OnEvent__symbol]', () => {
     it('is the same as `on`', () => {
-      expect(onEventFrom(parents)).toBe(parents.on);
+      expect(onSupplied(parents)).toBe(parents.on);
     });
   });
 
   describe('[AfterEvent__symbol]', () => {
     it('is the same as `read`', () => {
-      expect(afterEventFrom(parents)).toBe(parents.read);
+      expect(afterSupplied(parents)).toBe(parents.read);
     });
   });
 
   describe('add', () => {
 
-    let interest: EventInterest;
+    let supply: EventSupply;
     let entry: InParents.Entry;
 
     beforeEach(() => {
       entry = { parent };
-      interest = parents.add(entry);
+      supply = parents.add(entry);
     });
 
     it('updates parents list', () => {
@@ -63,8 +63,8 @@ describe('InParents', () => {
       expect(onParents).toHaveBeenCalledTimes(1);
       expect(readParents).toHaveBeenCalledTimes(1);
     });
-    it('removes parent when interest lost', () => {
-      interest.off();
+    it('removes parent when supply is cut off', () => {
+      supply.off();
       expect([...allParents]).toHaveLength(0);
       expect(onParents).toHaveBeenCalledWith([], [entry]);
       expect(readParents).toHaveBeenCalledTimes(2);
@@ -73,11 +73,11 @@ describe('InParents', () => {
 
       const parent2 = inGroup({});
       const entry2: InParents.Entry = { parent: parent2 };
-      const interest2 = parents.add(entry2);
+      const supply2 = parents.add(entry2);
 
       expect([...allParents]).toEqual([entry, entry2]);
 
-      interest2.off();
+      supply2.off();
       expect([...allParents]).toEqual([entry]);
     });
   });

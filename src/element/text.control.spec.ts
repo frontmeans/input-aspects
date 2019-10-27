@@ -1,5 +1,5 @@
 import { asis } from 'call-thru';
-import { EventInterest } from 'fun-events';
+import { EventSupply } from 'fun-events';
 import { InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
 import { InElement } from '../element.control';
@@ -72,13 +72,13 @@ describe('InText', () => {
   describe('input', () => {
 
     let changesReceiver: Mock;
-    let changesInterest: EventInterest;
+    let changesSupply: EventSupply;
     let inputReceiver: Mock;
-    let inputInterest: EventInterest;
+    let inputSupply: EventSupply;
 
     beforeEach(() => {
-      changesInterest = control.on(changesReceiver = jest.fn());
-      inputInterest = control.input(inputReceiver = jest.fn());
+      changesSupply = control.on(changesReceiver = jest.fn());
+      inputSupply = control.input(inputReceiver = jest.fn());
     });
 
     it('sends initial value', () => {
@@ -141,8 +141,8 @@ describe('InText', () => {
       const changesDone = jest.fn();
       const inputDone = jest.fn();
 
-      changesInterest.whenDone(changesDone);
-      inputInterest.whenDone(inputDone);
+      changesSupply.whenOff(changesDone);
+      inputSupply.whenOff(inputDone);
       control.done('some');
       expect(changesDone).toHaveBeenCalledWith('some');
       expect(inputDone).toHaveBeenCalledWith('some');

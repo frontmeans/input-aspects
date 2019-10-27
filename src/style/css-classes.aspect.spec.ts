@@ -1,4 +1,4 @@
-import { afterEventFrom, afterEventOf, EventInterest, trackValue, ValueTracker } from 'fun-events';
+import { afterSupplied, afterThe, EventSupply, trackValue, ValueTracker } from 'fun-events';
 import { inText, InText } from '../element';
 import { inValue } from '../value';
 import { InCssClasses } from './css-classes.aspect';
@@ -23,18 +23,18 @@ describe('InCssClasses', () => {
 
   describe('[AfterEvent__symbol]', () => {
     it('is the same as `read`', () => {
-      expect(afterEventFrom(cssClasses)).toBe(cssClasses.read);
+      expect(afterSupplied(cssClasses)).toBe(cssClasses.read);
     });
   });
 
   describe('add', () => {
 
     let source: ValueTracker<InCssClasses.Map>;
-    let interest: EventInterest;
+    let supply: EventSupply;
 
     beforeEach(() => {
       source = trackValue({ class1: true });
-      interest = cssClasses.add(source);
+      supply = cssClasses.add(source);
     });
 
     it('appends CSS classes', () => {
@@ -52,7 +52,7 @@ describe('InCssClasses', () => {
     });
     it('appends CSS classes from source function', () => {
 
-      const source2 = jest.fn(() => afterEventOf({ class2: true }));
+      const source2 = jest.fn(() => afterThe({ class2: true }));
 
       cssClasses.add(source2);
       expect(classMap).toEqual({ class1: true, class2: true });
@@ -79,7 +79,7 @@ describe('InCssClasses', () => {
       expect(element.classList.contains('class2')).toBe(true);
     });
     it('removes CSS classes when source removed', () => {
-      interest.off();
+      supply.off();
       expect(classMap).toEqual({});
       expect(element.classList.contains('class1')).toBe(false);
     });
@@ -88,7 +88,7 @@ describe('InCssClasses', () => {
       const reason = 'some reason';
       const sourceDone = jest.fn();
 
-      interest.whenDone(sourceDone);
+      supply.whenOff(sourceDone);
       source.done(reason);
 
       expect(sourceDone).toHaveBeenCalledWith(reason);
@@ -100,11 +100,11 @@ describe('InCssClasses', () => {
   describe('done', () => {
 
     let source: ValueTracker<InCssClasses.Map>;
-    let interest: EventInterest;
+    let supply: EventSupply;
 
     beforeEach(() => {
       source = trackValue({ class1: true });
-      interest = cssClasses.add(source);
+      supply = cssClasses.add(source);
     });
 
     it('removes all CSS classes', () => {
@@ -112,7 +112,7 @@ describe('InCssClasses', () => {
       const reason = 'some reason';
       const sourceDone = jest.fn();
 
-      interest.whenDone(sourceDone);
+      supply.whenOff(sourceDone);
       cssClasses.done(reason);
 
       expect(sourceDone).toHaveBeenCalledWith(reason);

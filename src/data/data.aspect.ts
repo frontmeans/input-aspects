@@ -2,7 +2,7 @@
  * @module input-aspects
  */
 import { NextArgs, nextArgs, noop } from 'call-thru';
-import { AfterEvent, afterEventFromAll } from 'fun-events';
+import { afterAll, AfterEvent } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
 import { InMode } from './mode.aspect';
@@ -26,7 +26,7 @@ const InData__symbol: Aspect = {
 
   applyTo<Value>(control: InControl<Value>): Applied<Value> {
 
-    const instance: InData<Value> = afterEventFromAll({
+    const instance: InData<Value> = afterAll({
       value: control,
       mode: control.aspect(InMode),
     }).keep.thru(

@@ -1,4 +1,4 @@
-import { afterEventFrom } from 'fun-events';
+import { afterSupplied } from 'fun-events';
 import { InGroup, inGroup } from '../container';
 import { inText } from '../element';
 import { InElement } from '../element.control';
@@ -188,7 +188,7 @@ describe('InStatus', () => {
 
   describe('[AfterEvent__symbol]', () => {
     it('is an alias of `read`', () => {
-      expect(afterEventFrom(status)).toBe(status.read);
+      expect(afterSupplied(status)).toBe(status.read);
     });
   });
 

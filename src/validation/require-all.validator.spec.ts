@@ -1,4 +1,5 @@
-import { afterEventFrom, EventEmitter } from 'fun-events';
+import { valuesProvider } from 'call-thru';
+import { afterSupplied, EventEmitter } from 'fun-events';
 import { InControl } from '../control';
 import { inValue } from '../value';
 import { requireAll } from './require-all.validator';
@@ -25,8 +26,9 @@ describe('validIfAll', () => {
     validator1 = new EventEmitter();
     validator2 = new EventEmitter();
     all = requireAll(
-        afterEventFrom(validator1, []),
-        afterEventFrom(validator2, []));
+        afterSupplied(validator1, valuesProvider()),
+        afterSupplied(validator2, valuesProvider()),
+    );
     validation.by(all);
   });
 
