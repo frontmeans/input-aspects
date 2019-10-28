@@ -1,4 +1,5 @@
 import { afterSupplied, afterThe, EventSupply, trackValue, ValueTracker } from 'fun-events';
+import { InControl } from '../control';
 import { inText, InText } from '../element';
 import { inValue } from '../value';
 import { InCssClasses } from './css-classes.aspect';
@@ -30,11 +31,11 @@ describe('InCssClasses', () => {
   describe('add', () => {
 
     let source: ValueTracker<InCssClasses.Map>;
-    let supply: EventSupply;
+    let sourceSupply: EventSupply;
 
     beforeEach(() => {
       source = trackValue({ class1: true });
-      supply = cssClasses.add(source);
+      sourceSupply = cssClasses.add(source);
     });
 
     it('appends CSS classes', () => {
@@ -79,16 +80,16 @@ describe('InCssClasses', () => {
       expect(element.classList.contains('class2')).toBe(true);
     });
     it('removes CSS classes when source removed', () => {
-      supply.off();
+      sourceSupply.off();
       expect(classMap).toEqual({});
       expect(element.classList.contains('class1')).toBe(false);
     });
-    it('removes CSS classes when source exhausted', () => {
+    it('removes CSS classes when source supply is cut off', () => {
 
       const reason = 'some reason';
       const sourceDone = jest.fn();
 
-      supply.whenOff(sourceDone);
+      sourceSupply.whenOff(sourceDone);
       source.done(reason);
 
       expect(sourceDone).toHaveBeenCalledWith(reason);
@@ -122,11 +123,29 @@ describe('InCssClasses', () => {
   });
 
   describe('without element', () => {
+
+    let valueControl: InControl<string>;
+    let valueClasses: InCssClasses;
+
+    beforeEach(() => {
+      valueControl = inValue('value');
+      valueClasses = valueControl.aspect(InCssClasses);
+    });
+
     it('still present', () => {
+      expect(valueClasses).toBeDefined();
+    });
+    it('reports added CSS classes', () => {
 
-      const control2 = inValue('value');
+      const source = trackValue<InCssClasses.Map>({ class1: true });
 
-      expect(control2.aspect(InCssClasses)).toBeDefined();
+      valueClasses.add(source);
+
+      const classesReceiver = jest.fn();
+
+      valueClasses.read.once(classesReceiver);
+
+      expect(classesReceiver).toHaveBeenCalledWith({ class1: true });
     });
   });
 });
