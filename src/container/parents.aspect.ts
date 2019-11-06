@@ -4,14 +4,14 @@
 import {
   AfterEvent,
   AfterEvent__symbol,
-  afterEventOr,
+  afterEventBy,
   EventEmitter,
-  eventInterest,
-  EventInterest,
   EventKeeper,
   EventSender,
+  eventSupply,
+  EventSupply,
   OnEvent,
-  OnEvent__symbol
+  OnEvent__symbol,
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
@@ -43,7 +43,7 @@ export abstract class InParents
   }
 
   /**
-   * An `OnEvent` registrar of parent updates receivers.
+   * An `OnEvent` sender of parent updates.
    *
    * Sends two arrays on each parents update: the first one contains added parent entries, while the second one
    * contains removed parent entries.
@@ -57,7 +57,7 @@ export abstract class InParents
   }
 
   /**
-   * An `AfterEvent` registrar of updated parents iterable receivers.
+   * An `AfterEvent` keeper of control parents.
    *
    * The `[AfterEvent__symbol]` property is an alias of this one.
    */
@@ -72,9 +72,9 @@ export abstract class InParents
    *
    * @param entry  Parent container entry.
    *
-   * @returns An event interest instance that removes the control from the parent `container` when loses interest.
+   * @returns A parent container supply. Removes the control from the parent container once cut off.
    */
-  abstract add(entry: InParents.Entry): EventInterest;
+  abstract add(entry: InParents.Entry): EventSupply;
 
 }
 
@@ -105,7 +105,7 @@ export namespace InParents {
 
 class InControlParents extends InParents {
 
-  private readonly _map = new Map<InParents.Entry, EventInterest>();
+  private readonly _map = new Map<InParents.Entry, EventSupply>();
   private readonly _on = new EventEmitter<[InParents.Entry[], InParents.Entry[]]>();
   readonly read: AfterEvent<[InParents.All]>;
 
@@ -114,9 +114,9 @@ class InControlParents extends InParents {
 
     const map = this._map;
 
-    this.read = afterEventOr(
+    this.read = afterEventBy(
         this._on.on.thru(
-            allParents
+            allParents,
         ),
         () => [allParents()]);
 
@@ -129,25 +129,25 @@ class InControlParents extends InParents {
     return this._on.on;
   }
 
-  add(entry: InParents.Entry): EventInterest {
+  add(entry: InParents.Entry): EventSupply {
 
-    const existingInterest = this._map.get(entry);
+    const existingSupply = this._map.get(entry);
 
-    if (existingInterest) {
+    if (existingSupply) {
       // Parent entry already added. Doing nothing
-      return existingInterest;
+      return existingSupply;
     }
 
     // Adding new entry
-    const interest = eventInterest(() => {
+    const supply = eventSupply(() => {
       this._map.delete(entry);
       this._on.send([], [entry]);
     });
 
-    this._map.set(entry, interest);
+    this._map.set(entry, supply);
     this._on.send([entry], []);
 
-    return interest;
+    return supply;
   }
 
 }

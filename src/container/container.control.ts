@@ -89,7 +89,7 @@ export abstract class InContainerControls
      implements EventSender<[InContainer.Entry[], InContainer.Entry[]]>, EventKeeper<[InContainer.Snapshot]> {
 
   /**
-   * An `OnEvent` registrar of container updates receivers.
+   * An `OnEvent` sender of container updates.
    *
    * Sends two arrays on each container update: the first one contains added control entries, while the second one
    * contains removed control entries.
@@ -103,7 +103,7 @@ export abstract class InContainerControls
   }
 
   /**
-   * An `AfterEvent` registrar of updated container contents receivers.
+   * An `AfterEvent` keeper of input container contents.
    *
    * The `[AfterEvent__symbol]` property is an alias of this one.
    */

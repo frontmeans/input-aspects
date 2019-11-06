@@ -1,5 +1,13 @@
-import { asis } from 'call-thru';
-import { AfterEvent__symbol, afterEventFrom, EventEmitter, EventInterest, EventKeeper, trackValue } from 'fun-events';
+import { asis, nextArgs, valuesProvider } from 'call-thru';
+import {
+  AfterEvent__symbol,
+  afterSupplied,
+  EventEmitter,
+  EventKeeper,
+  EventSupply,
+  onSupplied,
+  trackValue,
+} from 'fun-events';
 import { inGroup, InGroup } from '../container';
 import { InControl } from '../control';
 import { inValue } from '../value';
@@ -18,19 +26,23 @@ describe('InValidation', () => {
   });
 
   let validator: EventEmitter<InValidation.Message[]>;
-  let validatorInterest: EventInterest;
+  let validatorSupply: EventSupply;
 
   beforeEach(() => {
     validator = new EventEmitter();
-    validatorInterest = validation.by(afterEventFrom(validator, []));
+
+    const tracker = trackValue<InValidation.Message[]>([])
+        .by(onSupplied(validator).thru_((...messages) => messages));
+
+    validatorSupply = validation.by(tracker.read.keep.thru_(messages => nextArgs(...messages)));
   });
 
   let receiver: Mock<void, [InValidation.Result]>;
-  let resultInterest: EventInterest;
+  let resultSupply: EventSupply;
 
   beforeEach(() => {
     receiver = jest.fn();
-    resultInterest = validation.read(receiver);
+    resultSupply = validation.read(receiver);
   });
 
   it('sends successful validation result initially', () => {
@@ -123,12 +135,12 @@ describe('InValidation', () => {
   });
   it('removes messages and sends validation result when validator removed', () => {
     validator.send({ message: 'some message' });
-    validatorInterest.off();
+    validatorSupply.off();
     expect(lastResult().ok).toBe(true);
   });
   it('does not sent validation result when validator removed without messages sent', () => {
     receiver.mockClear();
-    validatorInterest.off();
+    validatorSupply.off();
     expect(receiver).not.toHaveBeenCalled();
   });
   it('ignores empty messages if there are no messages yet', () => {
@@ -216,14 +228,14 @@ describe('InValidation', () => {
     validator2.it = message3;
     expect([...lastResult()]).toEqual([message3, message2]);
 
-    validatorInterest.off();
+    validatorSupply.off();
     expect([...lastResult()]).toEqual([message3]);
   });
-  it('stops validation when interest lost', () => {
+  it('stops validation when supply is cut off', () => {
 
     const validator2 = new EventEmitter<InValidation.Message[]>();
     const proxy = jest.fn(asis);
-    const interest = validation.by(afterEventFrom<InValidation.Message[]>(validator2.on.thru(proxy), []));
+    const supply = validation.by(afterSupplied<InValidation.Message[]>(validator2.on.thru(proxy), valuesProvider()));
     const message1 = { message: 'message1' };
 
     validator2.send(message1);
@@ -236,8 +248,8 @@ describe('InValidation', () => {
 
     const done = jest.fn();
 
-    interest.whenDone(done);
-    resultInterest.off('reason');
+    supply.whenOff(done);
+    resultSupply.off('reason');
     expect(done).not.toHaveBeenCalled();
 
     const message2 = { message: 'message2' };
@@ -251,7 +263,7 @@ describe('InValidation', () => {
     const message1 = { message: 'message1' };
 
     validator.send(message1);
-    resultInterest.off();
+    resultSupply.off();
     validation.read(receiver);
 
     expect([...lastResult()]).toEqual([message1]);
@@ -282,7 +294,7 @@ describe('InValidation', () => {
 
     beforeEach(() => {
       convertedValidator = new EventEmitter();
-      convertedValidation.by(afterEventFrom(convertedValidator, []));
+      convertedValidation.by(afterSupplied(convertedValidator, valuesProvider()));
     });
 
     let convertedReceiver: Mock<void, [InValidation.Result]>;

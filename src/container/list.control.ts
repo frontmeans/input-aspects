@@ -4,18 +4,18 @@
 import { itsIterable, mapIt } from 'a-iterable';
 import { isDefined, nextArgs, noop } from 'call-thru';
 import {
+  afterAll,
+  afterEach,
   AfterEvent,
   AfterEvent__symbol,
-  afterEventFromAll,
-  afterEventFromEach,
-  afterEventOf,
-  afterEventOr,
+  afterEventBy,
+  afterThe,
   EventEmitter,
-  eventInterest,
-  EventInterest,
   EventKeeper,
   EventReceiver,
   EventSender,
+  eventSupply,
+  EventSupply,
   OnEvent,
   OnEvent__symbol,
   trackValue,
@@ -181,7 +181,7 @@ export interface InListControls<Item> {
 
 }
 
-type ControlEntry<Item> = [InControl<Item>, EventInterest];
+type ControlEntry<Item> = [InControl<Item>, EventSupply];
 
 class InListSnapshot<Item> implements InList.Snapshot<Item> {
 
@@ -218,7 +218,7 @@ const controlReplacedReason = {};
 
 class InListEntries<Item> {
 
-  readonly _interest = eventInterest();
+  readonly _supply = eventSupply();
   _entries: ControlEntry<Item>[];
   private _shot?: InListSnapshot<Item>;
 
@@ -280,19 +280,19 @@ function controlEntry<Item>(
 ): ControlEntry<Item> {
   return [
     control,
-    eventInterest(reason => {
+    eventSupply(reason => {
       if (reason !== controlReplacedReason) {
         entries._controls.remove(entries._entries.findIndex(e => e && e[0] === control));
       }
-    }).needs(entries._interest)
+    }).needs(entries._supply)
   ];
 }
 
 function readControlValue<Item>(
     controls: InListControlControls<Item>,
-    [control, interest]: ControlEntry<Item>) {
-  interest.needs(control.aspect(InParents).add({ parent: controls._list }).needs(interest));
-  interest.needs(control.read(value => {
+    [control, supply]: ControlEntry<Item>) {
+  supply.needs(control.aspect(InParents).add({ parent: controls._list }).needs(supply));
+  supply.needs(control.read(value => {
 
     const index = controls._entries._entries.findIndex(([ctrl]) => ctrl === control);
     const model = controls._list.it;
@@ -305,7 +305,7 @@ function readControlValue<Item>(
 
       controls._list.it = newModel;
     }
-  }).needs(interest));
+  }).needs(supply));
 }
 
 class InListControlControls<Item> extends InListControls<Item> {
@@ -326,37 +326,41 @@ class InListControlControls<Item> extends InListControls<Item> {
             added.map(controlEntryToListEntry),
             removed.map(controlEntryToListEntry)),
     );
-    this.read = afterEventOr(
+    this.read = afterEventBy(
         this._updates.on.thru(
             () => this._entries.snapshot(),
         ),
         () => [this._entries.snapshot()]);
-    this._entries._interest.needs(_list.read(applyModelToControls))
-        .whenDone(reason => this._updates.done(reason));
-    this._entries._entries.forEach(entry => readControlValue(this, entry));
 
-    function applyModelToControls(this: EventReceiver.Context<[readonly Item[]]>, model: readonly Item[]) {
-      this.afterRecurrent(noop);
+    const applyModelToControls: EventReceiver.Object<[readonly Item[]]> = {
+      receive(context, model) {
+        context.onRecurrent(noop);
 
-      const entries = self._entries._entries;
+        const entries = self._entries._entries;
 
-      model.forEach((item, index) => {
+        model.forEach((item, index) => {
 
-        const entry = entries[index];
+          const entry = entries[index];
 
-        if (entry) {
-          entry[0].it = item;
+          if (entry) {
+            entry[0].it = item;
+          }
+        });
+
+        if (model.length < entries.length) {
+          // Remove controls without values in model
+          self.splice(model.length);
+        } else if (model.length > entries.length) {
+          // Create missing value controls
+          self.add(...controlsByModel(model, entries.length));
         }
-      });
+      },
+    };
 
-      if (model.length < entries.length) {
-        // Remove controls without values in model
-        self.splice(model.length);
-      } else if (model.length > entries.length) {
-        // Create missing value controls
-        self.add(...controlsByModel(model, entries.length));
-      }
-    }
+    this._entries._supply.needs(_list.read(applyModelToControls))
+        .whenOff(reason => this._updates.done(reason));
+
+    this._entries._entries.forEach(entry => readControlValue(this, entry));
   }
 
   add(...controls: InControl<Item>[]): this {
@@ -445,7 +449,7 @@ class InListControl<Item> extends InList<Item> {
 }
 
 function listData<Item>(list: InList<Item>): InData<readonly Item[]> {
-  return afterEventFromAll({
+  return afterAll({
     cs: list.controls,
     mode: list.aspect(InMode),
   }).keep.dig_(
@@ -463,12 +467,12 @@ function readListData<Item>(
     }
 ): InData<readonly Item[]> {
   if (!InMode.hasData(mode)) {
-    return afterEventOf();
+    return afterThe();
   }
 
   const csData = mapIt(controls, control => control.aspect(InData));
 
-  return afterEventFromEach(...csData).keep.thru((...controlsData) => {
+  return afterEach(...csData).keep.thru((...controlsData) => {
     return controlsData.map(([d]) => d).filter(isDefined) as InData.DataType<readonly Item[]>;
   });
 }

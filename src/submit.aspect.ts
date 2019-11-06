@@ -3,7 +3,7 @@
  */
 import { itsEvery, mapIt } from 'a-iterable';
 import { nextArgs, noop } from 'call-thru';
-import { AfterEvent, AfterEvent__symbol, afterEventFromAll, EventKeeper, trackValue } from 'fun-events';
+import { afterAll, AfterEvent, AfterEvent__symbol, EventKeeper, trackValue } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
 import { InControl } from './control';
 import { InData } from './data';
@@ -85,7 +85,7 @@ export abstract class InSubmit<Value> implements EventKeeper<[InSubmit.Flags]> {
   }
 
   /**
-   * An `AfterEvent` registrar of submit status flags receivers.
+   * An `AfterEvent` keeper of submit status flag.
    *
    * The `[AfterEvent__symbol]` property is an alias of this one.
    */
@@ -201,7 +201,7 @@ class InControlSubmit<Value> extends InSubmit<Value> {
     validation.by(this._errors.read.keep.thru(
         messages => nextArgs(...messages),
     ));
-    this.read = afterEventFromAll({
+    this.read = afterAll({
       flags: this._flags,
       data: _control.aspect(InData),
       messages: validation,
@@ -240,7 +240,7 @@ class InControlSubmit<Value> extends InSubmit<Value> {
     function submitData(): Promise<Value extends undefined ? never : Value> {
 
       return new Promise((resolve, reject) => {
-        afterEventFromAll({
+        afterAll({
           data: control.aspect(InData),
           flags: submit.read,
         }).once(({ data: [d], flags: [{ ready }] }) => {

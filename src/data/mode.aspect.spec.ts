@@ -1,4 +1,4 @@
-import { afterEventFrom, EventInterest, onEventFrom, trackValue, ValueTracker } from 'fun-events';
+import { afterSupplied, EventSupply, onSupplied, trackValue, ValueTracker } from 'fun-events';
 import { inGroup, InGroup } from '../container';
 import { inText } from '../element';
 import { InElement } from '../element.control';
@@ -19,35 +19,35 @@ describe('InMode', () => {
   let control: InElement<string>;
   let mode: InMode;
   let onModeUpdate: Mock<void, [InMode.Value, InMode.Value]>;
-  let modeUpdatesInterest: EventInterest;
+  let modeUpdatesSupply: EventSupply;
   let readMode: Mock<void, [InMode.Value]>;
-  let modeInterest: EventInterest;
+  let modeSupply: EventSupply;
 
   beforeEach(() => {
     control = inText(element);
     mode = control.aspect(InMode);
-    modeUpdatesInterest = mode.on(onModeUpdate = jest.fn());
-    modeInterest = mode.read(readMode = jest.fn());
+    modeUpdatesSupply = mode.on(onModeUpdate = jest.fn());
+    modeSupply = mode.read(readMode = jest.fn());
     expect(readMode).toHaveBeenLastCalledWith('on');
     readMode.mockClear();
   });
 
   let onOwnUpdate: Mock<void, [InMode.Value, InMode.Value]>;
-  let ownUpdatesInterest: EventInterest;
+  let ownUpdatesSupply: EventSupply;
 
   beforeEach(() => {
-    ownUpdatesInterest = mode.own.on(onOwnUpdate = jest.fn());
+    ownUpdatesSupply = mode.own.on(onOwnUpdate = jest.fn());
   });
 
   describe('[OnEvent__symbol]', () => {
     it('is the same as `on`', () => {
-      expect(onEventFrom(mode)).toBe(mode.on);
+      expect(onSupplied(mode)).toBe(mode.on);
     });
   });
 
   describe('[AfterEvent__symbol]', () => {
     it('is the same as `read`', () => {
-      expect(afterEventFrom(mode)).toBe(mode.read);
+      expect(afterSupplied(mode)).toBe(mode.read);
     });
   });
 
@@ -58,8 +58,8 @@ describe('InMode', () => {
       const updatesDone = jest.fn();
       const modeDone = jest.fn();
 
-      modeUpdatesInterest.whenDone(updatesDone);
-      modeInterest.whenDone(modeDone);
+      modeUpdatesSupply.whenOff(updatesDone);
+      modeSupply.whenOff(modeDone);
 
       mode.done(reason);
       expect(updatesDone).toHaveBeenCalledWith(reason);
@@ -152,7 +152,7 @@ describe('InMode', () => {
         const reason = 'some reason';
         const updatesDone = jest.fn();
 
-        ownUpdatesInterest.whenDone(updatesDone);
+        ownUpdatesSupply.whenOff(updatesDone);
 
         mode.done(reason);
         expect(updatesDone).toHaveBeenCalledWith(reason);
@@ -252,11 +252,11 @@ describe('InMode', () => {
   describe('derived mode', () => {
 
     let source: ValueTracker<InMode.Value>;
-    let sourceInterest: EventInterest;
+    let sourceSupply: EventSupply;
 
     beforeEach(() => {
       source = trackValue('on');
-      sourceInterest = mode.derive(source);
+      sourceSupply = mode.derive(source);
     });
 
     it('is `on` by default', () => {
@@ -325,7 +325,7 @@ describe('InMode', () => {
     });
     it('is reset when no longer derived', () => {
       source.it = 'off';
-      sourceInterest.off();
+      sourceSupply.off();
       expect(readMode).toHaveBeenLastCalledWith('on');
       expect(onModeUpdate).toHaveBeenCalledWith('on', 'off');
       expect(onOwnUpdate).not.toHaveBeenCalled();

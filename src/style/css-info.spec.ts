@@ -1,4 +1,4 @@
-import { afterEventOf } from 'fun-events';
+import { afterThe } from 'fun-events';
 import { InMode } from '../data';
 import { inText, InText } from '../element';
 import { InValidation } from '../validation';
@@ -20,23 +20,23 @@ describe('inCssInfo', () => {
     expect(element.classList).toHaveLength(0);
   });
   it('appends `disabled` class when disabled', () => {
-    control.aspect(InMode).derive(afterEventOf<[InMode.Value]>('-ro'));
+    control.aspect(InMode).derive(afterThe<[InMode.Value]>('-ro'));
     expect(element.classList.contains('inap-disabled')).toBe(true);
   });
   it('appends `readonly` class when read-only', () => {
-    control.aspect(InMode).derive(afterEventOf<[InMode.Value]>('ro'));
+    control.aspect(InMode).derive(afterThe<[InMode.Value]>('ro'));
     expect(element.classList.contains('inap-readonly')).toBe(true);
   });
   it('appends `invalid` class when validation failed', () => {
-    control.aspect(InValidation).by(afterEventOf<InValidation.Message[]>({ invalid: true }));
+    control.aspect(InValidation).by(afterThe<InValidation.Message[]>({ invalid: true }));
     expect(element.classList.contains('inap-invalid')).toBe(true);
   });
   it('appends `invalid` class when input is missing', () => {
-    control.aspect(InValidation).by(afterEventOf<InValidation.Message[]>({ missing: true }));
+    control.aspect(InValidation).by(afterThe<InValidation.Message[]>({ missing: true }));
     expect(element.classList.contains('inap-missing')).toBe(true);
   });
   it('appends `invalid` class when input is incomplete', () => {
-    control.aspect(InValidation).by(afterEventOf<InValidation.Message[]>({ incomplete: true }));
+    control.aspect(InValidation).by(afterThe<InValidation.Message[]>({ incomplete: true }));
     expect(element.classList.contains('inap-incomplete')).toBe(true);
   });
   it('appends `focus` class when input gains focus', () => {
@@ -55,7 +55,7 @@ describe('inCssInfo', () => {
   });
   it('applies custom prefix and suffix to class names', () => {
     control.aspect(InCssClasses).add(inCssInfo({ prefix: 'prefix-', suffix: '-suffix' }));
-    control.aspect(InMode).derive(afterEventOf<[InMode.Value]>('off'));
+    control.aspect(InMode).derive(afterThe<[InMode.Value]>('off'));
     expect(element.classList.contains('prefix-disabled-suffix')).toBe(true);
   });
 });

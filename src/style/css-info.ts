@@ -1,7 +1,7 @@
 /**
  * @module input-aspects
  */
-import { afterEventFromAll } from 'fun-events';
+import { afterAll } from 'fun-events';
 import { InControl } from '../control';
 import { InMode } from '../data';
 import { InStatus } from '../focus';
@@ -35,7 +35,7 @@ export function inCssInfo(
     } = {}
 ): InCssClasses.Source {
   return (control: InControl<any>) => {
-    return afterEventFromAll({
+    return afterAll({
       md: control.aspect(InMode),
       vl: control.aspect(InValidation),
       st: control.aspect(InStatus),

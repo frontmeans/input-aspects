@@ -3,11 +3,11 @@
  */
 import { itsEach, mapIt } from 'a-iterable';
 import {
+  afterAll,
+  afterEach,
   AfterEvent,
   AfterEvent__symbol,
-  afterEventFromAll,
-  afterEventFromEach,
-  afterEventOf,
+  afterThe,
   EventKeeper,
   trackValue,
   ValueTracker,
@@ -48,7 +48,7 @@ export abstract class InStatus implements EventKeeper<[InStatus.Flags]> {
   }
 
   /**
-   * An `AfterEvent` registrar of status flags receivers.
+   * An `AfterEvent` keeper of input status flags.
    *
    * The `[AfterEvent__symbol]` property is an alias of this one.
    */
@@ -178,9 +178,9 @@ function elementFlags(
   const element = control.aspect(InElement);
   const focus = control.aspect(InFocus);
 
-  return afterEventFromAll({
-    hasFocus: focus || afterEventOf(false),
-    edited: element ? element.input.keep.thru(({ event }) => !!event) : afterEventOf(false),
+  return afterAll({
+    hasFocus: focus || afterThe(false),
+    edited: element ? element.input.keep.thru(({ event }) => !!event) : afterThe(false),
   }).keep.thru(
       ({ hasFocus: [hasFocus], edited: [edited] }) => updateFlags(origin.it, hasFocus, edited),
   );
@@ -228,7 +228,7 @@ class InContainerStatus extends InStatus {
 
 function containerFlags(container: InContainer<any>): AfterEvent<[InStatus.Flags]> {
   return container.controls.read.keep.dig_(
-      snapshot => afterEventFromEach(...controlStatuses(snapshot)),
+      snapshot => afterEach(...controlStatuses(snapshot)),
   ).keep.thru(
       combineFlags,
   );

@@ -1,9 +1,9 @@
 /**
  * @module input-aspects
  */
-import { AfterEvent, afterEventOf } from 'fun-events';
+import { AfterEvent, afterThe } from 'fun-events';
 
-const _requireNothing: AfterEvent<[]> = /*#__PURE__*/ afterEventOf<[]>();
+const _requireNothing: AfterEvent<[]> = /*#__PURE__*/ afterThe<[]>();
 
 /**
  * Input validator that requires nothing.

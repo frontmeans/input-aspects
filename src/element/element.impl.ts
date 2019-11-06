@@ -1,12 +1,12 @@
 import { asis, nextArgs, nextSkip } from 'call-thru';
 import {
   AfterEvent,
-  afterEventFrom,
+  afterSupplied,
   DomEventDispatcher,
   EventEmitter,
-  eventInterest,
-  EventInterest,
-  OnEvent
+  eventSupply,
+  EventSupply,
+  OnEvent,
 } from 'fun-events';
 import { InElement } from '../element.control';
 
@@ -18,7 +18,7 @@ export class InElementControl<Value, Elt extends HTMLElement> extends InElement<
   private readonly _get: (this: InElementControl<Value, Elt>) => Value;
   private readonly _set: (this: InElementControl<Value, Elt>, value: Value) => void;
   private readonly _input: EventEmitter<[InElement.Input<Value>, Value]> = new EventEmitter();
-  private readonly _interest: EventInterest;
+  private readonly _supply: EventSupply;
   private _value: Value;
   // noinspection TypeScriptFieldCanBeMadeReadonly
   private _update: (value: Value, oldValue: Value) => void;
@@ -37,7 +37,7 @@ export class InElementControl<Value, Elt extends HTMLElement> extends InElement<
     this._set = set;
     this._value = this.it;
     this._update = update;
-    this.input = afterEventFrom<[InElement.Input<Value>]>(
+    this.input = afterSupplied<[InElement.Input<Value>]>(
         this._input.on.thru(asis),
         () => [{ value: this.it }]);
     this.on = this._input.on.thru(
@@ -47,10 +47,10 @@ export class InElementControl<Value, Elt extends HTMLElement> extends InElement<
     this.events = new DomEventDispatcher(element);
 
     const self = this;
-    const interest = this._interest = eventInterest(reason => this._input.done(reason));
+    const supply = this._supply = eventSupply(reason => this._input.done(reason));
 
-    this.events.on('input')(onInput).needs(interest);
-    this.events.on('change')(onInput).needs(interest);
+    this.events.on('input')(onInput).needs(supply);
+    this.events.on('change')(onInput).needs(supply);
 
     function onInput(event: Event) {
       send({ value: self.it, event }, self._value);
@@ -105,7 +105,7 @@ export class InElementControl<Value, Elt extends HTMLElement> extends InElement<
   }
 
   done(reason?: any): this {
-    this._interest.off(reason);
+    this._supply.off(reason);
     return this;
   }
 

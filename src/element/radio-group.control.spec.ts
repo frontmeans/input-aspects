@@ -1,4 +1,4 @@
-import { EventInterest } from 'fun-events';
+import { EventSupply } from 'fun-events';
 import { inRadioGroup, InRadioGroup } from './radio-group.control';
 import { inRadio, InRadio } from './radio.control';
 import Mock = jest.Mock;
@@ -20,13 +20,13 @@ describe('InRadioGroup', () => {
   });
 
   let readChecked: Mock<void, [TestValue]>;
-  let checkInterest: EventInterest;
+  let checkSupply: EventSupply;
   let onCheckUpdate: Mock<void, [TestValue, TestValue]>;
-  let checkUpdatesInterest: EventInterest;
+  let checkUpdatesSupply: EventSupply;
 
   beforeEach(() => {
-    checkInterest = control.read(readChecked = jest.fn());
-    checkUpdatesInterest = control.on(onCheckUpdate = jest.fn());
+    checkSupply = control.read(readChecked = jest.fn());
+    checkUpdatesSupply = control.on(onCheckUpdate = jest.fn());
   });
 
   it('reflects unchecked radio buttons', () => {
@@ -84,8 +84,8 @@ describe('InRadioGroup', () => {
       const checkDone = jest.fn();
       const checkUpdatesDone = jest.fn();
 
-      checkInterest.whenDone(checkDone);
-      checkUpdatesInterest.whenDone(checkUpdatesDone);
+      checkSupply.whenOff(checkDone);
+      checkUpdatesSupply.whenOff(checkUpdatesDone);
 
       const reason = 'some reason';
 

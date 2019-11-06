@@ -121,7 +121,7 @@ describe('InFocus', () => {
        const receiver = jest.fn();
        const done = jest.fn();
 
-       focus.read(receiver).whenDone(done);
+       focus.read(receiver).whenOff(done);
        receiver.mockClear();
 
        const reason = 'some reason';

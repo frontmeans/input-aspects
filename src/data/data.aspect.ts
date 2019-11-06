@@ -2,7 +2,7 @@
  * @module input-aspects
  */
 import { NextArgs, nextArgs, noop } from 'call-thru';
-import { AfterEvent, afterEventFromAll } from 'fun-events';
+import { afterAll, AfterEvent } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
 import { InMode } from './mode.aspect';
@@ -15,7 +15,7 @@ import { InMode } from './mode.aspect';
  * Input data is typically the same as control value with respect to {@link InMode input mode}. I.e. when input mode is
  * `off` the data is `undefined`.
  *
- * An aspect interface is an `AfterEvent` registrar of input data receivers.
+ * An aspect interface is an `AfterEvent` keeper of input data.
  *
  * @category Aspect
  * @typeparam Value  Input value type.
@@ -26,7 +26,7 @@ const InData__symbol: Aspect = {
 
   applyTo<Value>(control: InControl<Value>): Applied<Value> {
 
-    const instance: InData<Value> = afterEventFromAll({
+    const instance: InData<Value> = afterAll({
       value: control,
       mode: control.aspect(InMode),
     }).keep.thru(

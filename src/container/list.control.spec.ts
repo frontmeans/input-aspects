@@ -1,4 +1,4 @@
-import { EventInterest } from 'fun-events';
+import { EventSupply } from 'fun-events';
 import { InControl } from '../control';
 import { InData, InMode } from '../data';
 import { inValue } from '../value';
@@ -69,15 +69,15 @@ describe('InList', () => {
   describe('controls', () => {
 
     let onUpdate: Mock<void, [InList.Entry<string>[], InList.Entry<string>[]]>;
-    let updatesInterest: EventInterest;
+    let updatesSupply: EventSupply;
     let readSnapshot: Mock<void, [InList.Snapshot<string>]>;
-    let snapshotInterest: EventInterest;
+    let snapshotSupply: EventSupply;
     let snapshot: InList.Snapshot<string>;
     let controlValues: string[];
 
     beforeEach(() => {
-      updatesInterest = list.controls.on(onUpdate = jest.fn());
-      snapshotInterest = list.controls.read(readSnapshot = jest.fn(shot => {
+      updatesSupply = list.controls.on(onUpdate = jest.fn());
+      snapshotSupply = list.controls.read(readSnapshot = jest.fn(shot => {
         snapshot = shot;
         controlValues = [...shot].map(c => c.it);
       }));
@@ -237,7 +237,7 @@ describe('InList', () => {
 
     describe('read', () => {
       beforeEach(() => {
-        snapshotInterest.off();
+        snapshotSupply.off();
       });
 
       it('sends the same snapshot instance without modifications', () => {
@@ -261,8 +261,8 @@ describe('InList', () => {
         const snapshotsDone = jest.fn();
         const updatesDone = jest.fn();
 
-        snapshotInterest.whenDone(snapshotsDone);
-        updatesInterest.whenDone(updatesDone);
+        snapshotSupply.whenOff(snapshotsDone);
+        updatesSupply.whenOff(updatesDone);
 
         list.done(reason);
 
