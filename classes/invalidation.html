@@ -145,12 +145,12 @@
 					<div class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/invalidation.result.html" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/89fb15b/src/validation/validation.aspect.ts#L102">validation/validation.aspect.ts:102</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/validation/validation.aspect.ts#L95">validation/validation.aspect.ts:95</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>An <code>AfterEvent</code> registrar of validation result receivers.</p>
+							<p>An <code>AfterEvent</code> keeper of input validation result.</p>
 						</div>
 						<p>An <code>[AfterEvent__symbol]</code> property is an alias of this one.</p>
 					</div>
@@ -168,7 +168,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/89fb15b/src/validation/validation.aspect.ts#L93">validation/validation.aspect.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/validation/validation.aspect.ts#L86">validation/validation.aspect.ts:86</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/invalidation.result.html" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -185,7 +185,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/89fb15b/src/validation/validation.aspect.ts#L89">validation/validation.aspect.ts:89</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/validation/validation.aspect.ts#L82">validation/validation.aspect.ts:82</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -204,13 +204,13 @@
 					<a name="by" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> by</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">by<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>validators<span class="tsd-signature-symbol">: </span><a href="../modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventInterest</span></li>
+						<li class="tsd-signature tsd-kind-icon">by<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>validators<span class="tsd-signature-symbol">: </span><a href="../modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupply</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/89fb15b/src/validation/validation.aspect.ts#L116">validation/validation.aspect.ts:116</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/validation/validation.aspect.ts#L108">validation/validation.aspect.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -230,9 +230,8 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventInterest</span></h4>
-							<p>An event interest instance. Once this interest lost, the validators are unregistered, while their messages
-							removed.</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventSupply</span></h4>
+							<p>Validators supply. Removes validators and their messages once cut off.</p>
 						</li>
 					</ul>
 				</section>

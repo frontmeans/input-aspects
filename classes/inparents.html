@@ -132,12 +132,12 @@
 					<div class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/inparents.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/inparents.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/89fb15b/src/container/parents.aspect.ts#L53">container/parents.aspect.ts:53</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/container/parents.aspect.ts#L53">container/parents.aspect.ts:53</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>An <code>OnEvent</code> registrar of parent updates receivers.</p>
+							<p>An <code>OnEvent</code> sender of parent updates.</p>
 						</div>
 						<p>Sends two arrays on each parents update: the first one contains added parent entries, while the second one
 						contains removed parent entries.</p>
@@ -150,12 +150,12 @@
 					<div class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/inparents.all.html" class="tsd-signature-type">All</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/89fb15b/src/container/parents.aspect.ts#L64">container/parents.aspect.ts:64</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/container/parents.aspect.ts#L64">container/parents.aspect.ts:64</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>An <code>AfterEvent</code> registrar of updated parents iterable receivers.</p>
+							<p>An <code>AfterEvent</code> keeper of control parents.</p>
 						</div>
 						<p>The <code>[AfterEvent__symbol]</code> property is an alias of this one.</p>
 					</div>
@@ -173,7 +173,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/89fb15b/src/container/parents.aspect.ts#L66">container/parents.aspect.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/container/parents.aspect.ts#L66">container/parents.aspect.ts:66</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/inparents.all.html" class="tsd-signature-type">All</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -190,7 +190,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/89fb15b/src/container/parents.aspect.ts#L41">container/parents.aspect.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/container/parents.aspect.ts#L41">container/parents.aspect.ts:41</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">InAspect</span><span class="tsd-signature-symbol">&lt;</span><a href="inparents.html" class="tsd-signature-type">InParents</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -204,13 +204,13 @@
 					<a name="add" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> add</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="../interfaces/inparents.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventInterest</span></li>
+						<li class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="../interfaces/inparents.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupply</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/89fb15b/src/container/parents.aspect.ts#L77">container/parents.aspect.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/container/parents.aspect.ts#L77">container/parents.aspect.ts:77</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -227,8 +227,8 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventInterest</span></h4>
-							<p>An event interest instance that removes the control from the parent <code>container</code> when loses interest.</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventSupply</span></h4>
+							<p>A parent container supply. Removes the control from the parent container once cut off.</p>
 						</li>
 					</ul>
 				</section>

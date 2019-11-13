@@ -107,7 +107,6 @@
 						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="infocus.html#__computed" class="tsd-kind-icon">__computed</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="infocus.html#it" class="tsd-kind-icon">it</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="infocus.html#on" class="tsd-kind-icon">on</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="infocus.html#read" class="tsd-kind-icon">read</a></li>
@@ -116,6 +115,7 @@
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="infocus.html#__computed" class="tsd-kind-icon">__computed</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-static"><a href="infocus.html#__computed-1" class="tsd-kind-icon">__computed</a></li>
 							</ul>
 						</section>
@@ -123,8 +123,8 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="infocus.html#by" class="tsd-kind-icon">by</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="infocus.html#bynone" class="tsd-kind-icon">by<wbr>None</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="infocus.html#done" class="tsd-kind-icon">done</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="infocus.html#off" class="tsd-kind-icon">off</a></li>
 							</ul>
 						</section>
 					</div>
@@ -132,18 +132,6 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
-					<a name="__computed" class="tsd-anchor"></a>
-					<h3>__computed</h3>
-					<div class="tsd-signature tsd-kind-icon">__computed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">N</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from ValueTracker.[OnEvent__symbol]</p>
-						<p>Overrides ValueTracker.[AfterEvent__symbol]</p>
-						<ul>
-							<li>Defined in /home/lorus/wesib/input-aspects/node_modules/fun-events/d.ts/value/value-tracker.d.ts:26</li>
-						</ul>
-					</aside>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="it" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> it</h3>
@@ -151,7 +139,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from ValueTracker.it</p>
 						<ul>
-							<li>Defined in /home/lorus/wesib/input-aspects/node_modules/fun-events/d.ts/value/value-tracker.d.ts:31</li>
+							<li>Defined in /home/lorus/wesib/input-aspects/node_modules/fun-events/d.ts/value/value-tracker.d.ts:39</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -167,13 +155,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from ValueTracker.on</p>
 						<ul>
-							<li>Defined in /home/lorus/wesib/input-aspects/node_modules/fun-events/d.ts/value/value-tracker.d.ts:21</li>
+							<li>Defined in /home/lorus/wesib/input-aspects/node_modules/fun-events/d.ts/value/value-tracker.d.ts:27</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Registers value changes receiver. The new value is sent as first argument, and the old value as a second one.</p>
+							<p>An [[OnEvent]] sender of value changes. The new value is sent as first argument, and the old value as a second one.</p>
 						</div>
+						<p>The <code>[OnEvent__symbol]</code> property is an alias of this one.</p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
@@ -183,18 +172,38 @@
 					<aside class="tsd-sources">
 						<p>Inherited from ValueTracker.read</p>
 						<ul>
-							<li>Defined in /home/lorus/wesib/input-aspects/node_modules/fun-events/d.ts/value/value-tracker.d.ts:25</li>
+							<li>Defined in /home/lorus/wesib/input-aspects/node_modules/fun-events/d.ts/value/value-tracker.d.ts:33</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Registers current and updated values receiver.</p>
+							<p>An [[AfterEvent]] keeper of current value.</p>
 						</div>
+						<p>The <code>[AfterEvent__symbol]</code> property is an alias of this one.</p>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a name="__computed" class="tsd-anchor"></a>
+					<h3>__computed</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> __computed<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">N</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from ValueTracker.[OnEvent__symbol]</p>
+								<p>Overrides ValueTracker.[AfterEvent__symbol]</p>
+								<ul>
+									<li>Defined in /home/lorus/wesib/input-aspects/node_modules/fun-events/d.ts/value/value-tracker.d.ts:34</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">N</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
 					<a name="__computed-1" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> __computed</h3>
@@ -205,7 +214,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/89fb15b/src/focus/focus.aspect.ts#L34">focus/focus.aspect.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/focus/focus.aspect.ts#L34">focus/focus.aspect.ts:34</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">InAspect</span><span class="tsd-signature-symbol">&lt;</span><a href="infocus.html" class="tsd-signature-type">InFocus</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -219,30 +228,29 @@
 					<a name="by" class="tsd-anchor"></a>
 					<h3>by</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">by<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventKeeper</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">EventSender</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
-						<li class="tsd-signature tsd-kind-icon">by&lt;S&gt;<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventKeeper</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">EventSender</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, extract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">by<span class="tsd-signature-symbol">(</span>supplier<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">by&lt;S&gt;<span class="tsd-signature-symbol">(</span>supplier<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, extract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from ValueTracker.by</p>
 								<ul>
-									<li>Defined in /home/lorus/wesib/input-aspects/node_modules/fun-events/d.ts/value/value-tracker.d.ts:47</li>
+									<li>Defined in /home/lorus/wesib/input-aspects/node_modules/fun-events/d.ts/value/value-tracker.d.ts:53</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Binds the tracked value to the given <code>source</code> value sender or keeper.</p>
+									<p>Updates the tracked value by the given value <code>supplier</code>.</p>
 								</div>
-								<p>Updates the value when the <code>source</code> sends another value.</p>
-								<p>If the value is already bound to another value source, then unbinds from the old one first.</p>
+								<p>If the value is already updated by another supplier, then unbinds from the old one first.</p>
 								<p>Call the [[ValueTracker.off]] method to unbind the tracked value from the <code>source</code>.</p>
 								<p>Note that explicitly updating the value would override the value received from the <code>source</code>.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>source: <span class="tsd-signature-type">EventKeeper</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">EventSender</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>supplier: <span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The source value sender or keeper.</p>
 									</div>
@@ -255,15 +263,14 @@
 							<aside class="tsd-sources">
 								<p>Inherited from ValueTracker.by</p>
 								<ul>
-									<li>Defined in /home/lorus/wesib/input-aspects/node_modules/fun-events/d.ts/value/value-tracker.d.ts:66</li>
+									<li>Defined in /home/lorus/wesib/input-aspects/node_modules/fun-events/d.ts/value/value-tracker.d.ts:70</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Binds the tracked value to the value sender or keeper extracted from the events sent by the given <code>source</code>.</p>
+									<p>Updates the tracked value by value suppliers extracted from events sent by the given <code>supplier</code>.</p>
 								</div>
-								<p>Updates the value when extracted sender or keeper sends another value.</p>
-								<p>If the value is already bound to another value source, then unbinds from the old one first.</p>
+								<p>If the value is already updated by another value supplier, then unbinds from the old one first.</p>
 								<p>Call the [[ValueTracker.off]] method to unbind the tracked value from the <code>source</code>.</p>
 								<p>Note that explicitly updating the value would override the value received from the <code>source</code>.</p>
 							</div>
@@ -279,21 +286,21 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>source: <span class="tsd-signature-type">EventKeeper</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">EventSender</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>supplier: <span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>The event sender or keeper to extract value senders or keepers from.</p>
+										<p>The event supplier to extract value suppliers from.</p>
 									</div>
 								</li>
 								<li>
 									<h5>extract: <span class="tsd-signature-type">function</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>A function extracting value senders or keepers from events received from the <code>source</code>.
+										<p>A function extracting value supplier from event received from <code>supplier</code>.
 										May return <code>undefined</code> to suspend receiving values.</p>
 									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
 											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, <span class="tsd-signature-symbol">...</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventKeeper</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">EventSender</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, <span class="tsd-signature-symbol">...</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 											</ul>
 											<ul class="tsd-descriptions">
 												<li class="tsd-description">
@@ -306,9 +313,7 @@
 															<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>event: <span class="tsd-signature-type">S</span></h5>
 														</li>
 													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventKeeper</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span>
-														<span class="tsd-signature-symbol"> | </span>
-														<span class="tsd-signature-type">EventSender</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span>
 														<span class="tsd-signature-symbol"> | </span>
 														<span class="tsd-signature-type">undefined</span>
 													</h4>
@@ -316,6 +321,40 @@
 											</ul>
 										</li>
 									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+							<p><code>this</code> instance.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="bynone" class="tsd-anchor"></a>
+					<h3>by<wbr>None</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">by<wbr>None<span class="tsd-signature-symbol">(</span>reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from ValueTracker.byNone</p>
+								<ul>
+									<li>Defined in /home/lorus/wesib/input-aspects/node_modules/fun-events/d.ts/value/value-tracker.d.ts:80</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Unbinds the tracked value from any value supplier this tracker is {@link ValueTracker.by updated by}.</p>
+								</div>
+								<p>If the tracker is not bound then does nothing.</p>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> reason: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Arbitrary reason of unbinding the value.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -334,56 +373,21 @@
 							<aside class="tsd-sources">
 								<p>Inherited from ValueTracker.done</p>
 								<ul>
-									<li>Defined in /home/lorus/wesib/input-aspects/node_modules/fun-events/d.ts/value/value-tracker.d.ts:87</li>
+									<li>Defined in /home/lorus/wesib/input-aspects/node_modules/fun-events/d.ts/value/value-tracker.d.ts:90</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Removes all registered event receivers.</p>
+									<p>Removes all registered event receivers and cuts off corresponding event supplies.</p>
 								</div>
-								<p>After this method call they won&#39;t receive events. Informs all corresponding event interests on that by calling
-								the callbacks registered with [[EventInterest.whenDone]].</p>
+								<p>After this method call they won&#39;t receive events.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> reason: <span class="tsd-signature-type">any</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>A reason to stop sending events to receivers.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
-							<p><code>this</code> instance.</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="off" class="tsd-anchor"></a>
-					<h3>off</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">off<span class="tsd-signature-symbol">(</span>reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from ValueTracker.off</p>
-								<ul>
-									<li>Defined in /home/lorus/wesib/input-aspects/node_modules/fun-events/d.ts/value/value-tracker.d.ts:76</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Unbinds the tracked value from the value sender or keeper this tracker is bound to with [[ValueTracker.by]] method.</p>
-								</div>
-								<p>If the tracker is not bound then does nothing.</p>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> reason: <span class="tsd-signature-type">any</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Arbitrary reason of unbinding the value.</p>
+										<p>A reason to stop sending events.</p>
 									</div>
 								</li>
 							</ul>
@@ -409,9 +413,6 @@
 					<li class="current tsd-kind-class tsd-has-type-parameter">
 						<a href="infocus.html" class="tsd-kind-icon">In<wbr>Focus</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
-								<a href="infocus.html#__computed" class="tsd-kind-icon">__computed</a>
-							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="infocus.html#it" class="tsd-kind-icon">it</a>
 							</li>
@@ -421,6 +422,9 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="infocus.html#read" class="tsd-kind-icon">read</a>
 							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="infocus.html#__computed" class="tsd-kind-icon">__computed</a>
+							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
 								<a href="infocus.html#__computed-1" class="tsd-kind-icon">__computed</a>
 							</li>
@@ -428,10 +432,10 @@
 								<a href="infocus.html#by" class="tsd-kind-icon">by</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="infocus.html#done" class="tsd-kind-icon">done</a>
+								<a href="infocus.html#bynone" class="tsd-kind-icon">by<wbr>None</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="infocus.html#off" class="tsd-kind-icon">off</a>
+								<a href="infocus.html#done" class="tsd-kind-icon">done</a>
 							</li>
 						</ul>
 					</li>
