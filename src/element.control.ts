@@ -43,7 +43,7 @@ export abstract class InElement<Value, Elt = HTMLElement> extends InControl<Valu
   }
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
-      aspect: InAspect<Instance, Kind>
+      aspect: InAspect<Instance, Kind>,
   ): InAspect.Application.Result<Instance, Value, Kind> | undefined {
     return aspect === InElement__aspect as InAspect<any, any>
         ? inAspectValue(this) as InAspect.Application.Result<Instance, Value, Kind>

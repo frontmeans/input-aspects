@@ -41,7 +41,7 @@ class InRadioControl<Value> extends InElementControl<Value | undefined, HTMLInpu
       element: HTMLInputElement,
       {
         checked = true as unknown as Value,
-      }: Partial<InRadio.Values<Value>> = {}
+      }: Partial<InRadio.Values<Value>> = {},
   ) {
     super(
         element,

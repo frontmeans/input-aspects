@@ -128,7 +128,7 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
    * @internal
    */
   _aspect<Instance, Kind extends InAspect.Application.Kind>(
-      aspect: InAspect<Instance, Kind>
+      aspect: InAspect<Instance, Kind>,
   ): InAspect.Application.Result<Instance, Value, Kind> {
 
     const existing = this._aspects.get(aspect);
@@ -155,7 +155,7 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
    * `InAspect.applyTo()` method).
    */
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
-      _aspect: InAspect<Instance, Kind>
+      _aspect: InAspect<Instance, Kind>,
   ): InAspect.Application.Result<Instance, Value, Kind> | undefined {
     return;
   }
@@ -213,7 +213,7 @@ export namespace InControl {
      */
     readonly applyAspect?: <Instance, Kind extends InAspect.Application.Kind>(
         this: this,
-        aspect: InAspect<Instance, Kind>
+        aspect: InAspect<Instance, Kind>,
     ) => InAspect.Application.Result<Instance, To, Kind> | undefined;
 
     /**
@@ -251,7 +251,7 @@ class InConverted<From, To> extends InControl<To> {
   private readonly _it: ValueTracker<[To, number]>;
   protected readonly _applyAspect: <Instance, Kind extends InAspect.Application.Kind>(
       this: this,
-      aspect: InAspect<Instance, Kind>
+      aspect: InAspect<Instance, Kind>,
   ) => InAspect.Application.Result<Instance, To, Kind> | undefined;
 
   constructor(

@@ -32,9 +32,9 @@ export function inSelect(element: HTMLSelectElement): InSelect {
             ...mapIt(
                 filterIt(
                     overArray(this.element.options),
-                    option => option.selected
+                    option => option.selected,
                 ),
-                option => option.value
+                option => option.value,
             ),
           ];
         },

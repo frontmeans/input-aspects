@@ -78,7 +78,7 @@ export const InParser = {
           const parserErrors: InParser.Errors = {
             report(...errors: InValidation.Message[]) {
               errorList.push(...errors);
-            }
+            },
           };
 
           const result = parse(text, parserErrors);

@@ -108,6 +108,6 @@ export function inCheckbox<Value>(
         set(value) {
           this.element.checked = value === checked;
           this.element.intermediate = value !== checked && value !== unchecked;
-        }
+        },
       });
 }

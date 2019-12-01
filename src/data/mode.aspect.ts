@@ -30,7 +30,7 @@ const InMode__aspect: InAspect<InMode> = {
 
   applyTo<Value>(control: InControl<Value>): InAspect.Applied<InMode> {
     return inAspectValue(new InControlMode(control));
-  }
+  },
 
 };
 

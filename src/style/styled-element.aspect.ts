@@ -22,7 +22,7 @@ const InStyledElement__aspect: InAspect<InStyledElement | null> = {
     const element = control.aspect(InElement);
 
     return element ? inAspectValue(element.element) : inAspectNull;
-  }
+  },
 
 };
 
@@ -33,6 +33,6 @@ export const InStyledElement = {
 
   get [InAspect__symbol]() {
     return InStyledElement__aspect;
-  }
+  },
 
 };

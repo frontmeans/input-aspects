@@ -36,6 +36,6 @@ export function intoTrimmed(
     },
     get(value) {
       return to.it = value.trim();
-    }
+    },
   };
 }

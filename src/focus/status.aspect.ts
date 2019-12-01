@@ -26,7 +26,7 @@ const InStatus__aspect: InAspect<InStatus> = {
     const container = control.aspect(InContainer);
 
     return inAspectValue(container ? new InContainerStatus(container) : new InControlStatus(control));
-  }
+  },
 
 };
 
@@ -259,7 +259,7 @@ function combineFlags(...flags: [InStatus.Flags][]): InStatus.Flags {
               result.edited = result.touched = true;
             }
           }
-      )
+      ),
   );
 
   return result;

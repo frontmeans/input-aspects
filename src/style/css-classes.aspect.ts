@@ -27,7 +27,7 @@ const InCssClasses__aspect: InAspect<InCssClasses> = {
       instance: new InControlCssClasses(control),
       convertTo: noop,
     };
-  }
+  },
 
 };
 
@@ -120,7 +120,7 @@ class InControlCssClasses extends InCssClasses {
   constructor(private readonly _control: InControl<any>) {
     super();
     this.read = this._sources.read.keep.dig_(
-        ([sources]) => sources.size ? afterEach(...sources.keys()) : afterThe()
+        ([sources]) => sources.size ? afterEach(...sources.keys()) : afterThe(),
     ).keep.thru((...classes) => {
 
       const result: { [name: string]: boolean | undefined } = {};
@@ -132,7 +132,7 @@ class InControlCssClasses extends InCssClasses {
               if (flag != null) {
                 result[name] = flag;
               }
-            }
+            },
         );
       });
 
@@ -153,10 +153,10 @@ class InControlCssClasses extends InCssClasses {
             mapIt(
                 filterIt(
                     overEntries(map),
-                    ([name, flag]) => !!flag && !toRemove.delete(name as string)
+                    ([name, flag]) => !!flag && !toRemove.delete(name as string),
                 ),
-                ([name]) => name as string
-            )
+                ([name]) => name as string,
+            ),
         );
 
         toRemove.forEach(name => {

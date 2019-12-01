@@ -114,7 +114,7 @@ function checkedValue<Value extends string | undefined>(
         }
         checked = key;
         return false;
-      }
+      },
   );
 
   return checked;

@@ -24,6 +24,6 @@ export function intoWrapper<Value>(element: InStyledElement): InControl.Converte
       return aspect as InAspect<any> === InStyledElement[InAspect__symbol]
           ? inAspectValue(element) as InAspect.Application.Result<Instance, Value, Kind>
           : undefined;
-    }
+    },
   });
 }

@@ -37,7 +37,7 @@ const InData__symbol: Aspect = {
       instance,
       convertTo: noop,
     };
-  }
+  },
 
 };
 
@@ -70,7 +70,7 @@ export const InData = {
 
   get [InAspect__symbol](): InAspect<InData<any>, 'data'> {
     return InData__symbol;
-  }
+  },
 
 };
 

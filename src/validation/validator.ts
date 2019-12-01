@@ -60,7 +60,7 @@ export namespace InValidator {
  * messages.
  */
 export function inValidator<Value>(
-    validator: InValidator<Value>
+    validator: InValidator<Value>,
 ): (this: void, control: InControl<Value>) => AfterEvent<InValidation.Message[]> {
   if (isEventKeeper(validator)) {
     return valueProvider(afterSupplied(validator));

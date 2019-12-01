@@ -417,7 +417,7 @@ function readGroupData<Model extends object>(
       cs: [InGroup.Snapshot<Model>];
       model: [Model];
       mode: [InMode.Value];
-    }
+    },
 ): InData<Model> {
   if (!InMode.hasData(mode)) {
     return afterThe();

@@ -33,7 +33,7 @@ describe('requireNeeded', () => {
               { incomplete: 2 },
               { invalid: 3 },
               { some: 4 },
-          )
+          ),
       ).toEqual([
         { missing: 1 },
         { some: 4 },
@@ -46,7 +46,7 @@ describe('requireNeeded', () => {
               { incomplete: 2, despiteMissing: true },
               { invalid: 3, despiteMissing: true },
               { some: 4 },
-          )
+          ),
       ).toEqual([
         { missing: 1 },
         { incomplete: 2, despiteMissing: true },
@@ -63,7 +63,7 @@ describe('requireNeeded', () => {
               { incomplete: 1 },
               { invalid: 2 },
               { some: 3 },
-          )
+          ),
       ).toEqual([
         { incomplete: 1 },
         { some: 3 },
@@ -75,7 +75,7 @@ describe('requireNeeded', () => {
               { incomplete: 1 },
               { invalid: 2, despiteIncomplete: true },
               { some: 3 },
-          )
+          ),
       ).toEqual([
         { incomplete: 1 },
         { invalid: 2, despiteIncomplete: true },
@@ -90,7 +90,7 @@ describe('requireNeeded', () => {
           validate(
               { invalid: 1 },
               { some: 2 },
-          )
+          ),
       ).toEqual([
         { invalid: 1 },
         { some: 2 },

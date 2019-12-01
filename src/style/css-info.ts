@@ -32,7 +32,7 @@ export function inCssInfo(
     }: {
       prefix?: string,
       suffix?: string,
-    } = {}
+    } = {},
 ): InCssClasses.Source {
   return (control: InControl<any>) => {
     return afterAll({

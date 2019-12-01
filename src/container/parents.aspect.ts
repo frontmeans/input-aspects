@@ -20,7 +20,7 @@ import { InContainer } from './container.control';
 const InParents__aspect: InAspect<InParents> = {
   applyTo(): InAspect.Applied<InParents> {
     return inAspectValue(new InControlParents());
-  }
+  },
 };
 
 /**

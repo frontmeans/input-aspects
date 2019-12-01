@@ -1,7 +1,7 @@
 import { noop } from 'call-thru';
 import { afterSupplied } from 'fun-events';
 import { InControl } from './control';
-import { InMode } from './data/mode.aspect';
+import { InMode } from './data';
 import { InSubmit, InSubmitError, InSubmitRejectedError } from './submit.aspect';
 import { InValidation } from './validation';
 import { inValue } from './value';
@@ -95,7 +95,7 @@ describe('InSubmit', () => {
           (err: InSubmitError) => {
             expect(err).toBeInstanceOf(InSubmitError);
             expect([...err.errors.messages('submit')]).toEqual([{ ...error, submit: true }]);
-          }
+          },
       );
 
       expect([...errors]).toEqual([{ ...error, submit: true }]);
@@ -113,7 +113,7 @@ describe('InSubmit', () => {
           result => fail('Result returned: ' + result),
           err => {
             expect(err).toBe(failure);
-          }
+          },
       );
 
       expect([...errors]).toEqual([{ submit: failure }]);

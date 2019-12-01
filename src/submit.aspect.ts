@@ -15,7 +15,7 @@ const InSubmit__aspect: InAspect<InSubmit<any>, 'submit'> = {
       instance: new InControlSubmit(control),
       convertTo: noop,
     };
-  }
+  },
 };
 
 /**

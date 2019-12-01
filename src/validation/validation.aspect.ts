@@ -262,7 +262,7 @@ class InValidationErrors implements InValidation.Result {
           if (nonEmpty) {
             this._all.push(message);
           }
-        }
+        },
     );
   }
 
@@ -331,7 +331,7 @@ class InControlValidation<Value> extends InValidation<Value> {
 
 function nestedMessages(container: InContainer<any>): EventKeeper<InValidation.Message[]> {
   return container.controls.read.keep.dig_(
-      nestedValidations
+      nestedValidations,
   ).keep.thru(
       combineValidationResults,
   );

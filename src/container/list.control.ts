@@ -248,15 +248,15 @@ class InListEntries<Item> {
               added.push([start + index, entry]);
 
               return entry;
-            }
-        )
+            },
+        ),
     );
 
     removed.push(
         ...extracted.map((entry, index) => {
           entry[1].off(controlReplacedReason);
           return [start + index, entry] as [number, ControlEntry<Item>];
-        })
+        }),
     );
 
     function modify(): ControlEntry<Item>[] {
@@ -284,7 +284,7 @@ function controlEntry<Item>(
       if (reason !== controlReplacedReason) {
         entries._controls.remove(entries._entries.findIndex(e => e && e[0] === control));
       }
-    }).needs(entries._supply)
+    }).needs(entries._supply),
   ];
 }
 
@@ -464,7 +464,7 @@ function readListData<Item>(
     }: {
       cs: [InList.Snapshot<Item>];
       mode: [InMode.Value];
-    }
+    },
 ): InData<readonly Item[]> {
   if (!InMode.hasData(mode)) {
     return afterThe();
