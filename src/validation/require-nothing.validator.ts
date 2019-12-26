@@ -3,7 +3,7 @@
  */
 import { AfterEvent, afterThe } from 'fun-events';
 
-const _requireNothing: AfterEvent<[]> = /*#__PURE__*/ afterThe<[]>();
+const _requireNothing = /*#__PURE__*/ afterThe<[]>();
 
 /**
  * Input validator that requires nothing.
