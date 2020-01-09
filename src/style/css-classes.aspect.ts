@@ -65,7 +65,16 @@ export abstract class InCssClasses implements EventKeeper<[InCssClasses.Map]> {
   abstract add(source: InCssClasses.Source): EventSupply;
 
   /**
-   * Removes all CSS class sources and stops applying CSS classes to styled element.
+   * Applies CSS classes to the given styled element.
+   *
+   * @param element  Target element to apply CSS classes to.
+   *
+   * @returns CSS classes supply that stops their application and removes already applied ones once cut off.
+   */
+  abstract applyTo(element: InStyledElement): EventSupply;
+
+  /**
+   * Removes all CSS class sources and stops applying CSS classes to styled elements.
    *
    * @param reason  An optional reason.
    *
@@ -142,32 +151,7 @@ class InControlCssClasses extends InCssClasses {
     const element = _control.aspect(InStyledElement);
 
     if (element) {
-
-      const { classList } = element;
-      const applied = new Set<string>();
-
-      this.read(map => {
-
-        const toRemove = new Set<string>(applied);
-        const toAdd = new Set<string>(
-            mapIt(
-                filterIt(
-                    overEntries(map),
-                    ([name, flag]) => !!flag && !toRemove.delete(name as string),
-                ),
-                ([name]) => name as string,
-            ),
-        );
-
-        toRemove.forEach(name => {
-          classList.remove(name);
-          applied.delete(name);
-        });
-        toAdd.forEach(name => {
-          classList.add(name);
-          applied.add(name);
-        });
-      });
+      this.applyTo(element);
     }
   }
 
@@ -206,6 +190,36 @@ class InControlCssClasses extends InCssClasses {
     this._sources.it = [sources];
 
     return classesSupply;
+  }
+
+  applyTo(element: Element): EventSupply {
+
+    const { classList } = element;
+    const applied = new Set<string>();
+    const removeClasses = (toRemove: Set<string>) => toRemove.forEach(name => {
+      classList.remove(name);
+      applied.delete(name);
+    });
+
+    return this.read(map => {
+
+      const toRemove = new Set<string>(applied);
+      const toAdd = new Set<string>(
+          mapIt(
+              filterIt(
+                  overEntries(map),
+                  ([name, flag]) => !!flag && !toRemove.delete(name as string),
+              ),
+              ([name]) => name as string,
+          ),
+      );
+
+      removeClasses(toRemove);
+      toAdd.forEach(name => {
+        classList.add(name);
+        applied.add(name);
+      });
+    }).whenOff(() => removeClasses(applied));
   }
 
   done(reason?: any): this {
