@@ -159,6 +159,22 @@ describe('InGroup', () => {
       });
     });
 
+    describe('clear', () => {
+      it('removes all controls', () => {
+        expect(group.controls.clear()).toBe(group.controls);
+        expect([...lastSnapshot]).toHaveLength(0);
+        expect(onUpdate).toHaveBeenCalledWith([], [['ctrl1', ctrl1], ['ctrl2', ctrl2]]);
+        expect(onUpdate).toHaveBeenCalledTimes(1);
+        expect(readSnapshot).toHaveBeenCalledTimes(1);
+      });
+      it('does nothing when there is no controls', () => {
+        group.controls.clear();
+        group.controls.clear();
+        expect(onUpdate).toHaveBeenCalledTimes(1);
+        expect(readSnapshot).toHaveBeenCalledTimes(1);
+      });
+    });
+
     describe('[OnEvent__symbol]', () => {
       it('is the same as `on`', () => {
         expect(onSupplied(group.controls)).toBe(group.controls.on);

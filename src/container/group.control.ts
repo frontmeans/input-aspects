@@ -137,6 +137,13 @@ export abstract class InGroupControls<Model>
     return this.set(key, undefined);
   }
 
+  /**
+   * Removes all input controls.
+   *
+   * @returns `this` controls instance.
+   */
+  abstract clear(): this;
+
 }
 
 export interface InGroupControls<Model> {
@@ -235,6 +242,16 @@ class InGroupMap<Model extends object> {
     return this._shot || (this._shot = new InGroupSnapshot<Model>(this._map));
   }
 
+  clear(): [keyof Model, ControlEntry][] {
+
+    const added: [keyof Model, ControlEntry][] = [];
+    const removed: [keyof Model, ControlEntry][] = [];
+
+    itsEach(this._map.keys(), key => this.set(key, undefined, added, removed));
+
+    return removed;
+  }
+
 }
 
 class InGroupControlControls<Model extends object> extends InGroupControls<Model> {
@@ -259,7 +276,8 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
         this._updates.on.thru(
             () => this._map.snapshot(),
         ),
-        () => [this._map.snapshot()]);
+        () => [this._map.snapshot()],
+    );
     this._map._supply.needs(_group.read(applyModelToControls));
 
     function applyModelToControls(model: Model) {
@@ -288,7 +306,8 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
 
   set<K extends keyof Model>(
       keyOrControls: K | InGroup.Controls<Model>,
-      newControl?: InControl<Model[K]> | undefined): this {
+      newControl?: InControl<Model[K]> | undefined,
+  ): this {
 
     const group = this._group;
     const added: [keyof Model, ControlEntry][] = [];
@@ -346,6 +365,17 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
         }).needs(supply));
       });
     }
+  }
+
+  clear(): this {
+
+    const removed = this._map.clear();
+
+    if (removed.length) {
+      this._updates.send([], removed);
+    }
+
+    return this;
   }
 
 }
