@@ -233,7 +233,8 @@ class InListEntries<Item> {
 
   constructor(
       readonly _controls: InListControlControls<Item>,
-      initial: InControl<Item>[]) {
+      initial: InControl<Item>[],
+  ) {
     this._entries = initial.map(control => controlEntry(this, control));
   }
 
@@ -262,10 +263,12 @@ class InListEntries<Item> {
     );
 
     removed.push(
-        ...extracted.map((entry, index) => {
-          entry[1].off(controlReplacedReason);
-          return [start + index, entry] as [number, ControlEntry<Item>];
-        }),
+        ...extracted.map(
+            (entry, index) => {
+              entry[1].off(controlReplacedReason);
+              return [start + index, entry] as [number, ControlEntry<Item>];
+            },
+        ),
     );
 
     function modify(): ControlEntry<Item>[] {
@@ -299,7 +302,8 @@ function controlEntry<Item>(
 
 function readControlValue<Item>(
     controls: InListControlControls<Item>,
-    [control, supply]: ControlEntry<Item>) {
+    [control, supply]: ControlEntry<Item>,
+) {
   supply.needs(control.aspect(InParents).add({ parent: controls._list }).needs(supply));
   supply.needs(control.read(value => {
 
@@ -333,13 +337,15 @@ class InListControlControls<Item> extends InListControls<Item> {
     this.on = this._updates.on.thru(
         (added, removed) => nextArgs(
             added.map(controlEntryToListEntry),
-            removed.map(controlEntryToListEntry)),
+            removed.map(controlEntryToListEntry),
+        ),
     );
     this.read = afterEventBy(
         this._updates.on.thru(
             () => this._entries.snapshot(),
         ),
-        () => [this._entries.snapshot()]);
+        () => [this._entries.snapshot()],
+    );
 
     const applyModelToControls: EventReceiver.Object<[readonly Item[]]> = {
       receive(context, model) {

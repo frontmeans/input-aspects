@@ -115,7 +115,8 @@ describe('InGroup', () => {
         expect(group.it).toEqual({ ctrl1: 'third', ctrl2: 'other' });
         expect(onModelUpdate).toHaveBeenCalledWith(
             { ctrl1: 'third', ctrl2: 'other' },
-            { ctrl1: 'some', ctrl2: 'other' });
+            { ctrl1: 'some', ctrl2: 'other' },
+        );
       });
       it('sets multiple controls', () => {
 

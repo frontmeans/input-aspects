@@ -209,17 +209,21 @@ class InContainerStatus extends InStatus {
   }
 
   markEdited(edited?: boolean): this {
-    this._container.controls.read.once(snapshot => itsEach(
-        snapshot,
-        control => control.aspect(InStatus).markEdited(edited)),
+    this._container.controls.read.once(
+        snapshot => itsEach(
+            snapshot,
+            control => control.aspect(InStatus).markEdited(edited),
+        ),
     );
     return this;
   }
 
   markTouched(touched?: boolean): this {
-    this._container.controls.read.once(snapshot => itsEach(
-        snapshot,
-        control => control.aspect(InStatus).markTouched(touched)),
+    this._container.controls.read.once(
+        snapshot => itsEach(
+            snapshot,
+            control => control.aspect(InStatus).markTouched(touched),
+        ),
     );
     return this;
   }

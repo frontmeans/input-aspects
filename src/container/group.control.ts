@@ -270,7 +270,8 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
     this.on = this._updates.on.thru(
         (added, removed) => nextArgs(
             added.map(controlEntryToGroupEntry),
-            removed.map(controlEntryToGroupEntry)),
+            removed.map(controlEntryToGroupEntry),
+        ),
     );
     this.read = afterEventBy(
         this._updates.on.thru(

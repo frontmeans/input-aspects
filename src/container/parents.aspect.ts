@@ -118,7 +118,8 @@ class InControlParents extends InParents {
         this._on.on.thru(
             allParents,
         ),
-        () => [allParents()]);
+        () => [allParents()],
+    );
 
     function allParents(): IterableIterator<InParents.Entry> {
       return map.keys();

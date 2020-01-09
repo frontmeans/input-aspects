@@ -31,7 +31,8 @@ export class InElementControl<Value, Elt extends HTMLElement> extends InElement<
       }: {
         get: (this: InElementControl<Value, Elt>) => Value;
         set: (this: InElementControl<Value, Elt>, value: Value) => void;
-      }) {
+      },
+  ) {
     super();
     this._get = get;
     this._set = set;
@@ -39,7 +40,8 @@ export class InElementControl<Value, Elt extends HTMLElement> extends InElement<
     this._update = update;
     this.input = afterSupplied<[InElement.Input<Value>]>(
         this._input.on.thru(asis),
-        () => [{ value: this.it }]);
+        () => [{ value: this.it }],
+    );
     this.on = this._input.on.thru(
         ({ value: newValue }, oldValue) => newValue === oldValue ? nextSkip() : nextArgs(newValue, oldValue),
     );
