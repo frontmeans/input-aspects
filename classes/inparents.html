@@ -64,17 +64,6 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Parents of input control.</p>
-					</div>
-					<p>Reflects all containers the control belongs to. Note that component may belong to multiple containers. Or even
-					to the same container multiple times.</p>
-					<p>Implements <code>EventSender</code> interface by sending arrays of parent entries the control is added to and removed from.</p>
-					<p>Implements <code>EventKeeper</code> interface by sending a snapshot of all parents each time it is updated.</p>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -111,8 +100,9 @@
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="inparents.html#__computed" class="tsd-kind-icon">__computed</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-static"><a href="inparents.html#__computed-1" class="tsd-kind-icon">__computed</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="inparents.html#_afterevent__symbol_" class="tsd-kind-icon">[<wbr>After<wbr>Event__symbol]</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="inparents.html#_onevent__symbol_" class="tsd-kind-icon">[<wbr>OnEvent__symbol]</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-static"><a href="inparents.html#_inaspect__symbol_" class="tsd-kind-icon">[<wbr>InAspect__symbol]</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -132,17 +122,9 @@
 					<div class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/inparents.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/inparents.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/container/parents.aspect.ts#L53">container/parents.aspect.ts:53</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/container/parents.aspect.ts#L53">src/container/parents.aspect.ts:53</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>An <code>OnEvent</code> sender of parent updates.</p>
-						</div>
-						<p>Sends two arrays on each parents update: the first one contains added parent entries, while the second one
-						contains removed parent entries.</p>
-						<p>The <code>[OnEvent__symbol]</code> property is an alias of this one.</p>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="read" class="tsd-anchor"></a>
@@ -150,52 +132,42 @@
 					<div class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/inparents.all.html" class="tsd-signature-type">All</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/container/parents.aspect.ts#L64">container/parents.aspect.ts:64</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/container/parents.aspect.ts#L64">src/container/parents.aspect.ts:64</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>An <code>AfterEvent</code> keeper of control parents.</p>
-						</div>
-						<p>The <code>[AfterEvent__symbol]</code> property is an alias of this one.</p>
-					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="__computed" class="tsd-anchor"></a>
-					<h3>__computed</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> __computed<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/inparents.all.html" class="tsd-signature-type">All</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/container/parents.aspect.ts#L66">container/parents.aspect.ts:66</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/inparents.all.html" class="tsd-signature-type">All</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
+					<a name="_afterevent__symbol_" class="tsd-anchor"></a>
+					<h3>[<wbr>After<wbr>Event__symbol]</h3>
+					<div class="tsd-signature tsd-kind-icon">[<wbr>After<wbr>Event__symbol]<span class="tsd-signature-symbol">:</span> </div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/container/parents.aspect.ts#L66">src/container/parents.aspect.ts:66</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="_onevent__symbol_" class="tsd-anchor"></a>
+					<h3>[<wbr>OnEvent__symbol]</h3>
+					<div class="tsd-signature tsd-kind-icon">[<wbr>OnEvent__symbol]<span class="tsd-signature-symbol">:</span> </div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/container/parents.aspect.ts#L55">src/container/parents.aspect.ts:55</a></li>
+						</ul>
+					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
-					<a name="__computed-1" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> __computed</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> __computed<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InAspect</span><span class="tsd-signature-symbol">&lt;</span><a href="inparents.html" class="tsd-signature-type">InParents</a><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/container/parents.aspect.ts#L41">container/parents.aspect.ts:41</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">InAspect</span><span class="tsd-signature-symbol">&lt;</span><a href="inparents.html" class="tsd-signature-type">InParents</a><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
+					<a name="_inaspect__symbol_" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> [<wbr>InAspect__symbol]</h3>
+					<div class="tsd-signature tsd-kind-icon">[<wbr>InAspect__symbol]<span class="tsd-signature-symbol">:</span> </div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/container/parents.aspect.ts#L41">src/container/parents.aspect.ts:41</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -210,21 +182,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/container/parents.aspect.ts#L77">container/parents.aspect.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/container/parents.aspect.ts#L77">src/container/parents.aspect.ts:77</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Adds the input control to the given parent container under the given key.</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>entry: <a href="../interfaces/inparents.entry.html" class="tsd-signature-type">Entry</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Parent container entry.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventSupply</span></h4>
@@ -262,10 +226,13 @@
 								<a href="inparents.html#read" class="tsd-kind-icon">read</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="inparents.html#__computed" class="tsd-kind-icon">__computed</a>
+								<a href="inparents.html#_afterevent__symbol_" class="tsd-kind-icon">[<wbr>After<wbr>Event__symbol]</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="inparents.html#_onevent__symbol_" class="tsd-kind-icon">[<wbr>OnEvent__symbol]</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
-								<a href="inparents.html#__computed-1" class="tsd-kind-icon">__computed</a>
+								<a href="inparents.html#_inaspect__symbol_" class="tsd-kind-icon">[<wbr>InAspect__symbol]</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="inparents.html#add" class="tsd-kind-icon">add</a>

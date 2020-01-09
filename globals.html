@@ -185,14 +185,9 @@
 					<div class="tsd-signature tsd-kind-icon">In<wbr>Select<span class="tsd-signature-symbol">:</span> <a href="classes/inelement.html" class="tsd-signature-type">InElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">HTMLSelectElement</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/element/select.control.ts#L13">element/select.control.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/element/select.control.ts#L13">src/element/select.control.ts:13</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Select input control.</p>
-						</div>
-					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -200,48 +195,28 @@
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-has-type-parameter">
 					<a name="indata" class="tsd-anchor"></a>
 					<h3>In<wbr>Data</h3>
-					<div class="tsd-signature tsd-kind-icon">In<wbr>Data&lt;Value&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Value extends object ? { [K in keyof Value]?: DataType&lt;Value[K]&gt;; } : Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">In<wbr>Data&lt;Value&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/data/data.aspect.ts#L23">data/data.aspect.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/data/data.aspect.ts#L23">src/data/data.aspect.ts:23</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>A data aspect of the input.</p>
-						</div>
-						<p>Represents input control data that will be submitted.</p>
-						<p>Input data is typically the same as control value with respect to <a href="classes/inmode.html">input mode</a>. I.e. when input mode is
-						<code>off</code> the data is <code>undefined</code>.</p>
-						<p>An aspect interface is an <code>AfterEvent</code> keeper of input data.</p>
-					</div>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
 					<ul class="tsd-type-parameters">
 						<li>
 							<h4>Value</h4>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Input value type.</p>
-								</div>
-							</div>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="instyledelement" class="tsd-anchor"></a>
 					<h3>In<wbr>Styled<wbr>Element</h3>
-					<div class="tsd-signature tsd-kind-icon">In<wbr>Styled<wbr>Element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLElement</span></div>
+					<div class="tsd-signature tsd-kind-icon">In<wbr>Styled<wbr>Element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Element</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/style/styled-element.aspect.ts#L16">style/styled-element.aspect.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/style/styled-element.aspect.ts#L16">src/style/styled-element.aspect.ts:16</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>An input aspect representing HTML element to apply styles to.</p>
-						</div>
-						<p>This is a HTML element for input element control, and <code>null</code> for everything else by default.</p>
-					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -252,14 +227,9 @@
 					<div class="tsd-signature tsd-kind-icon">In<wbr>Aspect__symbol<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">unique symbol</span><span class="tsd-signature-symbol"> =&nbsp;/*#__PURE__*/ Symbol(&#x27;in-aspect&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/aspect.ts#L37">aspect.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/aspect.ts#L37">src/aspect.ts:37</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>A symbol of aspect key property containing a reference to aspect.</p>
-						</div>
-					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -276,27 +246,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/element/checkbox.control.ts#L56">element/checkbox.control.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/element/checkbox.control.ts#L56">src/element/checkbox.control.ts:56</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates an input control for the given checkbox element.</p>
-								</div>
-								<p>The value of checkbox control is:</p>
-								<ul>
-									<li><code>true</code> when checkbox is checked,</li>
-									<li><code>false</code> when it&#39;s not, or</li>
-									<li><code>undefined</code> when it is in intermediate state.</li>
-								</ul>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>element: <span class="tsd-signature-type">HTMLInputElement</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Target checkbox element.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="modules/incheckbox.html" class="tsd-signature-type">InCheckbox</a></h4>
@@ -305,36 +261,22 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/element/checkbox.control.ts#L67">element/checkbox.control.ts:67</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/element/checkbox.control.ts#L67">src/element/checkbox.control.ts:67</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates an input control for the given checkbox element with custom control values.</p>
-								</div>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
 									<h4>Value</h4>
-									<div class="tsd-comment tsd-typography">
-										<p>Input value type.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>element: <span class="tsd-signature-type">HTMLInputElement</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Target checkbox element.</p>
-									</div>
 								</li>
 								<li>
 									<h5>values: <a href="interfaces/incheckbox.values.html" class="tsd-signature-type">Values</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>All possible values of checkbox control.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="modules/incheckbox.html" class="tsd-signature-type">InCheckbox</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -343,31 +285,19 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/element/checkbox.control.ts#L84">element/checkbox.control.ts:84</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/element/checkbox.control.ts#L84">src/element/checkbox.control.ts:84</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates an input control for the given checkbox element with custom checked and unchecked control values.</p>
-								</div>
-								<p>An intermediate checkbox state is represented by <code>undefined</code> control value.</p>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
 									<h4>Value</h4>
-									<div class="tsd-comment tsd-typography">
-										<p>Input value type.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>element: <span class="tsd-signature-type">HTMLInputElement</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Target checkbox element.</p>
-									</div>
 								</li>
 								<li>
 									<h5>__namedParameters: <span class="tsd-signature-type">object</span></h5>
@@ -390,30 +320,19 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/container/group.control.ts#L453">container/group.control.ts:453</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/container/group.control.ts#L484">src/container/group.control.ts:484</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Constructs input controls group.</p>
-								</div>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
 									<h4>Model<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></h4>
-									<div class="tsd-comment tsd-typography">
-										<p>Group model type, i.e. its value type.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>model: <span class="tsd-signature-type">Model</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Initial model of the group.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="classes/ingroup.html" class="tsd-signature-type">InGroup</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Model</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -431,30 +350,19 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/container/list.control.ts#L489">container/list.control.ts:489</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/container/list.control.ts#L504">src/container/list.control.ts:504</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Constructs input controls list.</p>
-								</div>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
 									<h4>Item</h4>
-									<div class="tsd-comment tsd-typography">
-										<p>Model item type.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>model: <span class="tsd-signature-type">keyof Item[]</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Initial model of the list.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="classes/inlist.html" class="tsd-signature-type">InList</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -473,23 +381,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/element/radio.control.ts#L90">element/radio.control.ts:90</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/element/radio.control.ts#L90">src/element/radio.control.ts:90</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates input control for the given radio button element.</p>
-								</div>
-								<p>The created control has <code>true</code> value when radio button is checked.</p>
-								<p>Sets input mode to <code>-on</code> when radio is not checked. Thus making control data <code>undefined</code>.</p>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>element: <span class="tsd-signature-type">HTMLInputElement</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Target radio button element.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="modules/inradio.html" class="tsd-signature-type">InRadio</a></h4>
@@ -498,37 +396,22 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/element/radio.control.ts#L103">element/radio.control.ts:103</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/element/radio.control.ts#L103">src/element/radio.control.ts:103</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates input control for the given radio button element with custom control <code>values</code>.</p>
-								</div>
-								<p>Sets input mode to <code>-on</code> when radio is not checked. Thus making control data <code>undefined</code>.</p>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
 									<h4>Value</h4>
-									<div class="tsd-comment tsd-typography">
-										<p>Input value type.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>element: <span class="tsd-signature-type">HTMLInputElement</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Target radio button element.</p>
-									</div>
 								</li>
 								<li>
 									<h5>values: <a href="interfaces/inradio.values.html" class="tsd-signature-type">Values</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Possible values of radio button control.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="modules/inradio.html" class="tsd-signature-type">InRadio</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -547,31 +430,19 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/element/radio-group.control.ts#L134">element/radio-group.control.ts:134</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/element/radio-group.control.ts#L134">src/element/radio-group.control.ts:134</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates a radio group for the given radio <code>buttons</code>.</p>
-								</div>
-								<p>The created control has <code>undefined</code> value when none of the radio buttons is checked.</p>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
 									<h4>Value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h4>
-									<div class="tsd-comment tsd-typography">
-										<p>Input value type.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>buttons: <a href="modules/inradiogroup.html#buttons" class="tsd-signature-type">Buttons</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Radio buttons map.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="modules/inradiogroup.html" class="tsd-signature-type">InRadioGroup</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -580,36 +451,22 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/element/radio-group.control.ts#L147">element/radio-group.control.ts:147</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/element/radio-group.control.ts#L147">src/element/radio-group.control.ts:147</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates a radio group for the given radio <code>buttons</code> with custom control <code>values</code>.</p>
-								</div>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
 									<h4>Value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
-									<div class="tsd-comment tsd-typography">
-										<p>Input value type.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>buttons: <a href="modules/inradiogroup.html#buttons" class="tsd-signature-type">Buttons</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Radio buttons map.</p>
-									</div>
 								</li>
 								<li>
 									<h5>values: <a href="interfaces/inradiogroup.values.html" class="tsd-signature-type">Values</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Possible values of radio group control.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="modules/inradiogroup.html" class="tsd-signature-type">InRadioGroup</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -627,23 +484,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/element/select.control.ts#L26">element/select.control.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/element/select.control.ts#L26">src/element/select.control.ts:26</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates input control for the given select element.</p>
-								</div>
-								<p>The value of this control is an array of selected option values. This is particularly useful for <code>&lt;select multiple&gt;</code>
-								elements. Consider to use <code>inText()</code> for single-selects.</p>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>element: <span class="tsd-signature-type">HTMLSelectElement</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Target select element.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="globals.html#inselect" class="tsd-signature-type">InSelect</a></h4>
@@ -661,23 +508,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/element/text.control.ts#L37">element/text.control.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/element/text.control.ts#L37">src/element/text.control.ts:37</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates control for the given textual input element.</p>
-								</div>
-								<p>Note that this won&#39;t work for files, checkboxes, or radio buttons.</p>
-								<p>For <code>&lt;select multiple&gt;</code> this would only reflect the first option. Consider to use <code>inSelect()</code> for multi-selects.</p>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>element: <a href="modules/intext.html#element" class="tsd-signature-type">Element</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Target text input element.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="modules/intext.html" class="tsd-signature-type">InText</a></h4>
@@ -695,31 +532,19 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/value.ts#L18">value.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/value.ts#L18">src/value.ts:18</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Constructs simple input control.</p>
-								</div>
-								<p>This control does not handle actual user input. Instead, it maintains the value set programmatically.</p>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
 									<h4>Value</h4>
-									<div class="tsd-comment tsd-typography">
-										<p>Input value type.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>initial: <span class="tsd-signature-type">Value</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Initial input value.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="classes/incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -735,41 +560,28 @@
 					<h3>in<wbr>Validation<wbr>Result</h3>
 					<ul class="tsd-signatures tsd-kind-function">
 						<li class="tsd-signature tsd-kind-icon">in<wbr>Validation<wbr>Result<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="interfaces/invalidation.ok.html" class="tsd-signature-type">Ok</a></li>
-						<li class="tsd-signature tsd-kind-icon">in<wbr>Validation<wbr>Result<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>messages<span class="tsd-signature-symbol">: </span><a href="interfaces/invalidation.message.html" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="interfaces/invalidation.result.html" class="tsd-signature-type">Result</a></li>
+						<li class="tsd-signature tsd-kind-icon">in<wbr>Validation<wbr>Result<span class="tsd-signature-symbol">(</span>messages<span class="tsd-signature-symbol">: </span><a href="interfaces/invalidation.message.html" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="interfaces/invalidation.result.html" class="tsd-signature-type">Result</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/validation/validation.aspect.ts#L293">validation/validation.aspect.ts:293</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/validation/validation.aspect.ts#L293">src/validation/validation.aspect.ts:293</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns successful input validation result.</p>
-								</div>
-							</div>
 							<h4 class="tsd-returns-title">Returns <a href="interfaces/invalidation.ok.html" class="tsd-signature-type">Ok</a></h4>
 							<p>Successful input validation result.</p>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/validation/validation.aspect.ts#L302">validation/validation.aspect.ts:302</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/validation/validation.aspect.ts#L302">src/validation/validation.aspect.ts:302</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates input validation result out of validation messages.</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>messages: <a href="interfaces/invalidation.message.html" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">[]</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Input validation messages.</p>
-									</div>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> messages: <a href="interfaces/invalidation.message.html" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="interfaces/invalidation.result.html" class="tsd-signature-type">Result</a></h4>
@@ -787,30 +599,19 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/validation/validator.ts#L62">validation/validator.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/validation/validator.ts#L62">src/validation/validator.ts:62</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Converts arbitrary input validator to normalized form.</p>
-								</div>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
 									<h4>Value</h4>
-									<div class="tsd-comment tsd-typography">
-										<p>Input value type.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>validator: <a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Validator to convert.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">function</span></h4>
@@ -844,20 +645,15 @@
 					<a name="requireall" class="tsd-anchor"></a>
 					<h3>require<wbr>All</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">require<wbr>All&lt;Value&gt;<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>validators<span class="tsd-signature-symbol">: </span><a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">require<wbr>All&lt;Value&gt;<span class="tsd-signature-symbol">(</span>validators<span class="tsd-signature-symbol">: </span><a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/validation/require-all.validator.ts#L17">validation/require-all.validator.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/validation/require-all.validator.ts#L17">src/validation/require-all.validator.ts:17</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates input validator that validates using all listed validators.</p>
-								</div>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -867,10 +663,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>validators: <a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Validators to validate the input with.</p>
-									</div>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> validators: <a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -882,35 +675,22 @@
 					<a name="requirelength" class="tsd-anchor"></a>
 					<h3>require<wbr>Length</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">require<wbr>Length<span class="tsd-signature-symbol">(</span>min<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, max<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">require<wbr>Length<span class="tsd-signature-symbol">(</span>min<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, max<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/validation/require-length.validator.ts#L19">validation/require-length.validator.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/validation/require-length.validator.ts#L19">src/validation/require-length.validator.ts:19</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates input validator that applies requirements on input text length.</p>
-								</div>
-								<p>Ignores empty input. Reports too short values with <code>incomplete</code> and <code>tooShort</code> message codes. Reports too long values
-								with <code>invalid</code> and <code>tooLong</code> message codes.</p>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>min: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Required minimum length. Not checked if omitted.</p>
-									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> max: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Required maximum length. Not checked if omitted.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -922,28 +702,15 @@
 					<a name="requireneeded" class="tsd-anchor"></a>
 					<h3>require<wbr>Needed</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">require<wbr>Needed&lt;Value&gt;<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>validators<span class="tsd-signature-symbol">: </span><a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">require<wbr>Needed&lt;Value&gt;<span class="tsd-signature-symbol">(</span>validators<span class="tsd-signature-symbol">: </span><a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/validation/require-needed.validator.ts#L26">validation/require-needed.validator.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/validation/require-needed.validator.ts#L26">src/validation/require-needed.validator.ts:26</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Constructs input validator that filters validation messages from the given <code>validators</code> according to their codes.</p>
-								</div>
-								<p>The validation messages reported by <code>validators</code> are filtered according to the following rules:</p>
-								<ul>
-									<li>If at least one message with <code>missing</code> code is reported, then strip out the ones with <code>incomplete</code> and <code>invalid</code>
-									codes, except the ones with <code>despiteMissing</code> code.</li>
-									<li>Otherwise, if at least one message with <code>incomplete</code> code is reported, then strip out the ones with <code>invalid</code>
-									code, except the ones with <code>despiteIncomplete</code> code.</li>
-									<li>Otherwise report all messages.</li>
-								</ul>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -953,10 +720,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>validators: <a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Validators to validate the input with.</p>
-									</div>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> validators: <a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -974,14 +738,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/validation/require-nothing.validator.ts#L13">validation/require-nothing.validator.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/validation/require-nothing.validator.ts#L13">src/validation/require-nothing.validator.ts:13</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Input validator that requires nothing.</p>
-								</div>
-							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
@@ -997,29 +756,17 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/validation/require-present.validator.ts#L17">validation/require-present.validator.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/validation/require-present.validator.ts#L17">src/validation/require-present.validator.ts:17</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates input validator that requires value to present.</p>
-								</div>
-								<p>Reports empty (falsy) values with <code>missing</code> message code.</p>
-							</div>
 							<h4 class="tsd-returns-title">Returns <a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/validation/require-present.validator.ts#L24">validation/require-present.validator.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/validation/require-present.validator.ts#L24">src/validation/require-present.validator.ts:24</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Input validator that requires value to present.</p>
-								</div>
-								<p>Reports empty (falsy) values with <code>missing</code> message code.</p>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1034,35 +781,22 @@
 					<a name="requirerange" class="tsd-anchor"></a>
 					<h3>require<wbr>Range</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">require<wbr>Range<span class="tsd-signature-symbol">(</span>min<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, max<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">require<wbr>Range<span class="tsd-signature-symbol">(</span>min<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span>, max<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/validation/require-range.validator.ts#L19">validation/require-range.validator.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/validation/require-range.validator.ts#L19">src/validation/require-range.validator.ts:19</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates input validator that applies requirements to numeric value range.</p>
-								</div>
-								<p>Ignores NaN input. Reports too small values with <code>invalid</code> and <code>tooSmall</code> message codes. Reports too large values
-								with <code>invalid</code> and <code>tooLarge</code> message codes.</p>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>min: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Minimum allowed value, inclusive. Not checked if omitted.</p>
-									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> max: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Maximum allowed value, inclusive. Not checked if omitted.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="modules/invalidator.html" class="tsd-signature-type">InValidator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1083,33 +817,19 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/conversion/into-fallback.ts#L18">conversion/into-fallback.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/conversion/into-fallback.ts#L18">src/conversion/into-fallback.ts:18</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates a converter that converts an input control to the one replacing <code>undefined</code> value with fallback one.</p>
-								</div>
-								<p>Treats <code>null</code> values as <code>undefined</code>. Despite the signature does not allow nulls they are often used instead.
-								E.g. when receiving JSON from server.</p>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
 									<h4>Value</h4>
-									<div class="tsd-comment tsd-typography">
-										<p>Input value type.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>fallback: <span class="tsd-signature-type">Value</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>A fallback value that is used instead of original one when <code>undefined</code> (or<code>null</code>) is assigned
-										to converted control.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="classes/incontrol.html#converter" class="tsd-signature-type">Converter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1120,32 +840,20 @@
 					<a name="intointeger" class="tsd-anchor"></a>
 					<h3>into<wbr>Integer</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">into<wbr>Integer<span class="tsd-signature-symbol">(</span>radix<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="classes/incontrol.html#converter" class="tsd-signature-type">Converter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">into<wbr>Integer<span class="tsd-signature-symbol">(</span>radix<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="classes/incontrol.html#converter" class="tsd-signature-type">Converter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
 						<li class="tsd-signature tsd-kind-icon">into<wbr>Integer<span class="tsd-signature-symbol">(</span>from<span class="tsd-signature-symbol">: </span><a href="classes/incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span>, to<span class="tsd-signature-symbol">: </span><a href="classes/incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="interfaces/incontrol.converters.html" class="tsd-signature-type">Converters</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/conversion/into-integer.ts#L22">conversion/into-integer.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/conversion/into-integer.ts#L22">src/conversion/into-integer.ts:22</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates an input control converter that converts string values to integer ones.</p>
-								</div>
-								<p>Parses the input string using <code>parseInt()</code> function. And floors numbers assigned to converted control.</p>
-								<p>Can be applied to input controls with string values only.</p>
-								<p>Reports invalid numbers with <code>invalid</code>, <code>NaN</code>, and <code>notInteger</code> message codes.</p>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> radix: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>An integer in the range 2 through 36 specifying the base to use for representing numeric values.
-										<code>10</code> by default.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="classes/incontrol.html#converter" class="tsd-signature-type">Converter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1153,17 +861,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/conversion/into-integer.ts#L33">conversion/into-integer.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/conversion/into-integer.ts#L33">src/conversion/into-integer.ts:33</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Input control converter that converts string values to integer ones with radix of 10.</p>
-								</div>
-								<p>Parses the input string using <code>parseInt()</code> function. And floors numbers assigned to converted control.</p>
-								<p>Can be applied to input controls with string values only.</p>
-								<p>Reports invalid numbers with <code>invalid</code>, <code>NaN</code>, and <code>notInteger</code> message codes.</p>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1181,20 +881,15 @@
 					<a name="intoparsedby" class="tsd-anchor"></a>
 					<h3>into<wbr>Parsed<wbr>By</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">into<wbr>Parsed<wbr>By&lt;Value&gt;<span class="tsd-signature-symbol">(</span>parse<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, format<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="classes/incontrol.html#converter" class="tsd-signature-type">Converter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">into<wbr>Parsed<wbr>By&lt;Value&gt;<span class="tsd-signature-symbol">(</span>parse<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, format<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="classes/incontrol.html#converter" class="tsd-signature-type">Converter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/conversion/parser.ts#L114">conversion/parser.ts:114</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/conversion/parser.ts#L114">src/conversion/parser.ts:114</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates text input control converter that parses and formats input text with the given functions.</p>
-								</div>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -1205,9 +900,6 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>parse: <span class="tsd-signature-type">function</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Text parser function. Accepts input text and parse errors as its parameters and returns parsed value.</p>
-									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
 											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
@@ -1235,10 +927,6 @@
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> format: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Text formatter. Accepts value is its only parameter and returns formatted text. Standard to string
-										conversion is used if omitted.</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="classes/incontrol.html#converter" class="tsd-signature-type">Converter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1257,31 +945,17 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/conversion/into-trimmed.ts#L15">conversion/into-trimmed.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/conversion/into-trimmed.ts#L15">src/conversion/into-trimmed.ts:15</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates input control converter that trims input values.</p>
-								</div>
-								<p>Removes leading and trailing white space of input values using <code>Spring.prototype.trim()</code> method.</p>
-								<p>Can be applied to input controls with string values only.</p>
-							</div>
 							<h4 class="tsd-returns-title">Returns <a href="classes/incontrol.html#converter" class="tsd-signature-type">Converter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/conversion/into-trimmed.ts#L24">conversion/into-trimmed.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/conversion/into-trimmed.ts#L24">src/conversion/into-trimmed.ts:24</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Input control converter that trims input values.</p>
-								</div>
-								<p>Removes leading and trailing white space of input values using <code>Spring.prototype.trim()</code> method.</p>
-								<p>Can be applied to input controls with string values only.</p>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1305,16 +979,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/style/into-wrapper.ts#L19">style/into-wrapper.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/style/into-wrapper.ts#L19">src/style/into-wrapper.ts:19</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Creates input control converter that converts arbitrary control to the one with the given styled <code>element</code>.</p>
-								</div>
-								<p>This is useful for controls without elements (such as input groups), or can be used to apply CSS classes to input
-								element wrappers (such as <code>form-group</code> in Bootstrap).</p>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -1325,8 +992,6 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>element: <a href="globals.html#instyledelement" class="tsd-signature-type">InStyledElement</a></h5>
-									<div class="tsd-comment tsd-typography">
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="classes/incontrol.html#converter" class="tsd-signature-type">Converter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1346,25 +1011,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/style/css-info.ts#L28">style/css-info.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/style/css-info.ts#L28">src/style/css-info.ts:28</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>A source of informative CSS classes.</p>
-								</div>
-								<p>Generates the following CSS classes:</p>
-								<ul>
-									<li><code>disabled</code> when input control is disabled (i.e. has no data).</li>
-									<li><code>readonly</code> when input control is read-only,</li>
-									<li><code>invalid</code> when input control validation failed,</li>
-									<li><code>missing</code> when there are validation messages with <code>missing</code> code,</li>
-									<li><code>incomplete</code> when there are validation messages with <code>incomplete</code>,</li>
-									<li><code>hasFocus</code> when input control has input focus,</li>
-									<li><code>touched</code> when input control is touched (i.e. had focus already),</li>
-									<li><code>edited</code> when input control is edited by user.</li>
-								</ul>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1386,27 +1035,18 @@
 					<div class="tsd-signature tsd-kind-icon">In<wbr>Styled<wbr>Element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/style/styled-element.aspect.ts#L32">style/styled-element.aspect.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/style/styled-element.aspect.ts#L32">src/style/styled-element.aspect.ts:32</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-					</div>
 					<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-object-literal">
-						<a name="instyledelement.__computed" class="tsd-anchor"></a>
-						<h3>__computed</h3>
-						<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-object-literal">
-							<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> __computed<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InAspect</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"default"</span><span class="tsd-signature-symbol">&gt;</span></li>
-						</ul>
-						<ul class="tsd-descriptions">
-							<li class="tsd-description">
-								<aside class="tsd-sources">
-									<ul>
-										<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/style/styled-element.aspect.ts#L34">style/styled-element.aspect.ts:34</a></li>
-									</ul>
-								</aside>
-								<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">InAspect</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"default"</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							</li>
-						</ul>
+						<a name="instyledelement._inaspect__symbol_" class="tsd-anchor"></a>
+						<h3>[<wbr>InAspect__symbol]</h3>
+						<div class="tsd-signature tsd-kind-icon">[<wbr>InAspect__symbol]<span class="tsd-signature-symbol">:</span> </div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/style/styled-element.aspect.ts#L34">src/style/styled-element.aspect.ts:34</a></li>
+							</ul>
+						</aside>
 					</section>
 				</section>
 			</section>
@@ -1418,28 +1058,15 @@
 					<div class="tsd-signature tsd-kind-icon">In<wbr>Parser&lt;Value&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/conversion/parser.ts#L20">conversion/parser.ts:20</a></li>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/conversion/parser.ts#L37">conversion/parser.ts:37</a></li>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/conversion/parser.ts#L57">conversion/parser.ts:57</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/conversion/parser.ts#L20">src/conversion/parser.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/conversion/parser.ts#L37">src/conversion/parser.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/conversion/parser.ts#L57">src/conversion/parser.ts:57</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Input text parser.</p>
-						</div>
-						<p>In addition to conversion from text to value and backward, it also able to report parse errors as validation
-						messages.</p>
-						<p>To convert input parser to control converter use <code>InParser.converter()</code> function.</p>
-					</div>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
 					<ul class="tsd-type-parameters">
 						<li>
 							<h4>Value</h4>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Parsed value type.</p>
-								</div>
-							</div>
 						</li>
 					</ul>
 					<section class="tsd-panel tsd-member tsd-kind-interface tsd-parent-kind-object-literal">
@@ -1448,40 +1075,26 @@
 						<div class="tsd-signature tsd-kind-icon">Errors<span class="tsd-signature-symbol">:</span> </div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/conversion/parser.ts#L44">conversion/parser.ts:44</a></li>
+								<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/conversion/parser.ts#L44">src/conversion/parser.ts:44</a></li>
 							</ul>
 						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Parse errors.</p>
-							</div>
-							<p>An instance of this interface is passed to text parser function. It can be used to report parse errors.</p>
-						</div>
 						<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 							<a name="inparser.errors.report" class="tsd-anchor"></a>
 							<h3>report</h3>
 							<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-								<li class="tsd-signature tsd-kind-icon">report<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>errors<span class="tsd-signature-symbol">: </span><a href="interfaces/invalidation.message.html" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								<li class="tsd-signature tsd-kind-icon">report<span class="tsd-signature-symbol">(</span>errors<span class="tsd-signature-symbol">: </span><a href="interfaces/invalidation.message.html" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 							</ul>
 							<ul class="tsd-descriptions">
 								<li class="tsd-description">
 									<aside class="tsd-sources">
 										<ul>
-											<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/conversion/parser.ts#L51">conversion/parser.ts:51</a></li>
+											<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/conversion/parser.ts#L51">src/conversion/parser.ts:51</a></li>
 										</ul>
 									</aside>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>Appends parse errors.</p>
-										</div>
-									</div>
 									<h4 class="tsd-parameters-title">Parameters</h4>
 									<ul class="tsd-parameters">
 										<li>
-											<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>errors: <a href="interfaces/invalidation.message.html" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">[]</span></h5>
-											<div class="tsd-comment tsd-typography">
-												<p>Validation messages representing errors to report.</p>
-											</div>
+											<h5><span class="tsd-flag ts-flagRest">Rest</span> errors: <a href="interfaces/invalidation.message.html" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">[]</span></h5>
 										</li>
 									</ul>
 									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1499,14 +1112,9 @@
 							<li class="tsd-description">
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/surol/input-aspects/blob/a5d80b3/src/conversion/parser.ts#L66">conversion/parser.ts:66</a></li>
+										<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/conversion/parser.ts#L66">src/conversion/parser.ts:66</a></li>
 									</ul>
 								</aside>
-								<div class="tsd-comment tsd-typography">
-									<div class="lead">
-										<p>Creates input control converter out of input text parser.</p>
-									</div>
-								</div>
 								<h4 class="tsd-type-parameters-title">Type parameters</h4>
 								<ul class="tsd-type-parameters">
 									<li>
@@ -1517,9 +1125,6 @@
 								<ul class="tsd-parameters">
 									<li>
 										<h5>parser: <a href="globals.html#inparser" class="tsd-signature-type">InParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h5>
-										<div class="tsd-comment tsd-typography">
-											<p>A parser to convert.</p>
-										</div>
 									</li>
 								</ul>
 								<h4 class="tsd-returns-title">Returns <a href="classes/incontrol.html#converter" class="tsd-signature-type">Converter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h4>
