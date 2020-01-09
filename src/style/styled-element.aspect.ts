@@ -13,7 +13,7 @@ import { InElement } from '../element.control';
  *
  * @category Aspect
  */
-export type InStyledElement = HTMLElement;
+export type InStyledElement = Element;
 
 const InStyledElement__aspect: InAspect<InStyledElement | null> = {
 
