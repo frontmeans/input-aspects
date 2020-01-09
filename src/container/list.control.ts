@@ -171,6 +171,15 @@ export abstract class InListControls<Item>
    */
   abstract splice(start: number, deleteCount: number, ...controls: InControl<Item>[]): this;
 
+  /**
+   * Removes all input controls.
+   *
+   * @returns `this` controls instance.
+   */
+  clear(): this {
+    return this.splice(0);
+  }
+
 }
 
 export interface InListControls<Item> {

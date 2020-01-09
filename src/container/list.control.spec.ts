@@ -221,6 +221,23 @@ describe('InList', () => {
       });
     });
 
+    describe('clear', () => {
+      beforeEach(() => {
+        expect(list.controls.clear()).toBe(list.controls);
+      });
+
+      it('removes all controls', () => {
+        expect(snapshot.length).toBe(0);
+        expect([...snapshot]).toHaveLength(0);
+      });
+      it('sends update', () => {
+        expect(onUpdate).toHaveBeenCalledWith([], initControls.map((ctrl, i) => [i, ctrl]));
+      });
+      it('updates model', () => {
+        expect(list.it).toHaveLength(0);
+      });
+    });
+
     describe('control removal', () => {
       beforeEach(() => {
         initControls[1].done();
