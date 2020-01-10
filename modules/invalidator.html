@@ -64,11 +64,28 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Input validator.</p>
+					</div>
+					<p>Validator can be added to input validation aspect using <code>InValidation.by()</code> method. After that all validation
+						messages it sends are reported by validation aspect. Multiple messages could be sent at a time. These messages
+					replace the previously sent ones. To report the absence of error just send an empty event without messages.</p>
+					<p>This can be one either a validation messages event keeper, a function returning one and accepting input control
+					as its only parameter, or simple validator instance.</p>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-type-parameters">
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
 						<h4>Value</h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Input value type.</p>
+							</div>
+						</div>
 					</li>
 				</ul>
 			</section>

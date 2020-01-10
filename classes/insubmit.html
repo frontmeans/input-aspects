@@ -64,11 +64,25 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Input submit aspect.</p>
+					</div>
+					<p>Allows to submit <a href="../globals.html#indata">input data</a> and reports submit status.</p>
+					<p>Implements an <code>EventKeeper</code> interface by sending submit status flags to registered receivers.</p>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-type-parameters">
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
 						<h4>Value</h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Input value type.</p>
+							</div>
+						</div>
 					</li>
 				</ul>
 			</section>
@@ -133,16 +147,35 @@
 					<div class="tsd-signature tsd-kind-icon">Submitter&lt;Value, Result&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/submit.aspect.ts#L176">src/submit.aspect.ts:176</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/6c79fb7/src/submit.aspect.ts#L176">src/submit.aspect.ts:176</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Input submitter function interface.</p>
+						</div>
+						<p>A submitter is passed to <code>InSubmit.submit()</code> method to perform the actual submit.</p>
+						<p>A submit failure (a returned promise rejection) is reported as validation messages. This can be either a
+							[InSubmitError], or arbitrary error. Previously reported submit messages are replaced by the reported ones,
+						and cleared on a new submit.</p>
+					</div>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
 					<ul class="tsd-type-parameters">
 						<li>
 							<h4>Value</h4>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Input value type.</p>
+								</div>
+							</div>
 						</li>
 						<li>
 							<h4>Result</h4>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Submit result value type.</p>
+								</div>
+							</div>
 						</li>
 					</ul>
 					<div class="tsd-type-declaration">
@@ -154,13 +187,25 @@
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
+										<div class="tsd-comment tsd-typography">
+										</div>
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
 												<h5>data: <span class="tsd-signature-type">Value extends undefined ? never : Value</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<div class="lead">
+														<p>Input data to submit.</p>
+													</div>
+												</div>
 											</li>
 											<li>
 												<h5>control: <a href="incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<div class="lead">
+														<p>Input control the submit is performed for.</p>
+													</div>
+												</div>
 											</li>
 										</ul>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Result</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -180,9 +225,15 @@
 					<div class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/insubmit.flags.html" class="tsd-signature-type">Flags</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/submit.aspect.ts#L92">src/submit.aspect.ts:92</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/6c79fb7/src/submit.aspect.ts#L92">src/submit.aspect.ts:92</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An <code>AfterEvent</code> keeper of submit status flag.</p>
+						</div>
+						<p>The <code>[AfterEvent__symbol]</code> property is an alias of this one.</p>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -190,22 +241,36 @@
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
 					<a name="_afterevent__symbol_" class="tsd-anchor"></a>
 					<h3>[<wbr>After<wbr>Event__symbol]</h3>
-					<div class="tsd-signature tsd-kind-icon">[<wbr>After<wbr>Event__symbol]<span class="tsd-signature-symbol">:</span> </div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/submit.aspect.ts#L94">src/submit.aspect.ts:94</a></li>
-						</ul>
-					</aside>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> [AfterEvent__symbol]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/insubmit.flags.html" class="tsd-signature-type">Flags</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/6c79fb7/src/submit.aspect.ts#L94">src/submit.aspect.ts:94</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/insubmit.flags.html" class="tsd-signature-type">Flags</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
 					<a name="_inaspect__symbol_" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> [<wbr>InAspect__symbol]</h3>
-					<div class="tsd-signature tsd-kind-icon">[<wbr>InAspect__symbol]<span class="tsd-signature-symbol">:</span> </div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/submit.aspect.ts#L83">src/submit.aspect.ts:83</a></li>
-						</ul>
-					</aside>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> [InAspect__symbol]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InAspect</span><span class="tsd-signature-symbol">&lt;</span><a href="insubmit.html" class="tsd-signature-type">InSubmit</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"submit"</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/6c79fb7/src/submit.aspect.ts#L83">src/submit.aspect.ts:83</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">InAspect</span><span class="tsd-signature-symbol">&lt;</span><a href="insubmit.html" class="tsd-signature-type">InSubmit</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"submit"</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -220,9 +285,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/submit.aspect.ts#L124">src/submit.aspect.ts:124</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/6c79fb7/src/submit.aspect.ts#L124">src/submit.aspect.ts:124</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Resets the submit.</p>
+								</div>
+								<p>Clears submit failure messages. Resets <code>submitted</code> flag.</p>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -237,9 +308,39 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/submit.aspect.ts#L117">src/submit.aspect.ts:117</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/6c79fb7/src/submit.aspect.ts#L117">src/submit.aspect.ts:117</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Attempts to submit the input data.</p>
+								</div>
+								<ol>
+									<li>Sets <code>submitted</code> status flag.</li>
+									<li><ol>
+											<li>Rejects to submit if <code>busy</code> status flag is set, or if <code>ready</code> status flag is not set with
+												[InSubmitRejectedError].
+											Note that the latter mey be reset after the step 1. So this check is performed asynchronously.</li>
+										</ol>
+									</li>
+									<li><ol start="2">
+											<li>Otherwise, sets the <code>busy</code> status flag.</li>
+										</ol>
+									</li>
+									<li>Clears submit failure messages.</li>
+									<li>Calls <code>submitter</code> function.</li>
+									<li>Waits for the promise returned by <code>submitter</code> to resolve.</li>
+									<li><ol>
+											<li>Resolves the result promise if submit were successful.</li>
+										</ol>
+									</li>
+									<li><ol start="2">
+											<li>Otherwise, reports submit failure messages.</li>
+										</ol>
+									</li>
+									<li>Rejects the result promise.</li>
+								</ol>
+							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -250,6 +351,9 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>submitter: <a href="insubmit.html#submitter" class="tsd-signature-type">Submitter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Result</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A submitter function that performs actual submit.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Result</span><span class="tsd-signature-symbol">&gt;</span></h4>

@@ -67,6 +67,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Unsuccessful input validation result.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -110,7 +117,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides <a href="invalidation.result.html">Result</a>.<a href="invalidation.result.html#ok">ok</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/validation/validation.aspect.ts#L214">src/validation/validation.aspect.ts:214</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/6c79fb7/src/validation/validation.aspect.ts#L221">src/validation/validation.aspect.ts:221</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -121,7 +128,7 @@
 					<a name="_symbol_iterator_" class="tsd-anchor"></a>
 					<h3>[<wbr>Symbol.iterator]</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-overwrite tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">[<wbr>Symbol.iterator]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><a href="invalidation.message.html" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">[<wbr>Symbol.iterator]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/invalidation.html#message" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -129,10 +136,10 @@
 								<p>Inherited from <a href="invalidation.result.html">Result</a>.<a href="invalidation.result.html#_symbol_iterator_">[Symbol.iterator]</a></p>
 								<p>Overrides Iterable.[Symbol.iterator]</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/validation/validation.aspect.ts#L196">src/validation/validation.aspect.ts:196</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/6c79fb7/src/validation/validation.aspect.ts#L203">src/validation/validation.aspect.ts:203</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><a href="invalidation.message.html" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/invalidation.html#message" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -140,20 +147,28 @@
 					<a name="has" class="tsd-anchor"></a>
 					<h3>has</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">has<span class="tsd-signature-symbol">(</span>code<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">has<span class="tsd-signature-symbol">(</span>code<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="invalidation.result.html">Result</a>.<a href="invalidation.result.html#has">has</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/validation/validation.aspect.ts#L194">src/validation/validation.aspect.ts:194</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/6c79fb7/src/validation/validation.aspect.ts#L201">src/validation/validation.aspect.ts:201</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Checks whether there are errors with the given code.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> code: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Target code. Any message matches when absent.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -165,20 +180,28 @@
 					<a name="messages" class="tsd-anchor"></a>
 					<h3>messages</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">messages<span class="tsd-signature-symbol">(</span>code<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">keyof Message[]</span></li>
+						<li class="tsd-signature tsd-kind-icon">messages<span class="tsd-signature-symbol">(</span>code<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">keyof Message[]</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="invalidation.result.html">Result</a>.<a href="invalidation.result.html#messages">messages</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/validation/validation.aspect.ts#L185">src/validation/validation.aspect.ts:185</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/6c79fb7/src/validation/validation.aspect.ts#L192">src/validation/validation.aspect.ts:192</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns messages with the given code.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> code: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Target code. All messages reported when absent.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">keyof Message[]</span></h4>
@@ -221,13 +244,16 @@
 								</ul>
 							</li>
 							<li class=" tsd-kind-interface tsd-parent-kind-class">
-								<a href="invalidation.message.html" class="tsd-kind-icon">Message</a>
+								<a href="invalidation.genericmessage.html" class="tsd-kind-icon">Generic<wbr>Message</a>
 							</li>
 							<li class=" tsd-kind-interface tsd-parent-kind-class">
 								<a href="invalidation.ok.html" class="tsd-kind-icon">Ok</a>
 							</li>
 							<li class=" tsd-kind-interface tsd-parent-kind-class">
 								<a href="invalidation.result.html" class="tsd-kind-icon">Result</a>
+							</li>
+							<li class=" tsd-kind-type-alias tsd-parent-kind-class tsd-is-static">
+								<a href="../classes/invalidation.html#message" class="tsd-kind-icon">Message</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="../classes/invalidation.html#read" class="tsd-kind-icon">read</a>

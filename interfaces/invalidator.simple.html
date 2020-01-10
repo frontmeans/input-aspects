@@ -67,11 +67,23 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Simple input validator.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-type-parameters">
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
 						<h4>Value</h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Input value type.</p>
+							</div>
+						</div>
 					</li>
 				</ul>
 			</section>
@@ -102,24 +114,34 @@
 					<a name="validate" class="tsd-anchor"></a>
 					<h3>validate</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">validate<span class="tsd-signature-symbol">(</span>control<span class="tsd-signature-symbol">: </span><a href="../classes/incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="invalidation.message.html" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol"> | </span><a href="invalidation.message.html" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+						<li class="tsd-signature tsd-kind-icon">validate<span class="tsd-signature-symbol">(</span>control<span class="tsd-signature-symbol">: </span><a href="../classes/incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/invalidation.html#message" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol"> | </span><a href="../classes/invalidation.html#message" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/1f4c6a8/src/validation/validator.ts#L46">src/validation/validator.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/6c79fb7/src/validation/validator.ts#L46">src/validation/validator.ts:46</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Validates the user input.</p>
+								</div>
+								<p>This method is called each time input value changes. The returned messages then reported by input validation
+								aspect.</p>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>control: <a href="../classes/incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Input control to validate.</p>
+									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="invalidation.message.html" class="tsd-signature-type">Message</a>
+							<h4 class="tsd-returns-title">Returns <a href="../classes/invalidation.html#message" class="tsd-signature-type">Message</a>
 								<span class="tsd-signature-symbol"> | </span>
-								<a href="invalidation.message.html" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">[]</span>
+								<a href="../classes/invalidation.html#message" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">[]</span>
 								<span class="tsd-signature-symbol"> | </span>
 								<span class="tsd-signature-type">null</span>
 								<span class="tsd-signature-symbol"> | </span>
