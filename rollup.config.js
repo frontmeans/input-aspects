@@ -19,7 +19,10 @@ export default {
     sourcemaps(),
   ],
   input: './src/index.ts',
-  external: Object.keys(pkg.peerDependencies),
+  external: [
+    ...Object.keys(pkg.peerDependencies),
+    ...Object.keys(pkg.dependencies),
+  ],
   output: [
     {
       file: pkg.main,

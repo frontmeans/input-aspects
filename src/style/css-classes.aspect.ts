@@ -1,8 +1,9 @@
 /**
  * @module input-aspects
  */
-import { filterIt, itsEach, mapIt, overEntries } from 'a-iterable';
+import { filterIt, itsEach, ObjectEntry, overEntries } from 'a-iterable';
 import { noop, valueProvider } from 'call-thru';
+import { DeltaSet } from 'delta-set';
 import {
   afterEach,
   AfterEvent,
@@ -97,16 +98,16 @@ export namespace InCssClasses {
       | ((control: InControl<any>) => EventKeeper<[InCssClasses.Map]>);
 
   /**
-   * A map CSS class names to apply to styled element.
+   * A map of CSS class names to apply to styled element.
    *
-   * The keys of this map are class names tpo apply.
+   * The keys of this map are class names to apply.
    * - When the value is `true` corresponding class name will be added.
    * - When the value is `false` corresponding class name will not be added.
    * - The `undefined` value is ignored.
    */
-  export interface Map {
-    readonly [name: string]: boolean | undefined;
-  }
+  export type Map = {
+    readonly [name in string]?: boolean;
+  };
 
 }
 
@@ -123,8 +124,7 @@ function isUnsubscribeReason(reason: any): reason is UnsubscribeReason {
 class InControlCssClasses extends InCssClasses {
 
   readonly read: AfterEvent<[InCssClasses.Map]>;
-  private readonly _sources: ValueTracker<[Map<AfterEvent<[InCssClasses.Map]>, EventSupply>]> =
-      trackValue([new Map()]);
+  private readonly _sources: ValueTracker<[Map<AfterEvent<[InCssClasses.Map]>, EventSupply>]> = trackValue([new Map()]);
 
   constructor(private readonly _control: InControl<any>) {
     super();
@@ -195,31 +195,26 @@ class InControlCssClasses extends InCssClasses {
   applyTo(element: Element): EventSupply {
 
     const { classList } = element;
-    const applied = new Set<string>();
-    const removeClasses = (toRemove: Set<string>) => toRemove.forEach(name => {
-      classList.remove(name);
-      applied.delete(name);
-    });
+    const classes = new DeltaSet<string>();
+    const applyClasses = () => classes.redelta({
+      add: name => classList.add(name),
+      delete: name => classList.remove(name),
+    }).undelta();
 
     return this.read(map => {
-
-      const toRemove = new Set<string>(applied);
-      const toAdd = new Set<string>(
-          mapIt(
-              filterIt(
-                  overEntries(map),
-                  ([name, flag]) => !!flag && !toRemove.delete(name as string),
-              ),
-              ([name]) => name as string,
+      classes.clear();
+      itsEach(
+          filterIt<ObjectEntry<InCssClasses.Map>>(
+              overEntries<InCssClasses.Map>(map),
+              ([, flag]) => !!flag,
           ),
+          ([name]) => classes.add(name),
       );
-
-      removeClasses(toRemove);
-      toAdd.forEach(name => {
-        classList.add(name);
-        applied.add(name);
-      });
-    }).whenOff(() => removeClasses(applied));
+      applyClasses();
+    }).whenOff(() => {
+      classes.clear();
+      applyClasses();
+    });
   }
 
   done(reason?: any): this {
