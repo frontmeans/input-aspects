@@ -7,7 +7,7 @@ import { InControl } from '../control';
 import { InElement } from '../element.control';
 
 /**
- * An input aspect representing HTML element to apply styles to.
+ * An input aspect representing DOM element to apply styles to.
  *
  * This is a HTML element for input element control, and `null` for everything else by default.
  *

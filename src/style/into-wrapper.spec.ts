@@ -30,4 +30,16 @@ describe('intoWrapper', () => {
   it('preserves input element', () => {
     expect(wrapperControl.aspect(InElement)).toBe(control.aspect(InElement));
   });
+  it('converts to element without styled element without parameter', () => {
+
+    const noWrapControl = wrapperControl.convert(intoWrapper());
+
+    expect(noWrapControl.aspect(InStyledElement)).toBeNull();
+  });
+  it('converts to element without styled element when used as converter', () => {
+
+    const noWrapControl = wrapperControl.convert(intoWrapper);
+
+    expect(noWrapControl.aspect(InStyledElement)).toBeNull();
+  });
 });
