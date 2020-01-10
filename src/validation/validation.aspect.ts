@@ -119,43 +119,50 @@ export namespace InValidation {
    *
    * Some message codes are treated specially by convenience.
    */
-  export interface Message {
+  export type Message = {
+    readonly [code in Extract<keyof GenericMessage, string>]?: any;
+  };
 
-    [code: string]: any;
+  /**
+   * Generic input validation messages.
+   */
+  export interface GenericMessage {
+
+    readonly [code: string]: any;
 
     /**
      * Missing input.
      */
-    missing?: any;
+    readonly missing?: any;
 
     /**
      * The message with this code would be reported by `requireNeeded()` validator despite there are messages with
      * `missing` code.
      */
-    despiteMissing?: any;
+    readonly despiteMissing?: any;
 
     /**
      * Incomplete input, except missing one.
      */
-    incomplete?: any;
+    readonly incomplete?: any;
 
     /**
      * The message with this code would be reported by `requireNeeded()` validator despite there are messages with
      * `incomplete` code.
      */
-    despiteIncomplete?: any;
+    readonly despiteIncomplete?: any;
 
     /**
      * Invalid input, except missing or incomplete one.
      */
-    invalid?: any;
+    readonly invalid?: any;
 
     /**
      * Submit failure.
      *
      * This is set by input submit aspect.
      */
-    submit?: any;
+    readonly submit?: any;
 
   }
 
@@ -249,12 +256,12 @@ class InValidationErrors implements InValidation.Result {
             if (codePresent) {
               nonEmpty = true;
 
-              const prev = this._byCode.get(code as string);
+              const prev = this._byCode.get(code);
 
               if (prev) {
                 prev.push(message);
               } else {
-                this._byCode.set(code as string, [message]);
+                this._byCode.set(code, [message]);
               }
             }
           });
