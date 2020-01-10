@@ -101,6 +101,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="incssclasses.html#read" class="tsd-kind-icon">read</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="incssclasses.html#track" class="tsd-kind-icon">track</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -129,7 +130,7 @@
 					<div class="tsd-signature tsd-kind-icon">Map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/6c79fb7/src/style/css-classes.aspect.ts#L108">src/style/css-classes.aspect.ts:108</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/style/css-classes.aspect.ts#L116">src/style/css-classes.aspect.ts:116</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -155,7 +156,7 @@
 					<div class="tsd-signature tsd-kind-icon">Source<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventKeeper</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="incssclasses.html#map" class="tsd-signature-type">Map</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/6c79fb7/src/style/css-classes.aspect.ts#L96">src/style/css-classes.aspect.ts:96</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/style/css-classes.aspect.ts#L104">src/style/css-classes.aspect.ts:104</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -175,14 +176,30 @@
 					<div class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="incssclasses.html#map" class="tsd-signature-type">Map</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/6c79fb7/src/style/css-classes.aspect.ts#L53">src/style/css-classes.aspect.ts:53</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/style/css-classes.aspect.ts#L54">src/style/css-classes.aspect.ts:54</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>An <code>AfterEvent</code> keeper of CSS classes applied to styled element.</p>
+							<p>An <code>AfterEvent</code> keeper of CSS classes to be applied to styled element.</p>
 						</div>
 						<p>The <code>[AfterEvent__symbol]</code> property is an alias of this one.</p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="track" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> track</h3>
+					<div class="tsd-signature tsd-kind-icon">track<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">keyof string[]</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">keyof string[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/style/css-classes.aspect.ts#L65">src/style/css-classes.aspect.ts:65</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An <code>AfterEvent</code> keeper of added and removed CSS classes.</p>
+						</div>
+						<p>Reports current CSS classes as added ones on receiver registration.</p>
 					</div>
 				</section>
 			</section>
@@ -198,7 +215,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/6c79fb7/src/style/css-classes.aspect.ts#L55">src/style/css-classes.aspect.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/style/css-classes.aspect.ts#L56">src/style/css-classes.aspect.ts:56</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="incssclasses.html#map" class="tsd-signature-type">Map</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -215,7 +232,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/6c79fb7/src/style/css-classes.aspect.ts#L44">src/style/css-classes.aspect.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/style/css-classes.aspect.ts#L45">src/style/css-classes.aspect.ts:45</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">InAspect</span><span class="tsd-signature-symbol">&lt;</span><a href="incssclasses.html" class="tsd-signature-type">InCssClasses</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -235,7 +252,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/6c79fb7/src/style/css-classes.aspect.ts#L66">src/style/css-classes.aspect.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/style/css-classes.aspect.ts#L74">src/style/css-classes.aspect.ts:74</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -267,7 +284,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/6c79fb7/src/style/css-classes.aspect.ts#L75">src/style/css-classes.aspect.ts:75</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/style/css-classes.aspect.ts#L83">src/style/css-classes.aspect.ts:83</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -299,7 +316,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/6c79fb7/src/style/css-classes.aspect.ts#L84">src/style/css-classes.aspect.ts:84</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/style/css-classes.aspect.ts#L92">src/style/css-classes.aspect.ts:92</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -346,6 +363,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="incssclasses.html#read" class="tsd-kind-icon">read</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="incssclasses.html#track" class="tsd-kind-icon">track</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="incssclasses.html#_afterevent__symbol_" class="tsd-kind-icon">[<wbr>After<wbr>Event__symbol]</a>
