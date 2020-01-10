@@ -11,6 +11,7 @@ import {
   afterEventBy,
   afterThe,
   EventKeeper,
+  EventNotifier,
   eventSupply,
   EventSupply,
   isEventKeeper,
@@ -46,7 +47,7 @@ export abstract class InCssClasses implements EventKeeper<[InCssClasses.Map]> {
   }
 
   /**
-   * An `AfterEvent` keeper of CSS classes applied to styled element.
+   * An `AfterEvent` keeper of CSS classes to be applied to styled element.
    *
    * The `[AfterEvent__symbol]` property is an alias of this one.
    */
@@ -55,6 +56,13 @@ export abstract class InCssClasses implements EventKeeper<[InCssClasses.Map]> {
   get [AfterEvent__symbol](): AfterEvent<[InCssClasses.Map]> {
     return this.read;
   }
+
+  /**
+   * An `AfterEvent` keeper of added and removed CSS classes.
+   *
+   * Reports current CSS classes as added ones on receiver registration.
+   */
+  abstract readonly track: AfterEvent<[readonly string[], readonly string[]]>;
 
   /**
    * Appends CSS classes from the given `source` to styled element.
@@ -124,6 +132,7 @@ function isUnsubscribeReason(reason: any): reason is UnsubscribeReason {
 class InControlCssClasses extends InCssClasses {
 
   readonly read: AfterEvent<[InCssClasses.Map]>;
+  readonly track: AfterEvent<[readonly string[], readonly string[]]>;
   private readonly _sources: ValueTracker<[Map<AfterEvent<[InCssClasses.Map]>, EventSupply>]> = trackValue([new Map()]);
 
   constructor(private readonly _control: InControl<any>) {
@@ -146,6 +155,31 @@ class InControlCssClasses extends InCssClasses {
       });
 
       return result;
+    });
+    this.track = afterEventBy(receiver => {
+
+      const classes = new DeltaSet<string>();
+      const emitter = new EventNotifier<[readonly string[], readonly string[]]>();
+      const updateClasses = () => classes.redelta(
+          (add, remove) => emitter.send([...add], [...remove]),
+      ).undelta();
+
+      emitter.on(receiver);
+
+      return this.read(map => {
+        classes.clear();
+        itsEach(
+            filterIt<ObjectEntry<InCssClasses.Map>>(
+                overEntries<InCssClasses.Map>(map),
+                ([, flag]) => !!flag,
+            ),
+            ([name]) => classes.add(name),
+        );
+        updateClasses();
+      }).whenOff(() => {
+        classes.clear();
+        updateClasses();
+      });
     });
 
     const element = _control.aspect(InStyledElement);
@@ -195,25 +229,10 @@ class InControlCssClasses extends InCssClasses {
   applyTo(element: Element): EventSupply {
 
     const { classList } = element;
-    const classes = new DeltaSet<string>();
-    const applyClasses = () => classes.redelta({
-      add: name => classList.add(name),
-      delete: name => classList.remove(name),
-    }).undelta();
 
-    return this.read(map => {
-      classes.clear();
-      itsEach(
-          filterIt<ObjectEntry<InCssClasses.Map>>(
-              overEntries<InCssClasses.Map>(map),
-              ([, flag]) => !!flag,
-          ),
-          ([name]) => classes.add(name),
-      );
-      applyClasses();
-    }).whenOff(() => {
-      classes.clear();
-      applyClasses();
+    return this.track((add, remove) => {
+      remove.forEach(name => classList.remove(name));
+      add.forEach(name => classList.add(name));
     });
   }
 
