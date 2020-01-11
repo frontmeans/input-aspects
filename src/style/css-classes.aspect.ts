@@ -231,8 +231,8 @@ class InControlCssClasses extends InCssClasses {
     const { classList } = element;
 
     return this.track((add, remove) => {
-      remove.forEach(name => classList.remove(name));
-      add.forEach(name => classList.add(name));
+      classList.remove(...remove);
+      classList.add(...add);
     });
   }
 
