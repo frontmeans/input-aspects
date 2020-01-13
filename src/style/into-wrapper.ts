@@ -9,6 +9,18 @@ import { InRenderScheduler } from '../render-scheduler.aspect';
 import { InStyledElement } from './styled-element.aspect';
 
 /**
+ * [[intoWrapper]] converter options.
+ */
+export interface IntoWrapperOptions {
+
+  /**
+   * DOM render scheduler to use to update element styles.
+   */
+  scheduler?: InRenderScheduler;
+
+}
+
+/**
  * Creates input control converter that converts arbitrary control to the one with the given styled `element`.
  *
  * This is useful for controls without elements (such as input groups), or can be used to apply CSS classes to input
@@ -16,17 +28,13 @@ import { InStyledElement } from './styled-element.aspect';
  *
  * @category Converter
  * @param element  A DOM element to apply styles to. Styles won't be applied when `null` or undefined.
- * @param scheduler  DOM render scheduler to use to update the element.
+ * @param options  Converter options.
  *
  * @returns Input control converter.
  */
 export function intoWrapper<Value>(
     element?: InStyledElement | null,
-    {
-      scheduler,
-    }?: {
-      scheduler?: InRenderScheduler,
-    },
+    options?: IntoWrapperOptions,
 ): InControl.Converter<Value, Value>;
 
 /**
@@ -43,9 +51,7 @@ export function intoWrapper<Value>(
         | InControl<Value> = null,
     toOrOptions:
         | InControl<Value>
-        | {
-      scheduler?: InRenderScheduler,
-    } = {},
+        | IntoWrapperOptions = {},
 ): InControl.Converter<Value, Value> | InControl.Converters<Value, Value> {
   if (toOrOptions instanceof InControl) {
     return intoWrapper<Value>()(elementOrFrom as InControl<Value>, toOrOptions);
