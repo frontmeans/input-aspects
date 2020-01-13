@@ -94,10 +94,15 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="incontainer.html" class="tsd-signature-type">InContainer</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">&gt;</span>
+						<a href="incontainer.html" class="tsd-signature-type">InContainer</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">InList</span>
+								<ul class="tsd-hierarchy">
+									<li>
+										<a href="inlistcontrol.html" class="tsd-signature-type">InListControl</a>
+									</li>
+								</ul>
 							</li>
 						</ul>
 					</li>
@@ -106,8 +111,8 @@
 			<section class="tsd-panel">
 				<h3>Implements</h3>
 				<ul class="tsd-hierarchy">
-					<li><span class="tsd-signature-type">EventSender</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">N</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
-					<li><span class="tsd-signature-type">EventKeeper</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li><span class="tsd-signature-type">EventSender</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">N</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li><span class="tsd-signature-type">EventKeeper</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -147,7 +152,6 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-overwrite tsd-is-inherited tsd-is-protected"><a href="inlist.html#_applyaspect" class="tsd-kind-icon">_apply<wbr>Aspect</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="inlist.html#_aspect" class="tsd-kind-icon">_aspect</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="inlist.html#aspect" class="tsd-kind-icon">aspect</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="inlist.html#by" class="tsd-kind-icon">by</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="inlist.html#bynone" class="tsd-kind-icon">by<wbr>None</a></li>
@@ -164,11 +168,11 @@
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
 					<a name="entry" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> Entry</h3>
-					<div class="tsd-signature tsd-kind-icon">Entry&lt;Item&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">keyof [number, InControl&lt;Item&gt;]</span></div>
+					<div class="tsd-signature tsd-kind-icon">Entry&lt;Item&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">keyof <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><a href="incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span></span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/container/container.control.ts#L55">src/container/container.control.ts:55</a></li>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/container/list.control.ts#L60">src/container/list.control.ts:60</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/40da91c/src/container/container.control.ts#L55">src/container/container.control.ts:55</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/40da91c/src/container/list.control.ts#L60">src/container/list.control.ts:60</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -207,7 +211,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides <a href="incontainer.html">InContainer</a>.<a href="incontainer.html#controls">controls</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/container/list.control.ts#L47">src/container/list.control.ts:47</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/40da91c/src/container/list.control.ts#L47">src/container/list.control.ts:47</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -219,12 +223,12 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 					<a name="it" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> it</h3>
-					<div class="tsd-signature tsd-kind-icon">it<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">keyof Item[]</span></div>
+					<div class="tsd-signature tsd-kind-icon">it<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="incontrol.html">InControl</a>.<a href="incontrol.html#it">it</a></p>
-						<p>Overrides ValueTracker.it</p>
+						<p>Overrides <a href="infocus.html">InFocus</a>.<a href="infocus.html#it">it</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/control.ts#L26">src/control.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/40da91c/src/control.ts#L26">src/control.ts:26</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -236,9 +240,9 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="on" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> on</h3>
-					<div class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">N</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">N</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from ValueTracker.on</p>
+						<p>Inherited from <a href="incontrol.html">InControl</a>.<a href="incontrol.html#on">on</a></p>
 						<ul>
 							<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:27</li>
 						</ul>
@@ -253,9 +257,9 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="read" class="tsd-anchor"></a>
 					<h3>read</h3>
-					<div class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from ValueTracker.read</p>
+						<p>Inherited from <a href="incontrol.html">InControl</a>.<a href="incontrol.html#read">read</a></p>
 						<ul>
 							<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:33</li>
 						</ul>
@@ -274,17 +278,17 @@
 					<a name="_afterevent__symbol_" class="tsd-anchor"></a>
 					<h3>[<wbr>After<wbr>Event__symbol]</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> [AfterEvent__symbol]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> [AfterEvent__symbol]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from ValueTracker.[AfterEvent__symbol]</p>
+								<p>Inherited from <a href="incontrol.html">InControl</a>.<a href="incontrol.html#_afterevent__symbol_">[AfterEvent__symbol]</a></p>
 								<ul>
 									<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:35</li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -292,17 +296,17 @@
 					<a name="_onevent__symbol_" class="tsd-anchor"></a>
 					<h3>[<wbr>OnEvent__symbol]</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> [OnEvent__symbol]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">N</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> [OnEvent__symbol]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">N</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from ValueTracker.[OnEvent__symbol]</p>
+								<p>Inherited from <a href="incontrol.html">InControl</a>.<a href="incontrol.html#_onevent__symbol_">[OnEvent__symbol]</a></p>
 								<ul>
 									<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:34</li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">N</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">N</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -310,17 +314,17 @@
 					<a name="_inaspect__symbol_" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> [<wbr>InAspect__symbol]</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> [InAspect__symbol]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InAspect</span><span class="tsd-signature-symbol">&lt;</span><a href="incontainer.html" class="tsd-signature-type">InContainer</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"container"</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> [InAspect__symbol]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/inaspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><a href="incontainer.html" class="tsd-signature-type">InContainer</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"container"</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="incontainer.html">InContainer</a>.<a href="incontainer.html#_inaspect__symbol_">[InAspect__symbol]</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/container/container.control.ts#L25">src/container/container.control.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/40da91c/src/container/container.control.ts#L25">src/container/container.control.ts:25</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">InAspect</span><span class="tsd-signature-symbol">&lt;</span><a href="incontainer.html" class="tsd-signature-type">InContainer</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"container"</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules/inaspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><a href="incontainer.html" class="tsd-signature-type">InContainer</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"container"</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -331,7 +335,7 @@
 					<a name="_applyaspect" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _apply<wbr>Aspect</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-overwrite tsd-is-inherited tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">_apply<wbr>Aspect&lt;Instance, Kind&gt;<span class="tsd-signature-symbol">(</span>aspect<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InAspect</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/inaspect.application.html#result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+						<li class="tsd-signature tsd-kind-icon">_apply<wbr>Aspect&lt;Instance, Kind&gt;<span class="tsd-signature-symbol">(</span>aspect<span class="tsd-signature-symbol">: </span><a href="../modules/inaspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/inaspect.application.html#result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -339,7 +343,7 @@
 								<p>Inherited from <a href="incontainer.html">InContainer</a>.<a href="incontainer.html#_applyaspect">_applyAspect</a></p>
 								<p>Overrides <a href="incontrol.html">InControl</a>.<a href="incontrol.html#_applyaspect">_applyAspect</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/container/container.control.ts#L34">src/container/container.control.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/40da91c/src/container/container.control.ts#L34">src/container/container.control.ts:34</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -354,10 +358,10 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>aspect: <span class="tsd-signature-type">InAspect</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>aspect: <a href="../modules/inaspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../modules/inaspect.application.html#result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span>
+							<h4 class="tsd-returns-title">Returns <a href="../modules/inaspect.application.html#result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span>
 								<span class="tsd-signature-symbol"> | </span>
 								<span class="tsd-signature-type">undefined</span>
 							</h4>
@@ -365,56 +369,17 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-					<a name="_aspect" class="tsd-anchor"></a>
-					<h3>_aspect</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">_aspect&lt;Instance, Kind&gt;<span class="tsd-signature-symbol">(</span>aspect<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InAspect</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/inaspect.application.html#result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="incontrol.html">InControl</a>.<a href="incontrol.html#_aspect">_aspect</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/control.ts#L130">src/control.ts:130</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>internal</dt>
-									<dd></dd>
-								</dl>
-							</div>
-							<h4 class="tsd-type-parameters-title">Type parameters</h4>
-							<ul class="tsd-type-parameters">
-								<li>
-									<h4>Instance</h4>
-								</li>
-								<li>
-									<h4>Kind<span class="tsd-signature-symbol">: </span><a href="../modules/inaspect.application.html#kind" class="tsd-signature-type">Kind</a></h4>
-								</li>
-							</ul>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>aspect: <span class="tsd-signature-type">InAspect</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../modules/inaspect.application.html#result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="aspect" class="tsd-anchor"></a>
 					<h3>aspect</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">aspect&lt;Instance, Kind&gt;<span class="tsd-signature-symbol">(</span>aspectKey<span class="tsd-signature-symbol">: </span><a href="../interfaces/inaspect.key.html" class="tsd-signature-type">Key</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/inaspect.application.html#instance" class="tsd-signature-type">Instance</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">aspect&lt;Instance, Kind&gt;<span class="tsd-signature-symbol">(</span>aspectKey<span class="tsd-signature-symbol">: </span><a href="../interfaces/inaspect.key.html" class="tsd-signature-type">Key</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/inaspect.application.html#instance" class="tsd-signature-type">Instance</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="incontrol.html">InControl</a>.<a href="incontrol.html#aspect">aspect</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/control.ts#L39">src/control.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/40da91c/src/control.ts#L39">src/control.ts:39</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -447,7 +412,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../modules/inaspect.application.html#instance" class="tsd-signature-type">Instance</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules/inaspect.application.html#instance" class="tsd-signature-type">Instance</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>An applied aspect instance.</p>
 						</li>
 					</ul>
@@ -456,13 +421,13 @@
 					<a name="by" class="tsd-anchor"></a>
 					<h3>by</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">by<span class="tsd-signature-symbol">(</span>supplier<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">by<span class="tsd-signature-symbol">(</span>supplier<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 						<li class="tsd-signature tsd-kind-icon">by&lt;S&gt;<span class="tsd-signature-symbol">(</span>supplier<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, extract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from ValueTracker.by</p>
+								<p>Inherited from <a href="incontrol.html">InControl</a>.<a href="incontrol.html#by">by</a></p>
 								<ul>
 									<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:53</li>
 								</ul>
@@ -478,7 +443,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>supplier: <span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>supplier: <span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The source value sender or keeper.</p>
 									</div>
@@ -489,7 +454,7 @@
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from ValueTracker.by</p>
+								<p>Inherited from <a href="incontrol.html">InControl</a>.<a href="incontrol.html#by">by</a></p>
 								<ul>
 									<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:70</li>
 								</ul>
@@ -527,8 +492,8 @@
 									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
-											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, <span class="tsd-signature-symbol">...</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, <span class="tsd-signature-symbol">...</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 											</ul>
 											<ul class="tsd-descriptions">
 												<li class="tsd-description">
@@ -541,7 +506,7 @@
 															<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>event: <span class="tsd-signature-type">S</span></h5>
 														</li>
 													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span>
 														<span class="tsd-signature-symbol"> | </span>
 														<span class="tsd-signature-type">undefined</span>
 													</h4>
@@ -565,7 +530,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from ValueTracker.byNone</p>
+								<p>Inherited from <a href="incontrol.html">InControl</a>.<a href="incontrol.html#bynone">byNone</a></p>
 								<ul>
 									<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:80</li>
 								</ul>
@@ -595,14 +560,14 @@
 					<h3>convert</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">convert&lt;To&gt;<span class="tsd-signature-symbol">(</span>set<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, get<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">convert&lt;To&gt;<span class="tsd-signature-symbol">(</span>by<span class="tsd-signature-symbol">: </span><a href="incontrol.html#converter" class="tsd-signature-type">Converter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">convert&lt;To&gt;<span class="tsd-signature-symbol">(</span>by<span class="tsd-signature-symbol">: </span><a href="incontrol.html#converter" class="tsd-signature-type">Converter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="incontrol.html">InControl</a>.<a href="incontrol.html#convert">convert</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/control.ts#L96">src/control.ts:96</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/40da91c/src/control.ts#L96">src/control.ts:96</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -629,8 +594,8 @@
 									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
-											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">To</span></li>
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">To</span></li>
 											</ul>
 											<ul class="tsd-descriptions">
 												<li class="tsd-description">
@@ -640,7 +605,7 @@
 															<h5>this: <span class="tsd-signature-type">void</span></h5>
 														</li>
 														<li>
-															<h5>value: <span class="tsd-signature-type">keyof Item[]</span></h5>
+															<h5>value: <span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span></h5>
 														</li>
 													</ul>
 													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">To</span></h4>
@@ -656,8 +621,8 @@
 									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
-											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">keyof Item[]</span></li>
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span></li>
 											</ul>
 											<ul class="tsd-descriptions">
 												<li class="tsd-description">
@@ -670,7 +635,7 @@
 															<h5>value: <span class="tsd-signature-type">To</span></h5>
 														</li>
 													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">keyof Item[]</span></h4>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span></h4>
 												</li>
 											</ul>
 										</li>
@@ -684,7 +649,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="incontrol.html">InControl</a>.<a href="incontrol.html#convert">convert</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/control.ts#L109">src/control.ts:109</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/40da91c/src/control.ts#L109">src/control.ts:109</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -704,7 +669,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>by: <a href="incontrol.html#converter" class="tsd-signature-type">Converter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">keyof Item[]</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>by: <a href="incontrol.html#converter" class="tsd-signature-type">Converter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">keyof <span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span></span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Input control converter.</p>
 									</div>
@@ -724,7 +689,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from ValueTracker.done</p>
+								<p>Inherited from <a href="incontrol.html">InControl</a>.<a href="incontrol.html#done">done</a></p>
 								<ul>
 									<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:90</li>
 								</ul>
@@ -761,7 +726,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="incontrol.html">InControl</a>.<a href="incontrol.html#setup">setup</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/control.ts#L52">src/control.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/40da91c/src/control.ts#L52">src/control.ts:52</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -778,7 +743,7 @@
 									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
-											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+											<ul class="tsd-signatures tsd-kind-type-literal">
 												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, control<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 											</ul>
 											<ul class="tsd-descriptions">
@@ -806,7 +771,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="incontrol.html">InControl</a>.<a href="incontrol.html#setup">setup</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea91037/src/control.ts#L64">src/control.ts:64</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/40da91c/src/control.ts#L64">src/control.ts:64</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -895,9 +860,6 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-overwrite tsd-is-inherited tsd-is-protected">
 								<a href="inlist.html#_applyaspect" class="tsd-kind-icon">_apply<wbr>Aspect</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-								<a href="inlist.html#_aspect" class="tsd-kind-icon">_aspect</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 								<a href="inlist.html#aspect" class="tsd-kind-icon">aspect</a>
