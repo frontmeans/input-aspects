@@ -1,4 +1,5 @@
 import { afterThe } from 'fun-events';
+import { immediateRenderScheduler, setRenderScheduler } from 'render-scheduler';
 import { InMode } from '../data';
 import { inText, InText } from '../element';
 import { InValidation } from '../validation';
@@ -6,6 +7,12 @@ import { InCssClasses } from './css-classes.aspect';
 import { inCssInfo } from './css-info';
 
 describe('inCssInfo', () => {
+  beforeEach(() => {
+    setRenderScheduler(immediateRenderScheduler);
+  });
+  afterEach(() => {
+    setRenderScheduler();
+  });
 
   let element: HTMLInputElement;
   let control: InText;

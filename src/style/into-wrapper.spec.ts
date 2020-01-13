@@ -1,6 +1,8 @@
+import { newManualRenderScheduler } from 'render-scheduler';
 import { InControl } from '../control';
 import { inText, InText } from '../element';
 import { InElement } from '../element.control';
+import { InRenderScheduler } from '../render-scheduler.aspect';
 import { intoWrapper } from './into-wrapper';
 import { InStyledElement } from './styled-element.aspect';
 
@@ -41,5 +43,15 @@ describe('intoWrapper', () => {
     const noWrapControl = wrapperControl.convert(intoWrapper);
 
     expect(noWrapControl.aspect(InStyledElement)).toBeNull();
+  });
+  it('preserves render scheduler by default', () => {
+    expect(wrapperControl.aspect(InRenderScheduler)).toBe(control.aspect(InRenderScheduler));
+  });
+  it('replaces render scheduler when requested', () => {
+
+    const scheduler = newManualRenderScheduler();
+
+    wrapperControl = control.convert(intoWrapper(wrapper, { scheduler }));
+    expect(wrapperControl.aspect(InRenderScheduler)).toBe(scheduler);
   });
 });
