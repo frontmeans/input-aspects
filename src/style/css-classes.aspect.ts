@@ -18,8 +18,10 @@ import {
   trackValue,
   ValueTracker,
 } from 'fun-events';
+import { RenderSchedule } from 'render-scheduler';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
+import { InRenderScheduler } from '../render-scheduler.aspect';
 import { InStyledElement } from './styled-element.aspect';
 
 const InCssClasses__aspect: InAspect<InCssClasses> = {
@@ -77,10 +79,12 @@ export abstract class InCssClasses implements EventKeeper<[InCssClasses.Map]> {
    * Applies CSS classes to the given styled element.
    *
    * @param element  Target element to apply CSS classes to.
+   * @param schedule  DOM render schedule to add CSS class updates to. A new schedule is constructed by
+   * {@link InRenderScheduler input render scheduler} by default.
    *
    * @returns CSS classes supply that stops their application and removes already applied ones once cut off.
    */
-  abstract applyTo(element: InStyledElement): EventSupply;
+  abstract applyTo(element: InStyledElement, schedule?: RenderSchedule): EventSupply;
 
   /**
    * Removes all CSS class sources and stops applying CSS classes to styled elements.
@@ -134,6 +138,7 @@ class InControlCssClasses extends InCssClasses {
   readonly read: AfterEvent<[InCssClasses.Map]>;
   readonly track: AfterEvent<[readonly string[], readonly string[]]>;
   private readonly _sources: ValueTracker<[Map<AfterEvent<[InCssClasses.Map]>, EventSupply>]> = trackValue([new Map()]);
+  private _schedule?: RenderSchedule;
 
   constructor(private readonly _control: InControl<any>) {
     super();
@@ -185,8 +190,15 @@ class InControlCssClasses extends InCssClasses {
     const element = _control.aspect(InStyledElement);
 
     if (element) {
-      this.applyTo(element);
+      this.applyTo(element, this.schedule);
     }
+  }
+
+  get schedule(): RenderSchedule {
+    return this._schedule || (this._schedule = controlSchedule(
+        this._control,
+        this._control.aspect(InStyledElement)!,
+    ));
   }
 
   add(source: InCssClasses.Source): EventSupply {
@@ -226,13 +238,22 @@ class InControlCssClasses extends InCssClasses {
     return classesSupply;
   }
 
-  applyTo(element: Element): EventSupply {
+  applyTo(
+      element: Element,
+      schedule: RenderSchedule = controlSchedule(this._control, element),
+  ): EventSupply {
 
     const { classList } = element;
+    let applied: readonly string[] = [];
 
     return this.track((add, remove) => {
-      classList.remove(...remove);
-      classList.add(...add);
+      schedule(() => {
+        classList.remove(...remove);
+        classList.add(...add);
+        applied = add;
+      });
+    }).whenOff(() => {
+      schedule(() => classList.remove(...applied));
     });
   }
 
@@ -252,4 +273,8 @@ function inCssClassesSource(source: InCssClasses.Source): (control: InControl<an
     return valueProvider(source);
   }
   return source;
+}
+
+function controlSchedule(control: InControl<any>, node: Node | undefined): RenderSchedule {
+  return control.aspect(InRenderScheduler)({ node });
 }

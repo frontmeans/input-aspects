@@ -1,10 +1,22 @@
 import { afterSupplied, afterThe, EventSupply, trackValue, ValueTracker } from 'fun-events';
+import {
+  immediateRenderScheduler,
+  ManualRenderScheduler,
+  newManualRenderScheduler,
+  setRenderScheduler,
+} from 'render-scheduler';
 import { InControl } from '../control';
 import { inText, InText } from '../element';
 import { inValue } from '../value';
 import { InCssClasses } from './css-classes.aspect';
 
 describe('InCssClasses', () => {
+  beforeEach(() => {
+    setRenderScheduler(immediateRenderScheduler);
+  });
+  afterEach(() => {
+    setRenderScheduler();
+  });
 
   let element: HTMLInputElement;
   let control: InText;
@@ -95,6 +107,49 @@ describe('InCssClasses', () => {
       expect(sourceDone).toHaveBeenCalledWith(reason);
       expect(classMap).toEqual({});
       expect(element.classList.contains('class1')).toBe(false);
+    });
+  });
+
+  describe('applyTo', () => {
+
+    let element2: Element;
+    let scheduler: ManualRenderScheduler;
+    let supply: EventSupply;
+
+    beforeEach(() => {
+      cssClasses.add(afterThe({ class2: true }));
+      element2 = document.createElement('other');
+      scheduler = newManualRenderScheduler();
+
+      const schedule = scheduler();
+
+      supply = cssClasses.applyTo(element2, schedule);
+    });
+
+    it('applies CSS classes in the given schedule', () => {
+      expect(element2.classList.contains('class2')).toBe(false);
+
+      scheduler.render();
+      expect(element2.classList.contains('class2')).toBe(true);
+    });
+    it('applies CSS classes in dedicated schedule by default', () => {
+      setRenderScheduler(scheduler);
+
+      const element3 = document.createElement('third');
+
+      cssClasses.applyTo(element3);
+      scheduler.render();
+      expect(element3.classList.contains('class2')).toBe(true);
+    });
+    it('removes applied CSS classes once supply is cut off', () => {
+      scheduler.render();
+      expect(element.classList.contains('class2')).toBe(true);
+      expect(element2.classList.contains('class2')).toBe(true);
+
+      supply.off();
+      scheduler.render();
+      expect(element.classList.contains('class2')).toBe(true);
+      expect(element2.classList.contains('class2')).toBe(false);
     });
   });
 

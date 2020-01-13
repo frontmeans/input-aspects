@@ -3066,10 +3066,10 @@ remove-trailing-separator@^1.0.1:
   resolved "https://registry.yarnpkg.com/remove-trailing-separator/-/remove-trailing-separator-1.1.0.tgz#c24bce2a283adad5bc3f58e0d48249b92379d8ef"
   integrity sha1-wkvOKig62tW8P1jg1IJJuSN52O8=
 
-render-scheduler@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/render-scheduler/-/render-scheduler-1.0.2.tgz#41392bae642a42e284d509516e5f48a5f5148924"
-  integrity sha512-uxQxJw7+HVuqaECi/ICsqOj+92o4cZiZGeswy4IZ3FvpJDqIDXyeTk5P5yPz7qhK+6CPSVV63QKDI6QYyQr5fg==
+render-scheduler@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/render-scheduler/-/render-scheduler-1.0.3.tgz#ce3021ed51e98b551b807af12723af9cdaedba91"
+  integrity sha512-zDiwWb1Warl8JaNRac/0NmopPLmmJPkesKQ0Fqvb8EcFoqkx6DzsWJwHbrPaeCPhrHbWQFugiV6oYgVEGybKCA==
 
 repeat-element@^1.1.2:
   version "1.1.3"
