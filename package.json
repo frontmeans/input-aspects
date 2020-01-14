@@ -1,6 +1,6 @@
 {
   "name": "input-aspects",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Controls various aspects of user input. Such as value conversion, form validation, etc.",
   "keywords": [
     "form-validation",
