@@ -1,7 +1,8 @@
 /**
  * @module input-aspects
  */
-import { EventEmitter, ValueTracker } from 'fun-events';
+import { noop } from 'call-thru';
+import { trackValue, ValueTracker } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectNull, inAspectValue } from '../aspect.impl';
 import { InControl } from '../control';
@@ -39,45 +40,39 @@ export abstract class InFocus extends ValueTracker<boolean> {
 
 class InControlFocus extends InFocus {
 
-  private readonly _on = new EventEmitter<[boolean, boolean]>();
+  private readonly _it: ValueTracker<boolean>;
 
-  constructor(private readonly _element: InElement<any>) {
+  constructor({ element, events }: InElement<any>) {
     super();
 
-    const events = _element.events;
-
-    events.on('focus')(() => this._on.send(true, false));
-    events.on('blur')(() => this._on.send(false, true));
-  }
-
-  get on() {
-    return this._on.on;
-  }
-
-  get it(): boolean {
-
-    const element = this._element.element;
     const owner: DocumentOrShadowRoot | null =
         element.getRootNode ? element.getRootNode() as any : element.ownerDocument;
 
-    return !!owner && owner.activeElement === element;
+    this._it = trackValue(!!owner && owner.activeElement === element);
+    events.on('focus')(() => this._it.it = true);
+    events.on('blur')(() => this._it.it = false);
+    this.on({
+      receive(ctx, newValue) {
+        ctx.onRecurrent(noop);
+        newValue ? element.focus() : element.blur();
+      },
+    });
+  }
+
+  get on() {
+    return this._it.on;
+  }
+
+  get it(): boolean {
+    return this._it.it;
   }
 
   set it(value: boolean) {
-    if (this.it !== value) {
-
-      const element = this._element.element;
-
-      if (value) {
-        element.focus();
-      } else {
-        element.blur();
-      }
-    }
+    this._it.it = value;
   }
 
   done(reason?: any): this {
-    this._on.done(reason);
+    this._it.done(reason);
     return this;
   }
 

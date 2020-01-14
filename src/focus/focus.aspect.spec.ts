@@ -8,24 +8,24 @@ describe('InFocus', () => {
 
   let element: HTMLInputElement;
   let control: InControl<string>;
-  let focus: InFocus;
 
   beforeEach(() => {
     element = document.body.appendChild(document.createElement('input'));
     control = inText(element);
-    focus = control.aspect(InFocus)!;
   });
   afterEach(() => {
     element.remove();
   });
 
-  it('is `null` when element is absent', () => {
+  it('is `null` for non-element control', () => {
     expect(inValue('').aspect(InFocus)).toBeNull();
   });
-  it('is present for element', () => {
-    expect(focus).toBeDefined();
+  it('is defined for element', () => {
+    expect(control.aspect(InFocus)).toBeDefined();
   });
   it('has no focus initially', () => {
+
+    const focus = control.aspect(InFocus)!;
 
     let hasFocus: boolean | null = null;
 
@@ -36,6 +36,7 @@ describe('InFocus', () => {
   it('has focus initially if element is active', () => {
     element.focus();
 
+    const focus = control.aspect(InFocus)!;
     let hasFocus: boolean | null = null;
 
     expect(focus.it).toBe(true);
@@ -46,6 +47,7 @@ describe('InFocus', () => {
     element.focus();
     (element as any).getRootNode = undefined;
 
+    const focus = control.aspect(InFocus)!;
     let hasFocus: boolean | null = null;
 
     expect(focus.it).toBe(true);
@@ -54,6 +56,13 @@ describe('InFocus', () => {
   });
 
   describe('on', () => {
+
+    let focus: InFocus;
+
+    beforeEach(() => {
+      focus = control.aspect(InFocus)!;
+    });
+
     it('sends event on focus gain', () => {
 
       const receiver = jest.fn();
@@ -74,6 +83,13 @@ describe('InFocus', () => {
   });
 
   describe('it', () => {
+
+    let focus: InFocus;
+
+    beforeEach(() => {
+      focus = control.aspect(InFocus)!;
+    });
+
     it('sets focus on element', () => {
 
       const focusSpy = jest.spyOn(element, 'focus');
@@ -107,6 +123,13 @@ describe('InFocus', () => {
   });
 
   describe('convert', () => {
+
+    let focus: InFocus;
+
+    beforeEach(() => {
+      focus = control.aspect(InFocus)!;
+    });
+
     it('reuses aspect instance', () => {
 
       const converted = control.convert(asis, asis);
@@ -116,18 +139,25 @@ describe('InFocus', () => {
   });
 
   describe('done', () => {
-     it('stops sending events', () => {
 
-       const receiver = jest.fn();
-       const done = jest.fn();
+    let focus: InFocus;
 
-       focus.read(receiver).whenOff(done);
-       receiver.mockClear();
+    beforeEach(() => {
+      focus = control.aspect(InFocus)!;
+    });
 
-       const reason = 'some reason';
+    it('stops sending events', () => {
 
-       expect(focus.done(reason)).toBe(focus);
-       expect(done).toHaveBeenCalledWith(reason);
-     });
+      const receiver = jest.fn();
+      const done = jest.fn();
+
+      focus.read(receiver).whenOff(done);
+      receiver.mockClear();
+
+      const reason = 'some reason';
+
+      expect(focus.done(reason)).toBe(focus);
+      expect(done).toHaveBeenCalledWith(reason);
+    });
   });
 });
