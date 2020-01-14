@@ -41,7 +41,6 @@ export function inCssInfo(
       st: control.aspect(InStatus),
     }).keep.thru(
         ({ md: [mode], vl: [valid], st: [{ hasFocus, touched, edited }] }) => {
-
           return {
             [cls('disabled')]: !InMode.hasData(mode),
             [cls('readonly')]: mode === 'ro' || mode === '-ro',
