@@ -165,25 +165,37 @@ class InControlCssClasses extends InCssClasses {
 
       const classes = new DeltaSet<string>();
       const emitter = new EventNotifier<[readonly string[], readonly string[]]>();
-      const updateClasses = () => classes.redelta(
-          (add, remove) => emitter.send([...add], [...remove]),
-      ).undelta();
+      let classesSent = false;
+      const sendClasses = () => {
+        classesSent = true;
+        classes.redelta(
+            (add, remove) => emitter.send([...add], [...remove]),
+        ).undelta();
+      };
 
       emitter.on(receiver);
 
       return this.read(map => {
-        classes.clear();
+
+        const remove = new Set(classes);
+        const add: string[] = [];
+
         itsEach(
             filterIt<ObjectEntry<InCssClasses.Map>>(
                 overEntries<InCssClasses.Map>(map),
                 ([, flag]) => !!flag,
             ),
-            ([name]) => classes.add(name),
+            ([name]) => {
+              if (!remove.delete(name)) {
+                add.push(name);
+              }
+            },
         );
-        updateClasses();
-      }).whenOff(() => {
-        classes.clear();
-        updateClasses();
+
+        if (!classesSent || add.length || remove.size) {
+          classes.delta(add, remove);
+          sendClasses();
+        }
       });
     });
 
@@ -244,16 +256,20 @@ class InControlCssClasses extends InCssClasses {
   ): EventSupply {
 
     const { classList } = element;
-    let applied: readonly string[] = [];
+    const classes = new DeltaSet<string>();
+    const updateClasses = () => classes.redelta((add, remove) => {
+      classList.remove(...remove);
+      classList.add(...add);
+    }).undelta();
 
     return this.track((add, remove) => {
-      schedule(() => {
-        classList.remove(...remove);
-        classList.add(...add);
-        applied = add;
-      });
+      classes.delta(add, remove);
+      schedule(updateClasses);
     }).whenOff(() => {
-      schedule(() => classList.remove(...applied));
+      if (classes.size) {
+        classes.clear();
+        schedule(updateClasses);
+      }
     });
   }
 

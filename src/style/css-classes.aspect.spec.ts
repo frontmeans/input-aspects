@@ -2,13 +2,14 @@ import { afterSupplied, afterThe, EventSupply, trackValue, ValueTracker } from '
 import {
   immediateRenderScheduler,
   ManualRenderScheduler,
-  newManualRenderScheduler,
+  newManualRenderScheduler, RenderSchedule,
   setRenderScheduler,
 } from 'render-scheduler';
 import { InControl } from '../control';
 import { inText, InText } from '../element';
 import { inValue } from '../value';
 import { InCssClasses } from './css-classes.aspect';
+import Mock = jest.Mock;
 
 describe('InCssClasses', () => {
   beforeEach(() => {
@@ -110,46 +111,118 @@ describe('InCssClasses', () => {
     });
   });
 
-  describe('applyTo', () => {
+  describe('track', () => {
 
-    let element2: Element;
-    let scheduler: ManualRenderScheduler;
-    let supply: EventSupply;
+    let source: ValueTracker<InCssClasses.Map>;
+    let sourceSupply: EventSupply;
+    let mockReceiver: Mock<void, [string[], string[]]>;
 
     beforeEach(() => {
-      cssClasses.add(afterThe({ class2: true }));
-      element2 = document.createElement('other');
+      source = trackValue({ class1: true });
+      sourceSupply = cssClasses.add(source);
+      cssClasses.track(mockReceiver = jest.fn());
+    });
+
+    it('reports initial classes as added', () => {
+      expect(mockReceiver).toHaveBeenLastCalledWith(['class1'], []);
+
+      const mockReceiver2 = jest.fn();
+
+      cssClasses.track(mockReceiver2);
+      expect(mockReceiver2).toHaveBeenLastCalledWith(['class1'], []);
+    });
+    it('reports new classes', () => {
+      source.it = { class1: true, class2: true, class3: true, class4: false };
+      expect(mockReceiver).toHaveBeenLastCalledWith(['class2', 'class3'], []);
+    });
+    it('does not report unmodified classes', () => {
+      mockReceiver.mockClear();
+      source.it = { ...source.it };
+      expect(mockReceiver).not.toHaveBeenCalled();
+    });
+    it('reports classes removal', () => {
+      sourceSupply.off();
+      expect(mockReceiver).toHaveBeenCalledWith([], ['class1']);
+    });
+    it('does not report missing classes removal', () => {
+      source.it = {};
+      mockReceiver.mockClear();
+      sourceSupply.off();
+      expect(mockReceiver).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('applyTo', () => {
+
+    let source: ValueTracker<InCssClasses.Map>;
+    let scheduler: ManualRenderScheduler;
+    let mockSchedule: Mock<void, Parameters<RenderSchedule>>;
+    let target: Element;
+    let targetSupply: EventSupply;
+
+    beforeEach(() => {
+      source = trackValue<InCssClasses.Map>({ class2: true });
+      cssClasses.add(source);
+      target = document.createElement('other');
       scheduler = newManualRenderScheduler();
-
-      const schedule = scheduler();
-
-      supply = cssClasses.applyTo(element2, schedule);
+      mockSchedule = jest.fn(scheduler());
+      targetSupply = cssClasses.applyTo(target, mockSchedule);
     });
 
     it('applies CSS classes in the given schedule', () => {
-      expect(element2.classList.contains('class2')).toBe(false);
+      expect(target.classList.contains('class2')).toBe(false);
 
       scheduler.render();
-      expect(element2.classList.contains('class2')).toBe(true);
+      expect(target.classList.contains('class2')).toBe(true);
     });
-    it('applies CSS classes in dedicated schedule by default', () => {
-      setRenderScheduler(scheduler);
 
-      const element3 = document.createElement('third');
+    describe('default scheduler', () => {
+      beforeEach(() => {
+        setRenderScheduler(scheduler);
+      });
+      afterEach(() => {
+        setRenderScheduler();
+      });
 
-      cssClasses.applyTo(element3);
-      scheduler.render();
-      expect(element3.classList.contains('class2')).toBe(true);
+      it('is used by default', () => {
+
+        const element3 = document.createElement('third');
+
+        cssClasses.applyTo(element3);
+        scheduler.render();
+        expect(element3.classList.contains('class2')).toBe(true);
+      });
+    });
+
+    it('does not schedule unchanged classes update', () => {
+      mockSchedule.mockClear();
+      source.it = { ...source.it };
+      expect(mockSchedule).not.toHaveBeenCalled();
     });
     it('removes applied CSS classes once supply is cut off', () => {
       scheduler.render();
+      expect(target.classList.contains('class2')).toBe(true);
       expect(element.classList.contains('class2')).toBe(true);
-      expect(element2.classList.contains('class2')).toBe(true);
 
-      supply.off();
+      targetSupply.off();
       scheduler.render();
+      expect(target.classList.contains('class2')).toBe(false);
       expect(element.classList.contains('class2')).toBe(true);
-      expect(element2.classList.contains('class2')).toBe(false);
+    });
+    it('does not schedule missing CSS classes removal once supply is cut off', () => {
+      source.it = {};
+      mockSchedule.mockClear();
+
+      targetSupply.off();
+      expect(mockSchedule).not.toHaveBeenCalled();
+    });
+    it('batches multiple CSS classes updates', () => {
+      source.it = { class3: true };
+      source.it = { class3: true, class4: true };
+      scheduler.render();
+      expect(target.classList.contains('class2')).toBe(false);
+      expect(target.classList.contains('class3')).toBe(true);
+      expect(target.classList.contains('class4')).toBe(true);
     });
   });
 
