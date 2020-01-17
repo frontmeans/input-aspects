@@ -308,11 +308,17 @@ An input aspect is an arbitrary value. There are several input aspects implement
 
   An `inCssInfo()` function may be used to create a source of informative CSS classes.    
 
+- `InNamespaceAliaser` Namespace aliaser aspect.
+
+  Used by other aspect to generate unique names.
+  
+  An `InNamespaceAliaser.to()` converter can be used to convert arbitrary control to the one with the given aliaser.
+
 - `InRenderScheduler` Input elements render scheduler.
 
   It is used e.g. to schedule CSS updates. The control values and attributes are updated instantly.
   
-  Ad `InRenderScheduler.to()` converter can be used to convert arbitrary control to the one with the given scheduler.
+  An `InRenderScheduler.to()` converter can be used to convert arbitrary control to the one with the given scheduler.
 
 - `InValidation` Validation aspect of the input.
 

@@ -1,3 +1,6 @@
+/**
+ * @module input-aspects
+ */
 import { newRenderSchedule, RenderScheduler } from 'render-scheduler';
 import { InAspect, InAspect__symbol } from './aspect';
 import { inAspectValue } from './aspect.impl';
@@ -34,7 +37,7 @@ export const InRenderScheduler = {
   /**
    * Creates input control aspect converter that assigns the given render scheduler to converted control.
    *
-   * @param scheduler  A DOM render scheduler to use to update element styles.
+   * @param scheduler  Target DOM render scheduler.
    *
    * @returns Input control aspect converter.
    */

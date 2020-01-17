@@ -1,10 +1,13 @@
 /**
  * @module input-aspects
  */
+import { nextArgs } from 'call-thru';
 import { afterAll } from 'fun-events';
+import { NamespaceDef, QualifiedName } from 'namespace-aliaser';
 import { InControl } from '../control';
 import { InMode } from '../data';
 import { InStatus } from '../focus';
+import { InputAspects__NS } from '../namespace-aliaser.aspect';
 import { InValidation } from '../validation';
 import { InCssClasses } from './css-classes.aspect';
 
@@ -21,41 +24,59 @@ import { InCssClasses } from './css-classes.aspect';
  * - `touched` when input control is touched (i.e. had focus already),
  * - `edited` when input control is edited by user.
  *
+ * These names are qualified with the given (or {@link InputAspects__NS default}) namespace.
+ *
  * @category Style
- * @param prefix  Optional prefix to add to generated class names. `inas-` by default.
- * @param suffix  Optional suffix to add to generated class names.
+ * @param ns  A definition of namespace to qualify CSS class names with. The {@link InputAspects__NS default namespace}
+ * will be used when omitted.
  */
 export function inCssInfo(
     {
-      prefix = 'inap-',
-      suffix = '',
+      ns = InputAspects__NS,
     }: {
-      prefix?: string,
-      suffix?: string,
+      ns?: NamespaceDef,
     } = {},
 ): InCssClasses.Source {
   return (control: InControl<any>) => {
+
+    const cls = (name: string) => [name, ns] as const;
+
     return afterAll({
       md: control.aspect(InMode),
       vl: control.aspect(InValidation),
       st: control.aspect(InStatus),
     }).keep.thru(
         ({ md: [mode], vl: [valid], st: [{ hasFocus, touched, edited }] }) => {
-          return {
-            [cls('disabled')]: !InMode.hasData(mode),
-            [cls('readonly')]: mode === 'ro' || mode === '-ro',
-            [cls('invalid')]: !valid.ok,
-            [cls('missing')]: valid.has('missing'),
-            [cls('incomplete')]: valid.has('incomplete'),
-            [cls('has-focus')]: hasFocus,
-            [cls('touched')]: touched,
-            [cls('edited')]: edited,
-          } as InCssClasses.Map;
+
+          const names: QualifiedName[] = [];
+
+          if (!InMode.hasData(mode)) {
+            names.push(cls('disabled'));
+          }
+          if (mode === 'ro' || mode === '-ro') {
+            names.push(cls('readonly'));
+          }
+          if (!valid.ok) {
+            names.push(cls('invalid'));
+          }
+          if (valid.has('missing')) {
+            names.push(cls('missing'));
+          }
+          if (valid.has('incomplete')) {
+            names.push(cls('incomplete'));
+          }
+          if (hasFocus) {
+            names.push(cls('has-focus'));
+          }
+          if (touched) {
+            names.push(cls('touched'));
+          }
+          if (edited) {
+            names.push(cls('edited'));
+          }
+
+          return nextArgs(...names);
         },
     );
   };
-
-  function cls(name: string): string {
-    return `${prefix}${name}${suffix}`;
-  }
 }
