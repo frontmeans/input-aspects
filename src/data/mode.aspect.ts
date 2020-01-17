@@ -306,7 +306,7 @@ function applyMode(element: HTMLElement, value: InMode.Value) {
 
 function parentsMode(parents: InParents.All): AfterEvent<[InMode.Value]> {
 
-  const parentList = [...parents];
+  const parentList = Array.from(parents);
 
   if (!parentList.length) {
     return afterThe('on');

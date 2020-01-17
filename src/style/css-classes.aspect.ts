@@ -169,7 +169,7 @@ class InControlCssClasses extends InCssClasses {
       const sendClasses = () => {
         classesSent = true;
         classes.redelta(
-            (add, remove) => emitter.send([...add], [...remove]),
+            (add, remove) => emitter.send(add, remove),
         ).undelta();
       };
 

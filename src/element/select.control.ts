@@ -1,7 +1,7 @@
 /**
  * @module input-aspects
  */
-import { filterIt, itsEach, mapIt, overArray, reverseIt } from 'a-iterable';
+import { filterIt, itsEach, overArray, reverseIt } from 'a-iterable';
 import { InElement } from '../element.control';
 import { InElementControl } from './element.impl';
 
@@ -28,15 +28,13 @@ export function inSelect(element: HTMLSelectElement): InSelect {
       element,
       {
         get(): string[] {
-          return [
-            ...mapIt(
-                filterIt(
-                    overArray(this.element.options),
-                    option => option.selected,
-                ),
-                option => option.value,
-            ),
-          ];
+          return Array.from(
+              filterIt(
+                  overArray(this.element.options),
+                  option => option.selected,
+              ),
+              option => option.value,
+          );
         },
         set(value) {
 

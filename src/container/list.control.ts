@@ -274,7 +274,7 @@ class InListEntries<Item> {
     function modify(): ControlEntry<Item>[] {
       if (self._shot) {
         self._shot = undefined;
-        self._entries = [...self._entries];
+        self._entries = Array.from(self._entries);
       }
       return self._entries;
     }
@@ -312,7 +312,7 @@ function readControlValue<Item>(
 
     if (model[index] !== value) {
 
-      const newModel = [...controls._list.it];
+      const newModel = Array.from(controls._list.it);
 
       newModel[index] = control.it;
 
@@ -392,7 +392,7 @@ class InListControlControls<Item> extends InListControls<Item> {
 
     if (added.length || removed.length) {
 
-      const updated = [...list.it];
+      const updated = Array.from(list.it);
 
       updated.splice(start, removed.length, ...added.map(([, [control]]) => control.it));
       list.it = updated;
