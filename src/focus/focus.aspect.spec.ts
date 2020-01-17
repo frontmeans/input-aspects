@@ -1,4 +1,3 @@
-import { asis } from 'call-thru';
 import { InControl } from '../control';
 import { inText } from '../element';
 import { inValue } from '../value';
@@ -132,7 +131,7 @@ describe('InFocus', () => {
 
     it('reuses aspect instance', () => {
 
-      const converted = control.convert(asis, asis);
+      const converted = control.convert();
 
       expect(converted.aspect(InFocus)).toBe(focus);
     });

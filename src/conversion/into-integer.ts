@@ -2,6 +2,7 @@
  * @module input-aspects
  */
 import { InControl } from '../control';
+import { InConverter } from '../converter';
 import { InParser } from './parser';
 
 const notInteger = 'notInteger';
@@ -19,7 +20,7 @@ const notInteger = 'notInteger';
  * @param radix  An integer in the range 2 through 36 specifying the base to use for representing numeric values.
  * `10` by default.
  */
-export function intoInteger(radix?: number): InControl.Converter<string, number>;
+export function intoInteger(radix?: number): InConverter<string, number>;
 
 /**
  * Input control converter that converts string values to integer ones with radix of 10.
@@ -30,11 +31,11 @@ export function intoInteger(radix?: number): InControl.Converter<string, number>
  *
  * Reports invalid numbers with `invalid`, `NaN`, and `notInteger` message codes.
  */
-export function intoInteger(from: InControl<string>, to: InControl<number>): InControl.Converters<string, number>;
+export function intoInteger(from: InControl<string>, to: InControl<number>): InConverter.Conversion<string, number>;
 
 export function intoInteger(radixOrFrom: number | InControl<string> = 10, optTo?: InControl<number>) {
   if (typeof radixOrFrom !== 'number') {
-    return intoInteger()(radixOrFrom, optTo as InControl<number>);
+    return (intoInteger() as InConverter.Factory<string, number>)(radixOrFrom, optTo as InControl<number>);
   }
 
   return InParser.converter<number>((_from, to) => [

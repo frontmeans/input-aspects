@@ -2,6 +2,7 @@ export * from './aspect';
 export * from './container';
 export * from './control';
 export * from './conversion';
+export * from './converter';
 export * from './data';
 export * from './element';
 export * from './element.control';

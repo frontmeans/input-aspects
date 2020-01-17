@@ -300,13 +300,19 @@ An input aspect is an arbitrary value. There are several input aspects implement
 
   This is a HTML element for input element control, and `null` for everything else by default.
   
-  An `intoWrapper()` converter can be used to convert arbitrary control to the one with the given styled element.
+  An `InStyledElement.to()` converter can be used to convert arbitrary control to the one with the given styled element.
   This is useful for controls without elements (such as input groups), or can be used to apply CSS classes to input
   element wrappers (such as `form-group` in Bootstrap).
 
 - `InCssClasses` An aspect of the user input representing CSS classes to apply to styled element.
 
-  You mea wish to utilize an `inCssInfo()` function that creates a source of informative CSS classes.  
+  An `inCssInfo()` function may be used to create a source of informative CSS classes.    
+
+- `InRenderScheduler` Input elements render scheduler.
+
+  It is used e.g. to schedule CSS updates. The control values and attributes are updated instantly.
+  
+  Ad `InRenderScheduler.to()` converter can be used to convert arbitrary control to the one with the given scheduler.
 
 - `InValidation` Validation aspect of the input.
 

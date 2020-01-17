@@ -2,6 +2,7 @@
  * @module input-aspects
  */
 import { InControl } from '../control';
+import { InConverter } from '../converter';
 
 /**
  * Creates input control converter that trims input values.
@@ -12,7 +13,7 @@ import { InControl } from '../control';
  *
  * @category Converter
  */
-export function intoTrimmed(): InControl.Converter<string, string>;
+export function intoTrimmed(): InConverter<string, string>;
 
 /**
  * Input control converter that trims input values.
@@ -21,12 +22,12 @@ export function intoTrimmed(): InControl.Converter<string, string>;
  *
  * Can be applied to input controls with string values only.
  */
-export function intoTrimmed(from: InControl<string>, to: InControl<string>): InControl.Converters<string, string>;
+export function intoTrimmed(from: InControl<string>, to: InControl<string>): InConverter.Conversion<string, string>;
 
 export function intoTrimmed(
     _from?: InControl<string>,
     to?: InControl<string>,
-): InControl.Converter<string, string> | InControl.Converters<string, string> {
+): InConverter<string, string> | InConverter.Conversion<string, string> {
   if (!to) {
     return intoTrimmed;
   }

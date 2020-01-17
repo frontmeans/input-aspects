@@ -4,6 +4,7 @@
 import { valueProvider, valuesProvider } from 'call-thru';
 import { afterSupplied, EventEmitter } from 'fun-events';
 import { InControl } from '../control';
+import { InConverter } from '../converter';
 import { InValidation } from '../validation';
 
 /**
@@ -63,7 +64,7 @@ export const InParser = {
    *
    * @returns An input control converter that parses and formats text input.
    */
-  converter<Value>(parser: InParser<Value>): InControl.Converter<string, Value> {
+  converter<Value>(parser: InParser<Value>): InConverter<string, Value> {
     return (from: InControl<string>, to: InControl<Value>) => {
 
       const [parse, format = String] = parser(from, to);
@@ -114,6 +115,6 @@ export const InParser = {
 export function intoParsedBy<Value>(
     parse: (this: void, text: string, errors: InParser.Errors) => Value,
     format?: (this: void, value: Value) => string,
-): InControl.Converter<string, Value> {
+): InConverter<string, Value> {
   return InParser.converter(valueProvider([parse, format]));
 }

@@ -1,4 +1,3 @@
-import { asis } from 'call-thru';
 import { EventSupply } from 'fun-events';
 import { InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
@@ -30,7 +29,7 @@ describe('InText', () => {
     });
     it('is available as aspect of converted control', () => {
 
-      const converted = control.convert(asis, asis);
+      const converted = control.convert();
 
       expect(converted.aspect(InElement)).toBe(control);
     });
@@ -38,7 +37,7 @@ describe('InText', () => {
       expect(inValue('some').aspect(InElement)).toBeNull();
     });
     it('is not available as aspect of converted non-element control', () => {
-      expect(inValue('some').convert(asis, asis).aspect(InElement)).toBeNull();
+      expect(inValue('some').convert().aspect(InElement)).toBeNull();
     });
     it('retrieves arbitrary aspect', () => {
 
