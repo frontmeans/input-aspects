@@ -4,6 +4,7 @@
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectNull, inAspectValue } from '../aspect.impl';
 import { InControl } from '../control';
+import { InConverter } from '../converter';
 import { InElement } from '../element.control';
 
 /**
@@ -15,6 +16,9 @@ import { InElement } from '../element.control';
  */
 export type InStyledElement = Element;
 
+/**
+ * @internal
+ */
 const InStyledElement__aspect: InAspect<InStyledElement | null> = {
 
   applyTo(control: InControl<any>): InAspect.Applied<InStyledElement | null> {
@@ -33,6 +37,28 @@ export const InStyledElement = {
 
   get [InAspect__symbol]() {
     return InStyledElement__aspect;
+  },
+
+  /**
+   * Creates input control aspect converter that assigns styled element to converted control.
+   *
+   * This is useful for controls without elements (such as input groups), or can be used to apply CSS classes to input
+   * element wrappers (such as `form-group` in Bootstrap).
+   *
+   * @param element  A DOM element to apply styles to. Styles won't be applied when `null` or undefined.
+   *
+   * @returns Input control converter.
+   */
+  to<Value>(element: InStyledElement | null = null): InConverter.Aspect<any, Value> {
+    return {
+      applyAspect<Instance, Kind extends InAspect.Application.Kind>(
+          aspect: InAspect<any, any>,
+      ): InAspect.Applied<InAspect.Application.Instance<Instance, Value, Kind>> | undefined {
+        return aspect === InStyledElement__aspect
+            ? inAspectValue(element) as InAspect.Application.Result<Instance, Value, Kind>
+            : undefined;
+      },
+    };
   },
 
 };
