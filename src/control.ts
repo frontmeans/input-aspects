@@ -211,10 +211,10 @@ export namespace InControl {
      * @returns Either applied aspect instance or `undefined` to apply the aspect in standard way (i.e. by converting
      * it from corresponding aspect of original control).
      */
-    readonly applyAspect?: <Instance, Kind extends InAspect.Application.Kind>(
+    applyAspect?<Instance, Kind extends InAspect.Application.Kind>(
         this: this,
         aspect: InAspect<Instance, Kind>,
-    ) => InAspect.Application.Result<Instance, To, Kind> | undefined;
+    ): InAspect.Application.Result<Instance, To, Kind> | undefined;
 
     /**
      * Converts original value.
