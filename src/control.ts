@@ -4,7 +4,7 @@
 import { noop } from 'call-thru';
 import { EventEmitter, OnEvent, trackValue, ValueTracker } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
-import { InConverter, inConverterBy } from './converter';
+import { InConverter, intoConvertedBy } from './converter';
 
 /**
  * User input control.
@@ -117,7 +117,7 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
       by?: InConverter<Value, To> | InConverter.Aspect<Value, To>,
       ...and: InConverter.Aspect<Value, To>[]
   ): InControl<Value> | InControl<To> {
-    return new InConverted(this, inConverterBy(by as InConverter<Value, To>, ...and));
+    return new InConverted(this, intoConvertedBy(by as InConverter<Value, To>, ...and));
   }
 
   /**

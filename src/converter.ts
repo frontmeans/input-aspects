@@ -155,7 +155,7 @@ export namespace InConverter.Aspect {
  *
  * @returns Input control conversion factory.
  */
-export function inConverterBy<From, To>(
+export function intoConvertedBy<From, To>(
     converter: InConverter<From, To>,
     ...converters: InConverter.Aspect<From, To>[]
 ): InConverter.Factory<From, To>;
@@ -168,11 +168,11 @@ export function inConverterBy<From, To>(
  *
  * @returns Input control aspect conversion factory.
  */
-export function inConverterBy<From, To>(
+export function intoConvertedBy<From, To>(
     ...converters: InConverter.Aspect<From, To>[]
 ): InConverter.Factory<From, To>;
 
-export function inConverterBy<From, To>(
+export function intoConvertedBy<From, To>(
     valueOrAspectConverter?: InConverter<From, To> | InConverter.Aspect<From, To>,
     ...converters: InConverter.Aspect<From, To>[]
 ): InConverter.Factory<From, To> {

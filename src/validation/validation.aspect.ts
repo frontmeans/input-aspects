@@ -46,7 +46,7 @@ const InValidation__aspect: Aspect = {
 };
 
 /**
- * Input validation aspect.
+ * @internal
  */
 interface Aspect extends InAspect<InValidation<any>, 'validation'> {
 
@@ -55,7 +55,7 @@ interface Aspect extends InAspect<InValidation<any>, 'validation'> {
 }
 
 /**
- * An input validation aspect applied to control.
+ * @internal
  */
 interface Applied<Value> extends InAspect.Applied<InValidation<Value>, InValidation<any>> {
 
