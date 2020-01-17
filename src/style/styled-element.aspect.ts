@@ -40,14 +40,14 @@ export const InStyledElement = {
   },
 
   /**
-   * Creates input control aspect converter that assigns styled element to converted control.
+   * Creates input control aspect converter that assigns the given styled element to converted control.
    *
    * This is useful for controls without elements (such as input groups), or can be used to apply CSS classes to input
    * element wrappers (such as `form-group` in Bootstrap).
    *
    * @param element  A DOM element to apply styles to. Styles won't be applied when `null` or undefined.
    *
-   * @returns Input control converter.
+   * @returns Input control aspect converter.
    */
   to<Value>(element: InStyledElement | null = null): InConverter.Aspect<any, Value> {
     return {
