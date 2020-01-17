@@ -7,7 +7,7 @@ import { InControl } from './control';
 /**
  * Input control converter.
  *
- * This either a {@link InConverter.Conversion control conversion}, or a {@link InConverter.Factory conversion factory}.
+ * Either a {@link InConverter.Conversion control conversion}, or a {@link InConverter.Factory conversion factory}.
  *
  * @category Converter
  * @typeparam From  Original input value type.
