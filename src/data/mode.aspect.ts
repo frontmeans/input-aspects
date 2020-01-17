@@ -26,6 +26,9 @@ import { InParents } from '../container/parents.aspect';
 import { InControl } from '../control';
 import { InElement } from '../element.control';
 
+/**
+ * @internal
+ */
 const InMode__aspect: InAspect<InMode> = {
 
   applyTo<Value>(control: InControl<Value>): InAspect.Applied<InMode> {
@@ -136,13 +139,16 @@ export namespace InMode {
 
 }
 
+/**
+ * @internal
+ */
 class OwnModeTracker extends ValueTracker<InMode.Value> {
 
   private readonly _tracker: ValueTracker<InMode.Value>;
 
   constructor(element?: InElement<any>) {
     super();
-    this._tracker = trackValue(element ? initialMode(element.element) : 'on');
+    this._tracker = trackValue(element ? initialInMode(element.element) : 'on');
   }
 
   get on() {
@@ -174,7 +180,10 @@ class OwnModeTracker extends ValueTracker<InMode.Value> {
 
 }
 
-class DerivedModes {
+/**
+ * @internal
+ */
+class DerivedInModes {
 
   readonly read: AfterEvent<[InMode.Value]>;
   private readonly _all = new Set<AfterEvent<[InMode.Value]>>();
@@ -187,7 +196,7 @@ class DerivedModes {
         valuesProvider(this._all),
     );
 
-    this.read = sources.keep.dig(set => afterEach(...set).keep.thru(mergeModes));
+    this.read = sources.keep.dig(set => afterEach(...set).keep.thru(mergeInModes));
   }
 
   add(source: EventKeeper<[InMode.Value]>): EventSupply {
@@ -206,12 +215,15 @@ class DerivedModes {
 
 }
 
+/**
+ * @internal
+ */
 class InControlMode extends InMode {
 
   readonly own: OwnModeTracker;
   readonly read: AfterEvent<[InMode.Value]>;
   readonly on: OnEvent<[InMode.Value, InMode.Value]>;
-  private readonly _derived = new DerivedModes();
+  private readonly _derived = new DerivedInModes();
 
   constructor(control: InControl<any>) {
     super();
@@ -219,7 +231,7 @@ class InControlMode extends InMode {
     const element = control.aspect(InElement);
 
     this.own = new OwnModeTracker(element);
-    this.derive(control.aspect(InParents).read.keep.dig_(parentsMode));
+    this.derive(control.aspect(InParents).read.keep.dig_(parentsInMode));
 
     let last: InMode.Value = 'on';
 
@@ -256,7 +268,7 @@ class InControlMode extends InMode {
         valuesProvider<[InMode.Value]>(last),
     );
     if (element) {
-      this.read(value => applyMode(element.element, value));
+      this.read(value => applyInMode(element.element, value));
     }
 
     let lastUpdate: InMode.Value = 'on';
@@ -275,14 +287,20 @@ class InControlMode extends InMode {
 
 }
 
-function initialMode(element: HTMLElement): InMode.Value {
+/**
+ * @internal
+ */
+function initialInMode(element: HTMLElement): InMode.Value {
   return element.getAttribute('disabled') != null
       ? 'off' : (
           element.getAttribute('readonly') != null ? 'ro' : 'on'
       );
 }
 
-function applyMode(element: HTMLElement, value: InMode.Value) {
+/**
+ * @internal
+ */
+function applyInMode(element: HTMLElement, value: InMode.Value) {
   switch (value) {
     case 'off':
       element.setAttribute('disabled', '');
@@ -304,7 +322,10 @@ function applyMode(element: HTMLElement, value: InMode.Value) {
   }
 }
 
-function parentsMode(parents: InParents.All): AfterEvent<[InMode.Value]> {
+/**
+ * @internal
+ */
+function parentsInMode(parents: InParents.All): AfterEvent<[InMode.Value]> {
 
   const parentList = Array.from(parents);
 
@@ -314,10 +335,13 @@ function parentsMode(parents: InParents.All): AfterEvent<[InMode.Value]> {
 
   const parentModes = parentList.map(({ parent }) => parent.aspect(InMode));
 
-  return afterEach(...parentModes).keep.thru_(mergeModes);
+  return afterEach(...parentModes).keep.thru_(mergeInModes);
 }
 
-function mergeModes(...modes: [InMode.Value][]) {
+/**
+ * @internal
+ */
+function mergeInModes(...modes: [InMode.Value][]) {
 
   let ro = false;
   let off = false;

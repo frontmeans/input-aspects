@@ -6,6 +6,9 @@ import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectNull, inAspectValue } from '../aspect.impl';
 import { InControl } from '../control';
 
+/**
+ * @internal
+ */
 const InContainer__aspect: InAspect<InContainer<any> | null, 'container'> = {
   applyTo() {
     return inAspectNull;

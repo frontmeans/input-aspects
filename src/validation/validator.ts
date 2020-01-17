@@ -68,10 +68,13 @@ export function inValidator<Value>(
   if (typeof validator === 'function') {
     return control => afterSupplied(validator(control));
   }
-  return control => control.read.keep.thru(simpleValidator(control, validator));
+  return control => control.read.keep.thru(simpleInValidator(control, validator));
 }
 
-function simpleValidator<Value>(
+/**
+ * @internal
+ */
+function simpleInValidator<Value>(
     control: InControl<Value>,
     validator: InValidator.Simple<Value>,
 ): <NextReturn>(value: Value) => NextArgs<InValidation.Message[], NextReturn> | InValidation.Message {

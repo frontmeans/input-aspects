@@ -19,6 +19,9 @@ import { InControl } from '../control';
 import { InElement } from '../element.control';
 import { InFocus } from './focus.aspect';
 
+/**
+ * @internal
+ */
 const InStatus__aspect: InAspect<InStatus> = {
 
   applyTo<Value>(control: InControl<Value>): InAspect.Applied<InStatus> {
@@ -114,15 +117,21 @@ export namespace InStatus {
 
 }
 
-const defaultFlags: InStatus.Flags = {
+/**
+ * @internal
+ */
+const defaultInStatusFlags: InStatus.Flags = {
   hasFocus: false,
   touched: false,
   edited: false,
 };
 
+/**
+ * @internal
+ */
 class InControlStatus extends InStatus {
 
-  private readonly _flags = trackValue<InStatus.Flags>(defaultFlags);
+  private readonly _flags = trackValue<InStatus.Flags>(defaultInStatusFlags);
 
   get read() {
     return this._flags.read;
@@ -130,7 +139,7 @@ class InControlStatus extends InStatus {
 
   constructor(control: InControl<any>) {
     super();
-    this._flags.by(elementFlags(this._flags, control));
+    this._flags.by(elementInStatusFlags(this._flags, control));
   }
 
   markTouched(touched = true): this {
@@ -170,7 +179,10 @@ class InControlStatus extends InStatus {
 
 }
 
-function elementFlags(
+/**
+ * @internal
+ */
+function elementInStatusFlags(
     origin: ValueTracker<InStatus.Flags>,
     control: InControl<any>,
 ): AfterEvent<[InStatus.Flags]> {
@@ -198,6 +210,9 @@ function updateFlags(flags: InStatus.Flags, hasFocus: boolean, edited: boolean):
   return flags;
 }
 
+/**
+ * @internal
+ */
 class InContainerStatus extends InStatus {
 
   readonly read: AfterEvent<[InStatus.Flags]>;
@@ -205,7 +220,7 @@ class InContainerStatus extends InStatus {
   constructor(private readonly _container: InContainer<any>) {
     super();
 
-    this.read = containerFlags(_container);
+    this.read = containerInStatusFlags(_container);
   }
 
   markEdited(edited?: boolean): this {
@@ -230,19 +245,28 @@ class InContainerStatus extends InStatus {
 
 }
 
-function containerFlags(container: InContainer<any>): AfterEvent<[InStatus.Flags]> {
+/**
+ * @internal
+ */
+function containerInStatusFlags(container: InContainer<any>): AfterEvent<[InStatus.Flags]> {
   return container.controls.read.keep.dig_(
-      snapshot => afterEach(...controlStatuses(snapshot)),
+      snapshot => afterEach(...inControlStatuses(snapshot)),
   ).keep.thru(
-      combineFlags,
+      combineInStatusFlags,
   );
 }
 
-function controlStatuses(snapshot: InContainer.Snapshot): Iterable<InStatus> {
+/**
+ * @internal
+ */
+function inControlStatuses(snapshot: InContainer.Snapshot): Iterable<InStatus> {
   return mapIt(snapshot, c => c.aspect(InStatus));
 }
 
-function combineFlags(...flags: [InStatus.Flags][]): InStatus.Flags {
+/**
+ * @internal
+ */
+function combineInStatusFlags(...flags: [InStatus.Flags][]): InStatus.Flags {
 
   const result: { -readonly [K in keyof InStatus.Flags]: InStatus.Flags[K] } = {
     hasFocus: false,

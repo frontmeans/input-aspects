@@ -3,6 +3,9 @@
  */
 import { AfterEvent, afterThe } from 'fun-events';
 
+/**
+ * @internal
+ */
 const _requireNothing = /*#__PURE__*/ afterThe<[]>();
 
 /**

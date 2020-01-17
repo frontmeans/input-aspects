@@ -17,6 +17,9 @@ import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
 import { InContainer } from './container.control';
 
+/**
+ * @internal
+ */
 const InParents__aspect: InAspect<InParents> = {
   applyTo(): InAspect.Applied<InParents> {
     return inAspectValue(new InControlParents());
@@ -103,6 +106,9 @@ export namespace InParents {
 
 }
 
+/**
+ * @internal
+ */
 class InControlParents extends InParents {
 
   private readonly _map = new Map<InParents.Entry, EventSupply>();

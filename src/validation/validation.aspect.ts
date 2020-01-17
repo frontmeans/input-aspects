@@ -11,6 +11,9 @@ import { requireAll } from './require-all.validator';
 import { InValidator } from './validator';
 import { InValidationMessages } from './validator.impl';
 
+/**
+ * @internal
+ */
 const InValidation__aspect: Aspect = {
   applyTo<Value>(control: InControl<Value>): Applied<Value> {
 
@@ -224,7 +227,10 @@ export namespace InValidation {
 
 }
 
-const noValidationErrors: InValidation.Result = {
+/**
+ * @internal
+ */
+const noInValidationErrors: InValidation.Result = {
   get ok() {
     return true;
   },
@@ -239,6 +245,9 @@ const noValidationErrors: InValidation.Result = {
   },
 };
 
+/**
+ * @internal
+ */
 class InValidationErrors implements InValidation.Result {
 
   private readonly _all: InValidation.Message[];
@@ -309,9 +318,12 @@ export function inValidationResult(): InValidation.Ok;
 export function inValidationResult(...messages: InValidation.Message[]): InValidation.Result;
 
 export function inValidationResult(...messages: InValidation.Message[]): InValidation.Result {
-  return messages.length ? new InValidationErrors(messages) : noValidationErrors;
+  return messages.length ? new InValidationErrors(messages) : noInValidationErrors;
 }
 
+/**
+ * @internal
+ */
 class InControlValidation<Value> extends InValidation<Value> {
 
   readonly _messages: InValidationMessages<Value>;
@@ -324,7 +336,7 @@ class InControlValidation<Value> extends InValidation<Value> {
     const container = control.aspect(InContainer);
 
     if (container) {
-      this._messages.from(nestedMessages(container));
+      this._messages.from(nestedInValidationMessages(container));
     }
 
     this.read = afterSupplied(this._messages).keep.thru(inValidationResult);
@@ -336,19 +348,28 @@ class InControlValidation<Value> extends InValidation<Value> {
 
 }
 
-function nestedMessages(container: InContainer<any>): EventKeeper<InValidation.Message[]> {
+/**
+ * @internal
+ */
+function nestedInValidationMessages(container: InContainer<any>): EventKeeper<InValidation.Message[]> {
   return container.controls.read.keep.dig_(
-      nestedValidations,
+      nestedInValidations,
   ).keep.thru(
-      combineValidationResults,
+      combineInValidationResults,
   );
 }
 
-function nestedValidations(controls: InContainer.Snapshot) {
+/**
+ * @internal
+ */
+function nestedInValidations(controls: InContainer.Snapshot) {
   return afterEach(...mapIt(controls, control => control.aspect(InValidation)));
 }
 
-function combineValidationResults<NextReturn>(...[messages]: [InValidation.Result][]) {
+/**
+ * @internal
+ */
+function combineInValidationResults<NextReturn>(...[messages]: [InValidation.Result][]) {
 
   const msg: Iterable<InValidation.Message> = flatMapIt(messages, asis);
 

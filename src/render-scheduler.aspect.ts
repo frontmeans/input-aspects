@@ -28,6 +28,9 @@ const InRenderScheduler__aspect: InAspect<InRenderScheduler> = {
 
 };
 
+/**
+ * @category Aspect
+ */
 export const InRenderScheduler = {
 
   get [InAspect__symbol](): InAspect<InRenderScheduler> {

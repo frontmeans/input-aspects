@@ -8,6 +8,9 @@ import { inAspectNull, inAspectValue } from '../aspect.impl';
 import { InControl } from '../control';
 import { InElement } from '../element.control';
 
+/**
+ * @internal
+ */
 const InFocus__aspect: InAspect<InFocus | null> = {
 
   applyTo<Value>(control: InControl<Value>): InAspect.Applied<InFocus | null> {
@@ -38,6 +41,9 @@ export abstract class InFocus extends ValueTracker<boolean> {
 
 }
 
+/**
+ * @internal
+ */
 class InControlFocus extends InFocus {
 
   private readonly _it: ValueTracker<boolean>;

@@ -27,12 +27,13 @@ export function requireNeeded<Value>(...validators: InValidator<Value>[]): InVal
 
   const validate = inValidator(requireAll(...validators));
 
-  return (control: InControl<Value>) => {
-    return validate(control).keep.thru(nextNeededMessages);
-  };
+  return (control: InControl<Value>) => validate(control).keep.thru(nextRequireNeededMessages);
 }
 
-function nextNeededMessages<NextReturn>(
+/**
+ * @internal
+ */
+function nextRequireNeededMessages<NextReturn>(
     ...messages: InValidation.Message[]
 ): NextArgs<InValidation.Message[], NextReturn> {
 

@@ -41,6 +41,9 @@ const InNamespaceAliaser__aspect: InAspect<InNamespaceAliaser> = {
 
 };
 
+/**
+ * @category Aspect
+ */
 export const InNamespaceAliaser = {
 
   get [InAspect__symbol](): InAspect<InNamespaceAliaser> {

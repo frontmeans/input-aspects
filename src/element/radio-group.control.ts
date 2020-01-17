@@ -47,17 +47,23 @@ export namespace InRadioGroup {
 
 }
 
-type RequiredButtons<Value extends string | undefined> = {
+/**
+ * @internal
+ */
+type RequiredInButtons<Value extends string | undefined> = {
   readonly [value in Exclude<Value, undefined>]: InControl<true | undefined>;
 };
 
+/**
+ * @internal
+ */
 class InRadioGroupControl<Value extends string | undefined> extends InControl<Value> {
 
   private readonly _unchecked: Value;
   private readonly _it: ValueTracker<Value>;
 
   constructor(
-      private readonly _buttons: RequiredButtons<Value>,
+      private readonly _buttons: RequiredInButtons<Value>,
       {
         unchecked,
       }: Partial<InRadioGroup.Values<Value>> = {},
@@ -66,7 +72,7 @@ class InRadioGroupControl<Value extends string | undefined> extends InControl<Va
     this._unchecked = unchecked as Value;
 
     const read: AfterEvent<[Value]> = afterAll(_buttons).keep.thru(
-        values => checkedValue(values, unchecked) as Value,
+        values => checkedInValue(values, unchecked) as Value,
     );
 
     this._it = trackValue(unchecked as Value).by(read);
@@ -89,7 +95,7 @@ class InRadioGroupControl<Value extends string | undefined> extends InControl<Va
   }
 
   set it(value: Value) {
-    this._it.it = value != null && this._buttons[value as keyof RequiredButtons<Value>] ? value : this._unchecked;
+    this._it.it = value != null && this._buttons[value as keyof RequiredInButtons<Value>] ? value : this._unchecked;
   }
 
   done(reason?: any): this {
@@ -99,7 +105,10 @@ class InRadioGroupControl<Value extends string | undefined> extends InControl<Va
 
 }
 
-function checkedValue<Value extends string | undefined>(
+/**
+ * @internal
+ */
+function checkedInValue<Value extends string | undefined>(
     values: { readonly [key in Exclude<Value, undefined>]: [true | undefined] },
     unchecked: Value,
 ): Value {
@@ -153,5 +162,5 @@ export function inRadioGroup<Value extends string | undefined>(
     buttons: InRadioGroup.Buttons<Value>,
     values?: InRadioGroup.Values<Value>,
 ): InRadioGroup<Value> {
-  return new InRadioGroupControl(buttons as RequiredButtons<Value>, values);
+  return new InRadioGroupControl(buttons as RequiredInButtons<Value>, values);
 }

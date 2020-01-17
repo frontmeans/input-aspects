@@ -35,6 +35,9 @@ export namespace InRadio {
 
 }
 
+/**
+ * @internal
+ */
 class InRadioControl<Value> extends InElementControl<Value | undefined, HTMLInputElement> {
 
   constructor(
@@ -60,13 +63,16 @@ class InRadioControl<Value> extends InElementControl<Value | undefined, HTMLInpu
       aspect: InAspect<Instance, Kind>,
   ): InAspect.Application.Result<Instance, Value | undefined, Kind> | undefined {
     if (aspect as InAspect<any> === InMode[InAspect__symbol]) {
-      return applyRadioMode(this) as InAspect.Application.Result<Instance, Value | undefined, Kind>;
+      return applyRadioInMode(this) as InAspect.Application.Result<Instance, Value | undefined, Kind>;
     }
     return super._applyAspect(aspect);
   }
 }
 
-function applyRadioMode<Value>(radio: InRadioControl<Value>): InAspect.Applied<InMode> {
+/**
+ * @internal
+ */
+function applyRadioInMode<Value>(radio: InRadioControl<Value>): InAspect.Applied<InMode> {
 
   const { instance: mode } = InMode[InAspect__symbol].applyTo(radio);
 

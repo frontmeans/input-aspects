@@ -9,6 +9,9 @@ import { InControl } from './control';
 import { InData } from './data';
 import { InValidation, inValidationResult } from './validation';
 
+/**
+ * @internal
+ */
 const InSubmit__aspect: InAspect<InSubmit<any>, 'submit'> = {
   applyTo<Value>(control: InControl<Value>) {
     return {
@@ -23,7 +26,7 @@ const InSubmit__aspect: InAspect<InSubmit<any>, 'submit'> = {
  *
  * Contains submit messages as validation result.
  *
- * @category Error
+ * @category Aspect
  */
 export class InSubmitError extends Error {
 
@@ -51,7 +54,7 @@ export class InSubmitError extends Error {
  *
  * Raised if submit is not ready or in process already.
  *
- * @category Error
+ * @category Aspect
  */
 export class InSubmitRejectedError extends InSubmitError {
 

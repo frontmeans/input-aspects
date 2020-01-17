@@ -22,6 +22,9 @@ import { InMode } from './mode.aspect';
  */
 export type InData<Value> = AfterEvent<[InData.DataType<Value>?]>;
 
+/**
+ * @internal
+ */
 const InData__symbol: Aspect = {
 
   applyTo<Value>(control: InControl<Value>): Applied<Value> {
@@ -30,7 +33,7 @@ const InData__symbol: Aspect = {
       value: control,
       mode: control.aspect(InMode),
     }).keep.thru(
-        ({ value: [value], mode: [mode] }) => dataByValue(value, mode),
+        ({ value: [value], mode: [mode] }) => inDataByValue(value, mode),
     );
 
     return {
@@ -41,7 +44,10 @@ const InData__symbol: Aspect = {
 
 };
 
-function dataByValue<Value, NextReturn>(
+/**
+ * @internal
+ */
+function inDataByValue<Value, NextReturn>(
     value: Value,
     mode: InMode.Value,
 ): NextArgs<[InData.DataType<Value>?], NextReturn> {

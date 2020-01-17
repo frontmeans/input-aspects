@@ -154,13 +154,22 @@ export interface InGroupControls<Model> {
 
 }
 
-type ControlEntry = readonly [InControl<any>, EventSupply]; // When event supply is done the control is unused
+/**
+ * @internal
+ */
+type InGroupEntry = readonly [InControl<any>, EventSupply]; // When event supply is done the control is unused
 
-const controlReplacedReason = {};
+/**
+ * @internal
+ */
+const inControlReplacedReason = {};
 
+/**
+ * @internal
+ */
 class InGroupSnapshot<Model> implements InGroup.Snapshot<Model> {
 
-  constructor(private readonly _map: Map<keyof Model, ControlEntry>) {
+  constructor(private readonly _map: Map<keyof Model, InGroupEntry>) {
   }
 
   get<K extends keyof Model>(key: K): InGroup.Controls<Model>[K] | undefined {
@@ -180,10 +189,13 @@ class InGroupSnapshot<Model> implements InGroup.Snapshot<Model> {
 
 }
 
+/**
+ * @internal
+ */
 class InGroupMap<Model extends object> {
 
   readonly _supply = eventSupply();
-  private _map = new Map<keyof Model, ControlEntry>();
+  private _map = new Map<keyof Model, InGroupEntry>();
   private _shot?: InGroupSnapshot<Model>;
 
   constructor(private readonly _controls: InGroupControlControls<Model>) {
@@ -192,8 +204,8 @@ class InGroupMap<Model extends object> {
   set<K extends keyof Model>(
       key: K,
       control: InControl<Model[K]> | undefined,
-      added: [keyof Model, ControlEntry][],
-      removed: [keyof Model, ControlEntry][],
+      added: [keyof Model, InGroupEntry][],
+      removed: [keyof Model, InGroupEntry][],
   ) {
 
     const self = this;
@@ -208,8 +220,8 @@ class InGroupMap<Model extends object> {
         removed.push([key, replaced]);
       }
 
-      const entry: ControlEntry = [control, eventSupply(reason => {
-        if (reason !== controlReplacedReason) {
+      const entry: InGroupEntry = [control, eventSupply(reason => {
+        if (reason !== inControlReplacedReason) {
           self._controls.remove(key);
         }
       }).needs(self._supply)];
@@ -221,13 +233,13 @@ class InGroupMap<Model extends object> {
       modify().delete(key);
     }
     if (replaced) {
-      replaced[1].off(controlReplacedReason);
+      replaced[1].off(inControlReplacedReason);
     }
 
-    function modify(): Map<keyof Model, ControlEntry> {
+    function modify(): Map<keyof Model, InGroupEntry> {
       if (self._shot) {
 
-        const map = new Map<keyof Model, ControlEntry>();
+        const map = new Map<keyof Model, InGroupEntry>();
 
         itsEach(self._map.entries(), ([k, e]) => map.set(k, e));
         self._shot = undefined;
@@ -242,10 +254,10 @@ class InGroupMap<Model extends object> {
     return this._shot || (this._shot = new InGroupSnapshot<Model>(this._map));
   }
 
-  clear(): [keyof Model, ControlEntry][] {
+  clear(): [keyof Model, InGroupEntry][] {
 
-    const added: [keyof Model, ControlEntry][] = [];
-    const removed: [keyof Model, ControlEntry][] = [];
+    const added: [keyof Model, InGroupEntry][] = [];
+    const removed: [keyof Model, InGroupEntry][] = [];
 
     itsEach(this._map.keys(), key => this.set(key, undefined, added, removed));
 
@@ -254,10 +266,13 @@ class InGroupMap<Model extends object> {
 
 }
 
+/**
+ * @internal
+ */
 class InGroupControlControls<Model extends object> extends InGroupControls<Model> {
 
   private readonly _map: InGroupMap<Model>;
-  private readonly _updates = new EventEmitter<[[keyof Model, ControlEntry][], [keyof Model, ControlEntry][]]>();
+  private readonly _updates = new EventEmitter<[[keyof Model, InGroupEntry][], [keyof Model, InGroupEntry][]]>();
   readonly on: OnEvent<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>;
   readonly read: AfterEvent<[InGroup.Snapshot<Model>]>;
 
@@ -311,8 +326,8 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
   ): this {
 
     const group = this._group;
-    const added: [keyof Model, ControlEntry][] = [];
-    const removed: [keyof Model, ControlEntry][] = [];
+    const added: [keyof Model, InGroupEntry][] = [];
+    const removed: [keyof Model, InGroupEntry][] = [];
 
     if (typeof keyOrControls === 'object') {
       itsEach(overEntries(keyOrControls), ([key, value]) => {
@@ -381,12 +396,18 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
 
 }
 
+/**
+ * @internal
+ */
 function controlEntryToGroupEntry<Model extends object>(
-    [key, [control]]: [keyof Model, ControlEntry],
+    [key, [control]]: [keyof Model, InGroupEntry],
 ): InGroup.Entry<Model> {
   return [key, control];
 }
 
+/**
+ * @internal
+ */
 class InGroupControl<Model extends object> extends InGroup<Model> {
 
   private readonly _model: ValueTracker<Model>;
@@ -420,7 +441,7 @@ class InGroupControl<Model extends object> extends InGroup<Model> {
   ): InAspect.Application.Result<Instance, Model, Kind> | undefined {
     if (aspect as InAspect<any> === InData[InAspect__symbol]) {
       return {
-        instance: groupData(this),
+        instance: inGroupData(this),
         convertTo: noop,
       } as InAspect.Application.Result<any, any, any>;
     }
@@ -429,17 +450,23 @@ class InGroupControl<Model extends object> extends InGroup<Model> {
 
 }
 
-function groupData<Model extends object>(group: InGroup<Model>): InData<Model> {
+/**
+ * @internal
+ */
+function inGroupData<Model extends object>(group: InGroup<Model>): InData<Model> {
   return afterAll({
     cs: group.controls,
     model: group,
     mode: group.aspect(InMode),
   }).keep.dig_(
-      readGroupData,
+      readInGroupData,
   );
 }
 
-function readGroupData<Model extends object>(
+/**
+ * @internal
+ */
+function readInGroupData<Model extends object>(
     {
       cs: [controls],
       model: [model],

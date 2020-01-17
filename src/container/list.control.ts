@@ -190,11 +190,17 @@ export interface InListControls<Item> {
 
 }
 
-type ControlEntry<Item> = [InControl<Item>, EventSupply];
+/**
+ * @internal
+ */
+type InListEntry<Item> = [InControl<Item>, EventSupply];
 
+/**
+ * @internal
+ */
 class InListSnapshot<Item> implements InList.Snapshot<Item> {
 
-  constructor(readonly _entries: ControlEntry<Item>[]) {
+  constructor(readonly _entries: InListEntry<Item>[]) {
   }
 
   get length() {
@@ -223,27 +229,33 @@ class InListSnapshot<Item> implements InList.Snapshot<Item> {
 
 }
 
-const controlReplacedReason = {};
+/**
+ * @internal
+ */
+const inControlReplacedReason = {};
 
+/**
+ * @internal
+ */
 class InListEntries<Item> {
 
   readonly _supply = eventSupply();
-  _entries: ControlEntry<Item>[];
+  _entries: InListEntry<Item>[];
   private _shot?: InListSnapshot<Item>;
 
   constructor(
       readonly _controls: InListControlControls<Item>,
       initial: InControl<Item>[],
   ) {
-    this._entries = initial.map(control => controlEntry(this, control));
+    this._entries = initial.map(control => inListEntry(this, control));
   }
 
   splice(
       start: number,
       deleteCount: number | undefined,
       controls: InControl<Item>[],
-      added: [number, ControlEntry<Item>][],
-      removed: [number, ControlEntry<Item>][],
+      added: [number, InListEntry<Item>][],
+      removed: [number, InListEntry<Item>][],
   ) {
 
     const self = this;
@@ -253,7 +265,7 @@ class InListEntries<Item> {
         ...controls.map(
             (control, index) => {
 
-              const entry = controlEntry(this, control);
+              const entry = inListEntry(this, control);
 
               added.push([start + index, entry]);
 
@@ -265,13 +277,13 @@ class InListEntries<Item> {
     removed.push(
         ...extracted.map(
             (entry, index) => {
-              entry[1].off(controlReplacedReason);
-              return [start + index, entry] as [number, ControlEntry<Item>];
+              entry[1].off(inControlReplacedReason);
+              return [start + index, entry] as [number, InListEntry<Item>];
             },
         ),
     );
 
-    function modify(): ControlEntry<Item>[] {
+    function modify(): InListEntry<Item>[] {
       if (self._shot) {
         self._shot = undefined;
         self._entries = Array.from(self._entries);
@@ -286,23 +298,29 @@ class InListEntries<Item> {
 
 }
 
-function controlEntry<Item>(
+/**
+ * @internal
+ */
+function inListEntry<Item>(
     entries: InListEntries<Item>,
     control: InControl<Item>,
-): ControlEntry<Item> {
+): InListEntry<Item> {
   return [
     control,
     eventSupply(reason => {
-      if (reason !== controlReplacedReason) {
+      if (reason !== inControlReplacedReason) {
         entries._controls.remove(entries._entries.findIndex(e => e && e[0] === control));
       }
     }).needs(entries._supply),
   ];
 }
 
+/**
+ * @internal
+ */
 function readControlValue<Item>(
     controls: InListControlControls<Item>,
-    [control, supply]: ControlEntry<Item>,
+    [control, supply]: InListEntry<Item>,
 ) {
   supply.needs(control.aspect(InParents).add({ parent: controls._list }).needs(supply));
   supply.needs(control.read(value => {
@@ -321,10 +339,13 @@ function readControlValue<Item>(
   }).needs(supply));
 }
 
+/**
+ * @internal
+ */
 class InListControlControls<Item> extends InListControls<Item> {
 
   readonly _entries: InListEntries<Item>;
-  private readonly _updates = new EventEmitter<[[number, ControlEntry<Item>][], [number, ControlEntry<Item>][]]>();
+  private readonly _updates = new EventEmitter<[[number, InListEntry<Item>][], [number, InListEntry<Item>][]]>();
   readonly on: OnEvent<[InList.Entry<Item>[], InList.Entry<Item>[]]>;
   readonly read: AfterEvent<[InList.Snapshot<Item>]>;
 
@@ -333,11 +354,11 @@ class InListControlControls<Item> extends InListControls<Item> {
 
     const self = this;
 
-    this._entries = new InListEntries(this, controlsByModel(_list.it, 0));
+    this._entries = new InListEntries(this, inListControlsByModel(_list.it, 0));
     this.on = this._updates.on.thru(
         (added, removed) => nextArgs(
-            added.map(controlEntryToListEntry),
-            removed.map(controlEntryToListEntry),
+            added.map(toInListEntry),
+            removed.map(toInListEntry),
         ),
     );
     this.read = afterEventBy(
@@ -367,7 +388,7 @@ class InListControlControls<Item> extends InListControls<Item> {
           self.splice(model.length);
         } else if (model.length > entries.length) {
           // Create missing value controls
-          self.add(...controlsByModel(model, entries.length));
+          self.add(...inListControlsByModel(model, entries.length));
         }
       },
     };
@@ -385,8 +406,8 @@ class InListControlControls<Item> extends InListControls<Item> {
   splice(start: number, deleteCount?: number, ...controls: InControl<Item>[]): this {
 
     const list = this._list;
-    const added: [number, ControlEntry<Item>][] = [];
-    const removed: [number, ControlEntry<Item>][] = [];
+    const added: [number, InListEntry<Item>][] = [];
+    const removed: [number, InListEntry<Item>][] = [];
 
     this._entries.splice(start, deleteCount, controls, added, removed);
 
@@ -406,7 +427,10 @@ class InListControlControls<Item> extends InListControls<Item> {
 
 }
 
-function controlsByModel<Item>(model: readonly Item[], start: number): InControl<Item>[] {
+/**
+ * @internal
+ */
+function inListControlsByModel<Item>(model: readonly Item[], start: number): InControl<Item>[] {
 
   const controls: InControl<Item>[] = [];
 
@@ -417,10 +441,16 @@ function controlsByModel<Item>(model: readonly Item[], start: number): InControl
   return controls;
 }
 
-function controlEntryToListEntry<Item>([key, [control]]: [number, ControlEntry<Item>]): InList.Entry<Item> {
+/**
+ * @internal
+ */
+function toInListEntry<Item>([key, [control]]: [number, InListEntry<Item>]): InList.Entry<Item> {
   return [key, control];
 }
 
+/**
+ * @internal
+ */
 class InListControl<Item> extends InList<Item> {
 
   private readonly _model: ValueTracker<readonly Item[]>;
@@ -454,7 +484,7 @@ class InListControl<Item> extends InList<Item> {
   ): InAspect.Application.Result<Instance, readonly Item[], Kind> | undefined {
     if (aspect as InAspect<any> === InData[InAspect__symbol]) {
       return {
-        instance: listData(this),
+        instance: inListData(this),
         convertTo: noop,
       } as InAspect.Application.Result<any, any, any>;
     }
@@ -463,16 +493,22 @@ class InListControl<Item> extends InList<Item> {
 
 }
 
-function listData<Item>(list: InList<Item>): InData<readonly Item[]> {
+/**
+ * @internal
+ */
+function inListData<Item>(list: InList<Item>): InData<readonly Item[]> {
   return afterAll({
     cs: list.controls,
     mode: list.aspect(InMode),
   }).keep.dig_(
-      readListData,
+      readInListData,
   );
 }
 
-function readListData<Item>(
+/**
+ * @internal
+ */
+function readInListData<Item>(
     {
       cs: [controls],
       mode: [mode],

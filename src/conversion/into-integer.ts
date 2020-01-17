@@ -5,6 +5,9 @@ import { InControl } from '../control';
 import { InConverter } from '../converter';
 import { InParser } from './parser';
 
+/**
+ * @internal
+ */
 const notInteger = 'notInteger';
 
 /**
