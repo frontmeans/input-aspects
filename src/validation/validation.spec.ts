@@ -327,7 +327,7 @@ describe('InValidation', () => {
     describe('double converted', () => {
       it('receives validation messages from both origins', () => {
 
-        const dcValidation = convertedControl.convert<number>({ set: asis, get: asis }).aspect(InValidation);
+        const dcValidation = convertedControl.convert().aspect(InValidation);
         const dcReceiver = jest.fn();
 
         dcValidation.read(dcReceiver);

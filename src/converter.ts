@@ -20,12 +20,11 @@ export type InConverter<From, To> =
 export namespace InConverter {
 
   /**
-   * Input control conversion factory.
+   * Input control conversion factory signature.
    *
-   * It is a function called by `InControl.convert()` method to construct a
-   * {@link InConverter.Conversion control conversion}.
+   * Called by [[InControl.convert]] to construct a {@link Conversion control conversion}.
    *
-   * This function should not access converted control value as the one does not exist at calling time.
+   * Should not access converted control value as the one does not exist at calling time.
    *
    * @typeparam From  Original input value type.
    * @typeparam To  Converted input value type.
@@ -85,4 +84,63 @@ export namespace InConverter {
 
   }
 
+  /**
+   * Input control aspect converter.
+   *
+   * Either an {@link InConverter.Aspect.Conversion control aspect conversion}, or {@link InConverter.Aspect.Factory
+   * input aspect conversion factory}.
+   *
+   * @typeparam From  Original input value type.
+   * @typeparam To  Converted input value type.
+   */
+  export type Aspect<From, To> =
+    | InConverter.Aspect.Conversion<To>
+    | InConverter.Aspect.Factory<From, To>;
+
+}
+
+export namespace InConverter.Aspect {
+
+  /**
+   * Input control aspect conversion factory signature.
+   *
+   * Called by [[InControl.convert]] to construct an {@link Conversion control aspect conversion}.
+   *
+   * Should not access converted control value as the one does not exist at calling time.
+   *
+   * @typeparam From  Original input value type.
+   * @typeparam To  Converted input value type.
+   */
+  export type Factory<From, To> = (
+      this: void,
+      from: InControl<From>,
+      to: InControl<To>,
+  ) => Conversion<To>;
+
+  /**
+   * Input control aspect conversion.
+   *
+   * @typeparam Value  Input value type.
+   */
+  export interface Conversion<Value> {
+
+    get?: undefined;
+
+    set?: undefined;
+
+    /**
+     * Applies the given aspect to converted control in a custom way.
+     *
+     * @typeparam Instance  Aspect instance type.
+     * @typeparam Kind  Aspect application kind.
+     * @param aspect  An aspect to apply.
+     *
+     * @returns Either applied aspect instance or `undefined` to apply the aspect in standard way (i.e. by converting
+     * it from corresponding aspect of original control).
+     */
+    applyAspect<Instance, Kind extends InAspect.Application.Kind>(
+        aspect: InAspect<Instance, Kind>,
+    ): InAspect.Application.Result<Instance, Value, Kind> | undefined;
+
+  }
 }

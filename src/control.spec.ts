@@ -1,4 +1,3 @@
-import { asis } from 'call-thru';
 import { EventSupply } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
 import { InControl } from './control';
@@ -103,11 +102,24 @@ describe('InControl', () => {
     });
     it('converts converted aspect', () => {
 
-      const converted2 = converted.convert<number>({ get: asis, set: asis });
+      const converted2 = converted.convert();
 
       expect(converted2.aspect(TestAspect)()).toBe('3!!');
       control.it = 'other';
       expect(converted2.aspect(TestAspect)()).toBe('5!!');
+    });
+    it('does not convert value without converters', () => {
+
+      const converted2 = control.convert();
+
+      expect(converted2).not.toBe(control);
+      expect(converted2.it).toBe(control.it);
+
+      control.it = 'other';
+      expect(converted2.it).toBe(control.it);
+
+      converted2.it = 'third';
+      expect(converted2.it).toBe(control.it);
     });
     it('converts with conversion factory', () => {
 
