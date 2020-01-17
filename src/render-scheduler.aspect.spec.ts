@@ -1,8 +1,10 @@
 import { newManualRenderScheduler, newRenderSchedule } from 'render-scheduler';
+import { InContainer } from './container';
 import { InControl } from './control';
 import { inText, InText } from './element';
 import { InElement } from './element.control';
 import { InRenderScheduler } from './render-scheduler.aspect';
+import { InStyledElement } from './style';
 import { inValue } from './value';
 
 describe('InRenderScheduler', () => {
@@ -31,11 +33,24 @@ describe('InRenderScheduler', () => {
       converted = control.convert(InRenderScheduler.to(scheduler));
     });
 
-    it('replaces render scheduler', () => {
+    it('assigns render scheduler', () => {
       expect(converted.aspect(InRenderScheduler)).toBe(scheduler);
     });
     it('preserves input element', () => {
       expect(converted.aspect(InElement)).toBe(control.aspect(InElement));
+    });
+    it('assigns render scheduler along with styled element', () => {
+
+      const styled = document.createElement('div');
+
+      converted = control.convert(
+          InStyledElement.to(styled),
+          InRenderScheduler.to(scheduler),
+      );
+
+      expect(converted.aspect(InContainer)).toBeNull();
+      expect(converted.aspect(InStyledElement)).toBe(styled);
+      expect(converted.aspect(InRenderScheduler)).toBe(scheduler);
     });
   });
 });

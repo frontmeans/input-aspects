@@ -303,7 +303,6 @@ class InConverted<From, To> extends InControl<To> {
             isPresent,
         ),
     );
-
     const convertAspect = <Instance, Kind extends InAspect.Application.Kind>(
         aspect: InAspect<Instance, Kind>,
     ) => {
@@ -321,17 +320,7 @@ class InConverted<From, To> extends InControl<To> {
       return fallback.convertTo<Instance>(this as any) as InAspect.Application.Result<Instance, To, Kind> | undefined;
     };
 
-    this._applyAspect = conversion.applyAspect
-        ? function<Instance, Kind extends InAspect.Application.Kind>(
-            this: InConverted<From, To>,
-            aspect: InAspect<Instance, Kind>,
-        ) {
-          return (
-              conversion.applyAspect!(aspect) || convertAspect(aspect)
-          ) as InAspect.Application.Result<Instance, To, Kind> | undefined;
-        }
-        : convertAspect;
-
+    this._applyAspect = aspect => conversion.applyAspect?.(aspect) || convertAspect(aspect);
     this._it = trackValue([conversion.set(src.it), 0]);
     this._it.on(([newValue], [oldValue]) => {
       if (newValue !== oldValue) {
