@@ -144,7 +144,6 @@ export namespace InConverter.Aspect {
 
 }
 
-
 /**
  * Creates converter that combines value converter with aspect converters.
  *
