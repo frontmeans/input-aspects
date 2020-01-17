@@ -36,7 +36,7 @@ describe('InRenderScheduler', () => {
     it('assigns render scheduler', () => {
       expect(converted.aspect(InRenderScheduler)).toBe(scheduler);
     });
-    it('preserves input element', () => {
+    it('preserves other aspects element', () => {
       expect(converted.aspect(InElement)).toBe(control.aspect(InElement));
     });
     it('assigns render scheduler along with styled element', () => {

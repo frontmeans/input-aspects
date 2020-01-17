@@ -7,6 +7,7 @@ export * from './data';
 export * from './element';
 export * from './element.control';
 export * from './focus';
+export * from './namespace-aliaser.aspect';
 export * from './render-scheduler.aspect';
 export * from './style';
 export * from './submit.aspect';
