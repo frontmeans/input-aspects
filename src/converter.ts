@@ -1,6 +1,8 @@
 /**
  * @module input-aspects
  */
+import { filterIt, mapIt } from 'a-iterable';
+import { asis, isPresent, valueProvider } from 'call-thru';
 import { InAspect } from './aspect';
 import { InControl } from './control';
 
@@ -94,8 +96,8 @@ export namespace InConverter {
    * @typeparam To  Converted input value type.
    */
   export type Aspect<From, To> =
-    | InConverter.Aspect.Conversion<To>
-    | InConverter.Aspect.Factory<From, To>;
+      | InConverter.Aspect.Conversion<To>
+      | InConverter.Aspect.Factory<From, To>;
 
 }
 
@@ -124,10 +126,6 @@ export namespace InConverter.Aspect {
    */
   export interface Conversion<Value> {
 
-    get?: undefined;
-
-    set?: undefined;
-
     /**
      * Applies the given aspect to converted control in a custom way.
      *
@@ -143,4 +141,150 @@ export namespace InConverter.Aspect {
     ): InAspect.Application.Result<Instance, Value, Kind> | undefined;
 
   }
+
+}
+
+
+/**
+ * Creates converter that combines value converter with aspect converters.
+ *
+ * @category Conversion
+ * @typeparam From  Original input value type.
+ * @typeparam To  Converted input value type.
+ * @param converter  Input control converter.
+ * @param converters  Additional input control aspect converters.
+ *
+ * @returns Input control conversion factory.
+ */
+export function inConverterBy<From, To>(
+    converter: InConverter<From, To>,
+    ...converters: InConverter.Aspect<From, To>[]
+): InConverter.Factory<From, To>;
+
+/**
+ * Creates converter that combines aspect converters.
+ *
+ * @typeparam Value  Input value type.
+ * @param converters  Input control aspect converters.
+ *
+ * @returns Input control aspect conversion factory.
+ */
+export function inConverterBy<From, To>(
+    ...converters: InConverter.Aspect<From, To>[]
+): InConverter.Factory<From, To>;
+
+export function inConverterBy<From, To>(
+    valueOrAspectConverter?: InConverter<From, To> | InConverter.Aspect<From, To>,
+    ...converters: InConverter.Aspect<From, To>[]
+): InConverter.Factory<From, To> {
+  if (!valueOrAspectConverter) {
+    return noopInConverter;
+  }
+
+  const converter = inConverter(valueOrAspectConverter);
+  const aspectConverters = mapIt<InConverter.Aspect<From, To>, InConverter.Aspect.Factory<From, To>>(
+      converters,
+      inConverter,
+  );
+
+  return (from, to) => {
+
+    const conversion = converter(from, to);
+    const aspectConversions: InConverter.Aspect.Conversion<To>[] = Array.from(
+        filterIt<InConverter.Aspect.Conversion<To> | undefined, InConverter.Aspect.Conversion<To>>(
+            mapIt(
+                aspectConverters,
+                acf => acf(from, to),
+            ),
+            isPresent,
+        ),
+    );
+    const applyAspect: <Instance, Kind extends InAspect.Application.Kind>(
+        aspect: InAspect<Instance, Kind>,
+    ) => InAspect.Application.Result<Instance, To, Kind> | undefined = aspect => {
+      if (conversion.applyAspect) {
+
+        const applied = conversion.applyAspect(aspect);
+
+        if (applied) {
+          return applied;
+        }
+      }
+      for (const asc of aspectConversions) {
+
+        const applied = asc.applyAspect(aspect);
+
+        if (applied) {
+          return applied;
+        }
+      }
+
+      return;
+    };
+
+    if (/*#__INLINE__*/ isAspectConversion(conversion)) {
+      return {
+        get: asis as (value: To) => From,
+        set: asis as (value: From) => To,
+        applyAspect,
+      };
+    }
+
+    return {
+      set: (value: From) => conversion.set(value) as To,
+      get: (value: To) => conversion.get(value) as From,
+      applyAspect,
+    };
+  };
+}
+
+/**
+ * @internal
+ */
+const noopInConversion: InConverter.Conversion<any, any> = {
+  get: asis,
+  set: asis,
+};
+
+/**
+ * @internal
+ */
+function noopInConverter() {
+  return noopInConversion;
+}
+
+/**
+ * @internal
+ */
+function isAspectConversion<From, To>(
+    conversion: InConverter.Conversion<From, To> | InConverter.Aspect.Conversion<To>,
+): conversion is InConverter.Aspect.Conversion<To> {
+  return (conversion as any).get == null;
+}
+
+/**
+ * @internal
+ */
+function inConverter<From, To>(
+    converter: InConverter<From, To>,
+): InConverter.Factory<From, To>;
+
+/**
+ * @internal
+ */
+function inConverter<From, To>(
+    converter: InConverter.Aspect<From, To>,
+): InConverter.Aspect.Factory<From, To>;
+
+/**
+ * @internal
+ */
+function inConverter<From, To>(
+    converter: InConverter<From, To> | InConverter.Aspect<From, To>,
+): InConverter.Factory<From, To> | InConverter.Aspect.Factory<From, To>;
+
+function inConverter<From, To>(
+    converter: InConverter<From, To> | InConverter.Aspect<From, To>,
+): InConverter.Factory<From, To> | InConverter.Aspect.Factory<From, To> {
+  return typeof converter === 'function' ? converter : valueProvider<any>(converter);
 }

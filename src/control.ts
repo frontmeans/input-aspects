@@ -1,11 +1,10 @@
 /**
  * @module input-aspects
  */
-import { filterIt, mapIt } from 'a-iterable';
-import { asis, isPresent, noop, valueProvider } from 'call-thru';
+import { noop } from 'call-thru';
 import { EventEmitter, OnEvent, trackValue, ValueTracker } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
-import { InConverter } from './converter';
+import { InConverter, inConverterBy } from './converter';
 
 /**
  * User input control.
@@ -118,14 +117,7 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
       by?: InConverter<Value, To> | InConverter.Aspect<Value, To>,
       ...and: InConverter.Aspect<Value, To>[]
   ): InControl<Value> | InControl<To> {
-    return new InConverted(
-        this,
-        inValueConverter(by),
-        mapIt<InConverter.Aspect<Value, To>, InConverter.Aspect.Factory<Value, To>>(
-            and,
-            inConverter,
-        ),
-    );
+    return new InConverted(this, inConverterBy(by as InConverter<Value, To>, ...and));
   }
 
   /**
@@ -175,87 +167,6 @@ function isAspectKey<Instance, Kind extends InAspect.Application.Kind>(
   return InAspect__symbol in value;
 }
 
-/**
- * @internal
- */
-const noopInConversion: InConverter.Conversion<any, any> = {
-  get: asis,
-  set: asis,
-};
-
-/**
- * @internal
- */
-function noopInConverter() {
-  return noopInConversion;
-}
-
-/**
- * @internal
- */
-function inValueConverter<From, To>(
-    valueOrAspectConverter?: InConverter<From, To> | InConverter.Aspect<From, To>,
-): InConverter.Factory<From, To> {
-  if (!valueOrAspectConverter) {
-    return noopInConverter;
-  }
-
-  const converter = inConverter(valueOrAspectConverter);
-
-  return (from, to) => {
-
-    const conversion = converter(from, to);
-
-    if (/*#__INLINE__*/ isAspectConversion(conversion)) {
-      return {
-        set: asis as (value: From) => To,
-        get: asis as (value: To) => From,
-        applyAspect: <Instance, Kind extends InAspect.Application.Kind>(
-            aspect: InAspect<Instance, Kind>,
-        ) => conversion.applyAspect(aspect),
-      };
-    }
-
-    return conversion;
-  };
-}
-
-/**
- * @internal
- */
-function isAspectConversion<From, To>(
-    conversion: InConverter.Conversion<From, To> | InConverter.Aspect.Conversion<To>,
-): conversion is InConverter.Aspect.Conversion<To> {
-  return conversion.get == null;
-}
-
-/**
- * @internal
- */
-function inConverter<From, To>(
-    converter: InConverter<From, To>,
-): InConverter.Factory<From, To>;
-
-/**
- * @internal
- */
-function inConverter<From, To>(
-    converter: InConverter.Aspect<From, To>,
-): InConverter.Aspect.Factory<From, To>;
-
-/**
- * @internal
- */
-function inConverter<From, To>(
-    converter: InConverter<From, To> | InConverter.Aspect<From, To>,
-): InConverter.Factory<From, To> | InConverter.Aspect.Factory<From, To>;
-
-function inConverter<From, To>(
-    converter: InConverter<From, To> | InConverter.Aspect<From, To>,
-): InConverter.Factory<From, To> | InConverter.Aspect.Factory<From, To> {
-  return typeof converter === 'function' ? converter : valueProvider<any>(converter);
-}
-
 export namespace InControl {
 
   /**
@@ -279,11 +190,7 @@ class InConverted<From, To> extends InControl<To> {
       aspect: InAspect<Instance, Kind>,
   ) => InAspect.Application.Result<Instance, To, Kind> | undefined;
 
-  constructor(
-      src: InControl<From>,
-      by: InConverter.Factory<From, To>,
-      aspectConverters: Iterable<InConverter.Aspect.Factory<From, To>>,
-  ) {
+  constructor(src: InControl<From>, by: InConverter.Factory<From, To>) {
     super();
 
     let lastRev = 0;
@@ -294,26 +201,9 @@ class InConverted<From, To> extends InControl<To> {
     this.on = on.on;
 
     const conversion = by(src, this);
-    const aspectConversions: InConverter.Aspect.Conversion<To>[] = Array.from(
-        filterIt<InConverter.Aspect.Conversion<To> | undefined, InConverter.Aspect.Conversion<To>>(
-            mapIt(
-                aspectConverters,
-                acf => acf(src, this),
-            ),
-            isPresent,
-        ),
-    );
     const convertAspect = <Instance, Kind extends InAspect.Application.Kind>(
         aspect: InAspect<Instance, Kind>,
     ) => {
-      for (const asc of aspectConversions) {
-
-        const applied = asc.applyAspect(aspect);
-
-        if (applied) {
-          return applied;
-        }
-      }
 
       const fallback: InAspect.Applied<any, any> = src._aspect(aspect);
 
