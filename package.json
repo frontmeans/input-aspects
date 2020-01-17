@@ -53,7 +53,7 @@
     "rollup-plugin-typescript2": "^0.25.3",
     "ts-jest": "^24.3.0",
     "tslint": "^5.20.1",
-    "typedoc": "^0.16.6",
+    "typedoc": "^0.16.7",
     "typedoc-plugin-external-module-name": "^3.0.0",
     "typescript": "^3.7.5"
   },
