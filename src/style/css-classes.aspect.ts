@@ -8,7 +8,7 @@ import {
   afterEach,
   AfterEvent,
   AfterEvent__symbol,
-  afterEventBy,
+  afterEventBy, afterSupplied,
   afterThe,
   EventKeeper,
   EventNotifier,
@@ -18,12 +18,17 @@ import {
   trackValue,
   ValueTracker,
 } from 'fun-events';
+import { css__naming, isQualifiedName, QualifiedName } from 'namespace-aliaser';
 import { RenderSchedule } from 'render-scheduler';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
+import { InNamespaceAliaser } from '../namespace-aliaser.aspect';
 import { InRenderScheduler } from '../render-scheduler.aspect';
 import { InStyledElement } from './styled-element.aspect';
 
+/**
+ * @internal
+ */
 const InCssClasses__aspect: InAspect<InCssClasses> = {
 
   applyTo(control: InControl<any>): InAspect.Applied<InCssClasses> {
@@ -100,17 +105,28 @@ export abstract class InCssClasses implements EventKeeper<[InCssClasses.Map]> {
 export namespace InCssClasses {
 
   /**
-   * A source of CSS class names for input control.
+   * A source of CSS class names for styled element.
    *
-   * This is either an event keeper of CSS class names map, or a function returning one and accepting target input
+   * This is either an event keeper of CSS class names, or a function returning one and accepting target input
    * control as the only parameter.
    */
   export type Source =
-      | EventKeeper<[InCssClasses.Map]>
-      | ((control: InControl<any>) => EventKeeper<[InCssClasses.Map]>);
+      | EventKeeper<Spec[]>
+      | ((control: InControl<any>) => EventKeeper<Spec[]>);
 
   /**
-   * A map of CSS class names to apply to styled element.
+   * A specifier of CSS classes for styled element.
+   *
+   * This is either a single (potentially qualified) class name, or a {@link Map map of class names}.
+   *
+   * Qualified names are converted to simple ones by [[InNamespaceAliaser]] aspect.
+   */
+  export type Spec =
+      | QualifiedName
+      | Map;
+
+  /**
+   * A map of CSS class names for styled element.
    *
    * The keys of this map are class names to apply.
    * - When the value is `true` corresponding class name will be added.
@@ -123,16 +139,29 @@ export namespace InCssClasses {
 
 }
 
-const UnsubscribeReason__symbol = /*#__PURE__*/ Symbol('reason');
+/**
+ * @internal
+ */
+const UnsubscribeReason__symbol =
+    (/*#__PURE__*/ Symbol('reason'));
 
+/**
+ * @internal
+ */
 interface UnsubscribeReason {
   readonly [UnsubscribeReason__symbol]?: any;
 }
 
+/**
+ * @internal
+ */
 function isUnsubscribeReason(reason: any): reason is UnsubscribeReason {
   return reason && typeof reason === 'object' && UnsubscribeReason__symbol in reason;
 }
 
+/**
+ * @internal
+ */
 class InControlCssClasses extends InCssClasses {
 
   readonly read: AfterEvent<[InCssClasses.Map]>;
@@ -146,18 +175,9 @@ class InControlCssClasses extends InCssClasses {
         ([sources]) => sources.size ? afterEach(...sources.keys()) : afterThe(),
     ).keep.thru((...classes) => {
 
-      const result: { [name: string]: boolean | undefined } = {};
+      const result: { [name: string]: boolean } = {};
 
-      classes.forEach(([map]) => {
-        itsEach(
-            overEntries(map),
-            ([name, flag]) => {
-              if (flag != null) {
-                result[name] = flag;
-              }
-            },
-        );
-      });
+      classes.forEach(([map]) => mergeInCssClassesMap(map, result));
 
       return result;
     });
@@ -219,7 +239,7 @@ class InControlCssClasses extends InCssClasses {
     const classesSupply = eventSupply();
     const src = afterEventBy<[InCssClasses.Map]>(receiver => {
 
-      const supply = keeper[AfterEvent__symbol]({
+      const supply = keeper({
         receive(context, ...event) {
           receiver.receive(context, ...event);
         },
@@ -284,13 +304,53 @@ class InControlCssClasses extends InCssClasses {
 
 }
 
-function inCssClassesSource(source: InCssClasses.Source): (control: InControl<any>) => EventKeeper<[InCssClasses.Map]> {
-  if (isEventKeeper(source)) {
-    return valueProvider(source);
-  }
-  return source;
+/**
+ * @internal
+ */
+function inCssClassesSource(source: InCssClasses.Source): (control: InControl<any>) => AfterEvent<[InCssClasses.Map]> {
+
+  const keeper = isEventKeeper(source) ? valueProvider(source) : source;
+
+  return control => {
+
+    const nsAlias = control.aspect(InNamespaceAliaser);
+
+    return afterSupplied(keeper(control)).keep.thru(
+        (...names) => {
+
+          const result: { [name: string]: boolean } = {};
+
+          names.forEach(name => {
+            if (isQualifiedName(name)) {
+              result[css__naming.name(name, nsAlias)] = true;
+            } else {
+              mergeInCssClassesMap(name, result);
+            }
+          });
+
+          return result;
+        },
+    );
+  };
 }
 
+/**
+ * @internal
+ */
+function mergeInCssClassesMap(map: InCssClasses.Map, result: { [name: string]: boolean }) {
+  itsEach(
+      overEntries(map),
+      ([name, flag]) => {
+        if (flag != null) {
+          result[name] = flag;
+        }
+      },
+  );
+}
+
+/**
+ * @internal
+ */
 function controlSchedule(control: InControl<any>, node: Node | undefined): RenderSchedule {
   return control.aspect(InRenderScheduler)({ node });
 }
