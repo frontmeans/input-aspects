@@ -38,7 +38,7 @@ describe('InStyledElement', () => {
       expect(converted.aspect(InStyledElement)).toBe(styled);
       expect(converted.aspect(InStyledElement)).not.toBe(input);
     });
-    it('preserves input element', () => {
+    it('preserves other aspects element', () => {
       expect(converted.aspect(InElement)).toBe(control.aspect(InElement));
     });
     it('converts to element without styled element without parameter', () => {

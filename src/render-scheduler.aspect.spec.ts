@@ -1,5 +1,7 @@
 import { newManualRenderScheduler, newRenderSchedule } from 'render-scheduler';
 import { InControl } from './control';
+import { inText, InText } from './element';
+import { InElement } from './element.control';
 import { InRenderScheduler } from './render-scheduler.aspect';
 import { inValue } from './value';
 
@@ -17,18 +19,23 @@ describe('InRenderScheduler', () => {
 
   describe('to', () => {
 
-    let control: InControl<number>;
+    let input: HTMLInputElement;
+    let control: InText;
+    let scheduler: InRenderScheduler;
+    let converted: InControl<string>;
 
     beforeEach(() => {
-      control = inValue(1);
+      input = document.createElement('input');
+      control = inText(input);
+      scheduler = newManualRenderScheduler();
+      converted = control.convert(InRenderScheduler.to(scheduler));
     });
 
-    it('replaces render scheduler when requested', () => {
-
-      const scheduler = newManualRenderScheduler();
-      const converted = control.convert(InRenderScheduler.to(scheduler));
-
+    it('replaces render scheduler', () => {
       expect(converted.aspect(InRenderScheduler)).toBe(scheduler);
+    });
+    it('preserves input element', () => {
+      expect(converted.aspect(InElement)).toBe(control.aspect(InElement));
     });
   });
 });
