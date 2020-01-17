@@ -1,7 +1,7 @@
 /**
  * @module input-aspects
  */
-import { NamespaceAliaser, newNamespaceAliaser } from 'namespace-aliaser';
+import { NamespaceAliaser, NamespaceDef, newNamespaceAliaser } from 'namespace-aliaser';
 import { InAspect, InAspect__symbol } from './aspect';
 import { inAspectValue } from './aspect.impl';
 import { InConverter } from './converter';
@@ -17,6 +17,18 @@ import { InConverter } from './converter';
  * @category Aspect
  */
 export type InNamespaceAliaser = NamespaceAliaser;
+
+/**
+ * Default input-aspects namespace definition.
+ *
+ * @category Aspect
+ */
+export const InputAspects__NS: NamespaceDef =
+    (/*#__PURE__*/ new NamespaceDef(
+        'https://surol.github.io/input-aspects/ns',
+        'inasp',
+        'input-aspects',
+    ));
 
 /**
  * @internal

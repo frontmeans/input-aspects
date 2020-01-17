@@ -2,9 +2,11 @@
  * @module input-aspects
  */
 import { afterAll } from 'fun-events';
+import { css__naming, NamespaceDef } from 'namespace-aliaser';
 import { InControl } from '../control';
 import { InMode } from '../data';
 import { InStatus } from '../focus';
+import { InNamespaceAliaser, InputAspects__NS } from '../namespace-aliaser.aspect';
 import { InValidation } from '../validation';
 import { InCssClasses } from './css-classes.aspect';
 
@@ -21,20 +23,25 @@ import { InCssClasses } from './css-classes.aspect';
  * - `touched` when input control is touched (i.e. had focus already),
  * - `edited` when input control is edited by user.
  *
+ * These names are qualified with the given (or {@link InputAspects__NS default} namespace. Then uses
+ * [[InNamespaceAliaser]] to convert qualified CSS class names to simple ones.
+ *
  * @category Style
- * @param prefix  Optional prefix to add to generated class names. `inas-` by default.
- * @param suffix  Optional suffix to add to generated class names.
+ * @param ns  A definition of namespace to qualify CSS class names with. The {@link InputAspects__NS default namespace}
+ * will be used when omitted.
  */
 export function inCssInfo(
     {
-      prefix = 'inap-',
-      suffix = '',
+      ns = InputAspects__NS,
     }: {
-      prefix?: string,
-      suffix?: string,
+      ns?: NamespaceDef,
     } = {},
 ): InCssClasses.Source {
   return (control: InControl<any>) => {
+
+    const nsAlias = control.aspect(InNamespaceAliaser);
+    const cls = (name: string) => css__naming.name([name, ns], nsAlias);
+
     return afterAll({
       md: control.aspect(InMode),
       vl: control.aspect(InValidation),
@@ -54,8 +61,4 @@ export function inCssInfo(
         },
     );
   };
-
-  function cls(name: string): string {
-    return `${prefix}${name}${suffix}`;
-  }
 }
