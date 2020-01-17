@@ -231,7 +231,7 @@ class InControlSubmit<Value> extends InSubmit<Value> {
       }
       return await submitter(await submitData(), control);
     } catch (error) {
-      errors = toSubmitMessages(error);
+      errors = toInSubmitMessages(error);
       throw error;
     } finally {
       this._flags.it = { ...this._flags.it, busy: false };
@@ -271,7 +271,10 @@ class InControlSubmit<Value> extends InSubmit<Value> {
 
 }
 
-function toSubmitMessages(error: any): InValidation.Message[] {
+/**
+ * @internal
+ */
+function toInSubmitMessages(error: any): InValidation.Message[] {
   if (error instanceof InSubmitError) {
     return [...error.errors];
   }

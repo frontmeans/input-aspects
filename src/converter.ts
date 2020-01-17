@@ -147,7 +147,7 @@ export namespace InConverter.Aspect {
 /**
  * Creates converter that combines value converter with aspect converters.
  *
- * @category Conversion
+ * @category Converter
  * @typeparam From  Original input value type.
  * @typeparam To  Converted input value type.
  * @param converter  Input control converter.

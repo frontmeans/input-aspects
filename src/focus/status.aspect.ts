@@ -194,11 +194,14 @@ function elementInStatusFlags(
     hasFocus: focus || afterThe(false),
     edited: element ? element.input.keep.thru(({ event }) => !!event) : afterThe(false),
   }).keep.thru(
-      ({ hasFocus: [hasFocus], edited: [edited] }) => updateFlags(origin.it, hasFocus, edited),
+      ({ hasFocus: [hasFocus], edited: [edited] }) => updateInStatusFlags(origin.it, hasFocus, edited),
   );
 }
 
-function updateFlags(flags: InStatus.Flags, hasFocus: boolean, edited: boolean): InStatus.Flags {
+/**
+ * @internal
+ */
+function updateInStatusFlags(flags: InStatus.Flags, hasFocus: boolean, edited: boolean): InStatus.Flags {
   if (hasFocus) {
     flags = { ...flags, hasFocus, touched: true };
   } else {
