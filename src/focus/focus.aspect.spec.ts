@@ -132,7 +132,7 @@ describe('InFocus', () => {
 
     it('reuses aspect instance', () => {
 
-      const converted = control.convert(asis, asis);
+      const converted = control.convert<string>({ get: asis, set: asis });
 
       expect(converted.aspect(InFocus)).toBe(focus);
     });

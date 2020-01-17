@@ -2,6 +2,7 @@ import { asis } from 'call-thru';
 import { EventSupply } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
 import { InControl } from './control';
+import { InConverter } from './converter';
 import { InData } from './data';
 import { inValue } from './value';
 import Mock = jest.Mock;
@@ -9,7 +10,7 @@ import Mock = jest.Mock;
 describe('InControl', () => {
 
   let control: InControl<string>;
-  type ConverterGenerator = InControl.Converter<string, number>;
+  type ConversionFactory = InConverter.Factory<string, number>;
 
   beforeEach(() => {
     control = inValue('old');
@@ -78,7 +79,7 @@ describe('InControl', () => {
     beforeEach(() => {
       set = from => from.length;
       get = from => '*'.repeat(from);
-      converted = control.convert(set, get);
+      converted = control.convert({ set, get });
     });
 
     it('converts initial value', () => {
@@ -102,15 +103,15 @@ describe('InControl', () => {
     });
     it('converts converted aspect', () => {
 
-      const converted2 = converted.convert(asis, asis);
+      const converted2 = converted.convert<number>({ get: asis, set: asis });
 
       expect(converted2.aspect(TestAspect)()).toBe('3!!');
       control.it = 'other';
       expect(converted2.aspect(TestAspect)()).toBe('5!!');
     });
-    it('converts with converter generator', () => {
+    it('converts with conversion factory', () => {
 
-      const by = jest.fn<ReturnType<ConverterGenerator>, Parameters<ConverterGenerator>>(() => ({ set, get }));
+      const by = jest.fn<ReturnType<ConversionFactory>, Parameters<ConversionFactory>>(() => ({ set, get }));
 
       converted = control.convert(by);
       expect(by).toHaveBeenCalledWith(control, converted);
@@ -119,29 +120,24 @@ describe('InControl', () => {
       converted.it = 5;
       expect(control.it).toBe('*****');
     });
-    it('converts aspect by `applyAspect` omitted', () => {
+    it('converts aspect when `applyAspect` omitted', () => {
 
       const instance = { name: 'data' };
       const applyAspect = jest.fn<any, any[]>(() => ({ instance }));
-      const by = () => ({ set, get, applyAspect });
 
-      converted = control.convert(by);
+      converted = control.convert({ set, get, applyAspect });
       expect(converted.aspect(InData)).toBe(instance);
       expect(applyAspect).toHaveBeenCalledWith(InData[InAspect__symbol]);
     });
     it('converts aspect with default algorithm if `applyAspect` omitted', () => {
-
-      const by = () => ({ set, get });
-
-      converted = control.convert(by);
+      converted = control.convert({ set, get });
       expect(converted.aspect(InData)).toBeDefined();
     });
     it('converts aspect with default algorithm if `applyAspect` returns nothing', () => {
 
       const applyAspect = jest.fn();
-      const by = () => ({ set, get, applyAspect });
 
-      converted = control.convert(by);
+      converted = control.convert({ set, get, applyAspect });
       expect(converted.aspect(InData)).toBeDefined();
       expect(applyAspect).toHaveBeenCalledWith(InData[InAspect__symbol]);
     });

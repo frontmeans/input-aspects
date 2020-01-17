@@ -11,6 +11,9 @@ import { inAspectValue } from './aspect.impl';
  */
 export type InRenderScheduler = RenderScheduler;
 
+/**
+ * @internal
+ */
 const InRenderScheduler__aspect: InAspect<InRenderScheduler> = {
 
   applyTo() {

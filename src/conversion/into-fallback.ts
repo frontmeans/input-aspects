@@ -2,7 +2,7 @@
  * @module input-aspects
  */
 import { asis } from 'call-thru';
-import { InControl } from '../control';
+import { InConverter } from '../converter';
 
 /**
  * Creates a converter that converts an input control to the one replacing `undefined` value with fallback one.
@@ -15,7 +15,7 @@ import { InControl } from '../control';
  * @param fallback  A fallback value that is used instead of original one when `undefined` (or`null`) is assigned
  * to converted control.
  */
-export function intoFallback<Value>(fallback: Value): InControl.Converter<Value, Value | undefined> {
+export function intoFallback<Value>(fallback: Value): InConverter<Value, Value | undefined> {
   return () => ({
     set: asis,
     get(value) {

@@ -4,6 +4,7 @@
 import { noop, valueProvider } from 'call-thru';
 import { EventEmitter, OnEvent, trackValue, ValueTracker } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
+import { InConverter } from './converter';
 
 /**
  * User input control.
@@ -83,22 +84,6 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
   }
 
   /**
-   * Converts this control to another one with value of different type.
-   *
-   * The converted control's value bound to this one and wise versa.
-   *
-   * @typeparam To  Converted input value type.
-   * @param set  Value conversion function accepting this control's value an returning converted one.
-   * @param get  Reverse value conversion function accepting converted value and returning this control's one.
-   *
-   * @returns Converted control.
-   */
-  convert<To>(
-      set: (this: void, value: Value) => To,
-      get: (this: void, value: To) => Value,
-  ): InControl<To>;
-
-  /**
    * Converts this control to another one with value of different type potentially depending on various input aspects.
    *
    * @typeparam To  Converted input value type.
@@ -106,22 +91,8 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
    *
    * @returns Converted control.
    */
-  convert<To>(by: InControl.Converter<Value, To>): InControl<To>;
-
-  convert<To>(
-      setOrBy: ((this: void, value: Value) => To) | InControl.Converter<Value, To>,
-      get?: (this: void, value: To) => Value,
-  ): InControl<To> {
-
-    let by: InControl.Converter<Value, To>;
-
-    if (!get) {
-      by = setOrBy as InControl.Converter<Value, To>;
-    } else {
-      by = valueProvider({ set: setOrBy as (value: Value) => To, get });
-    }
-
-    return new InConverted(this, by);
+  convert<To>(by: InConverter<Value, To>): InControl<To> {
+    return new InConverted(this, typeof by === 'function' ? by : valueProvider(by));
   }
 
   /**
@@ -162,6 +133,9 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
 
 }
 
+/**
+ * @internal
+ */
 function isAspectKey<Instance, Kind extends InAspect.Application.Kind>(
     value: any,
 ): value is InAspect.Key<Instance, Kind> {
@@ -169,72 +143,6 @@ function isAspectKey<Instance, Kind extends InAspect.Application.Kind>(
 }
 
 export namespace InControl {
-
-  /**
-   * Input control converter.
-   *
-   * It is a function called by `InControl.convert()` method to construct value converters.
-   *
-   * This function should not access converted control value as the one does not exist at calling time.
-   *
-   * @typeparam From  Original input value type.
-   * @typeparam To  Converted input value type.
-   */
-  export type Converter<From, To> =
-  /**
-   * @param from  Original input control.
-   * @param to  Converted input control.
-   *
-   * @returns A tuple containing value conversion function and reverse value conversion function.
-   */
-      (
-          this: void,
-          from: InControl<From>,
-          to: InControl<To>,
-      ) => Converters<From, To>;
-
-  /**
-   * Value converters.
-   *
-   * @typeparam From  Original input value type.
-   * @typeparam To  Converted input value type.
-   */
-  export interface Converters<From, To> {
-
-    /**
-     * Applies the given aspect to converted control in a custom way.
-     *
-     * @typeparam Instance  Aspect instance type.
-     * @typeparam Kind  Aspect application kind.
-     * @param aspect  An aspect to apply.
-     *
-     * @returns Either applied aspect instance or `undefined` to apply the aspect in standard way (i.e. by converting
-     * it from corresponding aspect of original control).
-     */
-    applyAspect?<Instance, Kind extends InAspect.Application.Kind>(
-        this: this,
-        aspect: InAspect<Instance, Kind>,
-    ): InAspect.Application.Result<Instance, To, Kind> | undefined;
-
-    /**
-     * Converts original value.
-     *
-     * @param value  Original value to convert.
-     *
-     * @returns New value of converted control.
-     */
-    set(this: void, value: From): To;
-
-    /**
-     * Restores an original control value by converted one.
-     *
-     * @param value  A converted value to restore the original one by.
-     *
-     * @returns New value of original control.
-     */
-    get(this: void, value: To): From;
-
-  }
 
   /**
    * A value type of the given input control type.
@@ -245,6 +153,9 @@ export namespace InControl {
 
 }
 
+/**
+ * @internal
+ */
 class InConverted<From, To> extends InControl<To> {
 
   readonly on: OnEvent<[To, To]>;
@@ -254,10 +165,7 @@ class InConverted<From, To> extends InControl<To> {
       aspect: InAspect<Instance, Kind>,
   ) => InAspect.Application.Result<Instance, To, Kind> | undefined;
 
-  constructor(
-      src: InControl<From>,
-      by: InControl.Converter<From, To>,
-  ) {
+  constructor(src: InControl<From>, by: InConverter.Factory<From, To>) {
     super();
 
     let lastRev = 0;

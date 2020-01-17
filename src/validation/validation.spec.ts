@@ -286,7 +286,7 @@ describe('InValidation', () => {
     let convertedValidation: InValidation<number>;
 
     beforeEach(() => {
-      convertedControl = control.convert(value => value.length, value => '*'.repeat(value));
+      convertedControl = control.convert({ set: value => value.length, get: value => '*'.repeat(value) });
       convertedValidation = convertedControl.aspect(InValidation);
     });
 
@@ -327,7 +327,7 @@ describe('InValidation', () => {
     describe('double converted', () => {
       it('receives validation messages from both origins', () => {
 
-        const dcValidation = convertedControl.convert(asis, asis).aspect(InValidation);
+        const dcValidation = convertedControl.convert<number>({ set: asis, get: asis }).aspect(InValidation);
         const dcReceiver = jest.fn();
 
         dcValidation.read(dcReceiver);

@@ -5,6 +5,7 @@ import { asis } from 'call-thru';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
 import { InControl } from '../control';
+import { InConverter } from '../converter';
 import { InRenderScheduler } from '../render-scheduler.aspect';
 import { InStyledElement } from './styled-element.aspect';
 
@@ -35,14 +36,14 @@ export interface IntoWrapperOptions {
 export function intoWrapper<Value>(
     element?: InStyledElement | null,
     options?: IntoWrapperOptions,
-): InControl.Converter<Value, Value>;
+): InConverter<Value, Value>;
 
 /**
  * Input control converter that converts arbitrary control to the one without styled element.
  *
  * This is useful e.g. when control element style is to be updated by other means.
  */
-export function intoWrapper<Value>(from: InControl<Value>, to: InControl<Value>): InControl.Converters<Value, Value>;
+export function intoWrapper<Value>(from: InControl<Value>, to: InControl<Value>): InConverter.Conversion<Value, Value>;
 
 export function intoWrapper<Value>(
     elementOrFrom:
@@ -52,9 +53,9 @@ export function intoWrapper<Value>(
     toOrOptions:
         | InControl<Value>
         | IntoWrapperOptions = {},
-): InControl.Converter<Value, Value> | InControl.Converters<Value, Value> {
+): InConverter<Value, Value> {
   if (toOrOptions instanceof InControl) {
-    return intoWrapper<Value>()(elementOrFrom as InControl<Value>, toOrOptions);
+    return (intoWrapper<Value>() as InConverter.Factory<Value, Value>)(elementOrFrom as InControl<Value>, toOrOptions);
   }
 
   const { scheduler } = toOrOptions;
