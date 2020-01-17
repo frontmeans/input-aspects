@@ -84,7 +84,9 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
   }
 
   /**
-   * Converts this control to another one with value of different type potentially depending on various input aspects.
+   * Converts this control to another one.
+   *
+   * The converted aspect may have another value and input aspects.
    *
    * @typeparam To  Converted input value type.
    * @param by  Input control converter.
