@@ -34,7 +34,7 @@ export interface InAspect<Instance, Kind extends InAspect.Application.Kind = 'de
  *
  * @category Aspect
  */
-export const InAspect__symbol = /*#__PURE__*/ Symbol('in-aspect');
+export const InAspect__symbol = (/*#__PURE__*/ Symbol('in-aspect'));
 
 export namespace InAspect {
 

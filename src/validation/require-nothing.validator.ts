@@ -6,7 +6,7 @@ import { AfterEvent, afterThe } from 'fun-events';
 /**
  * @internal
  */
-const _requireNothing = /*#__PURE__*/ afterThe<[]>();
+const _requireNothing = (/*#__PURE__*/ afterThe<[]>());
 
 /**
  * Input validator that requires nothing.

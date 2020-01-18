@@ -142,8 +142,7 @@ export namespace InCssClasses {
 /**
  * @internal
  */
-const UnsubscribeReason__symbol =
-    (/*#__PURE__*/ Symbol('reason'));
+const UnsubscribeReason__symbol = (/*#__PURE__*/ Symbol('reason'));
 
 /**
  * @internal
