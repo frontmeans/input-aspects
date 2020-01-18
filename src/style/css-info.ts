@@ -12,7 +12,7 @@ import { InValidation } from '../validation';
 import { InCssClasses } from './css-classes.aspect';
 
 /**
- * A source of informative CSS classes.
+ * Builds a source of informative CSS classes.
  *
  * Generates the following CSS classes:
  * - `disabled` when input control is disabled (i.e. has no data).
@@ -29,6 +29,8 @@ import { InCssClasses } from './css-classes.aspect';
  * @category Style
  * @param ns  A definition of namespace to qualify CSS class names with. The {@link InputAspects__NS default namespace}
  * will be used when omitted.
+ *
+ * @returns A source of CSS class names to apply.
  */
 export function inCssInfo(
     {

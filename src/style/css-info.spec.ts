@@ -26,39 +26,39 @@ describe('inCssInfo', () => {
     control.aspect(InCssClasses).add(inCssInfo());
   });
 
-  it('appends no classes by default', () => {
+  it('applies no classes by default', () => {
     expect(element.classList).toHaveLength(0);
   });
-  it('appends `disabled` class when disabled', () => {
+  it('applies `disabled` class when disabled', () => {
     control.aspect(InMode).derive(afterThe<[InMode.Value]>('-ro'));
     expect(element.classList.contains('disabled@inasp')).toBe(true);
   });
-  it('appends `readonly` class when read-only', () => {
+  it('applies `readonly` class when read-only', () => {
     control.aspect(InMode).derive(afterThe<[InMode.Value]>('ro'));
     expect(element.classList.contains('readonly@inasp')).toBe(true);
   });
-  it('appends `invalid` class when validation failed', () => {
+  it('applies `invalid` class when validation failed', () => {
     control.aspect(InValidation).by(afterThe<InValidation.Message[]>({ invalid: true }));
     expect(element.classList.contains('invalid@inasp')).toBe(true);
   });
-  it('appends `invalid` class when input is missing', () => {
+  it('applies `invalid` class when input is missing', () => {
     control.aspect(InValidation).by(afterThe<InValidation.Message[]>({ missing: true }));
     expect(element.classList.contains('missing@inasp')).toBe(true);
   });
-  it('appends `invalid` class when input is incomplete', () => {
+  it('applies `invalid` class when input is incomplete', () => {
     control.aspect(InValidation).by(afterThe<InValidation.Message[]>({ incomplete: true }));
     expect(element.classList.contains('incomplete@inasp')).toBe(true);
   });
-  it('appends `focus` class when input gains focus', () => {
+  it('applies `focus` class when input gains focus', () => {
     element.focus();
     expect(element.classList.contains('has-focus@inasp')).toBe(true);
   });
-  it('appends `touched` class when input touched', () => {
+  it('applies `touched` class when input touched', () => {
     element.focus();
     element.blur();
     expect(element.classList.contains('touched@inasp')).toBe(true);
   });
-  it('appends `edited` class when input is edited by user', () => {
+  it('applies `edited` class when input is edited by user', () => {
     element.value  = 'some';
     element.dispatchEvent(new KeyboardEvent('input'));
     expect(element.classList.contains('edited@inasp')).toBe(true);

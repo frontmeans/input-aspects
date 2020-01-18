@@ -306,7 +306,9 @@ An input aspect is an arbitrary value. There are several input aspects implement
 
 - `InCssClasses` An aspect of the user input representing CSS classes to apply to styled element.
 
-  An `inCssInfo()` function may be used to create a source of informative CSS classes.    
+  - `inCssInfo()` creates a source of informative CSS classes.
+  - `inCssError()` creates a source marker CSS classes applied when particular validation error occur.
+      
 
 - `InNamespaceAliaser` Namespace aliaser aspect.
 
