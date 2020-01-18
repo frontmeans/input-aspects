@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Result | Input Aspects</title>
+	<title>Conversion | Input Aspects</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,13 +54,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../classes/incontrolvalidation.html">InControlValidation</a>
+					<a href="../modules/inconverter.html">InConverter</a>
 				</li>
 				<li>
-					<a href="incontrolvalidation.result.html">Result</a>
+					<a href="inconverter.conversion.html">Conversion</a>
 				</li>
 			</ul>
-			<h1>Interface Result</h1>
+			<h1>Interface Conversion&lt;From, To&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -70,32 +70,37 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Input validation result.</p>
+						<p>Input control conversion.</p>
 					</div>
-					<p>Combines messages sent by all registered validators.</p>
-					<p>Implements <code>Iterable</code> interface by iterating over all validation messages.</p>
 				</div>
+			</section>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>From</h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Original input value type.</p>
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>To</h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Converted input value type.</p>
+							</div>
+						</div>
+					</li>
+				</ul>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Result</span>
-						<ul class="tsd-hierarchy">
-							<li>
-								<a href="invalidation.ok.html" class="tsd-signature-type">Ok</a>
-							</li>
-							<li>
-								<a href="invalidation.errors.html" class="tsd-signature-type">Errors</a>
-							</li>
-						</ul>
+						<span class="target">Conversion</span>
 					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel">
-				<h3>Implemented by</h3>
-				<ul class="tsd-hierarchy">
-					<li><a href="../classes/invalidationerrors.html" class="tsd-signature-type">InValidationErrors</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -103,122 +108,133 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Properties</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="incontrolvalidation.result.html#ok" class="tsd-kind-icon">ok</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-overwrite"><a href="incontrolvalidation.result.html#_symbol_iterator_" class="tsd-kind-icon">[<wbr>Symbol.iterator]</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="incontrolvalidation.result.html#has" class="tsd-kind-icon">has</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="incontrolvalidation.result.html#messages" class="tsd-kind-icon">messages</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter"><a href="inconverter.conversion.html#applyaspect" class="tsd-kind-icon">apply<wbr>Aspect</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="inconverter.conversion.html#get" class="tsd-kind-icon">get</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="inconverter.conversion.html#set" class="tsd-kind-icon">set</a></li>
 							</ul>
 						</section>
-					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="ok" class="tsd-anchor"></a>
-					<h3>ok</h3>
-					<div class="tsd-signature tsd-kind-icon">ok<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea4c80a/src/validation/validation.aspect.ts#L183">src/validation/validation.aspect.ts:183</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Whether validation succeed.</p>
-						</div>
-						<p>This is <code>true</code> when there is no validation messages, or <code>false</code> otherwise.</p>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-overwrite">
-					<a name="_symbol_iterator_" class="tsd-anchor"></a>
-					<h3>[<wbr>Symbol.iterator]</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">[<wbr>Symbol.iterator]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/incontrolvalidation.html#message" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Overrides Iterable.[Symbol.iterator]</p>
-								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea4c80a/src/validation/validation.aspect.ts#L203">src/validation/validation.aspect.ts:203</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/incontrolvalidation.html#message" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="has" class="tsd-anchor"></a>
-					<h3>has</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">has<span class="tsd-signature-symbol">(</span>code<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
+					<a name="applyaspect" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> apply<wbr>Aspect</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">apply<wbr>Aspect&lt;Instance, Kind&gt;<span class="tsd-signature-symbol">(</span>aspect<span class="tsd-signature-symbol">: </span><a href="../modules/inaspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/inaspect.application.html#result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea4c80a/src/validation/validation.aspect.ts#L201">src/validation/validation.aspect.ts:201</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/866cc73/src/converter.ts#L65">src/converter.ts:65</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Checks whether there are errors with the given code.</p>
+									<p>Applies the given aspect to converted control in a custom way.</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>Instance</h4>
+									<div class="tsd-comment tsd-typography">
+										<p>Aspect instance type.</p>
+									</div>
+								</li>
+								<li>
+									<h4>Kind<span class="tsd-signature-symbol">: </span><a href="../modules/inaspect.application.html#kind" class="tsd-signature-type">Kind</a></h4>
+									<div class="tsd-comment tsd-typography">
+										<p>Aspect application kind.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>aspect: <a href="../modules/inaspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>An aspect to apply.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../modules/inaspect.application.html#result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+							<p>Either applied aspect instance or <code>undefined</code> to apply the aspect in standard way (i.e. by converting
+							it from corresponding aspect of original control).</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="get" class="tsd-anchor"></a>
+					<h3>get</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">From</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/866cc73/src/converter.ts#L85">src/converter.ts:85</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Restores original control value by converted one.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> code: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									<h5>this: <span class="tsd-signature-type">void</span></h5>
+								</li>
+								<li>
+									<h5>value: <span class="tsd-signature-type">To</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Target code. Any message matches when absent.</p>
+										<p>A converted value to restore the original one by.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-							<p><code>true</code> if there is at least one message with the given code, or <code>false</code> otherwise.</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">From</span></h4>
+							<p>New value of original control.</p>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="messages" class="tsd-anchor"></a>
-					<h3>messages</h3>
+					<a name="set" class="tsd-anchor"></a>
+					<h3>set</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">messages<span class="tsd-signature-symbol">(</span>code<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">keyof <a href="../classes/incontrolvalidation.html#message" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">[]</span></span></li>
+						<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">To</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea4c80a/src/validation/validation.aspect.ts#L192">src/validation/validation.aspect.ts:192</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/866cc73/src/converter.ts#L76">src/converter.ts:76</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns messages with the given code.</p>
+									<p>Converts original value.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> code: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									<h5>this: <span class="tsd-signature-type">void</span></h5>
+								</li>
+								<li>
+									<h5>value: <span class="tsd-signature-type">From</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Target code. All messages reported when absent.</p>
+										<p>Original value to convert.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">keyof <a href="../classes/incontrolvalidation.html#message" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">[]</span></span></h4>
-							<p>An array of matching messages. Possibly empty.</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">To</span></h4>
+							<p>New value of converted control.</p>
 						</li>
 					</ul>
 				</section>
@@ -230,66 +246,66 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/____aspect_.html">&quot;../aspect&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/___aspect_.html">&quot;./aspect&quot;</a>
+					</li>
+					<li class=" tsd-kind-module tsd-has-type-parameter">
+						<a href="../modules/inaspect.html">In<wbr>Aspect</a>
+					</li>
+					<li class=" tsd-kind-module tsd-has-type-parameter">
+						<a href="../modules/incheckbox.html">In<wbr>Checkbox</a>
+					</li>
+					<li class="current tsd-kind-module tsd-has-type-parameter">
+						<a href="../modules/inconverter.html">In<wbr>Converter</a>
+						<ul>
+							<li class=" tsd-kind-module tsd-parent-kind-module tsd-has-type-parameter">
+								<a href="../modules/inconverter.aspect.html">Aspect</a>
+							</li>
+						</ul>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/indata.html">In<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-module tsd-has-type-parameter">
+						<a href="../modules/inradio.html">In<wbr>Radio</a>
+					</li>
+					<li class=" tsd-kind-module tsd-has-type-parameter">
+						<a href="../modules/inradiogroup.html">In<wbr>Radio<wbr>Group</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/intext.html">In<wbr>Text</a>
+					</li>
+					<li class=" tsd-kind-module tsd-has-type-parameter">
+						<a href="../modules/invalidator.html">In<wbr>Validator</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class tsd-has-type-parameter">
-						<a href="../classes/incontrolvalidation.html" class="tsd-kind-icon">In<wbr>Control<wbr>Validation</a>
+					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="inconverter.conversion.html" class="tsd-kind-icon">Conversion</a>
 						<ul>
-							<li class=" tsd-kind-interface tsd-parent-kind-class">
-								<a href="incontrolvalidation.errors.html" class="tsd-kind-icon">Errors</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
+								<a href="inconverter.conversion.html#applyaspect" class="tsd-kind-icon">apply<wbr>Aspect</a>
 							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-class">
-								<a href="incontrolvalidation.genericmessage.html" class="tsd-kind-icon">Generic<wbr>Message</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="inconverter.conversion.html#get" class="tsd-kind-icon">get</a>
 							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-class">
-								<a href="incontrolvalidation.ok.html" class="tsd-kind-icon">Ok</a>
-							</li>
-							<li class="current tsd-kind-interface tsd-parent-kind-class">
-								<a href="incontrolvalidation.result.html" class="tsd-kind-icon">Result</a>
-								<ul>
-									<li class=" tsd-kind-property tsd-parent-kind-interface">
-										<a href="incontrolvalidation.result.html#ok" class="tsd-kind-icon">ok</a>
-									</li>
-									<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-overwrite">
-										<a href="incontrolvalidation.result.html#_symbol_iterator_" class="tsd-kind-icon">[<wbr>Symbol.iterator]</a>
-									</li>
-									<li class=" tsd-kind-method tsd-parent-kind-interface">
-										<a href="incontrolvalidation.result.html#has" class="tsd-kind-icon">has</a>
-									</li>
-									<li class=" tsd-kind-method tsd-parent-kind-interface">
-										<a href="incontrolvalidation.result.html#messages" class="tsd-kind-icon">messages</a>
-									</li>
-								</ul>
-							</li>
-							<li class=" tsd-kind-type-alias tsd-parent-kind-class tsd-is-static">
-								<a href="../classes/incontrolvalidation.html#message" class="tsd-kind-icon">Message</a>
-							</li>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="../classes/incontrolvalidation.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="../classes/incontrolvalidation.html#_messages" class="tsd-kind-icon">_messages</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
-								<a href="../classes/incontrolvalidation.html#read" class="tsd-kind-icon">read</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-								<a href="../classes/incontrolvalidation.html#_afterevent__symbol_" class="tsd-kind-icon">[<wbr>After<wbr>Event__symbol]</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-								<a href="../classes/incontrolvalidation.html#_inaspect__symbol_" class="tsd-kind-icon">[<wbr>InAspect__symbol]</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-								<a href="../classes/incontrolvalidation.html#by" class="tsd-kind-icon">by</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="inconverter.conversion.html#set" class="tsd-kind-icon">set</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="../modules/inconverter.html#factory" class="tsd-kind-icon">Factory</a>
+					</li>
 				</ul>
 			</nav>
 		</div>

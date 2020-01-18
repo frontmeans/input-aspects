@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Aspect | Input Aspects</title>
+	<title>Conversion | Input Aspects</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,16 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="aspect.html">Aspect</a>
+					<a href="../modules/inconverter.html">InConverter</a>
+				</li>
+				<li>
+					<a href="../modules/inconverter.aspect.html">Aspect</a>
+				</li>
+				<li>
+					<a href="inconverter.aspect.conversion.html">Conversion</a>
 				</li>
 			</ul>
-			<h1>Interface Aspect</h1>
+			<h1>Interface Conversion&lt;Value&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -67,24 +73,28 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Input data aspect.
-						Input validation aspect.</p>
+						<p>Input control aspect conversion.</p>
 					</div>
 				</div>
+			</section>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>Value</h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Input value type.</p>
+							</div>
+						</div>
+					</li>
+				</ul>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="../modules/inaspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#indata" class="tsd-signature-type">InData</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"data"</span><span class="tsd-signature-symbol">&gt;</span>
-					</li>
-					<li>
-						<a href="../modules/inaspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><a href="../classes/invalidation.html" class="tsd-signature-type">InValidation</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"validation"</span><span class="tsd-signature-symbol">&gt;</span>
-						<ul class="tsd-hierarchy">
-							<li>
-								<span class="target">Aspect</span>
-							</li>
-						</ul>
+						<span class="target">Conversion</span>
 					</li>
 				</ul>
 			</section>
@@ -93,22 +103,9 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Modules</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-module tsd-parent-kind-interface tsd-is-overwrite"><a href="../modules/aspect.application.html" class="tsd-kind-icon">Application</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Interfaces</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-interface tsd-has-type-parameter"><a href="aspect.applied.html" class="tsd-kind-icon">Applied</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-interface tsd-has-type-parameter"><a href="aspect.key.html" class="tsd-kind-icon">Key</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-overwrite"><a href="aspect.html#applyto" class="tsd-kind-icon">apply<wbr>To</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter"><a href="inconverter.aspect.conversion.html#applyaspect" class="tsd-kind-icon">apply<wbr>Aspect</a></li>
 							</ul>
 						</section>
 					</div>
@@ -116,54 +113,51 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-overwrite">
-					<a name="applyto" class="tsd-anchor"></a>
-					<h3>apply<wbr>To</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">apply<wbr>To&lt;Value&gt;<span class="tsd-signature-symbol">(</span>control<span class="tsd-signature-symbol">: </span><a href="../classes/incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="applied.html" class="tsd-signature-type">Applied</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">apply<wbr>To&lt;Value&gt;<span class="tsd-signature-symbol">(</span>control<span class="tsd-signature-symbol">: </span><a href="../classes/incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="applied.html" class="tsd-signature-type">Applied</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
+					<a name="applyaspect" class="tsd-anchor"></a>
+					<h3>apply<wbr>Aspect</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">apply<wbr>Aspect&lt;Instance, Kind&gt;<span class="tsd-signature-symbol">(</span>aspect<span class="tsd-signature-symbol">: </span><a href="../modules/inaspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/inaspect.application.html#result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides <a href="../modules/inaspect.html">InAspect</a>.<a href="../modules/inaspect.html#applyto">applyTo</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea4c80a/src/data/data.aspect.ts#L56">src/data/data.aspect.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/866cc73/src/converter.ts#L139">src/converter.ts:139</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Applies the given aspect to converted control in a custom way.</p>
+								</div>
+							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>Value</h4>
+									<h4>Instance</h4>
+									<div class="tsd-comment tsd-typography">
+										<p>Aspect instance type.</p>
+									</div>
+								</li>
+								<li>
+									<h4>Kind<span class="tsd-signature-symbol">: </span><a href="../modules/inaspect.application.html#kind" class="tsd-signature-type">Kind</a></h4>
+									<div class="tsd-comment tsd-typography">
+										<p>Aspect application kind.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>control: <a href="../classes/incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>aspect: <a href="../modules/inaspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>An aspect to apply.</p>
+									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="applied.html" class="tsd-signature-type">Applied</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/ea4c80a/src/validation/validation.aspect.ts#L50">src/validation/validation.aspect.ts:50</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-type-parameters-title">Type parameters</h4>
-							<ul class="tsd-type-parameters">
-								<li>
-									<h4>Value</h4>
-								</li>
-							</ul>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>control: <a href="../classes/incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="applied.html" class="tsd-signature-type">Applied</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules/inaspect.application.html#result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+							<p>Either applied aspect instance or <code>undefined</code> to apply the aspect in standard way (i.e. by converting
+							it from corresponding aspect of original control).</p>
 						</li>
 					</ul>
 				</section>
@@ -175,28 +169,60 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/____aspect_.html">&quot;../aspect&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/___aspect_.html">&quot;./aspect&quot;</a>
+					</li>
+					<li class=" tsd-kind-module tsd-has-type-parameter">
+						<a href="../modules/inaspect.html">In<wbr>Aspect</a>
+					</li>
+					<li class=" tsd-kind-module tsd-has-type-parameter">
+						<a href="../modules/incheckbox.html">In<wbr>Checkbox</a>
+					</li>
+					<li class="current tsd-kind-module tsd-has-type-parameter">
+						<a href="../modules/inconverter.html">In<wbr>Converter</a>
+						<ul>
+							<li class="current tsd-kind-module tsd-parent-kind-module tsd-has-type-parameter">
+								<a href="../modules/inconverter.aspect.html">Aspect</a>
+							</li>
+						</ul>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/indata.html">In<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-module tsd-has-type-parameter">
+						<a href="../modules/inradio.html">In<wbr>Radio</a>
+					</li>
+					<li class=" tsd-kind-module tsd-has-type-parameter">
+						<a href="../modules/inradiogroup.html">In<wbr>Radio<wbr>Group</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/intext.html">In<wbr>Text</a>
+					</li>
+					<li class=" tsd-kind-module tsd-has-type-parameter">
+						<a href="../modules/invalidator.html">In<wbr>Validator</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface">
-						<a href="aspect.html" class="tsd-kind-icon">Aspect</a>
+					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="inconverter.aspect.conversion.html" class="tsd-kind-icon">Conversion</a>
 						<ul>
-							<li class=" tsd-kind-interface tsd-parent-kind-interface tsd-has-type-parameter">
-								<a href="aspect.applied.html" class="tsd-kind-icon">Applied</a>
-							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-interface tsd-has-type-parameter">
-								<a href="aspect.key.html" class="tsd-kind-icon">Key</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-overwrite">
-								<a href="aspect.html#applyto" class="tsd-kind-icon">apply<wbr>To</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
+								<a href="inconverter.aspect.conversion.html#applyaspect" class="tsd-kind-icon">apply<wbr>Aspect</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="../modules/inconverter.aspect.html#factory" class="tsd-kind-icon">Factory</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
