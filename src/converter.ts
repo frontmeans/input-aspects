@@ -170,12 +170,12 @@ export function intoConvertedBy<From, To>(
  */
 export function intoConvertedBy<From, To>(
     ...converters: InConverter.Aspect<From, To>[]
-): InConverter.Factory<From, To>;
+): InConverter.Aspect.Factory<From, To>;
 
 export function intoConvertedBy<From, To>(
     valueOrAspectConverter?: InConverter<From, To> | InConverter.Aspect<From, To>,
     ...converters: InConverter.Aspect<From, To>[]
-): InConverter.Factory<From, To> {
+): InConverter.Factory<From, To> | InConverter.Aspect.Factory<From, To> {
   if (!valueOrAspectConverter) {
     return noopInConverter;
   }
