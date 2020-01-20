@@ -230,8 +230,8 @@ export function intoConvertedBy<From, To>(
     }
 
     return {
-      set: (value: From) => conversion.set(value) as To,
-      get: (value: To) => conversion.get(value) as From,
+      set: value => conversion.set(value),
+      get: value => conversion.get(value),
       applyAspect,
     };
   };
@@ -248,7 +248,7 @@ const noopInConversion: InConverter.Conversion<any, any> = {
 /**
  * @internal
  */
-function noopInConverter() {
+function noopInConverter(): InConverter.Conversion<any, any> {
   return noopInConversion;
 }
 

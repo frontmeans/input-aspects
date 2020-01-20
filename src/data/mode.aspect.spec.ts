@@ -28,7 +28,6 @@ describe('InMode', () => {
     mode = control.aspect(InMode);
     modeUpdatesSupply = mode.on(onModeUpdate = jest.fn());
     modeSupply = mode.read(readMode = jest.fn());
-    expect(readMode).toHaveBeenLastCalledWith('on');
     readMode.mockClear();
   });
 
@@ -171,11 +170,17 @@ describe('InMode', () => {
       group.controls.set('nested', control);
       groupMode = group.aspect(InMode);
       groupMode.read(readGroupMode = jest.fn());
+    });
+
+    it('is initially `on`', () => {
       expect(readGroupMode).toHaveBeenLastCalledWith('on');
-      readGroupMode.mockClear();
     });
 
     describe('own', () => {
+      beforeEach(() => {
+        readGroupMode.mockClear();
+      });
+
       it('is `on` by default', () => {
         expect(groupMode.own.it).toBe('on');
         expect(element.disabled).toBe(false);

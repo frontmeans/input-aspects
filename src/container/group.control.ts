@@ -206,7 +206,7 @@ class InGroupMap<Model extends object> {
       control: InControl<Model[K]> | undefined,
       added: [keyof Model, InGroupEntry][],
       removed: [keyof Model, InGroupEntry][],
-  ) {
+  ): void {
 
     const self = this;
     const replaced = this._map.get(key);
@@ -296,7 +296,7 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
     );
     this._map._supply.needs(_group.read(applyModelToControls));
 
-    function applyModelToControls(model: Model) {
+    function applyModelToControls(model: Model): void {
       self.read.once(snapshot => {
 
         const withValues = new Set<keyof Model>();
@@ -345,7 +345,7 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
 
     return this;
 
-    function applyControlsToModel() {
+    function applyControlsToModel(): void {
 
       let newModel: Model | undefined;
 
@@ -419,11 +419,11 @@ class InGroupControl<Model extends object> extends InGroup<Model> {
     this.controls = new InGroupControlControls(this);
   }
 
-  get on() {
+  get on(): OnEvent<[Model, Model]> {
     return this._model.on;
   }
 
-  get it() {
+  get it(): Model {
     return this._model.it;
   }
 

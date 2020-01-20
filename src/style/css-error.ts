@@ -39,7 +39,7 @@ export function inCssError(
       when,
     }: {
       mark?: InCssClasses.Spec | InCssClasses.Spec[];
-      when?: string | string[],
+      when?: string | string[];
     } = {},
 ): InCssClasses.Source {
 

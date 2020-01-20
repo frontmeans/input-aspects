@@ -28,7 +28,7 @@ const InStatus__aspect: InAspect<InStatus> = {
 
     const container = control.aspect(InContainer);
 
-    return inAspectValue(container ? new InContainerStatus(container) : new InControlStatus(control));
+    return inAspectValue(container != null ? new InContainerStatus(container) : new InControlStatus(control));
   },
 
 };
@@ -133,7 +133,7 @@ class InControlStatus extends InStatus {
 
   private readonly _flags = trackValue<InStatus.Flags>(defaultInStatusFlags);
 
-  get read() {
+  get read(): AfterEvent<[InStatus.Flags]> {
     return this._flags.read;
   }
 

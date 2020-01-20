@@ -24,11 +24,15 @@ describe('InParents', () => {
   beforeEach(() => {
     parents = control.aspect(InParents);
     parents.on(onParents = jest.fn());
+    allParents = undefined!;
     parents.read(readParents = jest.fn(entries => {
       allParents = entries;
     }));
-    expect(readParents).toHaveBeenCalledWith(allParents);
     readParents.mockClear();
+  });
+
+  it('reports all parents on receiver registration', () => {
+     expect(allParents).toBeDefined();
   });
 
   describe('[OnEvent__symbol]', () => {

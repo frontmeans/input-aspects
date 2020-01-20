@@ -2,7 +2,7 @@
  * @module input-aspects
  */
 import { flatMapIt, itsEach, mapIt, overEntries } from 'a-iterable';
-import { asis, nextArgs } from 'call-thru';
+import { asis, NextArgs, nextArgs } from 'call-thru';
 import { afterEach, AfterEvent, AfterEvent__symbol, afterSupplied, EventKeeper, EventSupply } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InContainer } from '../container';
@@ -275,6 +275,7 @@ class InValidationErrors implements InValidation.Result {
             }
           });
 
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           if (nonEmpty) {
             this._all.push(message);
           }
@@ -282,19 +283,19 @@ class InValidationErrors implements InValidation.Result {
     );
   }
 
-  get ok() {
+  get ok(): boolean {
     return !this._all.length;
   }
 
-  messages(code?: string) {
+  messages(code?: string): InValidation.Message[] {
     return code == null ? this._all : this._byCode.get(code) || [];
   }
 
-  has(code?: string) {
+  has(code?: string): boolean {
     return code == null || this._byCode.has(code);
   }
 
-  [Symbol.iterator]() {
+  [Symbol.iterator](): IterableIterator<InValidation.Message> {
     return this._all[Symbol.iterator]();
   }
 
@@ -335,6 +336,7 @@ class InControlValidation<Value> extends InValidation<Value> {
 
     const container = control.aspect(InContainer);
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (container) {
       this._messages.from(nestedInValidationMessages(container));
     }
@@ -362,14 +364,16 @@ function nestedInValidationMessages(container: InContainer<any>): EventKeeper<In
 /**
  * @internal
  */
-function nestedInValidations(controls: InContainer.Snapshot) {
+function nestedInValidations(controls: InContainer.Snapshot): AfterEvent<[InValidation.Result][]> {
   return afterEach(...mapIt(controls, control => control.aspect(InValidation)));
 }
 
 /**
  * @internal
  */
-function combineInValidationResults<NextReturn>(...[messages]: [InValidation.Result][]) {
+function combineInValidationResults<NextReturn>(
+    ...[messages]: [InValidation.Result][]
+): NextArgs<InValidation.Message[], NextReturn> {
 
   const msg: Iterable<InValidation.Message> = flatMapIt(messages, asis);
 

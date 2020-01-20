@@ -77,18 +77,18 @@ describe('InList', () => {
 
     beforeEach(() => {
       updatesSupply = list.controls.on(onUpdate = jest.fn());
+      snapshot = undefined!;
       snapshotSupply = list.controls.read(readSnapshot = jest.fn(shot => {
         snapshot = shot;
         controlValues = [...shot].map(c => c.it);
       }));
-      expect(readSnapshot).toHaveBeenCalledWith(snapshot);
       readSnapshot.mockClear();
     });
 
     it('contains controls initially', () => {
       expect(controlValues).toEqual(['11', '22', '33']);
-      expect(snapshot.length).toBe(3);
-      expect(initControls.length).toBe(3);
+      expect(snapshot).toHaveLength(3);
+      expect(initControls).toHaveLength(3);
       expect([...snapshot.entries()]).toEqual([[0, initControls[0]], [1, initControls[1]], [2, initControls[2]]]);
       expect(snapshot.item(0)).toBe(initControls[0]);
       expect(snapshot.item(1)).toBe(initControls[1]);
@@ -99,11 +99,11 @@ describe('InList', () => {
 
     describe('set', () => {
       beforeEach(() => {
-        expect(list.controls.set(1, ctrl2)).toBe(list.controls);
+        list.controls.set(1, ctrl2);
       });
 
       it('replaces control', () => {
-        expect(snapshot.length).toBe(3);
+        expect(snapshot).toHaveLength(3);
         expect(snapshot.item(1)).toBe(ctrl2);
         expect([...snapshot]).toEqual([initControls[0], ctrl2, initControls[2]]);
       });
@@ -120,11 +120,11 @@ describe('InList', () => {
 
     describe('remove one', () => {
       beforeEach(() => {
-        expect(list.controls.remove(1)).toBe(list.controls);
+        list.controls.remove(1);
       });
 
       it('replaces control', () => {
-        expect(snapshot.length).toBe(2);
+        expect(snapshot).toHaveLength(2);
         expect([...snapshot]).toEqual([initControls[0], initControls[2]]);
       });
       it('sends update', () => {
@@ -140,11 +140,11 @@ describe('InList', () => {
 
     describe('remove many', () => {
       beforeEach(() => {
-        expect(list.controls.remove(1, 3)).toBe(list.controls);
+        list.controls.remove(1, 3);
       });
 
       it('replaces control', () => {
-        expect(snapshot.length).toBe(1);
+        expect(snapshot).toHaveLength(1);
         expect([...snapshot]).toEqual([initControls[0]]);
       });
       it('sends update', () => {
@@ -157,11 +157,11 @@ describe('InList', () => {
 
     describe('add', () => {
       beforeEach(() => {
-        expect(list.controls.add(ctrl1, ctrl2, ctrl3)).toBe(list.controls);
+        list.controls.add(ctrl1, ctrl2, ctrl3);
       });
 
       it('appends controls', () => {
-        expect(snapshot.length).toBe(6);
+        expect(snapshot).toHaveLength(6);
         expect(snapshot.item(3)).toBe(ctrl1);
         expect(snapshot.item(4)).toBe(ctrl2);
         expect(snapshot.item(5)).toBe(ctrl3);
@@ -177,11 +177,11 @@ describe('InList', () => {
 
     describe('insert', () => {
       beforeEach(() => {
-        expect(list.controls.insert(1, ctrl1, ctrl2)).toBe(list.controls);
+        list.controls.insert(1, ctrl1, ctrl2);
       });
 
       it('inserts controls', () => {
-        expect(snapshot.length).toBe(5);
+        expect(snapshot).toHaveLength(5);
         expect(snapshot.item(1)).toBe(ctrl1);
         expect(snapshot.item(2)).toBe(ctrl2);
         expect([...snapshot]).toEqual([initControls[0], ctrl1, ctrl2, initControls[1], initControls[2]]);
@@ -196,11 +196,11 @@ describe('InList', () => {
 
     describe('splice', () => {
       beforeEach(() => {
-        expect(list.controls.splice(1, 2, ctrl1, ctrl2)).toBe(list.controls);
+        list.controls.splice(1, 2, ctrl1, ctrl2);
       });
 
       it('replaces controls', () => {
-        expect(snapshot.length).toBe(3);
+        expect(snapshot).toHaveLength(3);
         expect(snapshot.item(1)).toBe(ctrl1);
         expect(snapshot.item(2)).toBe(ctrl2);
         expect([...snapshot]).toEqual([initControls[0], ctrl1, ctrl2]);
@@ -223,11 +223,11 @@ describe('InList', () => {
 
     describe('clear', () => {
       beforeEach(() => {
-        expect(list.controls.clear()).toBe(list.controls);
+        list.controls.clear();
       });
 
       it('removes all controls', () => {
-        expect(snapshot.length).toBe(0);
+        expect(snapshot).toHaveLength(0);
         expect([...snapshot]).toHaveLength(0);
       });
       it('sends update', () => {
@@ -244,7 +244,7 @@ describe('InList', () => {
       });
 
       it('removes control from list', () => {
-        expect(snapshot.length).toBe(2);
+        expect(snapshot).toHaveLength(2);
         expect([...snapshot]).toEqual([initControls[0], initControls[2]]);
       });
       it('updates model', () => {
@@ -270,7 +270,7 @@ describe('InList', () => {
     describe('done', () => {
       it('removes all controls', () => {
         list.done();
-        list.controls.read.once(shot => expect(shot.length).toBe(0));
+        list.controls.read.once(shot => expect(shot).toHaveLength(0));
       });
       it('stops sending updated', () => {
 
@@ -283,8 +283,8 @@ describe('InList', () => {
 
         list.done(reason);
 
-        expect(snapshotsDone).toBeCalledWith(reason);
-        expect(updatesDone).toBeCalledWith(reason);
+        expect(snapshotsDone).toHaveBeenCalledWith(reason);
+        expect(updatesDone).toHaveBeenCalledWith(reason);
       });
       it('clears model', () => {
          list.done();

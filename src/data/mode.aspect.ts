@@ -151,7 +151,7 @@ class OwnModeTracker extends ValueTracker<InMode.Value> {
     this._tracker = trackValue(element ? initialInMode(element.element) : 'on');
   }
 
-  get on() {
+  get on(): OnEvent<[InMode.Value, InMode.Value]> {
     return this._tracker.on;
   }
 
@@ -300,7 +300,7 @@ function initialInMode(element: HTMLElement): InMode.Value {
 /**
  * @internal
  */
-function applyInMode(element: HTMLElement, value: InMode.Value) {
+function applyInMode(element: HTMLElement, value: InMode.Value): void {
   switch (value) {
     case 'off':
       element.setAttribute('disabled', '');
@@ -341,7 +341,7 @@ function parentsInMode(parents: InParents.All): AfterEvent<[InMode.Value]> {
 /**
  * @internal
  */
-function mergeInModes(...modes: [InMode.Value][]) {
+function mergeInModes(...modes: [InMode.Value][]): InMode.Value {
 
   let ro = false;
   let off = false;

@@ -67,6 +67,7 @@ class InRadioControl<Value> extends InElementControl<Value | undefined, HTMLInpu
     }
     return super._applyAspect(aspect);
   }
+
 }
 
 /**

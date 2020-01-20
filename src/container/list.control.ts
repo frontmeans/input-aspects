@@ -169,6 +169,7 @@ export abstract class InListControls<Item>
    *
    * @returns `this` controls instance.
    */
+  // eslint-disable-next-line @typescript-eslint/unified-signatures
   abstract splice(start: number, deleteCount: number, ...controls: InControl<Item>[]): this;
 
   /**
@@ -203,7 +204,7 @@ class InListSnapshot<Item> implements InList.Snapshot<Item> {
   constructor(readonly _entries: InListEntry<Item>[]) {
   }
 
-  get length() {
+  get length(): number {
     return this._entries.length;
   }
 
@@ -220,7 +221,7 @@ class InListSnapshot<Item> implements InList.Snapshot<Item> {
     }
   }
 
-  item(index: number) {
+  item(index: number): InControl<Item> | undefined {
 
     const entry = this._entries[index];
 
@@ -256,7 +257,7 @@ class InListEntries<Item> {
       controls: InControl<Item>[],
       added: [number, InListEntry<Item>][],
       removed: [number, InListEntry<Item>][],
-  ) {
+  ): void {
 
     const self = this;
     const extracted = deleteCount == null ? modify().splice(start) : modify().splice(
@@ -292,7 +293,7 @@ class InListEntries<Item> {
     }
   }
 
-  snapshot() {
+  snapshot(): InList.Snapshot<Item> {
     return this._shot || (this._shot = new InListSnapshot<Item>(this._entries));
   }
 
@@ -321,7 +322,7 @@ function inListEntry<Item>(
 function readControlValue<Item>(
     controls: InListControlControls<Item>,
     [control, supply]: InListEntry<Item>,
-) {
+): void {
   supply.needs(control.aspect(InParents).add({ parent: controls._list }).needs(supply));
   supply.needs(control.read(value => {
 
@@ -462,11 +463,11 @@ class InListControl<Item> extends InList<Item> {
     this.controls = new InListControlControls(this);
   }
 
-  get on() {
+  get on(): OnEvent<[readonly Item[], readonly Item[]]> {
     return this._model.on;
   }
 
-  get it() {
+  get it(): readonly Item[] {
     return this._model.it;
   }
 
@@ -523,9 +524,9 @@ function readInListData<Item>(
 
   const csData = mapIt(controls, control => control.aspect(InData));
 
-  return afterEach(...csData).keep.thru((...controlsData) => {
-    return controlsData.map(([d]) => d).filter(isDefined) as InData.DataType<readonly Item[]>;
-  });
+  return afterEach(...csData).keep.thru(
+      (...controlsData) => controlsData.map(([d]) => d).filter(isDefined) as InData.DataType<readonly Item[]>,
+  );
 }
 
 /**

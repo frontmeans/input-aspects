@@ -45,9 +45,9 @@ describe('InSubmit', () => {
 
   describe('submit', () => {
     it('returns submit result', async () => {
-      submitter.mockImplementation(async data => {
+      submitter.mockImplementation(data => {
         expect(flags).toEqual({ ready: true, submitted: true, busy: true });
-        return data;
+        return Promise.resolve(data);
       });
 
       expect(await submit.submit(submitter)).toEqual('test');
@@ -86,12 +86,12 @@ describe('InSubmit', () => {
 
       const error = { error: 'some error' };
 
-      submitter.mockImplementation(async () => {
+      submitter.mockImplementation(() => {
         throw new InSubmitError(error);
       });
 
       await submit.submit(submitter).then(
-          result => fail('Result returned: ' + result),
+          result => Promise.reject('Result returned: ' + result),
           (err: InSubmitError) => {
             expect(err).toBeInstanceOf(InSubmitError);
             expect([...err.errors.messages('submit')]).toEqual([{ ...error, submit: true }]);
@@ -105,12 +105,12 @@ describe('InSubmit', () => {
 
       const failure = new Error('some error');
 
-      submitter.mockImplementation(async () => {
+      submitter.mockImplementation(() => {
         throw failure;
       });
 
       await submit.submit(submitter).then(
-          result => fail('Result returned: ' + result),
+          result => Promise.reject('Result returned: ' + result),
           err => {
             expect(err).toBe(failure);
           },
@@ -120,24 +120,24 @@ describe('InSubmit', () => {
       expect(flags).toEqual({ ready: true, submitted: true, busy: false });
     });
     it('resets submit errors', async () => {
-      submitter.mockImplementation(async () => {
+      submitter.mockImplementation(() => {
         throw new Error('');
       });
       await submit.submit(submitter).then(
-          result => fail('Result returned: ' + result),
+          result => Promise.reject('Result returned: ' + result),
           noop,
       );
 
-      submitter.mockImplementation(async () => {
+      submitter.mockImplementation(() => {
         expect(errors.ok).toBe(true);
-        return 'result';
+        return Promise.resolve('result');
       });
       expect(await submit.submit(submitter)).toBe('result');
     });
 
-    async function ensureRejected(reason: string) {
+    async function ensureRejected(reason: string): Promise<void> {
       await submit.submit(submitter)
-          .then(result => fail('Result returned: ' + result))
+          .then(result => Promise.reject('Result returned: ' + result))
           .catch((err: InSubmitRejectedError) => {
             expect(err).toBeInstanceOf(InSubmitRejectedError);
             expect([...err.errors.messages('submit')]).toEqual([
@@ -167,18 +167,18 @@ describe('InSubmit', () => {
       expect(readFlags).toHaveBeenCalledTimes(1);
     });
     it('clears submit errors', async () => {
-      submitter.mockImplementation(async () => {
+      submitter.mockImplementation(() => {
         throw new Error('');
       });
       await submit.submit(submitter).then(
-          result => fail('Result returned: ' + result),
+          result => Promise.reject('Result returned: ' + result),
           noop,
       );
 
       submit.reset();
       expect(errors.ok).toBe(true);
     });
-    it('does not clear absent submit errors', async () => {
+    it('does not clear absent submit errors', () => {
 
       const readErrors = jest.fn();
 

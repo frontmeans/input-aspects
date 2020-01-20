@@ -153,7 +153,7 @@ describe('InValidation', () => {
     validator.send();
     expect(lastResult().ok).toBe(true);
   });
-  it('ignores empty messages if there are no messages yet', () => {
+  it('ignores empty messages if previous messages were removed', () => {
     validator.send({ message: 'some message' });
     validator.send();
     receiver.mockClear();

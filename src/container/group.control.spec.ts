@@ -51,7 +51,6 @@ describe('InGroup', () => {
       group.controls.read(readSnapshot = jest.fn(snapshot => {
         lastSnapshot = snapshot;
       }));
-      expect(readSnapshot).toHaveBeenCalledWith(lastSnapshot);
       readSnapshot.mockClear();
     });
 
@@ -257,6 +256,7 @@ describe('InGroup', () => {
     });
     it('removes property when corresponding control is disabled', () => {
       ctrl2.aspect(InMode).own.it = 'off';
+      expect(data).toEqual({ ctrl1: 'some' });
     });
     it('contains data without control', () => {
 

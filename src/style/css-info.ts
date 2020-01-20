@@ -36,7 +36,7 @@ export function inCssInfo(
     {
       ns = InputAspects__NS,
     }: {
-      ns?: NamespaceDef,
+      ns?: NamespaceDef;
     } = {},
 ): InCssClasses.Source {
   return (control: InControl<any>) => {

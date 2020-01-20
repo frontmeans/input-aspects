@@ -2,7 +2,7 @@
  * @module input-aspects
  */
 import { itsEach, itsEvery, overEntries } from 'a-iterable';
-import { afterAll, AfterEvent, trackValue, ValueTracker } from 'fun-events';
+import { afterAll, AfterEvent, OnEvent, trackValue, ValueTracker } from 'fun-events';
 import { InControl } from '../control';
 
 /**
@@ -86,11 +86,11 @@ class InRadioGroupControl<Value extends string | undefined> extends InControl<Va
     });
   }
 
-  get on() {
+  get on(): OnEvent<[Value, Value]> {
     return this._it.on;
   }
 
-  get it() {
+  get it(): Value {
     return this._it.it;
   }
 

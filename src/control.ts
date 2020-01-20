@@ -203,11 +203,11 @@ class InConverted<From, To> extends InControl<To> {
     const conversion = by(src, this);
     const convertAspect = <Instance, Kind extends InAspect.Application.Kind>(
         aspect: InAspect<Instance, Kind>,
-    ) => {
+    ): InAspect.Application.Result<Instance, To, Kind> | undefined => {
 
       const fallback: InAspect.Applied<any, any> = src._aspect(aspect);
 
-      return fallback.convertTo<Instance>(this as any) as InAspect.Application.Result<Instance, To, Kind> | undefined;
+      return fallback.convertTo<Instance>(this as any);
     };
 
     this._applyAspect = aspect => conversion.applyAspect?.(aspect) || convertAspect(aspect);

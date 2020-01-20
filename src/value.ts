@@ -1,7 +1,7 @@
 /**
  * @module input-aspects
  */
-import { trackValue } from 'fun-events';
+import { OnEvent, trackValue } from 'fun-events';
 import { InControl } from './control';
 
 /**
@@ -21,7 +21,7 @@ export function inValue<Value>(initial: Value): InControl<Value> {
 
   class InValue extends InControl<Value> {
 
-    get on() {
+    get on(): OnEvent<[Value, Value]> {
       return it.on;
     }
 

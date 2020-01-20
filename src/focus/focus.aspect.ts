@@ -2,7 +2,7 @@
  * @module input-aspects
  */
 import { noop } from 'call-thru';
-import { trackValue, ValueTracker } from 'fun-events';
+import { OnEvent, trackValue, ValueTracker } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectNull, inAspectValue } from '../aspect.impl';
 import { InControl } from '../control';
@@ -17,11 +17,7 @@ const InFocus__aspect: InAspect<InFocus | null> = {
 
     const element = control.aspect(InElement);
 
-    if (!element) {
-      return inAspectNull;
-    }
-
-    return inAspectValue(new InControlFocus(element));
+    return element ? inAspectValue(new InControlFocus(element)) : inAspectNull;
   },
 
 };
@@ -51,8 +47,9 @@ class InControlFocus extends InFocus {
   constructor({ element, events }: InElement<any>) {
     super();
 
-    const owner: DocumentOrShadowRoot | null =
-        element.getRootNode ? element.getRootNode() as any : element.ownerDocument;
+    const owner: DocumentOrShadowRoot | null = element.getRootNode
+        ? element.getRootNode() as any
+        : element.ownerDocument;
 
     this._it = trackValue(!!owner && owner.activeElement === element);
     events.on('focus')(() => this._it.it = true);
@@ -60,12 +57,16 @@ class InControlFocus extends InFocus {
     this.on({
       receive(ctx, newValue) {
         ctx.onRecurrent(noop);
-        newValue ? element.focus() : element.blur();
+        if (newValue) {
+          element.focus();
+        } else {
+          element.blur();
+        }
       },
     });
   }
 
-  get on() {
+  get on(): OnEvent<[boolean, boolean]> {
     return this._it.on;
   }
 

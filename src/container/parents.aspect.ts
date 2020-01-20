@@ -132,7 +132,7 @@ class InControlParents extends InParents {
     }
   }
 
-  get on() {
+  get on(): OnEvent<[InParents.Entry[], InParents.Entry[]]> {
     return this._on.on;
   }
 

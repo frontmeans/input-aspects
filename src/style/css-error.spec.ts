@@ -1,4 +1,5 @@
-import { afterThe } from 'fun-events';
+/* eslint-disable jest/expect-expect */
+import { afterThe, EventSupply } from 'fun-events';
 import { css__naming, QualifiedName } from 'namespace-aliaser';
 import { immediateRenderScheduler, setRenderScheduler } from 'render-scheduler';
 import { InControl } from '../control';
@@ -85,19 +86,19 @@ describe('inCssError', () => {
     expectCssClass(['has-error', InputAspects__NS]);
   });
 
-  function addCssError(opts?: Parameters<typeof inCssError>['0']) {
+  function addCssError(opts?: Parameters<typeof inCssError>['0']): void {
     control.aspect(InCssClasses).add(inCssError(opts));
   }
 
-  function message(...messages: InValidation.Message[]) {
+  function message(...messages: InValidation.Message[]): EventSupply {
     return control.aspect(InValidation).by(afterThe(...messages));
   }
 
-  function expectNoCssClasses() {
+  function expectNoCssClasses(): void {
     expect(element.classList).toHaveLength(0);
   }
 
-  function expectCssClass(name: QualifiedName) {
+  function expectCssClass(name: QualifiedName): void {
     expect(Array.from(element.classList)).toContain(css__naming.name(name, control.aspect(InNamespaceAliaser)));
   }
 });

@@ -10,6 +10,9 @@ import {
 } from 'fun-events';
 import { InElement } from '../element.control';
 
+/**
+ * @internal
+ */
 export class InElementControl<Value, Elt extends HTMLElement> extends InElement<Value, Elt> {
 
   readonly input: AfterEvent<[InElement.Input<Value>]>;
@@ -37,11 +40,14 @@ export class InElementControl<Value, Elt extends HTMLElement> extends InElement<
     this._get = get;
     this._set = set;
     this._value = this.it;
-    this._update = update;
+
+    const update = this._update = (value: Value, oldValue: Value): void => send({ value }, oldValue);
+
     this.input = afterSupplied<[InElement.Input<Value>]>(
         this._input.on.thru(asis),
         () => [{ value: this.it }],
     );
+
     this.on = this._input.on.thru(
         ({ value: newValue }, oldValue) => newValue === oldValue ? nextSkip() : nextArgs(newValue, oldValue),
     );
@@ -50,19 +56,12 @@ export class InElementControl<Value, Elt extends HTMLElement> extends InElement<
 
     const self = this;
     const supply = this._supply = eventSupply(reason => this._input.done(reason));
+    const onInput = (event: Event): void => send({ value: self.it, event }, self._value);
 
     this.events.on('input')(onInput).needs(supply);
     this.events.on('change')(onInput).needs(supply);
 
-    function onInput(event: Event) {
-      send({ value: self.it, event }, self._value);
-    }
-
-    function update(value: Value, oldValue: Value) {
-      send({ value }, oldValue);
-    }
-
-    function send(input: InElement.Input<Value>, oldValue: Value) {
+    function send(input: InElement.Input<Value>, oldValue: Value): void {
       for (;;) {
         self._value = input.value;
 

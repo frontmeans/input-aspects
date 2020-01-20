@@ -192,7 +192,7 @@ describe('InStatus', () => {
     });
   });
 
-  function edit(blur = true) {
+  function edit(blur = true): void {
     element.focus();
     element.value = 'other';
     element.dispatchEvent(new Event('input'));

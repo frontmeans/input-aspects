@@ -36,7 +36,10 @@ export function intoInteger(radix?: number): InConverter<string, number>;
  */
 export function intoInteger(from: InControl<string>, to: InControl<number>): InConverter.Conversion<string, number>;
 
-export function intoInteger(radixOrFrom: number | InControl<string> = 10, optTo?: InControl<number>) {
+export function intoInteger(
+    radixOrFrom: number | InControl<string> = 10,
+    optTo?: InControl<number>,
+): InConverter<string, number> {
   if (typeof radixOrFrom !== 'number') {
     return (intoInteger() as InConverter.Factory<string, number>)(radixOrFrom, optTo as InControl<number>);
   }

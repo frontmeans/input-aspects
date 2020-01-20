@@ -185,7 +185,7 @@ class InControlCssClasses extends InCssClasses {
       const classes = new DeltaSet<string>();
       const emitter = new EventNotifier<[readonly string[], readonly string[]]>();
       let classesSent = false;
-      const sendClasses = () => {
+      const sendClasses = (): void => {
         classesSent = true;
         classes.redelta(
             (add, remove) => emitter.send(add, remove),
@@ -276,10 +276,12 @@ class InControlCssClasses extends InCssClasses {
 
     const { classList } = element;
     const classes = new DeltaSet<string>();
-    const updateClasses = () => classes.redelta((add, remove) => {
-      classList.remove(...remove);
-      classList.add(...add);
-    }).undelta();
+    const updateClasses = (): void => {
+      classes.redelta((add, remove) => {
+        classList.remove(...remove);
+        classList.add(...add);
+      }).undelta();
+    };
 
     return this.track((add, remove) => {
       classes.delta(add, remove);
@@ -336,7 +338,7 @@ function inCssClassesSource(source: InCssClasses.Source): (control: InControl<an
 /**
  * @internal
  */
-function mergeInCssClassesMap(map: InCssClasses.Map, result: { [name: string]: boolean }) {
+function mergeInCssClassesMap(map: InCssClasses.Map, result: { [name: string]: boolean }): void {
   itsEach(
       overEntries(map),
       ([name, flag]) => {

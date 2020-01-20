@@ -23,12 +23,11 @@ export type InNamespaceAliaser = NamespaceAliaser;
  *
  * @category Aspect
  */
-export const InputAspects__NS: NamespaceDef =
-    (/*#__PURE__*/ new NamespaceDef(
-        'https://surol.github.io/input-aspects/ns',
-        'inasp',
-        'input-aspects',
-    ));
+export const InputAspects__NS: NamespaceDef = (/*#__PURE__*/ new NamespaceDef(
+    'https://surol.github.io/input-aspects/ns',
+    'inasp',
+    'input-aspects',
+));
 
 /**
  * @internal
