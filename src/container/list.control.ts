@@ -260,20 +260,22 @@ class InListEntries<Item> {
   ): void {
 
     const self = this;
-    const extracted = deleteCount == null ? modify().splice(start) : modify().splice(
-        start,
-        deleteCount,
-        ...controls.map(
-            (control, index) => {
+    const extracted = deleteCount == null
+        ? modify().splice(start)
+        : modify().splice(
+            start,
+            deleteCount,
+            ...controls.map(
+                (control, index) => {
 
-              const entry = inListEntry(this, control);
+                  const entry = inListEntry(this, control);
 
-              added.push([start + index, entry]);
+                  added.push([start + index, entry]);
 
-              return entry;
-            },
-        ),
-    );
+                  return entry;
+                },
+            ),
+        );
 
     removed.push(
         ...extracted.map(
