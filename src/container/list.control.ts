@@ -212,7 +212,7 @@ class InListSnapshot<Item> implements InList.Snapshot<Item> {
     return itsIterable(mapIt(this._entries, ([control]) => control));
   }
 
-  * entries(): IterableIterator<InList.Entry<Item>> {
+  *entries(): IterableIterator<InList.Entry<Item>> {
 
     let index = 0;
 

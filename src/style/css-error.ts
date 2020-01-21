@@ -35,7 +35,7 @@ function defaultInCssHasError(errors: InValidation.Result): boolean {
  */
 export function inCssError(
     {
-      mark ,
+      mark,
       when,
     }: {
       mark?: InCssClasses.Spec | InCssClasses.Spec[];

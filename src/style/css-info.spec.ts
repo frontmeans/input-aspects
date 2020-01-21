@@ -59,7 +59,7 @@ describe('inCssInfo', () => {
     expect(element.classList.contains('touched@inasp')).toBe(true);
   });
   it('applies `edited` class when input is edited by user', () => {
-    element.value  = 'some';
+    element.value = 'some';
     element.dispatchEvent(new KeyboardEvent('input'));
     expect(element.classList.contains('edited@inasp')).toBe(true);
   });

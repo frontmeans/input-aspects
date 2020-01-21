@@ -96,12 +96,12 @@ describe('InStatus', () => {
       const receiver = jest.fn();
 
       status.read(receiver);
-      expect(receiver).toHaveBeenCalledWith({ hasFocus: false, touched: true,  edited: false });
+      expect(receiver).toHaveBeenCalledWith({ hasFocus: false, touched: true, edited: false });
       receiver.mockClear();
 
       status.markTouched();
-      expect(flags).toEqual({ hasFocus: false, touched: true,  edited: false });
-      expect(groupFlags).toEqual({ hasFocus: false, touched: true,  edited: false });
+      expect(flags).toEqual({ hasFocus: false, touched: true, edited: false });
+      expect(groupFlags).toEqual({ hasFocus: false, touched: true, edited: false });
       expect(receiver).not.toHaveBeenCalled();
     });
     it('resets `touched` and `edited`', () => {
@@ -126,11 +126,11 @@ describe('InStatus', () => {
       const receiver = jest.fn();
 
       status.read(receiver);
-      expect(receiver).toHaveBeenCalledWith({ hasFocus: false, touched: false,  edited: false });
+      expect(receiver).toHaveBeenCalledWith({ hasFocus: false, touched: false, edited: false });
       receiver.mockClear();
 
       status.markTouched(false);
-      expect(flags).toEqual({ hasFocus: false, touched: false,  edited: false });
+      expect(flags).toEqual({ hasFocus: false, touched: false, edited: false });
       expect(receiver).not.toHaveBeenCalled();
     });
   });
