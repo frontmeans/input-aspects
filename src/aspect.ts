@@ -1,4 +1,5 @@
 /**
+ * @packageDocumentation
  * @module input-aspects
  */
 import { InControl } from './control';

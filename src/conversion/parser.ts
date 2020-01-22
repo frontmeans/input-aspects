@@ -1,5 +1,6 @@
 /**
- * @module input-aspects
+ *@packageDocumentation
+ *@module input-aspects
  */
 import { valueProvider, valuesProvider } from 'call-thru';
 import { afterSupplied, EventEmitter } from 'fun-events';

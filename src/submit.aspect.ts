@@ -1,4 +1,5 @@
 /**
+ * @packageDocumentation
  * @module input-aspects
  */
 import { itsEvery, mapIt } from 'a-iterable';

@@ -1,5 +1,6 @@
 /**
- * @module input-aspects
+ *@packageDocumentation
+ *@module input-aspects
  */
 import { nextArgs, nextSkip, valuesProvider } from 'call-thru';
 import {

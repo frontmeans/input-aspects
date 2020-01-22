@@ -1,5 +1,6 @@
 /**
- * @module input-aspects
+ *@packageDocumentation
+ *@module input-aspects
  */
 import { NextArgs, nextArgs, noop } from 'call-thru';
 import { afterAll, AfterEvent } from 'fun-events';

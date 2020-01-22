@@ -1,4 +1,5 @@
 /**
+ * @packageDocumentation
  * @module input-aspects
  */
 import { noop } from 'call-thru';

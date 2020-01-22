@@ -1,5 +1,6 @@
 /**
- * @module input-aspects
+ *@packageDocumentation
+ *@module input-aspects
  */
 import { nextArgs, NextArgs, valueProvider } from 'call-thru';
 import { AfterEvent, afterSupplied, EventKeeper, isEventKeeper } from 'fun-events';

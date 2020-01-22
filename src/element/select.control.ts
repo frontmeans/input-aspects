@@ -1,5 +1,6 @@
 /**
- * @module input-aspects
+ *@packageDocumentation
+ *@module input-aspects
  */
 import { filterIt, itsEach, overArray, reverseIt } from 'a-iterable';
 import { InElement } from '../element.control';

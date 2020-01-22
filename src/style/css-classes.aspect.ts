@@ -1,5 +1,6 @@
 /**
- * @module input-aspects
+ *@packageDocumentation
+ *@module input-aspects
  */
 import { filterIt, itsEach, ObjectEntry, overEntries } from 'a-iterable';
 import { noop, valueProvider } from 'call-thru';

@@ -1,4 +1,5 @@
 /**
+ * @packageDocumentation
  * @module input-aspects
  */
 import { OnEvent, trackValue } from 'fun-events';

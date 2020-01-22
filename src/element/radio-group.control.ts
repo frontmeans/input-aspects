@@ -1,5 +1,6 @@
 /**
- * @module input-aspects
+ *@packageDocumentation
+ *@module input-aspects
  */
 import { itsEach, itsEvery, overEntries } from 'a-iterable';
 import { afterAll, AfterEvent, OnEvent, trackValue, ValueTracker } from 'fun-events';

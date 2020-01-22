@@ -1,4 +1,5 @@
 /**
+ * @packageDocumentation
  * @module input-aspects
  */
 import { NamespaceAliaser, NamespaceDef, newNamespaceAliaser } from 'namespace-aliaser';

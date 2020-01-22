@@ -1,5 +1,6 @@
 /**
- * @module input-aspects
+ *@packageDocumentation
+ *@module input-aspects
  */
 import { noop } from 'call-thru';
 import { OnEvent, trackValue, ValueTracker } from 'fun-events';

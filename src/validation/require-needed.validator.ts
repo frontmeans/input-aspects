@@ -1,5 +1,6 @@
 /**
- * @module input-aspects
+ *@packageDocumentation
+ *@module input-aspects
  */
 import { filterIt } from 'a-iterable';
 import { NextArgs, nextArgs } from 'call-thru';

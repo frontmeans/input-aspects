@@ -1,5 +1,6 @@
 /**
- * @module input-aspects
+ *@packageDocumentation
+ *@module input-aspects
  */
 import { itsEach, itsIterable, mapIt, overEntries } from 'a-iterable';
 import { nextArgs, noop } from 'call-thru';

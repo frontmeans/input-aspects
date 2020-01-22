@@ -1,4 +1,5 @@
 /**
+ * @packageDocumentation
  * @module input-aspects
  */
 import { AfterEvent, DomEventDispatcher } from 'fun-events';

@@ -1,4 +1,5 @@
 /**
+ * @packageDocumentation
  * @module input-aspects
  */
 import { newRenderSchedule, RenderScheduler } from 'render-scheduler';

@@ -1,5 +1,6 @@
 /**
- * @module input-aspects
+ *@packageDocumentation
+ *@module input-aspects
  */
 import { nextArgs } from 'call-thru';
 import { EventKeeper } from 'fun-events';

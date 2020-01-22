@@ -1,5 +1,6 @@
 /**
- * @module input-aspects
+ *@packageDocumentation
+ *@module input-aspects
  */
 import { asis } from 'call-thru';
 import { InConverter } from '../converter';
