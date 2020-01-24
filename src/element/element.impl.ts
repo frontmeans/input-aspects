@@ -1,13 +1,6 @@
 import { asis, nextArgs, nextSkip } from 'call-thru';
-import {
-  AfterEvent,
-  afterSupplied,
-  DomEventDispatcher,
-  EventEmitter,
-  eventSupply,
-  EventSupply,
-  OnEvent,
-} from 'fun-events';
+import { AfterEvent, afterSupplied, EventEmitter, eventSupply, EventSupply, OnEvent } from 'fun-events';
+import { DomEventDispatcher } from 'fun-events/dom';
 import { InElement } from '../element.control';
 
 /**

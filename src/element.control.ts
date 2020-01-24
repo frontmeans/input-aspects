@@ -2,7 +2,8 @@
  * @packageDocumentation
  * @module input-aspects
  */
-import { AfterEvent, DomEventDispatcher } from 'fun-events';
+import { AfterEvent } from 'fun-events';
+import { DomEventDispatcher } from 'fun-events/dom';
 import { InAspect, InAspect__symbol } from './aspect';
 import { inAspectNull, inAspectValue } from './aspect.impl';
 import { InControl } from './control';
