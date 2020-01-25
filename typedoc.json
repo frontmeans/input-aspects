@@ -3,7 +3,7 @@
   "categoryOrder": ["Control", "Aspect", "Validation", "*"],
   "exclude": ["**/index.ts", "**/*.impl.ts", "**/*.spec.ts"],
   "excludeNotExported": true,
-  "mode": "file",
+  "mode": "modules",
   "name": "Input Aspects",
   "out": "./target/typedoc",
   "tsconfig": "tsconfig.main.json"
