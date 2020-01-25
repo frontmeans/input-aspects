@@ -45,9 +45,10 @@ class InControlFocus extends InFocus {
 
   private readonly _it: ValueTracker<boolean>;
 
-  constructor({ element, events }: InElement<any>) {
+  constructor(inElement: InElement<any>) {
     super();
 
+    const { element, events } = inElement;
     const owner: DocumentOrShadowRoot | null = element.getRootNode
         ? element.getRootNode() as any
         : element.ownerDocument;
@@ -65,6 +66,8 @@ class InControlFocus extends InFocus {
         }
       },
     });
+
+    inElement.whenDone(reason => this.done(reason));
   }
 
   get on(): OnEvent<[boolean, boolean]> {

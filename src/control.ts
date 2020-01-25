@@ -6,6 +6,7 @@ import { noop } from 'call-thru';
 import { EventEmitter, OnEvent, trackValue, ValueTracker } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
 import { InConverter, intoConvertedBy } from './converter';
+import { InSupply } from './supply.aspect';
 
 /**
  * User input control.
@@ -122,6 +123,37 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
   }
 
   /**
+   * Cuts off {@link InSupply input supply}.
+   *
+   * Removes all registered event receivers and cuts off corresponding event supplies.
+   *
+   * After this method call the control should no longer be used.
+   *
+   * @param reason  A reason to stop receiving user input.
+   *
+   * @returns `this` instance.
+   */
+  done(reason?: any): this {
+    this.aspect(InSupply).off(reason);
+    return this;
+  }
+
+  /**
+   * Registers a callback function that will be called as soon as {@link InSupply input supply} is cut off.
+   *
+   * This callback will be called immediately if the supply is cut off already.
+   *
+   * @param callback  A callback function accepting optional cut off reason as its only parameter.
+   * By convenience an `undefined` reason means normal completion.
+   *
+   * @returns `this` instance.
+   */
+  whenDone(callback: (this: void, reason?: any) => void): this {
+    this.aspect(InSupply).whenOff(callback);
+    return this;
+  }
+
+  /**
    * @internal
    */
   _aspect<Instance, Kind extends InAspect.Application.Kind>(
@@ -234,6 +266,8 @@ class InConverted<From, To> extends InControl<To> {
         }
       }
     });
+
+    this.whenDone(reason => this._it.done(reason));
   }
 
   get it(): To {
@@ -247,11 +281,6 @@ class InConverted<From, To> extends InControl<To> {
     if (value !== prevValue) {
       this._it.it = [value, prevRev + 1];
     }
-  }
-
-  done(reason?: any): this {
-    this._it.done(reason);
-    return this;
   }
 
 }

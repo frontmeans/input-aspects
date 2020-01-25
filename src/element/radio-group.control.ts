@@ -85,6 +85,8 @@ class InRadioGroupControl<Value extends string | undefined> extends InControl<Va
           },
       );
     });
+
+    this.whenDone(reason => this._it.done(reason));
   }
 
   get on(): OnEvent<[Value, Value]> {
@@ -97,11 +99,6 @@ class InRadioGroupControl<Value extends string | undefined> extends InControl<Va
 
   set it(value: Value) {
     this._it.it = value != null && this._buttons[value as keyof RequiredInButtons<Value>] ? value : this._unchecked;
-  }
-
-  done(reason?: any): this {
-    this._it.done(reason);
-    return this;
   }
 
 }

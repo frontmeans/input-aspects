@@ -1,5 +1,6 @@
 import { EventSupply } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
+import { inAspectValue } from './aspect.impl';
 import { InControl } from './control';
 import { InConverter } from './converter';
 import { InData } from './data';
@@ -132,10 +133,12 @@ describe('InControl', () => {
       converted.it = 5;
       expect(control.it).toBe('*****');
     });
-    it('converts aspect when `applyAspect` omitted', () => {
+    it('converts aspect when `applyAspect` specified', () => {
 
       const instance = { name: 'data' };
-      const applyAspect = jest.fn<any, any[]>(() => ({ instance }));
+      const applyAspect = jest.fn<any, any[]>(
+          (aspect: any) => aspect === InData[InAspect__symbol] ? inAspectValue(instance) : undefined,
+      );
 
       converted = control.convert({ set, get, applyAspect });
       expect(converted.aspect(InData)).toBe(instance);

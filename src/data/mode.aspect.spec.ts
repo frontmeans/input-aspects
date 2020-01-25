@@ -66,6 +66,22 @@ describe('InMode', () => {
     });
   });
 
+  describe('input cut off', () => {
+    it('stops sending updates', () => {
+
+      const reason = 'some reason';
+      const updatesDone = jest.fn();
+      const modeDone = jest.fn();
+
+      modeUpdatesSupply.whenOff(updatesDone);
+      modeSupply.whenOff(modeDone);
+
+      control.done(reason);
+      expect(updatesDone).toHaveBeenCalledWith(reason);
+      expect(modeDone).toHaveBeenCalledWith(reason);
+    });
+  });
+
   describe('own', () => {
     it('is `on` by default', () => {
       expect(mode.own.it).toBe('on');

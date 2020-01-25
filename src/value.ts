@@ -34,12 +34,11 @@ export function inValue<Value>(initial: Value): InControl<Value> {
       it.it = value;
     }
 
-    done(reason?: any): this {
-      it.done(reason);
-      return this;
-    }
-
   }
 
-  return new InValue();
+  const control = new InValue();
+
+  control.whenDone(reason => it.done(reason));
+
+  return control;
 }

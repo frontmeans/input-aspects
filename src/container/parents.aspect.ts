@@ -16,14 +16,16 @@ import {
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
+import { InControl } from '../control';
+import { InSupply } from '../supply.aspect';
 import { InContainer } from './container.control';
 
 /**
  * @internal
  */
 const InParents__aspect: InAspect<InParents> = {
-  applyTo(): InAspect.Applied<InParents> {
-    return inAspectValue(new InControlParents());
+  applyTo(control): InAspect.Applied<InParents> {
+    return inAspectValue(new InControlParents(control));
   },
 };
 
@@ -114,15 +116,18 @@ class InControlParents extends InParents {
 
   private readonly _map = new Map<InParents.Entry, EventSupply>();
   private readonly _on = new EventEmitter<[InParents.Entry[], InParents.Entry[]]>();
+  readonly on: OnEvent<[InParents.Entry[], InParents.Entry[]]>;
   readonly read: AfterEvent<[InParents.All]>;
 
-  constructor() {
+  constructor(private readonly _control: InControl<any>) {
     super();
 
+    const inSupply = _control.aspect(InSupply);
     const map = this._map;
 
+    this.on = this._on.on.tillOff(inSupply);
     this.read = afterEventBy(
-        this._on.on.thru(
+        this.on.thru(
             allParents,
         ),
         () => [allParents()],
@@ -131,10 +136,6 @@ class InControlParents extends InParents {
     function allParents(): IterableIterator<InParents.Entry> {
       return map.keys();
     }
-  }
-
-  get on(): OnEvent<[InParents.Entry[], InParents.Entry[]]> {
-    return this._on.on;
   }
 
   add(entry: InParents.Entry): EventSupply {
@@ -155,7 +156,9 @@ class InControlParents extends InParents {
     this._map.set(entry, supply);
     this._on.send([entry], []);
 
-    return supply;
+    return supply
+        .needs(this._control.aspect(InSupply))
+        .needs(entry.parent.aspect(InSupply));
   }
 
 }

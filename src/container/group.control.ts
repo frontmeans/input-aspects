@@ -442,6 +442,10 @@ class InGroupControl<Model extends object> extends InGroup<Model> {
     super();
     this._model = trackValue(model);
     this.controls = new InGroupControlControls(this);
+    this.whenDone(reason => {
+      this._model.done(reason);
+      this.controls.clear();
+    });
   }
 
   get on(): OnEvent<[Model, Model]> {
@@ -454,11 +458,6 @@ class InGroupControl<Model extends object> extends InGroup<Model> {
 
   set it(value: Model) {
     this._model.it = value;
-  }
-
-  done(reason?: any): this {
-    this._model.done(reason);
-    return this;
   }
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(

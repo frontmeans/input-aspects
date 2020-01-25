@@ -158,5 +158,18 @@ describe('InFocus', () => {
       expect(focus.done(reason)).toBe(focus);
       expect(done).toHaveBeenCalledWith(reason);
     });
+    it('stops sending events when input cut off', () => {
+
+      const receiver = jest.fn();
+      const done = jest.fn();
+
+      focus.read(receiver).whenOff(done);
+      receiver.mockClear();
+
+      const reason = 'some reason';
+
+      control.done(reason);
+      expect(done).toHaveBeenCalledWith(reason);
+    });
   });
 });

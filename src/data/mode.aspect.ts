@@ -27,6 +27,7 @@ import { InParents } from '../container';
 import { InParentsAspect } from '../container/parents.aspect.impl';
 import { InControl } from '../control';
 import { InElement } from '../element.control';
+import { InSupply } from '../supply.aspect';
 
 /**
  * @internal
@@ -227,15 +228,17 @@ class InControlMode extends InMode {
   readonly on: OnEvent<[InMode.Value, InMode.Value]>;
   private readonly _derived = new DerivedInModes();
 
-  constructor(control: InControl<any>) {
+  constructor(private readonly _control: InControl<any>) {
     super();
 
-    const element = control.aspect(InElement);
+    const element = _control.aspect(InElement);
 
     this.own = new OwnModeTracker(element);
-    this.derive(control.aspect(InParentsAspect).read.keep.dig_(parentsInMode));
+    this.derive(_control.aspect(InParentsAspect).read.keep.dig_(parentsInMode));
 
     let last: InMode.Value = 'on';
+
+    const supply = _control.aspect(InSupply).whenOff(reason => this.own.done(reason));
 
     this.read = afterEventBy<[InMode.Value]>(
         afterAll({
@@ -268,7 +271,7 @@ class InControlMode extends InMode {
           return last === next ? nextSkip() : nextArgs(last = next);
         }),
         valuesProvider<[InMode.Value]>(last),
-    );
+    ).tillOff(supply);
     if (element) {
       this.read(value => applyInMode(element.element, value));
     }
@@ -284,7 +287,7 @@ class InControlMode extends InMode {
   }
 
   derive(source: EventKeeper<[InMode.Value]>): EventSupply {
-    return this._derived.add(source);
+    return this._derived.add(source).needs(this._control.aspect(InSupply));
   }
 
 }
