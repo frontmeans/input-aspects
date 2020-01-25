@@ -16,6 +16,8 @@ import { InAspect, InAspect__symbol } from './aspect';
  *
  * Each control has its own supply. The [[InControl.done]] method cuts off this supply. While its
  * [[InControl.whenDone]] one calls a `whenOff()` method of this supply.
+ *
+ * @category Aspect
  */
 export type InSupply = EventSupply;
 
@@ -28,6 +30,9 @@ const InSupply__aspect: InAspect<InSupply> = {
   },
 };
 
+/**
+ * @category Aspect
+ */
 export const InSupply = {
   get [InAspect__symbol](): InAspect<InSupply> {
     return InSupply__aspect;
