@@ -3,17 +3,17 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Input Aspects</title>
+	<title>Flags | Input Aspects</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
 <body>
 <header>
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">Input Aspects</a>
+					<a href="../index.html" class="title">Input Aspects</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -51,26 +51,102 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="globals.html">Globals</a>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="../modules/input_aspects.html">input-aspects</a>
+				</li>
+				<li>
+					<a href="../classes/input_aspects.instatus.html">InStatus</a>
+				</li>
+				<li>
+					<a href="input_aspects.instatus.flags.html">Flags</a>
 				</li>
 			</ul>
-			<h1>Input Aspects</h1>
+			<h1>Interface Flags</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A flags representing aggregated input status.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">Flags</span>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>External modules</h3>
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-external-module"><a href="modules/input_aspects.html" class="tsd-kind-icon">input-<wbr>aspects</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="input_aspects.instatus.flags.html#edited" class="tsd-kind-icon">edited</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="input_aspects.instatus.flags.html#hasfocus" class="tsd-kind-icon">has<wbr>Focus</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="input_aspects.instatus.flags.html#touched" class="tsd-kind-icon">touched</a></li>
 							</ul>
 						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="edited" class="tsd-anchor"></a>
+					<h3>edited</h3>
+					<div class="tsd-signature tsd-kind-icon">edited<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/30e959c/src/focus/status.aspect.ts#L116">src/focus/status.aspect.ts:116</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether the input has been edited by user.</p>
+						</div>
+						<p>This flag can be set using <code>InStatus.markEdited()</code>.</p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="hasfocus" class="tsd-anchor"></a>
+					<h3>has<wbr>Focus</h3>
+					<div class="tsd-signature tsd-kind-icon">has<wbr>Focus<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/30e959c/src/focus/status.aspect.ts#L102">src/focus/status.aspect.ts:102</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether the input has focus currently.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="touched" class="tsd-anchor"></a>
+					<h3>touched</h3>
+					<div class="tsd-signature tsd-kind-icon">touched<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/30e959c/src/focus/status.aspect.ts#L109">src/focus/status.aspect.ts:109</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether the input had focus already.</p>
+						</div>
+						<p>This flag can be set using <code>InStatus.markTouched()</code>.</p>
 					</div>
 				</section>
 			</section>
@@ -78,16 +154,54 @@
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals current ">
-						<a href="globals.html"><em>Globals</em></a>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/input_aspects.html">input-<wbr>aspects</a>
+					<li class="current tsd-kind-external-module">
+						<a href="../modules/input_aspects.html">input-<wbr>aspects</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-external-module">
+						<a href="../classes/input_aspects.instatus.html" class="tsd-kind-icon">In<wbr>Status</a>
+						<ul>
+							<li class="current tsd-kind-interface tsd-parent-kind-class">
+								<a href="input_aspects.instatus.flags.html" class="tsd-kind-icon">Flags</a>
+								<ul>
+									<li class=" tsd-kind-property tsd-parent-kind-interface">
+										<a href="input_aspects.instatus.flags.html#edited" class="tsd-kind-icon">edited</a>
+									</li>
+									<li class=" tsd-kind-property tsd-parent-kind-interface">
+										<a href="input_aspects.instatus.flags.html#hasfocus" class="tsd-kind-icon">has<wbr>Focus</a>
+									</li>
+									<li class=" tsd-kind-property tsd-parent-kind-interface">
+										<a href="input_aspects.instatus.flags.html#touched" class="tsd-kind-icon">touched</a>
+									</li>
+								</ul>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="../classes/input_aspects.instatus.html#read" class="tsd-kind-icon">read</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="../classes/input_aspects.instatus.html#_afterevent__symbol_" class="tsd-kind-icon">[<wbr>After<wbr>Event__symbol]</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
+								<a href="../classes/input_aspects.instatus.html#_inaspect__symbol_" class="tsd-kind-icon">[<wbr>InAspect__symbol]</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="../classes/input_aspects.instatus.html#markedited" class="tsd-kind-icon">mark<wbr>Edited</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="../classes/input_aspects.instatus.html#marktouched" class="tsd-kind-icon">mark<wbr>Touched</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
 				</ul>
 			</nav>
 		</div>
@@ -157,7 +271,7 @@
 	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
-<script src="assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+<script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>
