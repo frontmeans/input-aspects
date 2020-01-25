@@ -19,13 +19,14 @@ describe('InParents', () => {
   let parents: InParents;
   let onParents: Mock<void, [InParents.Entry[], InParents.Entry[]]>;
   let readParents: Mock<void, [InParents.All]>;
+  let parentsSupply: EventSupply;
   let allParents: InParents.All;
 
   beforeEach(() => {
     parents = control.aspect(InParents);
     parents.on(onParents = jest.fn());
     allParents = undefined!;
-    parents.read(readParents = jest.fn(entries => {
+    parentsSupply = parents.read(readParents = jest.fn(entries => {
       allParents = entries;
     }));
     readParents.mockClear();
@@ -73,6 +74,12 @@ describe('InParents', () => {
       expect(onParents).toHaveBeenCalledWith([], [entry]);
       expect(readParents).toHaveBeenCalledTimes(2);
     });
+    it('removes parent when its input is cut off', () => {
+      parent.done();
+      expect([...allParents]).toHaveLength(0);
+      expect(onParents).toHaveBeenCalledWith([], [entry]);
+      expect(readParents).toHaveBeenCalledTimes(2);
+    });
     it('adds another parent entry', () => {
 
       const parent2 = inGroup({});
@@ -83,6 +90,46 @@ describe('InParents', () => {
 
       supply2.off();
       expect([...allParents]).toEqual([entry]);
+    });
+    it('rejects parent when control input is cut off', () => {
+
+      const reason = 'test';
+
+      control.done(reason);
+
+      const parent2 = inGroup({});
+      const entry2: InParents.Entry = { parent: parent2 };
+      const whenOff = jest.fn();
+
+      parents.add(entry2).whenOff(whenOff);
+
+      expect(whenOff).toHaveBeenCalledWith(reason);
+    });
+    it('rejects parent when parent input is cut off', () => {
+
+      const reason = 'test';
+      const parent2 = inGroup({});
+
+      parent2.done(reason);
+
+      const entry2: InParents.Entry = { parent: parent2 };
+      const whenOff = jest.fn();
+
+      parents.add(entry2).whenOff(whenOff);
+
+      expect(whenOff).toHaveBeenCalledWith(reason);
+    });
+  });
+
+  describe('read', () => {
+    it('is cut off when input is cut off', () => {
+
+      const reason = 'test';
+      const whenOff = jest.fn();
+
+      control.done(reason);
+      parentsSupply.whenOff(whenOff);
+      expect(whenOff).toHaveBeenCalledWith(reason);
     });
   });
 });
