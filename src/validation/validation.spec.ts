@@ -1,4 +1,4 @@
-import { asis, nextArgs, valuesProvider } from 'call-thru';
+import { asis, nextArgs, noop, valuesProvider } from 'call-thru';
 import {
   AfterEvent__symbol,
   afterSupplied,
@@ -272,6 +272,22 @@ describe('InValidation', () => {
 
     validator.send(message2);
     expect([...lastResult()]).toEqual([message2]);
+  });
+  it('stops validation once input supply cut off', () => {
+
+    const reason = 'some reason';
+
+    control.done(reason);
+
+    const validatorDone = jest.fn();
+
+    validatorSupply.whenOff(validatorDone);
+    expect(validatorDone).toHaveBeenCalledWith(reason);
+
+    const validationDone = jest.fn();
+
+    validation.read(noop).whenOff(validationDone);
+    expect(validationDone).toHaveBeenCalledWith(reason);
   });
 
   describe('AfterEvent__symbol', () => {
