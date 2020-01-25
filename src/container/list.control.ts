@@ -26,6 +26,7 @@ import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectNull, inAspectValue } from '../aspect.impl';
 import { InControl } from '../control';
 import { InData, InMode } from '../data';
+import { InSupply } from '../supply.aspect';
 import { inValue } from '../value';
 import { InContainer, InContainerControls } from './container.control';
 import { InParents } from './parents.aspect';
@@ -420,6 +421,7 @@ class InListControlControls<Item> extends InListControls<Item> {
     };
 
     this._entries._supply.needs(_list.read(applyModelToControls))
+        .needs(this._list.aspect(InSupply))
         .whenOff(reason => this._updates.done(reason));
 
     this._entries._entries.forEach(entry => readControlValue(this, entry));
@@ -486,6 +488,10 @@ class InListControl<Item> extends InList<Item> {
     super();
     this._model = trackValue(model);
     this.controls = new InListControlControls(this);
+    this.whenDone(reason => {
+      this._model.done(reason);
+      this.controls.clear();
+    });
   }
 
   get on(): OnEvent<[readonly Item[], readonly Item[]]> {
@@ -498,11 +504,6 @@ class InListControl<Item> extends InList<Item> {
 
   set it(value: readonly Item[]) {
     this._model.it = value;
-  }
-
-  done(reason?: any): this {
-    this._model.done(reason);
-    return this;
   }
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
