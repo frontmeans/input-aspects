@@ -1,3 +1,5 @@
+import { noop } from 'call-thru';
+import { EventSupply } from 'fun-events';
 import { InControl } from '../control';
 import { inValue } from '../value';
 import { InData } from './data.aspect';
@@ -8,13 +10,14 @@ describe('InData', () => {
   let control: InControl<string>;
   let mode: InMode;
   let data: InData<string>;
+  let dataSupply: EventSupply;
   let lastData: InData.DataType<string> | undefined;
 
   beforeEach(() => {
     control = inValue('value');
     mode = control.aspect(InMode);
     data = control.aspect(InData);
-    data(d => lastData = d);
+    dataSupply = data(d => lastData = d);
   });
 
   it('is equal to the value initially', () => {
@@ -35,5 +38,29 @@ describe('InData', () => {
   it('is undefined when mode is `-ro`', () => {
     mode.own.it = '-ro';
     expect(lastData).toBeUndefined();
+  });
+
+  describe('input cut off', () => {
+    it('cuts off the data supply', () => {
+
+      const reason = 'some reason';
+      const dataDone = jest.fn();
+
+      dataSupply.whenOff(dataDone);
+      control.done(reason);
+
+      expect(dataDone).toHaveBeenCalledWith(reason);
+    });
+    it('cuts off new data supply', () => {
+
+      const reason = 'some reason';
+
+      control.done(reason);
+
+      const dataDone = jest.fn();
+
+      dataSupply = data(noop).whenOff(dataDone);
+      expect(dataDone).toHaveBeenCalledWith(reason);
+    });
   });
 });

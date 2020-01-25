@@ -238,6 +238,8 @@ class InControlMode extends InMode {
 
     let last: InMode.Value = 'on';
 
+    const supply = _control.aspect(InSupply).whenOff(reason => this.own.done(reason));
+
     this.read = afterEventBy<[InMode.Value]>(
         afterAll({
           derived: this._derived.read,
@@ -269,7 +271,7 @@ class InControlMode extends InMode {
           return last === next ? nextSkip() : nextArgs(last = next);
         }),
         valuesProvider<[InMode.Value]>(last),
-    );
+    ).tillOff(supply);
     if (element) {
       this.read(value => applyInMode(element.element, value));
     }
@@ -282,8 +284,6 @@ class InControlMode extends InMode {
 
       return old === value ? nextSkip() : nextArgs(lastUpdate = value, old);
     });
-
-    _control.aspect(InSupply).whenOff(reason => this.own.done(reason));
   }
 
   derive(source: EventKeeper<[InMode.Value]>): EventSupply {
