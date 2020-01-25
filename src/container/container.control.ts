@@ -19,7 +19,7 @@ const InContainer__aspect: InAspect<InContainer<any> | null, 'container'> = {
 /**
  * An input control containing other controls.
  *
- * Container is available as aspect of itself.
+ * Container is available as an aspect of itself.
  *
  * @category Control
  * @typeparam Value  Input value type.
@@ -40,7 +40,7 @@ export abstract class InContainer<Value> extends InControl<Value> {
   ): InAspect.Application.Result<Instance, Value, Kind> | undefined {
     return aspect === InContainer__aspect as InAspect<any>
         ? inAspectValue(this) as InAspect.Application.Result<Instance, Value, Kind>
-        : undefined;
+        : super._applyAspect(aspect);
   }
 
 }
@@ -128,7 +128,7 @@ declare module '../aspect' {
       /**
        * Input controls container application type.
        */
-      container(): InContainer<OfValue>;
+      container(): InContainer<OfValue> | null;
 
     }
 
