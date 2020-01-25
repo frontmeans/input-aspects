@@ -1,5 +1,5 @@
 import { noop } from 'call-thru';
-import { afterSupplied } from 'fun-events';
+import { afterSupplied, EventSupply } from 'fun-events';
 import { InControl } from './control';
 import { InMode } from './data';
 import { InSubmit, InSubmitError, InSubmitRejectedError } from './submit.aspect';
@@ -12,11 +12,12 @@ describe('InSubmit', () => {
   let control: InControl<string>;
   let submit: InSubmit<string>;
   let flags: InSubmit.Flags;
+  let flagsSupply: EventSupply;
 
   beforeEach(() => {
     control = inValue('test');
     submit = control.aspect(InSubmit);
-    submit.read(f => flags = f);
+    flagsSupply = submit.read(f => flags = f);
   });
 
   let validation: InValidation<string>;
@@ -71,6 +72,18 @@ describe('InSubmit', () => {
 
       expect(await firstSubmit).toBe('result');
       expect(flags).toEqual({ ready: true, submitted: true, busy: false });
+    });
+    it('rejects if input cut off', () => {
+
+      const reason = 'some reason';
+
+      control.done(reason);
+      ensureRejected('off');
+
+      const done = jest.fn();
+
+      flagsSupply.whenOff(done);
+      expect(done).toHaveBeenCalledWith(reason);
     });
     it('rejects on validation errors', async () => {
       validation.by({ validate() { return { invalid: 'test' }; } });

@@ -8,6 +8,7 @@ import { afterAll, AfterEvent, AfterEvent__symbol, EventKeeper, trackValue } fro
 import { InAspect, InAspect__symbol } from './aspect';
 import { InControl } from './control';
 import { InData } from './data';
+import { InSupply } from './supply.aspect';
 import { InValidation, inValidationResult } from './validation';
 
 /**
@@ -213,10 +214,13 @@ class InControlSubmit<Value> extends InSubmit<Value> {
       ready: data !== undefined && (messages.ok || itsEvery(messages, message => message.submit)),
       submitted: flags.submitted,
       busy: flags.busy,
-    }));
+    })).tillOff(_control.aspect(InSupply));
   }
 
   async submit<Result>(submitter: InSubmit.Submitter<Value, Result>): Promise<Result> {
+    if (this._control.aspect(InSupply).isOff) {
+      throw new InSubmitRejectedError('off');
+    }
     if (this._flags.it.busy) {
       throw new InSubmitRejectedError('busy');
     }
