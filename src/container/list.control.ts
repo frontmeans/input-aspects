@@ -23,11 +23,21 @@ import {
   ValueTracker,
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
+import { inAspectNull, inAspectValue } from '../aspect.impl';
 import { InControl } from '../control';
 import { InData, InMode } from '../data';
 import { inValue } from '../value';
 import { InContainer, InContainerControls } from './container.control';
 import { InParents } from './parents.aspect';
+
+/**
+ * @internal
+ */
+const InList__aspect: InAspect<InList<any> | null, 'list'> = {
+  applyTo() {
+    return inAspectNull;
+  },
+};
 
 /**
  * An indexed list of input controls.
@@ -42,10 +52,22 @@ import { InParents } from './parents.aspect';
  */
 export abstract class InList<Item> extends InContainer<readonly Item[]> {
 
+  static get [InAspect__symbol](): InAspect<InList<any> | null, 'list'> {
+    return InList__aspect;
+  }
+
   /**
    * Input list controls.
    */
   abstract readonly controls: InListControls<Item>;
+
+  protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
+      aspect: InAspect<Instance, Kind>,
+  ): InAspect.Application.Result<Instance, readonly Item[], Kind> | undefined {
+    return aspect === InList__aspect as InAspect<any>
+        ? inAspectValue(this) as InAspect.Application.Result<Instance, readonly Item[], Kind>
+        : super._applyAspect(aspect);
+  }
 
 }
 
@@ -543,4 +565,21 @@ function readInListData<Item>(
  */
 export function inList<Item>(model: readonly Item[]): InList<Item> {
   return new InListControl(model);
+}
+
+declare module '../aspect' {
+
+  export namespace InAspect.Application {
+
+    export interface Map<OfInstance, OfValue> {
+
+      /**
+       * Input controls list application type.
+       */
+      list(): InList<OfValue extends readonly (infer Item)[] ? Item : never> | null;
+
+    }
+
+  }
+
 }

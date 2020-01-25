@@ -3,10 +3,10 @@ import { InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
 import { intoFallback } from '../conversion';
 import { InData, InMode } from '../data';
-import { InValidation } from '../validation';
 import { inValue } from '../value';
 import { InContainer } from './container.control';
 import { inGroup, InGroup, InGroupControls } from './group.control';
+import { InList } from './list.control';
 import { InParents } from './parents.aspect';
 import Mock = jest.Mock;
 
@@ -32,7 +32,7 @@ describe('InGroup', () => {
   });
 
   it('supports aspects', () => {
-    expect(group.aspect(InValidation)).toBeDefined();
+    expect(group.aspect(InList)).toBeDefined();
   });
   it('is not available in non-group controls', () => {
     expect(inValue('some').aspect(InGroup)).toBeNull();

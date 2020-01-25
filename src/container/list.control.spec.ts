@@ -1,7 +1,10 @@
 import { EventSupply } from 'fun-events';
+import { InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
 import { InData, InMode } from '../data';
 import { inValue } from '../value';
+import { InContainer } from './container.control';
+import { InGroup } from './group.control';
 import { inList, InList } from './list.control';
 import { InParents } from './parents.aspect';
 import Mock = jest.Mock;
@@ -24,6 +27,18 @@ describe('InList', () => {
 
   beforeEach(() => {
     list.controls.read.once(snapshot => initControls = [...snapshot]);
+  });
+
+  it('supports aspects', () => {
+    expect(list.aspect(InGroup)).toBeDefined();
+  });
+  it('is not available in non-list controls', () => {
+    expect(inValue('some').aspect(InList)).toBeNull();
+  });
+  it('is available as aspect of itself', () => {
+    expect(list.aspect(InContainer)).toBe(list);
+    expect(list.aspect(InList)).toBe(list);
+    expect(InList[InAspect__symbol]).not.toBe(InContainer[InAspect__symbol]);
   });
 
   describe('it', () => {
