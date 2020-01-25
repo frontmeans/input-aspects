@@ -23,7 +23,8 @@ import {
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
-import { InParents } from '../container/parents.aspect';
+import { InParents } from '../container';
+import { InParentsAspect } from '../container/parents.aspect.impl';
 import { InControl } from '../control';
 import { InElement } from '../element.control';
 
@@ -232,7 +233,7 @@ class InControlMode extends InMode {
     const element = control.aspect(InElement);
 
     this.own = new OwnModeTracker(element);
-    this.derive(control.aspect(InParents).read.keep.dig_(parentsInMode));
+    this.derive(control.aspect(InParentsAspect).read.keep.dig_(parentsInMode));
 
     let last: InMode.Value = 'on';
 

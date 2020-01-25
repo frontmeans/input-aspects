@@ -34,3 +34,5 @@ node_modules
 
 # Include type definitions
 !/d.ts
+# ...but exclude internals
+/d.ts/**/*.impl.*

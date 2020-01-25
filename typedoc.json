@@ -1,7 +1,7 @@
 {
   "categorizeByGroup": true,
   "categoryOrder": ["Control", "Aspect", "Validation", "*"],
-  "exclude": ["**/*+(index|.spec|.impl).ts"],
+  "exclude": ["**/index.ts", "**/*.impl.ts", "**/*.spec.ts"],
   "excludeNotExported": true,
   "mode": "file",
   "name": "Input Aspects",
