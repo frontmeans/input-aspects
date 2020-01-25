@@ -78,7 +78,7 @@ describe('InSubmit', () => {
       const reason = 'some reason';
 
       control.done(reason);
-      ensureRejected('off');
+      ensureRejected('noInput');
 
       const done = jest.fn();
 

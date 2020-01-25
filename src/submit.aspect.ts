@@ -219,7 +219,7 @@ class InControlSubmit<Value> extends InSubmit<Value> {
 
   async submit<Result>(submitter: InSubmit.Submitter<Value, Result>): Promise<Result> {
     if (this._control.aspect(InSupply).isOff) {
-      throw new InSubmitRejectedError('off');
+      throw new InSubmitRejectedError('noInput');
     }
     if (this._flags.it.busy) {
       throw new InSubmitRejectedError('busy');
