@@ -109,6 +109,29 @@ describe('InCssClasses', () => {
       expect(classMap).toEqual({});
       expect(element.classList.contains('class1')).toBe(false);
     });
+    it('removes CSS classes when input supply is cut off', () => {
+
+      const reason = 'some reason';
+      const sourceDone = jest.fn();
+
+      sourceSupply.whenOff(sourceDone);
+      control.done(reason);
+      expect(sourceDone).toHaveBeenCalledWith(reason);
+      expect(classMap).toEqual({});
+      expect(element.classList.contains('class1')).toBe(false);
+    });
+    it('does not add CSS classes when input supply is cut off', () => {
+
+      const reason = 'some reason';
+      const sourceDone = jest.fn();
+
+      control.done(reason);
+      cssClasses.add(afterThe({ 'never-added': true })).whenOff(sourceDone);
+
+      expect(sourceDone).toHaveBeenCalledWith(reason);
+      expect(classMap).toEqual({});
+      expect(element.classList.contains('never-added')).toBe(false);
+    });
   });
 
   describe('track', () => {

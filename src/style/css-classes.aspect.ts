@@ -25,6 +25,7 @@ import { InAspect, InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
 import { InNamespaceAliaser } from '../namespace-aliaser.aspect';
 import { InRenderScheduler } from '../render-scheduler.aspect';
+import { InSupply } from '../supply.aspect';
 import { InStyledElement } from './styled-element.aspect';
 
 /**
@@ -171,6 +172,9 @@ class InControlCssClasses extends InCssClasses {
 
   constructor(private readonly _control: InControl<any>) {
     super();
+
+    const inSupply = _control.aspect(InSupply);
+
     this.read = this._sources.read.keep.dig_(
         ([sources]) => sources.size ? afterEach(...sources.keys()) : afterThe(),
     ).keep.thru((...classes) => {
@@ -180,8 +184,8 @@ class InControlCssClasses extends InCssClasses {
       classes.forEach(([map]) => mergeInCssClassesMap(map, result));
 
       return result;
-    });
-    this.track = afterEventBy(receiver => {
+    }).tillOff(inSupply);
+    this.track = afterEventBy<[readonly string[], readonly string[]]>(receiver => {
 
       const classes = new DeltaSet<string>();
       const emitter = new EventNotifier<[readonly string[], readonly string[]]>();
@@ -217,13 +221,15 @@ class InControlCssClasses extends InCssClasses {
           sendClasses();
         }
       });
-    });
+    }).tillOff(inSupply);
 
     const element = _control.aspect(InStyledElement);
 
     if (element) {
       this.applyTo(element, this.schedule);
     }
+
+    inSupply.whenOff(reason => this.done(reason));
   }
 
   get schedule(): RenderSchedule {
@@ -234,6 +240,12 @@ class InControlCssClasses extends InCssClasses {
   }
 
   add(source: InCssClasses.Source): EventSupply {
+
+    const inSupply = this._control.aspect(InSupply);
+
+    if (inSupply.isOff) {
+      return inSupply;
+    }
 
     const keeper = inCssClassesSource(source)(this._control);
     const classesSupply = eventSupply();
@@ -267,7 +279,7 @@ class InControlCssClasses extends InCssClasses {
 
     this._sources.it = [sources];
 
-    return classesSupply;
+    return classesSupply.needs(inSupply);
   }
 
   applyTo(
