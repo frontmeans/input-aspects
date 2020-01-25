@@ -91,7 +91,7 @@ declare module './aspect' {
       /**
        * Input element application type.
        */
-      element(): InElement<OfValue>;
+      element(): InElement<OfValue> | null;
 
     }
 

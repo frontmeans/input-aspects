@@ -147,7 +147,7 @@ class OwnModeTracker extends ValueTracker<InMode.Value> {
 
   private readonly _tracker: ValueTracker<InMode.Value>;
 
-  constructor(element?: InElement<any>) {
+  constructor(element: InElement<any> | null) {
     super();
     this._tracker = trackValue(element ? initialInMode(element.element) : 'on');
   }
