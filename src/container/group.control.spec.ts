@@ -1,4 +1,5 @@
 import { afterSupplied, onSupplied } from 'fun-events';
+import { InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
 import { intoFallback } from '../conversion';
 import { InData, InMode } from '../data';
@@ -33,9 +34,13 @@ describe('InGroup', () => {
   it('supports aspects', () => {
     expect(group.aspect(InValidation)).toBeDefined();
   });
-
+  it('is not available in non-group controls', () => {
+    expect(inValue('some').aspect(InGroup)).toBeNull();
+  });
   it('is available as aspect of itself', () => {
     expect(group.aspect(InContainer)).toBe(group);
+    expect(group.aspect(InGroup)).toBe(group);
+    expect(InGroup[InAspect__symbol]).not.toBe(InContainer[InAspect__symbol]);
   });
 
   describe('controls', () => {

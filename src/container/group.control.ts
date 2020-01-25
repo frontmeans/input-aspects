@@ -21,10 +21,20 @@ import {
   ValueTracker,
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
+import { inAspectNull, inAspectValue } from '../aspect.impl';
 import { InControl } from '../control';
 import { InData, InMode } from '../data';
 import { InContainer, InContainerControls } from './container.control';
 import { InParents } from './parents.aspect';
+
+/**
+ * @internal
+ */
+const InGroup__aspect: InAspect<InGroup<any> | null, 'group'> = {
+  applyTo() {
+    return inAspectNull;
+  },
+};
 
 /**
  * A group of input controls.
@@ -34,15 +44,29 @@ import { InParents } from './parents.aspect';
  * Group value (called model) is an object formed by nested control values. The model property value is the one of the
  * control with the same key, if present. When model is updated corresponding controls are also updated.
  *
+ * Group is available as an aspect of itself.
+ *
  * @category Control
  * @typeparam Model  Group model type, i.e. its value type.
  */
 export abstract class InGroup<Model extends object> extends InContainer<Model> {
 
+  static get [InAspect__symbol](): InAspect<InGroup<any> | null, 'group'> {
+    return InGroup__aspect;
+  }
+
   /**
    * Input group controls.
    */
   abstract readonly controls: InGroupControls<Model>;
+
+  protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
+      aspect: InAspect<Instance, Kind>,
+  ): InAspect.Application.Result<Instance, Model, Kind> | undefined {
+    return aspect === InGroup__aspect as InAspect<any>
+        ? inAspectValue(this) as InAspect.Application.Result<Instance, Model, Kind>
+        : super._applyAspect(aspect);
+  }
 
 }
 
@@ -511,4 +535,21 @@ function readInGroupData<Model extends object>(
  */
 export function inGroup<Model extends object>(model: Model): InGroup<Model> {
   return new InGroupControl(model);
+}
+
+declare module '../aspect' {
+
+  export namespace InAspect.Application {
+
+    export interface Map<OfInstance, OfValue> {
+
+      /**
+       * Input control group application type.
+       */
+      group(): InGroup<OfValue extends object ? OfValue : never> | null;
+
+    }
+
+  }
+
 }
