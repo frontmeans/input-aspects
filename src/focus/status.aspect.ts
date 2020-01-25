@@ -18,6 +18,7 @@ import { inAspectValue } from '../aspect.impl';
 import { InContainer } from '../container';
 import { InControl } from '../control';
 import { InElement } from '../element.control';
+import { InSupply } from '../supply.aspect';
 import { InFocus } from './focus.aspect';
 
 /**
@@ -134,13 +135,12 @@ class InControlStatus extends InStatus {
 
   private readonly _flags = trackValue<InStatus.Flags>(defaultInStatusFlags);
 
-  get read(): AfterEvent<[InStatus.Flags]> {
-    return this._flags.read;
-  }
+  readonly read: AfterEvent<[InStatus.Flags]>;
 
   constructor(control: InControl<any>) {
     super();
     this._flags.by(elementInStatusFlags(this._flags, control));
+    this.read = this._flags.read.tillOff(control.aspect(InSupply));
   }
 
   markTouched(touched = true): this {
@@ -223,8 +223,7 @@ class InContainerStatus extends InStatus {
 
   constructor(private readonly _container: InContainer<any>) {
     super();
-
-    this.read = containerInStatusFlags(_container);
+    this.read = containerInStatusFlags(_container).tillOff(_container.aspect(InSupply));
   }
 
   markEdited(edited?: boolean): this {

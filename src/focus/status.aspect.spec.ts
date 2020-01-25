@@ -1,4 +1,4 @@
-import { afterSupplied } from 'fun-events';
+import { afterSupplied, EventSupply } from 'fun-events';
 import { InGroup, inGroup } from '../container';
 import { inText } from '../element';
 import { InElement } from '../element.control';
@@ -9,6 +9,7 @@ describe('InStatus', () => {
 
   let element: HTMLInputElement;
   let control: InElement<string>;
+  let controlSupply: EventSupply;
   let status: InStatus;
   let flags: InStatus.Flags;
 
@@ -16,13 +17,14 @@ describe('InStatus', () => {
     element = document.body.appendChild(document.createElement('input'));
     control = inText(element);
     status = control.aspect(InStatus);
-    status.read(f => flags = f);
+    controlSupply = status.read(f => flags = f);
   });
   afterEach(() => {
     element.remove();
   });
 
   let group: InGroup<{ element: string }>;
+  let groupSupply: EventSupply;
   let groupStatus: InStatus;
   let groupFlags: InStatus.Flags;
 
@@ -30,7 +32,7 @@ describe('InStatus', () => {
     group = inGroup({ element: '' })
         .setup(({ controls }) => controls.set('element', control));
     groupStatus = group.aspect(InStatus);
-    groupStatus.read(f => groupFlags = f);
+    groupSupply = groupStatus.read(f => groupFlags = f);
   });
 
   describe('for empty group', () => {
@@ -75,6 +77,26 @@ describe('InStatus', () => {
 
       expect(flags).toEqual({ hasFocus: false, touched: true, edited: true });
       expect(groupFlags).toEqual({ hasFocus: false, touched: true, edited: true });
+    });
+    it('is cut off once control input cut off', () => {
+
+      const done = jest.fn();
+      const reason = 'some reason';
+
+      controlSupply.whenOff(done);
+      control.done(reason);
+
+      expect(done).toHaveBeenCalledWith(reason);
+    });
+    it('is cut off once group input cut off', () => {
+
+      const done = jest.fn();
+      const reason = 'some reason';
+
+      groupSupply.whenOff(done);
+      group.done(reason);
+
+      expect(done).toHaveBeenCalledWith(reason);
     });
   });
 
