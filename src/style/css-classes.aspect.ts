@@ -3,13 +3,14 @@
  *@module input-aspects
  */
 import { filterIt, itsEach, ObjectEntry, overEntries } from 'a-iterable';
-import { noop, valueProvider } from 'call-thru';
+import { noop } from 'call-thru';
 import { DeltaSet } from 'delta-set';
 import {
   afterEach,
   AfterEvent,
   AfterEvent__symbol,
-  afterEventBy, afterSupplied,
+  afterEventBy,
+  afterSupplied,
   afterThe,
   EventKeeper,
   EventNotifier,
@@ -81,6 +82,24 @@ export abstract class InCssClasses implements EventKeeper<[InCssClasses.Map]> {
    * @returns CSS class names supply. Removes `source` CSS classes from styled element once cut off.
    */
   abstract add(source: InCssClasses.Source): EventSupply;
+
+  /**
+   * Converts arbitrary CSS classes source to their {@link InCssClasses.Spec specifiers}.
+   *
+   * @param source  A source of CSS classes names.
+   *
+   * @returns An `AfterEvent` keeper of CSS class name specifiers.
+   */
+  abstract specs(source: InCssClasses.Source): AfterEvent<InCssClasses.Spec[]>;
+
+  /**
+   * Resolves arbitrary CSS classes source to {@link InCssClasses.Map map of class names}.
+   *
+   * @param source  A source of CSS classes names.
+   *
+   * @returns An `AfterEvent` keeper of CSS class names map.
+   */
+  abstract resolve(source: InCssClasses.Source): AfterEvent<[InCssClasses.Map]>;
 
   /**
    * Applies CSS classes to the given styled element.
@@ -239,6 +258,32 @@ class InControlCssClasses extends InCssClasses {
     ));
   }
 
+  specs(source: InCssClasses.Source): AfterEvent<InCssClasses.Spec[]> {
+    return afterSupplied(isEventKeeper(source) ? source : source(this._control));
+  }
+
+  resolve(source: InCssClasses.Source): AfterEvent<[InCssClasses.Map]> {
+
+    const nsAlias = this._control.aspect(InNamespaceAliaser);
+
+    return this.specs(source).keep.thru(
+        (...names) => {
+
+          const result: { [name: string]: boolean } = {};
+
+          names.forEach(name => {
+            if (isQualifiedName(name)) {
+              result[css__naming.name(name, nsAlias)] = true;
+            } else {
+              mergeInCssClassesMap(name, result);
+            }
+          });
+
+          return result;
+        },
+    );
+  }
+
   add(source: InCssClasses.Source): EventSupply {
 
     const inSupply = this._control.aspect(InSupply);
@@ -247,11 +292,10 @@ class InControlCssClasses extends InCssClasses {
       return inSupply;
     }
 
-    const keeper = inCssClassesSource(source)(this._control);
     const classesSupply = eventSupply();
     const src = afterEventBy<[InCssClasses.Map]>(receiver => {
 
-      const supply = keeper({
+      const supply = this.resolve(source)({
         receive(context, ...event) {
           receiver.receive(context, ...event);
         },
@@ -316,36 +360,6 @@ class InControlCssClasses extends InCssClasses {
     return this;
   }
 
-}
-
-/**
- * @internal
- */
-function inCssClassesSource(source: InCssClasses.Source): (control: InControl<any>) => AfterEvent<[InCssClasses.Map]> {
-
-  const keeper = isEventKeeper(source) ? valueProvider(source) : source;
-
-  return control => {
-
-    const nsAlias = control.aspect(InNamespaceAliaser);
-
-    return afterSupplied(keeper(control)).keep.thru(
-        (...names) => {
-
-          const result: { [name: string]: boolean } = {};
-
-          names.forEach(name => {
-            if (isQualifiedName(name)) {
-              result[css__naming.name(name, nsAlias)] = true;
-            } else {
-              mergeInCssClassesMap(name, result);
-            }
-          });
-
-          return result;
-        },
-    );
-  };
 }
 
 /**
