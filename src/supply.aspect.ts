@@ -2,7 +2,6 @@
  * @packageDocumentation
  * @module input-aspects
  */
-import { noop } from 'call-thru';
 import { eventSupply, EventSupply } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
 
@@ -17,16 +16,23 @@ import { InAspect, InAspect__symbol } from './aspect';
  * Each control has its own supply. The [[InControl.done]] method cuts off this supply. While its
  * [[InControl.whenDone]] one calls a `whenOff()` method of this supply.
  *
+ * An input supply of converted control depends on the input supply of the control it is converted from.
+ *
  * @category Aspect
  */
 export type InSupply = EventSupply;
 
 const InSupply__aspect: InAspect<InSupply> = {
   applyTo(): InAspect.Applied<InSupply> {
-    return {
-      instance: eventSupply(),
-      convertTo: noop,
-    };
+
+    const convertFrom = (from: InSupply): InAspect.Applied<InSupply> => ({
+      instance: eventSupply().needs(from),
+      convertTo() {
+        return convertFrom(this.instance);
+      },
+    });
+
+    return convertFrom(eventSupply());
   },
 };
 
