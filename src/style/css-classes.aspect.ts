@@ -11,7 +11,6 @@ import {
   AfterEvent__symbol,
   afterEventBy,
   afterSupplied,
-  afterThe,
   EventKeeper,
   EventNotifier,
   eventSupply,
@@ -195,7 +194,7 @@ class InControlCssClasses extends InCssClasses {
     const inSupply = _control.aspect(InSupply);
 
     this.read = this._sources.read.keep.dig_(
-        ([sources]) => sources.size ? afterEach(...sources.keys()) : afterThe(),
+        ([sources]) => afterEach(...sources.keys()),
     ).keep.thru((...classes) => {
 
       const result: { [name: string]: boolean } = {};
