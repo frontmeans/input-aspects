@@ -373,10 +373,13 @@ function nestedInValidations(controls: InContainer.Snapshot): AfterEvent<[InVali
  * @internal
  */
 function combineInValidationResults<NextReturn>(
-    ...[messages]: [InValidation.Result][]
+    ...results: [InValidation.Result][]
 ): NextArgs<InValidation.Message[], NextReturn> {
 
-  const msg: Iterable<InValidation.Message> = flatMapIt(messages, asis);
+  const msg: Iterable<InValidation.Message> = flatMapIt(
+      mapIt(results, result => result[0]),
+      asis,
+  );
 
   return nextArgs<InValidation.Message[], NextReturn>(...msg);
 }
