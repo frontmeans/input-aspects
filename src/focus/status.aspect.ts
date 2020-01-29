@@ -2,7 +2,7 @@
  *@packageDocumentation
  *@module input-aspects
  */
-import { itsEach, mapIt } from 'a-iterable';
+import { itsEach, itsEmpty, mapIt } from 'a-iterable';
 import {
   afterAll,
   afterEach,
@@ -253,7 +253,12 @@ class InContainerStatus extends InStatus {
  */
 function containerInStatusFlags(container: InContainer<any>): AfterEvent<[InStatus.Flags]> {
   return container.controls.read.keep.dig_(
-      snapshot => afterEach(...inControlStatuses(snapshot)),
+      snapshot => {
+
+        const statuses = inControlStatuses(snapshot);
+
+        return itsEmpty(statuses) ? afterThe() : afterEach(...statuses);
+      },
   ).keep.thru(
       combineInStatusFlags,
   );

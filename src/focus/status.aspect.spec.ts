@@ -36,7 +36,12 @@ describe('InStatus', () => {
   });
 
   describe('for empty group', () => {
-    it('has default flags', () => {
+    it('has default flags initially', () => {
+      group = inGroup({ element: '' });
+      group.aspect(InStatus).read(flags => groupFlags = flags);
+      expect(groupFlags).toEqual({ hasFocus: false, touched: false, edited: false });
+    });
+    it('has default flags when last element removed', () => {
       group.controls.remove('element');
       expect(groupFlags).toEqual({ hasFocus: false, touched: false, edited: false });
     });
