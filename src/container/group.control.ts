@@ -3,7 +3,7 @@
  *@module input-aspects
  */
 import { itsEach, itsIterable, mapIt, overEntries } from 'a-iterable';
-import { nextArgs, noop } from 'call-thru';
+import { nextArg, nextArgs, noop } from 'call-thru';
 import {
   afterAll,
   AfterEvent,
@@ -519,7 +519,7 @@ function readInGroupData<Model extends object>(
       data[key] = controlData;
     });
 
-    return data as InData.DataType<Model>;
+    return nextArg(data as InData.DataType<Model>);
   });
 }
 
