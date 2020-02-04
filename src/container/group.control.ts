@@ -3,20 +3,21 @@
  *@module input-aspects
  */
 import { itsEach, itsIterable, mapIt, overEntries } from 'a-iterable';
-import { nextArg, nextArgs, noop } from 'call-thru';
+import { nextArg, nextArgs, NextCall, noop } from 'call-thru';
 import {
   afterAll,
   AfterEvent,
   AfterEvent__symbol,
   afterEventBy,
-  afterThe,
   EventEmitter,
   EventKeeper,
   EventSender,
   eventSupply,
   EventSupply,
+  nextOnEvent,
   OnEvent,
   OnEvent__symbol,
+  OnEventCallChain,
   trackValue,
   ValueTracker,
 } from 'fun-events';
@@ -482,7 +483,7 @@ function inGroupData<Model extends object>(group: InGroup<Model>): InData<Model>
     cs: group.controls,
     model: group,
     mode: group.aspect(InMode),
-  }).keep.dig_(
+  }).keep.thru_(
       readInGroupData,
   );
 }
@@ -500,9 +501,9 @@ function readInGroupData<Model extends object>(
       model: [Model];
       mode: [InMode.Value];
     },
-): InData<Model> {
+): NextCall<OnEventCallChain, [InData.DataType<Model>?]> {
   if (!InMode.hasData(mode)) {
-    return afterThe();
+    return nextArgs();
   }
 
   const csData: { [key in keyof Model]: InData<any> } = {} as any;
@@ -511,7 +512,7 @@ function readInGroupData<Model extends object>(
     csData[key as keyof Model] = control.aspect(InData);
   });
 
-  return afterAll(csData).keep.thru(controlsData => {
+  return nextOnEvent(afterAll(csData).keep.thru(controlsData => {
 
     const data: Partial<Model> = { ...model };
 
@@ -520,7 +521,7 @@ function readInGroupData<Model extends object>(
     });
 
     return nextArg(data as InData.DataType<Model>);
-  });
+  }));
 }
 
 /**

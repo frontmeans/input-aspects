@@ -2,7 +2,7 @@
  *@packageDocumentation
  *@module input-aspects
  */
-import { nextArgs, nextSkip, valuesProvider } from 'call-thru';
+import { nextArgs, NextCall, nextSkip, valuesProvider } from 'call-thru';
 import {
   afterAll,
   afterEach,
@@ -10,14 +10,15 @@ import {
   AfterEvent__symbol,
   afterEventBy,
   afterSupplied,
-  afterThe,
   EventEmitter,
   EventKeeper,
   EventSender,
   eventSupply,
   EventSupply,
+  nextOnEvent,
   OnEvent,
   OnEvent__symbol,
+  OnEventCallChain,
   trackValue,
   ValueTracker,
 } from 'fun-events';
@@ -199,7 +200,10 @@ class DerivedInModes {
         valuesProvider(this._all),
     );
 
-    this.read = sources.keep.dig(set => afterEach(...set).keep.thru(mergeInModes));
+    this.read = sources.keep.thru(
+        (set: Set<AfterEvent<[InMode.Value]>>) => nextOnEvent(afterEach(...set)),
+        mergeInModes,
+    );
   }
 
   add(source: EventKeeper<[InMode.Value]>): EventSupply {
@@ -234,7 +238,7 @@ class InControlMode extends InMode {
     const element = _control.aspect(InElement);
 
     this.own = new OwnModeTracker(element);
-    this.derive(_control.aspect(InParentsAspect).read.keep.dig_(parentsInMode));
+    this.derive(_control.aspect(InParentsAspect).read.keep.thru_(parentsInMode));
 
     let last: InMode.Value = 'on';
 
@@ -330,17 +334,17 @@ function applyInMode(element: HTMLElement, value: InMode.Value): void {
 /**
  * @internal
  */
-function parentsInMode(parents: InParents.All): AfterEvent<[InMode.Value]> {
+function parentsInMode(parents: InParents.All): NextCall<OnEventCallChain, [InMode.Value]> {
 
   const parentList = Array.from(parents);
 
   if (!parentList.length) {
-    return afterThe('on');
+    return nextArgs('on');
   }
 
   const parentModes = parentList.map(({ parent }) => parent.aspect(InMode));
 
-  return afterEach(...parentModes).keep.thru_(mergeInModes);
+  return nextOnEvent(afterEach(...parentModes).keep.thru_(mergeInModes));
 }
 
 /**

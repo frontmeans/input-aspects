@@ -3,8 +3,17 @@
  *@module input-aspects
  */
 import { flatMapIt, itsEach, mapIt, overEntries } from 'a-iterable';
-import { asis, CallChain, nextArgs, NextCall } from 'call-thru';
-import { afterEach, AfterEvent, AfterEvent__symbol, afterSupplied, EventKeeper, EventSupply } from 'fun-events';
+import { asis, nextArgs, NextCall } from 'call-thru';
+import {
+  afterEach,
+  AfterEvent,
+  AfterEvent__symbol,
+  afterSupplied,
+  EventKeeper,
+  EventSupply,
+  nextOnEvent,
+  OnEventCallChain,
+} from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InContainer } from '../container';
 import { InControl } from '../control';
@@ -355,9 +364,8 @@ class InControlValidation<Value> extends InValidation<Value> {
  * @internal
  */
 function nestedInValidationMessages(container: InContainer<any>): EventKeeper<InValidation.Message[]> {
-  return container.controls.read.keep.dig_(
+  return container.controls.read.keep.thru(
       nestedInValidations,
-  ).keep.thru(
       combineInValidationResults,
   );
 }
@@ -365,8 +373,10 @@ function nestedInValidationMessages(container: InContainer<any>): EventKeeper<In
 /**
  * @internal
  */
-function nestedInValidations(controls: InContainer.Snapshot): AfterEvent<[InValidation.Result][]> {
-  return afterEach(...mapIt(controls, control => control.aspect(InValidation)));
+function nestedInValidations(
+    controls: InContainer.Snapshot,
+): NextCall<OnEventCallChain, [InValidation.Result][]> {
+  return nextOnEvent(afterEach(...mapIt(controls, control => control.aspect(InValidation))));
 }
 
 /**
@@ -374,9 +384,9 @@ function nestedInValidations(controls: InContainer.Snapshot): AfterEvent<[InVali
  */
 function combineInValidationResults(
     ...results: [InValidation.Result][]
-): NextCall<CallChain, InValidation.Message[]> {
+): NextCall<OnEventCallChain, InValidation.Message[]> {
 
-  const msg: Iterable<InValidation.Message> = flatMapIt(
+  const msg = flatMapIt(
       mapIt(results, result => result[0]),
       asis,
   );
