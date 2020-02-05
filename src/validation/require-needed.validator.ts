@@ -3,7 +3,7 @@
  *@module input-aspects
  */
 import { filterIt } from 'a-iterable';
-import { NextArgs, nextArgs } from 'call-thru';
+import { CallChain, nextArgs, NextCall } from 'call-thru';
 import { InControl } from '../control';
 import { requireAll } from './require-all.validator';
 import { InValidation, inValidationResult } from './validation.aspect';
@@ -34,9 +34,9 @@ export function requireNeeded<Value>(...validators: InValidator<Value>[]): InVal
 /**
  * @internal
  */
-function nextRequireNeededMessages<NextReturn>(
+function nextRequireNeededMessages(
     ...messages: InValidation.Message[]
-): NextArgs<InValidation.Message[], NextReturn> {
+): NextCall<CallChain, InValidation.Message[]> {
 
   const result = inValidationResult(...messages);
   let filtered: Iterable<InValidation.Message> = result;
@@ -53,5 +53,5 @@ function nextRequireNeededMessages<NextReturn>(
     );
   }
 
-  return nextArgs<InValidation.Message[], NextReturn>(...filtered);
+  return nextArgs<InValidation.Message[]>(...filtered);
 }

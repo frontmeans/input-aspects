@@ -2,7 +2,7 @@
  *@packageDocumentation
  *@module input-aspects
  */
-import { NextArgs, nextArgs, noop } from 'call-thru';
+import { CallChain, nextArgs, NextCall, noop } from 'call-thru';
 import { afterAll, AfterEvent } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
@@ -48,10 +48,10 @@ const InData__symbol: Aspect = {
 /**
  * @internal
  */
-function inDataByValue<Value, NextReturn>(
+function inDataByValue<Value>(
     value: Value,
     mode: InMode.Value,
-): NextArgs<[InData.DataType<Value>?], NextReturn> {
+): NextCall<CallChain, [InData.DataType<Value>?]> {
   return InMode.hasData(mode) ? nextArgs(value as InData.DataType<Value>) : nextArgs();
 }
 

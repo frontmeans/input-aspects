@@ -16,6 +16,7 @@ import {
   eventSupply,
   EventSupply,
   isEventKeeper,
+  nextOnEvent,
   trackValue,
   ValueTracker,
 } from 'fun-events';
@@ -193,16 +194,17 @@ class InControlCssClasses extends InCssClasses {
 
     const inSupply = _control.aspect(InSupply);
 
-    this.read = this._sources.read.keep.dig_(
-        ([sources]) => afterEach(...sources.keys()),
-    ).keep.thru((...classes) => {
+    this.read = this._sources.read.keep.thru_(
+        ([sources]) => nextOnEvent(afterEach(...sources.keys())),
+        (...classes) => {
 
-      const result: { [name: string]: boolean } = {};
+          const result: { [name: string]: boolean } = {};
 
-      classes.forEach(([map]) => mergeInCssClassesMap(map, result));
+          classes.forEach(([map]) => mergeInCssClassesMap(map, result));
 
-      return result;
-    }).tillOff(inSupply);
+          return result;
+        },
+    ).tillOff(inSupply);
     this.track = afterEventBy<[readonly string[], readonly string[]]>(receiver => {
 
       const classes = new DeltaSet<string>();

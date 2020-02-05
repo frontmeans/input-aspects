@@ -2,7 +2,7 @@
  *@packageDocumentation
  *@module input-aspects
  */
-import { nextArgs, NextArgs, valueProvider } from 'call-thru';
+import { CallChain, nextArgs, NextCall, valueProvider } from 'call-thru';
 import { AfterEvent, afterSupplied, EventKeeper, isEventKeeper } from 'fun-events';
 import { InControl } from '../control';
 import { InValidation } from './validation.aspect';
@@ -78,7 +78,7 @@ export function inValidator<Value>(
 function simpleInValidator<Value>(
     control: InControl<Value>,
     validator: InValidator.Simple<Value>,
-): <NextReturn>(value: Value) => NextArgs<InValidation.Message[], NextReturn> | InValidation.Message {
+): (value: Value) => NextCall<CallChain, InValidation.Message[]> {
   return () => {
 
     const messages = validator.validate(control);
@@ -87,6 +87,6 @@ function simpleInValidator<Value>(
         ? nextArgs()
         : Array.isArray(messages)
             ? nextArgs(...messages)
-            : messages;
+            : nextArgs(messages);
   };
 }

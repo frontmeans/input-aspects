@@ -3,6 +3,7 @@
  *@module input-aspects
  */
 import { itsEach, itsEvery, overEntries } from 'a-iterable';
+import { nextArg } from 'call-thru';
 import { afterAll, AfterEvent, OnEvent, trackValue, ValueTracker } from 'fun-events';
 import { InControl } from '../control';
 
@@ -73,7 +74,7 @@ class InRadioGroupControl<Value extends string | undefined> extends InControl<Va
     this._unchecked = unchecked as Value;
 
     const read: AfterEvent<[Value]> = afterAll(_buttons).keep.thru(
-        values => checkedInValue(values, unchecked) as Value,
+        values => nextArg(checkedInValue(values, unchecked) as Value),
     );
 
     this._it = trackValue(unchecked as Value).by(read);

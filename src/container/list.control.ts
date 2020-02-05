@@ -3,22 +3,23 @@
  * @module input-aspects
  */
 import { itsIterable, mapIt } from 'a-iterable';
-import { isDefined, nextArgs, noop } from 'call-thru';
+import { isDefined, nextArgs, NextCall, noop } from 'call-thru';
 import {
   afterAll,
   afterEach,
   AfterEvent,
   AfterEvent__symbol,
   afterEventBy,
-  afterThe,
   EventEmitter,
   EventKeeper,
   EventReceiver,
   EventSender,
   eventSupply,
   EventSupply,
+  nextOnEvent,
   OnEvent,
   OnEvent__symbol,
+  OnEventCallChain,
   trackValue,
   ValueTracker,
 } from 'fun-events';
@@ -527,7 +528,7 @@ function inListData<Item>(list: InList<Item>): InData<readonly Item[]> {
   return afterAll({
     cs: list.controls,
     mode: list.aspect(InMode),
-  }).keep.dig_(
+  }).keep.thru_(
       readInListData,
   );
 }
@@ -543,16 +544,16 @@ function readInListData<Item>(
       cs: [InList.Snapshot<Item>];
       mode: [InMode.Value];
     },
-): InData<readonly Item[]> {
+): NextCall<OnEventCallChain, [InData.DataType<readonly Item[]>?]> {
   if (!InMode.hasData(mode)) {
-    return afterThe();
+    return nextArgs();
   }
 
   const csData = mapIt(controls, control => control.aspect(InData));
 
-  return afterEach(...csData).keep.thru(
-      (...controlsData) => controlsData.map(([d]) => d).filter(isDefined) as InData.DataType<readonly Item[]>,
-  );
+  return nextOnEvent(afterEach(...csData).keep.thru(
+      (...controlsData) => controlsData.map(([d]) => d).filter(isDefined),
+  ));
 }
 
 /**
