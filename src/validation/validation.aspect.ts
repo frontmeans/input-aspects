@@ -3,7 +3,7 @@
  *@module input-aspects
  */
 import { flatMapIt, itsEach, mapIt, overEntries } from 'a-iterable';
-import { asis, nextArgs, NextCall } from 'call-thru';
+import { nextArgs, NextCall } from 'call-thru';
 import {
   afterEach,
   AfterEvent,
@@ -385,13 +385,9 @@ function nestedInValidations(
 function combineInValidationResults(
     ...results: [InValidation.Result][]
 ): NextCall<OnEventCallChain, InValidation.Message[]> {
-
-  const msg = flatMapIt(
-      mapIt(results, result => result[0]),
-      asis,
+  return nextArgs<InValidation.Message[]>(
+      ...flatMapIt(mapIt(results, result => result[0])),
   );
-
-  return nextArgs<InValidation.Message[]>(...msg);
 }
 
 declare module '../aspect' {
