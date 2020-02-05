@@ -11,7 +11,7 @@ import {
   afterSupplied,
   EventKeeper,
   EventSupply,
-  nextOnEvent,
+  nextAfterEvent,
   OnEventCallChain,
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
@@ -376,7 +376,7 @@ function nestedInValidationMessages(container: InContainer<any>): EventKeeper<In
 function nestedInValidations(
     controls: InContainer.Snapshot,
 ): NextCall<OnEventCallChain, [InValidation.Result][]> {
-  return nextOnEvent(afterEach(...mapIt(controls, control => control.aspect(InValidation))));
+  return nextAfterEvent(afterEach(...mapIt(controls, control => control.aspect(InValidation))));
 }
 
 /**

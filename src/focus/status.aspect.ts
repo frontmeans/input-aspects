@@ -9,7 +9,8 @@ import {
   AfterEvent,
   AfterEvent__symbol,
   afterThe,
-  EventKeeper, nextOnEvent,
+  EventKeeper,
+  nextAfterEvent,
   trackValue,
   ValueTracker,
 } from 'fun-events';
@@ -253,7 +254,7 @@ class InContainerStatus extends InStatus {
  */
 function containerInStatusFlags(container: InContainer<any>): AfterEvent<[InStatus.Flags]> {
   return container.controls.read.keep.thru_(
-      (snapshot: InContainer.Snapshot) => nextOnEvent(afterEach(...inControlStatuses(snapshot))),
+      (snapshot: InContainer.Snapshot) => nextAfterEvent(afterEach(...inControlStatuses(snapshot))),
       combineInStatusFlags,
   );
 }

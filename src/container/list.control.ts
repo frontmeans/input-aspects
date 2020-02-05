@@ -16,7 +16,7 @@ import {
   EventSender,
   eventSupply,
   EventSupply,
-  nextOnEvent,
+  nextAfterEvent,
   OnEvent,
   OnEvent__symbol,
   OnEventCallChain,
@@ -551,7 +551,7 @@ function readInListData<Item>(
 
   const csData = mapIt(controls, control => control.aspect(InData));
 
-  return nextOnEvent(afterEach(...csData).keep.thru(
+  return nextAfterEvent(afterEach(...csData).keep.thru(
       (...controlsData) => controlsData.map(([d]) => d).filter(isDefined),
   ));
 }

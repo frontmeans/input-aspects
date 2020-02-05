@@ -14,7 +14,7 @@ import {
   EventSender,
   eventSupply,
   EventSupply,
-  nextOnEvent,
+  nextAfterEvent,
   OnEvent,
   OnEvent__symbol,
   OnEventCallChain,
@@ -512,7 +512,7 @@ function readInGroupData<Model extends object>(
     csData[key as keyof Model] = control.aspect(InData);
   });
 
-  return nextOnEvent(afterAll(csData).keep.thru(controlsData => {
+  return nextAfterEvent(afterAll(csData).keep.thru(controlsData => {
 
     const data: Partial<Model> = { ...model };
 

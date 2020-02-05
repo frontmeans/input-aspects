@@ -16,7 +16,7 @@ import {
   eventSupply,
   EventSupply,
   isEventKeeper,
-  nextOnEvent,
+  nextAfterEvent,
   trackValue,
   ValueTracker,
 } from 'fun-events';
@@ -195,7 +195,7 @@ class InControlCssClasses extends InCssClasses {
     const inSupply = _control.aspect(InSupply);
 
     this.read = this._sources.read.keep.thru_(
-        ([sources]) => nextOnEvent(afterEach(...sources.keys())),
+        ([sources]) => nextAfterEvent(afterEach(...sources.keys())),
         (...classes) => {
 
           const result: { [name: string]: boolean } = {};

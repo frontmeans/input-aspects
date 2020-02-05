@@ -15,7 +15,7 @@ import {
   EventSender,
   eventSupply,
   EventSupply,
-  nextOnEvent,
+  nextAfterEvent,
   OnEvent,
   OnEvent__symbol,
   OnEventCallChain,
@@ -201,7 +201,7 @@ class DerivedInModes {
     );
 
     this.read = sources.keep.thru(
-        (set: Set<AfterEvent<[InMode.Value]>>) => nextOnEvent(afterEach(...set)),
+        (set: Set<AfterEvent<[InMode.Value]>>) => nextAfterEvent(afterEach(...set)),
         mergeInModes,
     );
   }
@@ -344,7 +344,7 @@ function parentsInMode(parents: InParents.All): NextCall<OnEventCallChain, [InMo
 
   const parentModes = parentList.map(({ parent }) => parent.aspect(InMode));
 
-  return nextOnEvent(afterEach(...parentModes).keep.thru_(mergeInModes));
+  return nextAfterEvent(afterEach(...parentModes).keep.thru_(mergeInModes));
 }
 
 /**
