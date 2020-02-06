@@ -35,7 +35,7 @@ import { InSupply } from '../supply.aspect';
  */
 const InMode__aspect: InAspect<InMode> = {
 
-  applyTo<Value>(control: InControl<Value>): InAspect.Applied<InMode> {
+  applyTo<Value>(control: InControl<Value>): InAspect.Applied<Value, InMode> {
     return inAspectValue(new InControlMode(control));
   },
 

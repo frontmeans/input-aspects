@@ -67,7 +67,7 @@ interface Aspect extends InAspect<InValidation<any>, 'validation'> {
 /**
  * @internal
  */
-interface Applied<Value> extends InAspect.Applied<InValidation<Value>, InValidation<any>> {
+interface Applied<Value> extends InAspect.Applied<Value, InValidation<Value>, InValidation<any>> {
 
   convertTo<To>(target: InControl<To>): Applied<To>;
 

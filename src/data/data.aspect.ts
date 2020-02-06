@@ -67,7 +67,7 @@ interface Aspect extends InAspect<InData<any>, 'data'> {
 /**
  * An input data aspect applied to control.
  */
-interface Applied<Value> extends InAspect.Applied<InData<Value>, InData<any>> {
+interface Applied<Value> extends InAspect.Applied<Value, InData<Value>, InData<any>> {
 
   convertTo<To>(target: InControl<To>): Applied<To> | undefined;
 

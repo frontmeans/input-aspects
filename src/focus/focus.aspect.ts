@@ -14,7 +14,7 @@ import { InElement } from '../element.control';
  */
 const InFocus__aspect: InAspect<InFocus | null> = {
 
-  applyTo<Value>(control: InControl<Value>): InAspect.Applied<InFocus | null> {
+  applyTo<Value>(control: InControl<Value>): InAspect.Applied<Value, InFocus | null> {
 
     const element = control.aspect(InElement);
 

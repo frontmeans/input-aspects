@@ -24,7 +24,7 @@ import {
   ValueTracker,
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
-import { inAspectNull, inAspectValue } from '../aspect.impl';
+import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';
 import { InData, InMode } from '../data';
 import { InSupply } from '../supply.aspect';
@@ -36,8 +36,8 @@ import { InParents } from './parents.aspect';
  * @internal
  */
 const InList__aspect: InAspect<InList<any> | null, 'list'> = {
-  applyTo() {
-    return inAspectNull;
+  applyTo(control) {
+    return inAspectSameOrNull(control, InList);
   },
 };
 
@@ -64,10 +64,10 @@ export abstract class InList<Item> extends InContainer<readonly Item[]> {
   abstract readonly controls: InListControls<Item>;
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
-      aspect: InAspect<Instance, Kind>,
+      aspect: InAspect<any, any>,
   ): InAspect.Application.Result<Instance, readonly Item[], Kind> | undefined {
-    return aspect === InList__aspect as InAspect<any>
-        ? inAspectValue(this) as InAspect.Application.Result<Instance, readonly Item[], Kind>
+    return aspect === InList__aspect
+        ? inAspectSameOrNull(this, InList, this) as InAspect.Application.Result<Instance, readonly Item[], Kind>
         : super._applyAspect(aspect);
   }
 
@@ -508,9 +508,9 @@ class InListControl<Item> extends InList<Item> {
   }
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
-      aspect: InAspect<Instance, Kind>,
+      aspect: InAspect<any, any>,
   ): InAspect.Application.Result<Instance, readonly Item[], Kind> | undefined {
-    if (aspect as InAspect<any> === InData[InAspect__symbol]) {
+    if (aspect === InData[InAspect__symbol]) {
       return {
         instance: inListData(this),
         convertTo: noop,

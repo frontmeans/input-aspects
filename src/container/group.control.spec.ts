@@ -42,6 +42,23 @@ describe('InGroup', () => {
     expect(group.aspect(InGroup)).toBe(group);
     expect(InGroup[InAspect__symbol]).not.toBe(InContainer[InAspect__symbol]);
   });
+  it('is available as aspect of converted control with the same value', () => {
+
+    const converted = group.convert();
+
+    expect(converted.aspect(InContainer)).toBe(group);
+    expect(converted.aspect(InGroup)).toBe(group);
+  });
+  it('is not available as aspect of converted control with another value', () => {
+
+    const converted = group.convert<string>({
+      set: () => 'foo',
+      get: () => ({ ctrl1: 'foo' }),
+    });
+
+    expect(converted.aspect(InContainer)).toBeNull();
+    expect(converted.aspect(InGroup)).toBeNull();
+  });
 
   describe('controls', () => {
 

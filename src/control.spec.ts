@@ -28,7 +28,7 @@ describe('InControl', () => {
       },
     };
 
-    function applied<V>(ctr: InControl<V>, suffix: string): InAspect.Applied<() => string> {
+    function applied<V>(ctr: InControl<V>, suffix: string): InAspect.Applied<V, () => string> {
       return {
         instance: () => `${ctr.it}${suffix}`,
         convertTo<C>(target: InControl<C>) {

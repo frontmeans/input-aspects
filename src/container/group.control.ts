@@ -22,7 +22,7 @@ import {
   ValueTracker,
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
-import { inAspectNull, inAspectValue } from '../aspect.impl';
+import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';
 import { InData, InMode } from '../data';
 import { InContainer, InContainerControls } from './container.control';
@@ -32,8 +32,8 @@ import { InParents } from './parents.aspect';
  * @internal
  */
 const InGroup__aspect: InAspect<InGroup<any> | null, 'group'> = {
-  applyTo() {
-    return inAspectNull;
+  applyTo(control) {
+    return inAspectSameOrNull(control, InGroup);
   },
 };
 
@@ -62,10 +62,10 @@ export abstract class InGroup<Model extends object> extends InContainer<Model> {
   abstract readonly controls: InGroupControls<Model>;
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
-      aspect: InAspect<Instance, Kind>,
+      aspect: InAspect<any, any>,
   ): InAspect.Application.Result<Instance, Model, Kind> | undefined {
-    return aspect === InGroup__aspect as InAspect<any>
-        ? inAspectValue(this) as InAspect.Application.Result<Instance, Model, Kind>
+    return aspect === InGroup__aspect
+        ? inAspectSameOrNull(this, InGroup, this) as InAspect.Application.Result<Instance, Model, Kind>
         : super._applyAspect(aspect);
   }
 
@@ -462,9 +462,9 @@ class InGroupControl<Model extends object> extends InGroup<Model> {
   }
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
-      aspect: InAspect<Instance, Kind>,
+      aspect: InAspect<any, any>,
   ): InAspect.Application.Result<Instance, Model, Kind> | undefined {
-    if (aspect as InAspect<any> === InData[InAspect__symbol]) {
+    if (aspect === InData[InAspect__symbol]) {
       return {
         instance: inGroupData(this),
         convertTo: noop,

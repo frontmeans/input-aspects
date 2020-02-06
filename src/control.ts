@@ -236,23 +236,29 @@ class InConverted<From, To> extends InControl<To> {
     const conversion = by(src, this);
     let set: (value: From) => To;
     let get: (value: To) => From;
+    let convertAspect: <Instance, Kind extends InAspect.Application.Kind>(
+        aspect: InAspect<Instance, Kind>,
+    ) => InAspect.Application.Result<Instance, To, Kind> | undefined;
 
     if (isInAspectConversion(conversion)) {
       set = asis as (value: From) => To;
       get = asis as (value: To) => From;
+      convertAspect = <Instance, Kind extends InAspect.Application.Kind>(aspect: InAspect<Instance, Kind>) => {
+
+        const fallback: InAspect.Applied<any, any> = src._aspect(aspect);
+
+        return fallback.attachTo ? fallback.attachTo(this) : fallback.convertTo(this);
+      };
     } else {
       set = conversion.set;
       get = conversion.get;
+      convertAspect = <Instance, Kind extends InAspect.Application.Kind>(aspect: InAspect<Instance, Kind>) => {
+
+        const fallback: InAspect.Applied<any, any> = src._aspect(aspect);
+
+        return fallback.convertTo(this);
+      };
     }
-
-    const convertAspect = <Instance, Kind extends InAspect.Application.Kind>(
-        aspect: InAspect<Instance, Kind>,
-    ): InAspect.Application.Result<Instance, To, Kind> | undefined => {
-
-      const fallback: InAspect.Applied<any, any> = src._aspect(aspect);
-
-      return fallback.convertTo<Instance>(this as any);
-    };
 
     this._applyAspect = aspect => conversion.applyAspect?.(aspect) || convertAspect(aspect);
     this._it = trackValue([set(src.it), 0]);
