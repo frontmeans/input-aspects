@@ -61,7 +61,7 @@ export const InNamespaceAliaser = {
     return {
       applyAspect<Instance, Kind extends InAspect.Application.Kind>(
           aspect: InAspect<any, any>,
-      ): InAspect.Applied<InAspect.Application.Instance<Instance, Value, Kind>> | undefined {
+      ): InAspect.Applied<any, InAspect.Application.Instance<Instance, Value, Kind>> | undefined {
         return aspect === InNamespaceAliaser__aspect
             ? inAspectValue(nsAlias) as InAspect.Application.Result<Instance, Value, Kind>
             : undefined;

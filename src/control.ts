@@ -2,10 +2,10 @@
  * @packageDocumentation
  * @module input-aspects
  */
-import { noop } from 'call-thru';
+import { asis, noop } from 'call-thru';
 import { EventEmitter, OnEvent, trackValue, ValueTracker } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
-import { InConverter, intoConvertedBy } from './converter';
+import { InConverter, intoConvertedBy, isInAspectConversion } from './converter';
 import { InSupply } from './supply.aspect';
 
 /**
@@ -86,6 +86,20 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
   }
 
   /**
+   * Converts this control to another one without changing its value type.
+   *
+   * The converted aspect may have another value and input aspects.
+   *
+   * @typeparam To  Converted input value type.
+   * @param by  Input control aspect converters.
+   *
+   * @returns Converted control.
+   */
+  convert(
+      ...by: InConverter.Aspect<Value, Value>[]
+  ): InControl<Value>;
+
+  /**
    * Converts this control to another one.
    *
    * The converted aspect may have another value and input aspects.
@@ -101,25 +115,11 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
       ...and: InConverter.Aspect<Value, To>[]
   ): InControl<To>;
 
-  /**
-   * Converts this control to another one without changing its value type.
-   *
-   * The converted aspect may have another value and input aspects.
-   *
-   * @typeparam To  Converted input value type.
-   * @param by  Input control aspect converters.
-   *
-   * @returns Converted control.
-   */
-  convert(
-      ...by: InConverter.Aspect<Value, Value>[]
-  ): InControl<Value>;
-
   convert<To>(
-      by?: InConverter<Value, To> | InConverter.Aspect<Value, To>,
+      by?: InConverter<Value, To>,
       ...and: InConverter.Aspect<Value, To>[]
   ): InControl<Value> | InControl<To> {
-    return new InConverted(this, intoConvertedBy(by as InConverter<Value, To>, ...and));
+    return new InConverted(this, intoConvertedBy(by, ...and));
   }
 
   /**
@@ -234,17 +234,34 @@ class InConverted<From, To> extends InControl<To> {
     this.on = on.on;
 
     const conversion = by(src, this);
-    const convertAspect = <Instance, Kind extends InAspect.Application.Kind>(
+    let set: (value: From) => To;
+    let get: (value: To) => From;
+    let convertAspect: <Instance, Kind extends InAspect.Application.Kind>(
         aspect: InAspect<Instance, Kind>,
-    ): InAspect.Application.Result<Instance, To, Kind> | undefined => {
+    ) => InAspect.Application.Result<Instance, To, Kind> | undefined;
 
-      const fallback: InAspect.Applied<any, any> = src._aspect(aspect);
+    if (isInAspectConversion(conversion)) {
+      set = asis as (value: From) => To;
+      get = asis as (value: To) => From;
+      convertAspect = <Instance, Kind extends InAspect.Application.Kind>(aspect: InAspect<Instance, Kind>) => {
 
-      return fallback.convertTo<Instance>(this as any);
-    };
+        const fallback: InAspect.Applied<any, any> = src._aspect(aspect);
+
+        return fallback.attachTo ? fallback.attachTo(this) : fallback.convertTo(this);
+      };
+    } else {
+      set = conversion.set;
+      get = conversion.get;
+      convertAspect = <Instance, Kind extends InAspect.Application.Kind>(aspect: InAspect<Instance, Kind>) => {
+
+        const fallback: InAspect.Applied<any, any> = src._aspect(aspect);
+
+        return fallback.convertTo(this);
+      };
+    }
 
     this._applyAspect = aspect => conversion.applyAspect?.(aspect) || convertAspect(aspect);
-    this._it = trackValue([conversion.set(src.it), 0]);
+    this._it = trackValue([set(src.it), 0]);
     this._it.on(([newValue], [oldValue]) => {
       if (newValue !== oldValue) {
         on.send(newValue, oldValue);
@@ -252,13 +269,13 @@ class InConverted<From, To> extends InControl<To> {
     }).whenOff(reason => on.done(reason));
     src.on(value => {
       if (value !== backward) {
-        this._it.it = [conversion.set(value), ++lastRev];
+        this._it.it = [set(value), ++lastRev];
       }
     }).whenOff(reason => this.done(reason));
     this._it.on(([value, rev]) => {
       if (rev !== lastRev) {
         lastRev = rev;
-        backward = conversion.get(value);
+        backward = get(value);
         try {
           src.it = backward;
         } finally {

@@ -34,7 +34,7 @@ import { InStyledElement } from './styled-element.aspect';
  */
 const InCssClasses__aspect: InAspect<InCssClasses> = {
 
-  applyTo(control: InControl<any>): InAspect.Applied<InCssClasses> {
+  applyTo(control: InControl<any>): InAspect.Applied<any, InCssClasses> {
     return {
       instance: new InControlCssClasses(control),
       convertTo: noop,

@@ -49,7 +49,7 @@ export const InRenderScheduler = {
     return {
       applyAspect<Instance, Kind extends InAspect.Application.Kind>(
           aspect: InAspect<any, any>,
-      ): InAspect.Applied<InAspect.Application.Instance<Instance, Value, Kind>> | undefined {
+      ): InAspect.Applied<any, InAspect.Application.Instance<Instance, Value, Kind>> | undefined {
         return aspect === InRenderScheduler__aspect
             ? inAspectValue(scheduler) as InAspect.Application.Result<Instance, Value, Kind>
             : undefined;

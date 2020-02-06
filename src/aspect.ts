@@ -26,7 +26,7 @@ export interface InAspect<Instance, Kind extends InAspect.Application.Kind = 'de
    *
    * @returns An aspect applied to the given `control`.
    */
-  applyTo<Value>(control: InControl<Value>): InAspect.Applied<Instance>;
+  applyTo<Value>(control: InControl<Value>): InAspect.Applied<Value, Instance>;
 
 }
 
@@ -63,11 +63,12 @@ export namespace InAspect {
    *
    * This is what returned from `InAspect.applyTo()` method. Contains aspect instance and its manipulation methods.
    *
+   * @typeparam Value  Input value type.
    * @typeparam Instance  Aspect instance type.
    * @typeparam ConvertedInstance  A type of aspect instance applied to converted control.
    * The same as `Instance` by default.
    */
-  export interface Applied<Instance, ConvertedInstance extends Instance = Instance> {
+  export interface Applied<Value, Instance, ConvertedInstance extends Instance = Instance> {
 
     /**
      * Input aspect instance.
@@ -77,14 +78,26 @@ export namespace InAspect {
     /**
      * Converts an aspect to another value type.
      *
-     * This method is called by input control created by `InControl.convert()` method.
+     * This method is called by input control created by [[InControl.convert]] method.
      *
      * @typeparam To  Converted input value type.
      * @param target  Target input control.
      *
      * @returns The same aspect applied to `target` control, or `undefined` if aspect can not be converted.
      */
-    convertTo<To>(target: InControl<To>): Applied<ConvertedInstance> | undefined;
+    convertTo<To>(target: InControl<To>): Applied<To, ConvertedInstance> | undefined;
+
+    /**
+     * Converts an aspect to the same value type.
+     *
+     * When defined, this method is called instead of [[convertTo]] when converting aspect for converted control
+     * with the same value. I.e. when {@link InConverter.Aspect aspect-only converters} used for conversion.
+     *
+     * @param target  Target input control.
+     *
+     * @returns The same aspect applied to `target` control, or `undefined` if aspect can not be converted.
+     */
+    attachTo?(target: InControl<Value>): Applied<Value, Instance> | undefined;
 
   }
 
@@ -105,7 +118,7 @@ export namespace InAspect {
      * @typeparam OfKind  Aspect application kind.
      */
     export type Result<OfInstance, OfValue, OfKind extends Kind> =
-        Applied<Instance<OfInstance, OfValue, OfKind>>;
+        Applied<OfValue, Instance<OfInstance, OfValue, OfKind>>;
 
     /**
      * A type of applied aspect instance of the given application kind and input value type.

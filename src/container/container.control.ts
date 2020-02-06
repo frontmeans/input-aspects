@@ -4,22 +4,22 @@
  */
 import { AfterEvent, AfterEvent__symbol, EventKeeper, EventSender, OnEvent, OnEvent__symbol } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
-import { inAspectNull, inAspectValue } from '../aspect.impl';
+import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';
 
 /**
  * @internal
  */
 const InContainer__aspect: InAspect<InContainer<any> | null, 'container'> = {
-  applyTo() {
-    return inAspectNull;
+  applyTo(control) {
+    return inAspectSameOrNull(control, InContainer);
   },
 };
 
 /**
  * An input control containing other controls.
  *
- * Container is available as an aspect of itself.
+ * Container is available as an aspect of itself and converted controls with the same value.
  *
  * @category Control
  * @typeparam Value  Input value type.
@@ -39,7 +39,7 @@ export abstract class InContainer<Value> extends InControl<Value> {
       aspect: InAspect<Instance, Kind>,
   ): InAspect.Application.Result<Instance, Value, Kind> | undefined {
     return aspect === InContainer__aspect as InAspect<any>
-        ? inAspectValue(this) as InAspect.Application.Result<Instance, Value, Kind>
+        ? inAspectSameOrNull(this, InContainer, this) as InAspect.Application.Result<Instance, Value, Kind>
         : super._applyAspect(aspect);
   }
 

@@ -15,7 +15,7 @@ import {
   ValueTracker,
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
-import { inAspectValue } from '../aspect.impl';
+import { inAspectSameOrBuild } from '../aspect.impl';
 import { InContainer } from '../container';
 import { InControl } from '../control';
 import { InElement } from '../element.control';
@@ -27,11 +27,13 @@ import { InFocus } from './focus.aspect';
  */
 const InStatus__aspect: InAspect<InStatus> = {
 
-  applyTo<Value>(control: InControl<Value>): InAspect.Applied<InStatus> {
+  applyTo<Value>(control: InControl<Value>): InAspect.Applied<Value, InStatus> {
+    return inAspectSameOrBuild(control, InStatus, ctrl => {
 
-    const container = control.aspect(InContainer);
+      const container = ctrl.aspect(InContainer);
 
-    return inAspectValue(container != null ? new InContainerStatus(container) : new InControlStatus(control));
+      return container != null ? new InContainerStatus(container) : new InControlStatus(ctrl);
+    });
   },
 
 };

@@ -1,5 +1,6 @@
 import { afterSupplied, EventSupply } from 'fun-events';
 import { InGroup, inGroup } from '../container';
+import { intoInteger } from '../conversion';
 import { inText } from '../element';
 import { InElement } from '../element.control';
 import { inValue } from '../value';
@@ -45,6 +46,19 @@ describe('InStatus', () => {
       group.controls.remove('element');
       expect(groupFlags).toEqual({ hasFocus: false, touched: false, edited: false });
     });
+  });
+
+  it('is reused by converted control with the same value', () => {
+
+    const converted = control.convert();
+
+    expect(converted.aspect(InStatus)).toBe(status);
+  });
+  it('is not reused by converted control with another value', () => {
+
+    const converted = control.convert(intoInteger);
+
+    expect(converted.aspect(InStatus)).not.toBe(status);
   });
 
   describe('read', () => {

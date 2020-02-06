@@ -24,7 +24,7 @@ import {
   ValueTracker,
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
-import { inAspectNull, inAspectValue } from '../aspect.impl';
+import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';
 import { InData, InMode } from '../data';
 import { InSupply } from '../supply.aspect';
@@ -36,8 +36,8 @@ import { InParents } from './parents.aspect';
  * @internal
  */
 const InList__aspect: InAspect<InList<any> | null, 'list'> = {
-  applyTo() {
-    return inAspectNull;
+  applyTo(control) {
+    return inAspectSameOrNull(control, InList);
   },
 };
 
@@ -48,6 +48,8 @@ const InList__aspect: InAspect<InList<any> | null, 'list'> = {
  *
  * List value (called model) is an array object formed by nested control values. The item property value is the one
  * of the control with the same index, if present. When model is updated corresponding controls are also updated.
+ *
+ * List is available as an aspect of itself and converted controls with the same value.
  *
  * @category Control
  * @typeparam Item  Model item type.
@@ -64,10 +66,10 @@ export abstract class InList<Item> extends InContainer<readonly Item[]> {
   abstract readonly controls: InListControls<Item>;
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
-      aspect: InAspect<Instance, Kind>,
+      aspect: InAspect<any, any>,
   ): InAspect.Application.Result<Instance, readonly Item[], Kind> | undefined {
-    return aspect === InList__aspect as InAspect<any>
-        ? inAspectValue(this) as InAspect.Application.Result<Instance, readonly Item[], Kind>
+    return aspect === InList__aspect
+        ? inAspectSameOrNull(this, InList, this) as InAspect.Application.Result<Instance, readonly Item[], Kind>
         : super._applyAspect(aspect);
   }
 
@@ -508,9 +510,9 @@ class InListControl<Item> extends InList<Item> {
   }
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
-      aspect: InAspect<Instance, Kind>,
+      aspect: InAspect<any, any>,
   ): InAspect.Application.Result<Instance, readonly Item[], Kind> | undefined {
-    if (aspect as InAspect<any> === InData[InAspect__symbol]) {
+    if (aspect === InData[InAspect__symbol]) {
       return {
         instance: inListData(this),
         convertTo: noop,

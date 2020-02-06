@@ -15,6 +15,7 @@ import {
   OnEventCallChain,
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
+import { inAspectSameOrBuild } from '../aspect.impl';
 import { InContainer } from '../container';
 import { InControl } from '../control';
 import { requireAll } from './require-all.validator';
@@ -24,54 +25,27 @@ import { InValidationMessages } from './validator.impl';
 /**
  * @internal
  */
-const InValidation__aspect: Aspect = {
-  applyTo<Value>(control: InControl<Value>): Applied<Value> {
+const InValidation__aspect: InAspect<InValidation<any>, 'validation'> = {
+  applyTo<Value>(control: InControl<Value>) {
+    return inAspectSameOrBuild<Value, InValidation<Value>, 'validation'>(
+        control,
+        InValidation,
+        <V>(ctrl: InControl<V>, origin?: InControl<any>): InValidation<any> => {
 
-    const instance = new InControlValidation(control);
+          const validation = new InControlValidation<V>(ctrl);
 
-    return {
-      instance,
-      convertTo<To>(target: InControl<To>) {
-        return convert(instance, target);
-      },
-    };
+          if (origin) {
 
-    function convert<To>(
-        from: InControlValidation<any>,
-        to: InControl<To>,
-    ): Applied<To> {
+            const from = origin.aspect(InValidation);
 
-      const converted = new InControlValidation<To>(to);
+            validation.by(from.read.keep.thru(result => nextArgs(...result.messages())));
+          }
 
-      converted.by(from._messages);
-
-      return {
-        instance: converted,
-        convertTo<CC>(target: InControl<CC>) {
-          return convert<CC>(converted, target);
+          return validation;
         },
-      };
-    }
+    );
   },
 };
-
-/**
- * @internal
- */
-interface Aspect extends InAspect<InValidation<any>, 'validation'> {
-
-  applyTo<Value>(control: InControl<Value>): Applied<Value>;
-
-}
-
-/**
- * @internal
- */
-interface Applied<Value> extends InAspect.Applied<InValidation<Value>, InValidation<any>> {
-
-  convertTo<To>(target: InControl<To>): Applied<To>;
-
-}
 
 /**
  * Validation aspect of the input.

@@ -40,6 +40,23 @@ describe('InList', () => {
     expect(list.aspect(InList)).toBe(list);
     expect(InList[InAspect__symbol]).not.toBe(InContainer[InAspect__symbol]);
   });
+  it('is available as aspect of converted control with the same value', () => {
+
+    const converted = list.convert();
+
+    expect(converted.aspect(InContainer)).toBe(list);
+    expect(converted.aspect(InList)).toBe(list);
+  });
+  it('is not available as aspect of converted control with another value', () => {
+
+    const converted = list.convert<string>({
+      set: () => 'foo',
+      get: () => [],
+    });
+
+    expect(converted.aspect(InContainer)).toBeNull();
+    expect(converted.aspect(InList)).toBeNull();
+  });
 
   describe('it', () => {
     it('has initial model', () => {

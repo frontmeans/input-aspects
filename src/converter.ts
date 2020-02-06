@@ -2,13 +2,13 @@
  * @packageDocumentation
  * @module input-aspects
  */
-import { filterIt, mapIt } from 'a-iterable';
-import { asis, isPresent, valueProvider } from 'call-thru';
+import { filterIt, flatMapIt, itsReduction, mapIt } from 'a-iterable';
+import { isPresent, noop, valueProvider } from 'call-thru';
 import { InAspect } from './aspect';
 import { InControl } from './control';
 
 /**
- * Input control converter.
+ * Input control converter. Either aspect-only, or value one.
  *
  * Either a {@link InConverter.Conversion control conversion}, or a {@link InConverter.Factory conversion factory}.
  *
@@ -17,13 +17,65 @@ import { InControl } from './control';
  * @typeparam To  Converted input value type.
  */
 export type InConverter<From, To> =
-    | InConverter.Factory<From, To>
-    | InConverter.Conversion<From, To>;
+    | InConverter.Conversion<From, To>
+    | InConverter.Factory<From, To>;
 
 export namespace InConverter {
 
   /**
-   * Input control conversion factory signature.
+   * Input control conversion factory signature. Either aspect-only, or value one.
+   *
+   * @typeparam From  Original input value type.
+   * @typeparam To  Converted input value type.
+   */
+  export type Factory<From, To> = (
+      this: void,
+      from: InControl<From>,
+      to: InControl<To>,
+  ) => Conversion<From, To>;
+
+  /**
+   * Input control conversion. Either aspect-only, or full one.
+   *
+   * @typeparam From  Original input value type.
+   * @typeparam To  Converted input value type.
+   */
+  export type Conversion<From, To> =
+      | InConverter.Value.Conversion<From, To>
+      | InConverter.Aspect.Conversion<To>;
+
+  /**
+   * Input control value converter.
+   *
+   * Either a {@link InConverter.Value.Conversion control value conversion}, or a {@link InConverter.Value.Factory
+   * value conversion factory}.
+   *
+   * @typeparam From  Original input value type.
+   * @typeparam To  Converted input value type.
+   */
+  export type Value<From, To> =
+      | InConverter.Value.Factory<From, To>
+      | InConverter.Value.Conversion<From, To>;
+
+  /**
+   * Input control aspect converter.
+   *
+   * Either an {@link InConverter.Aspect.Conversion control aspect conversion}, or {@link InConverter.Aspect.Factory
+   * aspect conversion factory}.
+   *
+   * @typeparam From  Original input value type.
+   * @typeparam To  Converted input value type.
+   */
+  export type Aspect<From, To> =
+      | InConverter.Aspect.Conversion<To>
+      | InConverter.Aspect.Factory<From, To>;
+
+}
+
+export namespace InConverter.Value {
+
+  /**
+   * Input control value conversion factory signature.
    *
    * Called by [[InControl.convert]] to construct a {@link Conversion control conversion}.
    *
@@ -43,10 +95,10 @@ export namespace InConverter {
           this: void,
           from: InControl<From>,
           to: InControl<To>,
-      ) => InConverter.Conversion<From, To>;
+      ) => Conversion<From, To>;
 
   /**
-   * Input control conversion.
+   * Input control value conversion.
    *
    * @typeparam From  Original input value type.
    * @typeparam To  Converted input value type.
@@ -74,7 +126,7 @@ export namespace InConverter {
      *
      * @returns New value of converted control.
      */
-    set(this: void, value: From): To;
+    set(value: From): To;
 
     /**
      * Restores original control value by converted one.
@@ -83,22 +135,9 @@ export namespace InConverter {
      *
      * @returns New value of original control.
      */
-    get(this: void, value: To): From;
+    get(value: To): From;
 
   }
-
-  /**
-   * Input control aspect converter.
-   *
-   * Either an {@link InConverter.Aspect.Conversion control aspect conversion}, or {@link InConverter.Aspect.Factory
-   * input aspect conversion factory}.
-   *
-   * @typeparam From  Original input value type.
-   * @typeparam To  Converted input value type.
-   */
-  export type Aspect<From, To> =
-      | InConverter.Aspect.Conversion<To>
-      | InConverter.Aspect.Factory<From, To>;
 
 }
 
@@ -146,7 +185,35 @@ export namespace InConverter.Aspect {
 }
 
 /**
- * Creates converter that combines value converter with aspect converters.
+ * Creates converter that combines input aspect converters.
+ *
+ * @typeparam Value  Input value type.
+ * @param converters  Input control aspect converters.
+ *
+ * @returns Input control aspect conversion factory.
+ */
+export function intoConvertedBy<Value>(
+    ...converters: InConverter.Aspect<Value, Value>[]
+): InConverter.Aspect.Factory<Value, Value>;
+
+/**
+ * Creates converter that combines input value converter with aspect converters.
+ *
+ * @category Converter
+ * @typeparam From  Original input value type.
+ * @typeparam To  Converted input value type.
+ * @param converter  Input control converter.
+ * @param converters  Additional input control aspect converters.
+ *
+ * @returns Input control value conversion factory.
+ */
+export function intoConvertedBy<From, To>(
+    converter: InConverter.Value<From, To>,
+    ...converters: InConverter.Aspect<From, To>[]
+): InConverter.Value.Factory<From, To>;
+
+/**
+ * Creates converter that combines any input control converter with aspect converters.
  *
  * @category Converter
  * @typeparam From  Original input value type.
@@ -157,40 +224,42 @@ export namespace InConverter.Aspect {
  * @returns Input control conversion factory.
  */
 export function intoConvertedBy<From, To>(
-    converter: InConverter<From, To>,
+    converter?: InConverter<From, To>,
     ...converters: InConverter.Aspect<From, To>[]
 ): InConverter.Factory<From, To>;
-
-/**
- * Creates converter that combines aspect converters.
- *
- * @typeparam Value  Input value type.
- * @param converters  Input control aspect converters.
- *
- * @returns Input control aspect conversion factory.
- */
-export function intoConvertedBy<From, To>(
-    ...converters: InConverter.Aspect<From, To>[]
-): InConverter.Aspect.Factory<From, To>;
 
 export function intoConvertedBy<From, To>(
     valueOrAspectConverter?: InConverter<From, To> | InConverter.Aspect<From, To>,
     ...converters: InConverter.Aspect<From, To>[]
-): InConverter.Factory<From, To> | InConverter.Aspect.Factory<From, To> {
+): InConverter.Factory<From, To> {
+
+  type AspectApplicator = <Instance, Kind extends InAspect.Application.Kind>(
+      aspect: InAspect<Instance, Kind>,
+  ) => InAspect.Application.Result<Instance, To, Kind> | undefined;
+
   if (!valueOrAspectConverter) {
     return noopInConverter;
   }
 
   const converter = inConverter(valueOrAspectConverter);
+
+  if (!converters.length) {
+    return converter;
+  }
+
   const aspectConverters = mapIt<InConverter.Aspect<From, To>, InConverter.Aspect.Factory<From, To>>(
       converters,
       inConverter,
   );
 
-  return (from, to) => {
+  return (
+      from,
+      to,
+  ): InConverter.Conversion<From, To> => {
 
     const conversion = converter(from, to);
-    const aspectConversions: InConverter.Aspect.Conversion<To>[] = Array.from(
+    const conversions = flatMapIt<InConverter.Conversion<From, To>>([
+        [conversion],
         filterIt<InConverter.Aspect.Conversion<To> | undefined, InConverter.Aspect.Conversion<To>>(
             mapIt(
                 aspectConverters,
@@ -198,41 +267,26 @@ export function intoConvertedBy<From, To>(
             ),
             isPresent,
         ),
+    ]);
+
+
+    const applyAspect: AspectApplicator = itsReduction(
+        conversions,
+        (prev, cv) => cv.applyAspect
+            ? (aspect => prev(aspect) || cv.applyAspect!(aspect))
+            : prev,
+        noop,
     );
-    const applyAspect: <Instance, Kind extends InAspect.Application.Kind>(
-        aspect: InAspect<Instance, Kind>,
-    ) => InAspect.Application.Result<Instance, To, Kind> | undefined = aspect => {
-      if (conversion.applyAspect) {
 
-        const applied = conversion.applyAspect(aspect);
-
-        if (applied) {
-          return applied;
-        }
-      }
-      for (const asc of aspectConversions) {
-
-        const applied = asc.applyAspect(aspect);
-
-        if (applied) {
-          return applied;
-        }
-      }
-
-      return;
-    };
-
-    if (/*#__INLINE__*/ isAspectConversion(conversion)) {
+    if (/*#__INLINE__*/ isInAspectConversion(conversion)) {
       return {
-        get: asis as (value: To) => From,
-        set: asis as (value: From) => To,
         applyAspect,
       };
     }
 
     return {
-      set: value => conversion.set(value),
-      get: value => conversion.get(value),
+      set: conversion.set.bind(conversion),
+      get: conversion.get.bind(conversion),
       applyAspect,
     };
   };
@@ -241,33 +295,40 @@ export function intoConvertedBy<From, To>(
 /**
  * @internal
  */
-const noopInConversion: InConverter.Conversion<any, any> = {
-  get: asis,
-  set: asis,
+const noopInConversion: InConverter.Aspect.Conversion<any> = {
+  applyAspect(): undefined {
+    return;
+  },
 };
 
 /**
  * @internal
  */
-function noopInConverter(): InConverter.Conversion<any, any> {
+function noopInConverter(): InConverter.Aspect.Conversion<any> {
   return noopInConversion;
 }
 
 /**
- * @internal
+ * Checks whether the given input control converter converts aspect only.
+ *
+ * @category Converter
+ * @param conversion  Input control conversion to check.
+ *
+ * @returns `false` if the given conversion has a {@link InConverter.Value.Conversion.set set} method,
+ * or `true` if there is no one.
  */
-function isAspectConversion<From, To>(
-    conversion: InConverter.Conversion<From, To> | InConverter.Aspect.Conversion<To>,
+export function isInAspectConversion<From, To>(
+    conversion: InConverter.Conversion<From, To>,
 ): conversion is InConverter.Aspect.Conversion<To> {
-  return (conversion as any).get == null;
+  return !(conversion as any).set;
 }
 
 /**
  * @internal
  */
 function inConverter<From, To>(
-    converter: InConverter<From, To>,
-): InConverter.Factory<From, To>;
+    converter: InConverter.Value<From, To>,
+): InConverter.Value.Factory<From, To>;
 
 /**
  * @internal
@@ -280,8 +341,8 @@ function inConverter<From, To>(
  * @internal
  */
 function inConverter<From, To>(
-    converter: InConverter<From, To> | InConverter.Aspect<From, To>,
-): InConverter.Factory<From, To> | InConverter.Aspect.Factory<From, To>;
+    converter: InConverter<From, To>,
+): InConverter.Factory<From, To>;
 
 function inConverter<From, To>(
     converter: InConverter<From, To> | InConverter.Aspect<From, To>,

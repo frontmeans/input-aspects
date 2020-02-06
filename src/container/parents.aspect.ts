@@ -24,7 +24,7 @@ import { InContainer } from './container.control';
  * @internal
  */
 const InParents__aspect: InAspect<InParents> = {
-  applyTo(control): InAspect.Applied<InParents> {
+  applyTo(control): InAspect.Applied<any, InParents> {
     return inAspectValue(new InControlParents(control));
   },
 };

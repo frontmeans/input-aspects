@@ -3,9 +3,10 @@
  * @module input-aspects
  */
 import { itsEvery, mapIt } from 'a-iterable';
-import { nextArgs, noop } from 'call-thru';
+import { nextArgs } from 'call-thru';
 import { afterAll, AfterEvent, AfterEvent__symbol, EventKeeper, trackValue } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
+import { inAspectSameOrBuild } from './aspect.impl';
 import { InControl } from './control';
 import { InData } from './data';
 import { InSupply } from './supply.aspect';
@@ -16,10 +17,7 @@ import { InValidation, inValidationResult } from './validation';
  */
 const InSubmit__aspect: InAspect<InSubmit<any>, 'submit'> = {
   applyTo<Value>(control: InControl<Value>) {
-    return {
-      instance: new InControlSubmit(control),
-      convertTo: noop,
-    };
+    return inAspectSameOrBuild(control, InSubmit, ctrl => new InControlSubmit(ctrl));
   },
 };
 

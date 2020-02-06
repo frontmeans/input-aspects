@@ -22,7 +22,7 @@ export type InStyledElement = Element;
  */
 const InStyledElement__aspect: InAspect<InStyledElement | null> = {
 
-  applyTo(control: InControl<any>): InAspect.Applied<InStyledElement | null> {
+  applyTo(control: InControl<any>): InAspect.Applied<any, InStyledElement | null> {
 
     const element = control.aspect(InElement);
 
@@ -54,7 +54,7 @@ export const InStyledElement = {
     return {
       applyAspect<Instance, Kind extends InAspect.Application.Kind>(
           aspect: InAspect<any, any>,
-      ): InAspect.Applied<InAspect.Application.Instance<Instance, Value, Kind>> | undefined {
+      ): InAspect.Applied<any, InAspect.Application.Instance<Instance, Value, Kind>> | undefined {
         return aspect === InStyledElement__aspect
             ? inAspectValue(element) as InAspect.Application.Result<Instance, Value, Kind>
             : undefined;

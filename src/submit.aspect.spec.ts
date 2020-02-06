@@ -1,6 +1,7 @@
 import { noop } from 'call-thru';
 import { afterSupplied, EventSupply } from 'fun-events';
 import { InControl } from './control';
+import { intoInteger } from './conversion/into-integer';
 import { InMode } from './data';
 import { InSubmit, InSubmitError, InSubmitRejectedError } from './submit.aspect';
 import { InValidation } from './validation';
@@ -36,6 +37,18 @@ describe('InSubmit', () => {
 
   it('has default flags initially', () => {
     expect(flags).toEqual({ ready: true, submitted: false, busy: false });
+  });
+  it('is reused by converted control with the same value', () => {
+
+    const converted = control.convert();
+
+    expect(converted.aspect(InSubmit)).toBe(submit);
+  });
+  it('is not reused by converted control with another value', () => {
+
+    const converted = control.convert(intoInteger);
+
+    expect(converted.aspect(InSubmit)).not.toBe(submit);
   });
 
   describe('[AfterEvent__symbol]', () => {

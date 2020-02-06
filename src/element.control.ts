@@ -5,22 +5,22 @@
 import { AfterEvent } from 'fun-events';
 import { DomEventDispatcher } from 'fun-events/dom';
 import { InAspect, InAspect__symbol } from './aspect';
-import { inAspectNull, inAspectValue } from './aspect.impl';
+import { inAspectSameOrNull } from './aspect.impl';
 import { InControl } from './control';
 
 /**
  * @internal
  */
 const InElement__aspect: InAspect<InElement<any> | null, 'element'> = {
-  applyTo() {
-    return inAspectNull;
+  applyTo(control) {
+    return inAspectSameOrNull(control, InElement);
   },
 };
 
 /**
  * HTML input element control.
  *
- * It is also available as aspect of itself and converted controls. It is not available as aspect of other controls.
+ * It is also available as aspect of itself and converted controls with the same value.
  *
  * @category Control
  * @typeparam Value  Input value type.
@@ -48,10 +48,14 @@ export abstract class InElement<Value, Elt = HTMLElement> extends InControl<Valu
   }
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
-      aspect: InAspect<Instance, Kind>,
+      aspect: InAspect<any, any>,
   ): InAspect.Application.Result<Instance, Value, Kind> | undefined {
-    return aspect === InElement__aspect as InAspect<any, any>
-        ? inAspectValue(this) as InAspect.Application.Result<Instance, Value, Kind>
+    return aspect === InElement__aspect
+        ? inAspectSameOrNull(
+            this,
+            InElement,
+            this as InElement<Value, any>,
+        ) as InAspect.Application.Result<Instance, Value, Kind>
         : undefined;
   }
 

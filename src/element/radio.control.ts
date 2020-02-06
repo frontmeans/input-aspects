@@ -74,7 +74,7 @@ class InRadioControl<Value> extends InElementControl<Value | undefined, HTMLInpu
 /**
  * @internal
  */
-function applyRadioInMode<Value>(radio: InRadioControl<Value>): InAspect.Applied<InMode> {
+function applyRadioInMode<Value>(radio: InRadioControl<Value>): InAspect.Applied<Value, InMode> {
 
   const { instance: mode } = InMode[InAspect__symbol].applyTo(radio);
 

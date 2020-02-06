@@ -23,9 +23,9 @@ import { InAspect, InAspect__symbol } from './aspect';
 export type InSupply = EventSupply;
 
 const InSupply__aspect: InAspect<InSupply> = {
-  applyTo(): InAspect.Applied<InSupply> {
+  applyTo(): InAspect.Applied<any, InSupply> {
 
-    const convertFrom = (from: InSupply): InAspect.Applied<InSupply> => ({
+    const convertFrom = (from: InSupply): InAspect.Applied<any, InSupply> => ({
       instance: eventSupply().needs(from),
       convertTo() {
         return convertFrom(this.instance);
