@@ -2,9 +2,10 @@
  *@packageDocumentation
  *@module input-aspects
  */
-import { CallChain, nextArgs, NextCall, noop } from 'call-thru';
+import { nextArgs } from 'call-thru';
 import { afterAll, AfterEvent } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
+import { inAspectSameOrBuild } from '../aspect.impl';
 import { InControl } from '../control';
 import { InMode } from './mode.aspect';
 
@@ -29,31 +30,18 @@ export type InData<Value> = AfterEvent<[InData.DataType<Value>?]>;
 const InData__aspect: Aspect = {
 
   applyTo<Value>(control: InControl<Value>): Applied<Value> {
-
-    const instance: InData<Value> = afterAll({
-      value: control,
-      mode: control.aspect(InMode),
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    return inAspectSameOrBuild(control, InData, <V>(ctrl: InControl<V>) => afterAll({
+      value: ctrl,
+      mode: ctrl.aspect(InMode),
     }).keep.thru(
-        ({ value: [value], mode: [mode] }) => inDataByValue(value, mode),
-    );
-
-    return {
-      instance,
-      convertTo: noop,
-    };
+        ({ value: [value], mode: [mode] }) => InMode.hasData(mode)
+            ? nextArgs(value as InData.DataType<V>)
+            : nextArgs(),
+    ));
   },
 
 };
-
-/**
- * @internal
- */
-function inDataByValue<Value>(
-    value: Value,
-    mode: InMode.Value,
-): NextCall<CallChain, [InData.DataType<Value>?]> {
-  return InMode.hasData(mode) ? nextArgs(value as InData.DataType<Value>) : nextArgs();
-}
 
 /**
  * Input data aspect.

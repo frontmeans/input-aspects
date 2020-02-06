@@ -38,25 +38,22 @@ describe('InSubmit', () => {
   it('has default flags initially', () => {
     expect(flags).toEqual({ ready: true, submitted: false, busy: false });
   });
+  it('is reused by converted control with the same value', () => {
+
+    const converted = control.convert();
+
+    expect(converted.aspect(InSubmit)).toBe(submit);
+  });
+  it('is not reused by converted control with another value', () => {
+
+    const converted = control.convert(intoInteger);
+
+    expect(converted.aspect(InSubmit)).not.toBe(submit);
+  });
 
   describe('[AfterEvent__symbol]', () => {
     it('is the same as `read`', () => {
       expect(afterSupplied(submit)).toBe(submit.read);
-    });
-  });
-
-  describe('aspect', () => {
-    it('is reused by converted control with the same value', () => {
-
-      const converted = control.convert();
-
-      expect(converted.aspect(InSubmit)).toBe(submit);
-    });
-    it('is not reused by converted control with another value', () => {
-
-      const converted = control.convert(intoInteger);
-
-      expect(converted.aspect(InSubmit)).not.toBe(submit);
     });
   });
 

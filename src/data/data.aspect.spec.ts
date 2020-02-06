@@ -1,6 +1,7 @@
 import { noop } from 'call-thru';
 import { EventSupply } from 'fun-events';
 import { InControl } from '../control';
+import { intoInteger } from '../conversion';
 import { inValue } from '../value';
 import { InData } from './data.aspect';
 import { InMode } from './mode.aspect';
@@ -38,6 +39,18 @@ describe('InData', () => {
   it('is undefined when mode is `-ro`', () => {
     mode.own.it = '-ro';
     expect(lastData).toBeUndefined();
+  });
+  it('is reused by converted control with the same value', () => {
+
+    const converted = control.convert();
+
+    expect(converted.aspect(InData)).toBe(data);
+  });
+  it('is not reused by converted control with another value', () => {
+
+    const converted = control.convert(intoInteger);
+
+    expect(converted.aspect(InData)).not.toBe(data);
   });
 
   describe('input cut off', () => {
