@@ -16,13 +16,23 @@ export const inAspectNull: InAspect.Applied<any, any, any> = {
 export function inAspectSameOrBuild<Value, Instance, Kind extends InAspect.Application.Kind>(
     control: InControl<Value>,
     aspectKey: InAspect.Key<Instance, Kind>,
-    build: <V>(this: void, control: InControl<V>) => Instance,
-    instance: Instance = build(control),
+    build: <V>(this: void, control: InControl<V>, origin?: InControl<any>) => Instance,
+    instance?: Instance,
+    origin?: InControl<any>,
 ): InAspect.Applied<Value, Instance> {
+  if (instance === undefined) {
+    instance = build(control, origin);
+  }
   return {
     instance,
     convertTo<To>(target: InControl<To>): InAspect.Applied<To, Instance> {
-      return inAspectSameOrBuild<To, Instance, Kind>(target, aspectKey, build);
+      return inAspectSameOrBuild<To, Instance, Kind>(
+          target,
+          aspectKey,
+          build,
+          undefined,
+          control,
+      );
     },
     attachTo(target: InControl<Value>): InAspect.Applied<Value, Instance> | undefined {
       return inAspectSameOrBuild(

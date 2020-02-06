@@ -343,7 +343,7 @@ describe('InValidation', () => {
     describe('double converted', () => {
       it('receives validation messages from both origins', () => {
 
-        const dcValidation = convertedControl.convert().aspect(InValidation);
+        const dcValidation = convertedControl.convert<number>({ get: asis, set: asis }).aspect(InValidation);
         const dcReceiver = jest.fn();
 
         dcValidation.read(dcReceiver);
@@ -356,6 +356,14 @@ describe('InValidation', () => {
 
         expect([...lastResult(dcReceiver)]).toEqual([message1, message2]);
       });
+    });
+  });
+  describe('converted to the same value', () => {
+    it('reuses the same validation instance', () => {
+
+      const svValidation = control.convert().aspect(InValidation);
+
+      expect(svValidation).toBe(validation);
     });
   });
 
