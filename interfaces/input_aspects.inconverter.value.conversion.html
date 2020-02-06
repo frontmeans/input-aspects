@@ -60,7 +60,10 @@
 					<a href="../modules/input_aspects.inconverter.html">InConverter</a>
 				</li>
 				<li>
-					<a href="input_aspects.inconverter.conversion.html">Conversion</a>
+					<a href="../modules/input_aspects.inconverter.value.html">Value</a>
+				</li>
+				<li>
+					<a href="input_aspects.inconverter.value.conversion.html">Conversion</a>
 				</li>
 			</ul>
 			<h1>Interface Conversion&lt;From, To&gt;</h1>
@@ -73,7 +76,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Input control conversion.</p>
+						<p>Input control value conversion.</p>
 					</div>
 				</div>
 			</section>
@@ -113,9 +116,9 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter"><a href="input_aspects.inconverter.conversion.html#applyaspect" class="tsd-kind-icon">apply<wbr>Aspect</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="input_aspects.inconverter.conversion.html#get" class="tsd-kind-icon">get</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="input_aspects.inconverter.conversion.html#set" class="tsd-kind-icon">set</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter"><a href="input_aspects.inconverter.value.conversion.html#applyaspect" class="tsd-kind-icon">apply<wbr>Aspect</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="input_aspects.inconverter.value.conversion.html#get" class="tsd-kind-icon">get</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="input_aspects.inconverter.value.conversion.html#set" class="tsd-kind-icon">set</a></li>
 							</ul>
 						</section>
 					</div>
@@ -133,7 +136,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/4725871/src/converter.ts#L66">src/converter.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/converter.ts#L118">src/converter.ts:118</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -175,13 +178,13 @@
 					<a name="get" class="tsd-anchor"></a>
 					<h3>get</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">From</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">From</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/4725871/src/converter.ts#L86">src/converter.ts:86</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/converter.ts#L138">src/converter.ts:138</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -191,9 +194,6 @@
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
-								<li>
-									<h5>this: <span class="tsd-signature-type">void</span></h5>
-								</li>
 								<li>
 									<h5>value: <span class="tsd-signature-type">To</span></h5>
 									<div class="tsd-comment tsd-typography">
@@ -210,13 +210,13 @@
 					<a name="set" class="tsd-anchor"></a>
 					<h3>set</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">To</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">To</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/4725871/src/converter.ts#L77">src/converter.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/converter.ts#L129">src/converter.ts:129</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -226,9 +226,6 @@
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
-								<li>
-									<h5>this: <span class="tsd-signature-type">void</span></h5>
-								</li>
 								<li>
 									<h5>value: <span class="tsd-signature-type">From</span></h5>
 									<div class="tsd-comment tsd-typography">
@@ -256,23 +253,23 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="input_aspects.inconverter.conversion.html" class="tsd-kind-icon">Conversion</a>
+						<a href="input_aspects.inconverter.value.conversion.html" class="tsd-kind-icon">Conversion</a>
 						<ul>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
-								<a href="input_aspects.inconverter.conversion.html#applyaspect" class="tsd-kind-icon">apply<wbr>Aspect</a>
+								<a href="input_aspects.inconverter.value.conversion.html#applyaspect" class="tsd-kind-icon">apply<wbr>Aspect</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="input_aspects.inconverter.conversion.html#get" class="tsd-kind-icon">get</a>
+								<a href="input_aspects.inconverter.value.conversion.html#get" class="tsd-kind-icon">get</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="input_aspects.inconverter.conversion.html#set" class="tsd-kind-icon">set</a>
+								<a href="input_aspects.inconverter.value.conversion.html#set" class="tsd-kind-icon">set</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="../modules/input_aspects.inconverter.html#factory" class="tsd-kind-icon">Factory</a>
+						<a href="../modules/input_aspects.inconverter.value.html#factory" class="tsd-kind-icon">Factory</a>
 					</li>
 				</ul>
 			</nav>

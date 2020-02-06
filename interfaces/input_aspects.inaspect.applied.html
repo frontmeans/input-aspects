@@ -63,7 +63,7 @@
 					<a href="input_aspects.inaspect.applied.html">Applied</a>
 				</li>
 			</ul>
-			<h1>Interface Applied&lt;Instance, ConvertedInstance&gt;</h1>
+			<h1>Interface Applied&lt;Value, Instance, ConvertedInstance&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -81,6 +81,14 @@
 			<section class="tsd-panel tsd-type-parameters">
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
+					<li>
+						<h4>Value</h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Input value type.</p>
+							</div>
+						</div>
+					</li>
 					<li>
 						<h4>Instance</h4>
 						<div class="tsd-comment tsd-typography">
@@ -121,6 +129,7 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="input_aspects.inaspect.applied.html#attachto" class="tsd-kind-icon">attach<wbr>To</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter"><a href="input_aspects.inaspect.applied.html#convertto" class="tsd-kind-icon">convert<wbr>To</a></li>
 							</ul>
 						</section>
@@ -135,7 +144,7 @@
 					<div class="tsd-signature tsd-kind-icon">instance<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Instance</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/4725871/src/aspect.ts#L75">src/aspect.ts:75</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/aspect.ts#L76">src/aspect.ts:76</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -147,24 +156,58 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
-					<a name="convertto" class="tsd-anchor"></a>
-					<h3>convert<wbr>To</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">convert<wbr>To&lt;To&gt;<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="../classes/input_aspects.incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="input_aspects.inaspect.applied.html" class="tsd-signature-type">Applied</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ConvertedInstance</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="attachto" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> attach<wbr>To</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">attach<wbr>To<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="../classes/input_aspects.incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="input_aspects.inaspect.applied.html" class="tsd-signature-type">Applied</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/4725871/src/aspect.ts#L87">src/aspect.ts:87</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/aspect.ts#L100">src/aspect.ts:100</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Converts an aspect to the same value type.</p>
+								</div>
+								<p>When defined, this method is called instead of <a href="input_aspects.inaspect.applied.html#convertto">convertTo</a> when converting aspect for converted control
+								with the same value. I.e. when <a href="../modules/input_aspects.inconverter.aspect.html">aspect-only converters</a> used for conversion.</p>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>target: <a href="../classes/input_aspects.incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Target input control.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="input_aspects.inaspect.applied.html" class="tsd-signature-type">Applied</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+							<p>The same aspect applied to <code>target</code> control, or <code>undefined</code> if aspect can not be converted.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
+					<a name="convertto" class="tsd-anchor"></a>
+					<h3>convert<wbr>To</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">convert<wbr>To&lt;To&gt;<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="../classes/input_aspects.incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="input_aspects.inaspect.applied.html" class="tsd-signature-type">Applied</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ConvertedInstance</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/aspect.ts#L88">src/aspect.ts:88</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Converts an aspect to another value type.</p>
 								</div>
-								<p>This method is called by input control created by <code>InControl.convert()</code> method.</p>
+								<p>This method is called by input control created by <a href="../classes/input_aspects.incontrol.html#convert">InControl.convert</a> method.</p>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
@@ -184,7 +227,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="input_aspects.inaspect.applied.html" class="tsd-signature-type">Applied</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ConvertedInstance</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="input_aspects.inaspect.applied.html" class="tsd-signature-type">Applied</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ConvertedInstance</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
 							<p>The same aspect applied to <code>target</code> control, or <code>undefined</code> if aspect can not be converted.</p>
 						</li>
 					</ul>
@@ -208,6 +251,9 @@
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="input_aspects.inaspect.applied.html#instance" class="tsd-kind-icon">instance</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="input_aspects.inaspect.applied.html#attachto" class="tsd-kind-icon">attach<wbr>To</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
 								<a href="input_aspects.inaspect.applied.html#convertto" class="tsd-kind-icon">convert<wbr>To</a>
