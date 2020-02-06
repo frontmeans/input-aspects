@@ -1,6 +1,6 @@
 import { afterSupplied, EventSupply } from 'fun-events';
 import { InGroup, inGroup } from '../container';
-import { intoInteger } from '../conversion/into-integer';
+import { intoInteger } from '../conversion';
 import { inText } from '../element';
 import { InElement } from '../element.control';
 import { inValue } from '../value';
