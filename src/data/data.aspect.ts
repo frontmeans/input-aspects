@@ -26,7 +26,7 @@ export type InData<Value> = AfterEvent<[InData.DataType<Value>?]>;
 /**
  * @internal
  */
-const InData__symbol: Aspect = {
+const InData__aspect: Aspect = {
 
   applyTo<Value>(control: InControl<Value>): Applied<Value> {
 
@@ -76,7 +76,7 @@ interface Applied<Value> extends InAspect.Applied<InData<Value>, InData<any>> {
 export const InData = {
 
   get [InAspect__symbol](): InAspect<InData<any>, 'data'> {
-    return InData__symbol;
+    return InData__aspect;
   },
 
 };
