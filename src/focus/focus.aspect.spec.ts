@@ -1,4 +1,5 @@
 import { InControl } from '../control';
+import { intoInteger } from '../conversion/into-integer';
 import { inText } from '../element';
 import { inValue } from '../value';
 import { InFocus } from './focus.aspect';
@@ -134,6 +135,12 @@ describe('InFocus', () => {
       const converted = control.convert();
 
       expect(converted.aspect(InFocus)).toBe(focus);
+    });
+    it('does not convert to control with another value', () => {
+
+      const converted = control.convert(intoInteger());
+
+      expect(converted.aspect(InFocus)).toBeNull();
     });
   });
 

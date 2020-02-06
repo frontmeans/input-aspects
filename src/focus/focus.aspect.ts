@@ -5,7 +5,7 @@
 import { noop } from 'call-thru';
 import { OnEvent, trackValue, ValueTracker } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
-import { inAspectNull, inAspectValue } from '../aspect.impl';
+import { inAspectNull, inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';
 import { InElement } from '../element.control';
 
@@ -18,7 +18,7 @@ const InFocus__aspect: InAspect<InFocus | null> = {
 
     const element = control.aspect(InElement);
 
-    return element ? inAspectValue(new InControlFocus(element)) : inAspectNull;
+    return element ? inAspectSameOrNull(control, InFocus, new InControlFocus(element)) : inAspectNull;
   },
 
 };
