@@ -1,5 +1,6 @@
 import { afterSupplied, EventSupply, onSupplied, trackValue, ValueTracker } from 'fun-events';
 import { inGroup, InGroup } from '../container';
+import { intoInteger } from '../conversion';
 import { inText } from '../element';
 import { InElement } from '../element.control';
 import { InMode } from './mode.aspect';
@@ -36,6 +37,19 @@ describe('InMode', () => {
 
   beforeEach(() => {
     ownUpdatesSupply = mode.own.on(onOwnUpdate = jest.fn());
+  });
+
+  it('is reused by converted control with the same value', () => {
+
+    const converted = control.convert();
+
+    expect(converted.aspect(InMode)).toBe(mode);
+  });
+  it('is not reused by converted control with another value', () => {
+
+    const converted = control.convert(intoInteger);
+
+    expect(converted.aspect(InMode)).not.toBe(mode);
   });
 
   describe('[OnEvent__symbol]', () => {

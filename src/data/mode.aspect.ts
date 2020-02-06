@@ -23,7 +23,7 @@ import {
   ValueTracker,
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
-import { inAspectValue } from '../aspect.impl';
+import { inAspectSameOrBuild } from '../aspect.impl';
 import { InParents } from '../container';
 import { InParentsAspect } from '../container/parents.aspect.impl';
 import { InControl } from '../control';
@@ -36,7 +36,11 @@ import { InSupply } from '../supply.aspect';
 const InMode__aspect: InAspect<InMode> = {
 
   applyTo<Value>(control: InControl<Value>): InAspect.Applied<Value, InMode> {
-    return inAspectValue(new InControlMode(control));
+    return inAspectSameOrBuild(
+        control,
+        InMode,
+        ctrl => new InControlMode(ctrl),
+    );
   },
 
 };
