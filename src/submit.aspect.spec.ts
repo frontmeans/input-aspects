@@ -1,6 +1,7 @@
 import { noop } from 'call-thru';
 import { afterSupplied, EventSupply } from 'fun-events';
 import { InControl } from './control';
+import { intoInteger } from './conversion/into-integer';
 import { InMode } from './data';
 import { InSubmit, InSubmitError, InSubmitRejectedError } from './submit.aspect';
 import { InValidation } from './validation';
@@ -41,6 +42,21 @@ describe('InSubmit', () => {
   describe('[AfterEvent__symbol]', () => {
     it('is the same as `read`', () => {
       expect(afterSupplied(submit)).toBe(submit.read);
+    });
+  });
+
+  describe('aspect', () => {
+    it('is reused by converted control with the same value', () => {
+
+      const converted = control.convert();
+
+      expect(converted.aspect(InSubmit)).toBe(submit);
+    });
+    it('is not reused by converted control with another value', () => {
+
+      const converted = control.convert(intoInteger);
+
+      expect(converted.aspect(InSubmit)).not.toBe(submit);
     });
   });
 
