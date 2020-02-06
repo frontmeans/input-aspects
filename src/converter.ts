@@ -2,8 +2,8 @@
  * @packageDocumentation
  * @module input-aspects
  */
-import { filterIt, mapIt } from 'a-iterable';
-import { isPresent, valueProvider } from 'call-thru';
+import { filterIt, flatMapIt, itsReduction, mapIt } from 'a-iterable';
+import { isPresent, noop, valueProvider } from 'call-thru';
 import { InAspect } from './aspect';
 import { InControl } from './control';
 
@@ -180,6 +180,23 @@ export namespace InConverter.Aspect {
         aspect: InAspect<Instance, Kind>,
     ): InAspect.Application.Result<Instance, Value, Kind> | undefined;
 
+    /**
+     * Attaches the given aspect to converted control with the same value.
+     *
+     * When defined, this method is called instead of [[applyAspect]] for control converted with aspect converters
+     * only. When value converter used, this method is never called.
+     *
+     * @typeparam Instance  Aspect instance type.
+     * @typeparam Kind  Aspect application kind.
+     * @param aspect  An aspect to apply.
+     *
+     * @returns Either applied aspect instance or `undefined` to apply the aspect in standard way (i.e. by converting
+     * it from corresponding aspect of original control).
+     */
+    attachAspect?<Instance, Kind extends InAspect.Application.Kind>(
+        aspect: InAspect<Instance, Kind>,
+    ): InAspect.Application.Result<Instance, Value, Kind> | undefined;
+
   }
 
 }
@@ -232,6 +249,11 @@ export function intoConvertedBy<From, To>(
     valueOrAspectConverter?: InConverter<From, To> | InConverter.Aspect<From, To>,
     ...converters: InConverter.Aspect<From, To>[]
 ): InConverter.Factory<From, To> {
+
+  type AspectApplicator = <Instance, Kind extends InAspect.Application.Kind>(
+      aspect: InAspect<Instance, Kind>,
+  ) => InAspect.Application.Result<Instance, To, Kind> | undefined;
+
   if (!valueOrAspectConverter) {
     return noopInConverter;
   }
@@ -253,7 +275,8 @@ export function intoConvertedBy<From, To>(
   ): InConverter.Conversion<From, To> => {
 
     const conversion = converter(from, to);
-    const aspectConversions: InConverter.Aspect.Conversion<To>[] = Array.from(
+    const conversions = flatMapIt<InConverter.Conversion<From, To>>([
+        [conversion],
         filterIt<InConverter.Aspect.Conversion<To> | undefined, InConverter.Aspect.Conversion<To>>(
             mapIt(
                 aspectConverters,
@@ -261,39 +284,43 @@ export function intoConvertedBy<From, To>(
             ),
             isPresent,
         ),
+    ]);
+
+
+    const applyAspect: AspectApplicator = itsReduction(
+        conversions,
+        (prev, cv) => cv.applyAspect
+            ? (aspect => prev(aspect) || cv.applyAspect!(aspect))
+            : prev,
+        noop,
     );
-    const applyAspect: <Instance, Kind extends InAspect.Application.Kind>(
-        aspect: InAspect<Instance, Kind>,
-    ) => InAspect.Application.Result<Instance, To, Kind> | undefined = aspect => {
-      if (conversion.applyAspect) {
-
-        const applied = conversion.applyAspect(aspect);
-
-        if (applied) {
-          return applied;
-        }
-      }
-      for (const asc of aspectConversions) {
-
-        const applied = asc.applyAspect(aspect);
-
-        if (applied) {
-          return applied;
-        }
-      }
-
-      return;
-    };
 
     if (/*#__INLINE__*/ isInAspectConversion(conversion)) {
       return {
         applyAspect,
+        attachAspect: itsReduction<InConverter.Conversion<From, To>, AspectApplicator | undefined>(
+            conversions,
+            (prev, cv) => {
+
+              const acv = cv as InConverter.Aspect.Conversion<To>;
+
+              if (acv.attachAspect) {
+                return prev ? (aspect => prev(aspect) || acv.attachAspect!(aspect)) : acv.attachAspect.bind(acv);
+              }
+              if (cv.applyAspect) {
+                return prev ? (aspect => prev(aspect) || cv.applyAspect!(aspect)) : cv.applyAspect.bind(cv);
+              }
+
+              return prev;
+            },
+            undefined,
+        ),
       };
     }
 
     return {
-      set: value => conversion.set(value),
-      get: value => conversion.get(value),
+      set: conversion.set.bind(conversion),
+      get: conversion.get.bind(conversion),
       applyAspect,
     };
   };
