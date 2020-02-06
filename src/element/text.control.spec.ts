@@ -1,6 +1,7 @@
 import { EventSupply } from 'fun-events';
 import { InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
+import { intoInteger } from '../conversion';
 import { InElement } from '../element.control';
 import { inValue } from '../value';
 import { InText, inText } from './text.control';
@@ -27,11 +28,17 @@ describe('InText', () => {
     it('is available as aspect of itself', () => {
       expect(control.aspect(InElement)).toBe(control);
     });
-    it('is available as aspect of converted control', () => {
+    it('is available as aspect of converted control with the same value', () => {
 
       const converted = control.convert();
 
       expect(converted.aspect(InElement)).toBe(control);
+    });
+    it('is not available as aspect of converted control with another value', () => {
+
+      const converted = control.convert(intoInteger());
+
+      expect(converted.aspect(InElement)).toBeNull();
     });
     it('is not available as aspect of non-element control', () => {
       expect(inValue('some').aspect(InElement)).toBeNull();

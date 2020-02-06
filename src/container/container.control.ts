@@ -19,7 +19,7 @@ const InContainer__aspect: InAspect<InContainer<any> | null, 'container'> = {
 /**
  * An input control containing other controls.
  *
- * Container is available as an aspect of itself.
+ * Container is available as an aspect of itself and converted controls with the same value.
  *
  * @category Control
  * @typeparam Value  Input value type.

@@ -49,6 +49,8 @@ const InList__aspect: InAspect<InList<any> | null, 'list'> = {
  * List value (called model) is an array object formed by nested control values. The item property value is the one
  * of the control with the same index, if present. When model is updated corresponding controls are also updated.
  *
+ * List is available as an aspect of itself and converted controls with the same value.
+ *
  * @category Control
  * @typeparam Item  Model item type.
  */

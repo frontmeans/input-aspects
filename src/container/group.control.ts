@@ -45,7 +45,7 @@ const InGroup__aspect: InAspect<InGroup<any> | null, 'group'> = {
  * Group value (called model) is an object formed by nested control values. The model property value is the one of the
  * control with the same key, if present. When model is updated corresponding controls are also updated.
  *
- * Group is available as an aspect of itself.
+ * Group is available as an aspect of itself and converted controls with the same value.
  *
  * @category Control
  * @typeparam Model  Group model type, i.e. its value type.
