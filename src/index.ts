@@ -4,6 +4,7 @@ export * from './control';
 export * from './conversion';
 export * from './converter';
 export * from './data';
+export * from './data/modes';
 export * from './element';
 export * from './element.control';
 export * from './focus';
