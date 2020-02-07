@@ -187,6 +187,15 @@ export namespace InValidation {
      */
     has(code?: string): boolean;
 
+    /**
+     * Checks whether there are errors without the given codes.
+     *
+     * @param codes  Excluded codes. Any message matches when empty.
+     *
+     * @returns `true` is there is at least one message without any of the given codes, or `false` otherwise.
+     */
+    hasBut(...codes: string[]): boolean;
+
     [Symbol.iterator](): IterableIterator<Message>;
 
   }
@@ -222,6 +231,9 @@ const noInValidationErrors: InValidation.Result = {
     return [];
   },
   has() {
+    return false;
+  },
+  hasBut() {
     return false;
   },
   [Symbol.iterator]() {
@@ -277,6 +289,12 @@ class InValidationErrors implements InValidation.Result {
 
   has(code?: string): boolean {
     return code == null || this._byCode.has(code);
+  }
+
+  hasBut(...codes: string[]): boolean {
+    return this._all.some(
+        message => codes.every(code => !message[code]),
+    );
   }
 
   [Symbol.iterator](): IterableIterator<InValidation.Message> {
