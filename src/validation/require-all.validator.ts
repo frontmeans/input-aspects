@@ -1,6 +1,6 @@
 /**
- *@packageDocumentation
- *@module input-aspects
+ * @packageDocumentation
+ * @module input-aspects
  */
 import { InControl } from '../control';
 import { requireNothing } from './require-nothing.validator';

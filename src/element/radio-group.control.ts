@@ -1,6 +1,6 @@
 /**
- *@packageDocumentation
- *@module input-aspects
+ * @packageDocumentation
+ * @module input-aspects
  */
 import { itsEach, itsEvery, overEntries } from 'a-iterable';
 import { nextArg } from 'call-thru';

@@ -1,6 +1,6 @@
 /**
- *@packageDocumentation
- *@module input-aspects
+ * @packageDocumentation
+ * @module input-aspects
  */
 import { flatMapIt, itsEach, mapIt, overEntries } from 'a-iterable';
 import { nextArgs, NextCall } from 'call-thru';

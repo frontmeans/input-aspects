@@ -1,6 +1,6 @@
 /**
- *@packageDocumentation
- *@module input-aspects
+ * @packageDocumentation
+ * @module input-aspects
  */
 import { filterIt } from 'a-iterable';
 import { CallChain, nextArgs, NextCall } from 'call-thru';

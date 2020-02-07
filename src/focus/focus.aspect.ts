@@ -1,6 +1,6 @@
 /**
- *@packageDocumentation
- *@module input-aspects
+ * @packageDocumentation
+ * @module input-aspects
  */
 import { noop } from 'call-thru';
 import { EventSupply, EventSupply__symbol, eventSupplyOf, OnEvent, trackValue, ValueTracker } from 'fun-events';

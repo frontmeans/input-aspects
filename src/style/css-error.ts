@@ -1,6 +1,6 @@
 /**
- *@packageDocumentation
- *@module input-aspects
+ * @packageDocumentation
+ * @module input-aspects
  */
 import { nextArgs } from 'call-thru';
 import { InputAspects__NS } from '../namespace-aliaser.aspect';
