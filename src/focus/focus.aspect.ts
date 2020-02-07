@@ -3,7 +3,7 @@
  *@module input-aspects
  */
 import { noop } from 'call-thru';
-import { OnEvent, trackValue, ValueTracker } from 'fun-events';
+import { EventSupply, EventSupply__symbol, eventSupplyOf, OnEvent, trackValue, ValueTracker } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrBuild } from '../aspect.impl';
 import { InControl } from '../control';
@@ -76,17 +76,16 @@ class InControlFocus extends InFocus {
     return this._it.on;
   }
 
+  get [EventSupply__symbol](): EventSupply {
+    return eventSupplyOf(this._it);
+  }
+
   get it(): boolean {
     return this._it.it;
   }
 
   set it(value: boolean) {
     this._it.it = value;
-  }
-
-  done(reason?: any): this {
-    this._it.done(reason);
-    return this;
   }
 
 }

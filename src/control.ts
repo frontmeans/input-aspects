@@ -3,7 +3,7 @@
  * @module input-aspects
  */
 import { asis, noop } from 'call-thru';
-import { EventEmitter, OnEvent, trackValue, ValueTracker } from 'fun-events';
+import { EventEmitter, EventSupply, EventSupply__symbol, OnEvent, trackValue, ValueTracker } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
 import { InConverter, intoConvertedBy, isInAspectConversion } from './converter';
 import { InSupply } from './supply.aspect';
@@ -27,6 +27,15 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
    * Input value.
    */
   abstract it: Value;
+
+  /**
+   * This control's event supply.
+   *
+   * After this supply cut off the control should no longer be used.
+   */
+  get [EventSupply__symbol](): EventSupply {
+    return this.aspect(InSupply);
+  }
 
   /**
    * Retrieves an aspect instance applied to this control.
@@ -120,22 +129,6 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
       ...and: InConverter.Aspect<Value, To>[]
   ): InControl<Value> | InControl<To> {
     return new InConverted(this, intoConvertedBy(by, ...and));
-  }
-
-  /**
-   * Cuts off {@link InSupply input supply}.
-   *
-   * Removes all registered event receivers and cuts off corresponding event supplies.
-   *
-   * After this method call the control should no longer be used.
-   *
-   * @param reason  A reason to stop receiving user input.
-   *
-   * @returns `this` instance.
-   */
-  done(reason?: any): this {
-    this.aspect(InSupply).off(reason);
-    return this;
   }
 
   /**

@@ -15,6 +15,8 @@ import {
   EventSender,
   eventSupply,
   EventSupply,
+  EventSupply__symbol,
+  eventSupplyOf,
   nextAfterEvent,
   OnEvent,
   OnEvent__symbol,
@@ -163,6 +165,10 @@ class OwnModeTracker extends ValueTracker<InMode.Value> {
     return this._tracker.on;
   }
 
+  get [EventSupply__symbol](): EventSupply {
+    return eventSupplyOf(this._tracker);
+  }
+
   get it(): InMode.Value {
     return this._tracker.it;
   }
@@ -179,11 +185,6 @@ class OwnModeTracker extends ValueTracker<InMode.Value> {
     }
 
     this._tracker.it = value;
-  }
-
-  done(reason?: any): this {
-    this._tracker.done(reason);
-    return this;
   }
 
 }
