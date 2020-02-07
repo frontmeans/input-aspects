@@ -2,6 +2,7 @@
  * @packageDocumentation
  * @module input-aspects
  */
+import { flatMapIt } from 'a-iterable';
 import { nextArgs, NextCall, nextSkip, valuesProvider } from 'call-thru';
 import {
   afterAll,
@@ -17,6 +18,7 @@ import {
   EventSupply,
   EventSupply__symbol,
   eventSupplyOf,
+  isEventKeeper,
   nextAfterEvent,
   OnEvent,
   OnEvent__symbol,
@@ -117,7 +119,7 @@ export abstract class InMode implements EventSender<[InMode.Value, InMode.Value]
    *
    * @returns Derived input mode supply. Disables `source` mode derivation once cut off.
    */
-  abstract derive(source: EventKeeper<[InMode.Value]>): EventSupply;
+  abstract derive(source: InMode.Source): EventSupply;
 
   /**
    * Unregisters all receivers.
@@ -145,6 +147,16 @@ export namespace InMode {
    * - `-ro` when control is read-only, but not submitted.
    */
   export type Value = 'on' | 'ro' | 'off' | '-on' | '-ro';
+
+  /**
+   * A source of input mode.
+   *
+   * This is either an event keeper of {@link Value mode value}, or a function returning one and accepting target input
+   * control as the only parameter.
+   */
+  export type Source =
+      | EventKeeper<[InMode.Value]>
+      | ((this: void, control: InControl<any>) => EventKeeper<[InMode.Value]>);
 
 }
 
@@ -210,15 +222,14 @@ class DerivedInModes {
     );
   }
 
-  add(source: EventKeeper<[InMode.Value]>): EventSupply {
+  add(source: AfterEvent<[InMode.Value]>): EventSupply {
 
-    const src = afterSupplied(source);
     const supply = eventSupply(() => {
-      this._all.delete(src);
+      this._all.delete(source);
       this._on.send();
     });
 
-    this._all.add(src);
+    this._all.add(source);
     this._on.send();
 
     return supply;
@@ -293,8 +304,11 @@ class InControlMode extends InMode {
     });
   }
 
-  derive(source: EventKeeper<[InMode.Value]>): EventSupply {
-    return this._derived.add(source).needs(this._control);
+  derive(source: InMode.Source): EventSupply {
+    return this._derived.add(
+        afterSupplied(isEventKeeper(source) ? source : source(this._control))
+            .tillOff(this._control),
+    ).needs(this._control);
   }
 
 }
@@ -350,15 +364,24 @@ function parentsInMode(parents: InParents.All): NextCall<OnEventCallChain, [InMo
   return nextAfterEvent(afterEach(...parentModes).keep.thru_(mergeInModes));
 }
 
-/**
- * @internal
- */
 function mergeInModes(...modes: [InMode.Value][]): InMode.Value {
+  return inModeValue(...flatMapIt<InMode.Value>(modes));
+}
+
+/**
+ * Merges multiple input mode values.
+ *
+ * @category Aspect
+ * @param modes  Input mode values to merge.
+ *
+ * @returns Merged input mode value.
+ */
+export function inModeValue(...modes: InMode.Value[]): InMode.Value {
 
   let ro = false;
   let off = false;
 
-  for (const [mode] of modes) {
+  for (const mode of modes) {
     switch (mode) {
       case 'off':
         return 'off';

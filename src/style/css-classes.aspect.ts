@@ -132,7 +132,7 @@ export namespace InCssClasses {
    */
   export type Source =
       | EventKeeper<Spec[]>
-      | ((control: InControl<any>) => EventKeeper<Spec[]>);
+      | ((this: void, control: InControl<any>) => EventKeeper<Spec[]>);
 
   /**
    * A specifier of CSS classes for styled element.
