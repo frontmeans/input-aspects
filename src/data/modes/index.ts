@@ -1,1 +1,1 @@
-export * from './mode-by-submit';
+export * from './mode-by-form';
