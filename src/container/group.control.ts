@@ -14,7 +14,7 @@ import {
   EventSender,
   eventSupply,
   EventSupply, EventSupply__symbol, eventSupplyOf,
-  nextAfterEvent,
+  nextAfterEvent, noEventSupply,
   OnEvent,
   OnEvent__symbol,
   OnEventCallChain,
@@ -137,18 +137,18 @@ export abstract class InGroupControls<Model>
    * @param key  A key of input control to set. I.e. corresponding model property key.
    * @param control  Input control to add, or `undefined` to remove control.
    *
-   * @returns `this` controls instance.
+   * @returns A supply of just added control that removes it once cut off. A cut off supply when set to `undefined`.
    */
-  abstract set<K extends keyof Model>(key: K, control: InControl<Model[K]> | undefined): this;
+  abstract set<K extends keyof Model>(key: K, control: InControl<Model[K]> | undefined): EventSupply;
 
   /**
    * Sets multiple input controls at a time.
    *
    * @param controls  A map of controls under their keys. A value can be `undefined` to remove corresponding control.
    *
-   * @returns `this` controls instance.
+   * @returns A supply of just added controls that removes them once cut off.
    */
-  abstract set(controls: InGroup.Controls<Model>): this;
+  abstract set(controls: InGroup.Controls<Model>): EventSupply;
 
   /**
    * Removes input control with the given key.
@@ -156,11 +156,9 @@ export abstract class InGroupControls<Model>
    * Calling this method is the same as calling `set(key, undefined)`
    *
    * @param key  A key of input control to remove. I.e. corresponding model property key.
-   *
-   * @returns `this` controls instance.
    */
-  remove(key: keyof Model): this {
-    return this.set(key, undefined);
+  remove(key: keyof Model): void {
+    this.set(key, undefined);
   }
 
   /**
@@ -232,35 +230,46 @@ class InGroupMap<Model extends object> {
       control: InControl<Model[K]> | undefined,
       added: [keyof Model, InGroupEntry][],
       removed: [keyof Model, InGroupEntry][],
-  ): void {
+  ): EventSupply {
 
     const self = this;
     const replaced = this._map.get(key);
+    let result: EventSupply;
 
     if (control) {
       if (replaced) {
         if (replaced[0] === control) {
           // Do not replace control with itself
-          return;
+          return replaced[1];
         }
         removed.push([key, replaced]);
       }
 
-      const entry: InGroupEntry = [control, eventSupply(reason => {
+      result = eventSupply();
+
+      const supply = eventSupply(reason => {
         if (reason !== inControlReplacedReason) {
           self._controls.remove(key);
         }
-      }).needs(self._supply)];
+      }).needs(self._supply).needs(result);
+      const entry: InGroupEntry = [control, supply];
+
+      supply.whenOff(reason => result.off(reason === inControlReplacedReason ? undefined : reason));
 
       modify().set(key, entry);
       added.push([key, entry]);
-    } else if (replaced) {
-      removed.push([key, replaced]);
-      modify().delete(key);
+    } else {
+      result = noEventSupply();
+      if (replaced) {
+        removed.push([key, replaced]);
+        modify().delete(key);
+      }
     }
     if (replaced) {
       replaced[1].off(inControlReplacedReason);
     }
+
+    return result;
 
     function modify(): Map<keyof Model, InGroupEntry> {
       if (self._shot) {
@@ -349,18 +358,20 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
   set<K extends keyof Model>(
       keyOrControls: K | InGroup.Controls<Model>,
       newControl?: InControl<Model[K]> | undefined,
-  ): this {
+  ): EventSupply {
 
     const group = this._group;
     const added: [keyof Model, InGroupEntry][] = [];
     const removed: [keyof Model, InGroupEntry][] = [];
+    let supply: EventSupply;
 
     if (typeof keyOrControls === 'object') {
+      supply = eventSupply();
       itsEach(overEntries(keyOrControls), ([key, value]) => {
-        this._map.set(key, value, added, removed);
+        this._map.set(key, value, added, removed).needs(supply);
       });
     } else {
-      this._map.set(keyOrControls, newControl, added, removed);
+      supply = this._map.set(keyOrControls, newControl, added, removed);
     }
     if (added.length || removed.length) {
       this._updates.send(added, removed);
@@ -369,7 +380,7 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
       }
     }
 
-    return this;
+    return supply;
 
     function applyControlsToModel(): void {
 

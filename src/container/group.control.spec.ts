@@ -91,7 +91,9 @@ describe('InGroup', () => {
 
     describe('set', () => {
       it('adds control', () => {
-        group.controls.set('ctrl3', ctrl3);
+
+        const supply = group.controls.set('ctrl3', ctrl3);
+
         expect([...lastSnapshot]).toEqual([ctrl1, ctrl2, ctrl3]);
         expect([...lastSnapshot.entries()]).toEqual([['ctrl1', ctrl1], ['ctrl2', ctrl2], ['ctrl3', ctrl3]]);
         expect(lastSnapshot.get('ctrl1')).toBe(ctrl1);
@@ -100,12 +102,14 @@ describe('InGroup', () => {
         expect(onUpdate).toHaveBeenCalledWith([['ctrl3', ctrl3]], []);
         expect(readSnapshot).toHaveBeenCalledTimes(1);
         expect(parentsOf(ctrl3)).toEqual([{ parent: group }]);
+
+        supply.off();
+        expect([...lastSnapshot]).toEqual([ctrl1, ctrl2]);
       });
       it('replaces control', () => {
 
         const ctrl4 = inValue('third');
-
-        group.controls.set('ctrl1', ctrl4);
+        const supply = group.controls.set('ctrl1', ctrl4);
 
         expect([...lastSnapshot]).toEqual([ctrl4, ctrl2]);
         expect([...lastSnapshot.entries()]).toEqual([['ctrl1', ctrl4], ['ctrl2', ctrl2]]);
@@ -116,6 +120,13 @@ describe('InGroup', () => {
         expect(readSnapshot).toHaveBeenCalledTimes(1);
         expect(parentsOf(ctrl1)).toHaveLength(0);
         expect(parentsOf(ctrl4)).toEqual([{ parent: group }]);
+
+        group.controls.set('ctrl1', ctrl1);
+
+        const whenOff = jest.fn();
+
+        supply.whenOff(whenOff);
+        expect(whenOff).toHaveBeenCalledWith(undefined);
       });
       it('does not replace control with itself', () => {
         group.controls.set('ctrl1', ctrl1);
@@ -142,11 +153,11 @@ describe('InGroup', () => {
       it('sets multiple controls', () => {
 
         const ctrl4 = inValue('third');
-
-        group.controls.set({
+        const supply = group.controls.set({
           ctrl1: ctrl4,
           ctrl3,
         });
+
         expect([...lastSnapshot]).toEqual([ctrl4, ctrl2, ctrl3]);
         expect([...lastSnapshot.entries()]).toEqual([['ctrl1', ctrl4], ['ctrl2', ctrl2], ['ctrl3', ctrl3]]);
         expect(lastSnapshot.get('ctrl1')).toBe(ctrl4);
@@ -154,6 +165,9 @@ describe('InGroup', () => {
         expect(lastSnapshot.get('ctrl3')).toBe(ctrl3);
         expect(onUpdate).toHaveBeenCalledWith([['ctrl1', ctrl4], ['ctrl3', ctrl3]], [['ctrl1', ctrl1]]);
         expect(readSnapshot).toHaveBeenCalledTimes(1);
+
+        supply.off();
+        expect([...lastSnapshot]).toEqual([ctrl2]);
       });
     });
 
