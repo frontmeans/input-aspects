@@ -115,6 +115,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-overwrite"><a href="input_aspects.invalidation.result.html#_symbol_iterator_" class="tsd-kind-icon">[<wbr>Symbol.iterator]</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="input_aspects.invalidation.result.html#has" class="tsd-kind-icon">has</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="input_aspects.invalidation.result.html#hasbut" class="tsd-kind-icon">has<wbr>But</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="input_aspects.invalidation.result.html#messages" class="tsd-kind-icon">messages</a></li>
 							</ul>
 						</section>
@@ -129,7 +130,7 @@
 					<div class="tsd-signature tsd-kind-icon">ok<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/validation/validation.aspect.ts#L170">src/validation/validation.aspect.ts:170</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/d320a16/src/validation/validation.aspect.ts#L170">src/validation/validation.aspect.ts:170</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -153,7 +154,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides Iterable.[Symbol.iterator]</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/validation/validation.aspect.ts#L190">src/validation/validation.aspect.ts:190</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/d320a16/src/validation/validation.aspect.ts#L199">src/validation/validation.aspect.ts:199</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/input_aspects.invalidation.html#message" class="tsd-signature-type">Message</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -170,7 +171,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/validation/validation.aspect.ts#L188">src/validation/validation.aspect.ts:188</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/d320a16/src/validation/validation.aspect.ts#L188">src/validation/validation.aspect.ts:188</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -193,6 +194,38 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="hasbut" class="tsd-anchor"></a>
+					<h3>has<wbr>But</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">has<wbr>But<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>codes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/d320a16/src/validation/validation.aspect.ts#L197">src/validation/validation.aspect.ts:197</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Checks whether there are errors without the given codes.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>codes: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Excluded codes. Any message matches when empty.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p><code>true</code> is there is at least one message without any of the given codes, or <code>false</code> otherwise.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="messages" class="tsd-anchor"></a>
 					<h3>messages</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
@@ -202,7 +235,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/validation/validation.aspect.ts#L179">src/validation/validation.aspect.ts:179</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/d320a16/src/validation/validation.aspect.ts#L179">src/validation/validation.aspect.ts:179</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -264,6 +297,9 @@
 									</li>
 									<li class=" tsd-kind-method tsd-parent-kind-interface">
 										<a href="input_aspects.invalidation.result.html#has" class="tsd-kind-icon">has</a>
+									</li>
+									<li class=" tsd-kind-method tsd-parent-kind-interface">
+										<a href="input_aspects.invalidation.result.html#hasbut" class="tsd-kind-icon">has<wbr>But</a>
 									</li>
 									<li class=" tsd-kind-method tsd-parent-kind-interface">
 										<a href="input_aspects.invalidation.result.html#messages" class="tsd-kind-icon">messages</a>

@@ -112,6 +112,7 @@
 				<ul class="tsd-hierarchy">
 					<li><span class="tsd-signature-type">EventSender</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">N</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					<li><span class="tsd-signature-type">EventKeeper</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li><span class="tsd-signature-type">EventSupplyPeer</span></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -143,6 +144,7 @@
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="input_aspects.inlist.html#_afterevent__symbol_" class="tsd-kind-icon">[<wbr>After<wbr>Event__symbol]</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="input_aspects.inlist.html#_eventsupply__symbol_" class="tsd-kind-icon">[<wbr>Event<wbr>Supply__symbol]</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="input_aspects.inlist.html#_onevent__symbol_" class="tsd-kind-icon">[<wbr>OnEvent__symbol]</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite tsd-is-static"><a href="input_aspects.inlist.html#_inaspect__symbol_" class="tsd-kind-icon">[<wbr>InAspect__symbol]</a></li>
 							</ul>
@@ -155,9 +157,8 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="input_aspects.inlist.html#by" class="tsd-kind-icon">by</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="input_aspects.inlist.html#bynone" class="tsd-kind-icon">by<wbr>None</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="input_aspects.inlist.html#convert" class="tsd-kind-icon">convert</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="input_aspects.inlist.html#done" class="tsd-kind-icon">done</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="input_aspects.inlist.html#done" class="tsd-kind-icon">done</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="input_aspects.inlist.html#setup" class="tsd-kind-icon">setup</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="input_aspects.inlist.html#whendone" class="tsd-kind-icon">when<wbr>Done</a></li>
 							</ul>
 						</section>
 					</div>
@@ -171,8 +172,8 @@
 					<div class="tsd-signature tsd-kind-icon">Entry&lt;Item&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><a href="input_aspects.incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/container/container.control.ts#L59">src/container/container.control.ts:59</a></li>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/container/list.control.ts#L87">src/container/list.control.ts:87</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/d320a16/src/container/container.control.ts#L59">src/container/container.control.ts:59</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/d320a16/src/container/list.control.ts#L88">src/container/list.control.ts:88</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -211,7 +212,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides <a href="input_aspects.incontainer.html">InContainer</a>.<a href="input_aspects.incontainer.html#controls">controls</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/container/list.control.ts#L66">src/container/list.control.ts:66</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/d320a16/src/container/list.control.ts#L67">src/container/list.control.ts:67</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -228,7 +229,7 @@
 						<p>Inherited from <a href="input_aspects.incontrol.html">InControl</a>.<a href="input_aspects.incontrol.html#it">it</a></p>
 						<p>Overrides <a href="input_aspects.infocus.html">InFocus</a>.<a href="input_aspects.infocus.html#it">it</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/control.ts#L29">src/control.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/d320a16/src/control.ts#L36">src/control.ts:36</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -244,7 +245,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="input_aspects.incontrol.html">InControl</a>.<a href="input_aspects.incontrol.html#on">on</a></p>
 						<ul>
-							<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:28</li>
+							<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:29</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -261,7 +262,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="input_aspects.incontrol.html">InControl</a>.<a href="input_aspects.incontrol.html#read">read</a></p>
 						<ul>
-							<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:34</li>
+							<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:35</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -285,10 +286,38 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="input_aspects.incontrol.html">InControl</a>.<a href="input_aspects.incontrol.html#_afterevent__symbol_">[AfterEvent__symbol]</a></p>
 								<ul>
-									<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:36</li>
+									<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:37</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<a name="_eventsupply__symbol_" class="tsd-anchor"></a>
+					<h3>[<wbr>Event<wbr>Supply__symbol]</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> [EventSupply__symbol]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupply</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="input_aspects.incontrol.html">InControl</a>.<a href="input_aspects.incontrol.html#_eventsupply__symbol_">[EventSupply__symbol]</a></p>
+								<p>Overrides <a href="input_aspects.infocus.html">InFocus</a>.<a href="input_aspects.infocus.html#_eventsupply__symbol_">[EventSupply__symbol]</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/d320a16/src/control.ts#L48">src/control.ts:48</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This control&#39;s input supply.</p>
+								</div>
+								<p>Releases all control resources when cut off.</p>
+								<p>Each control has its own supply. An input supply of converted control depends on the input supply of control it
+								is converted from.</p>
+								<p>After this supply cut off the control should no longer be used.</p>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventSupply</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -303,7 +332,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="input_aspects.incontrol.html">InControl</a>.<a href="input_aspects.incontrol.html#_onevent__symbol_">[OnEvent__symbol]</a></p>
 								<ul>
-									<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:35</li>
+									<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:36</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">N</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">Item</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -321,7 +350,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="input_aspects.incontainer.html">InContainer</a>.<a href="input_aspects.incontainer.html#_inaspect__symbol_">[InAspect__symbol]</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/container/list.control.ts#L59">src/container/list.control.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/d320a16/src/container/list.control.ts#L60">src/container/list.control.ts:60</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../modules/input_aspects.inaspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><a href="input_aspects.inlist.html" class="tsd-signature-type">InList</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"list"</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -342,7 +371,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="input_aspects.incontainer.html">InContainer</a>.<a href="input_aspects.incontainer.html#_applyaspect">_applyAspect</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/container/list.control.ts#L68">src/container/list.control.ts:68</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/d320a16/src/container/list.control.ts#L69">src/container/list.control.ts:69</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -375,7 +404,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="input_aspects.incontrol.html">InControl</a>.<a href="input_aspects.incontrol.html#aspect">aspect</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/control.ts#L42">src/control.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/d320a16/src/control.ts#L61">src/control.ts:61</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -425,7 +454,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="input_aspects.incontrol.html">InControl</a>.<a href="input_aspects.incontrol.html#by">by</a></p>
 								<ul>
-									<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:54</li>
+									<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:59</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -452,7 +481,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="input_aspects.incontrol.html">InControl</a>.<a href="input_aspects.incontrol.html#by">by</a></p>
 								<ul>
-									<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:71</li>
+									<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:76</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -525,7 +554,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="input_aspects.incontrol.html">InControl</a>.<a href="input_aspects.incontrol.html#bynone">byNone</a></p>
 								<ul>
-									<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:81</li>
+									<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:86</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -560,7 +589,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="input_aspects.incontrol.html">InControl</a>.<a href="input_aspects.incontrol.html#convert">convert</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/control.ts#L98">src/control.ts:98</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/d320a16/src/control.ts#L117">src/control.ts:117</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -590,7 +619,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="input_aspects.incontrol.html">InControl</a>.<a href="input_aspects.incontrol.html#convert">convert</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/control.ts#L113">src/control.ts:113</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/d320a16/src/control.ts#L132">src/control.ts:132</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -628,34 +657,32 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="done" class="tsd-anchor"></a>
 					<h3>done</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">done<span class="tsd-signature-symbol">(</span>reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="input_aspects.incontrol.html">InControl</a>.<a href="input_aspects.incontrol.html#done">done</a></p>
-								<p>Overrides <a href="input_aspects.infocus.html">InFocus</a>.<a href="input_aspects.infocus.html#done">done</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/control.ts#L136">src/control.ts:136</a></li>
+									<li>Defined in node_modules/fun-events/d.ts/value/value-tracker.d.ts:96</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Cuts off <a href="../modules/input_aspects.html#insupply">input supply</a>.</p>
+									<p>Removes all registered event receivers and cuts off corresponding event supplies.</p>
 								</div>
-								<p>Removes all registered event receivers and cuts off corresponding event supplies.</p>
-								<p>After this method call the control should no longer be used.</p>
+								<p>After this method call they won&#39;t receive events.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> reason: <span class="tsd-signature-type">any</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>A reason to stop receiving user input.</p>
+										<p>A reason to stop sending events.</p>
 									</div>
 								</li>
 							</ul>
@@ -676,7 +703,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="input_aspects.incontrol.html">InControl</a>.<a href="input_aspects.incontrol.html#setup">setup</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/control.ts#L55">src/control.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/d320a16/src/control.ts#L74">src/control.ts:74</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -721,7 +748,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="input_aspects.incontrol.html">InControl</a>.<a href="input_aspects.incontrol.html#setup">setup</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/control.ts#L67">src/control.ts:67</a></li>
+									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/d320a16/src/control.ts#L86">src/control.ts:86</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -761,62 +788,6 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
 							<p><code>this</code> control instance.</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="whendone" class="tsd-anchor"></a>
-					<h3>when<wbr>Done</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">when<wbr>Done<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="input_aspects.incontrol.html">InControl</a>.<a href="input_aspects.incontrol.html#whendone">whenDone</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/58f5273/src/control.ts#L151">src/control.ts:151</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Registers a callback function that will be called as soon as <a href="../modules/input_aspects.html#insupply">input supply</a> is cut off.</p>
-								</div>
-								<p>This callback will be called immediately if the supply is cut off already.</p>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>callback: <span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>A callback function accepting optional cut off reason as its only parameter.
-										By convenience an <code>undefined</code> reason means normal completion.</p>
-									</div>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-siganture">
-											<ul class="tsd-signatures tsd-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5>this: <span class="tsd-signature-type">void</span></h5>
-														</li>
-														<li>
-															<h5><span class="tsd-flag ts-flagOptional">Optional</span> reason: <span class="tsd-signature-type">any</span></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
-							<p><code>this</code> instance.</p>
 						</li>
 					</ul>
 				</section>
@@ -861,6 +832,9 @@
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 								<a href="input_aspects.inlist.html#_afterevent__symbol_" class="tsd-kind-icon">[<wbr>After<wbr>Event__symbol]</a>
 							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="input_aspects.inlist.html#_eventsupply__symbol_" class="tsd-kind-icon">[<wbr>Event<wbr>Supply__symbol]</a>
+							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 								<a href="input_aspects.inlist.html#_onevent__symbol_" class="tsd-kind-icon">[<wbr>OnEvent__symbol]</a>
 							</li>
@@ -882,14 +856,11 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 								<a href="input_aspects.inlist.html#convert" class="tsd-kind-icon">convert</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="input_aspects.inlist.html#done" class="tsd-kind-icon">done</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 								<a href="input_aspects.inlist.html#setup" class="tsd-kind-icon">setup</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="input_aspects.inlist.html#whendone" class="tsd-kind-icon">when<wbr>Done</a>
 							</li>
 						</ul>
 					</li>
