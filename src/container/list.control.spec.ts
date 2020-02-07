@@ -130,8 +130,11 @@ describe('InList', () => {
     });
 
     describe('set', () => {
+
+      let supply: EventSupply;
+
       beforeEach(() => {
-        list.controls.set(1, ctrl2);
+        supply = list.controls.set(1, ctrl2);
       });
 
       it('replaces control', () => {
@@ -147,6 +150,19 @@ describe('InList', () => {
       });
       it('registers control parent', () => {
         ctrl2.aspect(InParents).read.once(parents => expect([...parents]).toEqual([{ parent: list }]));
+      });
+      it('removes control once returned supply cut off', () => {
+        supply.off();
+        expect([...snapshot]).toEqual([initControls[0], initControls[2]]);
+      });
+      it('cuts off the supply of replaced control', () => {
+        list.controls.set(1, ctrl3);
+        expect([...snapshot]).toEqual([initControls[0], ctrl3, initControls[2]]);
+
+        const whenOff = jest.fn();
+
+        supply.whenOff(whenOff);
+        expect(whenOff).toHaveBeenCalledWith(undefined);
       });
     });
 
@@ -208,8 +224,11 @@ describe('InList', () => {
     });
 
     describe('insert', () => {
+
+      let supply: EventSupply;
+
       beforeEach(() => {
-        list.controls.insert(1, ctrl1, ctrl2);
+        supply = list.controls.insert(1, ctrl1, ctrl2);
       });
 
       it('inserts controls', () => {
@@ -223,6 +242,10 @@ describe('InList', () => {
       });
       it('updates model', () => {
         expect(list.it).toEqual(['11', '1', '2', '22', '33']);
+      });
+      it('removes inserted control once returned supply cut off', () => {
+        supply.off();
+        expect([...snapshot]).toEqual([initControls[0], initControls[1], initControls[2]]);
       });
     });
 

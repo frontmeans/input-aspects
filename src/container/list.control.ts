@@ -18,7 +18,7 @@ import {
   EventSupply,
   EventSupply__symbol,
   eventSupplyOf,
-  nextAfterEvent,
+  nextAfterEvent, noEventSupply,
   OnEvent,
   OnEvent__symbol,
   OnEventCallChain,
@@ -138,9 +138,9 @@ export abstract class InListControls<Item>
    * @param index  An index of input control to set. I.e. corresponding model item index.
    * @param control  Input control to add.
    *
-   * @returns `this` controls instance.
+   * @returns A supply of just added control that removes it once cut off.
    */
-  set(index: number, control: InControl<Item>): this {
+  set(index: number, control: InControl<Item>): EventSupply {
     return this.splice(index, 1, control);
   }
 
@@ -149,9 +149,9 @@ export abstract class InListControls<Item>
    *
    * @param controls  Input controls to add after the last one.
    *
-   * @returns `this` controls instance.
+   * @returns A supply of just added controls that removes them once cut off. Cut off supply when no controls added.
    */
-  abstract add(...controls: InControl<Item>[]): this;
+  abstract add(...controls: InControl<Item>[]): EventSupply;
 
   /**
    * Inserts input controls at the given position.
@@ -159,9 +159,10 @@ export abstract class InListControls<Item>
    * @param index  An index to insert controls at.
    * @param controls  Input controls to add after the last one.
    *
-   * @returns `this` controls instance.
+   * @returns A supply of just inserted controls that removes them once cut off. Cut off supply when no controls
+   * inserted.
    */
-  insert(index: number, ...controls: InControl<Item>[]): this {
+  insert(index: number, ...controls: InControl<Item>[]): EventSupply {
     return this.splice(index, 0, ...controls);
   }
 
@@ -170,43 +171,28 @@ export abstract class InListControls<Item>
    *
    * @param start  An index of the first control to remove.
    * @param end  An index of the control next to the last one to remove. Only one control will be removed if omitted.
-   *
-   * @returns `this` controls instance.
    */
-  remove(start: number, end?: number): this {
-    return this.splice(start, end == null ? 1 : end - start);
+  remove(start: number, end?: number): void {
+    this.splice(start, end == null ? 1 : end - start);
   }
-
-  /**
-   * Changes the contents of controls array by removing existing controls.
-   *
-   * @param start  The index at which to start changing the array.
-   * @param deleteCount  An integer indicating the number of elements in the array to remove from `start`. If omitted
-   * then all controls from `start` will be removed.
-   *
-   * @returns `this` controls instance.
-   */
-  abstract splice(start: number, deleteCount?: number): this;
 
   /**
    * Changes the contents of controls array by removing or replacing existing controls and/or adding new ones.
    *
    * @param start  The index at which to start changing the array.
-   * @param deleteCount  An integer indicating the number of elements in the array to remove from start.
+   * @param deleteCount  An integer indicating the number of elements in the array to remove from start. If omitted
+   * then all controls from `start` will be removed.
    * @param controls  Controls to add.
    *
-   * @returns `this` controls instance.
+   * @returns A supply of just added controls that removes them once cut off. Cut off supply when no controls added.
    */
-  // eslint-disable-next-line @typescript-eslint/unified-signatures
-  abstract splice(start: number, deleteCount: number, ...controls: InControl<Item>[]): this;
+  abstract splice(start: number, deleteCount?: number, ...controls: InControl<Item>[]): EventSupply;
 
   /**
    * Removes all input controls.
-   *
-   * @returns `this` controls instance.
    */
-  clear(): this {
-    return this.splice(0);
+  clear(): void {
+    this.splice(0);
   }
 
 }
@@ -285,9 +271,10 @@ class InListEntries<Item> {
       controls: InControl<Item>[],
       added: [number, InListEntry<Item>][],
       removed: [number, InListEntry<Item>][],
-  ): void {
+  ): EventSupply {
 
     const self = this;
+    let supply = controls.length > 1 ? eventSupply() : undefined;
     const extracted = deleteCount == null
         ? modify().splice(start)
         : modify().splice(
@@ -299,6 +286,11 @@ class InListEntries<Item> {
                   const entry = inListEntry(this, control);
 
                   added.push([start + index, entry]);
+                  if (supply) {
+                    entry[1].needs(supply);
+                  } else {
+                    supply = entry[1];
+                  }
 
                   return entry;
                 },
@@ -313,6 +305,17 @@ class InListEntries<Item> {
             },
         ),
     );
+
+    if (!supply) {
+      return noEventSupply();
+    }
+
+    const result = eventSupply();
+
+    supply.needs(result);
+    supply.whenOff(reason => result.off(reason !== inControlReplacedReason ? reason : undefined));
+
+    return result;
 
     function modify(): InListEntry<Item>[] {
       if (self._shot) {
@@ -431,17 +434,16 @@ class InListControlControls<Item> extends InListControls<Item> {
     this._entries._entries.forEach(entry => readControlValue(this, entry));
   }
 
-  add(...controls: InControl<Item>[]): this {
+  add(...controls: InControl<Item>[]): EventSupply {
     return this.splice(this._entries._entries.length, 0, ...controls);
   }
 
-  splice(start: number, deleteCount?: number, ...controls: InControl<Item>[]): this {
+  splice(start: number, deleteCount?: number, ...controls: InControl<Item>[]): EventSupply {
 
     const list = this._list;
     const added: [number, InListEntry<Item>][] = [];
     const removed: [number, InListEntry<Item>][] = [];
-
-    this._entries.splice(start, deleteCount, controls, added, removed);
+    const supply = this._entries.splice(start, deleteCount, controls, added, removed);
 
     if (added.length || removed.length) {
 
@@ -454,7 +456,7 @@ class InListControlControls<Item> extends InListControls<Item> {
       added.forEach(([, entry]) => readControlValue(this, entry));
     }
 
-    return this;
+    return supply;
   }
 
 }
