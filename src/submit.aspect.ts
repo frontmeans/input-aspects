@@ -243,7 +243,6 @@ class InControlSubmit<Value> extends InSubmit<Value> {
     }
 
     function submitData(): Promise<Value extends undefined ? never : Value> {
-
       return new Promise((resolve, reject) => {
         afterAll({
           data: control.aspect(InData),
