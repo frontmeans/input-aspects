@@ -2,6 +2,7 @@
  *@packageDocumentation
  *@module input-aspects
  */
+import { flatMapIt } from 'a-iterable';
 import { nextArgs, NextCall, nextSkip, valuesProvider } from 'call-thru';
 import {
   afterAll,
@@ -16,7 +17,8 @@ import {
   eventSupply,
   EventSupply,
   EventSupply__symbol,
-  eventSupplyOf, isEventKeeper,
+  eventSupplyOf,
+  isEventKeeper,
   nextAfterEvent,
   OnEvent,
   OnEvent__symbol,
@@ -362,15 +364,24 @@ function parentsInMode(parents: InParents.All): NextCall<OnEventCallChain, [InMo
   return nextAfterEvent(afterEach(...parentModes).keep.thru_(mergeInModes));
 }
 
-/**
- * @internal
- */
 function mergeInModes(...modes: [InMode.Value][]): InMode.Value {
+  return inModeValue(...flatMapIt<InMode.Value>(modes));
+}
+
+/**
+ * Merges multiple input mode values.
+ *
+ * @category Aspect
+ * @param modes  Input mode values to merge.
+ *
+ * @returns Merged input mode value.
+ */
+export function inModeValue(...modes: InMode.Value[]): InMode.Value {
 
   let ro = false;
   let off = false;
 
-  for (const [mode] of modes) {
+  for (const mode of modes) {
     switch (mode) {
       case 'off':
         return 'off';
