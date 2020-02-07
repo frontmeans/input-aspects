@@ -1,13 +1,13 @@
 /**
- *@packageDocumentation
- *@module input-aspects
+ * @packageDocumentation
+ * @module input-aspects
  */
 import { InControl } from '../../control';
 import { InMode, inModeValue } from '../index';
 import { InSubmit } from '../../submit.aspect';
 
 /**
- * Creates an {@link InMode input mode} source which is updated depending on the given `form` control status.
+ * Creates an {@link InMode input mode} source depending on the given `form` control status.
  *
  * This can be applied e.g. to submit button, to form element (with another control!), or to input controls.
  * The defaults best suit the latter.
@@ -21,7 +21,7 @@ import { InSubmit } from '../../submit.aspect';
  * @param busy  Input mode to set while submitting. `ro` (read-only) by default. An `off` (disabled) value is a better
  * choice for submit button.
  *
- * @returns A source of input mode source.
+ * @returns A source of input mode.
  */
 export function inModeByForm(
     form: InControl<any>,
