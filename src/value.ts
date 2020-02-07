@@ -2,7 +2,7 @@
  * @packageDocumentation
  * @module input-aspects
  */
-import { OnEvent, trackValue } from 'fun-events';
+import { EventSupply, EventSupply__symbol, eventSupplyOf, OnEvent, trackValue } from 'fun-events';
 import { InControl } from './control';
 
 /**
@@ -26,6 +26,10 @@ export function inValue<Value>(initial: Value): InControl<Value> {
       return it.on;
     }
 
+    get [EventSupply__symbol](): EventSupply {
+      return eventSupplyOf(it);
+    }
+
     get it(): Value {
       return it.it;
     }
@@ -36,9 +40,5 @@ export function inValue<Value>(initial: Value): InControl<Value> {
 
   }
 
-  const control = new InValue();
-
-  control.whenDone(reason => it.done(reason));
-
-  return control;
+  return new InValue();
 }

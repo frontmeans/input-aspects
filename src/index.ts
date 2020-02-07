@@ -11,6 +11,5 @@ export * from './namespace-aliaser.aspect';
 export * from './render-scheduler.aspect';
 export * from './style';
 export * from './submit.aspect';
-export * from './supply.aspect';
 export * from './value';
 export * from './validation';

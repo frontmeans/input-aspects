@@ -16,6 +16,8 @@ import {
   EventSender,
   eventSupply,
   EventSupply,
+  EventSupply__symbol,
+  eventSupplyOf,
   nextAfterEvent,
   OnEvent,
   OnEvent__symbol,
@@ -27,7 +29,6 @@ import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';
 import { InData, InMode } from '../data';
-import { InSupply } from '../supply.aspect';
 import { inValue } from '../value';
 import { InContainer, InContainerControls } from './container.control';
 import { InParents } from './parents.aspect';
@@ -424,7 +425,7 @@ class InListControlControls<Item> extends InListControls<Item> {
     };
 
     this._entries._supply.needs(_list.read(applyModelToControls))
-        .needs(this._list.aspect(InSupply))
+        .needs(this._list)
         .whenOff(reason => this._updates.done(reason));
 
     this._entries._entries.forEach(entry => readControlValue(this, entry));
@@ -491,10 +492,11 @@ class InListControl<Item> extends InList<Item> {
     super();
     this._model = trackValue(model);
     this.controls = new InListControlControls(this);
-    this.whenDone(reason => {
-      this._model.done(reason);
-      this.controls.clear();
-    });
+    eventSupplyOf(this).whenOff(() => this.controls.clear());
+  }
+
+  get [EventSupply__symbol](): EventSupply {
+    return eventSupplyOf(this._model);
   }
 
   get on(): OnEvent<[readonly Item[], readonly Item[]]> {

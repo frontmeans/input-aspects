@@ -14,7 +14,7 @@ import {
   EventKeeper,
   EventNotifier,
   eventSupply,
-  EventSupply,
+  EventSupply, eventSupplyOf,
   isEventKeeper,
   nextAfterEvent,
   trackValue,
@@ -26,7 +26,6 @@ import { InAspect, InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
 import { InNamespaceAliaser } from '../namespace-aliaser.aspect';
 import { InRenderScheduler } from '../render-scheduler.aspect';
-import { InSupply } from '../supply.aspect';
 import { InStyledElement } from './styled-element.aspect';
 
 /**
@@ -191,9 +190,6 @@ class InControlCssClasses extends InCssClasses {
 
   constructor(private readonly _control: InControl<any>) {
     super();
-
-    const inSupply = _control.aspect(InSupply);
-
     this.read = this._sources.read.keep.thru_(
         ([sources]) => nextAfterEvent(afterEach(...sources.keys())),
         (...classes) => {
@@ -204,7 +200,7 @@ class InControlCssClasses extends InCssClasses {
 
           return result;
         },
-    ).tillOff(inSupply);
+    ).tillOff(_control);
     this.track = afterEventBy<[readonly string[], readonly string[]]>(receiver => {
 
       const classes = new DeltaSet<string>();
@@ -241,7 +237,7 @@ class InControlCssClasses extends InCssClasses {
           sendClasses();
         }
       });
-    }).tillOff(inSupply);
+    }).tillOff(_control);
 
     const element = _control.aspect(InStyledElement);
 
@@ -249,7 +245,7 @@ class InControlCssClasses extends InCssClasses {
       this.applyTo(element, this.schedule);
     }
 
-    inSupply.whenOff(reason => this.done(reason));
+    eventSupplyOf(_control).whenOff(reason => this.done(reason));
   }
 
   get schedule(): RenderSchedule {
@@ -287,7 +283,7 @@ class InControlCssClasses extends InCssClasses {
 
   add(source: InCssClasses.Source): EventSupply {
 
-    const inSupply = this._control.aspect(InSupply);
+    const inSupply = eventSupplyOf(this._control);
 
     if (inSupply.isOff) {
       return inSupply;

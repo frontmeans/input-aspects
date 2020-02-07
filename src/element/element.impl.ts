@@ -1,8 +1,15 @@
 import { asis, nextArgs, nextSkip } from 'call-thru';
-import { AfterEvent, afterSupplied, EventEmitter, OnEvent } from 'fun-events';
+import {
+  AfterEvent,
+  afterSupplied,
+  EventEmitter,
+  EventSupply,
+  EventSupply__symbol,
+  eventSupplyOf,
+  OnEvent,
+} from 'fun-events';
 import { DomEventDispatcher } from 'fun-events/dom';
 import { InElement } from '../element.control';
-import { InSupply } from '../supply.aspect';
 
 /**
  * @internal
@@ -18,6 +25,10 @@ export class InElementControl<Value, Elt extends HTMLElement> extends InElement<
   private _value: Value;
   // noinspection TypeScriptFieldCanBeMadeReadonly
   private _update: (value: Value, oldValue: Value) => void;
+
+  get [EventSupply__symbol](): EventSupply {
+    return eventSupplyOf(this._input);
+  }
 
   constructor(
       readonly element: Elt,
@@ -48,7 +59,7 @@ export class InElementControl<Value, Elt extends HTMLElement> extends InElement<
     this.events = new DomEventDispatcher(element);
 
     const self = this;
-    const supply = this.aspect(InSupply).whenOff(reason => this._input.done(reason));
+    const supply = eventSupplyOf(this);
     const onInput = (event: Event): void => send({ value: self.it, event }, self._value);
 
     this.events.on('input')(onInput).needs(supply);

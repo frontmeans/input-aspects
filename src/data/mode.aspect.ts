@@ -30,7 +30,6 @@ import { InParents } from '../container';
 import { InParentsAspect } from '../container/parents.aspect.impl';
 import { InControl } from '../control';
 import { InElement } from '../element.control';
-import { InSupply } from '../supply.aspect';
 
 /**
  * @internal
@@ -243,11 +242,10 @@ class InControlMode extends InMode {
     const element = _control.aspect(InElement);
 
     this.own = new OwnModeTracker(element);
+    eventSupplyOf(this.own).needs(_control);
     this.derive(_control.aspect(InParentsAspect).read.keep.thru_(parentsInMode));
 
     let last: InMode.Value = 'on';
-
-    const supply = _control.aspect(InSupply).whenOff(reason => this.own.done(reason));
 
     this.read = afterEventBy<[InMode.Value]>(
         afterAll({
@@ -280,7 +278,7 @@ class InControlMode extends InMode {
           return last === next ? nextSkip() : nextArgs(last = next);
         }),
         valuesProvider<[InMode.Value]>(last),
-    ).tillOff(supply);
+    ).tillOff(_control);
     if (element) {
       this.read(value => applyInMode(element.element, value));
     }
@@ -296,7 +294,7 @@ class InControlMode extends InMode {
   }
 
   derive(source: EventKeeper<[InMode.Value]>): EventSupply {
-    return this._derived.add(source).needs(this._control.aspect(InSupply));
+    return this._derived.add(source).needs(this._control);
   }
 
 }

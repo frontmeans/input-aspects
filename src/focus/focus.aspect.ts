@@ -56,6 +56,8 @@ class InControlFocus extends InFocus {
         : element.ownerDocument;
 
     this._it = trackValue(!!owner && owner.activeElement === element);
+    eventSupplyOf(this).needs(inElement);
+
     events.on('focus')(() => this._it.it = true);
     events.on('blur')(() => this._it.it = false);
     this.on({
@@ -68,8 +70,6 @@ class InControlFocus extends InFocus {
         }
       },
     });
-
-    inElement.whenDone(reason => this.done(reason));
   }
 
   get on(): OnEvent<[boolean, boolean]> {

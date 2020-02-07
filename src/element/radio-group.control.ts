@@ -4,7 +4,16 @@
  */
 import { itsEach, itsEvery, overEntries } from 'a-iterable';
 import { nextArg } from 'call-thru';
-import { afterAll, AfterEvent, OnEvent, trackValue, ValueTracker } from 'fun-events';
+import {
+  afterAll,
+  AfterEvent,
+  EventSupply,
+  EventSupply__symbol,
+  eventSupplyOf,
+  OnEvent,
+  trackValue,
+  ValueTracker,
+} from 'fun-events';
 import { InControl } from '../control';
 
 /**
@@ -86,12 +95,14 @@ class InRadioGroupControl<Value extends string | undefined> extends InControl<Va
           },
       );
     });
-
-    this.whenDone(reason => this._it.done(reason));
   }
 
   get on(): OnEvent<[Value, Value]> {
     return this._it.on;
+  }
+
+  get [EventSupply__symbol](): EventSupply {
+    return eventSupplyOf(this._it);
   }
 
   get it(): Value {

@@ -17,7 +17,6 @@ import {
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
 import { InControl } from '../control';
-import { InSupply } from '../supply.aspect';
 import { InContainer } from './container.control';
 
 /**
@@ -122,10 +121,9 @@ class InControlParents extends InParents {
   constructor(private readonly _control: InControl<any>) {
     super();
 
-    const inSupply = _control.aspect(InSupply);
     const map = this._map;
 
-    this.on = this._on.on.tillOff(inSupply);
+    this.on = this._on.on.tillOff(_control);
     this.read = afterEventBy(
         this.on.thru(
             allParents,
@@ -157,8 +155,8 @@ class InControlParents extends InParents {
     this._on.send([entry], []);
 
     return supply
-        .needs(this._control.aspect(InSupply))
-        .needs(entry.parent.aspect(InSupply));
+        .needs(this._control)
+        .needs(entry.parent);
   }
 
 }

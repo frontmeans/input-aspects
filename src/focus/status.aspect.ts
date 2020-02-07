@@ -19,7 +19,6 @@ import { inAspectSameOrBuild } from '../aspect.impl';
 import { InContainer } from '../container';
 import { InControl } from '../control';
 import { InElement } from '../element.control';
-import { InSupply } from '../supply.aspect';
 import { InFocus } from './focus.aspect';
 
 /**
@@ -143,7 +142,7 @@ class InControlStatus extends InStatus {
   constructor(control: InControl<any>) {
     super();
     this._flags.by(elementInStatusFlags(this._flags, control));
-    this.read = this._flags.read.tillOff(control.aspect(InSupply));
+    this.read = this._flags.read.tillOff(control);
   }
 
   markTouched(touched = true): this {
@@ -226,7 +225,7 @@ class InContainerStatus extends InStatus {
 
   constructor(private readonly _container: InContainer<any>) {
     super();
-    this.read = containerInStatusFlags(_container).tillOff(_container.aspect(InSupply));
+    this.read = containerInStatusFlags(_container).tillOff(_container);
   }
 
   markEdited(edited?: boolean): this {

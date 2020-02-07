@@ -3,10 +3,17 @@
  * @module input-aspects
  */
 import { asis, noop } from 'call-thru';
-import { EventEmitter, EventSupply, EventSupply__symbol, OnEvent, trackValue, ValueTracker } from 'fun-events';
+import {
+  EventEmitter, eventSupply,
+  EventSupply,
+  EventSupply__symbol,
+  eventSupplyOf,
+  OnEvent,
+  trackValue,
+  ValueTracker,
+} from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
 import { InConverter, intoConvertedBy, isInAspectConversion } from './converter';
-import { InSupply } from './supply.aspect';
 
 /**
  * User input control.
@@ -29,13 +36,16 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
   abstract it: Value;
 
   /**
-   * This control's event supply.
+   * This control's input supply.
+   *
+   * Releases all control resources when cut off.
+   *
+   * Each control has its own supply. An input supply of converted control depends on the input supply of control it
+   * is converted from.
    *
    * After this supply cut off the control should no longer be used.
    */
-  get [EventSupply__symbol](): EventSupply {
-    return this.aspect(InSupply);
-  }
+  abstract get [EventSupply__symbol](): EventSupply;
 
   /**
    * Retrieves an aspect instance applied to this control.
@@ -132,21 +142,6 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
   }
 
   /**
-   * Registers a callback function that will be called as soon as {@link InSupply input supply} is cut off.
-   *
-   * This callback will be called immediately if the supply is cut off already.
-   *
-   * @param callback  A callback function accepting optional cut off reason as its only parameter.
-   * By convenience an `undefined` reason means normal completion.
-   *
-   * @returns `this` instance.
-   */
-  whenDone(callback: (this: void, reason?: any) => void): this {
-    this.aspect(InSupply).whenOff(callback);
-    return this;
-  }
-
-  /**
    * @internal
    */
   _aspect<Instance, Kind extends InAspect.Application.Kind>(
@@ -209,6 +204,7 @@ export namespace InControl {
  */
 class InConverted<From, To> extends InControl<To> {
 
+  private readonly _supply: EventSupply;
   readonly on: OnEvent<[To, To]>;
   private readonly _it: ValueTracker<[To, number]>;
   protected readonly _applyAspect: <Instance, Kind extends InAspect.Application.Kind>(
@@ -218,6 +214,7 @@ class InConverted<From, To> extends InControl<To> {
 
   constructor(src: InControl<From>, by: InConverter.Factory<From, To>) {
     super();
+    this._supply = eventSupply().needs(src);
 
     let lastRev = 0;
     let backward: From | undefined;
@@ -255,6 +252,7 @@ class InConverted<From, To> extends InControl<To> {
 
     this._applyAspect = aspect => conversion.applyAspect?.(aspect) || convertAspect(aspect);
     this._it = trackValue([set(src.it), 0]);
+    eventSupplyOf(this._it).needs(this._supply);
     this._it.on(([newValue], [oldValue]) => {
       if (newValue !== oldValue) {
         on.send(newValue, oldValue);
@@ -276,8 +274,10 @@ class InConverted<From, To> extends InControl<To> {
         }
       }
     });
+  }
 
-    this.whenDone(reason => this._it.done(reason));
+  get [EventSupply__symbol](): EventSupply {
+    return this._supply;
   }
 
   get it(): To {

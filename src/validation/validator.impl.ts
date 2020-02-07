@@ -11,7 +11,6 @@ import {
   eventSupply,
 } from 'fun-events';
 import { InControl } from '../control';
-import { InSupply } from '../supply.aspect';
 import { InValidation } from './validation.aspect';
 import { inValidator, InValidator } from './validator';
 
@@ -34,8 +33,6 @@ export class InValidationMessages<Value> implements EventKeeper<InValidation.Mes
     let send: () => void = noop;
     // Validates using the given validator
     let validate: (validator: AfterEvent<InValidation.Message[]>, validatorSupply: EventSupply) => void = noop;
-
-    const supply = control.aspect(InSupply);
 
     this[AfterEvent__symbol] = afterEventBy(receiver => {
 
@@ -86,7 +83,7 @@ export class InValidationMessages<Value> implements EventKeeper<InValidation.Mes
       if (validatorMessages.size) {
         send();
       }
-    }).share().tillOff(supply);
+    }).share().tillOff(control);
 
     this.from = validator => {
 
@@ -98,7 +95,7 @@ export class InValidationMessages<Value> implements EventKeeper<InValidation.Mes
       validators.set(source, validatorSupply);
       validate(source, validatorSupply); // Start validation using validator
 
-      return validatorSupply.needs(supply);
+      return validatorSupply.needs(control);
     };
 
     function allMessages(): Iterable<InValidation.Message> {
