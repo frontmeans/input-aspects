@@ -197,7 +197,7 @@ describe('InGroup', () => {
 
     describe('clear', () => {
       it('removes all controls', () => {
-        expect(group.controls.clear()).toBe(group.controls);
+        group.controls.clear();
         expect([...lastSnapshot]).toHaveLength(0);
         expect(onUpdate).toHaveBeenCalledWith([], [['ctrl1', ctrl1], ['ctrl2', ctrl2]]);
         expect(onUpdate).toHaveBeenCalledTimes(1);

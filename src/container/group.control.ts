@@ -163,10 +163,8 @@ export abstract class InGroupControls<Model>
 
   /**
    * Removes all input controls.
-   *
-   * @returns `this` controls instance.
    */
-  abstract clear(): this;
+  abstract clear(): void;
 
 }
 
@@ -420,15 +418,13 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
     }
   }
 
-  clear(): this {
+  clear(): void {
 
     const removed = this._map.clear();
 
     if (removed.length) {
       this._updates.send([], removed);
     }
-
-    return this;
   }
 
 }
