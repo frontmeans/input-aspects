@@ -233,7 +233,6 @@ class InGroupMap<Model extends object> {
       removed: [keyof Model, InGroupEntry][],
   ): EventSupply {
 
-    const self = this;
     const replaced = this._map.get(key);
     let supply: EventSupply;
 
@@ -254,7 +253,7 @@ class InGroupMap<Model extends object> {
       }
 
       if (sendUpdate) {
-        modify().set(key, entry);
+        this.modify().set(key, entry);
         added.push([key, entry]);
       } else {
         this._map.set(key, entry);
@@ -263,7 +262,7 @@ class InGroupMap<Model extends object> {
       supply = noEventSupply();
       if (replaced) {
         removed.push([key, replaced]);
-        modify().delete(key);
+        this.modify().delete(key);
       }
     }
     if (replaced) {
@@ -271,19 +270,6 @@ class InGroupMap<Model extends object> {
     }
 
     return supply;
-
-    function modify(): Map<keyof Model, InGroupEntry> {
-      if (self._shot) {
-
-        const map = new Map<keyof Model, InGroupEntry>();
-
-        itsEach(self._map.entries(), ([k, e]) => map.set(k, e));
-        self._shot = undefined;
-        self._map = map;
-      }
-
-      return self._map;
-    }
   }
 
   private newEntry<K extends keyof Model>(
@@ -304,6 +290,19 @@ class InGroupMap<Model extends object> {
               reason => supply.off(reason === inControlReplacedReason ? undefined : reason),
           ),
     ];
+  }
+
+  private modify(): Map<keyof Model, InGroupEntry> {
+    if (this._shot) {
+
+      const map = new Map<keyof Model, InGroupEntry>();
+
+      itsEach(this._map.entries(), ([k, e]) => map.set(k, e));
+      this._shot = undefined;
+      this._map = map;
+    }
+
+    return this._map;
   }
 
   snapshot(): InGroup.Snapshot<Model> {
