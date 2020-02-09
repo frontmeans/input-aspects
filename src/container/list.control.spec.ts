@@ -142,6 +142,19 @@ describe('InList', () => {
         expect(snapshot.item(1)).toBe(ctrl2);
         expect([...snapshot]).toEqual([initControls[0], ctrl2, initControls[2]]);
       });
+      it('replaces control with itself', () => {
+
+        const newSupply = list.controls.set(1, ctrl2);
+
+        expect(supply.isOff).toBe(true);
+        expect(newSupply.isOff).toBe(false);
+        expect(snapshot).toHaveLength(3);
+        expect(snapshot.item(1)).toBe(ctrl2);
+        expect([...snapshot]).toEqual([initControls[0], ctrl2, initControls[2]]);
+
+        newSupply.off();
+        expect([...snapshot]).toEqual([initControls[0], initControls[2]]);
+      });
       it('sends update', () => {
         expect(onUpdate).toHaveBeenCalledWith([[1, ctrl2]], [[1, initControls[1]]]);
       });
@@ -220,6 +233,20 @@ describe('InList', () => {
       });
       it('updates model', () => {
         expect(list.it).toEqual(['11', '22', '33', '1', '2', '3']);
+      });
+      it('appends the same control again', () => {
+
+        const supply1 = list.controls.add(ctrl2);
+        const supply2 = list.controls.add(ctrl2);
+
+        expect([...snapshot]).toEqual([...initControls, ctrl1, ctrl2, ctrl3, ctrl2, ctrl2]);
+
+        supply2.off();
+        expect([...snapshot]).toEqual([...initControls, ctrl1, ctrl2, ctrl3, ctrl2]);
+        expect(supply1.isOff).toBe(false);
+
+        supply1.off();
+        expect([...snapshot]).toEqual([...initControls, ctrl1, ctrl2, ctrl3]);
       });
     });
 

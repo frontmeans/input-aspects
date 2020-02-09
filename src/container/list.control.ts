@@ -339,14 +339,17 @@ function inListEntry<Item>(
     entries: InListEntries<Item>,
     control: InControl<Item>,
 ): InListEntry<Item> {
-  return [
+
+  const entry: InListEntry<Item> = [
     control,
     eventSupply(reason => {
       if (reason !== inControlReplacedReason) {
-        entries._controls.remove(entries._entries.findIndex(e => e && e[0] === control));
+        entries._controls.remove(entries._entries.findIndex(e => e === entry));
       }
     }).needs(entries._supply),
   ];
+
+  return entry;
 }
 
 /**
