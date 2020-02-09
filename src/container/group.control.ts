@@ -13,8 +13,11 @@ import {
   EventKeeper,
   EventSender,
   eventSupply,
-  EventSupply, EventSupply__symbol, eventSupplyOf,
-  nextAfterEvent, noEventSupply,
+  EventSupply,
+  EventSupply__symbol,
+  eventSupplyOf,
+  nextAfterEvent,
+  noEventSupply,
   OnEvent,
   OnEvent__symbol,
   OnEventCallChain,
@@ -232,32 +235,32 @@ class InGroupMap<Model extends object> {
 
     const self = this;
     const replaced = this._map.get(key);
-    let result: EventSupply;
+    let supply: EventSupply;
 
     if (control) {
+      supply = eventSupply();
+
+      const entry = this.newEntry(key, control, supply);
+
+      let sendUpdate = true;
+
       if (replaced) {
         if (replaced[0] === control) {
-          // Do not replace control with itself
-          return replaced[1];
+          // Do not send update when replacing control with itself
+          sendUpdate = false;
+        } else {
+          removed.push([key, replaced]);
         }
-        removed.push([key, replaced]);
       }
 
-      result = eventSupply();
-
-      const supply = eventSupply(reason => {
-        if (reason !== inControlReplacedReason) {
-          self._controls.remove(key);
-        }
-      }).needs(self._supply).needs(result);
-      const entry: InGroupEntry = [control, supply];
-
-      supply.whenOff(reason => result.off(reason === inControlReplacedReason ? undefined : reason));
-
-      modify().set(key, entry);
-      added.push([key, entry]);
+      if (sendUpdate) {
+        modify().set(key, entry);
+        added.push([key, entry]);
+      } else {
+        this._map.set(key, entry);
+      }
     } else {
-      result = noEventSupply();
+      supply = noEventSupply();
       if (replaced) {
         removed.push([key, replaced]);
         modify().delete(key);
@@ -267,7 +270,7 @@ class InGroupMap<Model extends object> {
       replaced[1].off(inControlReplacedReason);
     }
 
-    return result;
+    return supply;
 
     function modify(): Map<keyof Model, InGroupEntry> {
       if (self._shot) {
@@ -281,6 +284,26 @@ class InGroupMap<Model extends object> {
 
       return self._map;
     }
+  }
+
+  private newEntry<K extends keyof Model>(
+      key: K,
+      control: InControl<Model[K]>,
+      supply: EventSupply,
+  ): InGroupEntry {
+    return [
+      control,
+      eventSupply(reason => {
+        if (reason !== inControlReplacedReason) {
+          this._controls.remove(key);
+        }
+      })
+          .needs(this._supply)
+          .needs(supply)
+          .whenOff(
+              reason => supply.off(reason === inControlReplacedReason ? undefined : reason),
+          ),
+    ];
   }
 
   snapshot(): InGroup.Snapshot<Model> {

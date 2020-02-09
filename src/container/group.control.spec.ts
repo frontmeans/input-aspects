@@ -128,14 +128,14 @@ describe('InGroup', () => {
         supply.whenOff(whenOff);
         expect(whenOff).toHaveBeenCalledWith(undefined);
       });
-      it('does not replace control with itself', () => {
-        group.controls.set('ctrl1', ctrl1);
+      it('replaces control with itself', () => {
+
+        const supply1 = group.controls.set('ctrl1', ctrl1);
+        const supply2 = group.controls.set('ctrl1', ctrl1);
 
         expect([...lastSnapshot]).toEqual([ctrl1, ctrl2]);
-        expect([...lastSnapshot.entries()]).toEqual([['ctrl1', ctrl1], ['ctrl2', ctrl2]]);
-        expect(lastSnapshot.get('ctrl1')).toBe(ctrl1);
-        expect(lastSnapshot.get('ctrl2')).toBe(ctrl2);
-        expect(lastSnapshot.get('ctrl3')).toBeUndefined();
+        expect(supply1.isOff).toBe(true);
+        expect(supply2.isOff).toBe(false);
         expect(onUpdate).not.toHaveBeenCalled();
         expect(readSnapshot).not.toHaveBeenCalled();
       });
