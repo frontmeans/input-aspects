@@ -8,7 +8,7 @@ import {
 } from 'render-scheduler';
 import { InControl } from '../../control';
 import { inValue } from '../../controls';
-import { InText } from '../text.control';
+import { inText, InText } from '../text.control';
 import { InCssClasses } from './css-classes.aspect';
 import Mock = jest.Mock;
 
