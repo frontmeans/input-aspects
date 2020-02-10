@@ -30,6 +30,7 @@ import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';
 import { inValue } from '../controls';
+import { InConverter } from '../converter';
 import { InData, InMode } from '../data';
 import { InContainer, InContainerControls } from './container.control';
 import { InParents } from './parents.aspect';
@@ -494,8 +495,13 @@ class InListControl<Item> extends InList<Item> {
   private readonly _model: ValueTracker<readonly Item[]>;
   readonly controls: InListControlControls<Item>;
 
-  constructor(model: readonly Item[]) {
-    super();
+  constructor(
+      model: readonly Item[],
+      opts: {
+        aspects?: InConverter.Aspect<readonly Item[]> | readonly InConverter.Aspect<readonly Item[]>[];
+      },
+  ) {
+    super(opts);
     this._model = trackValue(model);
     this.controls = new InListControlControls(this);
     eventSupplyOf(this).whenOff(() => this.controls.clear());
@@ -572,11 +578,20 @@ function readInListData<Item>(
  * @category Control
  * @typeparam Item  Model item type.
  * @param model  Initial model of the list.
+ * @param aspects  Input aspects applied by default. These are aspect converters to constructed control
+ * from {@link inValueOf same-valued one}.
  *
  * @returns New input controls group.
  */
-export function inList<Item>(model: readonly Item[]): InList<Item> {
-  return new InListControl(model);
+export function inList<Item>(
+    model: readonly Item[],
+    {
+      aspects,
+    }: {
+      aspects?: InConverter.Aspect<readonly Item[]> | readonly InConverter.Aspect<readonly Item[]>[];
+    } = {},
+): InList<Item> {
+  return new InListControl(model, { aspects });
 }
 
 declare module '../aspect' {
