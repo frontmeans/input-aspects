@@ -1,5 +1,5 @@
 import { newNamespaceAliaser } from 'namespace-aliaser';
-import { InNamespaceAliaser } from '../namespace-aliaser.aspect';
+import { InNamespaceAliaser } from '../aspects';
 import { InCheckbox, inCheckbox } from './checkbox.control';
 
 describe('InCheckbox', () => {

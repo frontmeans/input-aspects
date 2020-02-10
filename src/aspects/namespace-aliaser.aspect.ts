@@ -3,9 +3,9 @@
  * @module input-aspects
  */
 import { NamespaceAliaser, NamespaceDef, newNamespaceAliaser } from 'namespace-aliaser';
-import { InAspect, InAspect__symbol } from './aspect';
-import { inAspectValue } from './aspect.impl';
-import { InConverter } from './converter';
+import { InAspect, InAspect__symbol } from '../aspect';
+import { inAspectValue } from '../aspect.impl';
+import { InConverter } from '../converter';
 
 /**
  * Namespace aliaser aspect.

@@ -1,10 +1,10 @@
 import { EventSupply } from 'fun-events';
 import { newManualRenderScheduler } from 'render-scheduler';
 import { InAspect__symbol } from '../aspect';
+import { InRenderScheduler } from '../aspects';
 import { InControl } from '../control';
 import { inValue } from '../controls';
 import { InData, InMode } from '../data';
-import { InRenderScheduler } from '../render-scheduler.aspect';
 import { InContainer } from './container.control';
 import { InGroup } from './group.control';
 import { inList, InList } from './list.control';

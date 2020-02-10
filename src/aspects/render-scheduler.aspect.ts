@@ -3,9 +3,9 @@
  * @module input-aspects
  */
 import { newRenderSchedule, RenderScheduler } from 'render-scheduler';
-import { InAspect, InAspect__symbol } from './aspect';
-import { inAspectValue } from './aspect.impl';
-import { InConverter } from './converter';
+import { InAspect, InAspect__symbol } from '../aspect';
+import { inAspectValue } from '../aspect.impl';
+import { InConverter } from '../converter';
 
 /**
  * Input elements render scheduler.

@@ -1,11 +1,11 @@
 import { afterSupplied, onSupplied } from 'fun-events';
 import { newManualRenderScheduler } from 'render-scheduler';
 import { InAspect__symbol } from '../aspect';
+import { InRenderScheduler } from '../aspects';
 import { InControl } from '../control';
 import { inValue } from '../controls';
 import { intoFallback } from '../conversion';
 import { InData, InMode } from '../data';
-import { InRenderScheduler } from '../render-scheduler.aspect';
 import { InStyledElement } from '../style';
 import { InContainer } from './container.control';
 import { inGroup, InGroup, InGroupControls } from './group.control';

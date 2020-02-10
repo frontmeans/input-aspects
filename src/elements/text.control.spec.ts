@@ -2,10 +2,10 @@ import { EventSupply } from 'fun-events';
 import { newNamespaceAliaser } from 'namespace-aliaser';
 import { InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
+import { InNamespaceAliaser } from '../aspects';
 import { inValue } from '../controls';
 import { intoInteger } from '../conversion';
 import { InElement } from '../element.control';
-import { InNamespaceAliaser } from '../namespace-aliaser.aspect';
 import { InText, inText } from './text.control';
 import Mock = jest.Mock;
 

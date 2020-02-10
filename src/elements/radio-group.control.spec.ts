@@ -1,6 +1,6 @@
 import { EventSupply } from 'fun-events';
 import { newNamespaceAliaser } from 'namespace-aliaser';
-import { InNamespaceAliaser } from '../namespace-aliaser.aspect';
+import { InNamespaceAliaser } from '../aspects';
 import { inRadioGroup, InRadioGroup } from './radio-group.control';
 import { inRadio, InRadio } from './radio.control';
 import Mock = jest.Mock;

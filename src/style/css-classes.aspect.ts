@@ -24,9 +24,8 @@ import {
 import { css__naming, isQualifiedName, QualifiedName } from 'namespace-aliaser';
 import { RenderSchedule } from 'render-scheduler';
 import { InAspect, InAspect__symbol } from '../aspect';
+import { InNamespaceAliaser, InRenderScheduler } from '../aspects';
 import { InControl } from '../control';
-import { InNamespaceAliaser } from '../namespace-aliaser.aspect';
-import { InRenderScheduler } from '../render-scheduler.aspect';
 import { InStyledElement } from './styled-element.aspect';
 
 /**

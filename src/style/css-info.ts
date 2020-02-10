@@ -5,10 +5,10 @@
 import { nextArgs } from 'call-thru';
 import { afterAll } from 'fun-events';
 import { NamespaceDef, QualifiedName } from 'namespace-aliaser';
+import { InputAspects__NS } from '../aspects';
 import { InControl } from '../control';
 import { InMode } from '../data';
 import { InStatus } from '../focus';
-import { InputAspects__NS } from '../namespace-aliaser.aspect';
 import { InValidation } from '../validation';
 import { InCssClasses } from './css-classes.aspect';
 

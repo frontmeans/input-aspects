@@ -1,4 +1,5 @@
 export * from './aspect';
+export * from './aspects';
 export * from './container';
 export * from './control';
 export * from './controls';
@@ -9,8 +10,6 @@ export * from './data/modes';
 export * from './element.control';
 export * from './elements';
 export * from './focus';
-export * from './namespace-aliaser.aspect';
-export * from './render-scheduler.aspect';
 export * from './style';
 export * from './submit.aspect';
 export * from './validation';

@@ -1,6 +1,6 @@
 import { newNamespaceAliaser } from 'namespace-aliaser';
+import { InNamespaceAliaser } from '../aspects';
 import { InMode } from '../data';
-import { InNamespaceAliaser } from '../namespace-aliaser.aspect';
 import { InRadio, inRadio } from './radio.control';
 
 describe('InRadio', () => {

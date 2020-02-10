@@ -1,9 +1,8 @@
 import { EventSupply } from 'fun-events';
 import { newNamespaceAliaser } from 'namespace-aliaser';
 import { newManualRenderScheduler } from 'render-scheduler';
+import { InNamespaceAliaser, InRenderScheduler } from '../aspects';
 import { InControl } from '../control';
-import { InNamespaceAliaser } from '../namespace-aliaser.aspect';
-import { InRenderScheduler } from '../render-scheduler.aspect';
 import { inValue } from './value.control';
 import Mock = jest.Mock;
 

@@ -1,5 +1,5 @@
 import { newNamespaceAliaser } from 'namespace-aliaser';
-import { InNamespaceAliaser } from '../namespace-aliaser.aspect';
+import { InNamespaceAliaser } from '../aspects';
 import { InSelect, inSelect } from './select.control';
 
 describe('InSelect', () => {
