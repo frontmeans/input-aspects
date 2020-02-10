@@ -1,6 +1,6 @@
 import { afterSupplied, EventSupply, onSupplied } from 'fun-events';
 import { InControl } from '../control';
-import { inValue } from '../value';
+import { inValue } from '../controls';
 import { InContainer } from './container.control';
 import { inGroup } from './group.control';
 import { InParents } from './parents.aspect';

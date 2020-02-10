@@ -3,7 +3,7 @@
  * @module input-aspects
  */
 import { EventSupply, EventSupply__symbol, eventSupplyOf, OnEvent, trackValue } from 'fun-events';
-import { InControl } from './control';
+import { InControl } from '../control';
 
 /**
  * Constructs simple input control.

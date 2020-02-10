@@ -2,12 +2,13 @@ import { afterSupplied, afterThe, EventSupply, trackValue, ValueTracker } from '
 import {
   immediateRenderScheduler,
   ManualRenderScheduler,
-  newManualRenderScheduler, RenderSchedule,
+  newManualRenderScheduler,
+  RenderSchedule,
   setRenderScheduler,
 } from 'render-scheduler';
 import { InControl } from '../control';
+import { inValue } from '../controls';
 import { inText, InText } from '../element';
-import { inValue } from '../value';
 import { InCssClasses } from './css-classes.aspect';
 import Mock = jest.Mock;
 

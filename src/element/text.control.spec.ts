@@ -1,9 +1,9 @@
 import { EventSupply } from 'fun-events';
 import { InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
+import { inValue } from '../controls';
 import { intoInteger } from '../conversion';
 import { InElement } from '../element.control';
-import { inValue } from '../value';
 import { InText, inText } from './text.control';
 import Mock = jest.Mock;
 

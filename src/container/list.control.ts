@@ -18,7 +18,8 @@ import {
   EventSupply,
   EventSupply__symbol,
   eventSupplyOf,
-  nextAfterEvent, noEventSupply,
+  nextAfterEvent,
+  noEventSupply,
   OnEvent,
   OnEvent__symbol,
   OnEventCallChain,
@@ -28,8 +29,8 @@ import {
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';
+import { inValue } from '../controls';
 import { InData, InMode } from '../data';
-import { inValue } from '../value';
 import { InContainer, InContainerControls } from './container.control';
 import { InParents } from './parents.aspect';
 

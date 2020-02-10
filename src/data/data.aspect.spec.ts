@@ -1,8 +1,8 @@
 import { noop } from 'call-thru';
 import { EventSupply } from 'fun-events';
 import { InControl } from '../control';
+import { inValue } from '../controls';
 import { intoInteger } from '../conversion';
-import { inValue } from '../value';
 import { InData } from './data.aspect';
 import { InMode } from './mode.aspect';
 

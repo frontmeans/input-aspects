@@ -1,8 +1,8 @@
 import { asis, noop } from 'call-thru';
 import { afterThe } from 'fun-events';
 import { InControl } from '../../control';
+import { inValue } from '../../controls';
 import { InSubmit, InSubmitRejectedError } from '../../submit.aspect';
-import { inValue } from '../../value';
 import { InMode } from '../index';
 import { inModeByForm } from './mode-by-form';
 

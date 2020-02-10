@@ -1,9 +1,9 @@
 import { afterSupplied, onSupplied } from 'fun-events';
 import { InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
+import { inValue } from '../controls';
 import { intoFallback } from '../conversion';
 import { InData, InMode } from '../data';
-import { inValue } from '../value';
 import { InContainer } from './container.control';
 import { inGroup, InGroup, InGroupControls } from './group.control';
 import { InList } from './list.control';

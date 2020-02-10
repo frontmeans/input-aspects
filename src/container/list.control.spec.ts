@@ -1,8 +1,8 @@
 import { EventSupply } from 'fun-events';
 import { InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
+import { inValue } from '../controls';
 import { InData, InMode } from '../data';
-import { inValue } from '../value';
 import { InContainer } from './container.control';
 import { InGroup } from './group.control';
 import { inList, InList } from './list.control';

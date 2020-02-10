@@ -1,7 +1,7 @@
 import { valuesProvider } from 'call-thru';
 import { afterSupplied, EventEmitter } from 'fun-events';
 import { InControl } from '../control';
-import { inValue } from '../value';
+import { inValue } from '../controls';
 import { requireAll } from './require-all.validator';
 import { requireNothing } from './require-nothing.validator';
 import { InValidation } from './validation.aspect';

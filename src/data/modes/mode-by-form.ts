@@ -3,8 +3,8 @@
  * @module input-aspects
  */
 import { InControl } from '../../control';
-import { InMode, inModeValue } from '../index';
 import { InSubmit } from '../../submit.aspect';
+import { InMode, inModeValue } from '../index';
 
 /**
  * Creates an {@link InMode input mode} source depending on the given `form` control status.

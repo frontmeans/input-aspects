@@ -1,5 +1,5 @@
 import { InControl } from '../control';
-import { inValue } from '../value';
+import { inValue } from '../controls';
 import { requirePresent } from './require-present.validator';
 import { InValidation } from './validation.aspect';
 

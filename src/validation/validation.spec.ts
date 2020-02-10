@@ -10,7 +10,7 @@ import {
 } from 'fun-events';
 import { inGroup, InGroup } from '../container';
 import { InControl } from '../control';
-import { inValue } from '../value';
+import { inValue } from '../controls';
 import { InValidation } from './validation.aspect';
 import { InValidator } from './validator';
 import Mock = jest.Mock;
