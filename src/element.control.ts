@@ -6,7 +6,7 @@ import { AfterEvent } from 'fun-events';
 import { DomEventDispatcher } from 'fun-events/dom';
 import { InAspect, InAspect__symbol } from './aspect';
 import { inAspectSameOrNull } from './aspect.impl';
-import { InControl } from './control';
+import { AbstractInControl } from './controls';
 
 /**
  * @internal
@@ -26,7 +26,7 @@ const InElement__aspect: InAspect<InElement<any> | null, 'element'> = {
  * @typeparam Value  Input value type.
  * @typeparam Elt  A type of input HTML element.
  */
-export abstract class InElement<Value, Elt = HTMLElement> extends InControl<Value> {
+export abstract class InElement<Value, Elt = HTMLElement> extends AbstractInControl<Value> {
 
   /**
    * HTML input element this control is based on.
@@ -48,15 +48,15 @@ export abstract class InElement<Value, Elt = HTMLElement> extends InControl<Valu
   }
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
-      aspect: InAspect<any, any>,
+      aspect: InAspect<Instance, Kind>,
   ): InAspect.Application.Result<Instance, Value, Kind> | undefined {
-    return aspect === InElement__aspect
+    return aspect as InAspect<any, any> === InElement__aspect
         ? inAspectSameOrNull(
             this,
             InElement,
             this as InElement<Value, any>,
         ) as InAspect.Application.Result<Instance, Value, Kind>
-        : undefined;
+        : super._applyAspect(aspect);
   }
 
 }
