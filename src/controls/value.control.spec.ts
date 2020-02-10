@@ -1,6 +1,6 @@
 import { EventSupply } from 'fun-events';
 import { InControl } from '../control';
-import { inValue } from './value';
+import { inValue } from './value.control';
 import Mock = jest.Mock;
 
 describe('InValue', () => {
