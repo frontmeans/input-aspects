@@ -12,24 +12,23 @@ import { InElement } from '../../element.control';
 import { InElementControl } from '../element.impl';
 
 /**
- * Form element control.
+ * Form submit button control.
  *
- * It is connected to control to submit (form), but is not intended for submission itself, and has no value.
+ * It is connected to control to submit (form) and may change submit button state depending on form submit status.
+ * E.g. by disabling it when submit is {@link InSubmit.Flags.ready not ready}, or while {@link InSubmit.Flags.busy
+ * submitting} the form.
  *
- * It is used to update form element state. E.g. to make it read-only when {@link InSubmit.Flags.busy submitting}
- * the form.
- *
- * Form element control can be created by [[inFormElement]] function.
+ * Submit button control can be created by [[inSubmitButton]] function.
  *
  * @category Control
- * @typeparam Elt  A type of HTML form element.
+ * @typeparam Elt  A type of submit button element.
  */
-export type InFormElement<Elt extends HTMLElement = HTMLElement> = InElement<void, Elt>;
+export type InSubmitButton<Elt extends HTMLElement = HTMLElement> = InElement<void, Elt>;
 
-export namespace InFormElement {
+export namespace InSubmitButton {
 
   /**
-   * Form element control options.
+   * Submit button control options.
    */
   export interface Options {
 
@@ -47,7 +46,7 @@ export namespace InFormElement {
     /**
      * Input modes to derive from submitted control.
      *
-     * Applied to form element control by [[inModeByForm]].
+     * Applied to submit button control by [[inModeByForm]].
      */
     modes?: {
 
@@ -57,12 +56,12 @@ export namespace InFormElement {
       readonly notReady?: InMode.Value;
 
       /**
-       * Input mode to set when submit is not ready _and_ the form is submitted. `on` (enabled) by default.
+       * Input mode to set when submit is not ready _and_ the form is submitted. `off` (disable) by default.
        */
       readonly invalid?: InMode.Value;
 
       /**
-       * Input mode to set while submitting. `ro` (read-only) by default.
+       * Input mode to set while submitting. `off` (disabled) by default.
        */
       readonly busy?: InMode.Value;
 
@@ -73,20 +72,20 @@ export namespace InFormElement {
 }
 
 /**
- * Creates form element control.
+ * Creates submit button control.
  *
  * @category Control
- * @param element  HTML element to create control for.
- * @param options  Form element control options.
+ * @param element  Submit button element to create control for.
+ * @param options  Submit button control options.
  *
- * @returns New form element control.
+ * @returns New submit button control.
  */
-export function inFormElement<Elt extends HTMLElement>(
+export function inSubmitButton<Elt extends HTMLElement>(
     element: Elt,
-    options: InFormElement.Options,
-): InFormElement<Elt> {
+    options: InSubmitButton.Options,
+): InSubmitButton<Elt> {
 
-  const { form, aspects, modes } = options;
+  const { form, aspects, modes: { notReady = 'on', invalid = 'off', busy = 'off' } = {} } = options;
   const control = new InElementControl<void, Elt>(
       element,
       {
@@ -97,7 +96,7 @@ export function inFormElement<Elt extends HTMLElement>(
   );
 
   eventSupplyOf(control).needs(form);
-  control.aspect(InMode).derive(inModeByForm(form, modes));
+  control.aspect(InMode).derive(inModeByForm(form, { notReady, invalid, busy }));
 
   return control;
 }

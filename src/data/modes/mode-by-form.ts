@@ -9,8 +9,8 @@ import { InMode, inModeValue } from '../mode.aspect';
 /**
  * Creates an {@link InMode input mode} source depending on the given `form` control status.
  *
- * This can be applied e.g. to submit button, to form element (with another control!), or to input controls.
- * The defaults best suit the latter.
+ * This can be applied e.g. to {@link InSubmitButton submit button}, to {@link InFormElement form element},
+ * or to input controls. The defaults best suit the latter.
  *
  * @category Aspect
  * @param form  Form control the evaluated mode depends on. Should not be the same as the target control!
