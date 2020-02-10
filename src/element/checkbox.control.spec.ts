@@ -1,3 +1,5 @@
+import { newNamespaceAliaser } from 'namespace-aliaser';
+import { InNamespaceAliaser } from '../namespace-aliaser.aspect';
 import { InCheckbox, inCheckbox } from './checkbox.control';
 
 describe('InCheckbox', () => {
@@ -7,6 +9,14 @@ describe('InCheckbox', () => {
   beforeEach(() => {
     checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
+  });
+
+  it('accepts default aspects', () => {
+
+    const nsAlias = newNamespaceAliaser();
+    const control = inCheckbox(checkbox, { aspects: InNamespaceAliaser.to(nsAlias) });
+
+    expect(control.aspect(InNamespaceAliaser)).toBe(nsAlias);
   });
 
   describe('default', () => {
