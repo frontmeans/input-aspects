@@ -2,11 +2,11 @@
  * @packageDocumentation
  * @module input-aspects
  */
-import { InAspect, InAspect__symbol } from '../aspect';
-import { inAspectNull, inAspectValue } from '../aspect.impl';
-import { InControl } from '../control';
-import { InConverter } from '../converter';
-import { InElement } from '../element.control';
+import { InAspect, InAspect__symbol } from '../../aspect';
+import { inAspectNull, inAspectValue } from '../../aspect.impl';
+import { InControl } from '../../control';
+import { InConverter } from '../../converter';
+import { InElement } from '../../element.control';
 
 /**
  * An input aspect representing DOM element to apply styles to.

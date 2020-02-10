@@ -4,10 +4,10 @@
  */
 import { noop } from 'call-thru';
 import { EventSupply, EventSupply__symbol, eventSupplyOf, OnEvent, trackValue, ValueTracker } from 'fun-events';
-import { InAspect, InAspect__symbol } from '../aspect';
-import { inAspectSameOrBuild } from '../aspect.impl';
-import { InControl } from '../control';
-import { InElement } from '../element.control';
+import { InAspect, InAspect__symbol } from '../../aspect';
+import { inAspectSameOrBuild } from '../../aspect.impl';
+import { InControl } from '../../control';
+import { InElement } from '../../element.control';
 
 /**
  * @internal

@@ -5,7 +5,7 @@ import { inValue } from '../controls';
 import { InElement } from '../element.control';
 import { inText, InText } from '../elements';
 import { InRenderScheduler } from './render-scheduler.aspect';
-import { InStyledElement } from '../style';
+import { InStyledElement } from '../elements/style';
 
 describe('InRenderScheduler', () => {
   it('is `newRenderSchedule` by default', () => {

@@ -5,11 +5,11 @@
 import { nextArgs } from 'call-thru';
 import { afterAll } from 'fun-events';
 import { NamespaceDef, QualifiedName } from 'namespace-aliaser';
-import { InputAspects__NS } from '../aspects';
-import { InControl } from '../control';
-import { InMode } from '../data';
+import { InputAspects__NS } from '../../aspects';
+import { InControl } from '../../control';
+import { InMode } from '../../data';
 import { InStatus } from '../focus';
-import { InValidation } from '../validation';
+import { InValidation } from '../../validation';
 import { InCssClasses } from './css-classes.aspect';
 
 /**

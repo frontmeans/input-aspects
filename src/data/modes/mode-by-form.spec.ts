@@ -3,7 +3,7 @@ import { afterThe } from 'fun-events';
 import { InControl } from '../../control';
 import { inValue } from '../../controls';
 import { InSubmit, InSubmitRejectedError } from '../../submit.aspect';
-import { InMode } from '../index';
+import { InMode } from '../mode.aspect';
 import { inModeByForm } from './mode-by-form';
 
 describe('inModeByForm', () => {

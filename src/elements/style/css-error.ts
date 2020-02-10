@@ -3,8 +3,8 @@
  * @module input-aspects
  */
 import { nextArgs } from 'call-thru';
-import { InputAspects__NS } from '../aspects';
-import { InValidation } from '../validation';
+import { InputAspects__NS } from '../../aspects';
+import { InValidation } from '../../validation';
 import { InCssClasses } from './css-classes.aspect';
 
 /**

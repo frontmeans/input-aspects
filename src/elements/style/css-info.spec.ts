@@ -1,11 +1,11 @@
 import { afterThe } from 'fun-events';
 import { NamespaceDef, newNamespaceAliaser } from 'namespace-aliaser';
 import { immediateRenderScheduler, setRenderScheduler } from 'render-scheduler';
-import { InNamespaceAliaser, InputAspects__NS } from '../aspects';
-import { InControl } from '../control';
-import { InMode } from '../data';
-import { inText } from '../elements';
-import { InValidation } from '../validation';
+import { InNamespaceAliaser, InputAspects__NS } from '../../aspects';
+import { InControl } from '../../control';
+import { InMode } from '../../data';
+import { InValidation } from '../../validation';
+import { inText } from '../text.control';
 import { InCssClasses } from './css-classes.aspect';
 import { inCssInfo } from './css-info';
 

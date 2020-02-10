@@ -4,7 +4,7 @@
  */
 import { InControl } from '../../control';
 import { InSubmit } from '../../submit.aspect';
-import { InMode, inModeValue } from '../index';
+import { InMode, inModeValue } from '../mode.aspect';
 
 /**
  * Creates an {@link InMode input mode} source depending on the given `form` control status.

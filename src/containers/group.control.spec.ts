@@ -6,7 +6,7 @@ import { InControl } from '../control';
 import { inValue } from '../controls';
 import { intoFallback } from '../conversion';
 import { InData, InMode } from '../data';
-import { InStyledElement } from '../style';
+import { InStyledElement } from '../elements/style';
 import { InContainer } from './container.control';
 import { inGroup, InGroup, InGroupControls } from './group.control';
 import { InList } from './list.control';

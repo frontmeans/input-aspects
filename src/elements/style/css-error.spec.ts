@@ -2,11 +2,12 @@
 import { afterThe, EventSupply } from 'fun-events';
 import { css__naming, QualifiedName } from 'namespace-aliaser';
 import { immediateRenderScheduler, setRenderScheduler } from 'render-scheduler';
-import { InNamespaceAliaser, InputAspects__NS } from '../aspects';
-import { InControl } from '../control';
-import { inText } from '../elements';
-import { InValidation } from '../validation';
-import { InCssClasses, inCssError } from './index';
+import { InNamespaceAliaser, InputAspects__NS } from '../../aspects';
+import { InControl } from '../../control';
+import { InValidation } from '../../validation';
+import { inText } from '../text.control';
+import { InCssClasses } from './css-classes.aspect';
+import { inCssError } from './css-error';
 
 describe('inCssError', () => {
   beforeEach(() => {
