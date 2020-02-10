@@ -1,8 +1,8 @@
 import { newNamespaceAliaser } from 'namespace-aliaser';
 import { InControl } from './control';
 import { inValue } from './controls';
-import { inText, InText } from './element';
 import { InElement } from './element.control';
+import { inText, InText } from './elements';
 import { InNamespaceAliaser } from './namespace-aliaser.aspect';
 
 describe('InNamespaceAliaser', () => {

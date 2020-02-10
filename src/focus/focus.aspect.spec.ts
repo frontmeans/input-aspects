@@ -1,7 +1,7 @@
 import { InControl } from '../control';
 import { inValue } from '../controls';
 import { intoInteger } from '../conversion/into-integer';
-import { inText } from '../element';
+import { inText } from '../elements';
 import { InFocus } from './focus.aspect';
 
 describe('InFocus', () => {

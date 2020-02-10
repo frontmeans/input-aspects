@@ -1,8 +1,8 @@
 import { afterSupplied, EventSupply, onSupplied, trackValue, ValueTracker } from 'fun-events';
 import { inGroup, InGroup } from '../container';
 import { intoInteger } from '../conversion';
-import { inText } from '../element';
 import { InElement } from '../element.control';
+import { inText } from '../elements';
 import { InMode } from './mode.aspect';
 import Mock = jest.Mock;
 

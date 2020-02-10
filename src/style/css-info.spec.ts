@@ -3,7 +3,7 @@ import { NamespaceDef, newNamespaceAliaser } from 'namespace-aliaser';
 import { immediateRenderScheduler, setRenderScheduler } from 'render-scheduler';
 import { InControl } from '../control';
 import { InMode } from '../data';
-import { inText } from '../element';
+import { inText } from '../elements';
 import { InNamespaceAliaser, InputAspects__NS } from '../namespace-aliaser.aspect';
 import { InValidation } from '../validation';
 import { InCssClasses } from './css-classes.aspect';

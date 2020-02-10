@@ -2,8 +2,8 @@ import { newManualRenderScheduler, newRenderSchedule } from 'render-scheduler';
 import { InContainer } from './container';
 import { InControl } from './control';
 import { inValue } from './controls';
-import { inText, InText } from './element';
 import { InElement } from './element.control';
+import { inText, InText } from './elements';
 import { InRenderScheduler } from './render-scheduler.aspect';
 import { InStyledElement } from './style';
 

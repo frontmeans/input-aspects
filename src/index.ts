@@ -6,7 +6,7 @@ export * from './conversion';
 export * from './converter';
 export * from './data';
 export * from './data/modes';
-export * from './element';
+export * from './elements';
 export * from './element.control';
 export * from './focus';
 export * from './namespace-aliaser.aspect';
