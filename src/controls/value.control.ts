@@ -4,6 +4,8 @@
  */
 import { EventSupply, EventSupply__symbol, eventSupplyOf, OnEvent, trackValue } from 'fun-events';
 import { InControl } from '../control';
+import { InConverter } from '../converter';
+import { AbstractInControl } from './abstract.control';
 
 /**
  * Constructs simple input control.
@@ -13,14 +15,27 @@ import { InControl } from '../control';
  * @category Control
  * @typeparam Value  Input value type.
  * @param initial  Initial input value.
+ * @param aspects  Input aspects applied by default. These are aspect converters to constructed control
+ * from the {@link inValueOf same-valued one}.
  *
  * @returns New input control.
  */
-export function inValue<Value>(initial: Value): InControl<Value> {
+export function inValue<Value>(
+    initial: Value,
+    {
+      aspects,
+    }: {
+      aspects?: InConverter.Aspect<Value> | readonly InConverter.Aspect<Value>[];
+    } = {},
+): InControl<Value> {
 
   const it = trackValue(initial);
 
-  class InValue extends InControl<Value> {
+  class InValue extends AbstractInControl<Value> {
+
+    constructor() {
+      super({ aspects });
+    }
 
     get on(): OnEvent<[Value, Value]> {
       return it.on;

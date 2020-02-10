@@ -23,14 +23,14 @@ export abstract class AbstractInControl<Value> extends InControl<Value> {
    * Constructs input control.
    *
    * @param aspects  Input aspects applied by default. These are aspect converters to constructed control
-   * from {@link inValueOf same-valued one}.
+   * from the {@link inValueOf same-valued one}.
    */
   protected constructor(
       {
         aspects,
       }: {
         aspects?: InConverter.Aspect<Value> | readonly InConverter.Aspect<Value>[];
-      } = {},
+      },
   ) {
     super();
 

@@ -1,5 +1,9 @@
 import { EventSupply } from 'fun-events';
+import { newNamespaceAliaser } from 'namespace-aliaser';
+import { newManualRenderScheduler } from 'render-scheduler';
 import { InControl } from '../control';
+import { InNamespaceAliaser } from '../namespace-aliaser.aspect';
+import { InRenderScheduler } from '../render-scheduler.aspect';
 import { inValue } from './value.control';
 import Mock = jest.Mock;
 
@@ -9,6 +13,25 @@ describe('InValue', () => {
 
   beforeEach(() => {
     control = inValue('old');
+  });
+
+  describe('aspects', () => {
+    it('accepts default aspect', () => {
+
+      const nsAlias = newNamespaceAliaser();
+
+      control = inValue('test', { aspects: InNamespaceAliaser.to(nsAlias) });
+      expect(control.aspect(InNamespaceAliaser)).toBe(nsAlias);
+    });
+    it('accepts default aspects', () => {
+
+      const nsAlias = newNamespaceAliaser();
+      const scheduler = newManualRenderScheduler();
+
+      control = inValue('test', { aspects: [InNamespaceAliaser.to(nsAlias), InRenderScheduler.to(scheduler)] });
+      expect(control.aspect(InNamespaceAliaser)).toBe(nsAlias);
+      expect(control.aspect(InRenderScheduler)).toBe(scheduler);
+    });
   });
 
   describe('it', () => {
