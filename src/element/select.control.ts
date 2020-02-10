@@ -3,6 +3,7 @@
  * @module input-aspects
  */
 import { filterIt, itsEach, overArray, reverseIt } from 'a-iterable';
+import { InConverter } from '../converter';
 import { InElement } from '../element.control';
 import { InElementControl } from './element.impl';
 
@@ -11,7 +12,7 @@ import { InElementControl } from './element.impl';
  *
  * @category Control
  */
-export type InSelect = InElement<string[], HTMLSelectElement>;
+export type InSelect = InElement<readonly string[], HTMLSelectElement>;
 
 /**
  * Creates input control for the given select element.
@@ -21,13 +22,23 @@ export type InSelect = InElement<string[], HTMLSelectElement>;
  *
  * @category Control
  * @param element  Target select element.
+ * @param aspects  Input aspects applied by default. These are aspect converters to constructed control
+ * from the {@link inValueOf same-valued one}.
  *
  * @return New select input control instance.
  */
-export function inSelect(element: HTMLSelectElement): InSelect {
+export function inSelect(
+    element: HTMLSelectElement,
+    {
+      aspects,
+    }: {
+      readonly aspects?: InConverter.Aspect<readonly string[]> | readonly InConverter.Aspect<readonly string[]>[];
+    } = {},
+): InSelect {
   return new InElementControl(
       element,
       {
+        aspects,
         get(): string[] {
           return Array.from(
               filterIt(

@@ -34,13 +34,13 @@ export class InElementControl<Value, Elt extends HTMLElement> extends InElement<
   constructor(
       readonly element: Elt,
       {
+        aspects,
         get,
         set,
-        aspects,
       }: {
+        readonly aspects?: InConverter.Aspect<Value> | readonly InConverter.Aspect<Value>[];
         readonly get: (this: InElementControl<Value, Elt>) => Value;
         readonly set: (this: InElementControl<Value, Elt>, value: Value) => void;
-        readonly aspects?: InConverter.Aspect<Value> | readonly InConverter.Aspect<Value>[];
       },
   ) {
     super({ aspects });
