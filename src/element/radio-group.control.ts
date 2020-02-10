@@ -15,6 +15,8 @@ import {
   ValueTracker,
 } from 'fun-events';
 import { InControl } from '../control';
+import { AbstractInControl } from '../controls';
+import { InConverter } from '../converter';
 
 /**
  * Input control for a group of radio buttons.
@@ -39,6 +41,13 @@ export namespace InRadioGroup {
      * Control value of radio group to use when none of the radio buttons is checked.
      */
     readonly unchecked: Value;
+
+    /**
+     * Input aspects applied by default.
+     *
+     * These are aspect converters to constructed control from the {@link inValueOf same-valued one}.
+     */
+    readonly aspects?: InConverter.Aspect<Value> | readonly InConverter.Aspect<Value>[];
 
   }
 
@@ -68,7 +77,7 @@ type RequiredInButtons<Value extends string | undefined> = {
 /**
  * @internal
  */
-class InRadioGroupControl<Value extends string | undefined> extends InControl<Value> {
+class InRadioGroupControl<Value extends string | undefined> extends AbstractInControl<Value> {
 
   private readonly _unchecked: Value;
   private readonly _it: ValueTracker<Value>;
@@ -77,9 +86,10 @@ class InRadioGroupControl<Value extends string | undefined> extends InControl<Va
       private readonly _buttons: RequiredInButtons<Value>,
       {
         unchecked,
+        aspects,
       }: Partial<InRadioGroup.Values<Value>> = {},
   ) {
-    super();
+    super({ aspects });
     this._unchecked = unchecked as Value;
 
     const read: AfterEvent<[Value]> = afterAll(_buttons).keep.thru(
@@ -155,6 +165,28 @@ export function inRadioGroup<Value extends string>(
 ): InRadioGroup<Value | undefined>;
 
 /**
+ * Creates a radio group for the given radio `buttons` with default aspects.
+ *
+ * The created control has `undefined` value when none of the radio buttons is checked.
+ *
+ * @typeparam Value  Input value type.
+ * @param buttons  Radio buttons map.
+ * @param aspects  Input aspects applied by default. These are aspect converters to constructed control
+ * from the {@link inValueOf same-valued one}.
+ *
+ * @returns New radio group control instance.
+ */
+export function inRadioGroup<Value extends string>(
+    buttons: InRadioGroup.Buttons<Value>,
+    // eslint-disable-next-line @typescript-eslint/unified-signatures
+    {
+      aspects,
+    }: {
+      readonly aspects?: InConverter.Aspect<Value> | readonly InConverter.Aspect<Value>[];
+    },
+): InRadioGroup<Value | undefined>;
+
+/**
  * Creates a radio group for the given radio `buttons` with custom control `values`.
  *
  * @typeparam Value  Input value type.
@@ -170,7 +202,7 @@ export function inRadioGroup<Value extends string | undefined>(
 
 export function inRadioGroup<Value extends string | undefined>(
     buttons: InRadioGroup.Buttons<Value>,
-    values?: InRadioGroup.Values<Value>,
+    values?: Partial<InRadioGroup.Values<Value>>,
 ): InRadioGroup<Value> {
   return new InRadioGroupControl(buttons as RequiredInButtons<Value>, values);
 }

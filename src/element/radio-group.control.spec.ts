@@ -1,4 +1,6 @@
 import { EventSupply } from 'fun-events';
+import { newNamespaceAliaser } from 'namespace-aliaser';
+import { InNamespaceAliaser } from '../namespace-aliaser.aspect';
 import { inRadioGroup, InRadioGroup } from './radio-group.control';
 import { inRadio, InRadio } from './radio.control';
 import Mock = jest.Mock;
@@ -29,6 +31,16 @@ describe('InRadioGroup', () => {
     checkUpdatesSupply = control.on(onCheckUpdate = jest.fn());
   });
 
+  it('accepts default aspects', () => {
+
+    const nsAlias = newNamespaceAliaser();
+
+    control = inRadioGroup(
+        { a: radioA, b: radioB, c: radioC },
+        { aspects: InNamespaceAliaser.to(nsAlias) },
+    );
+    expect(control.aspect(InNamespaceAliaser)).toBe(nsAlias);
+  });
   it('reflects unchecked radio buttons', () => {
     expect(control.it).toBeUndefined();
     expect(readChecked).toHaveBeenLastCalledWith(undefined);
