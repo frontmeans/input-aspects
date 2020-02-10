@@ -1,4 +1,6 @@
+import { newNamespaceAliaser } from 'namespace-aliaser';
 import { InMode } from '../data';
+import { InNamespaceAliaser } from '../namespace-aliaser.aspect';
 import { InRadio, inRadio } from './radio.control';
 
 describe('InRadio', () => {
@@ -8,6 +10,14 @@ describe('InRadio', () => {
   beforeEach(() => {
     radio = document.createElement('input');
     radio.type = 'radio';
+  });
+
+  it('accepts default aspects', () => {
+
+    const nsAlias = newNamespaceAliaser();
+    const control = inRadio(radio, { aspects: InNamespaceAliaser.to(nsAlias) });
+
+    expect(control.aspect(InNamespaceAliaser)).toBe(nsAlias);
   });
 
   describe('default', () => {
