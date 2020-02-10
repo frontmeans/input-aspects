@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Value | Input Aspects</title>
+	<title>InSubmitButton | Input Aspects</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,13 +57,10 @@
 					<a href="input_aspects.html">input-aspects</a>
 				</li>
 				<li>
-					<a href="input_aspects.inconverter.html">InConverter</a>
-				</li>
-				<li>
-					<a href="input_aspects.inconverter.value.html">Value</a>
+					<a href="input_aspects.insubmitbutton.html">InSubmitButton</a>
 				</li>
 			</ul>
-			<h1>Module Value&lt;From, To&gt;</h1>
+			<h1>Module InSubmitButton&lt;Elt&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -73,27 +70,21 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Input control value converter.</p>
+						<p>Form submit button control.</p>
 					</div>
-					<p>Either a <a href="../interfaces/input_aspects.inconverter.value.conversion.html">control value conversion</a>, or a <a href="input_aspects.inconverter.value.html#factory">value conversion factory</a>.</p>
+					<p>It is connected to control to submit (form) and may change submit button state depending on form submit status.
+					E.g. by disabling it when submit is <a href="../interfaces/input_aspects.insubmit.flags.html#ready">not ready</a>, or while <a href="../interfaces/input_aspects.insubmit.flags.html#busy">submitting</a> the form.</p>
+					<p>Submit button control can be created by <a href="input_aspects.html#insubmitbutton-1">inSubmitButton</a> function.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-type-parameters">
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
-						<h4>From</h4>
+						<h4>Elt<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLElement</span></h4>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Original input value type.</p>
-							</div>
-						</div>
-					</li>
-					<li>
-						<h4>To</h4>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Converted input value type.</p>
+								<p>A type of submit button element.</p>
 							</div>
 						</div>
 					</li>
@@ -106,94 +97,9 @@
 						<section class="tsd-index-section ">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/input_aspects.inconverter.value.conversion.html" class="tsd-kind-icon">Conversion</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/input_aspects.insubmitbutton.options.html" class="tsd-kind-icon">Options</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section ">
-							<h3>Type aliases</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter"><a href="input_aspects.inconverter.value.html#factory" class="tsd-kind-icon">Factory</a></li>
-							</ul>
-						</section>
-					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Type aliases</h2>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
-					<a name="factory" class="tsd-anchor"></a>
-					<h3>Factory</h3>
-					<div class="tsd-signature tsd-kind-icon">Factory&lt;From, To&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, from<span class="tsd-signature-symbol">: </span><a href="../classes/input_aspects.incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">&gt;</span>, to<span class="tsd-signature-symbol">: </span><a href="../classes/input_aspects.incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="../interfaces/input_aspects.inconverter.value.conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/bcc6b2d/src/converter.ts#L87">src/converter.ts:87</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Input control value conversion factory signature.</p>
-						</div>
-						<p>Called by <a href="../classes/input_aspects.incontrol.html#convert">InControl.convert</a> to construct a <a href="../interfaces/input_aspects.inconverter.value.conversion.html">control conversion</a>.</p>
-						<p>Should not access converted control value as the one does not exist at calling time.</p>
-					</div>
-					<h4 class="tsd-type-parameters-title">Type parameters</h4>
-					<ul class="tsd-type-parameters">
-						<li>
-							<h4>From</h4>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Original input value type.</p>
-								</div>
-							</div>
-						</li>
-						<li>
-							<h4>To</h4>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Converted input value type.</p>
-								</div>
-							</div>
-						</li>
-					</ul>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, from<span class="tsd-signature-symbol">: </span><a href="../classes/input_aspects.incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">&gt;</span>, to<span class="tsd-signature-symbol">: </span><a href="../classes/input_aspects.incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/input_aspects.inconverter.value.conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<div class="tsd-comment tsd-typography">
-										</div>
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
-											<li>
-												<h5>this: <span class="tsd-signature-type">void</span></h5>
-											</li>
-											<li>
-												<h5>from: <a href="../classes/input_aspects.incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">&gt;</span></h5>
-												<div class="tsd-comment tsd-typography">
-													<div class="lead">
-														<p>Original input control.</p>
-													</div>
-												</div>
-											</li>
-											<li>
-												<h5>to: <a href="../classes/input_aspects.incontrol.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span></h5>
-												<div class="tsd-comment tsd-typography">
-													<div class="lead">
-														<p>Converted input control.</p>
-													</div>
-												</div>
-											</li>
-										</ul>
-										<h4 class="tsd-returns-title">Returns <a href="../interfaces/input_aspects.inconverter.value.conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span></h4>
-										<p>Control conversion.</p>
-									</li>
-								</ul>
-							</li>
-						</ul>
 					</div>
 				</section>
 			</section>
@@ -208,11 +114,8 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="../interfaces/input_aspects.inconverter.value.conversion.html" class="tsd-kind-icon">Conversion</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="input_aspects.inconverter.value.html#factory" class="tsd-kind-icon">Factory</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/input_aspects.insubmitbutton.options.html" class="tsd-kind-icon">Options</a>
 					</li>
 				</ul>
 			</nav>
