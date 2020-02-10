@@ -10,6 +10,7 @@ export * from './data/modes';
 export * from './element.control';
 export * from './elements';
 export * from './elements/focus';
+export * from './elements/forms';
 export * from './elements/style';
 export * from './submit.aspect';
 export * from './validation';

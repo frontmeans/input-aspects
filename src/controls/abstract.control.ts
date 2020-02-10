@@ -4,7 +4,7 @@
  */
 import { InAspect } from '../aspect';
 import { InControl } from '../control';
-import { InConverter, intoConvertedBy } from '../converter';
+import { InConverter, intoConvertedAspects } from '../converter';
 import { inValueOf } from './value-of.control';
 
 /**
@@ -33,12 +33,7 @@ export abstract class AbstractInControl<Value> extends InControl<Value> {
       },
   ) {
     super();
-
-    const conversionFactory: InConverter.Aspect.Factory<Value> = aspects
-        ? ((/*#__INLINE__*/ isArray(aspects)) ? intoConvertedBy(...aspects) : intoConvertedBy(aspects))
-        : intoConvertedBy<Value>();
-
-    this._aspectConversion = conversionFactory(inValueOf(this), this);
+    this._aspectConversion = intoConvertedAspects(aspects)(inValueOf(this), this);
   }
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
@@ -47,8 +42,4 @@ export abstract class AbstractInControl<Value> extends InControl<Value> {
     return this._aspectConversion.applyAspect(aspect) || super._applyAspect(aspect);
   }
 
-}
-
-function isArray<T>(value: T | readonly T[] | undefined): value is readonly T[] {
-  return Array.isArray(value);
 }

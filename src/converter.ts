@@ -293,6 +293,27 @@ export function intoConvertedBy<From, To>(
 }
 
 /**
+ * Creates converter that combines input aspect converters.
+ *
+ * @category Converter
+ * @typeparam Value  Input value type.
+ * @param aspects  Input aspect converter(s) to combine.
+ *
+ * @returns Input aspect conversion factory.
+ */
+export function intoConvertedAspects<Value>(
+    aspects?: InConverter.Aspect<Value> | readonly InConverter.Aspect<Value>[],
+): InConverter.Aspect.Factory<Value> {
+  return aspects
+      ? ((/*#__INLINE__*/ isArray(aspects)) ? intoConvertedBy(...aspects) : intoConvertedBy(aspects))
+      : intoConvertedBy<Value>();
+}
+
+function isArray<T>(value: T | readonly T[] | undefined): value is readonly T[] {
+  return Array.isArray(value);
+}
+
+/**
  * @internal
  */
 const noopInConversion: InConverter.Aspect.Conversion<any> = {
