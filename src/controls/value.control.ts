@@ -25,7 +25,7 @@ export function inValue<Value>(
     {
       aspects,
     }: {
-      aspects?: InConverter.Aspect<Value> | readonly InConverter.Aspect<Value>[];
+      readonly aspects?: InConverter.Aspect<Value> | readonly InConverter.Aspect<Value>[];
     } = {},
 ): InControl<Value> {
 

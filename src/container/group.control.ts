@@ -472,7 +472,7 @@ class InGroupControl<Model extends object> extends InGroup<Model> {
   constructor(
       model: Model,
       opts: {
-        aspects?: InConverter.Aspect<Model> | readonly InConverter.Aspect<Model>[];
+        readonly aspects?: InConverter.Aspect<Model> | readonly InConverter.Aspect<Model>[];
       },
   ) {
     super(opts);
@@ -576,7 +576,7 @@ export function inGroup<Model extends object>(
     {
       aspects,
     }: {
-      aspects?: InConverter.Aspect<Model> | readonly InConverter.Aspect<Model>[];
+      readonly aspects?: InConverter.Aspect<Model> | readonly InConverter.Aspect<Model>[];
     } = {},
 ): InGroup<Model> {
   return new InGroupControl(model, { aspects });

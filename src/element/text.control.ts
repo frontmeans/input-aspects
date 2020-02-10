@@ -43,7 +43,7 @@ export function inText(
     {
       aspects,
     }: {
-      aspects?: InConverter.Aspect<string> | readonly InConverter.Aspect<string>[];
+      readonly aspects?: InConverter.Aspect<string> | readonly InConverter.Aspect<string>[];
     } = {},
 ): InText {
   return new InElementControl(

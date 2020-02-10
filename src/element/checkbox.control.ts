@@ -84,7 +84,7 @@ export function inCheckbox(
     {
       aspects,
     }: {
-      aspects?: InConverter.Aspect<boolean> | readonly InConverter.Aspect<boolean>[];
+      readonly aspects?: InConverter.Aspect<boolean> | readonly InConverter.Aspect<boolean>[];
     },
 ): InCheckbox;
 

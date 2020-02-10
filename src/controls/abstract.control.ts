@@ -29,7 +29,7 @@ export abstract class AbstractInControl<Value> extends InControl<Value> {
       {
         aspects,
       }: {
-        aspects?: InConverter.Aspect<Value> | readonly InConverter.Aspect<Value>[];
+        readonly aspects?: InConverter.Aspect<Value> | readonly InConverter.Aspect<Value>[];
       },
   ) {
     super();

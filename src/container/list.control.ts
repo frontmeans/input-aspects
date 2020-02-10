@@ -498,7 +498,7 @@ class InListControl<Item> extends InList<Item> {
   constructor(
       model: readonly Item[],
       opts: {
-        aspects?: InConverter.Aspect<readonly Item[]> | readonly InConverter.Aspect<readonly Item[]>[];
+        readonly aspects?: InConverter.Aspect<readonly Item[]> | readonly InConverter.Aspect<readonly Item[]>[];
       },
   ) {
     super(opts);
@@ -588,7 +588,7 @@ export function inList<Item>(
     {
       aspects,
     }: {
-      aspects?: InConverter.Aspect<readonly Item[]> | readonly InConverter.Aspect<readonly Item[]>[];
+      readonly aspects?: InConverter.Aspect<readonly Item[]> | readonly InConverter.Aspect<readonly Item[]>[];
     } = {},
 ): InList<Item> {
   return new InListControl(model, { aspects });
