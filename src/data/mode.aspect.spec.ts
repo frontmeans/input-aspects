@@ -1,5 +1,5 @@
 import { afterSupplied, EventSupply, onSupplied, trackValue, ValueTracker } from 'fun-events';
-import { inGroup, InGroup } from '../container';
+import { inGroup, InGroup } from '../containers';
 import { intoInteger } from '../conversion';
 import { InElement } from '../element.control';
 import { inText } from '../elements';

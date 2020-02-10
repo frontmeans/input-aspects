@@ -28,8 +28,8 @@ import {
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrBuild } from '../aspect.impl';
-import { InParents } from '../container';
-import { InParentsAspect } from '../container/parents.aspect.impl';
+import { InParents } from '../containers';
+import { InParentsAspect } from '../containers/parents.aspect.impl';
 import { InControl } from '../control';
 import { InElement } from '../element.control';
 

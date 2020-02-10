@@ -8,7 +8,7 @@ import {
   onSupplied,
   trackValue,
 } from 'fun-events';
-import { inGroup, InGroup } from '../container';
+import { inGroup, InGroup } from '../containers';
 import { InControl } from '../control';
 import { inValue } from '../controls';
 import { InValidation } from './validation.aspect';

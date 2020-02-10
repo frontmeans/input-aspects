@@ -1,5 +1,5 @@
 import { afterSupplied, EventSupply } from 'fun-events';
-import { InGroup, inGroup } from '../container';
+import { InGroup, inGroup } from '../containers';
 import { inValue } from '../controls';
 import { intoInteger } from '../conversion';
 import { InElement } from '../element.control';

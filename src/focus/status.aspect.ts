@@ -16,7 +16,7 @@ import {
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrBuild } from '../aspect.impl';
-import { InContainer } from '../container';
+import { InContainer } from '../containers';
 import { InControl } from '../control';
 import { InElement } from '../element.control';
 import { InFocus } from './focus.aspect';

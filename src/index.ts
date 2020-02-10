@@ -1,6 +1,6 @@
 export * from './aspect';
 export * from './aspects';
-export * from './container';
+export * from './containers';
 export * from './control';
 export * from './controls';
 export * from './conversion';

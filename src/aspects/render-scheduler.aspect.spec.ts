@@ -1,5 +1,5 @@
 import { newManualRenderScheduler, newRenderSchedule } from 'render-scheduler';
-import { InContainer } from '../container';
+import { InContainer } from '../containers';
 import { InControl } from '../control';
 import { inValue } from '../controls';
 import { InElement } from '../element.control';
