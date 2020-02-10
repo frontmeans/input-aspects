@@ -9,6 +9,7 @@ import {
   OnEvent,
 } from 'fun-events';
 import { DomEventDispatcher } from 'fun-events/dom';
+import { InConverter } from '../converter';
 import { InElement } from '../element.control';
 
 /**
@@ -33,14 +34,16 @@ export class InElementControl<Value, Elt extends HTMLElement> extends InElement<
   constructor(
       readonly element: Elt,
       {
+        aspects,
         get,
         set,
       }: {
-        get: (this: InElementControl<Value, Elt>) => Value;
-        set: (this: InElementControl<Value, Elt>, value: Value) => void;
+        readonly aspects?: InConverter.Aspect<Value> | readonly InConverter.Aspect<Value>[];
+        readonly get: (this: InElementControl<Value, Elt>) => Value;
+        readonly set: (this: InElementControl<Value, Elt>, value: Value) => void;
       },
   ) {
-    super();
+    super({ aspects });
     this._get = get;
     this._set = set;
     this._value = this.it;

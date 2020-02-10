@@ -1,5 +1,5 @@
 import { afterThe } from 'fun-events';
-import { inValue } from '../value';
+import { inValue } from '../controls';
 import { requireNeeded } from './require-needed.validator';
 import { InValidation } from './validation.aspect';
 import { inValidator } from './validator';

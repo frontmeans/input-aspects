@@ -27,6 +27,7 @@ import {
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';
+import { InConverter } from '../converter';
 import { InData, InMode } from '../data';
 import { InContainer, InContainerControls } from './container.control';
 import { InParents } from './parents.aspect';
@@ -468,8 +469,13 @@ class InGroupControl<Model extends object> extends InGroup<Model> {
   private readonly _model: ValueTracker<Model>;
   readonly controls: InGroupControlControls<Model>;
 
-  constructor(model: Model) {
-    super();
+  constructor(
+      model: Model,
+      opts: {
+        readonly aspects?: InConverter.Aspect<Model> | readonly InConverter.Aspect<Model>[];
+      },
+  ) {
+    super(opts);
     this._model = trackValue(model);
     this.controls = new InGroupControlControls(this);
     eventSupplyOf(this).whenOff(() => this.controls.clear());
@@ -560,11 +566,20 @@ function readInGroupData<Model extends object>(
  * @category Control
  * @typeparam Model  Group model type, i.e. its value type.
  * @param model  Initial model of the group.
+ * @param aspects  Input aspects applied by default. These are aspect converters to constructed control
+ * from {@link inValueOf same-valued one}.
  *
  * @returns New input controls group.
  */
-export function inGroup<Model extends object>(model: Model): InGroup<Model> {
-  return new InGroupControl(model);
+export function inGroup<Model extends object>(
+    model: Model,
+    {
+      aspects,
+    }: {
+      readonly aspects?: InConverter.Aspect<Model> | readonly InConverter.Aspect<Model>[];
+    } = {},
+): InGroup<Model> {
+  return new InGroupControl(model, { aspects });
 }
 
 declare module '../aspect' {

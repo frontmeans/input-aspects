@@ -1,9 +1,9 @@
 import { noop } from 'call-thru';
 import { InAspect__symbol } from './aspect';
 import { InControl } from './control';
+import { inValue } from './controls';
 import { InConverter, intoConvertedBy, isInAspectConversion } from './converter';
 import { InData, InMode } from './data';
-import { inValue } from './value';
 import Mocked = jest.Mocked;
 
 describe('intoConverterBy', () => {

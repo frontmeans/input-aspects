@@ -1,9 +1,9 @@
 import { newNamespaceAliaser } from 'namespace-aliaser';
 import { InControl } from './control';
+import { inValue } from './controls';
 import { inText, InText } from './element';
 import { InElement } from './element.control';
 import { InNamespaceAliaser } from './namespace-aliaser.aspect';
-import { inValue } from './value';
 
 describe('InNamespaceAliaser', () => {
   it('is present by default', () => {

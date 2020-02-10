@@ -1,4 +1,4 @@
-import { inValue } from '../value';
+import { inValue } from '../controls';
 import { InContainer } from './container.control';
 
 describe('InContainer', () => {

@@ -1,11 +1,11 @@
 import { noop } from 'call-thru';
 import { afterSupplied, EventSupply } from 'fun-events';
 import { InControl } from './control';
-import { intoInteger } from './conversion/into-integer';
+import { inValue } from './controls';
+import { intoInteger } from './conversion';
 import { InMode } from './data';
 import { InSubmit, InSubmitError, InSubmitRejectedError } from './submit.aspect';
 import { InValidation } from './validation';
-import { inValue } from './value';
 import Mock = jest.Mock;
 
 describe('InSubmit', () => {

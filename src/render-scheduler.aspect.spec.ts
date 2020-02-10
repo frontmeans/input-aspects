@@ -1,11 +1,11 @@
 import { newManualRenderScheduler, newRenderSchedule } from 'render-scheduler';
 import { InContainer } from './container';
 import { InControl } from './control';
+import { inValue } from './controls';
 import { inText, InText } from './element';
 import { InElement } from './element.control';
 import { InRenderScheduler } from './render-scheduler.aspect';
 import { InStyledElement } from './style';
-import { inValue } from './value';
 
 describe('InRenderScheduler', () => {
   it('is `newRenderSchedule` by default', () => {

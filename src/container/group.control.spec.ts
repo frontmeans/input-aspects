@@ -1,9 +1,12 @@
 import { afterSupplied, onSupplied } from 'fun-events';
+import { newManualRenderScheduler } from 'render-scheduler';
 import { InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
+import { inValue } from '../controls';
 import { intoFallback } from '../conversion';
 import { InData, InMode } from '../data';
-import { inValue } from '../value';
+import { InRenderScheduler } from '../render-scheduler.aspect';
+import { InStyledElement } from '../style';
 import { InContainer } from './container.control';
 import { inGroup, InGroup, InGroupControls } from './group.control';
 import { InList } from './list.control';
@@ -58,6 +61,18 @@ describe('InGroup', () => {
 
     expect(converted.aspect(InContainer)).toBeNull();
     expect(converted.aspect(InGroup)).toBeNull();
+  });
+  it('allows to specify default aspects', () => {
+
+    const styled = document.createElement('span');
+    const scheduler = newManualRenderScheduler();
+
+    group = inGroup<TestModel>(
+        { ctrl1: '' },
+        { aspects: [InStyledElement.to(styled), InRenderScheduler.to(scheduler)] },
+    );
+    expect(group.aspect(InStyledElement)).toBe(styled);
+    expect(group.aspect(InRenderScheduler)).toBe(scheduler);
   });
 
   describe('controls', () => {

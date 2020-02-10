@@ -2,9 +2,9 @@ import { EventSupply } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
 import { inAspectValue } from './aspect.impl';
 import { InControl } from './control';
+import { inValue } from './controls';
 import { InConverter } from './converter';
 import { InData } from './data';
-import { inValue } from './value';
 import Mock = jest.Mock;
 
 describe('InControl', () => {

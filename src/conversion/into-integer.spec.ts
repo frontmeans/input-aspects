@@ -1,6 +1,6 @@
 import { InControl } from '../control';
+import { inValue } from '../controls';
 import { InValidation } from '../validation';
-import { inValue } from '../value';
 import { intoInteger } from './into-integer';
 
 describe('intoInteger', () => {

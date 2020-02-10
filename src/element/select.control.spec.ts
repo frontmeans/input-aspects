@@ -1,3 +1,5 @@
+import { newNamespaceAliaser } from 'namespace-aliaser';
+import { InNamespaceAliaser } from '../namespace-aliaser.aspect';
 import { InSelect, inSelect } from './select.control';
 
 describe('InSelect', () => {
@@ -22,6 +24,14 @@ describe('InSelect', () => {
     select.add(option3);
 
     control = inSelect(select);
+  });
+
+  it('accepts default aspects', () => {
+
+    const nsAlias = newNamespaceAliaser();
+    const control = inSelect(select, { aspects: InNamespaceAliaser.to(nsAlias) });
+
+    expect(control.aspect(InNamespaceAliaser)).toBe(nsAlias);
   });
 
   describe('it', () => {

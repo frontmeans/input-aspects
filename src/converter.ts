@@ -66,7 +66,7 @@ export namespace InConverter {
    * @typeparam From  Original input value type.
    * @typeparam To  Converted input value type.
    */
-  export type Aspect<From, To> =
+  export type Aspect<From, To = From> =
       | InConverter.Aspect.Conversion<To>
       | InConverter.Aspect.Factory<From, To>;
 
@@ -153,7 +153,7 @@ export namespace InConverter.Aspect {
    * @typeparam From  Original input value type.
    * @typeparam To  Converted input value type.
    */
-  export type Factory<From, To> = (
+  export type Factory<From, To = From> = (
       this: void,
       from: InControl<From>,
       to: InControl<To>,

@@ -1,8 +1,10 @@
 import { EventSupply } from 'fun-events';
+import { newManualRenderScheduler } from 'render-scheduler';
 import { InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
+import { inValue } from '../controls';
 import { InData, InMode } from '../data';
-import { inValue } from '../value';
+import { InRenderScheduler } from '../render-scheduler.aspect';
 import { InContainer } from './container.control';
 import { InGroup } from './group.control';
 import { inList, InList } from './list.control';
@@ -56,6 +58,16 @@ describe('InList', () => {
 
     expect(converted.aspect(InContainer)).toBeNull();
     expect(converted.aspect(InList)).toBeNull();
+  });
+  it('allows to specify default aspects', () => {
+
+    const scheduler = newManualRenderScheduler();
+
+    list = inList<string>(
+        [],
+        { aspects: InRenderScheduler.to(scheduler) },
+    );
+    expect(list.aspect(InRenderScheduler)).toBe(scheduler);
   });
 
   describe('it', () => {

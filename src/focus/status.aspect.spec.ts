@@ -1,9 +1,9 @@
 import { afterSupplied, EventSupply } from 'fun-events';
 import { InGroup, inGroup } from '../container';
+import { inValue } from '../controls';
 import { intoInteger } from '../conversion';
 import { inText } from '../element';
 import { InElement } from '../element.control';
-import { inValue } from '../value';
 import { InStatus } from './status.aspect';
 
 describe('InStatus', () => {

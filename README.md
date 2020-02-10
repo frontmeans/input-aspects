@@ -309,7 +309,6 @@ An input aspect is an arbitrary value. There are several input aspects implement
   - `inCssInfo()` creates a source of informative CSS classes.
   - `inCssError()` creates a source marker CSS classes applied when particular validation error occur.
       
-
 - `InNamespaceAliaser` Namespace aliaser aspect.
 
   Used by other aspect to generate unique names.

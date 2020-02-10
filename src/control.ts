@@ -4,7 +4,8 @@
  */
 import { asis, noop } from 'call-thru';
 import {
-  EventEmitter, eventSupply,
+  EventEmitter,
+  eventSupply,
   EventSupply,
   EventSupply__symbol,
   eventSupplyOf,

@@ -1,5 +1,5 @@
 import { InControl } from '../control';
-import { inValue } from '../value';
+import { inValue } from '../controls';
 import { intoParsedBy } from './parser';
 
 describe('intoParsedBy', () => {

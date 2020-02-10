@@ -1,7 +1,7 @@
 import { InControl } from '../control';
+import { inValue } from '../controls';
 import { InText, inText } from '../element';
 import { InElement } from '../element.control';
-import { inValue } from '../value';
 import { InStyledElement } from './styled-element.aspect';
 
 describe('InStyledElement', () => {

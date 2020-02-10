@@ -2,6 +2,7 @@
  * @packageDocumentation
  * @module input-aspects
  */
+import { InConverter } from '../converter';
 import { InElement } from '../element.control';
 import { InElementControl } from './element.impl';
 
@@ -37,6 +38,13 @@ export namespace InCheckbox {
      */
     readonly intermediate: Value;
 
+    /**
+     * Input aspects applied by default.
+     *
+     * These are aspect converters to constructed control from the {@link inValueOf same-valued one}.
+     */
+    readonly aspects?: InConverter.Aspect<Value> | readonly InConverter.Aspect<Value>[];
+
   }
 
 }
@@ -55,6 +63,30 @@ export namespace InCheckbox {
  * @return New input element control instance.
  */
 export function inCheckbox(element: HTMLInputElement): InCheckbox;
+
+/**
+ * Creates an input control for the given checkbox element with default aspects.
+ *
+ * The value of checkbox control is:
+ * - `true` when checkbox is checked,
+ * - `false` when it's not, or
+ * - `undefined` when it is in intermediate state.
+ *
+ * @param element  Target checkbox element.
+ * @param aspects  Input aspects applied by default. These are aspect converters to constructed control
+ * from the {@link inValueOf same-valued one}.
+ *
+ * @return New input element control instance.
+ */
+export function inCheckbox(
+    element: HTMLInputElement,
+    // eslint-disable-next-line @typescript-eslint/unified-signatures
+    {
+      aspects,
+    }: {
+      readonly aspects?: InConverter.Aspect<boolean> | readonly InConverter.Aspect<boolean>[];
+    },
+): InCheckbox;
 
 /**
  * Creates an input control for the given checkbox element with custom control values.
@@ -79,6 +111,8 @@ export function inCheckbox<Value>(
  * @param element  Target checkbox element.
  * @param checked  Control value of checked checkbox.
  * @param unchecked  Control value of unchecked checkbox.
+ * @param aspects  Input aspects applied by default. These are aspect converters to constructed control
+ * from the {@link inValueOf same-valued one}.
  *
  * @return New input element control instance.
  */
@@ -87,6 +121,7 @@ export function inCheckbox<Value>(
     {
       checked,
       unchecked,
+      aspects,
     }: Omit<InCheckbox.Values<Value>, 'intermediate'>,
 ): InCheckbox<Value | undefined>;
 
@@ -96,6 +131,7 @@ export function inCheckbox<Value>(
       checked = true as unknown as Value,
       unchecked = false as unknown as Value,
       intermediate = undefined as unknown as Value,
+      aspects,
     }: Partial<InCheckbox.Values<Value>> = {},
 ): InCheckbox<Value> {
   return new InElementControl<Value, HTMLInputElement & { intermediate?: boolean }>(
@@ -110,6 +146,7 @@ export function inCheckbox<Value>(
           this.element.checked = value === checked;
           this.element.intermediate = value !== checked && value !== unchecked;
         },
+        aspects,
       },
   );
 }
