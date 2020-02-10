@@ -1,9 +1,11 @@
 import { EventSupply } from 'fun-events';
+import { newNamespaceAliaser } from 'namespace-aliaser';
 import { InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
 import { inValue } from '../controls';
 import { intoInteger } from '../conversion';
 import { InElement } from '../element.control';
+import { InNamespaceAliaser } from '../namespace-aliaser.aspect';
 import { InText, inText } from './text.control';
 import Mock = jest.Mock;
 
@@ -16,6 +18,14 @@ describe('InText', () => {
     input = document.createElement('input');
     input.value = 'old';
     control = inText(input);
+  });
+
+  it('accepts default aspects', () => {
+
+    const nsAlias = newNamespaceAliaser();
+
+    control = inText(input, { aspects: InNamespaceAliaser.to(nsAlias) });
+    expect(control.aspect(InNamespaceAliaser)).toBe(nsAlias);
   });
 
   describe('element', () => {

@@ -2,6 +2,7 @@
  * @packageDocumentation
  * @module input-aspects
  */
+import { InConverter } from '../converter';
 import { InElement } from '../element.control';
 import { InElementControl } from './element.impl';
 
@@ -32,10 +33,19 @@ export namespace InText {
  *
  * @category Control
  * @param element  Target text input element.
+ * @param aspects  Input aspects applied by default. These are aspect converters to constructed control
+ * from the {@link inValueOf same-valued one}.
  *
  * @return New textual input control instance.
  */
-export function inText(element: InText.Element): InText {
+export function inText(
+    element: InText.Element,
+    {
+      aspects,
+    }: {
+      aspects?: InConverter.Aspect<string> | readonly InConverter.Aspect<string>[];
+    } = {},
+): InText {
   return new InElementControl(
       element,
       {
@@ -45,6 +55,7 @@ export function inText(element: InText.Element): InText {
         set(value) {
           this.element.value = value;
         },
+        aspects,
       },
   );
 }
