@@ -11,6 +11,8 @@ import { inValueOf } from './value-of.control';
  * Abstract input control implementation.
  *
  * Allows to define default input aspects.
+ *
+ * @category Control
  */
 export abstract class AbstractInControl<Value> extends InControl<Value> {
 

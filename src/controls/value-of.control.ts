@@ -10,6 +10,7 @@ import { InControl } from '../control';
  *
  * The constructed control does not inherit any aspects from original one.
  *
+ * @category Control
  * @param control  Original control containing the value.
  *
  * @returns New input control that accesses the value of original `control`.
