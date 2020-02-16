@@ -183,6 +183,7 @@ export namespace InSubmit {
    * @returns Submit result promise.
    */
       (
+          this: void,
           data: Value extends undefined ? never : Value,
           control: InControl<Value>,
       ) => Promise<Result>;
