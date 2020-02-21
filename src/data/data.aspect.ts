@@ -36,7 +36,7 @@ const InData__aspect: Aspect = {
       mode: ctrl.aspect(InMode),
     }).keep.thru(
         ({ value: [value], mode: [mode] }) => InMode.hasData(mode)
-            ? nextArgs(value as InData.DataType<V>)
+            ? nextArgs(value as any)
             : nextArgs(),
     ));
   },

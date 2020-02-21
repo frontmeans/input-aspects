@@ -272,7 +272,7 @@ export function intoConvertedBy<From, To>(
 
     const applyAspect: AspectApplicator = itsReduction(
         conversions,
-        (prev, cv) => cv.applyAspect
+        (prev: AspectApplicator, cv: InConverter.Conversion<From, To>) => cv.applyAspect
             ? (aspect => prev(aspect) || cv.applyAspect!(aspect))
             : prev,
         noop,
