@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>InSubmitRejectedError | Input Aspects</title>
+	<title>Input | Input Aspects</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,13 +54,16 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/input_aspects.html">input-aspects</a>
+					<a href="../modules/_elements_abstract_element_control_.html">&quot;elements/abstract-element.control&quot;</a>
 				</li>
 				<li>
-					<a href="input_aspects.insubmitrejectederror.html">InSubmitRejectedError</a>
+					<a href="../classes/_elements_abstract_element_control_.abstractinelement.html">AbstractInElement</a>
+				</li>
+				<li>
+					<a href="_elements_abstract_element_control_.abstractinelement.input.html">Input</a>
 				</li>
 			</ul>
-			<h1>Class InSubmitRejectedError</h1>
+			<h1>Interface Input&lt;Value&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -70,21 +73,28 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Input submit rejection error.</p>
+						<p>User input.</p>
 					</div>
-					<p>Raised if submit is not ready or in process already.</p>
 				</div>
+			</section>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>Value</h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Input value type.</p>
+							</div>
+						</div>
+					</li>
+				</ul>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="input_aspects.insubmiterror.html" class="tsd-signature-type">InSubmitError</a>
-						<ul class="tsd-hierarchy">
-							<li>
-								<span class="target">InSubmitRejectedError</span>
-							</li>
-						</ul>
+						<span class="target">Input</span>
 					</li>
 				</ul>
 			</section>
@@ -93,110 +103,47 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Constructors</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="input_aspects.insubmitrejectederror.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="input_aspects.insubmitrejectederror.html#errors" class="tsd-kind-icon">errors</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="input_aspects.insubmitrejectederror.html#message" class="tsd-kind-icon">message</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="input_aspects.insubmitrejectederror.html#name" class="tsd-kind-icon">name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="input_aspects.insubmitrejectederror.html#stack" class="tsd-kind-icon">stack</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_elements_abstract_element_control_.abstractinelement.input.html#event" class="tsd-kind-icon">event</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_elements_abstract_element_control_.abstractinelement.input.html#value" class="tsd-kind-icon">value</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-					<a name="constructor" class="tsd-anchor"></a>
-					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>InSubmit<wbr>Rejected<wbr>Error<span class="tsd-signature-symbol">(</span>reason<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="input_aspects.insubmitrejectederror.html" class="tsd-signature-type">InSubmitRejectedError</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Overrides <a href="input_aspects.insubmiterror.html">InSubmitError</a>.<a href="input_aspects.insubmiterror.html#constructor">constructor</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/surol/input-aspects/blob/19f11cd/src/submit.aspect.ts#L58">src/submit.aspect.ts:58</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Constructs input submit rejection error.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>reason: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>A reason code.</p>
-										</div>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="input_aspects.insubmitrejectederror.html" class="tsd-signature-type">InSubmitRejectedError</a></h4>
-						</li>
-					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="errors" class="tsd-anchor"></a>
-					<h3>errors</h3>
-					<div class="tsd-signature tsd-kind-icon">errors<span class="tsd-signature-symbol">:</span> <a href="../interfaces/input_aspects.invalidation.errors.html" class="tsd-signature-type">Errors</a></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="event" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> event</h3>
+					<div class="tsd-signature tsd-kind-icon">event<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Event</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="input_aspects.insubmiterror.html">InSubmitError</a>.<a href="input_aspects.insubmiterror.html#errors">errors</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/19f11cd/src/submit.aspect.ts#L35">src/submit.aspect.ts:35</a></li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/19f11cd/src/element.control.ts#L83">src/element.control.ts:83</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Input submit errors.</p>
+							<p>An event caused the value to be applied.</p>
 						</div>
+						<p>The value has been applied programmatically if missing.</p>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="message" class="tsd-anchor"></a>
-					<h3>message</h3>
-					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="value" class="tsd-anchor"></a>
+					<h3>value</h3>
+					<div class="tsd-signature tsd-kind-icon">value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Value</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="input_aspects.insubmiterror.html">InSubmitError</a>.<a href="input_aspects.insubmiterror.html#message">message</a></p>
 						<ul>
-							<li>Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:974</li>
+							<li>Defined in <a href="https://github.com/surol/input-aspects/blob/19f11cd/src/element.control.ts#L76">src/element.control.ts:76</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="name" class="tsd-anchor"></a>
-					<h3>name</h3>
-					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="input_aspects.insubmiterror.html">InSubmitError</a>.<a href="input_aspects.insubmiterror.html#name">name</a></p>
-						<ul>
-							<li>Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:973</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="stack" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> stack</h3>
-					<div class="tsd-signature tsd-kind-icon">stack<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="input_aspects.insubmiterror.html">InSubmitError</a>.<a href="input_aspects.insubmiterror.html#stack">stack</a></p>
-						<ul>
-							<li>Defined in node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:975</li>
-						</ul>
-					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The value user entered.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -206,10 +153,10 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="current tsd-kind-external-module">
 						<a href="../modules/_elements_abstract_element_control_.html">&quot;elements/abstract-<wbr>element.control&quot;</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/input_aspects.html">input-<wbr>aspects</a>
 					</li>
 				</ul>
@@ -218,23 +165,91 @@
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-external-module">
-						<a href="input_aspects.insubmitrejectederror.html" class="tsd-kind-icon">In<wbr>Submit<wbr>Rejected<wbr>Error</a>
+					<li class="current tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../classes/_elements_abstract_element_control_.abstractinelement.html" class="tsd-kind-icon">Abstract<wbr>InElement</a>
 						<ul>
+							<li class="current tsd-kind-interface tsd-parent-kind-class tsd-has-type-parameter">
+								<a href="_elements_abstract_element_control_.abstractinelement.input.html" class="tsd-kind-icon">Input</a>
+								<ul>
+									<li class=" tsd-kind-property tsd-parent-kind-interface">
+										<a href="_elements_abstract_element_control_.abstractinelement.input.html#event" class="tsd-kind-icon">event</a>
+									</li>
+									<li class=" tsd-kind-property tsd-parent-kind-interface">
+										<a href="_elements_abstract_element_control_.abstractinelement.input.html#value" class="tsd-kind-icon">value</a>
+									</li>
+								</ul>
+							</li>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-								<a href="input_aspects.insubmitrejectederror.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#_get" class="tsd-kind-icon">_get</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#_input" class="tsd-kind-icon">_input</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#_set" class="tsd-kind-icon">_set</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#_update" class="tsd-kind-icon">_update</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#_value" class="tsd-kind-icon">_value</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#element" class="tsd-kind-icon">element</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#events" class="tsd-kind-icon">events</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#input-1" class="tsd-kind-icon">input</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#on" class="tsd-kind-icon">on</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="input_aspects.insubmitrejectederror.html#errors" class="tsd-kind-icon">errors</a>
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#read" class="tsd-kind-icon">read</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="input_aspects.insubmitrejectederror.html#message" class="tsd-kind-icon">message</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#_afterevent__symbol_" class="tsd-kind-icon">[<wbr>After<wbr>Event__symbol]</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="input_aspects.insubmitrejectederror.html#name" class="tsd-kind-icon">name</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#_eventsupply__symbol_" class="tsd-kind-icon">[<wbr>Event<wbr>Supply__symbol]</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="input_aspects.insubmitrejectederror.html#stack" class="tsd-kind-icon">stack</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#_onevent__symbol_" class="tsd-kind-icon">[<wbr>OnEvent__symbol]</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-overwrite">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#it" class="tsd-kind-icon">it</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#_inaspect__symbol_" class="tsd-kind-icon">[<wbr>InAspect__symbol]</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-overwrite tsd-is-inherited tsd-is-protected">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#_applyaspect" class="tsd-kind-icon">_apply<wbr>Aspect</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#aspect" class="tsd-kind-icon">aspect</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#by" class="tsd-kind-icon">by</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#bynone" class="tsd-kind-icon">by<wbr>None</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#convert" class="tsd-kind-icon">convert</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#done" class="tsd-kind-icon">done</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#listenforinput" class="tsd-kind-icon">listen<wbr>For<wbr>Input</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+								<a href="../classes/_elements_abstract_element_control_.abstractinelement.html#setup" class="tsd-kind-icon">setup</a>
 							</li>
 						</ul>
 					</li>
