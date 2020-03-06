@@ -13,15 +13,19 @@ import { InConverter } from '../converter';
 import { InElement } from '../element.control';
 
 /**
- * @internal
+ * Abstract implementation of {@link InElement input HTML element control}.
+ *
+ * @category Control
+ * @typeparam Value  Input value type.
+ * @typeparam Elt  A type of input HTML element.
  */
-export class InElementControl<Value, Elt extends HTMLElement> extends InElement<Value, Elt> {
+export class AbstractInElement<Value, Elt extends HTMLElement> extends InElement<Value, Elt> {
 
   readonly input: AfterEvent<[InElement.Input<Value>]>;
   readonly on: OnEvent<[Value, Value]>;
   readonly events: DomEventDispatcher;
-  private readonly _get: (this: InElementControl<Value, Elt>) => Value;
-  private readonly _set: (this: InElementControl<Value, Elt>, value: Value) => void;
+  private readonly _get: (this: AbstractInElement<Value, Elt>) => Value;
+  private readonly _set: (this: AbstractInElement<Value, Elt>, value: Value) => void;
   private readonly _input: EventEmitter<[InElement.Input<Value>, Value]> = new EventEmitter();
   private _value: Value;
   // noinspection TypeScriptFieldCanBeMadeReadonly
@@ -31,6 +35,15 @@ export class InElementControl<Value, Elt extends HTMLElement> extends InElement<
     return eventSupplyOf(this._input);
   }
 
+  /**
+   * Constructs HTML input element control.
+   *
+   * @param element  HTML input element the constructed control is based on.
+   * @param aspects  Input aspects applied by default. These are aspect converters to constructed control
+   * from the {@link inValueOf same-valued one}.
+   * @param get  Input value getter.
+   * @param set  Input value setter.
+   */
   constructor(
       readonly element: Elt,
       {
@@ -39,16 +52,19 @@ export class InElementControl<Value, Elt extends HTMLElement> extends InElement<
         set,
       }: {
         readonly aspects?: InConverter.Aspect<Value> | readonly InConverter.Aspect<Value>[];
-        readonly get: (this: InElementControl<Value, Elt>) => Value;
-        readonly set: (this: InElementControl<Value, Elt>, value: Value) => void;
+        readonly get: (this: AbstractInElement<Value, Elt>) => Value;
+        readonly set: (this: AbstractInElement<Value, Elt>, value: Value) => void;
       },
   ) {
     super({ aspects });
+
+    const self = this;
+
     this._get = get;
     this._set = set;
     this._value = this.it;
 
-    const update = this._update = (value: Value, oldValue: Value): void => send({ value }, oldValue);
+    const doUpdate = this._update = (value: Value, oldValue: Value): void => update({ value }, oldValue);
 
     this.input = afterSupplied<[InElement.Input<Value>]>(
         this._input.on.thru(asis),
@@ -60,15 +76,10 @@ export class InElementControl<Value, Elt extends HTMLElement> extends InElement<
     );
 
     this.events = new DomEventDispatcher(element);
+    eventSupplyOf(this.events).needs(this);
+    this.listenForInput(input => update(input, this._value));
 
-    const self = this;
-    const supply = eventSupplyOf(this);
-    const onInput = (event: Event): void => send({ value: self.it, event }, self._value);
-
-    this.events.on('input')(onInput).needs(supply);
-    this.events.on('change')(onInput).needs(supply);
-
-    function send(input: InElement.Input<Value>, oldValue: Value): void {
+    function update(input: InElement.Input<Value>, oldValue: Value): void {
       for (;;) {
         self._value = input.value;
 
@@ -84,7 +95,7 @@ export class InElementControl<Value, Elt extends HTMLElement> extends InElement<
         try {
           self._input.send(input, oldValue);
         } finally {
-          self._update = update;
+          self._update = doUpdate;
         }
 
         if (!correction) {
@@ -110,6 +121,22 @@ export class InElementControl<Value, Elt extends HTMLElement> extends InElement<
       this._set(value);
       this._update(this._get(), oldValue);
     }
+  }
+
+  /**
+   * Enables reaction to input input.
+   *
+   * By default listens for `input` and `change` events.
+   *
+   * @param update  Updates current value by user input and sends update event. This function is to be called by
+   * input event listeners.
+   */
+  protected listenForInput(update: (input: InElement.Input<Value>) => void): void {
+
+    const onInput = (event: Event): void => update({ value: this.it, event });
+
+    this.events.on('input')(onInput);
+    this.events.on('change')(onInput);
   }
 
 }

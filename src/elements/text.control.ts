@@ -4,7 +4,7 @@
  */
 import { InConverter } from '../converter';
 import { InElement } from '../element.control';
-import { InElementControl } from './element.impl';
+import { AbstractInElement } from './abstract-element.control';
 
 /**
  * Textual input control.
@@ -46,7 +46,7 @@ export function inText(
       readonly aspects?: InConverter.Aspect<string> | readonly InConverter.Aspect<string>[];
     } = {},
 ): InText {
-  return new InElementControl(
+  return new AbstractInElement(
       element,
       {
         get(): string {

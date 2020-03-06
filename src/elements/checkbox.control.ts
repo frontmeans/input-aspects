@@ -4,7 +4,7 @@
  */
 import { InConverter } from '../converter';
 import { InElement } from '../element.control';
-import { InElementControl } from './element.impl';
+import { AbstractInElement } from './abstract-element.control';
 
 /**
  * Checkbox input control.
@@ -134,7 +134,7 @@ export function inCheckbox<Value>(
       aspects,
     }: Partial<InCheckbox.Values<Value>> = {},
 ): InCheckbox<Value> {
-  return new InElementControl<Value, HTMLInputElement & { intermediate?: boolean }>(
+  return new AbstractInElement<Value, HTMLInputElement & { intermediate?: boolean }>(
       element,
       {
         get() {

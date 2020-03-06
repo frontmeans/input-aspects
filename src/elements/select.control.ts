@@ -5,7 +5,7 @@
 import { filterIt, itsEach, overArray, reverseIt } from 'a-iterable';
 import { InConverter } from '../converter';
 import { InElement } from '../element.control';
-import { InElementControl } from './element.impl';
+import { AbstractInElement } from './abstract-element.control';
 
 /**
  * Select input control.
@@ -35,7 +35,7 @@ export function inSelect(
       readonly aspects?: InConverter.Aspect<readonly string[]> | readonly InConverter.Aspect<readonly string[]>[];
     } = {},
 ): InSelect {
-  return new InElementControl(
+  return new AbstractInElement(
       element,
       {
         aspects,

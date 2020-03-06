@@ -7,7 +7,7 @@ import { inAspectValue } from '../aspect.impl';
 import { InConverter } from '../converter';
 import { InMode } from '../data';
 import { InElement } from '../element.control';
-import { InElementControl } from './element.impl';
+import { AbstractInElement } from './abstract-element.control';
 
 /**
  * Radio button input control.
@@ -47,7 +47,7 @@ export namespace InRadio {
 /**
  * @internal
  */
-class InRadioControl<Value> extends InElementControl<Value | undefined, HTMLInputElement> {
+class InRadioControl<Value> extends AbstractInElement<Value | undefined, HTMLInputElement> {
 
   constructor(
       element: HTMLInputElement,

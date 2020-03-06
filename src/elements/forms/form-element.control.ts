@@ -9,7 +9,7 @@ import { InConverter, intoConvertedAspects } from '../../converter';
 import { InMode } from '../../data';
 import { inModeByForm } from '../../data/modes';
 import { InElement } from '../../element.control';
-import { InElementControl } from '../element.impl';
+import { AbstractInElement } from '../abstract-element.control';
 
 /**
  * Form element control.
@@ -87,7 +87,7 @@ export function inFormElement<Elt extends HTMLElement>(
 ): InFormElement<Elt> {
 
   const { form, aspects, modes } = options;
-  const control = new InElementControl<void, Elt>(
+  const control = new AbstractInElement<void, Elt>(
       element,
       {
         aspects: [intoConvertedAspects(aspects)],

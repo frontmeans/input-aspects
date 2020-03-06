@@ -9,7 +9,7 @@ import { InConverter, intoConvertedAspects } from '../../converter';
 import { InMode } from '../../data';
 import { inModeByForm } from '../../data/modes';
 import { InElement } from '../../element.control';
-import { InElementControl } from '../element.impl';
+import { AbstractInElement } from '../abstract-element.control';
 
 /**
  * Form submit button control.
@@ -86,7 +86,7 @@ export function inSubmitButton<Elt extends HTMLElement>(
 ): InSubmitButton<Elt> {
 
   const { form, aspects, modes: { notReady = 'on', invalid = 'off', busy = 'off' } = {} } = options;
-  const control = new InElementControl<void, Elt>(
+  const control = new AbstractInElement<void, Elt>(
       element,
       {
         aspects: [intoConvertedAspects(aspects)],

@@ -1,3 +1,4 @@
+export * from './abstract-element.control';
 export * from './checkbox.control';
 export * from './radio.control';
 export * from './radio-group.control';
