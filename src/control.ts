@@ -258,12 +258,12 @@ class InConverted<From, To> extends InControl<To> {
       if (newValue !== oldValue) {
         on.send(newValue, oldValue);
       }
-    }).whenOff(reason => on.done(reason));
+    }).cuts(on);
     src.on(value => {
       if (value !== backward) {
         this._it.it = [set(value), ++lastRev];
       }
-    }).whenOff(reason => this.done(reason));
+    }).cuts(this);
     this._it.on(([value, rev]) => {
       if (rev !== lastRev) {
         lastRev = rev;

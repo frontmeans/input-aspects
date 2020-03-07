@@ -408,7 +408,10 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
       let newModel: Model | undefined;
 
       added.forEach(([key, [control, supply]]) => {
-        supply.needs(control.aspect(InParents).add({ parent: group }).needs(supply));
+        control.aspect(InParents)
+            .add({ parent: group })
+            .needs(supply)
+            .cuts(supply);
 
         const value = control.it;
 
@@ -429,14 +432,14 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
       }
 
       added.forEach(([key, [control, supply]]) => {
-        supply.needs(control.read(value => {
+        control.read.tillOff(supply)(value => {
           if (group.it[key] !== value) {
             group.it = {
               ...group.it,
               [key]: value,
             };
           }
-        }).needs(supply));
+        }).cuts(supply);
       });
     }
   }

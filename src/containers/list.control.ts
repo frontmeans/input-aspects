@@ -314,8 +314,9 @@ class InListEntries<Item> {
 
     const result = eventSupply();
 
-    supply.needs(result);
-    supply.whenOff(reason => result.off(reason !== inControlReplacedReason ? reason : undefined));
+    supply.needs(result).whenOff(
+        reason => result.off(reason !== inControlReplacedReason ? reason : undefined),
+    );
 
     return result;
 
@@ -361,8 +362,11 @@ function readControlValue<Item>(
     controls: InListControlControls<Item>,
     [control, supply]: InListEntry<Item>,
 ): void {
-  supply.needs(control.aspect(InParents).add({ parent: controls._list }).needs(supply));
-  supply.needs(control.read(value => {
+  control.aspect(InParents)
+      .add({ parent: controls._list })
+      .needs(supply)
+      .cuts(supply);
+  control.read.tillOff(supply)(value => {
 
     const index = controls._entries._entries.findIndex(([ctrl]) => ctrl === control);
     const model = controls._list.it;
@@ -375,7 +379,7 @@ function readControlValue<Item>(
 
       controls._list.it = newModel;
     }
-  }).needs(supply));
+  }).cuts(supply);
 }
 
 /**
@@ -434,7 +438,7 @@ class InListControlControls<Item> extends InListControls<Item> {
 
     this._entries._supply.needs(_list.read(applyModelToControls))
         .needs(this._list)
-        .whenOff(reason => this._updates.done(reason));
+        .cuts(this._updates);
 
     this._entries._entries.forEach(entry => readControlValue(this, entry));
   }
