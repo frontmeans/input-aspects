@@ -11,7 +11,7 @@ import {
   EventKeeper,
   EventReceiver,
   EventSupply,
-  eventSupplyOf, receiveAfterEvent,
+  eventSupplyOf,
   trackValue,
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
@@ -228,25 +228,23 @@ class InControlSubmit<Value> extends InSubmit<Value> {
   read(): AfterEvent<[InSubmit.Flags]>;
   read(receiver: EventReceiver<[InSubmit.Flags]>): EventSupply;
   read(receiver?: EventReceiver<[InSubmit.Flags]>): AfterEvent<[InSubmit.Flags]> | EventSupply {
-    return (this.read = receiveAfterEvent(
-        afterAll({
-          flags: this._flags,
-          data: this._control.aspect(InData),
-          messages: this._control.aspect(InValidation),
-        })
-            .tillOff(this._control)
-            .keepThru(
-                ({
-                  flags: [flags],
-                  data: [data],
-                  messages: [messages],
-                }): InSubmit.Flags => ({
-                  ready: data !== undefined && (messages.ok || itsEvery(messages, message => message.submit)),
-                  submitted: flags.submitted,
-                  busy: flags.busy,
-                }),
-            ),
-    ))(receiver);
+    return (this.read = afterAll({
+      flags: this._flags,
+      data: this._control.aspect(InData),
+      messages: this._control.aspect(InValidation),
+    })
+        .tillOff(this._control)
+        .keepThru(
+            ({
+              flags: [flags],
+              data: [data],
+              messages: [messages],
+            }): InSubmit.Flags => ({
+              ready: data !== undefined && (messages.ok || itsEvery(messages, message => message.submit)),
+              submitted: flags.submitted,
+              busy: flags.busy,
+            }),
+        ).F)(receiver);
   }
 
   async submit<Result>(submitter: InSubmit.Submitter<Value, Result>): Promise<Result> {

@@ -24,8 +24,6 @@ import {
   OnEvent,
   OnEvent__symbol,
   OnEventCallChain,
-  receiveAfterEvent,
-  receiveOnEvent,
   trackValue,
   ValueTracker,
 } from 'fun-events';
@@ -226,7 +224,7 @@ class OwnModeTracker extends ValueTracker<InMode.Value> {
   on(): OnEvent<[InMode.Value, InMode.Value]>;
   on(receiver: EventReceiver<[InMode.Value, InMode.Value]>): EventSupply;
   on(receiver?: EventReceiver<[InMode.Value, InMode.Value]>): OnEvent<[InMode.Value, InMode.Value]> | EventSupply {
-    return (this.on = receiveOnEvent(this._tracker.on()))(receiver);
+    return (this.on = this._tracker.on().F)(receiver);
   }
 
 }
@@ -295,7 +293,7 @@ class InControlMode extends InMode {
 
     let last: InMode.Value = 'on';
 
-    return (this.read = receiveAfterEvent(afterSent<[InMode.Value]>(
+    return (this.read = afterSent<[InMode.Value]>(
             afterAll({
               derived: this._derived.read,
               own: this.own,
@@ -331,7 +329,7 @@ class InControlMode extends InMode {
                 },
             ),
             valuesProvider<[InMode.Value]>(last),
-        ))
+        ).F
     )(receiver);
   }
 
@@ -340,12 +338,12 @@ class InControlMode extends InMode {
   on(receiver?: EventReceiver<[InMode.Value, InMode.Value]>): OnEvent<[InMode.Value, InMode.Value]> | EventSupply {
     let lastUpdate: InMode.Value = 'on';
 
-    return (this.on = receiveOnEvent(this.read().thru(value => {
+    return (this.on = this.read().thru(value => {
 
       const old = lastUpdate;
 
       return old === value ? nextSkip() : nextArgs(lastUpdate = value, old);
-    })))(receiver);
+    }).F)(receiver);
   }
 
   derive(source: InMode.Source): EventSupply {

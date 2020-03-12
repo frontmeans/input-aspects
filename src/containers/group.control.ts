@@ -22,8 +22,6 @@ import {
   OnEvent,
   OnEvent__symbol,
   OnEventCallChain,
-  receiveAfterEvent,
-  receiveOnEvent,
   trackValue,
   ValueTracker,
 } from 'fun-events';
@@ -370,23 +368,23 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
   on(
       receiver?: EventReceiver<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>,
   ): OnEvent<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]> | EventSupply {
-    return (this.on = receiveOnEvent(this._updates.on().thru(
+    return (this.on = this._updates.on().thru(
         (added, removed) => nextArgs(
             added.map(controlEntryToGroupEntry),
             removed.map(controlEntryToGroupEntry),
         ),
-    )))(receiver);
+    ).F)(receiver);
   }
 
   read(): AfterEvent<[InGroup.Snapshot<Model>]>;
   read(receiver: EventReceiver<[InGroup.Snapshot<Model>]>): EventSupply;
   read(receiver?: EventReceiver<[InGroup.Snapshot<Model>]>): AfterEvent<[InGroup.Snapshot<Model>]> | EventSupply {
-    return (this.read = receiveAfterEvent(afterSent(
+    return (this.read = afterSent(
         this._updates.on().thru(
             () => this._map.snapshot(),
         ),
         () => [this._map.snapshot()],
-    )))(receiver);
+    ).F)(receiver);
   }
 
   set<K extends keyof Model>(
@@ -512,7 +510,7 @@ class InGroupControl<Model extends object> extends InGroup<Model> {
   on(): OnEvent<[Model, Model]>;
   on(receiver: EventReceiver<[Model, Model]>): EventSupply;
   on(receiver?: EventReceiver<[Model, Model]>): OnEvent<[Model, Model]> | EventSupply {
-    return (this.on = receiveOnEvent(this._model.on()))(receiver);
+    return (this.on = this._model.on().F)(receiver);
   }
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(

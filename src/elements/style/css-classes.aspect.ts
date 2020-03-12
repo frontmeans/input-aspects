@@ -12,12 +12,13 @@ import {
   afterEventBy,
   afterSupplied,
   EventKeeper,
-  EventNotifier, EventReceiver,
+  EventNotifier,
+  EventReceiver,
   eventSupply,
   EventSupply,
   eventSupplyOf,
   isEventKeeper,
-  nextAfterEvent, receiveAfterEvent,
+  nextAfterEvent,
   trackValue,
   ValueTracker,
 } from 'fun-events';
@@ -232,7 +233,7 @@ class InControlCssClasses extends InCssClasses {
   read(): AfterEvent<[InCssClasses.Map]>;
   read(receiver: EventReceiver<[InCssClasses.Map]>): EventSupply;
   read(receiver?: EventReceiver<[InCssClasses.Map]>): AfterEvent<[InCssClasses.Map]> | EventSupply {
-    return (this.read = receiveAfterEvent(this._sources.read().tillOff(this._control).keepThru_(
+    return (this.read = this._sources.read().tillOff(this._control).keepThru_(
         ([sources]) => nextAfterEvent(afterEach(...sources.keys())),
         (...classes) => {
 
@@ -242,7 +243,7 @@ class InControlCssClasses extends InCssClasses {
 
           return result;
         },
-    )))(receiver);
+    ).F)(receiver);
   }
 
   track(): AfterEvent<[readonly string[], readonly string[]]>;
@@ -250,7 +251,7 @@ class InControlCssClasses extends InCssClasses {
   track(
       receiver?: EventReceiver<[readonly string[], readonly string[]]>,
   ): AfterEvent<[readonly string[], readonly string[]]> | EventSupply {
-    return (this.track = receiveAfterEvent(afterEventBy<[readonly string[], readonly string[]]>(receiver => {
+    return (this.track = afterEventBy<[readonly string[], readonly string[]]>(receiver => {
       receiver.supply.needs(this._control);
 
       const classes = new DeltaSet<string>();
@@ -287,7 +288,7 @@ class InControlCssClasses extends InCssClasses {
           sendClasses();
         }
       });
-    })))(receiver);
+    }).F)(receiver);
   }
 
   specs(source: InCssClasses.Source): AfterEvent<InCssClasses.Spec[]> {

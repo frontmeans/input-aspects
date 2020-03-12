@@ -15,8 +15,6 @@ import {
   eventSupplyOf,
   OnEvent,
   OnEvent__symbol,
-  receiveAfterEvent,
-  receiveOnEvent,
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
@@ -178,7 +176,7 @@ class InControlParents extends InParents {
   on(
       receiver?: EventReceiver<[InParents.Entry[], InParents.Entry[]]>,
   ): OnEvent<[InParents.Entry[], InParents.Entry[]]> | EventSupply {
-    return (this.on = receiveOnEvent(this._on.on()))(receiver);
+    return (this.on = this._on.on().F)(receiver);
   }
 
   read(): AfterEvent<[InParents.All]>;
@@ -187,10 +185,10 @@ class InControlParents extends InParents {
 
     const allParents = (): IterableIterator<InParents.Entry> => this._map.keys();
 
-    return (this.read = receiveAfterEvent(afterSent(
+    return (this.read = afterSent(
         this.on().thru(allParents),
         () => [allParents()],
-    )))(receiver);
+    ).F)(receiver);
   }
 
 }

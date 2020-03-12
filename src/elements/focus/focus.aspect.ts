@@ -9,7 +9,6 @@ import {
   EventSupply__symbol,
   eventSupplyOf,
   OnEvent,
-  receiveOnEvent,
   trackValue,
   ValueTracker,
 } from 'fun-events';
@@ -96,7 +95,7 @@ class InControlFocus extends InFocus {
   on(): OnEvent<[boolean, boolean]>;
   on(receiver: EventReceiver<[boolean, boolean]>): EventSupply;
   on(receiver?: EventReceiver<[boolean, boolean]>): OnEvent<[boolean, boolean]> | EventSupply {
-    return (this.on = receiveOnEvent(this._it.on()))(receiver);
+    return (this.on = this._it.on().F)(receiver);
   }
 
 }

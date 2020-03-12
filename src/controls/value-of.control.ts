@@ -2,7 +2,7 @@
  * @packageDocumentation
  * @module input-aspects
  */
-import { EventReceiver, EventSupply, eventSupply, EventSupply__symbol, OnEvent, receiveOnEvent } from 'fun-events';
+import { EventReceiver, EventSupply, eventSupply, EventSupply__symbol, OnEvent } from 'fun-events';
 import { InControl } from '../control';
 
 /**
@@ -31,7 +31,7 @@ class InSameValueControl<Value> extends InControl<Value> {
   on(): OnEvent<[Value, Value]>;
   on(receiver: EventReceiver<[Value, Value]>): EventSupply;
   on(receiver?: EventReceiver<[Value, Value]>): OnEvent<[Value, Value]> | EventSupply {
-    return (this.on = receiveOnEvent(this._control.on()))(receiver);
+    return (this.on = this._control.on().F)(receiver);
   }
 
 }

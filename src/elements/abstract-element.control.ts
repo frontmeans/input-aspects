@@ -8,8 +8,6 @@ import {
   EventSupply__symbol,
   eventSupplyOf,
   OnEvent,
-  receiveAfterEvent,
-  receiveOnEvent,
 } from 'fun-events';
 import { DomEventDispatcher } from 'fun-events/dom';
 import { InConverter } from '../converter';
@@ -117,18 +115,18 @@ export class AbstractInElement<Value, Elt extends HTMLElement> extends InElement
   input(): AfterEvent<[InElement.Input<Value>]>;
   input(receiver: EventReceiver<[InElement.Input<Value>]>): EventSupply;
   input(receiver?: EventReceiver<[InElement.Input<Value>]>): AfterEvent<[InElement.Input<Value>]> | EventSupply {
-    return (this.input = receiveAfterEvent(afterSent<[InElement.Input<Value>]>(
+    return (this.input = afterSent<[InElement.Input<Value>]>(
         this._input.on().thru(asis), // remove the second parameter
         () => [{ value: this.it }],
-    )))(receiver);
+    ).F)(receiver);
   }
 
   on(): OnEvent<[Value, Value]>;
   on(receiver: EventReceiver<[Value, Value]>): EventSupply;
   on(receiver?: EventReceiver<[Value, Value]>): OnEvent<[Value, Value]> | EventSupply {
-    return (this.on = receiveOnEvent(this._input.on().thru(
+    return (this.on = this._input.on().thru(
         ({ value: newValue }, oldValue) => newValue === oldValue ? nextSkip() : nextArgs(newValue, oldValue),
-    )))(receiver);
+    ).F)(receiver);
   }
 
   /**

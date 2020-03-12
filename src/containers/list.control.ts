@@ -23,8 +23,6 @@ import {
   OnEvent,
   OnEvent__symbol,
   OnEventCallChain,
-  receiveAfterEvent,
-  receiveOnEvent,
   trackValue,
   ValueTracker,
 } from 'fun-events';
@@ -439,12 +437,12 @@ class InListControlControls<Item> extends InListControls<Item> {
   on(
       receiver?: EventReceiver<[InList.Entry<Item>[], InList.Entry<Item>[]]>,
   ): OnEvent<[InList.Entry<Item>[], InList.Entry<Item>[]]> | EventSupply {
-    return (this.on = receiveOnEvent(this._updates.on().thru(
+    return (this.on = this._updates.on().thru(
         (added, removed) => nextArgs(
             added.map(toInListEntry),
             removed.map(toInListEntry),
         ),
-    )))(receiver);
+    ).F)(receiver);
   }
 
   read(): AfterEvent<[InList.Snapshot<Item>]>;
@@ -452,12 +450,12 @@ class InListControlControls<Item> extends InListControls<Item> {
   read(
       receiver?: EventReceiver<[InList.Snapshot<Item>]>,
   ): AfterEvent<[InList.Snapshot<Item>]> | EventSupply {
-    return (this.read = receiveAfterEvent(afterSent(
+    return (this.read = afterSent(
         this._updates.on().thru(
             () => this._entries.snapshot(),
         ),
         () => [this._entries.snapshot()],
-    )))(receiver);
+    ).F)(receiver);
   }
 
   add(...controls: InControl<Item>[]): EventSupply {
@@ -545,7 +543,7 @@ class InListControl<Item> extends InList<Item> {
   on(
       receiver?: EventReceiver<[readonly Item[], readonly Item[]]>,
   ): OnEvent<[readonly Item[], readonly Item[]]> | EventSupply {
-    return (this.on = receiveOnEvent(this._model.on()))(receiver);
+    return (this.on = this._model.on().F)(receiver);
   }
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(

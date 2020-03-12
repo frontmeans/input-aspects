@@ -9,8 +9,11 @@ import {
   AfterEvent,
   AfterEvent__symbol,
   afterThe,
-  EventKeeper, EventReceiver, EventSupply, eventSupplyOf,
-  nextAfterEvent, receiveAfterEvent,
+  EventKeeper,
+  EventReceiver,
+  EventSupply,
+  eventSupplyOf,
+  nextAfterEvent,
   trackValue,
   ValueTracker,
 } from 'fun-events';
@@ -157,7 +160,7 @@ class InControlStatus extends InStatus {
   read(): AfterEvent<[InStatus.Flags]>;
   read(receiver: EventReceiver<[InStatus.Flags]>): EventSupply;
   read(receiver?: EventReceiver<[InStatus.Flags]>): AfterEvent<[InStatus.Flags]> | EventSupply {
-    return (this.read = receiveAfterEvent(this._flags.read()))(receiver);
+    return (this.read = this._flags.read().F)(receiver);
   }
 
   markTouched(touched = true): this {
@@ -243,7 +246,7 @@ class InContainerStatus extends InStatus {
   read(): AfterEvent<[InStatus.Flags]>;
   read(receiver: EventReceiver<[InStatus.Flags]>): EventSupply;
   read(receiver?: EventReceiver<[InStatus.Flags]>): AfterEvent<[InStatus.Flags]> | EventSupply {
-    return (this.read = receiveAfterEvent(containerInStatusFlags(this._container)))(receiver);
+    return (this.read = containerInStatusFlags(this._container).F)(receiver);
   }
 
   markEdited(edited?: boolean): this {

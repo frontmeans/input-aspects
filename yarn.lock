@@ -1698,10 +1698,10 @@ fsevents@^2.1.2, fsevents@~2.1.2:
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.1.2.tgz#4c0a1fb34bc68e543b4b82a9ec392bfbda840805"
   integrity sha512-R4wDiBwZ0KzpgOWetKDug1FZcYhqYnUYKtfZYt4mD5SBz76q0KR4Q9o7GIPamsVPGmW3EYPPJ0dOOjvx32ldZA==
 
-fun-events@^9.0.0-dev.0:
-  version "9.0.0-dev.0"
-  resolved "https://registry.yarnpkg.com/fun-events/-/fun-events-9.0.0-dev.0.tgz#ab00ccfa9faa1509b4070f75a3a2735cc3ad58b8"
-  integrity sha512-StmxvEFmsTa+Fwob9759UvrDBPc218cRfX12jchCoJltC2nI/ZNpLyvzjRkoqo7AEitZ1MUDZJGdUqgub/JOhA==
+fun-events@^9.0.0-dev.1:
+  version "9.0.0-dev.1"
+  resolved "https://registry.yarnpkg.com/fun-events/-/fun-events-9.0.0-dev.1.tgz#4777ba2f744d85fc8e5df34590f384951fbde4f5"
+  integrity sha512-m22dexg7wR1pqS4UVytSyKWsrB8yN50icJqGnGPG7mCSiewY97wLo4nQBMN8f9yRe+PEKInzzi16kKFEe2WrrA==
 
 function-bind@^1.1.1:
   version "1.1.1"
@@ -3676,10 +3676,10 @@ rollup-pluginutils@2.8.2:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.0.4.tgz#23e7b20b4d653ad14db783630b4e44b69c1a0d97"
-  integrity sha512-Z/VZtyIVRBBmtyGQcRJKkwsYXHIVk9EuupprQJ7CKt8DnURQTVF6arptn5Ir/ihY0tZ166O1eTDKoi5quppXRg==
+rollup@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.0.5.tgz#55b8c0d62360a095e322ac7425b13ac5a97edcb4"
+  integrity sha512-bECGz+RYpw3NYCvLnABu3REUROYbnZsfQZA37ekm/KlgKt/fyxBNN4waBnlLwzx4r6jNBs56SbTn7PEgJjw3fQ==
   optionalDependencies:
     fsevents "~2.1.2"
 

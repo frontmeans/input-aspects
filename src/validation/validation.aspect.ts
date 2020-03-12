@@ -9,10 +9,11 @@ import {
   AfterEvent,
   AfterEvent__symbol,
   afterSupplied,
-  EventKeeper, EventReceiver,
+  EventKeeper,
+  EventReceiver,
   EventSupply,
   nextAfterEvent,
-  OnEventCallChain, receiveAfterEvent,
+  OnEventCallChain,
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrBuild } from '../aspect.impl';
@@ -362,7 +363,7 @@ class InControlValidation<Value> extends InValidation<Value> {
   read(): AfterEvent<[InValidation.Result]>;
   read(receiver: EventReceiver<[InValidation.Result]>): EventSupply;
   read(receiver?: EventReceiver<[InValidation.Result]>): AfterEvent<[InValidation.Result]> | EventSupply {
-    return (this.read = receiveAfterEvent(afterSupplied(this._messages).keepThru(inValidationResult)))(receiver);
+    return (this.read = afterSupplied(this._messages).keepThru(inValidationResult).F)(receiver);
   }
 
 }

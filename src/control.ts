@@ -4,12 +4,13 @@
  */
 import { asis, noop } from 'call-thru';
 import {
-  EventEmitter, EventReceiver,
+  EventEmitter,
+  EventReceiver,
   eventSupply,
   EventSupply,
   EventSupply__symbol,
   eventSupplyOf,
-  OnEvent, receiveOnEvent,
+  OnEvent,
   trackValue,
   ValueTracker,
 } from 'fun-events';
@@ -293,7 +294,7 @@ class InConverted<From, To> extends InControl<To> {
   on(): OnEvent<[To, To]>;
   on(receiver: EventReceiver<[To, To]>): EventSupply;
   on(receiver?: EventReceiver<[To, To]>): OnEvent<[To, To]> | EventSupply {
-    return (this.on = receiveOnEvent(this._on.on()))(receiver);
+    return (this.on = this._on.on().F)(receiver);
   }
 
 }

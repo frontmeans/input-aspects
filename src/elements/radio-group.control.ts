@@ -12,7 +12,6 @@ import {
   EventSupply__symbol,
   eventSupplyOf,
   OnEvent,
-  receiveOnEvent,
   trackValue,
   ValueTracker,
 } from 'fun-events';
@@ -124,7 +123,7 @@ class InRadioGroupControl<Value extends string | undefined> extends AbstractInCo
   on(): OnEvent<[Value, Value]>;
   on(receiver: EventReceiver<[Value, Value]>): EventSupply;
   on(receiver?: EventReceiver<[Value, Value]>): OnEvent<[Value, Value]> | EventSupply {
-    return (this.on = receiveOnEvent(this._it.on()))(receiver);
+    return (this.on = this._it.on().F)(receiver);
   }
 
 }
