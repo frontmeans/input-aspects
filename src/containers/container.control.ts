@@ -2,7 +2,15 @@
  * @packageDocumentation
  * @module input-aspects
  */
-import { AfterEvent, AfterEvent__symbol, EventKeeper, EventSender, OnEvent, OnEvent__symbol } from 'fun-events';
+import {
+  AfterEvent,
+  AfterEvent__symbol,
+  EventKeeper,
+  EventReceiver,
+  EventSender, EventSupply,
+  OnEvent,
+  OnEvent__symbol,
+} from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';
@@ -94,28 +102,53 @@ export abstract class InContainerControls
      implements EventSender<[InContainer.Entry[], InContainer.Entry[]]>, EventKeeper<[InContainer.Snapshot]> {
 
   /**
-   * An `OnEvent` sender of container updates.
+   * Builds an `OnEvent` sender of container updates.
    *
    * Sends two arrays on each container update: the first one contains added control entries, while the second one
    * contains removed control entries.
    *
    * The `[OnEvent__symbol]` property is an alias of this one.
+   *
+   * @returns Container updates sender.
    */
-  abstract readonly on: OnEvent<[InContainer.Entry[], InContainer.Entry[]]>;
+  abstract on(): OnEvent<[InContainer.Entry[], InContainer.Entry[]]>;
 
-  get [OnEvent__symbol](): OnEvent<[InContainer.Entry[], InContainer.Entry[]]> {
-    return this.on;
+  /**
+   * Starts sending container updates to the given receiver.
+   *
+   * Sends two arrays on each container update: the first one contains added control entries, while the second one
+   * contains removed control entries.
+   *
+   * @param receiver  Target container updates receiver.
+   *
+   * @returns Container updates supply.
+   */
+  abstract on(receiver: EventReceiver<[InContainer.Entry[], InContainer.Entry[]]>): EventSupply;
+
+  [OnEvent__symbol](): OnEvent<[InContainer.Entry[], InContainer.Entry[]]> {
+    return this.on();
   }
 
   /**
-   * An `AfterEvent` keeper of input container contents.
+   * Builds an `AfterEvent` keeper of input container contents.
    *
    * The `[AfterEvent__symbol]` property is an alias of this one.
+   *
+   * @returns Container contents snapshot keeper.
    */
-  abstract readonly read: AfterEvent<[InContainer.Snapshot]>;
+  abstract read(): AfterEvent<[InContainer.Snapshot]>;
 
-  get [AfterEvent__symbol](): AfterEvent<[InContainer.Snapshot]> {
-    return this.read;
+  /**
+   * Starts sending container contents and updates to the given `receiver`
+   *
+   * @param receiver  Target receiver of container snapshot updates.
+   *
+   * @returns Container contents supply.
+   */
+  abstract read(receiver: EventReceiver<[InContainer.Snapshot]>): EventSupply;
+
+  [AfterEvent__symbol](): AfterEvent<[InContainer.Snapshot]> {
+    return this.read();
   }
 
 }

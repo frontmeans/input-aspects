@@ -38,7 +38,7 @@ export function inModeByForm(
 
   const submit = form.aspect(InSubmit);
 
-  return submit.read.keep.thru(
+  return submit.read().keepThru(
       flags => inModeValue(
           flags.busy ? busy : 'on',
           flags.ready ? 'on' : (flags.submitted ? invalid : notReady),

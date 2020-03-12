@@ -21,7 +21,7 @@ const dontRemove = {};
  */
 export class InValidationMessages<Value> implements EventKeeper<InValidation.Message[]> {
 
-  readonly [AfterEvent__symbol]: AfterEvent<InValidation.Message[]>;
+  readonly _messages: AfterEvent<InValidation.Message[]>;
   readonly from: (this: void, validator: InValidator<Value>) => EventSupply;
 
   constructor(control: InControl<Value>) {
@@ -34,10 +34,10 @@ export class InValidationMessages<Value> implements EventKeeper<InValidation.Mes
     // Validates using the given validator
     let validate: (validator: AfterEvent<InValidation.Message[]>, validatorSupply: EventSupply) => void = noop;
 
-    this[AfterEvent__symbol] = afterEventBy(receiver => {
+    this._messages = afterEventBy(receiver => {
 
       // Validation messages supply
-      const resultSupply = afterSupplied(emitter, valuesProvider())(receiver).whenOff(() => {
+      const resultSupply = afterSupplied(emitter, valuesProvider()).to(receiver).whenOff(() => {
         send = noop; // Disable message sending
         validate = noop; // Disable validation
       });
@@ -45,7 +45,7 @@ export class InValidationMessages<Value> implements EventKeeper<InValidation.Mes
       // Enable validation using the given validator
       validate = (validator: AfterEvent<InValidation.Message[]>, validatorSupply: EventSupply) => {
 
-        const supply = validator(
+        const supply = validator.to(
             (...messages) => {
               if (messages.length) {
                 // Replace messages reported by validator.
@@ -101,6 +101,10 @@ export class InValidationMessages<Value> implements EventKeeper<InValidation.Mes
     function allMessages(): Iterable<InValidation.Message> {
       return flatMapIt(validatorMessages.values(), asis);
     }
+  }
+
+  [AfterEvent__symbol](): AfterEvent<InValidation.Message[]> {
+    return this._messages;
   }
 
 }

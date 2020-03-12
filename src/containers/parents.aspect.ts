@@ -5,14 +5,18 @@
 import {
   AfterEvent,
   AfterEvent__symbol,
-  afterEventBy,
+  afterSent,
   EventEmitter,
   EventKeeper,
+  EventReceiver,
   EventSender,
   eventSupply,
   EventSupply,
+  eventSupplyOf,
   OnEvent,
   OnEvent__symbol,
+  receiveAfterEvent,
+  receiveOnEvent,
 } from 'fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
@@ -48,28 +52,53 @@ export abstract class InParents
   }
 
   /**
-   * An `OnEvent` sender of parent updates.
+   * Builds an `OnEvent` sender of parent updates.
    *
    * Sends two arrays on each parents update: the first one contains added parent entries, while the second one
    * contains removed parent entries.
    *
    * The `[OnEvent__symbol]` property is an alias of this one.
+   *
+   * @returns `OnEvent` sender of parent updates.
    */
-  abstract readonly on: OnEvent<[InParents.Entry[], InParents.Entry[]]>;
+  abstract on(): OnEvent<[InParents.Entry[], InParents.Entry[]]>;
 
-  get [OnEvent__symbol](): OnEvent<[InParents.Entry[], InParents.Entry[]]> {
-    return this.on;
+  /**
+   * Starts sending parent updates to the given `receiver`.
+   *
+   * Sends two arrays on each parents update: the first one contains added parent entries, while the second one
+   * contains removed parent entries.
+   *
+   * @param receiver  Target parent updates receiver.
+   *
+   * @returns Parent updates supply.
+   */
+  abstract on(receiver: EventReceiver<[InParents.Entry[], InParents.Entry[]]>): EventSupply;
+
+  [OnEvent__symbol](): OnEvent<[InParents.Entry[], InParents.Entry[]]> {
+    return this.on();
   }
 
   /**
-   * An `AfterEvent` keeper of control parents.
+   * Builds an `AfterEvent` keeper of control parents.
    *
    * The `[AfterEvent__symbol]` property is an alias of this one.
+   *
+   * @returns `AfterEvent` keeper of control parents.
    */
-  abstract readonly read: AfterEvent<[InParents.All]>;
+  abstract read(): AfterEvent<[InParents.All]>;
 
-  get [AfterEvent__symbol](): AfterEvent<[InParents.All]> {
-    return this.read;
+  /**
+   * Starts sending control parents and updates to the given `receiver`
+   *
+   * @param receiver  Target control parents receiver.
+   *
+   * @returns Control parents supply.
+   */
+  abstract read(receiver: EventReceiver<[InParents.All]>): EventSupply;
+
+  [AfterEvent__symbol](): AfterEvent<[InParents.All]> {
+    return this.read();
   }
 
   /**
@@ -115,25 +144,10 @@ class InControlParents extends InParents {
 
   private readonly _map = new Map<InParents.Entry, EventSupply>();
   private readonly _on = new EventEmitter<[InParents.Entry[], InParents.Entry[]]>();
-  readonly on: OnEvent<[InParents.Entry[], InParents.Entry[]]>;
-  readonly read: AfterEvent<[InParents.All]>;
 
   constructor(private readonly _control: InControl<any>) {
     super();
-
-    const map = this._map;
-
-    this.on = this._on.on.tillOff(_control);
-    this.read = afterEventBy(
-        this.on.thru(
-            allParents,
-        ),
-        () => [allParents()],
-    );
-
-    function allParents(): IterableIterator<InParents.Entry> {
-      return map.keys();
-    }
+    eventSupplyOf(this._on).needs(this._control);
   }
 
   add(entry: InParents.Entry): EventSupply {
@@ -157,6 +171,26 @@ class InControlParents extends InParents {
     return supply
         .needs(this._control)
         .needs(entry.parent);
+  }
+
+  on(): OnEvent<[InParents.Entry[], InParents.Entry[]]>;
+  on(receiver: EventReceiver<[InParents.Entry[], InParents.Entry[]]>): EventSupply;
+  on(
+      receiver?: EventReceiver<[InParents.Entry[], InParents.Entry[]]>,
+  ): OnEvent<[InParents.Entry[], InParents.Entry[]]> | EventSupply {
+    return (this.on = receiveOnEvent(this._on.on()))(receiver);
+  }
+
+  read(): AfterEvent<[InParents.All]>;
+  read(receiver: EventReceiver<[InParents.All]>): EventSupply;
+  read(receiver?: EventReceiver<[InParents.All]>): AfterEvent<[InParents.All]> | EventSupply {
+
+    const allParents = (): IterableIterator<InParents.Entry> => this._map.keys();
+
+    return (this.read = receiveAfterEvent(afterSent(
+        this.on().thru(allParents),
+        () => [allParents()],
+    )))(receiver);
   }
 
 }

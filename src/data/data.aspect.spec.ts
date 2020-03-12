@@ -18,7 +18,7 @@ describe('InData', () => {
     control = inValue('value');
     mode = control.aspect(InMode);
     data = control.aspect(InData);
-    dataSupply = data(d => lastData = d);
+    dataSupply = data.to(d => lastData = d);
   });
 
   it('is equal to the value initially', () => {
@@ -72,7 +72,7 @@ describe('InData', () => {
 
       const dataDone = jest.fn();
 
-      dataSupply = data(noop).whenOff(dataDone);
+      dataSupply = data.to(noop).whenOff(dataDone);
       expect(dataDone).toHaveBeenCalledWith(reason);
     });
   });

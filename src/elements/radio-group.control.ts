@@ -7,10 +7,12 @@ import { nextArg } from 'call-thru';
 import {
   afterAll,
   AfterEvent,
+  EventReceiver,
   EventSupply,
   EventSupply__symbol,
   eventSupplyOf,
   OnEvent,
+  receiveOnEvent,
   trackValue,
   ValueTracker,
 } from 'fun-events';
@@ -92,7 +94,7 @@ class InRadioGroupControl<Value extends string | undefined> extends AbstractInCo
     super({ aspects });
     this._unchecked = unchecked as Value;
 
-    const read: AfterEvent<[Value]> = afterAll(_buttons).keep.thru(
+    const read: AfterEvent<[Value]> = afterAll(_buttons).keepThru(
         values => nextArg(checkedInValue(values, unchecked) as Value),
     );
 
@@ -107,10 +109,6 @@ class InRadioGroupControl<Value extends string | undefined> extends AbstractInCo
     });
   }
 
-  get on(): OnEvent<[Value, Value]> {
-    return this._it.on;
-  }
-
   get [EventSupply__symbol](): EventSupply {
     return eventSupplyOf(this._it);
   }
@@ -121,6 +119,12 @@ class InRadioGroupControl<Value extends string | undefined> extends AbstractInCo
 
   set it(value: Value) {
     this._it.it = value != null && this._buttons[value as keyof RequiredInButtons<Value>] ? value : this._unchecked;
+  }
+
+  on(): OnEvent<[Value, Value]>;
+  on(receiver: EventReceiver<[Value, Value]>): EventSupply;
+  on(receiver?: EventReceiver<[Value, Value]>): OnEvent<[Value, Value]> | EventSupply {
+    return (this.on = receiveOnEvent(this._it.on()))(receiver);
   }
 
 }

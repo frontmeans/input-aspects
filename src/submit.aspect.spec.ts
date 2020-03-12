@@ -53,7 +53,7 @@ describe('InSubmit', () => {
 
   describe('[AfterEvent__symbol]', () => {
     it('is the same as `read`', () => {
-      expect(afterSupplied(submit)).toBe(submit.read);
+      expect(afterSupplied(submit)).toBe(submit.read());
     });
   });
 

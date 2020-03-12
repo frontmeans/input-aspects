@@ -228,13 +228,13 @@ describe('InGroup', () => {
 
     describe('[OnEvent__symbol]', () => {
       it('is the same as `on`', () => {
-        expect(onSupplied(group.controls)).toBe(group.controls.on);
+        expect(onSupplied(group.controls)).toBe(group.controls.on());
       });
     });
 
     describe('[AfterEvent__symbol]', () => {
       it('is the same as `read`', () => {
-        expect(afterSupplied(group.controls)).toBe(group.controls.read);
+        expect(afterSupplied(group.controls)).toBe(group.controls.read());
       });
     });
   });
@@ -295,7 +295,7 @@ describe('InGroup', () => {
     let data: InData.DataType<TestModel>;
 
     beforeEach(() => {
-      group.aspect(InData)(d => data = d);
+      group.aspect(InData).to(d => data = d);
     });
 
     it('contains all data by default', () => {
@@ -322,7 +322,7 @@ describe('InGroup', () => {
 
     let parents: InParents.Entry[] = [];
 
-    control.aspect(InParents).read.once(p => parents = [...p]);
+    control.aspect(InParents).read().once(p => parents = [...p]);
 
     return parents;
   }

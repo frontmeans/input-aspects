@@ -28,7 +28,7 @@ export function requireNeeded<Value>(...validators: InValidator<Value>[]): InVal
 
   const validate = inValidator(requireAll(...validators));
 
-  return (control: InControl<Value>) => validate(control).keep.thru(nextRequireNeededMessages);
+  return (control: InControl<Value>) => validate(control).keepThru(nextRequireNeededMessages);
 }
 
 /**

@@ -229,7 +229,7 @@ describe('InStatus', () => {
 
   describe('[AfterEvent__symbol]', () => {
     it('is an alias of `read`', () => {
-      expect(afterSupplied(status)).toBe(status.read);
+      expect(afterSupplied(status)).toBe(status.read());
     });
   });
 

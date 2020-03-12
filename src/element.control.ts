@@ -2,7 +2,7 @@
  * @packageDocumentation
  * @module input-aspects
  */
-import { AfterEvent } from 'fun-events';
+import { AfterEvent, EventReceiver, EventSupply } from 'fun-events';
 import { DomEventDispatcher } from 'fun-events/dom';
 import { InAspect, InAspect__symbol } from './aspect';
 import { inAspectSameOrNull } from './aspect.impl';
@@ -34,11 +34,6 @@ export abstract class InElement<Value, Elt = HTMLElement> extends AbstractInCont
   abstract readonly element: Elt;
 
   /**
-   * An `AfterEvent` keeper of user input.
-   */
-  abstract readonly input: AfterEvent<[InElement.Input<Value>]>;
-
-  /**
    * DOM event dispatcher of this element.
    */
   abstract readonly events: DomEventDispatcher;
@@ -46,6 +41,22 @@ export abstract class InElement<Value, Elt = HTMLElement> extends AbstractInCont
   static get [InAspect__symbol](): InAspect<InElement<any> | null, 'element'> {
     return InElement__aspect;
   }
+
+  /**
+   * Builds an `AfterEvent` keeper of user input.
+   *
+   * @returns `AfterEvent` keeper of user input.
+   */
+  abstract input(): AfterEvent<[InElement.Input<Value>]>;
+
+  /**
+   * Starts sending user input and updates to the given `receiver`.
+   *
+   * @param receiver  Target user input receiver.
+   *
+   * @returns User input supply.
+   */
+  abstract input(receiver: EventReceiver<[InElement.Input<Value>]>): EventSupply;
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
       aspect: InAspect<Instance, Kind>,

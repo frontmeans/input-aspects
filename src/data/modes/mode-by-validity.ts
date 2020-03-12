@@ -27,7 +27,7 @@ export function inModeByValidity(
       ignore?: string | string[];
     } = {},
 ): InMode.Source {
-  return control => control.aspect(InValidation).read.keep.thru(
+  return control => control.aspect(InValidation).read().keepThru(
       validity => validity.hasBut(...(typeof ignore === 'string' ? [ignore] : ignore)) ? invalid : 'on',
   );
 }

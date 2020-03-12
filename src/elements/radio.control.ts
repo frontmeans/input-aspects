@@ -88,7 +88,7 @@ function applyRadioInMode<Value>(radio: InRadioControl<Value>): InAspect.Applied
 
   const { instance: mode } = InMode[InAspect__symbol].applyTo(radio);
 
-  mode.derive(radio.read.keep.thru_(value => value !== undefined ? 'on' : '-on'));
+  mode.derive(radio.read().keepThru_(value => value !== undefined ? 'on' : '-on'));
 
   return inAspectValue(mode);
 }
