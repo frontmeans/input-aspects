@@ -379,7 +379,7 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
   read(): AfterEvent<[InGroup.Snapshot<Model>]>;
   read(receiver: EventReceiver<[InGroup.Snapshot<Model>]>): EventSupply;
   read(receiver?: EventReceiver<[InGroup.Snapshot<Model>]>): AfterEvent<[InGroup.Snapshot<Model>]> | EventSupply {
-    return (this.read = afterSent(
+    return (this.read = afterSent<[InGroup.Snapshot<Model>]>(
         this._updates.on().thru(
             () => this._map.snapshot(),
         ),

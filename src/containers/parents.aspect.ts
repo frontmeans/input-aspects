@@ -185,7 +185,7 @@ class InControlParents extends InParents {
 
     const allParents = (): IterableIterator<InParents.Entry> => this._map.keys();
 
-    return (this.read = afterSent(
+    return (this.read = afterSent<[InParents.All]>(
         this.on().thru(allParents),
         () => [allParents()],
     ).F)(receiver);

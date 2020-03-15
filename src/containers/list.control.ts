@@ -450,7 +450,7 @@ class InListControlControls<Item> extends InListControls<Item> {
   read(
       receiver?: EventReceiver<[InList.Snapshot<Item>]>,
   ): AfterEvent<[InList.Snapshot<Item>]> | EventSupply {
-    return (this.read = afterSent(
+    return (this.read = afterSent<[InList.Snapshot<Item>]>(
         this._updates.on().thru(
             () => this._entries.snapshot(),
         ),
