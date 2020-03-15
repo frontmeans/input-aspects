@@ -9,7 +9,7 @@ import {
   afterEach,
   AfterEvent,
   AfterEvent__symbol,
-  afterEventBy,
+  afterSent,
   EventEmitter,
   EventKeeper,
   EventReceiver,
@@ -128,9 +128,11 @@ export abstract class InListControls<Item>
     extends InContainerControls
     implements EventSender<[InList.Entry<Item>[], InList.Entry<Item>[]]>, EventKeeper<[InList.Snapshot<Item>]> {
 
-  abstract readonly on: OnEvent<[InList.Entry<Item>[], InList.Entry<Item>[]]>;
+  abstract on(): OnEvent<[InList.Entry<Item>[], InList.Entry<Item>[]]>;
+  abstract on(receiver: EventReceiver<[InList.Entry<Item>[], InList.Entry<Item>[]]>): EventSupply;
 
-  abstract readonly read: AfterEvent<[InList.Snapshot<Item>]>;
+  abstract read(): AfterEvent<[InList.Snapshot<Item>]>;
+  abstract read(receiver: EventReceiver<[InList.Snapshot<Item>]>): EventSupply;
 
   /**
    * Sets input control with the given index.
@@ -201,9 +203,9 @@ export abstract class InListControls<Item>
 
 export interface InListControls<Item> {
 
-  readonly [OnEvent__symbol]: OnEvent<[InList.Entry<Item>[], InList.Entry<Item>[]]>;
+  [OnEvent__symbol](): OnEvent<[InList.Entry<Item>[], InList.Entry<Item>[]]>;
 
-  readonly [AfterEvent__symbol]: AfterEvent<[InList.Snapshot<Item>]>;
+  [AfterEvent__symbol](): AfterEvent<[InList.Snapshot<Item>]>;
 
 }
 
@@ -366,20 +368,23 @@ function readControlValue<Item>(
       .add({ parent: controls._list })
       .needs(supply)
       .cuts(supply);
-  control.read.tillOff(supply)(value => {
+  control.read({
+    supply,
+    receive: (_ctx, value) => {
 
-    const index = controls._entries._entries.findIndex(([ctrl]) => ctrl === control);
-    const model = controls._list.it;
+      const index = controls._entries._entries.findIndex(([ctrl]) => ctrl === control);
+      const model = controls._list.it;
 
-    if (model[index] !== value) {
+      if (model[index] !== value) {
 
-      const newModel = Array.from(controls._list.it);
+        const newModel = Array.from(controls._list.it);
 
-      newModel[index] = control.it;
+        newModel[index] = control.it;
 
-      controls._list.it = newModel;
-    }
-  }).cuts(supply);
+        controls._list.it = newModel;
+      }
+    },
+  });
 }
 
 /**
@@ -389,33 +394,17 @@ class InListControlControls<Item> extends InListControls<Item> {
 
   readonly _entries: InListEntries<Item>;
   private readonly _updates = new EventEmitter<[[number, InListEntry<Item>][], [number, InListEntry<Item>][]]>();
-  readonly on: OnEvent<[InList.Entry<Item>[], InList.Entry<Item>[]]>;
-  readonly read: AfterEvent<[InList.Snapshot<Item>]>;
 
   constructor(readonly _list: InListControl<Item>) {
     super();
 
-    const self = this;
-
     this._entries = new InListEntries(this, inListControlsByModel(_list.it, 0));
-    this.on = this._updates.on.thru(
-        (added, removed) => nextArgs(
-            added.map(toInListEntry),
-            removed.map(toInListEntry),
-        ),
-    );
-    this.read = afterEventBy(
-        this._updates.on.thru(
-            () => this._entries.snapshot(),
-        ),
-        () => [this._entries.snapshot()],
-    );
 
     const applyModelToControls: EventReceiver.Object<[readonly Item[]]> = {
-      receive(context, model) {
+      receive: (context, model) => {
         context.onRecurrent(noop);
 
-        const entries = self._entries._entries;
+        const entries = this._entries._entries;
 
         model.forEach((item, index) => {
 
@@ -428,10 +417,10 @@ class InListControlControls<Item> extends InListControls<Item> {
 
         if (model.length < entries.length) {
           // Remove controls without values in model
-          self.splice(model.length);
+          this.splice(model.length);
         } else if (model.length > entries.length) {
           // Create missing value controls
-          self.add(...inListControlsByModel(model, entries.length));
+          this.add(...inListControlsByModel(model, entries.length));
         }
       },
     };
@@ -441,6 +430,32 @@ class InListControlControls<Item> extends InListControls<Item> {
         .cuts(this._updates);
 
     this._entries._entries.forEach(entry => readControlValue(this, entry));
+  }
+
+  on(): OnEvent<[InList.Entry<Item>[], InList.Entry<Item>[]]>;
+  on(receiver: EventReceiver<[InList.Entry<Item>[], InList.Entry<Item>[]]>): EventSupply;
+  on(
+      receiver?: EventReceiver<[InList.Entry<Item>[], InList.Entry<Item>[]]>,
+  ): OnEvent<[InList.Entry<Item>[], InList.Entry<Item>[]]> | EventSupply {
+    return (this.on = this._updates.on().thru(
+        (added, removed) => nextArgs(
+            added.map(toInListEntry),
+            removed.map(toInListEntry),
+        ),
+    ).F)(receiver);
+  }
+
+  read(): AfterEvent<[InList.Snapshot<Item>]>;
+  read(receiver: EventReceiver<[InList.Snapshot<Item>]>): EventSupply;
+  read(
+      receiver?: EventReceiver<[InList.Snapshot<Item>]>,
+  ): AfterEvent<[InList.Snapshot<Item>]> | EventSupply {
+    return (this.read = afterSent(
+        this._updates.on().thru(
+            () => this._entries.snapshot(),
+        ),
+        () => [this._entries.snapshot()],
+    ).F)(receiver);
   }
 
   add(...controls: InControl<Item>[]): EventSupply {
@@ -515,16 +530,20 @@ class InListControl<Item> extends InList<Item> {
     return eventSupplyOf(this._model);
   }
 
-  get on(): OnEvent<[readonly Item[], readonly Item[]]> {
-    return this._model.on;
-  }
-
   get it(): readonly Item[] {
     return this._model.it;
   }
 
   set it(value: readonly Item[]) {
     this._model.it = value;
+  }
+
+  on(): OnEvent<[readonly Item[], readonly Item[]]>;
+  on(receiver: EventReceiver<[readonly Item[], readonly Item[]]>): EventSupply;
+  on(
+      receiver?: EventReceiver<[readonly Item[], readonly Item[]]>,
+  ): OnEvent<[readonly Item[], readonly Item[]]> | EventSupply {
+    return (this.on = this._model.on().F)(receiver);
   }
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
@@ -548,7 +567,7 @@ function inListData<Item>(list: InList<Item>): InData<readonly Item[]> {
   return afterAll({
     cs: list.controls,
     mode: list.aspect(InMode),
-  }).keep.thru_(
+  }).keepThru_(
       readInListData,
   );
 }
@@ -571,7 +590,7 @@ function readInListData<Item>(
 
   const csData = mapIt(controls, control => control.aspect(InData));
 
-  return nextAfterEvent(afterEach(...csData).keep.thru(
+  return nextAfterEvent(afterEach(...csData).keepThru(
       (...controlsData) => controlsData.map(([d]) => d).filter(isDefined),
   ));
 }

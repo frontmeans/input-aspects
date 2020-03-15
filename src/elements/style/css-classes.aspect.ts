@@ -13,6 +13,7 @@ import {
   afterSupplied,
   EventKeeper,
   EventNotifier,
+  EventReceiver,
   eventSupply,
   EventSupply,
   eventSupplyOf,
@@ -56,22 +57,46 @@ export abstract class InCssClasses implements EventKeeper<[InCssClasses.Map]> {
   }
 
   /**
-   * An `AfterEvent` keeper of CSS classes to be applied to styled element.
+   * Builds an `AfterEvent` keeper of CSS classes to be applied to styled element.
    *
    * The `[AfterEvent__symbol]` property is an alias of this one.
+   *
+   * @returns `AfterEvent` keeper of CSS classes map.
    */
-  abstract readonly read: AfterEvent<[InCssClasses.Map]>;
+  abstract read(): AfterEvent<[InCssClasses.Map]>;
 
-  get [AfterEvent__symbol](): AfterEvent<[InCssClasses.Map]> {
-    return this.read;
+  /**
+   * Starts sending CSS classes for styled element and updates to the given `receiver`.
+   *
+   * @param receiver  Target receiver of CSS classes map.
+   *
+   * @returns CSS classes supply.
+   */
+  abstract read(receiver: EventReceiver<[InCssClasses.Map]>): EventSupply;
+
+  [AfterEvent__symbol](): AfterEvent<[InCssClasses.Map]> {
+    return this.read();
   }
 
   /**
-   * An `AfterEvent` keeper of added and removed CSS classes.
+   * Builds an `AfterEvent` keeper of added and removed CSS classes.
    *
-   * Reports current CSS classes as added ones on receiver registration.
+   * Sends current CSS classes as added ones on receiver registration.
+   *
+   * @returns `AfterEvent` keeper of added and removed classes.
    */
-  abstract readonly track: AfterEvent<[readonly string[], readonly string[]]>;
+  abstract track(): AfterEvent<[readonly string[], readonly string[]]>;
+
+  /**
+   * Starts sending current, added and removed CSS classes to the given `receiver`
+   *
+   * Sends current CSS classes as added ones on receiver registration.
+   *
+   * @param receiver  Target receiver of added and removed CSS classes.
+   *
+   * @returns CSS classes supply.
+   */
+  abstract track(receiver: EventReceiver<[readonly string[], readonly string[]]>): EventSupply;
 
   /**
    * Appends CSS classes from the given `source` to styled element.
@@ -183,14 +208,32 @@ function isUnsubscribeReason(reason: any): reason is UnsubscribeReason {
  */
 class InControlCssClasses extends InCssClasses {
 
-  readonly read: AfterEvent<[InCssClasses.Map]>;
-  readonly track: AfterEvent<[readonly string[], readonly string[]]>;
   private readonly _sources: ValueTracker<[Map<AfterEvent<[InCssClasses.Map]>, EventSupply>]> = trackValue([new Map()]);
   private _schedule?: RenderSchedule;
 
   constructor(private readonly _control: InControl<any>) {
     super();
-    this.read = this._sources.read.keep.thru_(
+
+    const element = _control.aspect(InStyledElement);
+
+    if (element) {
+      this.applyTo(element, this.schedule);
+    }
+
+    eventSupplyOf(_control).whenOff(reason => this.done(reason));
+  }
+
+  get schedule(): RenderSchedule {
+    return this._schedule || (this._schedule = controlSchedule(
+        this._control,
+        this._control.aspect(InStyledElement)!,
+    ));
+  }
+
+  read(): AfterEvent<[InCssClasses.Map]>;
+  read(receiver: EventReceiver<[InCssClasses.Map]>): EventSupply;
+  read(receiver?: EventReceiver<[InCssClasses.Map]>): AfterEvent<[InCssClasses.Map]> | EventSupply {
+    return (this.read = this._sources.read().tillOff(this._control).keepThru_(
         ([sources]) => nextAfterEvent(afterEach(...sources.keys())),
         (...classes) => {
 
@@ -200,8 +243,16 @@ class InControlCssClasses extends InCssClasses {
 
           return result;
         },
-    ).tillOff(_control);
-    this.track = afterEventBy<[readonly string[], readonly string[]]>(receiver => {
+    ).F)(receiver);
+  }
+
+  track(): AfterEvent<[readonly string[], readonly string[]]>;
+  track(receiver: EventReceiver<[readonly string[], readonly string[]]>): EventSupply;
+  track(
+      receiver?: EventReceiver<[readonly string[], readonly string[]]>,
+  ): AfterEvent<[readonly string[], readonly string[]]> | EventSupply {
+    return (this.track = afterEventBy<[readonly string[], readonly string[]]>(receiver => {
+      receiver.supply.needs(this._control);
 
       const classes = new DeltaSet<string>();
       const emitter = new EventNotifier<[readonly string[], readonly string[]]>();
@@ -237,22 +288,7 @@ class InControlCssClasses extends InCssClasses {
           sendClasses();
         }
       });
-    }).tillOff(_control);
-
-    const element = _control.aspect(InStyledElement);
-
-    if (element) {
-      this.applyTo(element, this.schedule);
-    }
-
-    eventSupplyOf(_control).whenOff(reason => this.done(reason));
-  }
-
-  get schedule(): RenderSchedule {
-    return this._schedule || (this._schedule = controlSchedule(
-        this._control,
-        this._control.aspect(InStyledElement)!,
-    ));
+    }).F)(receiver);
   }
 
   specs(source: InCssClasses.Source): AfterEvent<InCssClasses.Spec[]> {
@@ -263,7 +299,7 @@ class InControlCssClasses extends InCssClasses {
 
     const nsAlias = this._control.aspect(InNamespaceAliaser);
 
-    return this.specs(source).keep.thru(
+    return this.specs(source).keepThru(
         (...names) => {
 
           const result: { [name: string]: boolean } = {};
@@ -292,7 +328,7 @@ class InControlCssClasses extends InCssClasses {
     const classesSupply = eventSupply();
     const src = afterEventBy<[InCssClasses.Map]>(receiver => {
 
-      const supply = this.resolve(source)({
+      const supply = this.resolve(source).to({
         receive(context, ...event) {
           receiver.receive(context, ...event);
         },

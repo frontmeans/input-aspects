@@ -38,7 +38,7 @@ describe('InCssClasses', () => {
 
   describe('[AfterEvent__symbol]', () => {
     it('is the same as `read`', () => {
-      expect(afterSupplied(cssClasses)).toBe(cssClasses.read);
+      expect(afterSupplied(cssClasses)).toBe(cssClasses.read());
     });
   });
 
@@ -295,7 +295,7 @@ describe('InCssClasses', () => {
 
       const classesReceiver = jest.fn();
 
-      valueClasses.read.once(classesReceiver);
+      valueClasses.read().once(classesReceiver);
 
       expect(classesReceiver).toHaveBeenCalledWith({ class1: true });
     });

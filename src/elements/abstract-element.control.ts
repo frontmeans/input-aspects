@@ -1,8 +1,9 @@
 import { asis, nextArgs, nextSkip } from 'call-thru';
 import {
   AfterEvent,
-  afterSupplied,
+  afterSent,
   EventEmitter,
+  EventReceiver,
   EventSupply,
   EventSupply__symbol,
   eventSupplyOf,
@@ -21,19 +22,12 @@ import { InElement } from '../element.control';
  */
 export class AbstractInElement<Value, Elt extends HTMLElement> extends InElement<Value, Elt> {
 
-  readonly input: AfterEvent<[InElement.Input<Value>]>;
-  readonly on: OnEvent<[Value, Value]>;
   readonly events: DomEventDispatcher;
   private readonly _get: (this: AbstractInElement<Value, Elt>) => Value;
   private readonly _set: (this: AbstractInElement<Value, Elt>, value: Value) => void;
   private readonly _input: EventEmitter<[InElement.Input<Value>, Value]> = new EventEmitter();
   private _value: Value;
-  // noinspection TypeScriptFieldCanBeMadeReadonly
   private _update: (value: Value, oldValue: Value) => void;
-
-  get [EventSupply__symbol](): EventSupply {
-    return eventSupplyOf(this._input);
-  }
 
   /**
    * Constructs HTML input element control.
@@ -65,15 +59,6 @@ export class AbstractInElement<Value, Elt extends HTMLElement> extends InElement
     this._value = this.it;
 
     const doUpdate = this._update = (value: Value, oldValue: Value): void => update({ value }, oldValue);
-
-    this.input = afterSupplied<[InElement.Input<Value>]>(
-        this._input.on.thru(asis),
-        () => [{ value: this.it }],
-    );
-
-    this.on = this._input.on.thru(
-        ({ value: newValue }, oldValue) => newValue === oldValue ? nextSkip() : nextArgs(newValue, oldValue),
-    );
 
     this.events = new DomEventDispatcher(element);
     eventSupplyOf(this.events).needs(this);
@@ -109,6 +94,10 @@ export class AbstractInElement<Value, Elt extends HTMLElement> extends InElement
     }
   }
 
+  get [EventSupply__symbol](): EventSupply {
+    return eventSupplyOf(this._input);
+  }
+
   get it(): Value {
     return this._get();
   }
@@ -123,6 +112,23 @@ export class AbstractInElement<Value, Elt extends HTMLElement> extends InElement
     }
   }
 
+  input(): AfterEvent<[InElement.Input<Value>]>;
+  input(receiver: EventReceiver<[InElement.Input<Value>]>): EventSupply;
+  input(receiver?: EventReceiver<[InElement.Input<Value>]>): AfterEvent<[InElement.Input<Value>]> | EventSupply {
+    return (this.input = afterSent<[InElement.Input<Value>]>(
+        this._input.on().thru(asis), // remove the second parameter
+        () => [{ value: this.it }],
+    ).F)(receiver);
+  }
+
+  on(): OnEvent<[Value, Value]>;
+  on(receiver: EventReceiver<[Value, Value]>): EventSupply;
+  on(receiver?: EventReceiver<[Value, Value]>): OnEvent<[Value, Value]> | EventSupply {
+    return (this.on = this._input.on().thru(
+        ({ value: newValue }, oldValue) => newValue === oldValue ? nextSkip() : nextArgs(newValue, oldValue),
+    ).F)(receiver);
+  }
+
   /**
    * Enables reaction to input input.
    *
@@ -135,8 +141,8 @@ export class AbstractInElement<Value, Elt extends HTMLElement> extends InElement
 
     const onInput = (event: Event): void => update({ value: this.it, event });
 
-    this.events.on('input')(onInput);
-    this.events.on('change')(onInput);
+    this.events.on('input').to(onInput);
+    this.events.on('change').to(onInput);
   }
 
 }

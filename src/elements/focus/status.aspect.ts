@@ -10,6 +10,9 @@ import {
   AfterEvent__symbol,
   afterThe,
   EventKeeper,
+  EventReceiver,
+  EventSupply,
+  eventSupplyOf,
   nextAfterEvent,
   trackValue,
   ValueTracker,
@@ -55,14 +58,25 @@ export abstract class InStatus implements EventKeeper<[InStatus.Flags]> {
   }
 
   /**
-   * An `AfterEvent` keeper of input status flags.
+   * Builds `AfterEvent` keeper of input status flags.
    *
    * The `[AfterEvent__symbol]` property is an alias of this one.
+   *
+   * @returns `AfterEvent` keeper of input status flags.
    */
-  abstract readonly read: AfterEvent<[InStatus.Flags]>;
+  abstract read(): AfterEvent<[InStatus.Flags]>;
 
-  get [AfterEvent__symbol](): AfterEvent<[InStatus.Flags]> {
-    return this.read;
+  /**
+   * Starts sending input status flags and updates to the given `receiver`
+   *
+   * @param receiver  Target receiver of input status flags.
+   *
+   * @returns Input status flags supply.
+   */
+  abstract read(receiver: EventReceiver<[InStatus.Flags]>): EventSupply;
+
+  [AfterEvent__symbol](): AfterEvent<[InStatus.Flags]> {
+    return this.read();
   }
 
   /**
@@ -137,12 +151,16 @@ class InControlStatus extends InStatus {
 
   private readonly _flags = trackValue<InStatus.Flags>(defaultInStatusFlags);
 
-  readonly read: AfterEvent<[InStatus.Flags]>;
-
   constructor(control: InControl<any>) {
     super();
+    eventSupplyOf(this._flags).needs(control);
     this._flags.by(elementInStatusFlags(this._flags, control));
-    this.read = this._flags.read.tillOff(control);
+  }
+
+  read(): AfterEvent<[InStatus.Flags]>;
+  read(receiver: EventReceiver<[InStatus.Flags]>): EventSupply;
+  read(receiver?: EventReceiver<[InStatus.Flags]>): AfterEvent<[InStatus.Flags]> | EventSupply {
+    return (this.read = this._flags.read().F)(receiver);
   }
 
   markTouched(touched = true): this {
@@ -195,8 +213,8 @@ function elementInStatusFlags(
 
   return afterAll({
     hasFocus: focus || afterThe(false),
-    edited: element ? element.input.keep.thru(({ event }) => !!event) : afterThe(false),
-  }).keep.thru(
+    edited: element ? element.input().keepThru(({ event }) => !!event) : afterThe(false),
+  }).keepThru(
       ({ hasFocus: [hasFocus], edited: [edited] }) => updateInStatusFlags(origin.it, hasFocus, edited),
   );
 }
@@ -221,15 +239,18 @@ function updateInStatusFlags(flags: InStatus.Flags, hasFocus: boolean, edited: b
  */
 class InContainerStatus extends InStatus {
 
-  readonly read: AfterEvent<[InStatus.Flags]>;
-
   constructor(private readonly _container: InContainer<any>) {
     super();
-    this.read = containerInStatusFlags(_container).tillOff(_container);
+  }
+
+  read(): AfterEvent<[InStatus.Flags]>;
+  read(receiver: EventReceiver<[InStatus.Flags]>): EventSupply;
+  read(receiver?: EventReceiver<[InStatus.Flags]>): AfterEvent<[InStatus.Flags]> | EventSupply {
+    return (this.read = containerInStatusFlags(this._container).F)(receiver);
   }
 
   markEdited(edited?: boolean): this {
-    this._container.controls.read.once(
+    this._container.controls.read().once(
         snapshot => itsEach(
             snapshot,
             control => control.aspect(InStatus).markEdited(edited),
@@ -239,7 +260,7 @@ class InContainerStatus extends InStatus {
   }
 
   markTouched(touched?: boolean): this {
-    this._container.controls.read.once(
+    this._container.controls.read().once(
         snapshot => itsEach(
             snapshot,
             control => control.aspect(InStatus).markTouched(touched),
@@ -254,7 +275,7 @@ class InContainerStatus extends InStatus {
  * @internal
  */
 function containerInStatusFlags(container: InContainer<any>): AfterEvent<[InStatus.Flags]> {
-  return container.controls.read.keep.thru_(
+  return container.controls.read().tillOff(container).keepThru_(
       (snapshot: InContainer.Snapshot) => nextAfterEvent(afterEach(...inControlStatuses(snapshot))),
       combineInStatusFlags,
   );

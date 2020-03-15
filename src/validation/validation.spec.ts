@@ -1,13 +1,5 @@
 import { asis, nextArgs, noop, valuesProvider } from 'call-thru';
-import {
-  AfterEvent__symbol,
-  afterSupplied,
-  EventEmitter,
-  EventKeeper,
-  EventSupply,
-  onSupplied,
-  trackValue,
-} from 'fun-events';
+import { afterSupplied, EventEmitter, EventKeeper, EventSupply, onSupplied, trackValue } from 'fun-events';
 import { inGroup, InGroup } from '../containers';
 import { InControl } from '../control';
 import { inValue } from '../controls';
@@ -34,7 +26,7 @@ describe('InValidation', () => {
     const tracker = trackValue<InValidation.Message[]>([])
         .by(onSupplied(validator).thru_((...messages) => messages));
 
-    validatorSupply = validation.by(tracker.read.keep.thru_(messages => nextArgs(...messages)));
+    validatorSupply = validation.by(tracker.read().keepThru_(messages => nextArgs(...messages)));
   });
 
   let receiver: Mock<void, [InValidation.Result]>;
@@ -164,7 +156,7 @@ describe('InValidation', () => {
 
     const message = { message: 'test message' };
     const tracker = trackValue(message);
-    const validatorFunction = jest.fn<EventKeeper<InValidation.Message[]>, [InControl<string>]>(() => tracker.read);
+    const validatorFunction = jest.fn<EventKeeper<InValidation.Message[]>, [InControl<string>]>(() => tracker.read());
 
     validation.by(validatorFunction);
     expect(validatorFunction).toHaveBeenCalledWith(control);
@@ -235,7 +227,7 @@ describe('InValidation', () => {
 
     const validator2 = new EventEmitter<InValidation.Message[]>();
     const proxy = jest.fn(asis);
-    const supply = validation.by(afterSupplied<InValidation.Message[]>(validator2.on.thru(proxy), valuesProvider()));
+    const supply = validation.by(afterSupplied<InValidation.Message[]>(validator2.on().thru(proxy), valuesProvider()));
     const message1 = { message: 'message1' };
 
     validator2.send(message1);
@@ -292,7 +284,7 @@ describe('InValidation', () => {
 
   describe('AfterEvent__symbol', () => {
     it('is an alias of `read`', () => {
-      expect(validation[AfterEvent__symbol]).toBe(validation.read);
+      expect(afterSupplied(validation)).toBe(validation.read());
     });
   });
 

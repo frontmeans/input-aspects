@@ -54,13 +54,13 @@ describe('InMode', () => {
 
   describe('[OnEvent__symbol]', () => {
     it('is the same as `on`', () => {
-      expect(onSupplied(mode)).toBe(mode.on);
+      expect(onSupplied(mode)).toBe(mode.on());
     });
   });
 
   describe('[AfterEvent__symbol]', () => {
     it('is the same as `read`', () => {
-      expect(afterSupplied(mode)).toBe(mode.read);
+      expect(afterSupplied(mode)).toBe(mode.read());
     });
   });
 
@@ -104,13 +104,13 @@ describe('InMode', () => {
       element.disabled = true;
       control = inText(element);
       mode = control.aspect(InMode);
-      mode.read.once(value => expect(value).toBe('off'));
+      mode.read().once(value => expect(value).toBe('off'));
     });
     it('is `ro` when element is initially read-only', () => {
       element.readOnly = true;
       control = inText(element);
       mode = control.aspect(InMode);
-      mode.read.once(value => expect(value).toBe('ro'));
+      mode.read().once(value => expect(value).toBe('ro'));
     });
     it('disables when set to `off`', () => {
       mode.own.it = 'off';

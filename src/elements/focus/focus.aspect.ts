@@ -3,7 +3,15 @@
  * @module input-aspects
  */
 import { noop } from 'call-thru';
-import { EventSupply, EventSupply__symbol, eventSupplyOf, OnEvent, trackValue, ValueTracker } from 'fun-events';
+import {
+  EventReceiver,
+  EventSupply,
+  EventSupply__symbol,
+  eventSupplyOf,
+  OnEvent,
+  trackValue,
+  ValueTracker,
+} from 'fun-events';
 import { InAspect, InAspect__symbol } from '../../aspect';
 import { inAspectSameOrBuild } from '../../aspect.impl';
 import { InControl } from '../../control';
@@ -58,8 +66,8 @@ class InControlFocus extends InFocus {
     this._it = trackValue(!!owner && owner.activeElement === element);
     eventSupplyOf(this).needs(inElement);
 
-    events.on('focus')(() => this._it.it = true);
-    events.on('blur')(() => this._it.it = false);
+    events.on('focus').to(() => this._it.it = true);
+    events.on('blur').to(() => this._it.it = false);
     this.on({
       receive(ctx, newValue) {
         ctx.onRecurrent(noop);
@@ -72,10 +80,6 @@ class InControlFocus extends InFocus {
     });
   }
 
-  get on(): OnEvent<[boolean, boolean]> {
-    return this._it.on;
-  }
-
   get [EventSupply__symbol](): EventSupply {
     return eventSupplyOf(this._it);
   }
@@ -86,6 +90,12 @@ class InControlFocus extends InFocus {
 
   set it(value: boolean) {
     this._it.it = value;
+  }
+
+  on(): OnEvent<[boolean, boolean]>;
+  on(receiver: EventReceiver<[boolean, boolean]>): EventSupply;
+  on(receiver?: EventReceiver<[boolean, boolean]>): OnEvent<[boolean, boolean]> | EventSupply {
+    return (this.on = this._it.on().F)(receiver);
   }
 
 }

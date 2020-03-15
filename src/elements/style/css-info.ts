@@ -48,7 +48,7 @@ export function inCssInfo(
       md: control.aspect(InMode),
       vl: control.aspect(InValidation),
       st: control.aspect(InStatus),
-    }).keep.thru(
+    }).keepThru(
         ({ md: [mode], vl: [valid], st: [{ hasFocus, touched, edited }] }) => {
 
           const names: QualifiedName[] = [];

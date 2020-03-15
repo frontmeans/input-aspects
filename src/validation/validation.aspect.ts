@@ -10,6 +10,7 @@ import {
   AfterEvent__symbol,
   afterSupplied,
   EventKeeper,
+  EventReceiver,
   EventSupply,
   nextAfterEvent,
   OnEventCallChain,
@@ -38,7 +39,7 @@ const InValidation__aspect: InAspect<InValidation<any>, 'validation'> = {
 
             const from = origin.aspect(InValidation);
 
-            validation.by(from.read.keep.thru(result => nextArgs(...result.messages())));
+            validation.by(from.read().keepThru(result => nextArgs(...result.messages())));
           }
 
           return validation;
@@ -70,16 +71,27 @@ export abstract class InValidation<Value> implements EventKeeper<[InValidation.R
     return InValidation__aspect;
   }
 
-  get [AfterEvent__symbol](): AfterEvent<[InValidation.Result]> {
-    return this.read;
-  }
-
   /**
-   * An `AfterEvent` keeper of input validation result.
+   * Builds an `AfterEvent` keeper of input validation result.
    *
    * An `[AfterEvent__symbol]` property is an alias of this one.
+   *
+   * @return `AfterEvent` keeper of validation result keeper.
    */
-  abstract readonly read: AfterEvent<[InValidation.Result]>;
+  abstract read(): AfterEvent<[InValidation.Result]>;
+
+  /**
+   * Starts sending validation result and updates to the given `receiver`
+   *
+   * @param receiver  Target validation result receiver.
+   *
+   * @returns Validation results supply.
+   */
+  abstract read(receiver: EventReceiver<[InValidation.Result]>): EventSupply;
+
+  [AfterEvent__symbol](): AfterEvent<[InValidation.Result]> {
+    return this.read();
+  }
 
   /**
    * Validates the input using the given validators.
@@ -330,7 +342,6 @@ export function inValidationResult(...messages: InValidation.Message[]): InValid
 class InControlValidation<Value> extends InValidation<Value> {
 
   readonly _messages: InValidationMessages<Value>;
-  readonly read: AfterEvent<[InValidation.Result]>;
 
   constructor(control: InControl<Value>) {
     super();
@@ -343,11 +354,16 @@ class InControlValidation<Value> extends InValidation<Value> {
       this._messages.from(nestedInValidationMessages(container));
     }
 
-    this.read = afterSupplied(this._messages).keep.thru(inValidationResult);
   }
 
   by(...validators: InValidator<Value>[]): EventSupply {
     return this._messages.from(requireAll(...validators));
+  }
+
+  read(): AfterEvent<[InValidation.Result]>;
+  read(receiver: EventReceiver<[InValidation.Result]>): EventSupply;
+  read(receiver?: EventReceiver<[InValidation.Result]>): AfterEvent<[InValidation.Result]> | EventSupply {
+    return (this.read = afterSupplied(this._messages).keepThru(inValidationResult).F)(receiver);
   }
 
 }
@@ -356,7 +372,7 @@ class InControlValidation<Value> extends InValidation<Value> {
  * @internal
  */
 function nestedInValidationMessages(container: InContainer<any>): EventKeeper<InValidation.Message[]> {
-  return container.controls.read.keep.thru(
+  return container.controls.read().keepThru(
       nestedInValidations,
       combineInValidationResults,
   );

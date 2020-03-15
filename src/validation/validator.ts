@@ -69,7 +69,7 @@ export function inValidator<Value>(
   if (typeof validator === 'function') {
     return control => afterSupplied(validator(control));
   }
-  return control => control.read.keep.thru(simpleInValidator(control, validator));
+  return control => control.read().keepThru(simpleInValidator(control, validator));
 }
 
 /**

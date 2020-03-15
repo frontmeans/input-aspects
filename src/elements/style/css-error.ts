@@ -64,7 +64,7 @@ export function inCssError(
     marks = [mark];
   }
 
-  return control => control.aspect(InValidation).read.keep.thru(
+  return control => control.aspect(InValidation).read().keepThru(
       errors => hasError(errors) ? nextArgs(...marks) : nextArgs(),
   );
 }

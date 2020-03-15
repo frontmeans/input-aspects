@@ -2,11 +2,52 @@
  * @packageDocumentation
  * @module input-aspects
  */
-import { EventSupply, EventSupply__symbol, eventSupplyOf, OnEvent, trackValue } from 'fun-events';
+import {
+  EventReceiver,
+  EventSupply,
+  EventSupply__symbol,
+  eventSupplyOf,
+  OnEvent,
+  trackValue,
+  ValueTracker,
+} from 'fun-events';
 import { InControl } from '../control';
 import { InConverter } from '../converter';
 import { AbstractInControl } from './abstract.control';
 
+class InValueControl<Value> extends AbstractInControl<Value> {
+
+  private readonly _it: ValueTracker<Value>;
+
+  constructor(
+      initial: Value,
+      opts: {
+        readonly aspects?: InConverter.Aspect<Value> | readonly InConverter.Aspect<Value>[];
+      },
+  ) {
+    super(opts);
+    this._it = trackValue(initial);
+  }
+
+  get [EventSupply__symbol](): EventSupply {
+    return eventSupplyOf(this._it);
+  }
+
+  get it(): Value {
+    return this._it.it;
+  }
+
+  set it(value: Value) {
+    this._it.it = value;
+  }
+
+  on(): OnEvent<[Value, Value]>;
+  on(receiver: EventReceiver<[Value, Value]>): EventSupply;
+  on(receiver?: EventReceiver<[Value, Value]>): OnEvent<[Value, Value]> | EventSupply {
+    return (this.on = this._it.on().F)(receiver);
+  }
+
+}
 /**
  * Constructs simple input control.
  *
@@ -28,32 +69,5 @@ export function inValue<Value>(
       readonly aspects?: InConverter.Aspect<Value> | readonly InConverter.Aspect<Value>[];
     } = {},
 ): InControl<Value> {
-
-  const it = trackValue(initial);
-
-  class InValue extends AbstractInControl<Value> {
-
-    constructor() {
-      super({ aspects });
-    }
-
-    get on(): OnEvent<[Value, Value]> {
-      return it.on;
-    }
-
-    get [EventSupply__symbol](): EventSupply {
-      return eventSupplyOf(it);
-    }
-
-    get it(): Value {
-      return it.it;
-    }
-
-    set it(value: Value) {
-      it.it = value;
-    }
-
-  }
-
-  return new InValue();
+  return new InValueControl(initial, { aspects });
 }

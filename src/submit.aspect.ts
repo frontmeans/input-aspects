@@ -4,7 +4,16 @@
  */
 import { itsEvery, mapIt } from 'a-iterable';
 import { nextArgs } from 'call-thru';
-import { afterAll, AfterEvent, AfterEvent__symbol, EventKeeper, eventSupplyOf, trackValue } from 'fun-events';
+import {
+  afterAll,
+  AfterEvent,
+  AfterEvent__symbol,
+  EventKeeper,
+  EventReceiver,
+  EventSupply,
+  eventSupplyOf,
+  trackValue,
+} from 'fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
 import { inAspectSameOrBuild } from './aspect.impl';
 import { InControl } from './control';
@@ -87,14 +96,25 @@ export abstract class InSubmit<Value> implements EventKeeper<[InSubmit.Flags]> {
   }
 
   /**
-   * An `AfterEvent` keeper of submit status flag.
+   * Builds an `AfterEvent` keeper of submit status flags.
    *
    * The `[AfterEvent__symbol]` property is an alias of this one.
+   *
+   * @returns `AfterEvent` keeper of submit status flags.
    */
-  abstract readonly read: AfterEvent<[InSubmit.Flags]>;
+  abstract read(): AfterEvent<[InSubmit.Flags]>;
 
-  get [AfterEvent__symbol](): AfterEvent<[InSubmit.Flags]> {
-    return this.read;
+  /**
+   * Starts sending submit status flags and updates to the given `receiver`
+   *
+   * @param receiver  Target submit status flags receiver.
+   *
+   * @returns Submit status flags supply.
+   */
+  abstract read(receiver: EventReceiver<[InSubmit.Flags]>): EventSupply;
+
+  [AfterEvent__symbol](): AfterEvent<[InSubmit.Flags]> {
+    return this.read();
   }
 
   /**
@@ -194,25 +214,37 @@ class InControlSubmit<Value> extends InSubmit<Value> {
 
   private readonly _flags = trackValue({ submitted: false, busy: false });
   private readonly _errors = trackValue<InValidation.Message[]>([]);
-  readonly read: AfterEvent<[InSubmit.Flags]>;
 
   constructor(private readonly _control: InControl<Value>) {
     super();
 
     const validation = _control.aspect(InValidation);
 
-    validation.by(this._errors.read.keep.thru(
+    validation.by(this._errors.read().keepThru(
         messages => nextArgs(...messages),
     ));
-    this.read = afterAll({
+  }
+
+  read(): AfterEvent<[InSubmit.Flags]>;
+  read(receiver: EventReceiver<[InSubmit.Flags]>): EventSupply;
+  read(receiver?: EventReceiver<[InSubmit.Flags]>): AfterEvent<[InSubmit.Flags]> | EventSupply {
+    return (this.read = afterAll({
       flags: this._flags,
-      data: _control.aspect(InData),
-      messages: validation,
-    }).keep.thru(({ flags: [flags], data: [data], messages: [messages] }) => ({
-      ready: data !== undefined && (messages.ok || itsEvery(messages, message => message.submit)),
-      submitted: flags.submitted,
-      busy: flags.busy,
-    })).tillOff(_control);
+      data: this._control.aspect(InData),
+      messages: this._control.aspect(InValidation),
+    })
+        .tillOff(this._control)
+        .keepThru(
+            ({
+              flags: [flags],
+              data: [data],
+              messages: [messages],
+            }): InSubmit.Flags => ({
+              ready: data !== undefined && (messages.ok || itsEvery(messages, message => message.submit)),
+              submitted: flags.submitted,
+              busy: flags.busy,
+            }),
+        ).F)(receiver);
   }
 
   async submit<Result>(submitter: InSubmit.Submitter<Value, Result>): Promise<Result> {
@@ -247,7 +279,7 @@ class InControlSubmit<Value> extends InSubmit<Value> {
       return new Promise((resolve, reject) => {
         afterAll({
           data: control.aspect(InData),
-          flags: submit.read,
+          flags: submit,
         }).once(({ data: [d], flags: [{ ready }] }) => {
           if (!ready) {
             reject(new InSubmitRejectedError('notReady'));

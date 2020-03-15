@@ -5,6 +5,7 @@
 import { asis, noop } from 'call-thru';
 import {
   EventEmitter,
+  EventReceiver,
   eventSupply,
   EventSupply,
   EventSupply__symbol,
@@ -206,7 +207,7 @@ export namespace InControl {
 class InConverted<From, To> extends InControl<To> {
 
   private readonly _supply: EventSupply;
-  readonly on: OnEvent<[To, To]>;
+  private readonly _on = new EventEmitter<[To, To]>();
   private readonly _it: ValueTracker<[To, number]>;
   protected readonly _applyAspect: <Instance, Kind extends InAspect.Application.Kind>(
       this: this,
@@ -219,10 +220,6 @@ class InConverted<From, To> extends InControl<To> {
 
     let lastRev = 0;
     let backward: From | undefined;
-
-    const on = new EventEmitter<[To, To]>();
-
-    this.on = on.on;
 
     const conversion = by(src, this);
     let set: (value: From) => To;
@@ -256,9 +253,9 @@ class InConverted<From, To> extends InControl<To> {
     eventSupplyOf(this._it).needs(this._supply);
     this._it.on(([newValue], [oldValue]) => {
       if (newValue !== oldValue) {
-        on.send(newValue, oldValue);
+        this._on.send(newValue, oldValue);
       }
-    }).cuts(on);
+    }).cuts(this._on);
     src.on(value => {
       if (value !== backward) {
         this._it.it = [set(value), ++lastRev];
@@ -292,6 +289,12 @@ class InConverted<From, To> extends InControl<To> {
     if (value !== prevValue) {
       this._it.it = [value, prevRev + 1];
     }
+  }
+
+  on(): OnEvent<[To, To]>;
+  on(receiver: EventReceiver<[To, To]>): EventSupply;
+  on(receiver?: EventReceiver<[To, To]>): OnEvent<[To, To]> | EventSupply {
+    return (this.on = this._on.on().F)(receiver);
   }
 
 }

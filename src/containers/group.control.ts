@@ -8,9 +8,10 @@ import {
   afterAll,
   AfterEvent,
   AfterEvent__symbol,
-  afterEventBy,
+  afterSent,
   EventEmitter,
   EventKeeper,
+  EventReceiver,
   EventSender,
   eventSupply,
   EventSupply,
@@ -129,9 +130,11 @@ export abstract class InGroupControls<Model>
     extends InContainerControls
     implements EventSender<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>, EventKeeper<[InGroup.Snapshot<Model>]> {
 
-  abstract readonly on: OnEvent<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>;
+  abstract on(): OnEvent<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>;
+  abstract on(receiver: EventReceiver<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>): EventSupply;
 
-  abstract readonly read: AfterEvent<[InGroup.Snapshot<Model>]>;
+  abstract read(): AfterEvent<[InGroup.Snapshot<Model>]>;
+  abstract read(receiver: EventReceiver<[InGroup.Snapshot<Model>]>): EventSupply;
 
   /**
    * Sets input control with the given key.
@@ -174,9 +177,9 @@ export abstract class InGroupControls<Model>
 
 export interface InGroupControls<Model> {
 
-  readonly [OnEvent__symbol]: OnEvent<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>;
+  [OnEvent__symbol](): OnEvent<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>;
 
-  readonly [AfterEvent__symbol]: AfterEvent<[InGroup.Snapshot<Model>]>;
+  [AfterEvent__symbol](): AfterEvent<[InGroup.Snapshot<Model>]>;
 
 }
 
@@ -329,31 +332,12 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
 
   private readonly _map: InGroupMap<Model>;
   private readonly _updates = new EventEmitter<[[keyof Model, InGroupEntry][], [keyof Model, InGroupEntry][]]>();
-  readonly on: OnEvent<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>;
-  readonly read: AfterEvent<[InGroup.Snapshot<Model>]>;
 
   constructor(private readonly _group: InGroupControl<Model>) {
     super();
 
-    const self = this;
-
-    this._map = new InGroupMap<Model>(this);
-    this.on = this._updates.on.thru(
-        (added, removed) => nextArgs(
-            added.map(controlEntryToGroupEntry),
-            removed.map(controlEntryToGroupEntry),
-        ),
-    );
-    this.read = afterEventBy(
-        this._updates.on.thru(
-            () => this._map.snapshot(),
-        ),
-        () => [this._map.snapshot()],
-    );
-    this._map._supply.needs(_group.read(applyModelToControls));
-
-    function applyModelToControls(model: Model): void {
-      self.read.once(snapshot => {
+    const applyModelToControls = (model: Model): void => {
+      this.read().once(snapshot => {
 
         const withValues = new Set<keyof Model>();
 
@@ -373,7 +357,34 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
           }
         });
       });
-    }
+    };
+
+    this._map = new InGroupMap<Model>(this);
+    this._map._supply.needs(_group.read(applyModelToControls));
+  }
+
+  on(): OnEvent<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>;
+  on(receiver: EventReceiver<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>): EventSupply;
+  on(
+      receiver?: EventReceiver<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>,
+  ): OnEvent<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]> | EventSupply {
+    return (this.on = this._updates.on().thru(
+        (added, removed) => nextArgs(
+            added.map(controlEntryToGroupEntry),
+            removed.map(controlEntryToGroupEntry),
+        ),
+    ).F)(receiver);
+  }
+
+  read(): AfterEvent<[InGroup.Snapshot<Model>]>;
+  read(receiver: EventReceiver<[InGroup.Snapshot<Model>]>): EventSupply;
+  read(receiver?: EventReceiver<[InGroup.Snapshot<Model>]>): AfterEvent<[InGroup.Snapshot<Model>]> | EventSupply {
+    return (this.read = afterSent(
+        this._updates.on().thru(
+            () => this._map.snapshot(),
+        ),
+        () => [this._map.snapshot()],
+    ).F)(receiver);
   }
 
   set<K extends keyof Model>(
@@ -432,7 +443,7 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
       }
 
       added.forEach(([key, [control, supply]]) => {
-        control.read.tillOff(supply)(value => {
+        control.read().tillOff(supply).to(value => {
           if (group.it[key] !== value) {
             group.it = {
               ...group.it,
@@ -484,10 +495,6 @@ class InGroupControl<Model extends object> extends InGroup<Model> {
     eventSupplyOf(this).whenOff(() => this.controls.clear());
   }
 
-  get on(): OnEvent<[Model, Model]> {
-    return this._model.on;
-  }
-
   get [EventSupply__symbol](): EventSupply {
     return eventSupplyOf(this._model);
   }
@@ -498,6 +505,12 @@ class InGroupControl<Model extends object> extends InGroup<Model> {
 
   set it(value: Model) {
     this._model.it = value;
+  }
+
+  on(): OnEvent<[Model, Model]>;
+  on(receiver: EventReceiver<[Model, Model]>): EventSupply;
+  on(receiver?: EventReceiver<[Model, Model]>): OnEvent<[Model, Model]> | EventSupply {
+    return (this.on = this._model.on().F)(receiver);
   }
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
@@ -522,7 +535,7 @@ function inGroupData<Model extends object>(group: InGroup<Model>): InData<Model>
     cs: group.controls,
     model: group,
     mode: group.aspect(InMode),
-  }).keep.thru_(
+  }).keepThru_(
       readInGroupData,
   );
 }
@@ -551,7 +564,7 @@ function readInGroupData<Model extends object>(
     csData[key as keyof Model] = control.aspect(InData);
   });
 
-  return nextAfterEvent(afterAll(csData).keep.thru(controlsData => {
+  return nextAfterEvent(afterAll(csData).keepThru(controlsData => {
 
     const data: Partial<Model> = { ...model };
 

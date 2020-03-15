@@ -27,5 +27,7 @@ export function requirePresent(control: InControl<any>): EventKeeper<InValidatio
 export function requirePresent(
     control?: InControl<any>,
 ): InValidator<any> | EventKeeper<InValidation.Message[]> {
-  return control ? control.read.keep.thru(value => value ? nextArgs() : { missing: 'missing' }) : requirePresent;
+  return control
+      ? control.read().keepThru(value => value ? nextArgs() : { missing: 'missing' })
+      : requirePresent;
 }

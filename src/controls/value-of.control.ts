@@ -2,8 +2,39 @@
  * @packageDocumentation
  * @module input-aspects
  */
-import { EventSupply, eventSupply, EventSupply__symbol, OnEvent } from 'fun-events';
+import { EventReceiver, EventSupply, eventSupply, EventSupply__symbol, OnEvent } from 'fun-events';
 import { InControl } from '../control';
+
+/**
+ * @internal
+ */
+class InSameValueControl<Value> extends InControl<Value> {
+
+  private _supply?: EventSupply;
+
+  constructor(private readonly _control: InControl<Value>) {
+    super();
+  }
+
+  get [EventSupply__symbol](): EventSupply {
+    return this._supply || (this._supply = eventSupply().needs(this._control));
+  }
+
+  get it(): Value {
+    return this._control.it;
+  }
+
+  set it(value: Value) {
+    this._control.it = value;
+  }
+
+  on(): OnEvent<[Value, Value]>;
+  on(receiver: EventReceiver<[Value, Value]>): EventSupply;
+  on(receiver?: EventReceiver<[Value, Value]>): OnEvent<[Value, Value]> | EventSupply {
+    return (this.on = this._control.on().F)(receiver);
+  }
+
+}
 
 /**
  * Constructs input control with the same value as another one.
@@ -16,28 +47,5 @@ import { InControl } from '../control';
  * @returns New input control that accesses the value of original `control`.
  */
 export function inValueOf<Value>(control: InControl<Value>): InControl<Value> {
-
-  let supply: EventSupply | undefined;
-
-  class InSameValue extends InControl<Value> {
-
-    get it(): Value {
-      return control.it;
-    }
-
-    set it(value: Value) {
-      control.it = value;
-    }
-
-    get on(): OnEvent<[Value, Value]> {
-      return control.on;
-    }
-
-    get [EventSupply__symbol](): EventSupply {
-      return supply || (supply = eventSupply().needs(control));
-    }
-
-  }
-
-  return new InSameValue();
+  return new InSameValueControl(control);
 }

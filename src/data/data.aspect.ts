@@ -34,7 +34,7 @@ const InData__aspect: Aspect = {
     return inAspectSameOrBuild(control, InData, <V>(ctrl: InControl<V>) => afterAll({
       value: ctrl,
       mode: ctrl.aspect(InMode),
-    }).keep.thru(
+    }).keepThru(
         ({ value: [value], mode: [mode] }) => InMode.hasData(mode)
             ? nextArgs(value as any)
             : nextArgs(),

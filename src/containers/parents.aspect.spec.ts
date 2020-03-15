@@ -38,13 +38,13 @@ describe('InParents', () => {
 
   describe('[OnEvent__symbol]', () => {
     it('is the same as `on`', () => {
-      expect(onSupplied(parents)).toBe(parents.on);
+      expect(onSupplied(parents)).toBe(parents.on());
     });
   });
 
   describe('[AfterEvent__symbol]', () => {
     it('is the same as `read`', () => {
-      expect(afterSupplied(parents)).toBe(parents.read);
+      expect(afterSupplied(parents)).toBe(parents.read());
     });
   });
 
