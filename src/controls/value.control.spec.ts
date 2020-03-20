@@ -1,6 +1,6 @@
-import { EventSupply } from 'fun-events';
-import { newNamespaceAliaser } from 'namespace-aliaser';
-import { newManualRenderScheduler } from 'render-scheduler';
+import { EventSupply } from '@proc7ts/fun-events';
+import { newNamespaceAliaser } from '@proc7ts/namespace-aliaser';
+import { newManualRenderScheduler } from '@proc7ts/render-scheduler';
 import { InNamespaceAliaser, InRenderScheduler } from '../aspects';
 import { InControl } from '../control';
 import { inValue } from './value.control';

@@ -1,9 +1,9 @@
 /**
  * @packageDocumentation
- * @module input-aspects
+ * @module @proc7ts/input-aspects
  */
-import { itsEach, itsIterable, mapIt, overEntries } from 'a-iterable';
-import { nextArg, nextArgs, NextCall, noop } from 'call-thru';
+import { itsEach, itsIterable, mapIt, overEntries } from '@proc7ts/a-iterable';
+import { nextArg, nextArgs, NextCall, noop } from '@proc7ts/call-thru';
 import {
   afterAll,
   AfterEvent,
@@ -24,7 +24,7 @@ import {
   OnEventCallChain,
   trackValue,
   ValueTracker,
-} from 'fun-events';
+} from '@proc7ts/fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';

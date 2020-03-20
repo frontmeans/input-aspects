@@ -1,9 +1,9 @@
 /**
  * @packageDocumentation
- * @module input-aspects
+ * @module @proc7ts/input-aspects
  */
-import { itsEach, itsEvery, overEntries } from 'a-iterable';
-import { nextArg } from 'call-thru';
+import { itsEach, itsEvery, overEntries } from '@proc7ts/a-iterable';
+import { nextArg } from '@proc7ts/call-thru';
 import {
   afterAll,
   AfterEvent,
@@ -14,7 +14,7 @@ import {
   OnEvent,
   trackValue,
   ValueTracker,
-} from 'fun-events';
+} from '@proc7ts/fun-events';
 import { InControl } from '../control';
 import { AbstractInControl } from '../controls';
 import { InConverter } from '../converter';

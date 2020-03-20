@@ -1,6 +1,6 @@
 /**
  * @packageDocumentation
- * @module input-aspects
+ * @module @proc7ts/input-aspects
  */
 import {
   EventReceiver,
@@ -10,7 +10,7 @@ import {
   OnEvent,
   trackValue,
   ValueTracker,
-} from 'fun-events';
+} from '@proc7ts/fun-events';
 import { InControl } from '../control';
 import { InConverter } from '../converter';
 import { AbstractInControl } from './abstract.control';

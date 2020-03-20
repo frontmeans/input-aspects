@@ -1,5 +1,5 @@
-import { valuesProvider } from 'call-thru';
-import { afterSupplied, EventEmitter } from 'fun-events';
+import { valuesProvider } from '@proc7ts/call-thru';
+import { afterSupplied, EventEmitter } from '@proc7ts/fun-events';
 import { InControl } from '../control';
 import { inValue } from '../controls';
 import { requireAll } from './require-all.validator';

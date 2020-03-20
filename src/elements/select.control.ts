@@ -1,8 +1,8 @@
 /**
  * @packageDocumentation
- * @module input-aspects
+ * @module @proc7ts/input-aspects
  */
-import { filterIt, itsEach, overArray, reverseIt } from 'a-iterable';
+import { filterIt, itsEach, overArray, reverseIt } from '@proc7ts/a-iterable';
 import { InConverter } from '../converter';
 import { InElement } from '../element.control';
 import { AbstractInElement } from './abstract-element.control';

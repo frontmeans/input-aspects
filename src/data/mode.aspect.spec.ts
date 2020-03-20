@@ -1,4 +1,4 @@
-import { afterSupplied, EventSupply, onSupplied, trackValue, ValueTracker } from 'fun-events';
+import { afterSupplied, EventSupply, onSupplied, trackValue, ValueTracker } from '@proc7ts/fun-events';
 import { inGroup, InGroup } from '../containers';
 import { intoInteger } from '../conversion';
 import { InElement } from '../element.control';

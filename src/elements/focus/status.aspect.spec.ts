@@ -1,4 +1,4 @@
-import { afterSupplied, EventSupply } from 'fun-events';
+import { afterSupplied, EventSupply } from '@proc7ts/fun-events';
 import { InGroup, inGroup } from '../../containers';
 import { inValue } from '../../controls';
 import { intoInteger } from '../../conversion';

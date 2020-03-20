@@ -1,4 +1,4 @@
-import { asis, nextArgs, nextSkip } from 'call-thru';
+import { asis, nextArgs, nextSkip } from '@proc7ts/call-thru';
 import {
   AfterEvent,
   afterSent,
@@ -8,8 +8,8 @@ import {
   EventSupply__symbol,
   eventSupplyOf,
   OnEvent,
-} from 'fun-events';
-import { DomEventDispatcher } from 'fun-events/dom';
+} from '@proc7ts/fun-events';
+import { DomEventDispatcher } from '@proc7ts/fun-events/dom';
 import { InConverter } from '../converter';
 import { InElement } from '../element.control';
 

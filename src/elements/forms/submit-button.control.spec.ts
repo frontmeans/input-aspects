@@ -1,5 +1,5 @@
-import { asis, noop } from 'call-thru';
-import { afterThe, eventSupplyOf } from 'fun-events';
+import { asis, noop } from '@proc7ts/call-thru';
+import { afterThe, eventSupplyOf } from '@proc7ts/fun-events';
 import { InControl } from '../../control';
 import { inValue } from '../../controls';
 import { InMode } from '../../data';

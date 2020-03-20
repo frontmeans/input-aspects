@@ -1,16 +1,17 @@
 /**
  * @packageDocumentation
- * @module input-aspects
+ * @module @proc7ts/input-aspects
  */
 import {
   AfterEvent,
   AfterEvent__symbol,
   EventKeeper,
   EventReceiver,
-  EventSender, EventSupply,
+  EventSender,
+  EventSupply,
   OnEvent,
   OnEvent__symbol,
-} from 'fun-events';
+} from '@proc7ts/fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';

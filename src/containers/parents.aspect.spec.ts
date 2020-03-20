@@ -1,4 +1,4 @@
-import { afterSupplied, EventSupply, onSupplied } from 'fun-events';
+import { afterSupplied, EventSupply, onSupplied } from '@proc7ts/fun-events';
 import { InControl } from '../control';
 import { inValue } from '../controls';
 import { InContainer } from './container.control';

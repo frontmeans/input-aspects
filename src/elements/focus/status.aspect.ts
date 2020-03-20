@@ -1,8 +1,8 @@
 /**
  * @packageDocumentation
- * @module input-aspects
+ * @module @proc7ts/input-aspects
  */
-import { itsEach, mapIt } from 'a-iterable';
+import { itsEach, mapIt } from '@proc7ts/a-iterable';
 import {
   afterAll,
   afterEach,
@@ -16,7 +16,7 @@ import {
   nextAfterEvent,
   trackValue,
   ValueTracker,
-} from 'fun-events';
+} from '@proc7ts/fun-events';
 import { InAspect, InAspect__symbol } from '../../aspect';
 import { inAspectSameOrBuild } from '../../aspect.impl';
 import { InContainer } from '../../containers';

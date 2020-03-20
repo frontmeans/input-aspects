@@ -1,4 +1,4 @@
-import { afterThe } from 'fun-events';
+import { afterThe } from '@proc7ts/fun-events';
 import { InControl } from '../../control';
 import { inValue } from '../../controls';
 import { InValidation } from '../../validation';

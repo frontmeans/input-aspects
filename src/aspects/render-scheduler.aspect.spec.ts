@@ -1,11 +1,11 @@
-import { newManualRenderScheduler, newRenderSchedule } from 'render-scheduler';
+import { newManualRenderScheduler, newRenderSchedule } from '@proc7ts/render-scheduler';
 import { InContainer } from '../containers';
 import { InControl } from '../control';
 import { inValue } from '../controls';
 import { InElement } from '../element.control';
 import { inText, InText } from '../elements';
-import { InRenderScheduler } from './render-scheduler.aspect';
 import { InStyledElement } from '../elements/style';
+import { InRenderScheduler } from './render-scheduler.aspect';
 
 describe('InRenderScheduler', () => {
   it('is `newRenderSchedule` by default', () => {

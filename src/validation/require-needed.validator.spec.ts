@@ -1,4 +1,4 @@
-import { afterThe } from 'fun-events';
+import { afterThe } from '@proc7ts/fun-events';
 import { inValue } from '../controls';
 import { requireNeeded } from './require-needed.validator';
 import { InValidation } from './validation.aspect';

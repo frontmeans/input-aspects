@@ -1,4 +1,4 @@
-import { newNamespaceAliaser } from 'namespace-aliaser';
+import { newNamespaceAliaser } from '@proc7ts/namespace-aliaser';
 import { InNamespaceAliaser } from '../aspects';
 import { InMode } from '../data';
 import { InRadio, inRadio } from './radio.control';

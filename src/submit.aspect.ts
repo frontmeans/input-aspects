@@ -1,9 +1,9 @@
 /**
  * @packageDocumentation
- * @module input-aspects
+ * @module @proc7ts/input-aspects
  */
-import { itsEvery, mapIt } from 'a-iterable';
-import { nextArgs } from 'call-thru';
+import { itsEvery, mapIt } from '@proc7ts/a-iterable';
+import { nextArgs } from '@proc7ts/call-thru';
 import {
   afterAll,
   AfterEvent,
@@ -13,7 +13,7 @@ import {
   EventSupply,
   eventSupplyOf,
   trackValue,
-} from 'fun-events';
+} from '@proc7ts/fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
 import { inAspectSameOrBuild } from './aspect.impl';
 import { InControl } from './control';

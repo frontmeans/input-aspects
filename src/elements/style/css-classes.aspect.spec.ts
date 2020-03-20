@@ -1,11 +1,11 @@
-import { afterSupplied, afterThe, EventSupply, trackValue, ValueTracker } from 'fun-events';
+import { afterSupplied, afterThe, EventSupply, trackValue, ValueTracker } from '@proc7ts/fun-events';
 import {
   immediateRenderScheduler,
   ManualRenderScheduler,
   newManualRenderScheduler,
   RenderSchedule,
   setRenderScheduler,
-} from 'render-scheduler';
+} from '@proc7ts/render-scheduler';
 import { InControl } from '../../control';
 import { inValue } from '../../controls';
 import { inText, InText } from '../text.control';

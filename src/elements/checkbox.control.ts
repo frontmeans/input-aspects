@@ -1,6 +1,6 @@
 /**
  * @packageDocumentation
- * @module input-aspects
+ * @module @proc7ts/input-aspects
  */
 import { InConverter } from '../converter';
 import { InElement } from '../element.control';

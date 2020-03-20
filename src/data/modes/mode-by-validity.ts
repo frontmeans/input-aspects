@@ -1,6 +1,6 @@
 /**
  * @packageDocumentation
- * @module input-aspects
+ * @module @proc7ts/input-aspects
  */
 import { InValidation } from '../../validation';
 import { InMode } from '../mode.aspect';

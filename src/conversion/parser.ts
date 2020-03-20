@@ -1,9 +1,9 @@
 /**
  * @packageDocumentation
- * @module input-aspects
+ * @module @proc7ts/input-aspects
  */
-import { valueProvider, valuesProvider } from 'call-thru';
-import { afterSupplied, EventEmitter } from 'fun-events';
+import { valueProvider, valuesProvider } from '@proc7ts/call-thru';
+import { afterSupplied, EventEmitter } from '@proc7ts/fun-events';
 import { InControl } from '../control';
 import { InConverter } from '../converter';
 import { InValidation } from '../validation';

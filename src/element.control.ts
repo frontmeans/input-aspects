@@ -1,9 +1,9 @@
 /**
  * @packageDocumentation
- * @module input-aspects
+ * @module @proc7ts/input-aspects
  */
-import { AfterEvent, EventReceiver, EventSupply } from 'fun-events';
-import { DomEventDispatcher } from 'fun-events/dom';
+import { AfterEvent, EventReceiver, EventSupply } from '@proc7ts/fun-events';
+import { DomEventDispatcher } from '@proc7ts/fun-events/dom';
 import { InAspect, InAspect__symbol } from './aspect';
 import { inAspectSameOrNull } from './aspect.impl';
 import { AbstractInControl } from './controls';

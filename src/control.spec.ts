@@ -1,4 +1,4 @@
-import { EventSupply } from 'fun-events';
+import { EventSupply } from '@proc7ts/fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
 import { inAspectValue } from './aspect.impl';
 import { InControl } from './control';

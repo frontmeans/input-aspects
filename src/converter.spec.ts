@@ -1,4 +1,4 @@
-import { noop } from 'call-thru';
+import { noop } from '@proc7ts/call-thru';
 import { InAspect__symbol } from './aspect';
 import { InControl } from './control';
 import { inValue } from './controls';

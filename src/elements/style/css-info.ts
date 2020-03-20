@@ -1,15 +1,15 @@
 /**
  * @packageDocumentation
- * @module input-aspects
+ * @module @proc7ts/input-aspects
  */
-import { nextArgs } from 'call-thru';
-import { afterAll } from 'fun-events';
-import { NamespaceDef, QualifiedName } from 'namespace-aliaser';
+import { nextArgs } from '@proc7ts/call-thru';
+import { afterAll } from '@proc7ts/fun-events';
+import { NamespaceDef, QualifiedName } from '@proc7ts/namespace-aliaser';
 import { InputAspects__NS } from '../../aspects';
 import { InControl } from '../../control';
 import { InMode } from '../../data';
-import { InStatus } from '../focus';
 import { InValidation } from '../../validation';
+import { InStatus } from '../focus';
 import { InCssClasses } from './css-classes.aspect';
 
 /**

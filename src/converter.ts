@@ -1,9 +1,9 @@
 /**
  * @packageDocumentation
- * @module input-aspects
+ * @module @proc7ts/input-aspects
  */
-import { filterIt, flatMapIt, itsReduction, mapIt } from 'a-iterable';
-import { isPresent, noop, valueProvider } from 'call-thru';
+import { filterIt, flatMapIt, itsReduction, mapIt } from '@proc7ts/a-iterable';
+import { isPresent, noop, valueProvider } from '@proc7ts/call-thru';
 import { InAspect } from './aspect';
 import { InControl } from './control';
 

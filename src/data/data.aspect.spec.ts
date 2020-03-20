@@ -1,5 +1,5 @@
-import { noop } from 'call-thru';
-import { EventSupply } from 'fun-events';
+import { noop } from '@proc7ts/call-thru';
+import { EventSupply } from '@proc7ts/fun-events';
 import { InControl } from '../control';
 import { inValue } from '../controls';
 import { intoInteger } from '../conversion';

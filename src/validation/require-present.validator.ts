@@ -1,9 +1,9 @@
 /**
  * @packageDocumentation
- * @module input-aspects
+ * @module @proc7ts/input-aspects
  */
-import { nextArgs } from 'call-thru';
-import { EventKeeper } from 'fun-events';
+import { nextArgs } from '@proc7ts/call-thru';
+import { EventKeeper } from '@proc7ts/fun-events';
 import { InControl } from '../control';
 import { InValidation } from './validation.aspect';
 import { InValidator } from './validator';

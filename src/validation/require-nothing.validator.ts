@@ -1,8 +1,8 @@
 /**
  * @packageDocumentation
- * @module input-aspects
+ * @module @proc7ts/input-aspects
  */
-import { AfterEvent, afterThe } from 'fun-events';
+import { AfterEvent, afterThe } from '@proc7ts/fun-events';
 
 /**
  * @internal

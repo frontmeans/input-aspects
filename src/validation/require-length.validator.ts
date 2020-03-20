@@ -1,6 +1,6 @@
 /**
  * @packageDocumentation
- * @module input-aspects
+ * @module @proc7ts/input-aspects
  */
 import { InControl } from '../control';
 import { InValidator } from './validator';

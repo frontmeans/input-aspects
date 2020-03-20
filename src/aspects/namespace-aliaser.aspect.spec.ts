@@ -1,4 +1,4 @@
-import { newNamespaceAliaser } from 'namespace-aliaser';
+import { newNamespaceAliaser } from '@proc7ts/namespace-aliaser';
 import { InControl } from '../control';
 import { inValue } from '../controls';
 import { InElement } from '../element.control';

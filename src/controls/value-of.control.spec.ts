@@ -1,4 +1,4 @@
-import { eventSupplyOf } from 'fun-events';
+import { eventSupplyOf } from '@proc7ts/fun-events';
 import { InControl } from '../control';
 import { inValueOf } from './value-of.control';
 import { inValue } from './value.control';

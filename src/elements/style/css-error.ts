@@ -1,8 +1,8 @@
 /**
  * @packageDocumentation
- * @module input-aspects
+ * @module @proc7ts/input-aspects
  */
-import { nextArgs } from 'call-thru';
+import { nextArgs } from '@proc7ts/call-thru';
 import { InputAspects__NS } from '../../aspects';
 import { InValidation } from '../../validation';
 import { InCssClasses } from './css-classes.aspect';

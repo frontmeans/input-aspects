@@ -1,9 +1,9 @@
 /**
  * @packageDocumentation
- * @module input-aspects
+ * @module @proc7ts/input-aspects
  */
-import { flatMapIt, itsEach, mapIt, overEntries } from 'a-iterable';
-import { nextArgs, NextCall } from 'call-thru';
+import { flatMapIt, itsEach, mapIt, overEntries } from '@proc7ts/a-iterable';
+import { nextArgs, NextCall } from '@proc7ts/call-thru';
 import {
   afterEach,
   AfterEvent,
@@ -14,7 +14,7 @@ import {
   EventSupply,
   nextAfterEvent,
   OnEventCallChain,
-} from 'fun-events';
+} from '@proc7ts/fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrBuild } from '../aspect.impl';
 import { InContainer } from '../containers';

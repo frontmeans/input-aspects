@@ -1,10 +1,10 @@
 /**
  * @packageDocumentation
- * @module input-aspects
+ * @module @proc7ts/input-aspects
  */
-import { filterIt, itsEach, ObjectEntry, overEntries } from 'a-iterable';
-import { noop } from 'call-thru';
-import { DeltaSet } from 'delta-set';
+import { filterIt, itsEach, ObjectEntry, overEntries } from '@proc7ts/a-iterable';
+import { noop } from '@proc7ts/call-thru';
+import { DeltaSet } from '@proc7ts/delta-set';
 import {
   afterEach,
   AfterEvent,
@@ -21,9 +21,9 @@ import {
   nextAfterEvent,
   trackValue,
   ValueTracker,
-} from 'fun-events';
-import { css__naming, isQualifiedName, QualifiedName } from 'namespace-aliaser';
-import { RenderSchedule } from 'render-scheduler';
+} from '@proc7ts/fun-events';
+import { css__naming, isQualifiedName, QualifiedName } from '@proc7ts/namespace-aliaser';
+import { RenderSchedule } from '@proc7ts/render-scheduler';
 import { InAspect, InAspect__symbol } from '../../aspect';
 import { InNamespaceAliaser, InRenderScheduler } from '../../aspects';
 import { InControl } from '../../control';
