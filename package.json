@@ -28,7 +28,7 @@
     "@proc7ts/call-thru": "^3.0.0",
     "@proc7ts/fun-events": "^9.0.0",
     "@proc7ts/namespace-aliaser": "^2.0.3",
-    "@proc7ts/render-scheduler": "^1.1.0"
+    "@proc7ts/render-scheduler": "^1.2.0"
   },
   "dependencies": {
     "@proc7ts/delta-set": "^1.1.0"
@@ -39,7 +39,7 @@
     "@proc7ts/eslint-config": "^1.0.3",
     "@proc7ts/fun-events": "^9.0.0",
     "@proc7ts/namespace-aliaser": "^2.0.3",
-    "@proc7ts/render-scheduler": "^1.1.0",
+    "@proc7ts/render-scheduler": "^1.2.0",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "@types/jest": "^25.2.1",
