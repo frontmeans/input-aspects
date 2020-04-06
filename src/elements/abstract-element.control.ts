@@ -1,3 +1,7 @@
+/**
+ * @packageDocumentation
+ * @module @proc7ts/input-aspects
+ */
 import { asis, nextArgs, nextSkip } from '@proc7ts/call-thru';
 import {
   AfterEvent,
