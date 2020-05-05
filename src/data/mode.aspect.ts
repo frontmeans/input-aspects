@@ -209,13 +209,13 @@ class OwnModeTracker extends ValueTracker<InMode.Value> {
 
   set it(value: InMode.Value) {
     switch (value) {
-      case 'off':
-      case 'ro':
-      case '-on':
-      case '-ro':
-        break;
-      default:
-        value = 'on'; // Correct the value.
+    case 'off':
+    case 'ro':
+    case '-on':
+    case '-ro':
+      break;
+    default:
+      value = 'on'; // Correct the value.
     }
 
     this._tracker.it = value;
@@ -370,23 +370,23 @@ function initialInMode(element: HTMLElement): InMode.Value {
  */
 function applyInMode(element: HTMLElement, value: InMode.Value): void {
   switch (value) {
-    case 'off':
-      element.setAttribute('disabled', '');
-      break;
-    case 'ro':
-    case '-ro':
-      // Workaround of https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
-      element.setAttribute('disabled', '');
-      element.removeAttribute('disabled');
-      element.setAttribute('readonly', '');
-      break;
-    default:
-      // Workaround of https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
-      element.setAttribute('disabled', '');
-      element.removeAttribute('disabled');
-      // Workaround of https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
-      element.setAttribute('readonly', '');
-      element.removeAttribute('readonly');
+  case 'off':
+    element.setAttribute('disabled', '');
+    break;
+  case 'ro':
+  case '-ro':
+    // Workaround of https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
+    element.setAttribute('disabled', '');
+    element.removeAttribute('disabled');
+    element.setAttribute('readonly', '');
+    break;
+  default:
+    // Workaround of https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
+    element.setAttribute('disabled', '');
+    element.removeAttribute('disabled');
+    // Workaround of https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
+    element.setAttribute('readonly', '');
+    element.removeAttribute('readonly');
   }
 }
 
@@ -425,19 +425,19 @@ export function inModeValue(...modes: InMode.Value[]): InMode.Value {
 
   for (const mode of modes) {
     switch (mode) {
-      case 'off':
-        return 'off';
-      case 'ro':
-        ro = true;
-        break;
-      case '-on':
-        off = true;
-        break;
-      case '-ro':
-        off = true;
-        ro = true;
-        break;
-      case 'on':
+    case 'off':
+      return 'off';
+    case 'ro':
+      ro = true;
+      break;
+    case '-on':
+      off = true;
+      break;
+    case '-ro':
+      off = true;
+      ro = true;
+      break;
+    case 'on':
     }
   }
 
