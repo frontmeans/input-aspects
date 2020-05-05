@@ -437,6 +437,7 @@ export function inModeValue(...modes: InMode.Value[]): InMode.Value {
         off = true;
         ro = true;
         break;
+      case 'on':
     }
   }
 
