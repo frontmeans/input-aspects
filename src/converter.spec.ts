@@ -46,7 +46,7 @@ describe('intoConverterBy', () => {
 
     const converted = control.convert(factory);
 
-    converted.aspect(InData);
+    converted.aspect(InData).once(noop);
     expect(converter1.applyAspect).toHaveBeenCalledWith(InData[InAspect__symbol]);
     expect(converter2.applyAspect).toHaveBeenCalledWith(InData[InAspect__symbol]);
   });

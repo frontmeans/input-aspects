@@ -86,12 +86,12 @@ describe('InSubmit', () => {
       expect(await firstSubmit).toBe('result');
       expect(flags).toEqual({ ready: true, submitted: true, busy: false });
     });
-    it('rejects if input cut off', () => {
+    it('rejects if input cut off', async () => {
 
       const reason = 'some reason';
 
       control.done(reason);
-      ensureRejected('noInput');
+      await ensureRejected('noInput');
 
       const done = jest.fn();
 
