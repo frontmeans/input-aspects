@@ -2,7 +2,7 @@
  * @packageDocumentation
  * @module @proc7ts/input-aspects
  */
-import { filterIt, itsEach, overArray, reverseIt } from '@proc7ts/a-iterable';
+import { filterIt, overArray } from '@proc7ts/a-iterable';
 import { InConverter } from '../converter';
 import { InElement } from '../element.control';
 import { AbstractInElement } from './abstract-element.control';
@@ -51,11 +51,16 @@ export function inSelect(
         set(value) {
 
           const selected = new Set(value);
+          const { options } = this.element;
 
-          itsEach(
-              reverseIt(overArray(this.element.options)),
-              option => option.selected = selected.has(option.value),
-          );
+          // Iterate in reverse order to ensure the first matching option is selected
+          // when `multiple` attribute isn't set
+          for (let i = options.length - 1; i >= 0; --i) {
+
+            const option = options[i];
+
+            option.selected = selected.has(option.value);
+          }
         },
       },
   );
