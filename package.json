@@ -24,19 +24,19 @@
   "module": "dist/input-aspects.mjs",
   "typings": "index.d.ts",
   "peerDependencies": {
-    "@proc7ts/call-thru": "^3.0.0",
-    "@proc7ts/fun-events": "^9.0.0",
+    "@proc7ts/call-thru": "^3.0.2",
+    "@proc7ts/fun-events": "^9.1.0",
     "@proc7ts/namespace-aliaser": "^2.0.3",
     "@proc7ts/render-scheduler": "^1.2.0"
   },
   "dependencies": {
-    "@proc7ts/a-iterable": "^2.5.1",
-    "@proc7ts/delta-set": "^1.1.0"
+    "@proc7ts/a-iterable": "^2.5.2",
+    "@proc7ts/delta-set": "^1.2.0"
   },
   "devDependencies": {
-    "@proc7ts/call-thru": "^3.0.0",
+    "@proc7ts/call-thru": "^3.0.2",
     "@proc7ts/eslint-config": "^1.1.0",
-    "@proc7ts/fun-events": "^9.0.0",
+    "@proc7ts/fun-events": "^9.1.0",
     "@proc7ts/namespace-aliaser": "^2.0.3",
     "@proc7ts/render-scheduler": "^1.2.0",
     "@rollup/plugin-commonjs": "^11.1.0",
