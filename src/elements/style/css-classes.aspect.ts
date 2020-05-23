@@ -20,7 +20,6 @@ import {
   isEventKeeper,
   nextAfterEvent,
   trackValue,
-  ValueTracker,
 } from '@proc7ts/fun-events';
 import { css__naming, isQualifiedName, QualifiedName } from '@proc7ts/namespace-aliaser';
 import { RenderSchedule } from '@proc7ts/render-scheduler';
@@ -208,7 +207,7 @@ function isUnsubscribeReason(reason: any): reason is UnsubscribeReason {
  */
 class InControlCssClasses extends InCssClasses {
 
-  private readonly _sources: ValueTracker<[Map<AfterEvent<[InCssClasses.Map]>, EventSupply>]> = trackValue([new Map()]);
+  private readonly _sources = trackValue<[Map<AfterEvent<[InCssClasses.Map]>, EventSupply>]>([new Map()]);
   private _schedule?: RenderSchedule;
 
   constructor(private readonly _control: InControl<any>) {
@@ -335,6 +334,7 @@ class InControlCssClasses extends InCssClasses {
       });
 
       receiver.supply.whenOff(reason => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         classesSupply.off({ [UnsubscribeReason__symbol]: reason });
       });
       classesSupply.needs(supply).whenOff(reason => {

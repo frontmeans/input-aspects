@@ -240,6 +240,7 @@ class InControlSubmit<Value> extends InSubmit<Value> {
               data: [data],
               messages: [messages],
             }): InSubmit.Flags => ({
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-return
               ready: data !== undefined && (messages.ok || itsEvery(messages, message => message.submit)),
               submitted: flags.submitted,
               busy: flags.busy,
@@ -312,6 +313,7 @@ function toInSubmitMessages(error: any): InValidation.Message[] {
   if (error instanceof InSubmitError) {
     return [...error.errors];
   }
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   return [{ submit: error }];
 }
 

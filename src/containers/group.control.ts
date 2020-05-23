@@ -418,7 +418,10 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
 
       let newModel: Model | undefined;
 
-      added.forEach(([key, [control, supply]]) => {
+      added.forEach(<K extends keyof Model>(keyAndEntry: [keyof Model, InGroupEntry]) => {
+
+        const [key, [control, supply]] = keyAndEntry as [K, [InControl<Model[K]>, EventSupply]];
+
         control.aspect(InParents)
             .add({ parent: group })
             .needs(supply)
@@ -442,7 +445,10 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
         group.it = newModel;
       }
 
-      added.forEach(([key, [control, supply]]) => {
+      added.forEach(<K extends keyof Model>(keyAndEntry: [keyof Model, InGroupEntry]) => {
+
+        const [key, [control, supply]] = keyAndEntry as [K, [InControl<Model[K]>, EventSupply]];
+
         control.read().tillOff(supply).to(value => {
           if (group.it[key] !== value) {
             group.it = {
@@ -558,7 +564,7 @@ function readInGroupData<Model extends object>(
     return nextArgs();
   }
 
-  const csData: { [key in keyof Model]: InData<any> } = {} as any;
+  const csData = {} as { [key in keyof Model]: InData<any> };
 
   itsEach(controls.entries(), ([key, control]) => {
     csData[key as keyof Model] = control.aspect(InData);
@@ -568,9 +574,15 @@ function readInGroupData<Model extends object>(
 
     const data: Partial<Model> = { ...model };
 
-    itsEach(overEntries(controlsData), ([key, [controlData]]) => {
-      data[key] = controlData;
-    });
+    itsEach(
+        overEntries(controlsData),
+        <K extends keyof Model>(keyAndControlData: [keyof Model, [InData.DataType<any>?]]) => {
+
+          const [key, [controlData]] = keyAndControlData as [K, [Model[K]?]];
+
+          data[key] = controlData;
+        },
+    );
 
     return nextArg(data as InData.DataType<Model>);
   }));

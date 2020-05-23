@@ -8,7 +8,7 @@ import Mock = jest.Mock;
 
 describe('InParents', () => {
 
-  let parent: InContainer<{}>;
+  let parent: InContainer<Record<string, unknown>>;
   let control: InControl<string>;
 
   beforeEach(() => {

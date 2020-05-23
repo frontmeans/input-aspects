@@ -90,7 +90,7 @@ function applyRadioInMode<Value>(radio: InRadioControl<Value>): InAspect.Applied
 
   mode.derive(radio.read().keepThru_(value => value !== undefined ? 'on' : '-on'));
 
-  return inAspectValue(mode);
+  return inAspectValue(mode) as InAspect.Applied<Value, InMode>;
 }
 
 /**

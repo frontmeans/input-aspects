@@ -34,7 +34,7 @@ export class InValidationMessages<Value> implements EventKeeper<InValidation.Mes
     // Validates using the given validator
     let validate: (validator: AfterEvent<InValidation.Message[]>, validatorSupply: EventSupply) => void = noop;
 
-    this._messages = afterEventBy(receiver => {
+    this._messages = afterEventBy<InValidation.Message[]>(receiver => {
 
       // Validation messages supply
       const resultSupply = afterSupplied(emitter, valuesProvider()).to(receiver).whenOff(() => {

@@ -7,7 +7,7 @@ import { AfterEvent, afterThe } from '@proc7ts/fun-events';
 /**
  * @internal
  */
-const _requireNothing = (/*#__PURE__*/ afterThe<[]>());
+const RequireNothing$ = (/*#__PURE__*/ afterThe<[]>());
 
 /**
  * Input validator that requires nothing.
@@ -15,5 +15,5 @@ const _requireNothing = (/*#__PURE__*/ afterThe<[]>());
  * @category Validation
  */
 export function requireNothing(): AfterEvent<[]> {
-  return _requireNothing;
+  return RequireNothing$;
 }

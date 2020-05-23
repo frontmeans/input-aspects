@@ -59,11 +59,11 @@ class InControlFocus extends InFocus {
     super();
 
     const { element, events } = inElement;
-    const owner: DocumentOrShadowRoot | null = element.getRootNode
-        ? element.getRootNode() as any
+    const owner: DocumentOrShadowRoot = element.getRootNode
+        ? element.getRootNode() as unknown as DocumentOrShadowRoot
         : element.ownerDocument;
 
-    this._it = trackValue(!!owner && owner.activeElement === element);
+    this._it = trackValue(owner.activeElement === element);
     eventSupplyOf(this).needs(inElement);
 
     events.on('focus').to(() => this._it.it = true);

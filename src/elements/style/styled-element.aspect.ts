@@ -26,7 +26,7 @@ const InStyledElement__aspect: InAspect<InStyledElement | null> = {
 
     const element = control.aspect(InElement);
 
-    return element ? inAspectValue(element.element) : inAspectNull;
+    return element ? inAspectValue(element.element) : inAspectNull as InAspect.Applied<any, InStyledElement | null>;
   },
 
 };
