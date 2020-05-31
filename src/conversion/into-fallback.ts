@@ -2,7 +2,7 @@
  * @packageDocumentation
  * @module @proc7ts/input-aspects
  */
-import { asis } from '@proc7ts/call-thru';
+import { asis } from '@proc7ts/primitives';
 import { InConverter } from '../converter';
 
 /**

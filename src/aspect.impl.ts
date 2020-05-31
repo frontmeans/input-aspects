@@ -1,4 +1,4 @@
-import { noop, valueProvider } from '@proc7ts/call-thru';
+import { noop, valueProvider } from '@proc7ts/primitives';
 import { InAspect } from './aspect';
 import { InControl } from './control';
 

@@ -2,8 +2,8 @@
  * @packageDocumentation
  * @module @proc7ts/input-aspects
  */
-import { noop } from '@proc7ts/call-thru';
 import { eventSupplyOf } from '@proc7ts/fun-events';
+import { noop } from '@proc7ts/primitives';
 import { InControl } from '../../control';
 import { InConverter, intoConvertedAspects } from '../../converter';
 import { InMode } from '../../data';

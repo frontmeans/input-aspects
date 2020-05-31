@@ -2,7 +2,6 @@
  * @packageDocumentation
  * @module @proc7ts/input-aspects
  */
-import { noop } from '@proc7ts/call-thru';
 import {
   EventReceiver,
   EventSupply,
@@ -12,6 +11,7 @@ import {
   trackValue,
   ValueTracker,
 } from '@proc7ts/fun-events';
+import { noop } from '@proc7ts/primitives';
 import { InAspect, InAspect__symbol } from '../../aspect';
 import { inAspectSameOrBuild } from '../../aspect.impl';
 import { InControl } from '../../control';

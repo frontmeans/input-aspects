@@ -2,8 +2,9 @@
  * @packageDocumentation
  * @module @proc7ts/input-aspects
  */
-import { CallChain, nextArgs, NextCall, valueProvider } from '@proc7ts/call-thru';
+import { CallChain, nextArgs, NextCall } from '@proc7ts/call-thru';
 import { AfterEvent, afterSupplied, EventKeeper, isEventKeeper } from '@proc7ts/fun-events';
+import { valueProvider } from '@proc7ts/primitives';
 import { InControl } from '../control';
 import { InValidation } from './validation.aspect';
 

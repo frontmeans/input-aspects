@@ -3,7 +3,7 @@
  * @module @proc7ts/input-aspects
  */
 import { itsEach, itsIterable, mapIt, overEntries } from '@proc7ts/a-iterable';
-import { nextArg, nextArgs, NextCall, noop } from '@proc7ts/call-thru';
+import { nextArg, nextArgs, NextCall } from '@proc7ts/call-thru';
 import {
   afterAll,
   AfterEvent,
@@ -25,6 +25,7 @@ import {
   trackValue,
   ValueTracker,
 } from '@proc7ts/fun-events';
+import { noop } from '@proc7ts/primitives';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';

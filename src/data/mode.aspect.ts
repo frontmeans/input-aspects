@@ -3,7 +3,7 @@
  * @module @proc7ts/input-aspects
  */
 import { flatMapIt } from '@proc7ts/a-iterable';
-import { nextArgs, NextCall, nextSkip, valuesProvider } from '@proc7ts/call-thru';
+import { nextArgs, NextCall, nextSkip } from '@proc7ts/call-thru';
 import {
   afterAll,
   afterEach,
@@ -27,6 +27,7 @@ import {
   trackValue,
   ValueTracker,
 } from '@proc7ts/fun-events';
+import { valuesProvider } from '@proc7ts/primitives';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrBuild } from '../aspect.impl';
 import { InParents } from '../containers';

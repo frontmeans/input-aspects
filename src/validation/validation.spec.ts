@@ -1,5 +1,6 @@
-import { asis, nextArgs, noop, valuesProvider } from '@proc7ts/call-thru';
+import { nextArgs } from '@proc7ts/call-thru';
 import { afterSupplied, EventEmitter, EventKeeper, EventSupply, onSupplied, trackValue } from '@proc7ts/fun-events';
+import { asis, noop, valuesProvider } from '@proc7ts/primitives';
 import { inGroup, InGroup } from '../containers';
 import { InControl } from '../control';
 import { inValue } from '../controls';

@@ -2,7 +2,6 @@
  * @packageDocumentation
  * @module @proc7ts/input-aspects
  */
-import { asis, noop } from '@proc7ts/call-thru';
 import {
   EventEmitter,
   EventReceiver,
@@ -14,6 +13,7 @@ import {
   trackValue,
   ValueTracker,
 } from '@proc7ts/fun-events';
+import { asis, noop } from '@proc7ts/primitives';
 import { InAspect, InAspect__symbol } from './aspect';
 import { InConverter, intoConvertedBy, isInAspectConversion } from './converter';
 

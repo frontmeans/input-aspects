@@ -2,7 +2,7 @@
  * @packageDocumentation
  * @module @proc7ts/input-aspects
  */
-import { asis, nextArgs, nextSkip } from '@proc7ts/call-thru';
+import { nextArgs, nextSkip } from '@proc7ts/call-thru';
 import {
   AfterEvent,
   afterSent,
@@ -14,6 +14,7 @@ import {
   OnEvent,
 } from '@proc7ts/fun-events';
 import { DomEventDispatcher } from '@proc7ts/fun-events/dom';
+import { asis } from '@proc7ts/primitives';
 import { InConverter } from '../converter';
 import { InElement } from '../element.control';
 

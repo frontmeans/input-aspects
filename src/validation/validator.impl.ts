@@ -1,5 +1,4 @@
 import { flatMapIt, itsEach } from '@proc7ts/a-iterable';
-import { asis, noop, valuesProvider } from '@proc7ts/call-thru';
 import {
   AfterEvent,
   AfterEvent__symbol,
@@ -10,6 +9,7 @@ import {
   EventSupply,
   eventSupply,
 } from '@proc7ts/fun-events';
+import { asis, noop, valuesProvider } from '@proc7ts/primitives';
 import { InControl } from '../control';
 import { InValidation } from './validation.aspect';
 import { inValidator, InValidator } from './validator';
