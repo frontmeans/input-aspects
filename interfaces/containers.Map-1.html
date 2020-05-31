@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>All | Input Aspects</title>
+	<title>Map | Input Aspects</title>
 	<meta name="description" content="Documentation for Input Aspects">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,39 +54,35 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/@proc7ts_input-aspects.html">@proc7ts/input-aspects</a>
+					<a href="../modules/containers.html">containers</a>
 				</li>
 				<li>
-					<a href="../classes/@proc7ts_input-aspects.InParents.html">InParents</a>
-				</li>
-				<li>
-					<a href="@proc7ts_input-aspects.InParents.All.html">All</a>
+					<a href="containers.Map-1.html">Map</a>
 				</li>
 			</ul>
-			<h1>Interface All</h1>
+			<h1>Interface Map&lt;OfInstance, OfValue&gt;</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>All control parents as iterable instance.</p>
-					</div>
-				</div>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>OfInstance</h4>
+					</li>
+					<li>
+						<h4>OfValue</h4>
+					</li>
+				</ul>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><a href="@proc7ts_input-aspects.InParents.Entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&gt;</span>
-						<ul class="tsd-hierarchy">
-							<li>
-								<span class="target">All</span>
-							</li>
-						</ul>
+						<span class="target">Map</span>
 					</li>
 				</ul>
 			</section>
@@ -97,7 +93,7 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-overwrite"><a href="@proc7ts_input-aspects.InParents.All.html#_Symbol_iterator_" class="tsd-kind-icon">[<wbr>Symbol.iterator]</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="containers.Map-1.html#group" class="tsd-kind-icon">group</a></li>
 							</ul>
 						</section>
 					</div>
@@ -105,21 +101,25 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-overwrite">
-					<a name="_Symbol_iterator_" class="tsd-anchor"></a>
-					<h3>[<wbr>Symbol.iterator]</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">[<wbr>Symbol.iterator]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><a href="@proc7ts_input-aspects.InParents.Entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&gt;</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="group" class="tsd-anchor"></a>
+					<h3>group</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">group<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/@proc7ts_input-aspects.InGroup.html" class="tsd-signature-type">InGroup</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">OfValue</span><span class="tsd-signature-symbol"> extends </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> ? </span><span class="tsd-signature-type">OfValue</span><span class="tsd-signature-symbol"> : </span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides Iterable.[Symbol.iterator]</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/6fff094/src/containers/parents.aspect.ts#L132">proc7ts/input-aspects/src/containers/parents.aspect.ts:132</a></li>
+									<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/6fff094/src/containers/group.control.ts#L623">proc7ts/input-aspects/src/containers/group.control.ts:623</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">IterableIterator</span><span class="tsd-signature-symbol">&lt;</span><a href="@proc7ts_input-aspects.InParents.Entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Input control group application type.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="../classes/@proc7ts_input-aspects.InGroup.html" class="tsd-signature-type">InGroup</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">OfValue</span><span class="tsd-signature-symbol"> extends </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> ? </span><span class="tsd-signature-type">OfValue</span><span class="tsd-signature-symbol"> : </span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -134,10 +134,10 @@
 					<li class=" tsd-kind-module tsd-is-not-exported">
 						<a href="../modules/reflection-1659.html">&lt;em&gt;<wbr>Module&lt;/em&gt;</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="../modules/@proc7ts_input-aspects.html">@proc7ts/input-<wbr>aspects</a>
 					</li>
-					<li class=" tsd-kind-namespace">
+					<li class="current tsd-kind-namespace">
 						<a href="../modules/containers.html">containers</a>
 					</li>
 					<li class=" tsd-kind-namespace">
@@ -156,44 +156,24 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-namespace tsd-has-type-parameter">
+						<a href="containers.Map.html" class="tsd-kind-icon">Map</a>
+					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/@proc7ts_input-aspects.InParents.html" class="tsd-kind-icon">In<wbr>Parents</a>
+					<li class="current tsd-kind-interface tsd-parent-kind-namespace tsd-has-type-parameter">
+						<a href="containers.Map-1.html" class="tsd-kind-icon">Map</a>
 						<ul>
-							<li class="current tsd-kind-interface tsd-parent-kind-class">
-								<a href="@proc7ts_input-aspects.InParents.All.html" class="tsd-kind-icon">All</a>
-								<ul>
-									<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-overwrite">
-										<a href="@proc7ts_input-aspects.InParents.All.html#_Symbol_iterator_" class="tsd-kind-icon">[<wbr>Symbol.iterator]</a>
-									</li>
-								</ul>
-							</li>
-							<li class=" tsd-kind-interface tsd-parent-kind-class">
-								<a href="@proc7ts_input-aspects.InParents.Entry.html" class="tsd-kind-icon">Entry</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
-								<a href="../classes/@proc7ts_input-aspects.InParents.html#_InAspect__symbol_" class="tsd-kind-icon">[<wbr>InAspect__symbol]</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="../classes/@proc7ts_input-aspects.InParents.html#_AfterEvent__symbol_" class="tsd-kind-icon">[<wbr>After<wbr>Event__symbol]</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="../classes/@proc7ts_input-aspects.InParents.html#_OnEvent__symbol_" class="tsd-kind-icon">[<wbr>OnEvent__symbol]</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="../classes/@proc7ts_input-aspects.InParents.html#add" class="tsd-kind-icon">add</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="../classes/@proc7ts_input-aspects.InParents.html#on" class="tsd-kind-icon">on</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="../classes/@proc7ts_input-aspects.InParents.html#read" class="tsd-kind-icon">read</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="containers.Map-1.html#group" class="tsd-kind-icon">group</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-namespace tsd-has-type-parameter">
+						<a href="containers.Map-2.html" class="tsd-kind-icon">Map</a>
+					</li>
 				</ul>
 			</nav>
 		</div>

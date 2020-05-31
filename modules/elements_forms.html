@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Entry | Input Aspects</title>
+	<title>elements/forms | Input Aspects</title>
 	<meta name="description" content="Documentation for Input Aspects">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,16 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/@proc7ts_input-aspects.html">@proc7ts/input-aspects</a>
-				</li>
-				<li>
-					<a href="../classes/@proc7ts_input-aspects.InParents.html">InParents</a>
-				</li>
-				<li>
-					<a href="@proc7ts_input-aspects.InParents.Entry.html">Entry</a>
+					<a href="elements_forms.html">elements/forms</a>
 				</li>
 			</ul>
-			<h1>Interface Entry</h1>
+			<h1>Namespace elements/forms&lt;Elt&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -73,15 +67,23 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Parent container entry of input control.</p>
+						<p>Form submit button control.</p>
 					</div>
+					<p>It is connected to control to submit (form) and may change submit button state depending on form submit status.
+					E.g. by disabling it when submit is <a href="../interfaces/@proc7ts_input-aspects.InSubmit.Flags.html#ready">not ready</a>, or while <a href="../interfaces/@proc7ts_input-aspects.InSubmit.Flags.html#busy">submitting</a> the form.</p>
+					<p>Submit button control can be created by <a href="@proc7ts_input-aspects.html#inSubmitButton">inSubmitButton</a> function.</p>
 				</div>
 			</section>
-			<section class="tsd-panel tsd-hierarchy">
-				<h3>Hierarchy</h3>
-				<ul class="tsd-hierarchy">
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
 					<li>
-						<span class="target">Entry</span>
+						<h4>Elt<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLElement</span></h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>A type of HTML form element.</p>
+							</div>
+						</div>
 					</li>
 				</ul>
 			</section>
@@ -90,29 +92,12 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Properties</h3>
+							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="@proc7ts_input-aspects.InParents.Entry.html#parent" class="tsd-kind-icon">parent</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-namespace"><a href="../interfaces/elements_forms.Options.html" class="tsd-kind-icon">Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-namespace"><a href="../interfaces/elements_forms.Options-1.html" class="tsd-kind-icon">Options</a></li>
 							</ul>
 						</section>
-					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="parent" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> parent</h3>
-					<div class="tsd-signature tsd-kind-icon">parent<span class="tsd-signature-symbol">:</span> <a href="../classes/@proc7ts_input-aspects.InContainer.html" class="tsd-signature-type">InContainer</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/6fff094/src/containers/parents.aspect.ts#L123">proc7ts/input-aspects/src/containers/parents.aspect.ts:123</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Parent container.</p>
-						</div>
 					</div>
 				</section>
 			</section>
@@ -124,68 +109,36 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-module tsd-is-not-exported">
-						<a href="../modules/reflection-1659.html">&lt;em&gt;<wbr>Module&lt;/em&gt;</a>
+						<a href="reflection-1659.html">&lt;em&gt;<wbr>Module&lt;/em&gt;</a>
 					</li>
-					<li class="current tsd-kind-module">
-						<a href="../modules/@proc7ts_input-aspects.html">@proc7ts/input-<wbr>aspects</a>
-					</li>
-					<li class=" tsd-kind-namespace">
-						<a href="../modules/containers.html">containers</a>
+					<li class=" tsd-kind-module">
+						<a href="@proc7ts_input-aspects.html">@proc7ts/input-<wbr>aspects</a>
 					</li>
 					<li class=" tsd-kind-namespace">
-						<a href="../modules/data.html">data</a>
+						<a href="containers.html">containers</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="data.html">data</a>
 					</li>
 					<li class=" tsd-kind-namespace tsd-has-type-parameter">
-						<a href="../modules/elements.html">elements</a>
+						<a href="elements.html">elements</a>
 					</li>
-					<li class=" tsd-kind-namespace tsd-has-type-parameter">
-						<a href="../modules/elements_forms.html">elements/forms</a>
+					<li class="current tsd-kind-namespace tsd-has-type-parameter">
+						<a href="elements_forms.html">elements/forms</a>
 					</li>
 					<li class=" tsd-kind-namespace">
-						<a href="../modules/validation.html">validation</a>
+						<a href="validation.html">validation</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/@proc7ts_input-aspects.InParents.html" class="tsd-kind-icon">In<wbr>Parents</a>
-						<ul>
-							<li class=" tsd-kind-interface tsd-parent-kind-class">
-								<a href="@proc7ts_input-aspects.InParents.All.html" class="tsd-kind-icon">All</a>
-							</li>
-							<li class="current tsd-kind-interface tsd-parent-kind-class">
-								<a href="@proc7ts_input-aspects.InParents.Entry.html" class="tsd-kind-icon">Entry</a>
-								<ul>
-									<li class=" tsd-kind-property tsd-parent-kind-interface">
-										<a href="@proc7ts_input-aspects.InParents.Entry.html#parent" class="tsd-kind-icon">parent</a>
-									</li>
-								</ul>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
-								<a href="../classes/@proc7ts_input-aspects.InParents.html#_InAspect__symbol_" class="tsd-kind-icon">[<wbr>InAspect__symbol]</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="../classes/@proc7ts_input-aspects.InParents.html#_AfterEvent__symbol_" class="tsd-kind-icon">[<wbr>After<wbr>Event__symbol]</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="../classes/@proc7ts_input-aspects.InParents.html#_OnEvent__symbol_" class="tsd-kind-icon">[<wbr>OnEvent__symbol]</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="../classes/@proc7ts_input-aspects.InParents.html#add" class="tsd-kind-icon">add</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="../classes/@proc7ts_input-aspects.InParents.html#on" class="tsd-kind-icon">on</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="../classes/@proc7ts_input-aspects.InParents.html#read" class="tsd-kind-icon">read</a>
-							</li>
-						</ul>
+					<li class=" tsd-kind-interface tsd-parent-kind-namespace">
+						<a href="../interfaces/elements_forms.Options.html" class="tsd-kind-icon">Options</a>
 					</li>
-				</ul>
-				<ul class="after-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-namespace">
+						<a href="../interfaces/elements_forms.Options-1.html" class="tsd-kind-icon">Options</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
@@ -206,9 +159,6 @@
 			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
 				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
 			</ul>
 		</div>
 	</div>
