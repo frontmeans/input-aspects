@@ -30,7 +30,7 @@
     "@proc7ts/render-scheduler": "^1.2.0"
   },
   "dependencies": {
-    "@proc7ts/a-iterable": "^2.6.1",
+    "@proc7ts/a-iterable": "^2.7.0",
     "@proc7ts/delta-set": "^1.2.0",
     "@proc7ts/primitives": "^1.0.0"
   },
