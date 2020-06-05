@@ -2,7 +2,7 @@ HTML Input Aspects
 ==================
 
 [![NPM][npm-image]][npm-url]
-[![CircleCI][ci-image]][ci-url]
+[![Build Status][build-status-img]][build-status-link]
 [![codecov][codecov-image]][codecov-url]
 [![GitHub Project][github-image]][github-url]
 [![API Documentation][api-docs-image]][api-docs-url]
@@ -11,8 +11,8 @@ Framework-agnostic library controlling various aspects of user input. Such as va
 
 [npm-image]: https://img.shields.io/npm/v/@proc7ts/input-aspects.svg?logo=npm
 [npm-url]: https://www.npmjs.com/package/@proc7ts/input-aspects
-[ci-image]: https://img.shields.io/circleci/build/github/proc7ts/input-aspects?logo=circleci
-[ci-url]: https://circleci.com/gh/proc7ts/input-aspects
+[build-status-img]: https://github.com/proc7ts/input-aspects/workflows/Build/badge.svg
+[build-status-link]: https://github.com/proc7ts/input-aspects/actions?query=workflow%3ABuild
 [codecov-image]: https://codecov.io/gh/proc7ts/input-aspects/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/proc7ts/input-aspects
 [github-image]: https://img.shields.io/static/v1?logo=github&label=GitHub&message=project&color=informational
