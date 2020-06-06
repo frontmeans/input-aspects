@@ -1,6 +1,7 @@
 {
   "categorizeByGroup": true,
   "categoryOrder": ["Control", "Aspect", "Validation", "*"],
+  "disableAutoModuleName": true,
   "exclude": ["**/index.ts", "**/*.impl.ts", "**/*.spec.ts"],
   "excludeNotExported": true,
   "mode": "modules",
