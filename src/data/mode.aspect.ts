@@ -361,9 +361,8 @@ class InControlMode extends InMode {
  */
 function initialInMode(element: HTMLElement): InMode.Value {
   return element.getAttribute('disabled') != null
-      ? 'off' : (
-          element.getAttribute('readonly') != null ? 'ro' : 'on'
-      );
+      ? 'off'
+      : (element.getAttribute('readonly') != null ? 'ro' : 'on');
 }
 
 /**
