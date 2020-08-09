@@ -32,6 +32,7 @@ module.exports = {
     ],
   ],
   restoreMocks: true,
+  testEnvironment: 'jest-environment-jsdom-sixteen',
   globals: {
     'ts-jest': {
       packageJson: 'package.json',

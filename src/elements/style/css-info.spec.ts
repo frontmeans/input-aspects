@@ -51,11 +51,14 @@ describe('inCssInfo', () => {
   });
   it('applies `focus` class when input gains focus', () => {
     element.focus();
+    element.dispatchEvent(new KeyboardEvent('focus', { bubbles: true }));
     expect(element.classList.contains('has-focus@inasp')).toBe(true);
   });
   it('applies `touched` class when input touched', () => {
     element.focus();
+    element.dispatchEvent(new KeyboardEvent('focus', { bubbles: true }));
     element.blur();
+    element.dispatchEvent(new KeyboardEvent('blur', { bubbles: true }));
     expect(element.classList.contains('touched@inasp')).toBe(true);
   });
   it('applies `edited` class when input is edited by user', () => {
