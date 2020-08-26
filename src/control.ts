@@ -228,7 +228,7 @@ class InConverted<From, To> extends InControl<To> {
         aspect: InAspect<Instance, Kind>,
     ) => InAspect.Application.Result<Instance, To, Kind> | undefined;
 
-    if (isInAspectConversion(conversion)) {
+    if (/*#__INLINE__*/ isInAspectConversion(conversion)) {
       set = asis as (value: From) => To;
       get = asis as (value: To) => From;
       convertAspect = <Instance, Kind extends InAspect.Application.Kind>(aspect: InAspect<Instance, Kind>) => {
