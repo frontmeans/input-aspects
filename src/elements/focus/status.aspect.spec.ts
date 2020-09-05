@@ -186,7 +186,7 @@ describe('InStatus', () => {
       groupStatus.markEdited();
       expect(groupFlags).toEqual({ hasFocus: false, touched: true, edited: true });
     });
-    it('does not set `edited` if already set ', () => {
+    it('does not set `edited` if already set', () => {
       edit();
 
       const receiver = jest.fn();
