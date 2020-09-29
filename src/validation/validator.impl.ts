@@ -1,4 +1,3 @@
-import { flatMapIt, itsEach } from '@proc7ts/a-iterable';
 import {
   AfterEvent,
   AfterEvent__symbol,
@@ -9,7 +8,8 @@ import {
   EventSupply,
   eventSupply,
 } from '@proc7ts/fun-events';
-import { asis, noop, valuesProvider } from '@proc7ts/primitives';
+import { noop, valuesProvider } from '@proc7ts/primitives';
+import { flatMapIt, itsEach } from '@proc7ts/push-iterator';
 import { InControl } from '../control';
 import { InValidation } from './validation.aspect';
 import { inValidator, InValidator } from './validator';
@@ -99,7 +99,7 @@ export class InValidationMessages<Value> implements EventKeeper<InValidation.Mes
     };
 
     function allMessages(): Iterable<InValidation.Message> {
-      return flatMapIt(validatorMessages.values(), asis);
+      return flatMapIt(validatorMessages.values());
     }
   }
 

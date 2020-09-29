@@ -2,7 +2,6 @@
  * @packageDocumentation
  * @module @proc7ts/input-aspects
  */
-import { itsIterable, mapIt } from '@proc7ts/a-iterable';
 import { nextArgs, NextCall } from '@proc7ts/call-thru';
 import {
   afterAll,
@@ -27,6 +26,7 @@ import {
   ValueTracker,
 } from '@proc7ts/fun-events';
 import { isDefined, noop } from '@proc7ts/primitives';
+import { itsIterator, mapIt } from '@proc7ts/push-iterator';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';
@@ -228,7 +228,7 @@ class InListSnapshot<Item> implements InList.Snapshot<Item> {
   }
 
   [Symbol.iterator](): IterableIterator<InControl<Item>> {
-    return itsIterable(mapIt(this._entries, ([control]) => control));
+    return itsIterator(mapIt(this._entries, ([control]) => control));
   }
 
   *entries(): IterableIterator<InList.Entry<Item>> {
