@@ -2,7 +2,6 @@
  * @packageDocumentation
  * @module @proc7ts/input-aspects
  */
-import { itsEach, mapIt } from '@proc7ts/a-iterable';
 import {
   afterAll,
   afterEach,
@@ -17,6 +16,7 @@ import {
   trackValue,
   ValueTracker,
 } from '@proc7ts/fun-events';
+import { itsEach, mapIt } from '@proc7ts/push-iterator';
 import { InAspect, InAspect__symbol } from '../../aspect';
 import { inAspectSameOrBuild } from '../../aspect.impl';
 import { InContainer } from '../../containers';

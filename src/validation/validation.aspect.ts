@@ -2,7 +2,6 @@
  * @packageDocumentation
  * @module @proc7ts/input-aspects
  */
-import { flatMapIt, itsEach, mapIt, overEntries } from '@proc7ts/a-iterable';
 import { nextArgs, NextCall } from '@proc7ts/call-thru';
 import {
   afterEach,
@@ -15,6 +14,7 @@ import {
   nextAfterEvent,
   OnEventCallChain,
 } from '@proc7ts/fun-events';
+import { flatMapIt, itsEach, mapIt, overEntries } from '@proc7ts/push-iterator';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrBuild } from '../aspect.impl';
 import { InContainer } from '../containers';
@@ -393,9 +393,7 @@ function nestedInValidations(
 function combineInValidationResults(
     ...results: [InValidation.Result][]
 ): NextCall<OnEventCallChain, InValidation.Message[]> {
-  return nextArgs<InValidation.Message[]>(
-      ...flatMapIt(mapIt(results, result => result[0])),
-  );
+  return nextArgs(...flatMapIt(results, ([result]) => result));
 }
 
 declare module '../aspect' {

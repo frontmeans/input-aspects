@@ -2,8 +2,8 @@
  * @packageDocumentation
  * @module @proc7ts/input-aspects
  */
-import { filterIt } from '@proc7ts/a-iterable';
 import { CallChain, nextArgs, NextCall } from '@proc7ts/call-thru';
+import { filterIt } from '@proc7ts/push-iterator';
 import { InControl } from '../control';
 import { requireAll } from './require-all.validator';
 import { InValidation, inValidationResult } from './validation.aspect';

@@ -2,7 +2,6 @@
  * @packageDocumentation
  * @module @proc7ts/input-aspects
  */
-import { itsEach, itsIterable, mapIt, overEntries } from '@proc7ts/a-iterable';
 import { nextArg, nextArgs, NextCall } from '@proc7ts/call-thru';
 import {
   afterAll,
@@ -26,6 +25,7 @@ import {
   ValueTracker,
 } from '@proc7ts/fun-events';
 import { noop } from '@proc7ts/primitives';
+import { itsEach, itsIterator, mapIt, overEntries } from '@proc7ts/push-iterator';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';
@@ -210,11 +210,11 @@ class InGroupSnapshot<Model> implements InGroup.Snapshot<Model> {
   }
 
   [Symbol.iterator](): IterableIterator<InControl<any>> {
-    return itsIterable(mapIt(this._map.values(), ([control]) => control));
+    return itsIterator(mapIt(this._map.values(), ([control]) => control));
   }
 
   entries(): IterableIterator<InGroup.Entry<Model>> {
-    return itsIterable(mapIt(this._map.entries(), ([key, [control]]) => [key, control]));
+    return itsIterator(mapIt(this._map.entries(), ([key, [control]]) => [key, control]));
   }
 
 }
@@ -577,9 +577,9 @@ function readInGroupData<Model extends object>(
 
     itsEach(
         overEntries(controlsData),
-        <K extends keyof Model>(keyAndControlData: [keyof Model, [InData.DataType<any>?]]) => {
+        <K extends keyof Model>(keyAndControlData: readonly [keyof Model, [InData.DataType<any>?]]) => {
 
-          const [key, [controlData]] = keyAndControlData as [K, [Model[K]?]];
+          const [key, [controlData]] = keyAndControlData as readonly [K, [Model[K]?]];
 
           data[key] = controlData;
         },

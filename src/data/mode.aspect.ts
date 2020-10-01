@@ -2,7 +2,6 @@
  * @packageDocumentation
  * @module @proc7ts/input-aspects
  */
-import { flatMapIt } from '@proc7ts/a-iterable';
 import { nextArgs, NextCall, nextSkip } from '@proc7ts/call-thru';
 import {
   afterAll,
@@ -28,6 +27,7 @@ import {
   ValueTracker,
 } from '@proc7ts/fun-events';
 import { valuesProvider } from '@proc7ts/primitives';
+import { overElementsOf } from '@proc7ts/push-iterator';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrBuild } from '../aspect.impl';
 import { InParents } from '../containers';
@@ -406,8 +406,12 @@ function parentsInMode(parents: InParents.All): NextCall<OnEventCallChain, [InMo
   return nextAfterEvent(afterEach(...parentModes).keepThru_(mergeInModes));
 }
 
+/**
+ * @internal
+ * @param modes
+ */
 function mergeInModes(...modes: [InMode.Value][]): InMode.Value {
-  return inModeValue(...flatMapIt<InMode.Value>(modes));
+  return inModeValue(...overElementsOf<InMode.Value>(...modes));
 }
 
 /**
