@@ -176,7 +176,7 @@
 					<div class="tsd-signature tsd-kind-icon">Controls&lt;Model&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/f46ce5f/src/containers/group.control.ts#L89">proc7ts/input-aspects/src/containers/group.control.ts:89</a></li>
+							<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/004b5ba/src/containers/group.control.ts#L89">proc7ts/input-aspects/src/containers/group.control.ts:89</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -205,11 +205,11 @@
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
 					<a name="Entry" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> Entry</h3>
-					<div class="tsd-signature tsd-kind-icon">Entry&lt;Model, K&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><a href="@proc7ts_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Model</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span></div>
+					<div class="tsd-signature tsd-kind-icon">Entry&lt;Model, K&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">readonly </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">, </span><a href="@proc7ts_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Model</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/f46ce5f/src/containers/container.control.ts#L69">proc7ts/input-aspects/src/containers/container.control.ts:69</a></li>
-							<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/f46ce5f/src/containers/group.control.ts#L100">proc7ts/input-aspects/src/containers/group.control.ts:100</a></li>
+							<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/004b5ba/src/containers/container.control.ts#L69">proc7ts/input-aspects/src/containers/container.control.ts:69</a></li>
+							<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/004b5ba/src/containers/group.control.ts#L100">proc7ts/input-aspects/src/containers/group.control.ts:100</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -237,7 +237,7 @@
 							</div>
 						</li>
 						<li>
-							<h4>K<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">Model</span></h4>
+							<h4>K<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">Model</span> = <span class="tsd-signature-type">any</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -248,14 +248,14 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>InGroup<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>aspects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/@proc7ts_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, from<span class="tsd-signature-symbol">: </span><a href="@proc7ts_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">&gt;</span>, to<span class="tsd-signature-symbol">: </span><a href="@proc7ts_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="../interfaces/@proc7ts_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/@proc7ts_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, from<span class="tsd-signature-symbol">: </span><a href="@proc7ts_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">&gt;</span>, to<span class="tsd-signature-symbol">: </span><a href="@proc7ts_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="../interfaces/@proc7ts_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="@proc7ts_input-aspects.InGroup.html" class="tsd-signature-type">InGroup</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>InGroup<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>aspects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/@proc7ts_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="../modules/@proc7ts_input-aspects.InConverter.html#Factory" class="tsd-signature-type">Factory</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/@proc7ts_input-aspects.InConverter.Aspect.html" class="tsd-signature-type">Aspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="@proc7ts_input-aspects.InGroup.html" class="tsd-signature-type">InGroup</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@proc7ts_input-aspects.AbstractInControl.html">AbstractInControl</a>.<a href="@proc7ts_input-aspects.AbstractInControl.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/f46ce5f/src/controls/abstract.control.ts#L22">proc7ts/input-aspects/src/controls/abstract.control.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/004b5ba/src/controls/abstract.control.ts#L22">proc7ts/input-aspects/src/controls/abstract.control.ts:22</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -266,10 +266,10 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>aspects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/@proc7ts_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, from<span class="tsd-signature-symbol">: </span><a href="@proc7ts_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">&gt;</span>, to<span class="tsd-signature-symbol">: </span><a href="@proc7ts_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="../interfaces/@proc7ts_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/@proc7ts_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, from<span class="tsd-signature-symbol">: </span><a href="@proc7ts_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">&gt;</span>, to<span class="tsd-signature-symbol">: </span><a href="@proc7ts_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="../interfaces/@proc7ts_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> }</span></h5>
+									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>aspects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/@proc7ts_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="../modules/@proc7ts_input-aspects.InConverter.html#Factory" class="tsd-signature-type">Factory</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/@proc7ts_input-aspects.InConverter.Aspect.html" class="tsd-signature-type">Aspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> }</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
-											<h5>aspects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/@proc7ts_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, from<span class="tsd-signature-symbol">: </span><a href="@proc7ts_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">&gt;</span>, to<span class="tsd-signature-symbol">: </span><a href="@proc7ts_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="../interfaces/@proc7ts_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/@proc7ts_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, from<span class="tsd-signature-symbol">: </span><a href="@proc7ts_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">&gt;</span>, to<span class="tsd-signature-symbol">: </span><a href="@proc7ts_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="../interfaces/@proc7ts_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">&gt;</span></h5>
+											<h5>aspects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/@proc7ts_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="../modules/@proc7ts_input-aspects.InConverter.html#Factory" class="tsd-signature-type">Factory</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/@proc7ts_input-aspects.InConverter.Aspect.html" class="tsd-signature-type">Aspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 											<div class="tsd-comment tsd-typography">
 												<p>Input aspects applied by default. These are aspect converters to constructed control
 												from the <a href="../modules/@proc7ts_input-aspects.html#inValueOf">same-valued one</a>.</p>
@@ -292,7 +292,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides <a href="@proc7ts_input-aspects.InContainer.html">InContainer</a>.<a href="@proc7ts_input-aspects.InContainer.html#controls">controls</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/f46ce5f/src/containers/group.control.ts#L68">proc7ts/input-aspects/src/containers/group.control.ts:68</a></li>
+							<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/004b5ba/src/containers/group.control.ts#L68">proc7ts/input-aspects/src/containers/group.control.ts:68</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -309,7 +309,7 @@
 						<p>Inherited from <a href="@proc7ts_input-aspects.InControl.html">InControl</a>.<a href="@proc7ts_input-aspects.InControl.html#it">it</a></p>
 						<p>Overrides <a href="@proc7ts_input-aspects.InFocus.html">InFocus</a>.<a href="@proc7ts_input-aspects.InFocus.html#it">it</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/f46ce5f/src/control.ts#L38">proc7ts/input-aspects/src/control.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/004b5ba/src/control.ts#L38">proc7ts/input-aspects/src/control.ts:38</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -333,7 +333,7 @@
 								<p>Inherited from <a href="@proc7ts_input-aspects.InControl.html">InControl</a>.<a href="@proc7ts_input-aspects.InControl.html#_EventSupply__symbol_">[EventSupply__symbol]</a></p>
 								<p>Overrides <a href="@proc7ts_input-aspects.InFocus.html">InFocus</a>.<a href="@proc7ts_input-aspects.InFocus.html#_EventSupply__symbol_">[EventSupply__symbol]</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/f46ce5f/src/control.ts#L50">proc7ts/input-aspects/src/control.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/004b5ba/src/control.ts#L50">proc7ts/input-aspects/src/control.ts:50</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -360,7 +360,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="@proc7ts_input-aspects.InContainer.html">InContainer</a>.<a href="@proc7ts_input-aspects.InContainer.html#_InAspect__symbol_">[InAspect__symbol]</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/f46ce5f/src/containers/group.control.ts#L61">proc7ts/input-aspects/src/containers/group.control.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/004b5ba/src/containers/group.control.ts#L61">proc7ts/input-aspects/src/containers/group.control.ts:61</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../modules/@proc7ts_input-aspects.InAspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><a href="@proc7ts_input-aspects.InGroup.html" class="tsd-signature-type">InGroup</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"group"</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -417,7 +417,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="@proc7ts_input-aspects.InContainer.html">InContainer</a>.<a href="@proc7ts_input-aspects.InContainer.html#_applyAspect">_applyAspect</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/f46ce5f/src/containers/group.control.ts#L70">proc7ts/input-aspects/src/containers/group.control.ts:70</a></li>
+									<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/004b5ba/src/containers/group.control.ts#L70">proc7ts/input-aspects/src/containers/group.control.ts:70</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -450,7 +450,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@proc7ts_input-aspects.InControl.html">InControl</a>.<a href="@proc7ts_input-aspects.InControl.html#aspect">aspect</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/f46ce5f/src/control.ts#L63">proc7ts/input-aspects/src/control.ts:63</a></li>
+									<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/004b5ba/src/control.ts#L63">proc7ts/input-aspects/src/control.ts:63</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -635,7 +635,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@proc7ts_input-aspects.InControl.html">InControl</a>.<a href="@proc7ts_input-aspects.InControl.html#convert">convert</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/f46ce5f/src/control.ts#L119">proc7ts/input-aspects/src/control.ts:119</a></li>
+									<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/004b5ba/src/control.ts#L119">proc7ts/input-aspects/src/control.ts:119</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -665,7 +665,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@proc7ts_input-aspects.InControl.html">InControl</a>.<a href="@proc7ts_input-aspects.InControl.html#convert">convert</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/f46ce5f/src/control.ts#L134">proc7ts/input-aspects/src/control.ts:134</a></li>
+									<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/004b5ba/src/control.ts#L134">proc7ts/input-aspects/src/control.ts:134</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -850,7 +850,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@proc7ts_input-aspects.InControl.html">InControl</a>.<a href="@proc7ts_input-aspects.InControl.html#setup">setup</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/f46ce5f/src/control.ts#L76">proc7ts/input-aspects/src/control.ts:76</a></li>
+									<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/004b5ba/src/control.ts#L76">proc7ts/input-aspects/src/control.ts:76</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -895,7 +895,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@proc7ts_input-aspects.InControl.html">InControl</a>.<a href="@proc7ts_input-aspects.InControl.html#setup">setup</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/f46ce5f/src/control.ts#L88">proc7ts/input-aspects/src/control.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/proc7ts/input-aspects/blob/004b5ba/src/control.ts#L88">proc7ts/input-aspects/src/control.ts:88</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1054,6 +1054,5 @@
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>
