@@ -1,6 +1,6 @@
 {
   "name": "@proc7ts/input-aspects",
-  "version": "3.3.1",
+  "version": "3.4.0",
   "description": "Controls various aspects of user input. Such as value conversion, form validation, etc.",
   "keywords": [
     "form-validation",
