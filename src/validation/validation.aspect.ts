@@ -14,7 +14,17 @@ import {
   nextAfterEvent,
   OnEventCallChain,
 } from '@proc7ts/fun-events';
-import { flatMapIt, itsEach, mapIt, overEntries } from '@proc7ts/push-iterator';
+import {
+  flatMapIt,
+  itsEach,
+  mapIt,
+  overArray,
+  overEntries,
+  overNone,
+  PushIterable,
+  PushIterator,
+  PushIterator__symbol,
+} from '@proc7ts/push-iterator';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrBuild } from '../aspect.impl';
 import { InContainer } from '../containers';
@@ -235,7 +245,7 @@ export namespace InValidation {
 /**
  * @internal
  */
-const noInValidationErrors: InValidation.Result = {
+const noInValidationErrors: InValidation.Result & PushIterable<InValidation.Message> = {
   get ok() {
     return true;
   },
@@ -248,47 +258,49 @@ const noInValidationErrors: InValidation.Result = {
   hasBut() {
     return false;
   },
-  [Symbol.iterator]() {
-    return [][Symbol.iterator]();
+  [Symbol.iterator](): PushIterator<InValidation.Message> {
+    return overNone();
+  },
+  [PushIterator__symbol](_accept): PushIterator<InValidation.Message> {
+    return overNone();
   },
 };
 
 /**
  * @internal
  */
-class InValidationErrors implements InValidation.Result {
+class InValidationErrors implements InValidation.Result, PushIterable<InValidation.Message> {
 
   private readonly _all: InValidation.Message[];
+  private readonly _it: PushIterable<InValidation.Message>;
   private readonly _byCode = new Map<string, InValidation.Message[]>();
 
   constructor(messages: InValidation.Message[]) {
     this._all = [];
-    itsEach(
-        messages,
-        message => {
+    this._it = overArray(this._all);
+    messages.forEach(message => {
 
-          let nonEmpty = false;
+      let nonEmpty = false;
 
-          itsEach(overEntries(message), ([code, codePresent]) => {
-            if (codePresent) {
-              nonEmpty = true;
+      itsEach(overEntries(message), ([code, codePresent]) => {
+        if (codePresent) {
+          nonEmpty = true;
 
-              const prev = this._byCode.get(code);
+          const prev = this._byCode.get(code);
 
-              if (prev) {
-                prev.push(message);
-              } else {
-                this._byCode.set(code, [message]);
-              }
-            }
-          });
-
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          if (nonEmpty) {
-            this._all.push(message);
+          if (prev) {
+            prev.push(message);
+          } else {
+            this._byCode.set(code, [message]);
           }
-        },
-    );
+        }
+      });
+
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      if (nonEmpty) {
+        this._all.push(message);
+      }
+    });
   }
 
   get ok(): boolean {
@@ -309,8 +321,12 @@ class InValidationErrors implements InValidation.Result {
     );
   }
 
-  [Symbol.iterator](): IterableIterator<InValidation.Message> {
-    return this._all[Symbol.iterator]();
+  [Symbol.iterator](): PushIterator<InValidation.Message> {
+    return this[PushIterator__symbol]();
+  }
+
+  [PushIterator__symbol](accept?: PushIterator.Acceptor<InValidation.Message>): PushIterator<InValidation.Message> {
+    return this._it[PushIterator__symbol](accept);
   }
 
 }
