@@ -26,7 +26,15 @@ import {
   ValueTracker,
 } from '@proc7ts/fun-events';
 import { isDefined, noop } from '@proc7ts/primitives';
-import { mapArray, mapIt, PushIterable, PushIterator, PushIterator__symbol } from '@proc7ts/push-iterator';
+import {
+  iteratorOf,
+  mapArray,
+  mapIt,
+  overIterator,
+  PushIterable,
+  PushIterator,
+  PushIterator__symbol,
+} from '@proc7ts/push-iterator';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';
@@ -221,9 +229,13 @@ type InListEntry<Item> = [InControl<Item>, EventSupply];
 class InListSnapshot<Item> implements InList.Snapshot<Item>, PushIterable<InControl<Item>> {
 
   private readonly _it: PushIterable<InControl<Item>>;
+  private readonly _entriesIt: PushIterable<InList.Entry<Item>>;
 
   constructor(readonly _entries: InListEntry<Item>[]) {
     this._it = mapArray(this._entries, ([control]) => control);
+    this._entriesIt = overIterator(() => iteratorOf(this._entries.map(
+        ([entry], index): InList.Entry<Item> => [index, entry],
+    )));
   }
 
   get length(): number {
@@ -238,13 +250,8 @@ class InListSnapshot<Item> implements InList.Snapshot<Item>, PushIterable<InCont
     return this._it[PushIterator__symbol](accept);
   }
 
-  *entries(): IterableIterator<InList.Entry<Item>> {
-
-    let index = 0;
-
-    for (const entry of this._entries) {
-      yield [index++, entry[0]];
-    }
+  entries(): PushIterator<InList.Entry<Item>> {
+    return iteratorOf(this._entriesIt);
   }
 
   item(index: number): InControl<Item> | undefined {

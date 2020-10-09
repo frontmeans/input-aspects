@@ -30,6 +30,7 @@ import {
   itsEach,
   mapIt,
   overEntries,
+  overIterator,
   PushIterable,
   PushIterator,
   PushIterator__symbol,
@@ -208,9 +209,14 @@ const inControlReplacedReason = {};
 class InGroupSnapshot<Model> implements InGroup.Snapshot<Model>, PushIterable<InControl<any>> {
 
   private readonly _it: PushIterable<InControl<any>>;
+  private readonly _entriesIt: PushIterable<InGroup.Entry<Model>>;
 
   constructor(private readonly _map: Map<keyof Model, InGroupEntry>) {
-    this._it = mapIt(this._map, ([, [control]]) => control);
+    this._it = mapIt(
+        overIterator(() => this._map.values()),
+        ([control]: InGroupEntry) => control,
+    );
+    this._entriesIt = mapIt(this._map, ([key, [control]]) => [key, control]);
   }
 
   get<K extends keyof Model>(key: K): InGroup.Controls<Model>[K] | undefined {
@@ -228,8 +234,8 @@ class InGroupSnapshot<Model> implements InGroup.Snapshot<Model>, PushIterable<In
     return this._it[PushIterator__symbol](accept);
   }
 
-  entries(): IterableIterator<InGroup.Entry<Model>> {
-    return iteratorOf(mapIt(this._map.entries(), ([key, [control]]) => [key, control]));
+  entries(): PushIterator<InGroup.Entry<Model>> {
+    return iteratorOf(this._entriesIt);
   }
 
 }
