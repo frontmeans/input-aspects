@@ -15,7 +15,7 @@ import {
   OnEventCallChain,
 } from '@proc7ts/fun-events';
 import {
-  flatMapIt,
+  flatMapArray,
   itsEach,
   mapIt,
   overArray,
@@ -409,7 +409,7 @@ function nestedInValidations(
 function combineInValidationResults(
     ...results: [InValidation.Result][]
 ): NextCall<OnEventCallChain, InValidation.Message[]> {
-  return nextArgs(...flatMapIt(results, ([result]) => result));
+  return nextArgs(...flatMapArray(results, ([result]) => result));
 }
 
 declare module '../aspect' {
