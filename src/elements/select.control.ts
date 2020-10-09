@@ -2,7 +2,7 @@
  * @packageDocumentation
  * @module @proc7ts/input-aspects
  */
-import { filterIt, itsEach, overArray, reverseArray } from '@proc7ts/push-iterator';
+import { filterArray, itsEach, itsElements, reverseArray } from '@proc7ts/push-iterator';
 import { InConverter } from '../converter';
 import { InElement } from '../element.control';
 import { AbstractInElement } from './abstract-element.control';
@@ -40,9 +40,9 @@ export function inSelect(
       {
         aspects,
         get(): string[] {
-          return Array.from(
-              filterIt(
-                  overArray(this.element.options),
+          return itsElements(
+              filterArray(
+                  this.element.options,
                   option => option.selected,
               ),
               option => option.value,
