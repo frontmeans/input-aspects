@@ -26,7 +26,7 @@ import {
   ValueTracker,
 } from '@proc7ts/fun-events';
 import { isDefined, noop } from '@proc7ts/primitives';
-import { itsIterator, mapIt } from '@proc7ts/push-iterator';
+import { mapArray, mapIt, PushIterable, PushIterator, PushIterator__symbol } from '@proc7ts/push-iterator';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';
@@ -218,17 +218,24 @@ type InListEntry<Item> = [InControl<Item>, EventSupply];
 /**
  * @internal
  */
-class InListSnapshot<Item> implements InList.Snapshot<Item> {
+class InListSnapshot<Item> implements InList.Snapshot<Item>, PushIterable<InControl<Item>> {
+
+  private readonly _it: PushIterable<InControl<Item>>;
 
   constructor(readonly _entries: InListEntry<Item>[]) {
+    this._it = mapArray(this._entries, ([control]) => control);
   }
 
   get length(): number {
     return this._entries.length;
   }
 
-  [Symbol.iterator](): IterableIterator<InControl<Item>> {
-    return itsIterator(mapIt(this._entries, ([control]) => control));
+  [Symbol.iterator](): PushIterator<InControl<Item>> {
+    return this[PushIterator__symbol]();
+  }
+
+  [PushIterator__symbol](accept?: PushIterator.Acceptor<InControl<Item>>): PushIterator<InControl<Item>> {
+    return this._it[PushIterator__symbol](accept);
   }
 
   *entries(): IterableIterator<InList.Entry<Item>> {
