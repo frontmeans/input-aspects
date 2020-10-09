@@ -13,7 +13,7 @@ import {
   eventSupplyOf,
   trackValue,
 } from '@proc7ts/fun-events';
-import { itsEvery, mapIt } from '@proc7ts/push-iterator';
+import { itsEvery } from '@proc7ts/push-iterator';
 import { InAspect, InAspect__symbol } from './aspect';
 import { inAspectSameOrBuild } from './aspect.impl';
 import { InControl } from './control';
@@ -51,7 +51,7 @@ export class InSubmitError extends Error {
   constructor(...errors: [InValidation.Message, ...InValidation.Message[]]) {
     super();
     this.errors = inValidationResult(
-        ...mapIt(errors, message => message.submit ? message : { ...message, submit: true }),
+        ...errors.map(message => message.submit ? message : { ...message, submit: true }),
     ) as InValidation.Errors;
   }
 

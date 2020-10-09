@@ -3,7 +3,7 @@
  * @module @proc7ts/input-aspects
  */
 import { isPresent, noop, valueProvider } from '@proc7ts/primitives';
-import { filterIt, flatMapIt, itsReduction, mapIt } from '@proc7ts/push-iterator';
+import { filterArray, itsReduction, overElementsOf } from '@proc7ts/push-iterator';
 import { InAspect } from './aspect';
 import { InControl } from './control';
 
@@ -247,10 +247,7 @@ export function intoConvertedBy<From, To>(
     return converter;
   }
 
-  const aspectConverters = mapIt<InConverter.Aspect<From, To>, InConverter.Aspect.Factory<From, To>>(
-      converters,
-      inConverter,
-  );
+  const aspectConverters = converters.map<InConverter.Aspect.Factory<From, To>>(inConverter);
 
   return (
       from,
@@ -258,17 +255,13 @@ export function intoConvertedBy<From, To>(
   ): InConverter.Conversion<From, To> => {
 
     const conversion = converter(from, to);
-    const conversions = flatMapIt<InConverter.Conversion<From, To>>([
+    const conversions = overElementsOf<InConverter.Conversion<From, To>>(
         [conversion],
-        filterIt<InConverter.Aspect.Conversion<To> | undefined, InConverter.Aspect.Conversion<To>>(
-            mapIt(
-                aspectConverters,
-                acf => acf(from, to),
-            ),
+        filterArray<InConverter.Aspect.Conversion<To> | undefined, InConverter.Aspect.Conversion<To>>(
+            aspectConverters.map(acf => acf(from, to)),
             isPresent,
         ),
-    ]);
-
+    );
 
     const applyAspect: AspectApplicator = itsReduction(
         conversions,

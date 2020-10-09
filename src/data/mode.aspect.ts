@@ -27,7 +27,7 @@ import {
   ValueTracker,
 } from '@proc7ts/fun-events';
 import { valuesProvider } from '@proc7ts/primitives';
-import { overElementsOf } from '@proc7ts/push-iterator';
+import { itsElements, overElementsOf } from '@proc7ts/push-iterator';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrBuild } from '../aspect.impl';
 import { InParents } from '../containers';
@@ -395,7 +395,7 @@ function applyInMode(element: HTMLElement, value: InMode.Value): void {
  */
 function parentsInMode(parents: InParents.All): NextCall<OnEventCallChain, [InMode.Value]> {
 
-  const parentList = Array.from(parents);
+  const parentList = itsElements(parents);
 
   if (!parentList.length) {
     return nextArgs('on');

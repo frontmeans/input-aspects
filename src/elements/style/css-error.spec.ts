@@ -1,6 +1,7 @@
 /* eslint-disable jest/expect-expect */
 import { afterThe, EventSupply } from '@proc7ts/fun-events';
 import { css__naming, QualifiedName } from '@proc7ts/namespace-aliaser';
+import { itsElements, overArray } from '@proc7ts/push-iterator';
 import { immediateRenderScheduler, setRenderScheduler } from '@proc7ts/render-scheduler';
 import { InNamespaceAliaser, InputAspects__NS } from '../../aspects';
 import { InControl } from '../../control';
@@ -100,6 +101,7 @@ describe('inCssError', () => {
   }
 
   function expectCssClass(name: QualifiedName): void {
-    expect(Array.from(element.classList)).toContain(css__naming.name(name, control.aspect(InNamespaceAliaser)));
+    expect(itsElements(overArray(element.classList)))
+        .toContain(css__naming.name(name, control.aspect(InNamespaceAliaser)));
   }
 });

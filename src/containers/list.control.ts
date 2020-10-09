@@ -26,7 +26,15 @@ import {
   ValueTracker,
 } from '@proc7ts/fun-events';
 import { isDefined, noop } from '@proc7ts/primitives';
-import { itsIterator, mapIt } from '@proc7ts/push-iterator';
+import {
+  iteratorOf,
+  mapArray,
+  mapIt,
+  overIterator,
+  PushIterable,
+  PushIterator,
+  PushIterator__symbol,
+} from '@proc7ts/push-iterator';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';
@@ -218,26 +226,32 @@ type InListEntry<Item> = [InControl<Item>, EventSupply];
 /**
  * @internal
  */
-class InListSnapshot<Item> implements InList.Snapshot<Item> {
+class InListSnapshot<Item> implements InList.Snapshot<Item>, PushIterable<InControl<Item>> {
+
+  private readonly _it: PushIterable<InControl<Item>>;
+  private readonly _entriesIt: PushIterable<InList.Entry<Item>>;
 
   constructor(readonly _entries: InListEntry<Item>[]) {
+    this._it = mapArray(this._entries, ([control]) => control);
+    this._entriesIt = overIterator(() => iteratorOf(this._entries.map(
+        ([entry], index): InList.Entry<Item> => [index, entry],
+    )));
   }
 
   get length(): number {
     return this._entries.length;
   }
 
-  [Symbol.iterator](): IterableIterator<InControl<Item>> {
-    return itsIterator(mapIt(this._entries, ([control]) => control));
+  [Symbol.iterator](): PushIterator<InControl<Item>> {
+    return this[PushIterator__symbol]();
   }
 
-  *entries(): IterableIterator<InList.Entry<Item>> {
+  [PushIterator__symbol](accept?: PushIterator.Acceptor<InControl<Item>>): PushIterator<InControl<Item>> {
+    return this._it[PushIterator__symbol](accept);
+  }
 
-    let index = 0;
-
-    for (const entry of this._entries) {
-      yield [index++, entry[0]];
-    }
+  entries(): PushIterator<InList.Entry<Item>> {
+    return iteratorOf(this._entriesIt);
   }
 
   item(index: number): InControl<Item> | undefined {
@@ -326,7 +340,7 @@ class InListEntries<Item> {
     function modify(): InListEntry<Item>[] {
       if (self._shot) {
         self._shot = undefined;
-        self._entries = Array.from(self._entries);
+        self._entries = self._entries.slice();
       }
       return self._entries;
     }
@@ -378,7 +392,7 @@ function readControlValue<Item>(
 
       if (model[index] !== value) {
 
-        const newModel = Array.from(controls._list.it);
+        const newModel = controls._list.it.slice();
 
         newModel[index] = control.it;
 
@@ -472,7 +486,7 @@ class InListControlControls<Item> extends InListControls<Item> {
 
     if (added.length || removed.length) {
 
-      const updated = Array.from(list.it);
+      const updated = list.it.slice();
 
       updated.splice(start, removed.length, ...added.map(([, [control]]) => control.it));
       list.it = updated;

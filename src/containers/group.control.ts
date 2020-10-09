@@ -25,7 +25,16 @@ import {
   ValueTracker,
 } from '@proc7ts/fun-events';
 import { noop } from '@proc7ts/primitives';
-import { itsEach, itsIterator, mapIt, overEntries } from '@proc7ts/push-iterator';
+import {
+  iteratorOf,
+  itsEach,
+  mapIt,
+  overEntries,
+  overIterator,
+  PushIterable,
+  PushIterator,
+  PushIterator__symbol,
+} from '@proc7ts/push-iterator';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';
@@ -197,9 +206,17 @@ const inControlReplacedReason = {};
 /**
  * @internal
  */
-class InGroupSnapshot<Model> implements InGroup.Snapshot<Model> {
+class InGroupSnapshot<Model> implements InGroup.Snapshot<Model>, PushIterable<InControl<any>> {
+
+  private readonly _it: PushIterable<InControl<any>>;
+  private readonly _entriesIt: PushIterable<InGroup.Entry<Model>>;
 
   constructor(private readonly _map: Map<keyof Model, InGroupEntry>) {
+    this._it = mapIt(
+        overIterator(() => this._map.values()),
+        ([control]: InGroupEntry) => control,
+    );
+    this._entriesIt = mapIt(this._map, ([key, [control]]) => [key, control]);
   }
 
   get<K extends keyof Model>(key: K): InGroup.Controls<Model>[K] | undefined {
@@ -209,12 +226,16 @@ class InGroupSnapshot<Model> implements InGroup.Snapshot<Model> {
     return entry && entry[0] as InGroup.Controls<Model>[K];
   }
 
-  [Symbol.iterator](): IterableIterator<InControl<any>> {
-    return itsIterator(mapIt(this._map.values(), ([control]) => control));
+  [Symbol.iterator](): PushIterator<InControl<any>> {
+    return this[PushIterator__symbol]();
   }
 
-  entries(): IterableIterator<InGroup.Entry<Model>> {
-    return itsIterator(mapIt(this._map.entries(), ([key, [control]]) => [key, control]));
+  [PushIterator__symbol](accept?: PushIterator.Acceptor<InControl<any>>): PushIterator<InControl<any>> {
+    return this._it[PushIterator__symbol](accept);
+  }
+
+  entries(): PushIterator<InGroup.Entry<Model>> {
+    return iteratorOf(this._entriesIt);
   }
 
 }
