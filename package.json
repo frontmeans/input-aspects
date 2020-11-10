@@ -36,7 +36,7 @@
     "@proc7ts/render-scheduler": "^1.3.0"
   },
   "dependencies": {
-    "@proc7ts/delta-set": "^1.3.0",
+    "@proc7ts/delta-set": "^1.4.0",
     "@proc7ts/primitives": "^1.4.0",
     "@proc7ts/push-iterator": "^2.3.0"
   },
