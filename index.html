@@ -88,7 +88,7 @@
 } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;input-aspects&#x27;</span>;
 
 <span class="hljs-keyword">interface</span> Saluted {
-  name: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
   salutation: <span class="hljs-built_in">string</span>;
 }
 
@@ -110,8 +110,8 @@
 <span class="hljs-comment">// Create control group</span>
 <span class="hljs-keyword">const</span> group = inGroup&lt;Saluted&gt;({
   <span class="hljs-comment">// Group value is initially empty</span>
-  name: <span class="hljs-string">&#x27;&#x27;</span>,
-  salutation: <span class="hljs-string">&#x27;&#x27;</span>,
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+  <span class="hljs-attr">salutation</span>: <span class="hljs-string">&#x27;&#x27;</span>,
 }).setup(<span class="hljs-function"><span class="hljs-params">control</span> =&gt;</span> {
   control.set({ name, salutation }); <span class="hljs-comment">// Add controls to group</span>
 }).setup(InSubmit, <span class="hljs-function"><span class="hljs-params">submit</span> =&gt;</span> {
@@ -131,16 +131,16 @@
       <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> fetch(
           <span class="hljs-string">&#x27;/greet&#x27;</span>,
           {
-            method: <span class="hljs-string">&#x27;POST&#x27;</span>,
-            headers: {
+            <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;POST&#x27;</span>,
+            <span class="hljs-attr">headers</span>: {
               <span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;application/json&#x27;</span>,
             },
-            body: <span class="hljs-built_in">JSON</span>.stringify(data),    
+            <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify(data),    
           });
 
       <span class="hljs-keyword">if</span> (!response.ok) {
         <span class="hljs-comment">// Submit failed - report errors</span>
-        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> InSubmitError({ submit: <span class="hljs-string">&#x27;Failed&#x27;</span> });
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> InSubmitError({ <span class="hljs-attr">submit</span>: <span class="hljs-string">&#x27;Failed&#x27;</span> });
       } 
 
       <span class="hljs-comment">// Submit succeed</span>
@@ -178,9 +178,9 @@
 				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { inCheckbox } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@proc7ts/input-aspects&#x27;</span>;
 
 inCheckbox(checkboxElement, {
-  checked: <span class="hljs-string">&#x27;on&#x27;</span>,     <span class="hljs-comment">// The value is `on` when checked</span>
-  unchecked: <span class="hljs-string">&#x27;off&#x27;</span>,  <span class="hljs-comment">// The value is `off` when unchecked</span>
-  intermediate: <span class="hljs-string">&#x27;?&#x27;</span>,  <span class="hljs-comment">// The value is `?` when intermediate</span>
+  <span class="hljs-attr">checked</span>: <span class="hljs-string">&#x27;on&#x27;</span>,     <span class="hljs-comment">// The value is `on` when checked</span>
+  <span class="hljs-attr">unchecked</span>: <span class="hljs-string">&#x27;off&#x27;</span>,  <span class="hljs-comment">// The value is `off` when unchecked</span>
+  <span class="hljs-attr">intermediate</span>: <span class="hljs-string">&#x27;?&#x27;</span>,  <span class="hljs-comment">// The value is `?` when intermediate</span>
 });</code></pre>
 				<a href="#ltinput-typequotradioquotgt" id="ltinput-typequotradioquotgt" style="color: inherit; text-decoration: none;">
 					<h3><code>&lt;input type=&quot;radio&quot;&gt;</code></h3>
@@ -191,16 +191,16 @@ inCheckbox(checkboxElement, {
 				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { inRadio } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@proc7ts/input-aspects&#x27;</span>;
 
 inRadio(radioElement, {
-  checked: <span class="hljs-string">&#x27;on&#x27;</span>,     <span class="hljs-comment">// The value is `on` when checked</span>
+  <span class="hljs-attr">checked</span>: <span class="hljs-string">&#x27;on&#x27;</span>,     <span class="hljs-comment">// The value is `on` when checked</span>
 });</code></pre>
 				<p>It is convenient to group the radio buttons into a radio group, that can be created using <code>inRadioGroup()</code> function:</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { inRadio, inRadioGroup } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@proc7ts/input-aspects&#x27;</span>;
 
 inRadioGroup({
   <span class="hljs-comment">// Add radio buttons under unique keys</span>
-  first: inRadio(firstRadioElement),
-  second: inRadio(secondRadioElement),
-  third: inRadio(thirdRadioElement),
+  <span class="hljs-attr">first</span>: inRadio(firstRadioElement),
+  <span class="hljs-attr">second</span>: inRadio(secondRadioElement),
+  <span class="hljs-attr">third</span>: inRadio(thirdRadioElement),
 });</code></pre>
 				<p>The value of radio group control is a string key corresponding to checked radio button. Or <code>undefined</code> when none
 				is checked.</p>
@@ -251,7 +251,7 @@ inRadioGroup({
 				<p>Simple conversions can be implemented like this:</p>
 				<pre><code class="language-typescript">control.convert(
   <span class="hljs-function"><span class="hljs-params">text</span> =&gt;</span> text.length,        <span class="hljs-comment">// Convert a `text` to its length</span>
-  stars =&gt; <span class="hljs-string">&#x27;*&#x27;</span>.repeat(stars), <span class="hljs-comment">// Restore the text as several `stars`</span>
+  <span class="hljs-function"><span class="hljs-params">stars</span> =&gt;</span> <span class="hljs-string">&#x27;*&#x27;</span>.repeat(stars), <span class="hljs-comment">// Restore the text as several `stars`</span>
 );</code></pre>
 				<a href="#input-aspect" id="input-aspect" style="color: inherit; text-decoration: none;">
 					<h2>Input Aspect</h2>
@@ -342,10 +342,10 @@ inRadioGroup({
 				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { InValidation } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@proc7ts/input-aspects&#x27;</span>;
 
 control.aspect(InValidation).by({
-  validate({it}: InControl&lt;PasswordAndConfirmation&gt;) {
+  <span class="hljs-function"><span class="hljs-title">validate</span>(<span class="hljs-params">{it}: InControl&lt;PasswordAndConfirmation&gt;</span>)</span> {
     <span class="hljs-keyword">if</span> (it.password !== it.confirmation) {
       <span class="hljs-comment">// Return error message(s) on validation error</span>
-      <span class="hljs-keyword">return</span> { invalid: <span class="hljs-string">&#x27;Password and confirmation do not match&#x27;</span> };    
+      <span class="hljs-keyword">return</span> { <span class="hljs-attr">invalid</span>: <span class="hljs-string">&#x27;Password and confirmation do not match&#x27;</span> };    
     }
     <span class="hljs-comment">// Return nothing (or `null`, or empty array, or empty message) on validation success</span>
     <span class="hljs-keyword">return</span>;  
