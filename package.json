@@ -20,13 +20,14 @@
   "bugs": {
     "url": "https://github.com/proc7ts/input-aspects/issues"
   },
-  "main": "dist/input-aspects.js",
-  "module": "dist/input-aspects.mjs",
+  "type": "module",
+  "main": "dist/input-aspects.cjs",
+  "module": "dist/input-aspects.js",
   "types": "index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/input-aspects.mjs",
-      "require": "./dist/input-aspects.js"
+      "import": "./dist/input-aspects.js",
+      "require": "./dist/input-aspects.cjs"
     }
   },
   "peerDependencies": {
