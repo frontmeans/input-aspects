@@ -3,21 +3,10 @@
  * @module @proc7ts/input-aspects
  */
 import { nextArgs } from '@proc7ts/call-thru';
+import { arrayOfElements } from '@proc7ts/primitives';
 import { InputAspects__NS } from '../../aspects';
 import { InValidation } from '../../validation';
 import { InCssClasses } from './css-classes.aspect';
-
-/**
- * @internal
- */
-const defaultInCssErrorMarks: InCssClasses.Spec[] = [['has-error', InputAspects__NS]];
-
-/**
- * @internal
- */
-function defaultInCssHasError(errors: InValidation.Result): boolean {
-  return !errors.ok;
-}
 
 /**
  * Builds a source of error marker CSS classes.
@@ -39,7 +28,7 @@ export function inCssError(
       mark,
       when,
     }: {
-      mark?: InCssClasses.Spec | InCssClasses.Spec[];
+      mark?: InCssClasses.Spec | readonly InCssClasses.Spec[];
       when?: string | string[];
     } = {},
 ): InCssClasses.Source {
@@ -54,17 +43,34 @@ export function inCssError(
     hasError = errors => errors.has(when);
   }
 
-  let marks: InCssClasses.Spec[];
+  return control => control.aspect(InValidation).read().keepThru(
+      errors => hasError(errors)
+          ? nextArgs(...inCssErrorMarks(mark))
+          : nextArgs(),
+  );
+}
 
+/**
+ * @internal
+ */
+function defaultInCssHasError(errors: InValidation.Result): boolean {
+  return !errors.ok;
+}
+
+/**
+ * @internal
+ */
+const defaultInCssErrorMarks: readonly InCssClasses.Spec[] = [['has-error', InputAspects__NS]];
+
+/**
+ * @internal
+ */
+function inCssErrorMarks(mark?: InCssClasses.Spec | readonly InCssClasses.Spec[]): readonly InCssClasses.Spec[] {
   if (!mark) {
-    marks = defaultInCssErrorMarks;
-  } else if (Array.isArray(mark)) {
-    marks = mark.length ? mark : defaultInCssErrorMarks;
-  } else {
-    marks = [mark];
+    return defaultInCssErrorMarks;
   }
 
-  return control => control.aspect(InValidation).read().keepThru(
-      errors => hasError(errors) ? nextArgs(...marks) : nextArgs(),
-  );
+  const marks = arrayOfElements(mark);
+
+  return marks.length ? marks : defaultInCssErrorMarks;
 }

@@ -33,7 +33,7 @@ describe('inModeByForm', () => {
     mode.derive(inModeByForm(form));
 
     let resolve: () => void = noop;
-    const submitted = new Promise(r => resolve = r);
+    const submitted = new Promise<void>(r => resolve = r);
     const promise = submit.submit(() => submitted);
 
     expect(modeValue).toBe('ro');
