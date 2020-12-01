@@ -334,7 +334,7 @@ function noopInConverter(): InConverter.Aspect.Conversion<any> {
 export function isInAspectConversion<From, To>(
     conversion: InConverter.Conversion<From, To>,
 ): conversion is InConverter.Aspect.Conversion<To> {
-  return !(conversion as any).set;
+  return !(conversion as Partial<InConverter.Value.Conversion<From, To>>).set;
 }
 
 /**
