@@ -292,8 +292,14 @@ class InListEntries<Item> {
       removed: [number, InListEntry<Item>][],
   ): EventSupply {
 
-    const self = this;
     let supply = controls.length > 1 ? eventSupply() : undefined;
+    const modify = (): InListEntry<Item>[] => {
+      if (this._shot) {
+        this._shot = undefined;
+        this._entries = this._entries.slice();
+      }
+      return this._entries;
+    };
     const extracted = deleteCount == null
         ? modify().splice(start)
         : modify().splice(
@@ -336,14 +342,6 @@ class InListEntries<Item> {
     );
 
     return result;
-
-    function modify(): InListEntry<Item>[] {
-      if (self._shot) {
-        self._shot = undefined;
-        self._entries = self._entries.slice();
-      }
-      return self._entries;
-    }
   }
 
   snapshot(): InList.Snapshot<Item> {
