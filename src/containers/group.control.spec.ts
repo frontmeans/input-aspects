@@ -8,7 +8,7 @@ import { intoFallback } from '../conversion';
 import { InData, InMode } from '../data';
 import { InStyledElement } from '../elements/style';
 import { InContainer } from './container.control';
-import { inGroup, InGroup, InGroupControls } from './group.control';
+import { inGroup, InGroup } from './group.control';
 import { InList } from './list.control';
 import { InParents } from './parents.aspect';
 import Mock = jest.Mock;
@@ -78,7 +78,7 @@ describe('InGroup', () => {
   describe('controls', () => {
 
     let onModelUpdate: Mock<void, [TestModel, TestModel]>;
-    let onUpdate: Mock<void, Parameters<InGroupControls<TestModel>['on']>>;
+    let onUpdate: Mock<void, [InGroup.Entry<TestModel>[], InGroup.Entry<TestModel>[]]>;
     let readSnapshot: Mock<void, [InGroup.Snapshot<TestModel>]>;
     let lastSnapshot: InGroup.Snapshot<TestModel>;
 

@@ -325,7 +325,10 @@ describe('InList', () => {
         expect([...snapshot]).toHaveLength(0);
       });
       it('sends update', () => {
-        expect(onUpdate).toHaveBeenCalledWith([], initControls.map((ctrl, i) => [i, ctrl]));
+        expect(onUpdate).toHaveBeenCalledWith(
+            [],
+            initControls.map((ctrl, i) => [i, ctrl] as const),
+        );
       });
       it('updates model', () => {
         expect(list.it).toHaveLength(0);

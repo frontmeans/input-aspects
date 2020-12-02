@@ -67,7 +67,7 @@ describe('InCssClasses', () => {
     });
     it('appends CSS classes from source function', () => {
 
-      const source2 = jest.fn(() => afterThe({ class2: true }));
+      const source2 = jest.fn((_control: InControl<any>) => afterThe({ class2: true }));
 
       cssClasses.add(source2);
       expect(classMap).toEqual({ class1: true, class2: true });
