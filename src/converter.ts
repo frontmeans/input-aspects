@@ -1,6 +1,6 @@
 /**
  * @packageDocumentation
- * @module @proc7ts/input-aspects
+ * @module @frontmeans/input-aspects
  */
 import { isPresent, noop, valueProvider } from '@proc7ts/primitives';
 import { filterArray, itsReduction, overElementsOf } from '@proc7ts/push-iterator';

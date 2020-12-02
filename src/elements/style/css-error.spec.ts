@@ -1,8 +1,8 @@
 /* eslint-disable jest/expect-expect */
+import { css__naming, QualifiedName } from '@frontmeans/namespace-aliaser';
+import { immediateRenderScheduler, setRenderScheduler } from '@frontmeans/render-scheduler';
 import { afterThe, EventSupply } from '@proc7ts/fun-events';
-import { css__naming, QualifiedName } from '@proc7ts/namespace-aliaser';
 import { itsElements, overArray } from '@proc7ts/push-iterator';
-import { immediateRenderScheduler, setRenderScheduler } from '@proc7ts/render-scheduler';
 import { InNamespaceAliaser, InputAspects__NS } from '../../aspects';
 import { InControl } from '../../control';
 import { InValidation } from '../../validation';

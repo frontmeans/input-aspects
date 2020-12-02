@@ -1,6 +1,6 @@
 /**
  * @packageDocumentation
- * @module @proc7ts/input-aspects
+ * @module @frontmeans/input-aspects
  */
 import { InControl } from './control';
 

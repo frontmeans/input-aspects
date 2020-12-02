@@ -1,7 +1,9 @@
 /**
  * @packageDocumentation
- * @module @proc7ts/input-aspects
+ * @module @frontmeans/input-aspects
  */
+import { css__naming, isQualifiedName, QualifiedName } from '@frontmeans/namespace-aliaser';
+import { RenderSchedule } from '@frontmeans/render-scheduler';
 import { DeltaSet } from '@proc7ts/delta-set';
 import {
   afterEach,
@@ -19,10 +21,8 @@ import {
   nextAfterEvent,
   trackValue,
 } from '@proc7ts/fun-events';
-import { css__naming, isQualifiedName, QualifiedName } from '@proc7ts/namespace-aliaser';
 import { noop } from '@proc7ts/primitives';
 import { filterIt, itsEach, ObjectEntry, overEntries } from '@proc7ts/push-iterator';
-import { RenderSchedule } from '@proc7ts/render-scheduler';
 import { InAspect, InAspect__symbol } from '../../aspect';
 import { InNamespaceAliaser, InRenderScheduler } from '../../aspects';
 import { InControl } from '../../control';

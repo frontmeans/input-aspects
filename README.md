@@ -9,23 +9,22 @@ HTML Input Aspects
 
 Framework-agnostic library controlling various aspects of user input. Such as value conversion, form validation, etc.
 
-[npm-image]: https://img.shields.io/npm/v/@proc7ts/input-aspects.svg?logo=npm
-[npm-url]: https://www.npmjs.com/package/@proc7ts/input-aspects
-[build-status-img]: https://github.com/proc7ts/input-aspects/workflows/Build/badge.svg
-[build-status-link]: https://github.com/proc7ts/input-aspects/actions?query=workflow%3ABuild
-[codecov-image]: https://codecov.io/gh/proc7ts/input-aspects/branch/master/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/proc7ts/input-aspects
+[npm-image]: https://img.shields.io/npm/v/@frontmeans/input-aspects.svg?logo=npm
+[npm-url]: https://www.npmjs.com/package/@frontmeans/input-aspects
+[build-status-img]: https://github.com/frontmeans/input-aspects/workflows/Build/badge.svg
+[build-status-link]: https://github.com/frontmeans/input-aspects/actions?query=workflow%3ABuild
+[codecov-image]: https://codecov.io/gh/frontmeans/input-aspects/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/frontmeans/input-aspects
 [github-image]: https://img.shields.io/static/v1?logo=github&label=GitHub&message=project&color=informational
-[github-url]: https://github.com/proc7ts/input-aspects
+[github-url]: https://github.com/frontmeans/input-aspects
 [api-docs-image]: https://img.shields.io/static/v1?logo=typescript&label=API&message=docs&color=informational
-[api-docs-url]: https://proc7ts.github.io/input-aspects/
+[api-docs-url]: https://frontmeans.github.io/input-aspects/
 
 
 Example
 -------
 
 ```typescript
-import { DomEventDispatcher } from '@proc7ts/fun-events';
 import {
   inCssInfo
   intoTrimmed,
@@ -36,7 +35,8 @@ import {
   InSubmitError,
   InValidation,
   requirePresent,
-} from 'input-aspects';
+} from '@frontmeans/input-aspects';
+import { DomEventDispatcher } from '@proc7ts/fun-events';
 
 interface Saluted {
   name: string;
@@ -139,7 +139,7 @@ The value of this control is three-state, corresponding to checked, unchecked, a
 By default these are `true`, `false` and `undefined`. But can be configured to be arbitrary values by specifying
 options:
 ```typescript
-import { inCheckbox } from '@proc7ts/input-aspects';
+import { inCheckbox } from '@frontmeans/input-aspects';
 
 inCheckbox(checkboxElement, {
   checked: 'on',     // The value is `on` when checked
@@ -157,7 +157,7 @@ By default the value of this control is `true` when the radio button is checked.
 The value of this control when the radio button is unchecked is always `undefined`.
 
 ```typescript
-import { inRadio } from '@proc7ts/input-aspects';
+import { inRadio } from '@frontmeans/input-aspects';
 
 inRadio(radioElement, {
   checked: 'on',     // The value is `on` when checked
@@ -167,7 +167,7 @@ inRadio(radioElement, {
 It is convenient to group the radio buttons into a radio group, that can be created using `inRadioGroup()` function:
 
 ```typescript
-import { inRadio, inRadioGroup } from '@proc7ts/input-aspects';
+import { inRadio, inRadioGroup } from '@frontmeans/input-aspects';
 
 inRadioGroup({
   // Add radio buttons under unique keys
@@ -358,7 +358,7 @@ There are several validators implemented:
 
 Simple validator can be applied like this:
 ```typescript
-import { InValidation } from '@proc7ts/input-aspects';
+import { InValidation } from '@frontmeans/input-aspects';
 
 control.aspect(InValidation).by({
   validate({it}: InControl<PasswordAndConfirmation>) {

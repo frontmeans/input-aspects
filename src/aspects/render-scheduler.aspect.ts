@@ -1,8 +1,8 @@
 /**
  * @packageDocumentation
- * @module @proc7ts/input-aspects
+ * @module @frontmeans/input-aspects
  */
-import { newRenderSchedule, RenderScheduler } from '@proc7ts/render-scheduler';
+import { newRenderSchedule, RenderScheduler } from '@frontmeans/render-scheduler';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
 import { InConverter } from '../converter';

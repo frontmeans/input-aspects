@@ -1,5 +1,5 @@
 {
-  "name": "@proc7ts/input-aspects",
+  "name": "@frontmeans/input-aspects",
   "version": "3.5.1",
   "description": "Controls various aspects of user input. Such as value conversion, form validation, etc.",
   "keywords": [
@@ -10,15 +10,15 @@
     "library",
     "typescript"
   ],
-  "homepage": "https://github.com/proc7ts/input-aspects",
+  "homepage": "https://github.com/frontmeans/input-aspects",
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com:proc7ts/input-aspects.git"
+    "url": "ssh://git@github.com:frontmeans/input-aspects.git"
   },
   "license": "MIT",
   "author": "Ruslan Lopatin<ruslan.lopatin@gmail.com>",
   "bugs": {
-    "url": "https://github.com/proc7ts/input-aspects/issues"
+    "url": "https://github.com/frontmeans/input-aspects/issues"
   },
   "type": "module",
   "main": "dist/input-aspects.cjs",
@@ -29,10 +29,10 @@
     "require": "./dist/input-aspects.cjs"
   },
   "peerDependencies": {
+    "@frontmeans/namespace-aliaser": "^2.3.0",
+    "@frontmeans/render-scheduler": "^1.5.0",
     "@proc7ts/call-thru": "^4.3.1",
-    "@proc7ts/fun-events": "^9.4.2",
-    "@proc7ts/namespace-aliaser": "^2.2.2",
-    "@proc7ts/render-scheduler": "^1.4.2"
+    "@proc7ts/fun-events": "^9.4.2"
   },
   "dependencies": {
     "@proc7ts/delta-set": "^1.4.2",
@@ -40,10 +40,10 @@
     "@proc7ts/push-iterator": "^2.4.1"
   },
   "devDependencies": {
+    "@frontmeans/namespace-aliaser": "^2.3.0",
+    "@frontmeans/render-scheduler": "^1.5.0",
     "@proc7ts/call-thru": "^4.3.1",
     "@proc7ts/fun-events": "^9.4.2",
-    "@proc7ts/namespace-aliaser": "^2.2.2",
-    "@proc7ts/render-scheduler": "^1.4.2",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "@run-z/eslint-config": "^1.1.0",

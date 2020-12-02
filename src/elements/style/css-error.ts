@@ -1,6 +1,6 @@
 /**
  * @packageDocumentation
- * @module @proc7ts/input-aspects
+ * @module @frontmeans/input-aspects
  */
 import { nextArgs } from '@proc7ts/call-thru';
 import { arrayOfElements } from '@proc7ts/primitives';

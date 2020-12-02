@@ -1,6 +1,6 @@
 /**
  * @packageDocumentation
- * @module @proc7ts/input-aspects
+ * @module @frontmeans/input-aspects
  */
 import { eventSupplyOf } from '@proc7ts/fun-events';
 import { noop } from '@proc7ts/primitives';

@@ -1,10 +1,10 @@
 /**
  * @packageDocumentation
- * @module @proc7ts/input-aspects
+ * @module @frontmeans/input-aspects
  */
+import { NamespaceDef, QualifiedName } from '@frontmeans/namespace-aliaser';
 import { nextArgs } from '@proc7ts/call-thru';
 import { afterAll } from '@proc7ts/fun-events';
-import { NamespaceDef, QualifiedName } from '@proc7ts/namespace-aliaser';
 import { InputAspects__NS } from '../../aspects';
 import { InControl } from '../../control';
 import { InMode } from '../../data';

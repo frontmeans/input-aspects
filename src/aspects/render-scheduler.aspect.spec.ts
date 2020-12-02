@@ -1,4 +1,4 @@
-import { newManualRenderScheduler, newRenderSchedule } from '@proc7ts/render-scheduler';
+import { newManualRenderScheduler, newRenderSchedule } from '@frontmeans/render-scheduler';
 import { InContainer } from '../containers';
 import { InControl } from '../control';
 import { inValue } from '../controls';

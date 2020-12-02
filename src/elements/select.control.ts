@@ -1,6 +1,6 @@
 /**
  * @packageDocumentation
- * @module @proc7ts/input-aspects
+ * @module @frontmeans/input-aspects
  */
 import { filterArray, itsEach, itsElements, reverseArray } from '@proc7ts/push-iterator';
 import { InConverter } from '../converter';

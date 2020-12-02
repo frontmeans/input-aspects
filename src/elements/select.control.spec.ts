@@ -1,4 +1,4 @@
-import { newNamespaceAliaser } from '@proc7ts/namespace-aliaser';
+import { newNamespaceAliaser } from '@frontmeans/namespace-aliaser';
 import { InNamespaceAliaser } from '../aspects';
 import { InSelect, inSelect } from './select.control';
 

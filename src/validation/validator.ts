@@ -1,6 +1,6 @@
 /**
  * @packageDocumentation
- * @module @proc7ts/input-aspects
+ * @module @frontmeans/input-aspects
  */
 import { CallChain, nextArgs, NextCall } from '@proc7ts/call-thru';
 import { AfterEvent, afterSupplied, EventKeeper, isEventKeeper } from '@proc7ts/fun-events';

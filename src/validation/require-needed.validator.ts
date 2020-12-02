@@ -1,6 +1,6 @@
 /**
  * @packageDocumentation
- * @module @proc7ts/input-aspects
+ * @module @frontmeans/input-aspects
  */
 import { CallChain, nextArgs, NextCall } from '@proc7ts/call-thru';
 import { filterIt } from '@proc7ts/push-iterator';

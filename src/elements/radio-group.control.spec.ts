@@ -1,5 +1,5 @@
+import { newNamespaceAliaser } from '@frontmeans/namespace-aliaser';
 import { EventSupply } from '@proc7ts/fun-events';
-import { newNamespaceAliaser } from '@proc7ts/namespace-aliaser';
 import { InNamespaceAliaser } from '../aspects';
 import { inRadioGroup, InRadioGroup } from './radio-group.control';
 import { inRadio, InRadio } from './radio.control';

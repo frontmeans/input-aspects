@@ -1,6 +1,6 @@
+import { NamespaceDef, newNamespaceAliaser } from '@frontmeans/namespace-aliaser';
+import { immediateRenderScheduler, setRenderScheduler } from '@frontmeans/render-scheduler';
 import { afterThe } from '@proc7ts/fun-events';
-import { NamespaceDef, newNamespaceAliaser } from '@proc7ts/namespace-aliaser';
-import { immediateRenderScheduler, setRenderScheduler } from '@proc7ts/render-scheduler';
 import { InNamespaceAliaser, InputAspects__NS } from '../../aspects';
 import { InControl } from '../../control';
 import { InMode } from '../../data';

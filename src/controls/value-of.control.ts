@@ -1,6 +1,6 @@
 /**
  * @packageDocumentation
- * @module @proc7ts/input-aspects
+ * @module @frontmeans/input-aspects
  */
 import { EventReceiver, EventSupply, eventSupply, EventSupply__symbol, OnEvent } from '@proc7ts/fun-events';
 import { InControl } from '../control';

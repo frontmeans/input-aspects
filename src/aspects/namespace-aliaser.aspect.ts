@@ -1,8 +1,8 @@
 /**
  * @packageDocumentation
- * @module @proc7ts/input-aspects
+ * @module @frontmeans/input-aspects
  */
-import { NamespaceAliaser, NamespaceDef, newNamespaceAliaser } from '@proc7ts/namespace-aliaser';
+import { NamespaceAliaser, NamespaceDef, newNamespaceAliaser } from '@frontmeans/namespace-aliaser';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
 import { InConverter } from '../converter';

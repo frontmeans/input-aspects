@@ -1,4 +1,4 @@
-import { newNamespaceAliaser } from '@proc7ts/namespace-aliaser';
+import { newNamespaceAliaser } from '@frontmeans/namespace-aliaser';
 import { InNamespaceAliaser } from '../aspects';
 import { InMode } from '../data';
 import { InRadio, inRadio } from './radio.control';
