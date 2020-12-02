@@ -65,17 +65,16 @@
 				<a href="#html-input-aspects" id="html-input-aspects" style="color: inherit; text-decoration: none;">
 					<h1>HTML Input Aspects</h1>
 				</a>
-				<p><a href="https://www.npmjs.com/package/@proc7ts/input-aspects"><img src="https://img.shields.io/npm/v/@proc7ts/input-aspects.svg?logo=npm" alt="NPM"></a>
-					<a href="https://github.com/proc7ts/input-aspects/actions?query=workflow%3ABuild"><img src="https://github.com/proc7ts/input-aspects/workflows/Build/badge.svg" alt="Build Status"></a>
-					<a href="https://codecov.io/gh/proc7ts/input-aspects"><img src="https://codecov.io/gh/proc7ts/input-aspects/branch/master/graph/badge.svg" alt="codecov"></a>
-					<a href="https://github.com/proc7ts/input-aspects"><img src="https://img.shields.io/static/v1?logo=github&label=GitHub&message=project&color=informational" alt="GitHub Project"></a>
-				<a href="https://proc7ts.github.io/input-aspects/"><img src="https://img.shields.io/static/v1?logo=typescript&label=API&message=docs&color=informational" alt="API Documentation"></a></p>
+				<p><a href="https://www.npmjs.com/package/@frontmeans/input-aspects"><img src="https://img.shields.io/npm/v/@frontmeans/input-aspects.svg?logo=npm" alt="NPM"></a>
+					<a href="https://github.com/frontmeans/input-aspects/actions?query=workflow%3ABuild"><img src="https://github.com/frontmeans/input-aspects/workflows/Build/badge.svg" alt="Build Status"></a>
+					<a href="https://codecov.io/gh/frontmeans/input-aspects"><img src="https://codecov.io/gh/frontmeans/input-aspects/branch/master/graph/badge.svg" alt="codecov"></a>
+					<a href="https://github.com/frontmeans/input-aspects"><img src="https://img.shields.io/static/v1?logo=github&label=GitHub&message=project&color=informational" alt="GitHub Project"></a>
+				<a href="https://frontmeans.github.io/input-aspects/"><img src="https://img.shields.io/static/v1?logo=typescript&label=API&message=docs&color=informational" alt="API Documentation"></a></p>
 				<p>Framework-agnostic library controlling various aspects of user input. Such as value conversion, form validation, etc.</p>
 				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
 					<h2>Example</h2>
 				</a>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { DomEventDispatcher } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@proc7ts/fun-events&#x27;</span>;
-<span class="hljs-keyword">import</span> {
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> {
   inCssInfo
   intoTrimmed,
   inGroup,
@@ -85,7 +84,8 @@
   InSubmitError,
   InValidation,
   requirePresent,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;input-aspects&#x27;</span>;
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@frontmeans/input-aspects&#x27;</span>;
+<span class="hljs-keyword">import</span> { DomEventDispatcher } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@proc7ts/fun-events&#x27;</span>;
 
 <span class="hljs-keyword">interface</span> Saluted {
   <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
@@ -175,7 +175,7 @@
 				<p>The value of this control is three-state, corresponding to checked, unchecked, and intermediate values.</p>
 				<p>By default these are <code>true</code>, <code>false</code> and <code>undefined</code>. But can be configured to be arbitrary values by specifying
 				options:</p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { inCheckbox } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@proc7ts/input-aspects&#x27;</span>;
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { inCheckbox } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@frontmeans/input-aspects&#x27;</span>;
 
 inCheckbox(checkboxElement, {
   <span class="hljs-attr">checked</span>: <span class="hljs-string">&#x27;on&#x27;</span>,     <span class="hljs-comment">// The value is `on` when checked</span>
@@ -188,13 +188,13 @@ inCheckbox(checkboxElement, {
 				<p>Radio button control is created by <code>inRadio()</code> function.</p>
 				<p>By default the value of this control is <code>true</code> when the radio button is checked. This can be configured though.
 				The value of this control when the radio button is unchecked is always <code>undefined</code>.</p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { inRadio } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@proc7ts/input-aspects&#x27;</span>;
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { inRadio } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@frontmeans/input-aspects&#x27;</span>;
 
 inRadio(radioElement, {
   <span class="hljs-attr">checked</span>: <span class="hljs-string">&#x27;on&#x27;</span>,     <span class="hljs-comment">// The value is `on` when checked</span>
 });</code></pre>
 				<p>It is convenient to group the radio buttons into a radio group, that can be created using <code>inRadioGroup()</code> function:</p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { inRadio, inRadioGroup } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@proc7ts/input-aspects&#x27;</span>;
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { inRadio, inRadioGroup } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@frontmeans/input-aspects&#x27;</span>;
 
 inRadioGroup({
   <span class="hljs-comment">// Add radio buttons under unique keys</span>
@@ -339,7 +339,7 @@ inRadioGroup({
 					<li><code>requireRange()</code> applies requirements to numeric value range.</li>
 				</ul>
 				<p>Simple validator can be applied like this:</p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { InValidation } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@proc7ts/input-aspects&#x27;</span>;
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { InValidation } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@frontmeans/input-aspects&#x27;</span>;
 
 control.aspect(InValidation).by({
   <span class="hljs-function"><span class="hljs-title">validate</span>(<span class="hljs-params">{it}: InControl&lt;PasswordAndConfirmation&gt;</span>)</span> {
@@ -360,7 +360,7 @@ control.aspect(InValidation).by({
 						<a href="globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/@proc7ts_input-aspects.html">@proc7ts/input-<wbr>aspects</a>
+						<a href="modules/@frontmeans_input-aspects.html">@frontmeans/input-<wbr>aspects</a>
 					</li>
 				</ul>
 			</nav>
