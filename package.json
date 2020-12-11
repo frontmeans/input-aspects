@@ -37,7 +37,7 @@
   "dependencies": {
     "@proc7ts/delta-set": "^1.4.2",
     "@proc7ts/primitives": "^1.6.0",
-    "@proc7ts/push-iterator": "^2.4.1"
+    "@proc7ts/push-iterator": "^2.5.0"
   },
   "devDependencies": {
     "@frontmeans/namespace-aliaser": "^2.3.0",
