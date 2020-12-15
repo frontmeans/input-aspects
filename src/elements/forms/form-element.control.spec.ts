@@ -1,4 +1,3 @@
-import { eventSupplyOf } from '@proc7ts/fun-events';
 import { noop } from '@proc7ts/primitives';
 import { InControl } from '../../control';
 import { inValue } from '../../controls';
@@ -22,11 +21,11 @@ describe('inFromElement', () => {
 
     const reason = 'test reason';
 
-    form.done(reason);
+    form.supply.off(reason);
 
     const whenDone = jest.fn();
 
-    eventSupplyOf(control).whenOff(whenDone);
+    control.supply.whenOff(whenDone);
     expect(whenDone).toHaveBeenCalledWith(reason);
   });
 

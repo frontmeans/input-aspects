@@ -1,4 +1,5 @@
-import { afterSupplied, EventSupply, onSupplied, trackValue, ValueTracker } from '@proc7ts/fun-events';
+import { afterSupplied, onceAfter, onSupplied, trackValue, ValueTracker } from '@proc7ts/fun-events';
+import { Supply } from '@proc7ts/primitives';
 import { inGroup, InGroup } from '../containers';
 import { intoInteger } from '../conversion';
 import { InElement } from '../element.control';
@@ -20,9 +21,9 @@ describe('InMode', () => {
   let control: InElement<string>;
   let mode: InMode;
   let onModeUpdate: Mock<void, [InMode.Value, InMode.Value]>;
-  let modeUpdatesSupply: EventSupply;
+  let modeUpdatesSupply: Supply;
   let readMode: Mock<void, [InMode.Value]>;
-  let modeSupply: EventSupply;
+  let modeSupply: Supply;
 
   beforeEach(() => {
     control = inText(element);
@@ -33,7 +34,7 @@ describe('InMode', () => {
   });
 
   let onOwnUpdate: Mock<void, [InMode.Value, InMode.Value]>;
-  let ownUpdatesSupply: EventSupply;
+  let ownUpdatesSupply: Supply;
 
   beforeEach(() => {
     ownUpdatesSupply = mode.own.on(onOwnUpdate = jest.fn());
@@ -54,13 +55,13 @@ describe('InMode', () => {
 
   describe('[OnEvent__symbol]', () => {
     it('is the same as `on`', () => {
-      expect(onSupplied(mode)).toBe(mode.on());
+      expect(onSupplied(mode)).toBe(mode.on);
     });
   });
 
   describe('[AfterEvent__symbol]', () => {
     it('is the same as `read`', () => {
-      expect(afterSupplied(mode)).toBe(mode.read());
+      expect(afterSupplied(mode)).toBe(mode.read);
     });
   });
 
@@ -90,7 +91,7 @@ describe('InMode', () => {
       modeUpdatesSupply.whenOff(updatesDone);
       modeSupply.whenOff(modeDone);
 
-      control.done(reason);
+      control.supply.off(reason);
       expect(updatesDone).toHaveBeenCalledWith(reason);
       expect(modeDone).toHaveBeenCalledWith(reason);
     });
@@ -104,13 +105,13 @@ describe('InMode', () => {
       element.disabled = true;
       control = inText(element);
       mode = control.aspect(InMode);
-      mode.read().once(value => expect(value).toBe('off'));
+      mode.read.do(onceAfter)(value => expect(value).toBe('off'));
     });
     it('is `ro` when element is initially read-only', () => {
       element.readOnly = true;
       control = inText(element);
       mode = control.aspect(InMode);
-      mode.read().once(value => expect(value).toBe('ro'));
+      mode.read.do(onceAfter)(value => expect(value).toBe('ro'));
     });
     it('disables when set to `off`', () => {
       mode.own.it = 'off';
@@ -287,7 +288,7 @@ describe('InMode', () => {
   describe('derived mode', () => {
 
     let source: ValueTracker<InMode.Value>;
-    let sourceSupply: EventSupply;
+    let sourceSupply: Supply;
 
     beforeEach(() => {
       source = trackValue('on');

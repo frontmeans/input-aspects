@@ -1,4 +1,3 @@
-import { eventSupplyOf } from '@proc7ts/fun-events';
 import { InControl } from '../control';
 import { inValueOf } from './value-of.control';
 import { inValue } from './value.control';
@@ -40,18 +39,18 @@ describe('inValueOf', () => {
 
       const whenOff = jest.fn();
 
-      eventSupplyOf(control).whenOff(whenOff);
+      control.supply.whenOff(whenOff);
 
       const reason = 'test reason';
 
-      original.done(reason);
+      original.supply.off(reason);
       expect(whenOff).toHaveBeenCalledWith(reason);
     });
     it('is not a dependency of original one', () => {
-      control.done();
+      control.supply.off();
 
-      expect(eventSupplyOf(control).isOff).toBe(true);
-      expect(eventSupplyOf(original).isOff).toBe(false);
+      expect(control.supply.isOff).toBe(true);
+      expect(original.supply.isOff).toBe(false);
     });
   });
 });

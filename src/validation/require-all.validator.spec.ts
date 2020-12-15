@@ -66,7 +66,7 @@ describe('validIfAll', () => {
 
     validator1.send(message1);
     validator2.send(message2);
-    validator2.done();
+    validator2.supply.off();
 
     expect([...lastResult()]).toEqual([message1]);
 
@@ -83,8 +83,8 @@ describe('validIfAll', () => {
     validator1.send(message1);
     validator2.send(message2);
 
-    validator1.done();
-    validator2.done();
+    validator1.supply.off();
+    validator2.supply.off();
     expect(lastResult().ok).toBe(true);
 
     receiver.mockClear();

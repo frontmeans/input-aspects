@@ -1,5 +1,4 @@
-import { EventSupply } from '@proc7ts/fun-events';
-import { noop } from '@proc7ts/primitives';
+import { noop, Supply } from '@proc7ts/primitives';
 import { InControl } from '../control';
 import { inValue } from '../controls';
 import { intoInteger } from '../conversion';
@@ -11,14 +10,14 @@ describe('InData', () => {
   let control: InControl<string>;
   let mode: InMode;
   let data: InData<string>;
-  let dataSupply: EventSupply;
+  let dataSupply: Supply;
   let lastData: InData.DataType<string> | undefined;
 
   beforeEach(() => {
     control = inValue('value');
     mode = control.aspect(InMode);
     data = control.aspect(InData);
-    dataSupply = data.to(d => lastData = d);
+    dataSupply = data(d => lastData = d);
   });
 
   it('is equal to the value initially', () => {
@@ -60,7 +59,7 @@ describe('InData', () => {
       const dataDone = jest.fn();
 
       dataSupply.whenOff(dataDone);
-      control.done(reason);
+      control.supply.off(reason);
 
       expect(dataDone).toHaveBeenCalledWith(reason);
     });
@@ -68,11 +67,11 @@ describe('InData', () => {
 
       const reason = 'some reason';
 
-      control.done(reason);
+      control.supply.off(reason);
 
       const dataDone = jest.fn();
 
-      dataSupply = data.to(noop).whenOff(dataDone);
+      dataSupply = data(noop).whenOff(dataDone);
       expect(dataDone).toHaveBeenCalledWith(reason);
     });
   });

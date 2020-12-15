@@ -13,7 +13,7 @@ import { InConverter } from '../converter';
  * Used by other aspect to generate unique names.
  *
  * Creates new namespace aliaser and reuses it across converted controls unless overridden e.g. by
- * [[InNamespaceAliaser.to]] converter.
+ * {@link InNamespaceAliaser.to} converter.
  *
  * @category Aspect
  */
@@ -53,17 +53,18 @@ export const InNamespaceAliaser = {
   /**
    * Creates input control aspect converter that assigns the given namespace aliaser to converted control.
    *
-   * @param nsAlias  Target namespace aliaser.
+   * @typeParam TValue - Converted control value type.
+   * @param nsAlias - Target namespace aliaser.
    *
    * @returns Input control aspect converter.
    */
-  to<Value>(nsAlias: InNamespaceAliaser): InConverter.Aspect<any, Value> {
+  to<TValue>(nsAlias: InNamespaceAliaser): InConverter.Aspect<any, TValue> {
     return {
-      applyAspect<Instance, Kind extends InAspect.Application.Kind>(
+      applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
           aspect: InAspect<any, any>,
-      ): InAspect.Applied<any, InAspect.Application.Instance<Instance, Value, Kind>> | undefined {
+      ): InAspect.Applied<any, InAspect.Application.Instance<TInstance, TValue, TKind>> | undefined {
         return aspect === InNamespaceAliaser__aspect
-            ? inAspectValue(nsAlias) as InAspect.Application.Result<Instance, Value, Kind>
+            ? inAspectValue(nsAlias) as InAspect.Application.Result<TInstance, TValue, TKind>
             : undefined;
       },
     };

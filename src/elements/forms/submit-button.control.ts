@@ -2,7 +2,6 @@
  * @packageDocumentation
  * @module @frontmeans/input-aspects
  */
-import { eventSupplyOf } from '@proc7ts/fun-events';
 import { noop } from '@proc7ts/primitives';
 import { InControl } from '../../control';
 import { InConverter, intoConvertedAspects } from '../../converter';
@@ -18,12 +17,12 @@ import { AbstractInElement } from '../abstract-element.control';
  * E.g. by disabling it when submit is {@link InSubmit.Flags.ready not ready}, or while {@link InSubmit.Flags.busy
  * submitting} the form.
  *
- * Submit button control can be created by [[inSubmitButton]] function.
+ * Submit button control can be created by {@link inSubmitButton} function.
  *
  * @category Control
- * @typeparam Elt  A type of submit button element.
+ * @typeParam TElt - A type of submit button element.
  */
-export type InSubmitButton<Elt extends HTMLElement = HTMLElement> = InElement<void, Elt>;
+export type InSubmitButton<TElt extends HTMLElement = HTMLElement> = InElement<void, TElt>;
 
 export namespace InSubmitButton {
 
@@ -46,7 +45,7 @@ export namespace InSubmitButton {
     /**
      * Input modes to derive from submitted control.
      *
-     * Applied to submit button control by [[inModeByForm]].
+     * Applied to submit button control by {@link inModeByForm}.
      */
     modes?: {
 
@@ -75,18 +74,18 @@ export namespace InSubmitButton {
  * Creates submit button control.
  *
  * @category Control
- * @param element  Submit button element to create control for.
- * @param options  Submit button control options.
+ * @param element - Submit button element to create control for.
+ * @param options - Submit button control options.
  *
  * @returns New submit button control.
  */
-export function inSubmitButton<Elt extends HTMLElement>(
-    element: Elt,
+export function inSubmitButton<TElt extends HTMLElement>(
+    element: TElt,
     options: InSubmitButton.Options,
-): InSubmitButton<Elt> {
+): InSubmitButton<TElt> {
 
   const { form, aspects, modes: { notReady = 'on', invalid = 'off', busy = 'off' } = {} } = options;
-  const control = new AbstractInElement<void, Elt>(
+  const control = new AbstractInElement<void, TElt>(
       element,
       {
         aspects: [intoConvertedAspects(aspects)],
@@ -95,7 +94,7 @@ export function inSubmitButton<Elt extends HTMLElement>(
       },
   );
 
-  eventSupplyOf(control).needs(form);
+  control.supply.needs(form);
   control.aspect(InMode).derive(inModeByForm(form, { notReady, invalid, busy }));
 
   return control;

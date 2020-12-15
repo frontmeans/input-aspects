@@ -5,7 +5,8 @@ import {
   RenderSchedule,
   setRenderScheduler,
 } from '@frontmeans/render-scheduler';
-import { afterSupplied, afterThe, EventSupply, trackValue, ValueTracker } from '@proc7ts/fun-events';
+import { afterSupplied, afterThe, onceAfter, trackValue, ValueTracker } from '@proc7ts/fun-events';
+import { Supply } from '@proc7ts/primitives';
 import { InControl } from '../../control';
 import { inValue } from '../../controls';
 import { inText, InText } from '../text.control';
@@ -38,14 +39,14 @@ describe('InCssClasses', () => {
 
   describe('[AfterEvent__symbol]', () => {
     it('is the same as `read`', () => {
-      expect(afterSupplied(cssClasses)).toBe(cssClasses.read());
+      expect(afterSupplied(cssClasses)).toBe(cssClasses.read);
     });
   });
 
   describe('add', () => {
 
     let source: ValueTracker<InCssClasses.Map>;
-    let sourceSupply: EventSupply;
+    let sourceSupply: Supply;
 
     beforeEach(() => {
       source = trackValue({ class1: true });
@@ -104,7 +105,7 @@ describe('InCssClasses', () => {
       const sourceDone = jest.fn();
 
       sourceSupply.whenOff(sourceDone);
-      source.done(reason);
+      source.supply.off(reason);
 
       expect(sourceDone).toHaveBeenCalledWith(reason);
       expect(classMap).toEqual({});
@@ -116,7 +117,7 @@ describe('InCssClasses', () => {
       const sourceDone = jest.fn();
 
       sourceSupply.whenOff(sourceDone);
-      control.done(reason);
+      control.supply.off(reason);
       expect(sourceDone).toHaveBeenCalledWith(reason);
       expect(classMap).toEqual({});
       expect(element.classList.contains('class1')).toBe(false);
@@ -126,7 +127,7 @@ describe('InCssClasses', () => {
       const reason = 'some reason';
       const sourceDone = jest.fn();
 
-      control.done(reason);
+      control.supply.off(reason);
       cssClasses.add(afterThe({ 'never-added': true })).whenOff(sourceDone);
 
       expect(sourceDone).toHaveBeenCalledWith(reason);
@@ -138,7 +139,7 @@ describe('InCssClasses', () => {
   describe('track', () => {
 
     let source: ValueTracker<InCssClasses.Map>;
-    let sourceSupply: EventSupply;
+    let sourceSupply: Supply;
     let mockReceiver: Mock<void, [string[], string[]]>;
 
     beforeEach(() => {
@@ -182,7 +183,7 @@ describe('InCssClasses', () => {
     let scheduler: ManualRenderScheduler;
     let mockSchedule: Mock<void, Parameters<RenderSchedule>>;
     let target: Element;
-    let targetSupply: EventSupply;
+    let targetSupply: Supply;
 
     beforeEach(() => {
       source = trackValue<InCssClasses.Map>({ class2: true });
@@ -253,7 +254,7 @@ describe('InCssClasses', () => {
   describe('done', () => {
 
     let source: ValueTracker<InCssClasses.Map>;
-    let supply: EventSupply;
+    let supply: Supply;
 
     beforeEach(() => {
       source = trackValue({ class1: true });
@@ -295,7 +296,7 @@ describe('InCssClasses', () => {
 
       const classesReceiver = jest.fn();
 
-      valueClasses.read().once(classesReceiver);
+      valueClasses.read.do(onceAfter)(classesReceiver);
 
       expect(classesReceiver).toHaveBeenCalledWith({ class1: true });
     });

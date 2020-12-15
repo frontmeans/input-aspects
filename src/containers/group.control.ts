@@ -2,29 +2,25 @@
  * @packageDocumentation
  * @module @frontmeans/input-aspects
  */
-import { nextArg, nextArgs, NextCall } from '@proc7ts/call-thru';
 import {
   afterAll,
   AfterEvent,
   AfterEvent__symbol,
-  afterSent,
+  afterThe,
+  digAfter_,
   EventEmitter,
   EventKeeper,
-  EventReceiver,
   EventSender,
-  eventSupply,
-  EventSupply,
-  EventSupply__symbol,
-  eventSupplyOf,
-  nextAfterEvent,
-  noEventSupply,
+  mapAfter,
+  onceAfter,
   OnEvent,
   OnEvent__symbol,
-  OnEventCallChain,
+  supplyAfter,
   trackValue,
+  translateOn,
   ValueTracker,
 } from '@proc7ts/fun-events';
-import { noop } from '@proc7ts/primitives';
+import { neverSupply, noop, Supply } from '@proc7ts/primitives';
 import {
   iteratorOf,
   itsEach,
@@ -63,9 +59,9 @@ const InGroup__aspect: InAspect<InGroup<any> | null, 'group'> = {
  * Group is available as an aspect of itself and converted controls with the same value.
  *
  * @category Control
- * @typeparam Model  Group model type, i.e. its value type.
+ * @typeParam TModel - Group model type, i.e. its value type.
  */
-export abstract class InGroup<Model extends object> extends InContainer<Model> {
+export abstract class InGroup<TModel extends object> extends InContainer<TModel> {
 
   static get [InAspect__symbol](): InAspect<InGroup<any> | null, 'group'> {
     return InGroup__aspect;
@@ -74,13 +70,13 @@ export abstract class InGroup<Model extends object> extends InContainer<Model> {
   /**
    * Input group controls.
    */
-  abstract readonly controls: InGroupControls<Model>;
+  abstract readonly controls: InGroupControls<TModel>;
 
   protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
       aspect: InAspect<any, any>,
-  ): InAspect.Application.Result<Instance, Model, Kind> | undefined {
+  ): InAspect.Application.Result<Instance, TModel, Kind> | undefined {
     return aspect === InGroup__aspect
-        ? inAspectSameOrNull(this, InGroup, this) as InAspect.Application.Result<Instance, Model, Kind>
+        ? inAspectSameOrNull(this, InGroup, this) as InAspect.Application.Result<Instance, TModel, Kind>
         : super._applyAspect(aspect);
   }
 
@@ -93,10 +89,10 @@ export namespace InGroup {
    *
    * This is a read-only object containing an input control per each model property under the same key.
    *
-   * @typeparam Model  Group model type, i.e. its value type.
+   * @typeParam TModel - Group model type, i.e. its value type.
    */
-  export type Controls<Model> = {
-    readonly [K in keyof Model]?: InControl<Model[K]>;
+  export type Controls<TModel> = {
+    readonly [K in keyof TModel]?: InControl<TModel[K]>;
   };
 
   /**
@@ -104,27 +100,28 @@ export namespace InGroup {
    *
    * This is a tuple containing model key and corresponding control.
    *
-   * @typeparam Model  Group model type, i.e. its value type.
+   * @typeParam TModel - Group model type, i.e. its value type.
+   * @typeParam TKey - Model keys type.
    */
-  export type Entry<Model, K extends keyof Model = any> = readonly [K, InControl<Model[K]>];
+  export type Entry<TModel, TKey extends keyof TModel = any> = readonly [TKey, InControl<TModel[TKey]>];
 
   /**
    * A snapshot of input control group controls.
    *
-   * @typeparam Model  Group model type, i.e. its value type.
+   * @typeParam TModel - Group model type, i.e. its value type.
    */
-  export interface Snapshot<Model> extends InContainer.Snapshot {
+  export interface Snapshot<TModel> extends InContainer.Snapshot {
 
-    entries(): IterableIterator<Entry<Model>>;
+    entries(): IterableIterator<Entry<TModel>>;
 
     /**
      * Returns input control with the given key, if present.
      *
-     * @param key  Control key, i.e. corresponding model property key.
+     * @param key - Control key, i.e. corresponding model property key.
      *
      * @returns Target control, or `undefined` if there is no control set for this key.
      */
-    get<K extends keyof Model>(key: K): InGroup.Controls<Model>[K] | undefined;
+    get<TKey extends keyof TModel>(key: TKey): InGroup.Controls<TModel>[TKey] | undefined;
 
   }
 
@@ -134,47 +131,47 @@ export namespace InGroup {
  * Input group controls.
  *
  * @category Control
- * @typeparam Model  Group model type, i.e. its value type.
+ * @typeParam TModel - Group model type, i.e. its value type.
  */
-export abstract class InGroupControls<Model>
+export abstract class InGroupControls<TModel>
     extends InContainerControls
-    implements EventSender<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>, EventKeeper<[InGroup.Snapshot<Model>]> {
+    implements EventSender<[InGroup.Entry<TModel>[], InGroup.Entry<TModel>[]]>,
+        EventKeeper<[InGroup.Snapshot<TModel>]> {
 
-  abstract on(): OnEvent<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>;
-  abstract on(receiver: EventReceiver<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>): EventSupply;
+  abstract readonly on: OnEvent<[InGroup.Entry<TModel>[], InGroup.Entry<TModel>[]]>;
 
-  abstract read(): AfterEvent<[InGroup.Snapshot<Model>]>;
-  abstract read(receiver: EventReceiver<[InGroup.Snapshot<Model>]>): EventSupply;
+  abstract readonly read: AfterEvent<[InGroup.Snapshot<TModel>]>;
 
   /**
    * Sets input control with the given key.
    *
    * Replaces existing control if already present.
    *
-   * @param key  A key of input control to set. I.e. corresponding model property key.
-   * @param control  Input control to add, or `undefined` to remove control.
+   * @typeParam TKey - Model key type.
+   * @param key - A key of input control to set. I.e. corresponding model property key.
+   * @param control - Input control to add, or `undefined` to remove control.
    *
    * @returns A supply of just added control that removes it once cut off. A cut off supply when set to `undefined`.
    */
-  abstract set<K extends keyof Model>(key: K, control: InControl<Model[K]> | undefined): EventSupply;
+  abstract set<TKey extends keyof TModel>(key: TKey, control: InControl<TModel[TKey]> | undefined): Supply;
 
   /**
    * Sets multiple input controls at a time.
    *
-   * @param controls  A map of controls under their keys. A value can be `undefined` to remove corresponding control.
+   * @param controls - A map of controls under their keys. A value can be `undefined` to remove corresponding control.
    *
    * @returns A supply of just added controls that removes them once cut off.
    */
-  abstract set(controls: InGroup.Controls<Model>): EventSupply;
+  abstract set(controls: InGroup.Controls<TModel>): Supply;
 
   /**
    * Removes input control with the given key.
    *
    * Calling this method is the same as calling `set(key, undefined)`
    *
-   * @param key  A key of input control to remove. I.e. corresponding model property key.
+   * @param key - A key of input control to remove. I.e. corresponding model property key.
    */
-  remove(key: keyof Model): void {
+  remove(key: keyof TModel): void {
     this.set(key, undefined);
   }
 
@@ -185,18 +182,18 @@ export abstract class InGroupControls<Model>
 
 }
 
-export interface InGroupControls<Model> {
+export interface InGroupControls<TModel> {
 
-  [OnEvent__symbol](): OnEvent<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>;
+  [OnEvent__symbol](): OnEvent<[InGroup.Entry<TModel>[], InGroup.Entry<TModel>[]]>;
 
-  [AfterEvent__symbol](): AfterEvent<[InGroup.Snapshot<Model>]>;
+  [AfterEvent__symbol](): AfterEvent<[InGroup.Snapshot<TModel>]>;
 
 }
 
 /**
  * @internal
  */
-type InGroupEntry = readonly [InControl<any>, EventSupply]; // When event supply is done the control is unused
+type InGroupEntry = readonly [InControl<any>, Supply]; // When event supply is done the control is unused
 
 /**
  * @internal
@@ -206,12 +203,12 @@ const inControlReplacedReason = {};
 /**
  * @internal
  */
-class InGroupSnapshot<Model> implements InGroup.Snapshot<Model>, PushIterable<InControl<any>> {
+class InGroupSnapshot<TModel> implements InGroup.Snapshot<TModel>, PushIterable<InControl<any>> {
 
   private readonly _it: PushIterable<InControl<any>>;
-  private readonly _entriesIt: PushIterable<InGroup.Entry<Model>>;
+  private readonly _entriesIt: PushIterable<InGroup.Entry<TModel>>;
 
-  constructor(private readonly _map: Map<keyof Model, InGroupEntry>) {
+  constructor(private readonly _map: Map<keyof TModel, InGroupEntry>) {
     this._it = mapIt(
         overIterator(() => this._map.values()),
         ([control]: InGroupEntry) => control,
@@ -219,11 +216,11 @@ class InGroupSnapshot<Model> implements InGroup.Snapshot<Model>, PushIterable<In
     this._entriesIt = mapIt(this._map, ([key, [control]]) => [key, control]);
   }
 
-  get<K extends keyof Model>(key: K): InGroup.Controls<Model>[K] | undefined {
+  get<TKey extends keyof TModel>(key: TKey): InGroup.Controls<TModel>[TKey] | undefined {
 
     const entry = this._map.get(key);
 
-    return entry && entry[0] as InGroup.Controls<Model>[K];
+    return entry && entry[0] as InGroup.Controls<TModel>[TKey];
   }
 
   [Symbol.iterator](): PushIterator<InControl<any>> {
@@ -234,7 +231,7 @@ class InGroupSnapshot<Model> implements InGroup.Snapshot<Model>, PushIterable<In
     return this._it[PushIterator__symbol](accept);
   }
 
-  entries(): PushIterator<InGroup.Entry<Model>> {
+  entries(): PushIterator<InGroup.Entry<TModel>> {
     return iteratorOf(this._entriesIt);
   }
 
@@ -243,27 +240,27 @@ class InGroupSnapshot<Model> implements InGroup.Snapshot<Model>, PushIterable<In
 /**
  * @internal
  */
-class InGroupMap<Model extends object> {
+class InGroupMap<TModel extends object> {
 
-  readonly _supply = eventSupply();
-  private _map = new Map<keyof Model, InGroupEntry>();
-  private _shot?: InGroupSnapshot<Model>;
+  readonly _supply = new Supply();
+  private _map = new Map<keyof TModel, InGroupEntry>();
+  private _shot?: InGroupSnapshot<TModel>;
 
-  constructor(private readonly _controls: InGroupControlControls<Model>) {
+  constructor(private readonly _controls: InGroupControlControls<TModel>) {
   }
 
-  set<K extends keyof Model>(
-      key: K,
-      control: InControl<Model[K]> | undefined,
-      added: [keyof Model, InGroupEntry][],
-      removed: [keyof Model, InGroupEntry][],
-  ): EventSupply {
+  set<TKey extends keyof TModel>(
+      key: TKey,
+      control: InControl<TModel[TKey]> | undefined,
+      added: [keyof TModel, InGroupEntry][],
+      removed: [keyof TModel, InGroupEntry][],
+  ): Supply {
 
     const replaced = this._map.get(key);
-    let supply: EventSupply;
+    let supply: Supply;
 
     if (control) {
-      supply = eventSupply();
+      supply = new Supply();
 
       const entry = this.newEntry(key, control, supply);
 
@@ -285,7 +282,7 @@ class InGroupMap<Model extends object> {
         this._map.set(key, entry);
       }
     } else {
-      supply = noEventSupply();
+      supply = neverSupply();
       if (replaced) {
         removed.push([key, replaced]);
         this.modify().delete(key);
@@ -298,14 +295,14 @@ class InGroupMap<Model extends object> {
     return supply;
   }
 
-  private newEntry<K extends keyof Model>(
-      key: K,
-      control: InControl<Model[K]>,
-      supply: EventSupply,
+  private newEntry<TKey extends keyof TModel>(
+      key: TKey,
+      control: InControl<TModel[TKey]>,
+      supply: Supply,
   ): InGroupEntry {
     return [
       control,
-      eventSupply(reason => {
+      new Supply(reason => {
         if (reason !== inControlReplacedReason) {
           this._controls.remove(key);
         }
@@ -318,10 +315,10 @@ class InGroupMap<Model extends object> {
     ];
   }
 
-  private modify(): Map<keyof Model, InGroupEntry> {
+  private modify(): Map<keyof TModel, InGroupEntry> {
     if (this._shot) {
 
-      const map = new Map<keyof Model, InGroupEntry>();
+      const map = new Map<keyof TModel, InGroupEntry>();
 
       itsEach(this._map.entries(), ([k, e]) => map.set(k, e));
       this._shot = undefined;
@@ -331,14 +328,14 @@ class InGroupMap<Model extends object> {
     return this._map;
   }
 
-  snapshot(): InGroup.Snapshot<Model> {
-    return this._shot || (this._shot = new InGroupSnapshot<Model>(this._map));
+  snapshot(): InGroup.Snapshot<TModel> {
+    return this._shot || (this._shot = new InGroupSnapshot<TModel>(this._map));
   }
 
-  clear(): [keyof Model, InGroupEntry][] {
+  clear(): [keyof TModel, InGroupEntry][] {
 
-    const added: [keyof Model, InGroupEntry][] = [];
-    const removed: [keyof Model, InGroupEntry][] = [];
+    const added: [keyof TModel, InGroupEntry][] = [];
+    const removed: [keyof TModel, InGroupEntry][] = [];
 
     itsEach(this._map.keys(), key => this.set(key, undefined, added, removed));
 
@@ -350,18 +347,20 @@ class InGroupMap<Model extends object> {
 /**
  * @internal
  */
-class InGroupControlControls<Model extends object> extends InGroupControls<Model> {
+class InGroupControlControls<TModel extends object> extends InGroupControls<TModel> {
 
-  private readonly _map: InGroupMap<Model>;
-  private readonly _updates = new EventEmitter<[[keyof Model, InGroupEntry][], [keyof Model, InGroupEntry][]]>();
+  readonly on: OnEvent<[InGroup.Entry<TModel>[], InGroup.Entry<TModel>[]]>;
+  readonly read: AfterEvent<[InGroup.Snapshot<TModel>]>;
+  private readonly _map: InGroupMap<TModel>;
+  private readonly _updates = new EventEmitter<[[keyof TModel, InGroupEntry][], [keyof TModel, InGroupEntry][]]>();
 
-  constructor(private readonly _group: InGroupControl<Model>) {
+  constructor(private readonly _group: InGroupControl<TModel>) {
     super();
 
-    const applyModelToControls = (model: Model): void => {
-      this.read().once(snapshot => {
+    const applyModelToControls = (model: TModel): void => {
+      this.read.do(onceAfter)(snapshot => {
 
-        const withValues = new Set<keyof Model>();
+        const withValues = new Set<keyof TModel>();
 
         itsEach(overEntries(model), ([key, value]) => {
           withValues.add(key);
@@ -381,46 +380,37 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
       });
     };
 
-    this._map = new InGroupMap<Model>(this);
-    this._map._supply.needs(_group.read(applyModelToControls));
-  }
+    this._map = new InGroupMap<TModel>(this);
 
-  on(): OnEvent<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>;
-  on(receiver: EventReceiver<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>): EventSupply;
-  on(
-      receiver?: EventReceiver<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]>,
-  ): OnEvent<[InGroup.Entry<Model>[], InGroup.Entry<Model>[]]> | EventSupply {
-    return (this.on = this._updates.on().thru(
-        (added, removed) => nextArgs(
+    this.on = this._updates.on.do(translateOn(
+        (send, added, removed) => send(
             added.map(controlEntryToGroupEntry),
             removed.map(controlEntryToGroupEntry),
         ),
-    ).F)(receiver);
+    ));
+
+    const takeSnapshot = this._map.snapshot.bind(this._map);
+
+    this.read = this._updates.on.do(mapAfter(
+        takeSnapshot,
+        takeSnapshot,
+    ));
+
+    this._map._supply.needs(_group.read(applyModelToControls));
   }
 
-  read(): AfterEvent<[InGroup.Snapshot<Model>]>;
-  read(receiver: EventReceiver<[InGroup.Snapshot<Model>]>): EventSupply;
-  read(receiver?: EventReceiver<[InGroup.Snapshot<Model>]>): AfterEvent<[InGroup.Snapshot<Model>]> | EventSupply {
-    return (this.read = afterSent<[InGroup.Snapshot<Model>]>(
-        this._updates.on().thru(
-            () => this._map.snapshot(),
-        ),
-        () => [this._map.snapshot()],
-    ).F)(receiver);
-  }
-
-  set<K extends keyof Model>(
-      keyOrControls: K | InGroup.Controls<Model>,
-      newControl?: InControl<Model[K]> | undefined,
-  ): EventSupply {
+  set<TKey extends keyof TModel>(
+      keyOrControls: TKey | InGroup.Controls<TModel>,
+      newControl?: InControl<TModel[TKey]> | undefined,
+  ): Supply {
 
     const group = this._group;
-    const added: [keyof Model, InGroupEntry][] = [];
-    const removed: [keyof Model, InGroupEntry][] = [];
-    let supply: EventSupply;
+    const added: [keyof TModel, InGroupEntry][] = [];
+    const removed: [keyof TModel, InGroupEntry][] = [];
+    let supply: Supply;
 
     if (typeof keyOrControls === 'object') {
-      supply = eventSupply();
+      supply = new Supply();
       itsEach(overEntries(keyOrControls), ([key, value]) => {
         this._map.set(key, value, added, removed).needs(supply);
       });
@@ -438,11 +428,11 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
 
     function applyControlsToModel(): void {
 
-      let newModel: Model | undefined;
+      let newModel: TModel | undefined;
 
-      added.forEach(<K extends keyof Model>(keyAndEntry: [keyof Model, InGroupEntry]) => {
+      added.forEach(<TKey extends keyof TModel>(keyAndEntry: [keyof TModel, InGroupEntry]) => {
 
-        const [key, [control, supply]] = keyAndEntry as [K, [InControl<Model[K]>, EventSupply]];
+        const [key, [control, supply]] = keyAndEntry as [TKey, [InControl<TModel[TKey]>, Supply]];
 
         control.aspect(InParents)
             .add({ parent: group })
@@ -467,11 +457,11 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
         group.it = newModel;
       }
 
-      added.forEach(<K extends keyof Model>(keyAndEntry: [keyof Model, InGroupEntry]) => {
+      added.forEach(<TKey extends keyof TModel>(keyAndEntry: [keyof TModel, InGroupEntry]) => {
 
-        const [key, [control, supply]] = keyAndEntry as [K, [InControl<Model[K]>, EventSupply]];
+        const [key, [control, supply]] = keyAndEntry as [TKey, [InControl<TModel[TKey]>, Supply]];
 
-        control.read().tillOff(supply).to(value => {
+        control.read.do(supplyAfter(supply))(value => {
           if (group.it[key] !== value) {
             group.it = {
               ...group.it,
@@ -497,53 +487,51 @@ class InGroupControlControls<Model extends object> extends InGroupControls<Model
 /**
  * @internal
  */
-function controlEntryToGroupEntry<Model extends object>(
-    [key, [control]]: [keyof Model, InGroupEntry],
-): InGroup.Entry<Model> {
+function controlEntryToGroupEntry<TModel extends object>(
+    [key, [control]]: [keyof TModel, InGroupEntry],
+): InGroup.Entry<TModel> {
   return [key, control];
 }
 
 /**
  * @internal
  */
-class InGroupControl<Model extends object> extends InGroup<Model> {
+class InGroupControl<TModel extends object> extends InGroup<TModel> {
 
-  private readonly _model: ValueTracker<Model>;
-  readonly controls: InGroupControlControls<Model>;
+  private readonly _model: ValueTracker<TModel>;
+  readonly controls: InGroupControlControls<TModel>;
 
   constructor(
-      model: Model,
+      model: TModel,
       opts: {
-        readonly aspects?: InConverter.Aspect<Model> | readonly InConverter.Aspect<Model>[];
+        readonly aspects?: InConverter.Aspect<TModel> | readonly InConverter.Aspect<TModel>[];
       },
   ) {
     super(opts);
     this._model = trackValue(model);
     this.controls = new InGroupControlControls(this);
-    eventSupplyOf(this).whenOff(() => this.controls.clear());
+    this.supply.whenOff(() => this.controls.clear());
   }
 
-  get [EventSupply__symbol](): EventSupply {
-    return eventSupplyOf(this._model);
+  get supply(): Supply {
+    return this._model.supply;
   }
 
-  get it(): Model {
+  get it(): TModel {
     return this._model.it;
   }
 
-  set it(value: Model) {
+  set it(value: TModel) {
     this._model.it = value;
   }
 
-  on(): OnEvent<[Model, Model]>;
-  on(receiver: EventReceiver<[Model, Model]>): EventSupply;
-  on(receiver?: EventReceiver<[Model, Model]>): OnEvent<[Model, Model]> | EventSupply {
-    return (this.on = this._model.on().F)(receiver);
+  get on(): OnEvent<[TModel, TModel]> {
+    return this._model.on;
   }
 
-  protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
+  protected _applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
       aspect: InAspect<any, any>,
-  ): InAspect.Application.Result<Instance, Model, Kind> | undefined {
+  ): InAspect.Application.Result<TInstance, TModel, TKind> | undefined {
     if (aspect === InData[InAspect__symbol]) {
       return {
         instance: inGroupData(this),
@@ -558,55 +546,55 @@ class InGroupControl<Model extends object> extends InGroup<Model> {
 /**
  * @internal
  */
-function inGroupData<Model extends object>(group: InGroup<Model>): InData<Model> {
+function inGroupData<TModel extends object>(group: InGroup<TModel>): InData<TModel> {
   return afterAll({
     cs: group.controls,
     model: group,
     mode: group.aspect(InMode),
-  }).keepThru_(
-      readInGroupData,
+  }).do(
+      digAfter_(readInGroupData),
   );
 }
 
 /**
  * @internal
  */
-function readInGroupData<Model extends object>(
+function readInGroupData<TModel extends object>(
     {
       cs: [controls],
       model: [model],
       mode: [mode],
     }: {
-      cs: [InGroup.Snapshot<Model>];
-      model: [Model];
+      cs: [InGroup.Snapshot<TModel>];
+      model: [TModel];
       mode: [InMode.Value];
     },
-): NextCall<OnEventCallChain, [InData.DataType<Model>?]> {
+): AfterEvent<[InData.DataType<TModel>?]> {
   if (!InMode.hasData(mode)) {
-    return nextArgs();
+    return afterThe();
   }
 
-  const csData = {} as { [key in keyof Model]: InData<any> };
+  const csData = {} as { [key in keyof TModel]: InData<any> };
 
   itsEach(controls.entries(), ([key, control]) => {
-    csData[key as keyof Model] = control.aspect(InData);
+    csData[key as keyof TModel] = control.aspect(InData);
   });
 
-  return nextAfterEvent(afterAll(csData).keepThru(controlsData => {
+  return afterAll(csData).do(mapAfter(controlsData => {
 
-    const data: Partial<Model> = { ...model };
+    const data: Partial<TModel> = { ...model };
 
     itsEach(
         overEntries(controlsData),
-        <K extends keyof Model>(keyAndControlData: readonly [keyof Model, [InData.DataType<any>?]]) => {
+        <TKey extends keyof TModel>(keyAndControlData: readonly [keyof TModel, [InData.DataType<any>?]]) => {
 
-          const [key, [controlData]] = keyAndControlData as readonly [K, [Model[K]?]];
+          const [key, [controlData]] = keyAndControlData as readonly [TKey, [TModel[TKey]?]];
 
           data[key] = controlData;
         },
     );
 
-    return nextArg(data as InData.DataType<Model>);
+    return data as InData.DataType<TModel>;
   }));
 }
 
@@ -614,21 +602,21 @@ function readInGroupData<Model extends object>(
  * Constructs input controls group.
  *
  * @category Control
- * @typeparam Model  Group model type, i.e. its value type.
- * @param model  Initial model of the group.
- * @param aspects  Input aspects applied by default. These are aspect converters to constructed control
+ * @typeParam TModel - Group model type, i.e. its value type.
+ * @param model - Initial model of the group.
+ * @param aspects - Input aspects applied by default. These are aspect converters to constructed control
  * from {@link inValueOf same-valued one}.
  *
  * @returns New input controls group.
  */
-export function inGroup<Model extends object>(
-    model: Model,
+export function inGroup<TModel extends object>(
+    model: TModel,
     {
       aspects,
     }: {
-      readonly aspects?: InConverter.Aspect<Model> | readonly InConverter.Aspect<Model>[];
+      readonly aspects?: InConverter.Aspect<TModel> | readonly InConverter.Aspect<TModel>[];
     } = {},
-): InGroup<Model> {
+): InGroup<TModel> {
   return new InGroupControl(model, { aspects });
 }
 
@@ -636,12 +624,12 @@ declare module '../aspect' {
 
   export namespace InAspect.Application {
 
-    export interface Map<OfInstance, OfValue> {
+    export interface Map<TInstance, TValue> {
 
       /**
        * Input control group application type.
        */
-      group(): InGroup<OfValue extends object ? OfValue : never> | null;
+      group(): InGroup<TValue extends object ? TValue : never> | null;
 
     }
 

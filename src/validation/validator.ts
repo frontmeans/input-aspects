@@ -2,9 +2,8 @@
  * @packageDocumentation
  * @module @frontmeans/input-aspects
  */
-import { CallChain, nextArgs, NextCall } from '@proc7ts/call-thru';
-import { AfterEvent, afterSupplied, EventKeeper, isEventKeeper } from '@proc7ts/fun-events';
-import { valueProvider } from '@proc7ts/primitives';
+import { AfterEvent, afterSupplied, EventKeeper, isEventKeeper, translateAfter } from '@proc7ts/fun-events';
+import { arrayOfElements, valueProvider } from '@proc7ts/primitives';
 import { InControl } from '../control';
 import { InValidation } from './validation.aspect';
 
@@ -19,21 +18,21 @@ import { InValidation } from './validation.aspect';
  * as its only parameter, or simple validator instance.
  *
  * @category Validation
- * @typeparam Value  Input value type.
+ * @typeParam TValue - Input value type.
  */
-export type InValidator<Value> =
+export type InValidator<TValue> =
     | EventKeeper<InValidation.Message[]>
-    | ((this: void, control: InControl<Value>) => EventKeeper<InValidation.Message[]>)
-    | InValidator.Simple<Value>;
+    | ((this: void, control: InControl<TValue>) => EventKeeper<InValidation.Message[]>)
+    | InValidator.Simple<TValue>;
 
 export namespace InValidator {
 
   /**
    * Simple input validator.
    *
-   * @typeparam Value  Input value type.
+   * @typeParam TValue - Input value type.
    */
-  export interface Simple<Value> {
+  export interface Simple<TValue> {
 
     /**
      * Validates the user input.
@@ -41,11 +40,11 @@ export namespace InValidator {
      * This method is called each time input value changes. The returned messages then reported by input validation
      * aspect.
      *
-     * @param control  Input control to validate.
+     * @param control - Input control to validate.
      *
      * @returns Either validation message, array of validation messages, or `null`/`unknown` to indicate their absence.
      */
-    validate(control: InControl<Value>): InValidation.Message | InValidation.Message[] | null | undefined;
+    validate(control: InControl<TValue>): InValidation.Message | InValidation.Message[] | null | undefined;
 
   }
 
@@ -55,39 +54,23 @@ export namespace InValidator {
  * Converts arbitrary input validator to normalized form.
  *
  * @category Validation
- * @typeparam Value  Input value type.
- * @param validator  Validator to convert.
+ * @typeParam TValue - Input value type.
+ * @param validator - Validator to convert.
  *
  * @returns A function accepting input control as its only parameter and returning an `AfterEvent` keeper of validation
  * messages.
  */
-export function inValidator<Value>(
-    validator: InValidator<Value>,
-): (this: void, control: InControl<Value>) => AfterEvent<InValidation.Message[]> {
+export function inValidator<TValue>(
+    validator: InValidator<TValue>,
+): (this: void, control: InControl<TValue>) => AfterEvent<InValidation.Message[]> {
   if (isEventKeeper(validator)) {
     return valueProvider(afterSupplied(validator));
   }
   if (typeof validator === 'function') {
     return control => afterSupplied(validator(control));
   }
-  return control => control.read().keepThru(simpleInValidator(control, validator));
-}
 
-/**
- * @internal
- */
-function simpleInValidator<Value>(
-    control: InControl<Value>,
-    validator: InValidator.Simple<Value>,
-): (value: Value) => NextCall<CallChain, InValidation.Message[]> {
-  return () => {
-
-    const messages = validator.validate(control);
-
-    return messages == null
-        ? nextArgs()
-        : Array.isArray(messages)
-            ? nextArgs(...messages)
-            : nextArgs(messages);
-  };
+  return control => control.read.do(
+      translateAfter(send => send(...arrayOfElements(validator.validate(control)))),
+  );
 }

@@ -2,7 +2,7 @@
  * @packageDocumentation
  * @module @frontmeans/input-aspects
  */
-import { CallChain, nextArgs, NextCall } from '@proc7ts/call-thru';
+import { translateAfter } from '@proc7ts/fun-events';
 import { filterIt } from '@proc7ts/push-iterator';
 import { InControl } from '../control';
 import { requireAll } from './require-all.validator';
@@ -20,23 +20,25 @@ import { inValidator, InValidator } from './validator';
  * - Otherwise report all messages.
  *
  * @category Validation
- * @param validators  Validators to validate the input with.
+ * @typeParam TValue - Input value type.
+ * @param validators - Validators to validate the input with.
  *
  * @returns Validator that requires all the given `validators` and filters their output.
  */
-export function requireNeeded<Value>(...validators: InValidator<Value>[]): InValidator<Value> {
+export function requireNeeded<TValue>(...validators: InValidator<TValue>[]): InValidator<TValue> {
 
   const validate = inValidator(requireAll(...validators));
 
-  return (control: InControl<Value>) => validate(control).keepThru(nextRequireNeededMessages);
+  return (control: InControl<TValue>) => validate(control).do(translateAfter(nextRequireNeededMessages));
 }
 
 /**
  * @internal
  */
 function nextRequireNeededMessages(
+    send: (...messages: InValidation.Message[]) => void,
     ...messages: InValidation.Message[]
-): NextCall<CallChain, InValidation.Message[]> {
+): void {
 
   const result = inValidationResult(...messages);
   let filtered: Iterable<InValidation.Message> = result;
@@ -55,5 +57,5 @@ function nextRequireNeededMessages(
     );
   }
 
-  return nextArgs<InValidation.Message[]>(...filtered);
+  return send(...filtered);
 }

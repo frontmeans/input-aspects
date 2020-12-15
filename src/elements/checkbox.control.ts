@@ -10,40 +10,40 @@ import { AbstractInElement } from './abstract-element.control';
  * Checkbox input control.
  *
  * @category Control
- * @typeparam Value  Input value type.
+ * @typeParam TValue - Input value type.
  */
-export type InCheckbox<Value = boolean | undefined> = InElement<Value, HTMLInputElement & { intermediate?: boolean }>;
+export type InCheckbox<TValue = boolean | undefined> = InElement<TValue, HTMLInputElement & { intermediate?: boolean }>;
 
 export namespace InCheckbox {
 
   /**
    * Possible checkbox control values corresponding to different checkbox states.
    *
-   * @typeparam Value  Checkbox input value type.
+   * @typeParam TValue - Checkbox input value type.
    */
-  export interface Values<Value> {
+  export interface Values<TValue> {
 
     /**
      * Control value of checked checkbox.
      */
-    readonly checked: Value;
+    readonly checked: TValue;
 
     /**
      * Control value of unchecked checkbox.
      */
-    readonly unchecked: Value;
+    readonly unchecked: TValue;
 
     /**
      * Control value of checkbox in intermediate state..
      */
-    readonly intermediate: Value;
+    readonly intermediate: TValue;
 
     /**
      * Input aspects applied by default.
      *
      * These are aspect converters to constructed control from the {@link inValueOf same-valued one}.
      */
-    readonly aspects?: InConverter.Aspect<Value> | readonly InConverter.Aspect<Value>[];
+    readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[];
 
   }
 
@@ -58,7 +58,7 @@ export namespace InCheckbox {
  * - `undefined` when it is in intermediate state.
  *
  * @category Control
- * @param element  Target checkbox element.
+ * @param element - Target checkbox element.
  *
  * @return New input element control instance.
  */
@@ -72,8 +72,8 @@ export function inCheckbox(element: HTMLInputElement): InCheckbox;
  * - `false` when it's not, or
  * - `undefined` when it is in intermediate state.
  *
- * @param element  Target checkbox element.
- * @param aspects  Input aspects applied by default. These are aspect converters to constructed control
+ * @param element - Target checkbox element.
+ * @param aspects - Input aspects applied by default. These are aspect converters to constructed control
  * from the {@link inValueOf same-valued one}.
  *
  * @return New input element control instance.
@@ -91,50 +91,50 @@ export function inCheckbox(
 /**
  * Creates an input control for the given checkbox element with custom control values.
  *
- * @typeparam Value  Input value type.
- * @param element  Target checkbox element.
- * @param values  All possible values of checkbox control.
+ * @typeParam TValue - Input value type.
+ * @param element - Target checkbox element.
+ * @param values - All possible values of checkbox control.
  *
  * @return New radio input control instance.
  */
-export function inCheckbox<Value>(
+export function inCheckbox<TValue>(
     element: HTMLInputElement,
-    values: InCheckbox.Values<Value>,
-): InCheckbox<Value>;
+    values: InCheckbox.Values<TValue>,
+): InCheckbox<TValue>;
 
 /**
  * Creates an input control for the given checkbox element with custom checked and unchecked control values.
  *
  * An intermediate checkbox state is represented by `undefined` control value.
  *
- * @typeparam Value  Input value type.
- * @param element  Target checkbox element.
- * @param checked  Control value of checked checkbox.
- * @param unchecked  Control value of unchecked checkbox.
- * @param aspects  Input aspects applied by default. These are aspect converters to constructed control
+ * @typeParam TValue - Input value type.
+ * @param element - Target checkbox element.
+ * @param checked - Control value of checked checkbox.
+ * @param unchecked - Control value of unchecked checkbox.
+ * @param aspects - Input aspects applied by default. These are aspect converters to constructed control
  * from the {@link inValueOf same-valued one}.
  *
  * @return New input element control instance.
  */
-export function inCheckbox<Value>(
+export function inCheckbox<TValue>(
     element: HTMLInputElement,
     {
       checked,
       unchecked,
       aspects,
-    }: Omit<InCheckbox.Values<Value>, 'intermediate'>,
-): InCheckbox<Value | undefined>;
+    }: Omit<InCheckbox.Values<TValue>, 'intermediate'>,
+): InCheckbox<TValue | undefined>;
 
-export function inCheckbox<Value>(
+export function inCheckbox<TValue>(
     element: HTMLInputElement,
     {
-      checked = true as unknown as Value,
-      unchecked = false as unknown as Value,
-      intermediate = undefined as unknown as Value,
+      checked = true as unknown as TValue,
+      unchecked = false as unknown as TValue,
+      intermediate = undefined as unknown as TValue,
       aspects,
-    }: Partial<InCheckbox.Values<Value>> = {},
-): InCheckbox<Value> {
-  return new AbstractInElement<Value, HTMLInputElement & { intermediate?: boolean }>(
+    }: Partial<InCheckbox.Values<TValue>> = {},
+): InCheckbox<TValue> {
+  return new AbstractInElement<TValue, HTMLInputElement & { intermediate?: boolean }>(
       element,
       {
         get() {

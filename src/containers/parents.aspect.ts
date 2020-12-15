@@ -5,17 +5,14 @@
 import {
   AfterEvent,
   AfterEvent__symbol,
-  afterSent,
   EventEmitter,
   EventKeeper,
-  EventReceiver,
   EventSender,
-  eventSupply,
-  EventSupply,
-  eventSupplyOf,
+  mapAfter,
   OnEvent,
   OnEvent__symbol,
 } from '@proc7ts/fun-events';
+import { Supply } from '@proc7ts/primitives';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
 import { InControl } from '../control';
@@ -50,63 +47,38 @@ export abstract class InParents
   }
 
   /**
-   * Builds an `OnEvent` sender of parent updates.
+   * An `OnEvent` sender of parent updates.
    *
    * Sends two arrays on each parents update: the first one contains added parent entries, while the second one
    * contains removed parent entries.
    *
    * The `[OnEvent__symbol]` property is an alias of this one.
-   *
-   * @returns `OnEvent` sender of parent updates.
    */
-  abstract on(): OnEvent<[InParents.Entry[], InParents.Entry[]]>;
+  abstract readonly on: OnEvent<[InParents.Entry[], InParents.Entry[]]>;
 
   /**
-   * Starts sending parent updates to the given `receiver`.
-   *
-   * Sends two arrays on each parents update: the first one contains added parent entries, while the second one
-   * contains removed parent entries.
-   *
-   * @param receiver  Target parent updates receiver.
-   *
-   * @returns Parent updates supply.
-   */
-  abstract on(receiver: EventReceiver<[InParents.Entry[], InParents.Entry[]]>): EventSupply;
-
-  [OnEvent__symbol](): OnEvent<[InParents.Entry[], InParents.Entry[]]> {
-    return this.on();
-  }
-
-  /**
-   * Builds an `AfterEvent` keeper of control parents.
+   * An `AfterEvent` keeper of control parents.
    *
    * The `[AfterEvent__symbol]` property is an alias of this one.
-   *
-   * @returns `AfterEvent` keeper of control parents.
    */
-  abstract read(): AfterEvent<[InParents.All]>;
+  abstract readonly read: AfterEvent<[InParents.All]>;
 
-  /**
-   * Starts sending control parents and updates to the given `receiver`
-   *
-   * @param receiver  Target control parents receiver.
-   *
-   * @returns Control parents supply.
-   */
-  abstract read(receiver: EventReceiver<[InParents.All]>): EventSupply;
+  [OnEvent__symbol](): OnEvent<[InParents.Entry[], InParents.Entry[]]> {
+    return this.on;
+  }
 
   [AfterEvent__symbol](): AfterEvent<[InParents.All]> {
-    return this.read();
+    return this.read;
   }
 
   /**
    * Adds the input control to the given parent container under the given key.
    *
-   * @param entry  Parent container entry.
+   * @param entry - Parent container entry.
    *
    * @returns A parent container supply. Removes the control from the parent container once cut off.
    */
-  abstract add(entry: InParents.Entry): EventSupply;
+  abstract add(entry: InParents.Entry): Supply;
 
 }
 
@@ -140,15 +112,20 @@ export namespace InParents {
  */
 class InControlParents extends InParents {
 
-  private readonly _map = new Map<InParents.Entry, EventSupply>();
+  readonly read: AfterEvent<[InParents.All]>;
+  private readonly _map = new Map<InParents.Entry, Supply>();
   private readonly _on = new EventEmitter<[InParents.Entry[], InParents.Entry[]]>();
 
   constructor(private readonly _control: InControl<any>) {
     super();
-    eventSupplyOf(this._on).needs(this._control);
+    this._on.supply.needs(this._control);
+
+    const allParents = (): IterableIterator<InParents.Entry> => this._map.keys();
+
+    this.read = this.on.do(mapAfter(allParents, allParents));
   }
 
-  add(entry: InParents.Entry): EventSupply {
+  add(entry: InParents.Entry): Supply {
 
     const existingSupply = this._map.get(entry);
 
@@ -158,7 +135,7 @@ class InControlParents extends InParents {
     }
 
     // Adding new entry
-    const supply = eventSupply(() => {
+    const supply = new Supply(() => {
       this._map.delete(entry);
       this._on.send([], [entry]);
     });
@@ -171,24 +148,8 @@ class InControlParents extends InParents {
         .needs(entry.parent);
   }
 
-  on(): OnEvent<[InParents.Entry[], InParents.Entry[]]>;
-  on(receiver: EventReceiver<[InParents.Entry[], InParents.Entry[]]>): EventSupply;
-  on(
-      receiver?: EventReceiver<[InParents.Entry[], InParents.Entry[]]>,
-  ): OnEvent<[InParents.Entry[], InParents.Entry[]]> | EventSupply {
-    return (this.on = this._on.on().F)(receiver);
-  }
-
-  read(): AfterEvent<[InParents.All]>;
-  read(receiver: EventReceiver<[InParents.All]>): EventSupply;
-  read(receiver?: EventReceiver<[InParents.All]>): AfterEvent<[InParents.All]> | EventSupply {
-
-    const allParents = (): IterableIterator<InParents.Entry> => this._map.keys();
-
-    return (this.read = afterSent<[InParents.All]>(
-        this.on().thru(allParents),
-        () => [allParents()],
-    ).F)(receiver);
+  get on(): OnEvent<[InParents.Entry[], InParents.Entry[]]> {
+    return this._on.on;
   }
 
 }

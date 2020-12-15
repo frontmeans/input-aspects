@@ -3,8 +3,7 @@
  * @module @frontmeans/input-aspects
  */
 import { NamespaceDef, QualifiedName } from '@frontmeans/namespace-aliaser';
-import { nextArgs } from '@proc7ts/call-thru';
-import { afterAll } from '@proc7ts/fun-events';
+import { afterAll, translateAfter } from '@proc7ts/fun-events';
 import { InputAspects__NS } from '../../aspects';
 import { InControl } from '../../control';
 import { InMode } from '../../data';
@@ -28,7 +27,7 @@ import { InCssClasses } from './css-classes.aspect';
  * These names are qualified with the given (or {@link InputAspects__NS default}) namespace.
  *
  * @category Style
- * @param ns  A definition of namespace to qualify CSS class names with. The {@link InputAspects__NS default namespace}
+ * @param ns - A definition of namespace to qualify CSS class names with. The {@link InputAspects__NS default namespace}
  * will be used when omitted.
  *
  * @returns A source of CSS class names to apply.
@@ -48,8 +47,8 @@ export function inCssInfo(
       md: control.aspect(InMode),
       vl: control.aspect(InValidation),
       st: control.aspect(InStatus),
-    }).keepThru(
-        ({ md: [mode], vl: [valid], st: [{ hasFocus, touched, edited }] }) => {
+    }).do(translateAfter(
+        (send, { md: [mode], vl: [valid], st: [{ hasFocus, touched, edited }] }) => {
 
           const names: QualifiedName[] = [];
 
@@ -78,8 +77,8 @@ export function inCssInfo(
             names.push(cls('edited'));
           }
 
-          return nextArgs(...names);
+          send(...names);
         },
-    );
+    ));
   };
 }

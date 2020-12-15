@@ -17,12 +17,12 @@ import { InValidation } from '../validation';
  * To convert input parser to control converter use `InParser.converter()` function.
  *
  * @category Converter
- * @typeparam Value  Parsed value type.
+ * @typeParam TValue - Parsed value type.
  */
-export type InParser<Value> =
+export type InParser<TValue> =
 /**
- * @param from  Text input control.
- * @param to  Parsed value control.
+ * @param from - Text input control.
+ * @param to - Parsed value control.
  *
  * @returns A tuple containing text parser and text formatter functions. A standard to string conversion
  * will be used if the latter is missing.
@@ -30,10 +30,10 @@ export type InParser<Value> =
     (
         this: void,
         from: InControl<string>,
-        to: InControl<Value>,
+        to: InControl<TValue>,
     ) => [
-      (this: void, value: string, errors: InParser.Errors) => Value,
-      ((this: void, value: Value) => string)?
+      (this: void, value: string, errors: InParser.Errors) => TValue,
+      ((this: void, value: TValue) => string)?
     ];
 
 export namespace InParser {
@@ -48,7 +48,7 @@ export namespace InParser {
     /**
      * Appends parse errors.
      *
-     * @param errors  Validation messages representing errors to report.
+     * @param errors - Validation messages representing errors to report.
      */
     report(...errors: InValidation.Message[]): void;
 
@@ -61,12 +61,13 @@ export const InParser = {
   /**
    * Creates input control converter out of input text parser.
    *
-   * @param parser  A parser to convert.
+   * @typeParam TValue - Parsed input value type.
+   * @param parser - A parser to convert.
    *
    * @returns An input control converter that parses and formats text input.
    */
-  converter<Value>(parser: InParser<Value>): InConverter<string, Value> {
-    return (from: InControl<string>, to: InControl<Value>) => {
+  converter<TValue>(parser: InParser<TValue>): InConverter<string, TValue> {
+    return (from: InControl<string>, to: InControl<TValue>) => {
 
       const [parse, format = String] = parser(from, to);
       const parseValidator = new EventEmitter<InValidation.Message[]>();
@@ -107,15 +108,16 @@ export const InParser = {
  * Creates text input control converter that parses and formats input text with the given functions.
  *
  * @category Converter
- * @param parse  Text parser function. Accepts input text and parse errors as its parameters and returns parsed value.
- * @param format  Text formatter. Accepts value is its only parameter and returns formatted text. Standard to string
+ * @typeParam TValue - Parsed input value type.
+ * @param parse - Text parser function. Accepts input text and parse errors as its parameters and returns parsed value.
+ * @param format - Text formatter. Accepts value is its only parameter and returns formatted text. Standard to string
  * conversion is used if omitted.
  *
  * @returns New input converter.
  */
-export function intoParsedBy<Value>(
-    parse: (this: void, text: string, errors: InParser.Errors) => Value,
-    format?: (this: void, value: Value) => string,
-): InConverter<string, Value> {
+export function intoParsedBy<TValue>(
+    parse: (this: void, text: string, errors: InParser.Errors) => TValue,
+    format?: (this: void, value: TValue) => string,
+): InConverter<string, TValue> {
   return InParser.converter(valueProvider([parse, format]));
 }

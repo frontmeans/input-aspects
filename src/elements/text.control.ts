@@ -32,8 +32,8 @@ export namespace InText {
  * For `<select multiple>` this would only reflect the first option. Consider to use `inSelect()` for multi-selects.
  *
  * @category Control
- * @param element  Target text input element.
- * @param aspects  Input aspects applied by default. These are aspect converters to constructed control
+ * @param element - Target text input element.
+ * @param aspects - Input aspects applied by default. These are aspect converters to constructed control
  * from the {@link inValueOf same-valued one}.
  *
  * @return New textual input control instance.

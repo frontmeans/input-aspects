@@ -2,8 +2,7 @@
  * @packageDocumentation
  * @module @frontmeans/input-aspects
  */
-import { nextArgs } from '@proc7ts/call-thru';
-import { EventKeeper } from '@proc7ts/fun-events';
+import { EventKeeper, translateAfter } from '@proc7ts/fun-events';
 import { InControl } from '../control';
 import { InValidation } from './validation.aspect';
 import { InValidator } from './validator';
@@ -28,6 +27,8 @@ export function requirePresent(
     control?: InControl<any>,
 ): InValidator<any> | EventKeeper<InValidation.Message[]> {
   return control
-      ? control.read().keepThru(value => value ? nextArgs() : { missing: 'missing' })
+      ? control.read.do(
+          translateAfter((send, value) => value ? send() : send({ missing: 'missing' })),
+      )
       : requirePresent;
 }

@@ -2,18 +2,17 @@
  * @packageDocumentation
  * @module @frontmeans/input-aspects
  */
-import { nextArgs, NextCall } from '@proc7ts/call-thru';
 import {
   afterEach,
   AfterEvent,
   AfterEvent__symbol,
   afterSupplied,
+  digAfter_,
   EventKeeper,
-  EventReceiver,
-  EventSupply,
-  nextAfterEvent,
-  OnEventCallChain,
+  mapAfter,
+  translateAfter,
 } from '@proc7ts/fun-events';
+import { Supply } from '@proc7ts/primitives';
 import {
   flatMapArray,
   itsEach,
@@ -37,8 +36,8 @@ import { InValidationMessages } from './validator.impl';
  * @internal
  */
 const InValidation__aspect: InAspect<InValidation<any>, 'validation'> = {
-  applyTo<Value>(control: InControl<Value>) {
-    return inAspectSameOrBuild<Value, InValidation<Value>, 'validation'>(
+  applyTo<TValue>(control: InControl<TValue>) {
+    return inAspectSameOrBuild<TValue, InValidation<TValue>, 'validation'>(
         control,
         InValidation,
         <V>(ctrl: InControl<V>, origin?: InControl<any>): InValidation<any> => {
@@ -46,10 +45,11 @@ const InValidation__aspect: InAspect<InValidation<any>, 'validation'> = {
           const validation = new InControlValidation<V>(ctrl);
 
           if (origin) {
-
-            const from = origin.aspect(InValidation);
-
-            validation.by(from.read().keepThru(result => nextArgs(...result.messages())));
+            validation.by(
+                origin.aspect(InValidation).read.do(
+                    translateAfter((send, result) => send(...result.messages())),
+                ),
+            );
           }
 
           return validation;
@@ -70,9 +70,9 @@ const InValidation__aspect: InAspect<InValidation<any>, 'validation'> = {
  * A validation aspect of input controls container reports all messages from nested controls in addition to its own.
  *
  * @category Aspect
- * @typeparam Value  Input value type.
+ * @typeParam TValue - Input value type.
  */
-export abstract class InValidation<Value> implements EventKeeper<[InValidation.Result]> {
+export abstract class InValidation<TValue> implements EventKeeper<[InValidation.Result]> {
 
   /**
    * Input validation aspect.
@@ -82,25 +82,14 @@ export abstract class InValidation<Value> implements EventKeeper<[InValidation.R
   }
 
   /**
-   * Builds an `AfterEvent` keeper of input validation result.
+   * An `AfterEvent` keeper of input validation result.
    *
    * An `[AfterEvent__symbol]` property is an alias of this one.
-   *
-   * @return `AfterEvent` keeper of validation result keeper.
    */
-  abstract read(): AfterEvent<[InValidation.Result]>;
-
-  /**
-   * Starts sending validation result and updates to the given `receiver`
-   *
-   * @param receiver  Target validation result receiver.
-   *
-   * @returns Validation results supply.
-   */
-  abstract read(receiver: EventReceiver<[InValidation.Result]>): EventSupply;
+  abstract readonly read: AfterEvent<[InValidation.Result]>;
 
   [AfterEvent__symbol](): AfterEvent<[InValidation.Result]> {
-    return this.read();
+    return this.read;
   }
 
   /**
@@ -110,11 +99,11 @@ export abstract class InValidation<Value> implements EventKeeper<[InValidation.R
    * from validator, it replaces the list of validation messages reported previously by the same validator. But it never
    * affects messages received from other validators.
    *
-   * @param validators  Input validators to use.
+   * @param validators - Input validators to use.
    *
    * @returns Validators supply. Removes validators and their messages once cut off.
    */
-  abstract by(...validators: InValidator<Value>[]): EventSupply;
+  abstract by(...validators: InValidator<TValue>[]): Supply;
 
 }
 
@@ -194,7 +183,7 @@ export namespace InValidation {
     /**
      * Returns messages with the given code.
      *
-     * @param code  Target code. All messages reported when absent.
+     * @param code - Target code. All messages reported when absent.
      *
      * @returns An array of matching messages. Possibly empty.
      */
@@ -203,7 +192,7 @@ export namespace InValidation {
     /**
      * Checks whether there are errors with the given code.
      *
-     * @param code  Target code. Any message matches when absent.
+     * @param code - Target code. Any message matches when absent.
      *
      * @returns `true` if there is at least one message with the given code, or `false` otherwise.
      */
@@ -212,7 +201,7 @@ export namespace InValidation {
     /**
      * Checks whether there are errors without the given codes.
      *
-     * @param codes  Excluded codes. Any message matches when empty.
+     * @param codes - Excluded codes. Any message matches when empty.
      *
      * @returns `true` is there is at least one message without any of the given codes, or `false` otherwise.
      */
@@ -342,7 +331,7 @@ export function inValidationResult(): InValidation.Ok;
 /**
  * Creates input validation result out of validation messages.
  *
- * @param messages  Input validation messages.
+ * @param messages - Input validation messages.
  *
  * @returns New input validation result containing the given `messages`.
  */
@@ -355,31 +344,28 @@ export function inValidationResult(...messages: InValidation.Message[]): InValid
 /**
  * @internal
  */
-class InControlValidation<Value> extends InValidation<Value> {
+class InControlValidation<TValue> extends InValidation<TValue> {
 
-  readonly _messages: InValidationMessages<Value>;
+  readonly _messages: InValidationMessages<TValue>;
+  readonly read: AfterEvent<[InValidation.Result]>;
 
-  constructor(control: InControl<Value>) {
+  constructor(control: InControl<TValue>) {
     super();
     this._messages = new InValidationMessages(control);
 
+    this.read = afterSupplied(this._messages).do<AfterEvent<[InValidation.Result]>>(
+        mapAfter(inValidationResult),
+    );
+
     const container = control.aspect(InContainer);
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (container) {
       this._messages.from(nestedInValidationMessages(container));
     }
-
   }
 
-  by(...validators: InValidator<Value>[]): EventSupply {
+  by(...validators: InValidator<TValue>[]): Supply {
     return this._messages.from(requireAll(...validators));
-  }
-
-  read(): AfterEvent<[InValidation.Result]>;
-  read(receiver: EventReceiver<[InValidation.Result]>): EventSupply;
-  read(receiver?: EventReceiver<[InValidation.Result]>): AfterEvent<[InValidation.Result]> | EventSupply {
-    return (this.read = afterSupplied(this._messages).keepThru(inValidationResult).F)(receiver);
   }
 
 }
@@ -388,40 +374,22 @@ class InControlValidation<Value> extends InValidation<Value> {
  * @internal
  */
 function nestedInValidationMessages(container: InContainer<any>): EventKeeper<InValidation.Message[]> {
-  return container.controls.read().keepThru(
-      nestedInValidations,
-      combineInValidationResults,
+  return container.controls.read.do(
+      digAfter_(controls => afterEach(...mapIt(controls, control => control.aspect(InValidation)))),
+      translateAfter((send, ...results) => send(...flatMapArray(results, ([result]) => result))),
   );
-}
-
-/**
- * @internal
- */
-function nestedInValidations(
-    controls: InContainer.Snapshot,
-): NextCall<OnEventCallChain, [InValidation.Result][]> {
-  return nextAfterEvent(afterEach(...mapIt(controls, control => control.aspect(InValidation))));
-}
-
-/**
- * @internal
- */
-function combineInValidationResults(
-    ...results: [InValidation.Result][]
-): NextCall<OnEventCallChain, InValidation.Message[]> {
-  return nextArgs(...flatMapArray(results, ([result]) => result));
 }
 
 declare module '../aspect' {
 
   export namespace InAspect.Application {
 
-    export interface Map<OfInstance, OfValue> {
+    export interface Map<TInstance, TValue> {
 
       /**
        * Input validation aspect application type.
        */
-      validation(): InValidation<OfValue>;
+      validation(): InValidation<TValue>;
 
     }
 

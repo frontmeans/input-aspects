@@ -2,7 +2,6 @@
  * @packageDocumentation
  * @module @frontmeans/input-aspects
  */
-import { nextArgs, NextCall, nextSkip } from '@proc7ts/call-thru';
 import {
   afterAll,
   afterEach,
@@ -10,23 +9,24 @@ import {
   AfterEvent__symbol,
   afterSent,
   afterSupplied,
+  afterThe,
+  digAfter,
+  digAfter_,
   EventEmitter,
   EventKeeper,
-  EventReceiver,
   EventSender,
-  eventSupply,
-  EventSupply,
-  EventSupply__symbol,
-  eventSupplyOf,
   isEventKeeper,
-  nextAfterEvent,
+  mapAfter,
+  mapOn,
   OnEvent,
   OnEvent__symbol,
-  OnEventCallChain,
+  supplyAfter,
   trackValue,
+  translateAfter,
+  translateOn,
   ValueTracker,
 } from '@proc7ts/fun-events';
-import { valuesProvider } from '@proc7ts/primitives';
+import { Supply, valuesProvider } from '@proc7ts/primitives';
 import { itsElements, overElementsOf } from '@proc7ts/push-iterator';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrBuild } from '../aspect.impl';
@@ -74,51 +74,27 @@ export abstract class InMode implements EventSender<[InMode.Value, InMode.Value]
   }
 
   /**
-   * Creates an `OnEvent` sender of input mode updates.
+   * An `OnEvent` sender of input mode updates.
    *
    * Sends a new mode value along with old one as second parameter.
    *
    * The `[OnEvent__symbol]` property is an alias of this one.
-   *
-   * @returns `OnEvent` sender of input mode updates.
    */
-  abstract on(): OnEvent<[InMode.Value, InMode.Value]>;
+  abstract readonly on: OnEvent<[InMode.Value, InMode.Value]>;
 
   /**
-   * Starts sending input mode updates to the given `receiver`
-   *
-   * Sends a new mode value along with old one as second parameter.
-   *
-   * @param receiver  Target input mode updates receiver.
-   *
-   * @returns Input mode updates supply.
-   */
-  abstract on(receiver: EventReceiver<[InMode.Value, InMode.Value]>): EventSupply;
-
-  [OnEvent__symbol](): OnEvent<[InMode.Value, InMode.Value]> {
-    return this.on();
-  }
-
-  /**
-   * Builds an `AfterEvent` keeper of input mode.
+   * An `AfterEvent` keeper of input mode.
    *
    * The `[AfterEvent__symbol]` property is an alias of this one.
-   *
-   * @returns `AfterEvent` keeper of input mode.
    */
-  abstract read(): AfterEvent<[InMode.Value]>;
+  abstract readonly read: AfterEvent<[InMode.Value]>;
 
-  /**
-   * Starts sending input mode and updates to the given `receiver`.
-   *
-   * @param receiver  Target receiver of input mode.
-   *
-   * @returns Input mode supply.
-   */
-  abstract read(receiver: EventReceiver<[InMode.Value]>): EventSupply;
+  [OnEvent__symbol](): OnEvent<[InMode.Value, InMode.Value]> {
+    return this.on;
+  }
 
   [AfterEvent__symbol](): AfterEvent<[InMode.Value]> {
-    return this.read();
+    return this.read;
   }
 
   /**
@@ -129,7 +105,7 @@ export abstract class InMode implements EventSender<[InMode.Value, InMode.Value]
   /**
    * Checks whether control in the given `mode` has data to submit.
    *
-   * @param mode  Input control mode to check.
+   * @param mode - Input control mode to check.
    *
    * @returns `true` if control in the given `mode` has data to submit, or `false` otherwise.
    */
@@ -143,21 +119,21 @@ export abstract class InMode implements EventSender<[InMode.Value, InMode.Value]
    * If the `source` mode is disabled, this one would be disabled too. If the `source` mode is read-only, then this one
    * would be read-only, unless disabled already.
    *
-   * @param source  A source to derive input mode from.
+   * @param source - A source to derive input mode from.
    *
    * @returns Derived input mode supply. Disables `source` mode derivation once cut off.
    */
-  abstract derive(source: InMode.Source): EventSupply;
+  abstract derive(source: InMode.Source): Supply;
 
   /**
    * Unregisters all receivers.
    *
-   * @param reason  Optional reason.
+   * @param reason - Optional reason.
    *
    * @returns `this` instance.
    */
   done(reason?: any): this {
-    this.own.done(reason);
+    this.own.supply.off(reason);
     return this;
   }
 
@@ -200,8 +176,8 @@ class OwnModeTracker extends ValueTracker<InMode.Value> {
     this._tracker = trackValue(element ? initialInMode(element.element) : 'on');
   }
 
-  get [EventSupply__symbol](): EventSupply {
-    return eventSupplyOf(this._tracker);
+  get supply(): Supply {
+    return this._tracker.supply;
   }
 
   get it(): InMode.Value {
@@ -222,10 +198,8 @@ class OwnModeTracker extends ValueTracker<InMode.Value> {
     this._tracker.it = value;
   }
 
-  on(): OnEvent<[InMode.Value, InMode.Value]>;
-  on(receiver: EventReceiver<[InMode.Value, InMode.Value]>): EventSupply;
-  on(receiver?: EventReceiver<[InMode.Value, InMode.Value]>): OnEvent<[InMode.Value, InMode.Value]> | EventSupply {
-    return (this.on = this._tracker.on().F)(receiver);
+  get on(): OnEvent<[InMode.Value, InMode.Value]> {
+    return this._tracker.on;
   }
 
 }
@@ -242,19 +216,19 @@ class DerivedInModes {
   constructor() {
 
     const sources: AfterEvent<[Set<AfterEvent<[InMode.Value]>>]> = afterSent(
-        this._on.on().thru(() => this._all),
+        this._on.on.do(mapOn(() => this._all)),
         valuesProvider(this._all),
     );
 
-    this.read = sources.keepThru(
-        (set: Set<AfterEvent<[InMode.Value]>>) => nextAfterEvent(afterEach(...set)),
-        mergeInModes,
+    this.read = sources.do(
+        digAfter_((set: Set<AfterEvent<[InMode.Value]>>) => afterEach(...set)),
+        mapAfter(mergeInModes),
     );
   }
 
-  add(source: AfterEvent<[InMode.Value]>): EventSupply {
+  add(source: AfterEvent<[InMode.Value]>): Supply {
 
-    const supply = eventSupply(() => {
+    const supply = new Supply(() => {
       this._all.delete(source);
       this._on.send();
     });
@@ -273,6 +247,8 @@ class DerivedInModes {
 class InControlMode extends InMode {
 
   readonly own: OwnModeTracker;
+  readonly on: OnEvent<[InMode.Value, InMode.Value]>;
+  readonly read: AfterEvent<[InMode.Value]>;
   private readonly _derived = new DerivedInModes();
 
   constructor(private readonly _control: InControl<any>) {
@@ -281,76 +257,71 @@ class InControlMode extends InMode {
     const element = _control.aspect(InElement);
 
     this.own = new OwnModeTracker(element);
-    eventSupplyOf(this.own).needs(_control);
-    this.derive(_control.aspect(InParentsAspect).read().keepThru_(parentsInMode));
+    this.own.supply.needs(_control);
+    this.derive(_control.aspect(InParentsAspect).read.do(digAfter(parentsInMode)));
+
+    let last: InMode.Value = 'on';
+
+    this.read = afterAll({
+      derived: this._derived.read,
+      own: this.own,
+    }).do(translateAfter(
+        (
+            send,
+            {
+              derived: [derived],
+              own: [own],
+            },
+        ) => {
+
+          let next: InMode.Value;
+
+          if (own === 'off' || derived === 'off') {
+            next = 'off';
+          } else {
+
+            let off = false;
+
+            if (own[0] === '-') {
+              off = true;
+              own = own.substring(1) as InMode.Value;
+            }
+            if (derived[0] === '-') {
+              off = true;
+              derived = derived.substring(1) as InMode.Value;
+            }
+            next = derived === 'ro' ? 'ro' : own;
+            if (off) {
+              next = '-' + next as InMode.Value;
+            }
+          }
+
+          if (last !== next) {
+            send(last = next);
+          }
+        },
+        valuesProvider<[InMode.Value]>(last),
+    ));
+
+    let lastUpdate: InMode.Value = 'on';
+
+    this.on = this.read.do(translateOn((send, value) => {
+
+      const old = lastUpdate;
+
+      if (old !== value) {
+        send(lastUpdate = value, old);
+      }
+    }));
+
     if (element) {
       this.read(value => applyInMode(element.element, value));
     }
   }
 
-  read(): AfterEvent<[InMode.Value]>;
-  read(receiver: EventReceiver<[InMode.Value]>): EventSupply;
-  read(receiver?: EventReceiver<[InMode.Value]>): AfterEvent<[InMode.Value]> | EventSupply {
-
-    let last: InMode.Value = 'on';
-
-    return (this.read = afterSent<[InMode.Value]>(
-            afterAll({
-              derived: this._derived.read,
-              own: this.own,
-            }).thru(
-                ({
-                  derived: [derived],
-                  own: [own],
-                }) => {
-
-                  let next: InMode.Value;
-
-                  if (own === 'off' || derived === 'off') {
-                    next = 'off';
-                  } else {
-
-                    let off = false;
-
-                    if (own[0] === '-') {
-                      off = true;
-                      own = own.substring(1) as InMode.Value;
-                    }
-                    if (derived[0] === '-') {
-                      off = true;
-                      derived = derived.substring(1) as InMode.Value;
-                    }
-                    next = derived === 'ro' ? 'ro' : own;
-                    if (off) {
-                      next = '-' + next as InMode.Value;
-                    }
-                  }
-
-                  return last === next ? nextSkip() : nextArgs(last = next);
-                },
-            ),
-            valuesProvider<[InMode.Value]>(last),
-        ).F
-    )(receiver);
-  }
-
-  on(): OnEvent<[InMode.Value, InMode.Value]>;
-  on(receiver: EventReceiver<[InMode.Value, InMode.Value]>): EventSupply;
-  on(receiver?: EventReceiver<[InMode.Value, InMode.Value]>): OnEvent<[InMode.Value, InMode.Value]> | EventSupply {
-    let lastUpdate: InMode.Value = 'on';
-
-    return (this.on = this.read().thru(value => {
-
-      const old = lastUpdate;
-
-      return old === value ? nextSkip() : nextArgs(lastUpdate = value, old);
-    }).F)(receiver);
-  }
-
-  derive(source: InMode.Source): EventSupply {
+  derive(source: InMode.Source): Supply {
     return this._derived.add(
-        afterSupplied(isEventKeeper(source) ? source : source(this._control))
-            .tillOff(this._control),
+        afterSupplied(isEventKeeper(source) ? source : source(this._control)).do(supplyAfter(this._control)),
     ).needs(this._control);
   }
 
@@ -393,17 +364,17 @@ function applyInMode(element: HTMLElement, value: InMode.Value): void {
 /**
  * @internal
  */
-function parentsInMode(parents: InParents.All): NextCall<OnEventCallChain, [InMode.Value]> {
+function parentsInMode(parents: InParents.All): AfterEvent<[InMode.Value]> {
 
   const parentList = itsElements(parents);
 
   if (!parentList.length) {
-    return nextArgs('on');
+    return afterThe('on');
   }
 
   const parentModes = parentList.map(({ parent }) => parent.aspect(InMode));
 
-  return nextAfterEvent(afterEach(...parentModes).keepThru_(mergeInModes));
+  return afterEach(...parentModes).do(mapAfter(mergeInModes));
 }
 
 /**
@@ -418,7 +389,7 @@ function mergeInModes(...modes: [InMode.Value][]): InMode.Value {
  * Merges multiple input mode values.
  *
  * @category Aspect
- * @param modes  Input mode values to merge.
+ * @param modes - Input mode values to merge.
  *
  * @returns Merged input mode value.
  */

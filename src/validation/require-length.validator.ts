@@ -12,8 +12,8 @@ import { InValidator } from './validator';
  * with `invalid` and `tooLong` message codes.
  *
  * @category Validation
- * @param min  Required minimum length. Not checked if omitted.
- * @param max  Required maximum length. Not checked if omitted.
+ * @param min - Required minimum length. Not checked if omitted.
+ * @param max - Required maximum length. Not checked if omitted.
  *
  * @returns Element validator applicable to text input control.
  */

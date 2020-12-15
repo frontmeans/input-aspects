@@ -2,36 +2,35 @@
  * @packageDocumentation
  * @module @frontmeans/input-aspects
  */
-import { EventReceiver, EventSupply, eventSupply, EventSupply__symbol, OnEvent } from '@proc7ts/fun-events';
+import { OnEvent } from '@proc7ts/fun-events';
+import { Supply } from '@proc7ts/primitives';
 import { InControl } from '../control';
 
 /**
  * @internal
  */
-class InSameValueControl<Value> extends InControl<Value> {
+class InSameValueControl<TValue> extends InControl<TValue> {
 
-  private _supply?: EventSupply;
+  private _supply?: Supply;
 
-  constructor(private readonly _control: InControl<Value>) {
+  constructor(private readonly _control: InControl<TValue>) {
     super();
   }
 
-  get [EventSupply__symbol](): EventSupply {
-    return this._supply || (this._supply = eventSupply().needs(this._control));
+  get supply(): Supply {
+    return this._supply || (this._supply = new Supply().needs(this._control));
   }
 
-  get it(): Value {
+  get it(): TValue {
     return this._control.it;
   }
 
-  set it(value: Value) {
+  set it(value: TValue) {
     this._control.it = value;
   }
 
-  on(): OnEvent<[Value, Value]>;
-  on(receiver: EventReceiver<[Value, Value]>): EventSupply;
-  on(receiver?: EventReceiver<[Value, Value]>): OnEvent<[Value, Value]> | EventSupply {
-    return (this.on = this._control.on().F)(receiver);
+  get on(): OnEvent<[TValue, TValue]> {
+    return this._control.on;
   }
 
 }
@@ -42,10 +41,11 @@ class InSameValueControl<Value> extends InControl<Value> {
  * The constructed control does not inherit any aspects from original one.
  *
  * @category Control
- * @param control  Original control containing the value.
+ * @typeParam TValue - Input value type.
+ * @param control - Original control containing the value.
  *
  * @returns New input control that accesses the value of original `control`.
  */
-export function inValueOf<Value>(control: InControl<Value>): InControl<Value> {
+export function inValueOf<TValue>(control: InControl<TValue>): InControl<TValue> {
   return new InSameValueControl(control);
 }

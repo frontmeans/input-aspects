@@ -2,16 +2,8 @@
  * @packageDocumentation
  * @module @frontmeans/input-aspects
  */
-import {
-  EventReceiver,
-  EventSupply,
-  EventSupply__symbol,
-  eventSupplyOf,
-  OnEvent,
-  trackValue,
-  ValueTracker,
-} from '@proc7ts/fun-events';
-import { noop } from '@proc7ts/primitives';
+import { OnEvent, trackValue, ValueTracker } from '@proc7ts/fun-events';
+import { noop, Supply } from '@proc7ts/primitives';
 import { InAspect, InAspect__symbol } from '../../aspect';
 import { inAspectSameOrBuild } from '../../aspect.impl';
 import { InControl } from '../../control';
@@ -22,7 +14,7 @@ import { InElement } from '../../element.control';
  */
 const InFocus__aspect: InAspect<InFocus | null> = {
 
-  applyTo<Value>(control: InControl<Value>): InAspect.Applied<Value, InFocus | null> {
+  applyTo<TValue>(control: InControl<TValue>): InAspect.Applied<TValue, InFocus | null> {
     return inAspectSameOrBuild(control, InFocus, ctrl => {
 
       const element = ctrl.aspect(InElement);
@@ -36,7 +28,7 @@ const InFocus__aspect: InAspect<InFocus | null> = {
 /**
  * Input focus aspect.
  *
- * This is a value tracker of element focus flag. Or `null` when [[InElement]] aspect is absent.
+ * This is a value tracker of element focus flag. Or `null` when {@link InElement} aspect is absent.
  *
  * @category Aspect
  */
@@ -64,10 +56,10 @@ class InControlFocus extends InFocus {
         : element.ownerDocument;
 
     this._it = trackValue(owner.activeElement === element);
-    eventSupplyOf(this).needs(inElement);
+    this.supply.needs(inElement);
 
-    events.on('focus').to(() => this._it.it = true);
-    events.on('blur').to(() => this._it.it = false);
+    events.on('focus')(() => this._it.it = true);
+    events.on('blur')(() => this._it.it = false);
     this.on({
       receive(ctx, newValue) {
         ctx.onRecurrent(noop);
@@ -80,8 +72,8 @@ class InControlFocus extends InFocus {
     });
   }
 
-  get [EventSupply__symbol](): EventSupply {
-    return eventSupplyOf(this._it);
+  get supply(): Supply {
+    return this._it.supply;
   }
 
   get it(): boolean {
@@ -92,10 +84,8 @@ class InControlFocus extends InFocus {
     this._it.it = value;
   }
 
-  on(): OnEvent<[boolean, boolean]>;
-  on(receiver: EventReceiver<[boolean, boolean]>): EventSupply;
-  on(receiver?: EventReceiver<[boolean, boolean]>): OnEvent<[boolean, boolean]> | EventSupply {
-    return (this.on = this._it.on().F)(receiver);
+  get on(): OnEvent<[boolean, boolean]> {
+    return this._it.on;
   }
 
 }

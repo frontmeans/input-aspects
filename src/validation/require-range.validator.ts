@@ -12,8 +12,8 @@ import { InValidator } from './validator';
  * with `invalid` and `tooLarge` message codes.
  *
  * @category Validation
- * @param min  Minimum allowed value, inclusive. Not checked if omitted.
- * @param max  Maximum allowed value, inclusive. Not checked if omitted.
+ * @param min - Minimum allowed value, inclusive. Not checked if omitted.
+ * @param max - Maximum allowed value, inclusive. Not checked if omitted.
  *
  * @returns Element validator applicable to numeric input control.
  */

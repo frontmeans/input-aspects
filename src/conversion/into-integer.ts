@@ -21,7 +21,7 @@ const notInteger = 'notInteger';
  * Reports invalid numbers with `invalid`, `NaN`, and `notInteger` message codes.
  *
  * @category Converter
- * @param radix  An integer in the range 2 through 36 specifying the base to use for representing numeric values.
+ * @param radix - An integer in the range 2 through 36 specifying the base to use for representing numeric values.
  * `10` by default.
  */
 export function intoInteger(radix?: number): InConverter<string, number>;

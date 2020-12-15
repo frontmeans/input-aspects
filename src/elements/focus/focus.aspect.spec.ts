@@ -162,7 +162,7 @@ describe('InFocus', () => {
 
       const reason = 'some reason';
 
-      expect(focus.done(reason)).toBe(focus);
+      focus.supply.off(reason);
       expect(done).toHaveBeenCalledWith(reason);
     });
     it('stops sending events when input cut off', () => {
@@ -175,7 +175,7 @@ describe('InFocus', () => {
 
       const reason = 'some reason';
 
-      control.done(reason);
+      control.supply.off(reason);
       expect(done).toHaveBeenCalledWith(reason);
     });
   });

@@ -1,4 +1,4 @@
-import { afterThe, eventSupplyOf } from '@proc7ts/fun-events';
+import { afterThe } from '@proc7ts/fun-events';
 import { asis, noop } from '@proc7ts/primitives';
 import { InControl } from '../../control';
 import { inValue } from '../../controls';
@@ -22,11 +22,11 @@ describe('InSubmitButton', () => {
 
     const reason = 'test reason';
 
-    form.done(reason);
+    form.supply.off(reason);
 
     const whenDone = jest.fn();
 
-    eventSupplyOf(control).whenOff(whenDone);
+    control.supply.whenOff(whenDone);
     expect(whenDone).toHaveBeenCalledWith(reason);
   });
 

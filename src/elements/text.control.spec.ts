@@ -1,5 +1,5 @@
 import { newNamespaceAliaser } from '@frontmeans/namespace-aliaser';
-import { EventSupply } from '@proc7ts/fun-events';
+import { Supply } from '@proc7ts/primitives';
 import { InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
 import { InNamespaceAliaser } from '../aspects';
@@ -88,9 +88,9 @@ describe('InText', () => {
   describe('input', () => {
 
     let changesReceiver: Mock;
-    let changesSupply: EventSupply;
+    let changesSupply: Supply;
     let inputReceiver: Mock;
-    let inputSupply: EventSupply;
+    let inputSupply: Supply;
 
     beforeEach(() => {
       changesSupply = control.on(changesReceiver = jest.fn());
@@ -159,7 +159,7 @@ describe('InText', () => {
 
       changesSupply.whenOff(changesDone);
       inputSupply.whenOff(inputDone);
-      control.done('some');
+      control.supply.off('some');
       expect(changesDone).toHaveBeenCalledWith('some');
       expect(inputDone).toHaveBeenCalledWith('some');
 
