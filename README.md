@@ -298,7 +298,7 @@ An input aspect is an arbitrary value. There are several input aspects implement
 
 - `InStyledElement` An input aspect representing HTML element to apply styles to.
 
-  This is a HTML element for input element control, and `null` for everything else by default.
+  This is an HTML element for input element control, and `null` for everything else by default.
   
   An `InStyledElement.to()` converter can be used to convert arbitrary control to the one with the given styled element.
   This is useful for controls without elements (such as input groups), or can be used to apply CSS classes to input
@@ -311,7 +311,7 @@ An input aspect is an arbitrary value. There are several input aspects implement
       
 - `InNamespaceAliaser` Namespace aliaser aspect.
 
-  Used by other aspect to generate unique names.
+  Used by other aspects to generate unique names.
   
   An `InNamespaceAliaser.to()` converter can be used to convert arbitrary control to the one with the given aliaser.
 
