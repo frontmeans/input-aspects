@@ -30,10 +30,10 @@
   },
   "peerDependencies": {
     "@frontmeans/namespace-aliaser": "^2.3.0",
-    "@proc7ts/fun-events": "^10.0.0-dev.5"
+    "@proc7ts/fun-events": "^10.0.0"
   },
   "dependencies": {
-    "@frontmeans/dom-events": "^1.0.0-dev.3",
+    "@frontmeans/dom-events": "^1.0.0",
     "@frontmeans/render-scheduler": "^1.5.0",
     "@proc7ts/delta-set": "^1.4.2",
     "@proc7ts/primitives": "^1.6.0",
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@frontmeans/namespace-aliaser": "^2.3.0",
-    "@proc7ts/fun-events": "^10.0.0-dev.5",
+    "@proc7ts/fun-events": "^10.0.0",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.1",
     "@run-z/eslint-config": "^1.2.0",
