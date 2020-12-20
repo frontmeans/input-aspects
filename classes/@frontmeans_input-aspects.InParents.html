@@ -105,6 +105,13 @@
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="@frontmeans_input-aspects.InParents.html#on" class="tsd-kind-icon">on</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="@frontmeans_input-aspects.InParents.html#read" class="tsd-kind-icon">read</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-static"><a href="@frontmeans_input-aspects.InParents.html#_InAspect__symbol_" class="tsd-kind-icon">[<wbr>InAspect__symbol]</a></li>
@@ -116,10 +123,45 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="@frontmeans_input-aspects.InParents.html#_AfterEvent__symbol_" class="tsd-kind-icon">[<wbr>After<wbr>Event__symbol]</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="@frontmeans_input-aspects.InParents.html#_OnEvent__symbol_" class="tsd-kind-icon">[<wbr>OnEvent__symbol]</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="@frontmeans_input-aspects.InParents.html#add" class="tsd-kind-icon">add</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="@frontmeans_input-aspects.InParents.html#on" class="tsd-kind-icon">on</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="@frontmeans_input-aspects.InParents.html#read" class="tsd-kind-icon">read</a></li>
 							</ul>
 						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="on" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> <span class="tsd-flag ts-flagAbstract">Abstract</span> on</h3>
+					<div class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/@frontmeans_input-aspects.InParents.Entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/@frontmeans_input-aspects.InParents.Entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/containers/parents.aspect.ts#L57">frontmeans/input-aspects/src/containers/parents.aspect.ts:57</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An <code>OnEvent</code> sender of parent updates.</p>
+						</div>
+						<p>Sends two arrays on each parents update: the first one contains added parent entries, while the second one
+						contains removed parent entries.</p>
+						<p>The <code>[OnEvent__symbol]</code> property is an alias of this one.</p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="read" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> <span class="tsd-flag ts-flagAbstract">Abstract</span> read</h3>
+					<div class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/@frontmeans_input-aspects.InParents.All.html" class="tsd-signature-type">All</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/containers/parents.aspect.ts#L64">frontmeans/input-aspects/src/containers/parents.aspect.ts:64</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An <code>AfterEvent</code> keeper of control parents.</p>
+						</div>
+						<p>The <code>[AfterEvent__symbol]</code> property is an alias of this one.</p>
 					</div>
 				</section>
 			</section>
@@ -135,7 +177,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/containers/parents.aspect.ts#L48">frontmeans/input-aspects/src/containers/parents.aspect.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/containers/parents.aspect.ts#L45">frontmeans/input-aspects/src/containers/parents.aspect.ts:45</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../modules/@frontmeans_input-aspects.InAspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><a href="@frontmeans_input-aspects.InParents.html" class="tsd-signature-type">InParents</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -155,7 +197,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/containers/parents.aspect.ts#L98">frontmeans/input-aspects/src/containers/parents.aspect.ts:98</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/containers/parents.aspect.ts#L70">frontmeans/input-aspects/src/containers/parents.aspect.ts:70</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/@frontmeans_input-aspects.InParents.All.html" class="tsd-signature-type">All</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -172,7 +214,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/containers/parents.aspect.ts#L76">frontmeans/input-aspects/src/containers/parents.aspect.ts:76</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/containers/parents.aspect.ts#L66">frontmeans/input-aspects/src/containers/parents.aspect.ts:66</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/@frontmeans_input-aspects.InParents.Entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/@frontmeans_input-aspects.InParents.Entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -183,13 +225,13 @@
 					<a name="add" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> add</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="../interfaces/@frontmeans_input-aspects.InParents.Entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupply</span></li>
+						<li class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">(</span>entry<span class="tsd-signature-symbol">: </span><a href="../interfaces/@frontmeans_input-aspects.InParents.Entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Supply</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/containers/parents.aspect.ts#L109">frontmeans/input-aspects/src/containers/parents.aspect.ts:109</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/containers/parents.aspect.ts#L81">frontmeans/input-aspects/src/containers/parents.aspect.ts:81</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -206,108 +248,8 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventSupply</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Supply</span></h4>
 							<p>A parent container supply. Removes the control from the parent container once cut off.</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="on" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> on</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/@frontmeans_input-aspects.InParents.Entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/@frontmeans_input-aspects.InParents.Entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">(</span>receiver<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventReceiver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/@frontmeans_input-aspects.InParents.Entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/@frontmeans_input-aspects.InParents.Entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupply</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/containers/parents.aspect.ts#L62">frontmeans/input-aspects/src/containers/parents.aspect.ts:62</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Builds an <code>OnEvent</code> sender of parent updates.</p>
-								</div>
-								<p>Sends two arrays on each parents update: the first one contains added parent entries, while the second one
-								contains removed parent entries.</p>
-								<p>The <code>[OnEvent__symbol]</code> property is an alias of this one.</p>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/@frontmeans_input-aspects.InParents.Entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/@frontmeans_input-aspects.InParents.Entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p><code>OnEvent</code> sender of parent updates.</p>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/containers/parents.aspect.ts#L74">frontmeans/input-aspects/src/containers/parents.aspect.ts:74</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Starts sending parent updates to the given <code>receiver</code>.</p>
-								</div>
-								<p>Sends two arrays on each parents update: the first one contains added parent entries, while the second one
-								contains removed parent entries.</p>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>receiver: <span class="tsd-signature-type">EventReceiver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/@frontmeans_input-aspects.InParents.Entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/@frontmeans_input-aspects.InParents.Entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Target parent updates receiver.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventSupply</span></h4>
-							<p>Parent updates supply.</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="read" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> read</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/@frontmeans_input-aspects.InParents.All.html" class="tsd-signature-type">All</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">(</span>receiver<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventReceiver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/@frontmeans_input-aspects.InParents.All.html" class="tsd-signature-type">All</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupply</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/containers/parents.aspect.ts#L87">frontmeans/input-aspects/src/containers/parents.aspect.ts:87</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Builds an <code>AfterEvent</code> keeper of control parents.</p>
-								</div>
-								<p>The <code>[AfterEvent__symbol]</code> property is an alias of this one.</p>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/@frontmeans_input-aspects.InParents.All.html" class="tsd-signature-type">All</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p><code>AfterEvent</code> keeper of control parents.</p>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/containers/parents.aspect.ts#L96">frontmeans/input-aspects/src/containers/parents.aspect.ts:96</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Starts sending control parents and updates to the given <code>receiver</code></p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>receiver: <span class="tsd-signature-type">EventReceiver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/@frontmeans_input-aspects.InParents.All.html" class="tsd-signature-type">All</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Target control parents receiver.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventSupply</span></h4>
-							<p>Control parents supply.</p>
 						</li>
 					</ul>
 				</section>
@@ -337,6 +279,12 @@
 							<li class=" tsd-kind-interface tsd-parent-kind-class">
 								<a href="../interfaces/@frontmeans_input-aspects.InParents.Entry.html" class="tsd-kind-icon">Entry</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="@frontmeans_input-aspects.InParents.html#on" class="tsd-kind-icon">on</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="@frontmeans_input-aspects.InParents.html#read" class="tsd-kind-icon">read</a>
+							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
 								<a href="@frontmeans_input-aspects.InParents.html#_InAspect__symbol_" class="tsd-kind-icon">[<wbr>InAspect__symbol]</a>
 							</li>
@@ -348,12 +296,6 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="@frontmeans_input-aspects.InParents.html#add" class="tsd-kind-icon">add</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="@frontmeans_input-aspects.InParents.html#on" class="tsd-kind-icon">on</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="@frontmeans_input-aspects.InParents.html#read" class="tsd-kind-icon">read</a>
 							</li>
 						</ul>
 					</li>
@@ -380,6 +322,7 @@
 			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
 				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 		</div>

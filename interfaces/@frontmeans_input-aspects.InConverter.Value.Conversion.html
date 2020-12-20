@@ -66,7 +66,7 @@
 					<a href="@frontmeans_input-aspects.InConverter.Value.Conversion.html">Conversion</a>
 				</li>
 			</ul>
-			<h1>Interface Conversion&lt;From, To&gt;</h1>
+			<h1>Interface Conversion&lt;TFrom, TTo&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -84,7 +84,7 @@
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
-						<h4>From</h4>
+						<h4>TFrom</h4>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Original input value type.</p>
@@ -92,7 +92,7 @@
 						</div>
 					</li>
 					<li>
-						<h4>To</h4>
+						<h4>TTo</h4>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Converted input value type.</p>
@@ -130,13 +130,13 @@
 					<a name="applyAspect" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> apply<wbr>Aspect</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">apply<wbr>Aspect&lt;Instance, Kind&gt;<span class="tsd-signature-symbol">(</span>aspect<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+						<li class="tsd-signature tsd-kind-icon">apply<wbr>Aspect&lt;TInstance, TKind&gt;<span class="tsd-signature-symbol">(</span>aspect<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TTo</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/converter.ts#L118">frontmeans/input-aspects/src/converter.ts:118</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/converter.ts#L118">frontmeans/input-aspects/src/converter.ts:118</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -147,13 +147,13 @@
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>Instance</h4>
+									<h4>TInstance</h4>
 									<div class="tsd-comment tsd-typography">
 										<p>Aspect instance type.</p>
 									</div>
 								</li>
 								<li>
-									<h4>Kind<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Kind" class="tsd-signature-type">Kind</a></h4>
+									<h4>TKind<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Kind" class="tsd-signature-type">Kind</a></h4>
 									<div class="tsd-comment tsd-typography">
 										<p>Aspect application kind.</p>
 									</div>
@@ -162,13 +162,13 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>aspect: <a href="../modules/@frontmeans_input-aspects.InAspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>aspect: <a href="../modules/@frontmeans_input-aspects.InAspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>An aspect to apply.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TTo</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
 							<p>Either applied aspect instance or <code>undefined</code> to apply the aspect in standard way (i.e. by converting
 							it from corresponding aspect of original control).</p>
 						</li>
@@ -178,13 +178,13 @@
 					<a name="get" class="tsd-anchor"></a>
 					<h3>get</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">From</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TTo</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TFrom</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/converter.ts#L138">frontmeans/input-aspects/src/converter.ts:138</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/converter.ts#L138">frontmeans/input-aspects/src/converter.ts:138</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -195,13 +195,13 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>value: <span class="tsd-signature-type">To</span></h5>
+									<h5>value: <span class="tsd-signature-type">TTo</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>A converted value to restore the original one by.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">From</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">TFrom</span></h4>
 							<p>New value of original control.</p>
 						</li>
 					</ul>
@@ -210,13 +210,13 @@
 					<a name="set" class="tsd-anchor"></a>
 					<h3>set</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">To</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TFrom</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TTo</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/converter.ts#L129">frontmeans/input-aspects/src/converter.ts:129</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/converter.ts#L129">frontmeans/input-aspects/src/converter.ts:129</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -227,13 +227,13 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>value: <span class="tsd-signature-type">From</span></h5>
+									<h5>value: <span class="tsd-signature-type">TFrom</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Original value to convert.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">To</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">TTo</span></h4>
 							<p>New value of converted control.</p>
 						</li>
 					</ul>

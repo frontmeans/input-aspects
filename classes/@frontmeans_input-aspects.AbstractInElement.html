@@ -60,7 +60,7 @@
 					<a href="@frontmeans_input-aspects.AbstractInElement.html">AbstractInElement</a>
 				</li>
 			</ul>
-			<h1>Class AbstractInElement&lt;Value, Elt&gt;</h1>
+			<h1>Class AbstractInElement&lt;TValue, TElt&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -78,7 +78,7 @@
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
-						<h4>Value</h4>
+						<h4>TValue</h4>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Input value type.</p>
@@ -86,7 +86,7 @@
 						</div>
 					</li>
 					<li>
-						<h4>Elt<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLElement</span></h4>
+						<h4>TElt<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLElement</span></h4>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>A type of input HTML element.</p>
@@ -99,7 +99,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="@frontmeans_input-aspects.InElement.html" class="tsd-signature-type">InElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Elt</span><span class="tsd-signature-symbol">&gt;</span>
+						<a href="@frontmeans_input-aspects.InElement.html" class="tsd-signature-type">InElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TElt</span><span class="tsd-signature-symbol">&gt;</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">AbstractInElement</span>
@@ -111,9 +111,9 @@
 			<section class="tsd-panel">
 				<h3>Implements</h3>
 				<ul class="tsd-hierarchy">
-					<li><span class="tsd-signature-type">EventSender</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
-					<li><span class="tsd-signature-type">EventKeeper</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
-					<li><span class="tsd-signature-type">EventSupplyPeer</span></li>
+					<li><span class="tsd-signature-type">EventSender</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li><span class="tsd-signature-type">EventKeeper</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li><span class="tsd-signature-type">SupplyPeer</span></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -142,13 +142,16 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="@frontmeans_input-aspects.AbstractInElement.html#_value" class="tsd-kind-icon">_value</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="@frontmeans_input-aspects.AbstractInElement.html#element" class="tsd-kind-icon">element</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="@frontmeans_input-aspects.AbstractInElement.html#events" class="tsd-kind-icon">events</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="@frontmeans_input-aspects.AbstractInElement.html#input" class="tsd-kind-icon">input</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="@frontmeans_input-aspects.AbstractInElement.html#on" class="tsd-kind-icon">on</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="@frontmeans_input-aspects.AbstractInElement.html#read" class="tsd-kind-icon">read</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="@frontmeans_input-aspects.AbstractInElement.html#_EventSupply__symbol_" class="tsd-kind-icon">[<wbr>Event<wbr>Supply__symbol]</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-overwrite"><a href="@frontmeans_input-aspects.AbstractInElement.html#it" class="tsd-kind-icon">it</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="@frontmeans_input-aspects.AbstractInElement.html#supply" class="tsd-kind-icon">supply</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="@frontmeans_input-aspects.AbstractInElement.html#_InAspect__symbol_" class="tsd-kind-icon">[<wbr>InAspect__symbol]</a></li>
 							</ul>
 						</section>
@@ -163,11 +166,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="@frontmeans_input-aspects.AbstractInElement.html#by" class="tsd-kind-icon">by</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="@frontmeans_input-aspects.AbstractInElement.html#byNone" class="tsd-kind-icon">by<wbr>None</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="@frontmeans_input-aspects.AbstractInElement.html#convert" class="tsd-kind-icon">convert</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="@frontmeans_input-aspects.AbstractInElement.html#done" class="tsd-kind-icon">done</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="@frontmeans_input-aspects.AbstractInElement.html#input" class="tsd-kind-icon">input</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="@frontmeans_input-aspects.AbstractInElement.html#listenForInput" class="tsd-kind-icon">listen<wbr>For<wbr>Input</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="@frontmeans_input-aspects.AbstractInElement.html#on" class="tsd-kind-icon">on</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="@frontmeans_input-aspects.AbstractInElement.html#read" class="tsd-kind-icon">read</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="@frontmeans_input-aspects.AbstractInElement.html#setup" class="tsd-kind-icon">setup</a></li>
 							</ul>
 						</section>
@@ -180,14 +179,14 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Abstract<wbr>InElement<span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Elt</span>, __namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>aspects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/@frontmeans_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="../modules/@frontmeans_input-aspects.InConverter.html#Factory" class="tsd-signature-type">Factory</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/@frontmeans_input-aspects.InConverter.Aspect.html" class="tsd-signature-type">Aspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span>get<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Elt</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">; </span>set<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Elt</span><span class="tsd-signature-symbol">&gt;</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Abstract<wbr>InElement<span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TElt</span>, __namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>aspects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/@frontmeans_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="../modules/@frontmeans_input-aspects.InConverter.html#Factory" class="tsd-signature-type">Factory</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/@frontmeans_input-aspects.InConverter.Aspect.html" class="tsd-signature-type">Aspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span>get<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TElt</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">; </span>set<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TElt</span><span class="tsd-signature-symbol">&gt;</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides <a href="@frontmeans_input-aspects.AbstractInControl.html">AbstractInControl</a>.<a href="@frontmeans_input-aspects.AbstractInControl.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/elements/abstract-element.control.ts#L35">frontmeans/input-aspects/src/elements/abstract-element.control.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/elements/abstract-element.control.ts#L27">frontmeans/input-aspects/src/elements/abstract-element.control.ts:27</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -198,7 +197,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>element: <span class="tsd-signature-type">Elt</span></h5>
+									<h5>element: <span class="tsd-signature-type">TElt</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
 											<p>HTML input element the constructed control is based on.</p>
@@ -206,58 +205,58 @@
 									</div>
 								</li>
 								<li>
-									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>aspects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/@frontmeans_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="../modules/@frontmeans_input-aspects.InConverter.html#Factory" class="tsd-signature-type">Factory</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/@frontmeans_input-aspects.InConverter.Aspect.html" class="tsd-signature-type">Aspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span>get<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Elt</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">; </span>set<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Elt</span><span class="tsd-signature-symbol">&gt;</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> }</span></h5>
+									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>aspects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/@frontmeans_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="../modules/@frontmeans_input-aspects.InConverter.html#Factory" class="tsd-signature-type">Factory</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/@frontmeans_input-aspects.InConverter.Aspect.html" class="tsd-signature-type">Aspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span>get<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TElt</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">; </span>set<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TElt</span><span class="tsd-signature-symbol">&gt;</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> }</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
-											<h5>aspects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/@frontmeans_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="../modules/@frontmeans_input-aspects.InConverter.html#Factory" class="tsd-signature-type">Factory</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/@frontmeans_input-aspects.InConverter.Aspect.html" class="tsd-signature-type">Aspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+											<h5>aspects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/@frontmeans_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="../modules/@frontmeans_input-aspects.InConverter.html#Factory" class="tsd-signature-type">Factory</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/@frontmeans_input-aspects.InConverter.Aspect.html" class="tsd-signature-type">Aspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
 											<div class="tsd-comment tsd-typography">
 												<p>Input aspects applied by default. These are aspect converters to constructed control
 												from the <a href="../modules/@frontmeans_input-aspects.html#inValueOf">same-valued one</a>.</p>
 											</div>
 										</li>
 										<li class="tsd-parameter">
-											<h5>get<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Elt</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Value</span></h5>
+											<h5>get<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TElt</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">TValue</span></h5>
 											<div class="tsd-comment tsd-typography">
 												<p>Input value getter.</p>
 											</div>
 											<ul class="tsd-parameters">
 												<li class="tsd-parameter-signature">
 													<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable">
-														<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Elt</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span></li>
+														<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TElt</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span></li>
 													</ul>
 													<ul class="tsd-descriptions">
 														<li class="tsd-description">
 															<h4 class="tsd-parameters-title">Parameters</h4>
 															<ul class="tsd-parameters">
 																<li>
-																	<h5>this: <a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Elt</span><span class="tsd-signature-symbol">&gt;</span></h5>
+																	<h5>this: <a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TElt</span><span class="tsd-signature-symbol">&gt;</span></h5>
 																</li>
 															</ul>
-															<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Value</span></h4>
+															<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">TValue</span></h4>
 														</li>
 													</ul>
 												</li>
 											</ul>
 										</li>
 										<li class="tsd-parameter">
-											<h5>set<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Elt</span><span class="tsd-signature-symbol">&gt;</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+											<h5>set<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TElt</span><span class="tsd-signature-symbol">&gt;</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
 											<div class="tsd-comment tsd-typography">
 												<p>Input value setter.</p>
 											</div>
 											<ul class="tsd-parameters">
 												<li class="tsd-parameter-signature">
 													<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable">
-														<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Elt</span><span class="tsd-signature-symbol">&gt;</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+														<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TElt</span><span class="tsd-signature-symbol">&gt;</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 													</ul>
 													<ul class="tsd-descriptions">
 														<li class="tsd-description">
 															<h4 class="tsd-parameters-title">Parameters</h4>
 															<ul class="tsd-parameters">
 																<li>
-																	<h5>this: <a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Elt</span><span class="tsd-signature-symbol">&gt;</span></h5>
+																	<h5>this: <a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TElt</span><span class="tsd-signature-symbol">&gt;</span></h5>
 																</li>
 																<li>
-																	<h5>value: <span class="tsd-signature-type">Value</span></h5>
+																	<h5>value: <span class="tsd-signature-type">TValue</span></h5>
 																</li>
 															</ul>
 															<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -279,10 +278,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_get" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> _get</h3>
-					<div class="tsd-signature tsd-kind-icon">_get<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Elt</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Value</span></div>
+					<div class="tsd-signature tsd-kind-icon">_get<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TElt</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">TValue</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/elements/abstract-element.control.ts#L31">frontmeans/input-aspects/src/elements/abstract-element.control.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/elements/abstract-element.control.ts#L23">frontmeans/input-aspects/src/elements/abstract-element.control.ts:23</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -290,17 +289,17 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-signature">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Elt</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TElt</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>this: <a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Elt</span><span class="tsd-signature-symbol">&gt;</span></h5>
+												<h5>this: <a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TElt</span><span class="tsd-signature-symbol">&gt;</span></h5>
 											</li>
 										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Value</span></h4>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">TValue</span></h4>
 									</li>
 								</ul>
 							</li>
@@ -310,20 +309,20 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_input" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> _input</h3>
-					<div class="tsd-signature tsd-kind-icon">_input<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/@frontmeans_input-aspects.InElement.Input.html" class="tsd-signature-type">Input</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = new EventEmitter()</span></div>
+					<div class="tsd-signature tsd-kind-icon">_input<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/@frontmeans_input-aspects.InElement.Input.html" class="tsd-signature-type">Input</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = new EventEmitter()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/elements/abstract-element.control.ts#L33">frontmeans/input-aspects/src/elements/abstract-element.control.ts:33</a></li>
+							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/elements/abstract-element.control.ts#L25">frontmeans/input-aspects/src/elements/abstract-element.control.ts:25</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_set" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> _set</h3>
-					<div class="tsd-signature tsd-kind-icon">_set<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Elt</span><span class="tsd-signature-symbol">&gt;</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<div class="tsd-signature tsd-kind-icon">_set<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TElt</span><span class="tsd-signature-symbol">&gt;</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/elements/abstract-element.control.ts#L32">frontmeans/input-aspects/src/elements/abstract-element.control.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/elements/abstract-element.control.ts#L24">frontmeans/input-aspects/src/elements/abstract-element.control.ts:24</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -331,17 +330,17 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-signature">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Elt</span><span class="tsd-signature-symbol">&gt;</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TElt</span><span class="tsd-signature-symbol">&gt;</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>this: <a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Elt</span><span class="tsd-signature-symbol">&gt;</span></h5>
+												<h5>this: <a href="@frontmeans_input-aspects.AbstractInElement.html" class="tsd-signature-type">AbstractInElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TElt</span><span class="tsd-signature-symbol">&gt;</span></h5>
 											</li>
 											<li>
-												<h5>value: <span class="tsd-signature-type">Value</span></h5>
+												<h5>value: <span class="tsd-signature-type">TValue</span></h5>
 											</li>
 										</ul>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -354,10 +353,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_update" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _update</h3>
-					<div class="tsd-signature tsd-kind-icon">_update<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span>, oldValue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<div class="tsd-signature tsd-kind-icon">_update<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span>, oldValue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/elements/abstract-element.control.ts#L35">frontmeans/input-aspects/src/elements/abstract-element.control.ts:35</a></li>
+							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/elements/abstract-element.control.ts#L27">frontmeans/input-aspects/src/elements/abstract-element.control.ts:27</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -365,17 +364,17 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-signature">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span>, oldValue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span>, oldValue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>value: <span class="tsd-signature-type">Value</span></h5>
+												<h5>value: <span class="tsd-signature-type">TValue</span></h5>
 											</li>
 											<li>
-												<h5>oldValue: <span class="tsd-signature-type">Value</span></h5>
+												<h5>oldValue: <span class="tsd-signature-type">TValue</span></h5>
 											</li>
 										</ul>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -388,21 +387,21 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_value" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _value</h3>
-					<div class="tsd-signature tsd-kind-icon">_value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Value</span></div>
+					<div class="tsd-signature tsd-kind-icon">_value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">TValue</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/elements/abstract-element.control.ts#L34">frontmeans/input-aspects/src/elements/abstract-element.control.ts:34</a></li>
+							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/elements/abstract-element.control.ts#L26">frontmeans/input-aspects/src/elements/abstract-element.control.ts:26</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 					<a name="element" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> element</h3>
-					<div class="tsd-signature tsd-kind-icon">element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Elt</span></div>
+					<div class="tsd-signature tsd-kind-icon">element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">TElt</span></div>
 					<aside class="tsd-sources">
 						<p>Overrides <a href="@frontmeans_input-aspects.InElement.html">InElement</a>.<a href="@frontmeans_input-aspects.InElement.html#element">element</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/elements/abstract-element.control.ts#L47">frontmeans/input-aspects/src/elements/abstract-element.control.ts:47</a></li>
+							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/elements/abstract-element.control.ts#L39">frontmeans/input-aspects/src/elements/abstract-element.control.ts:39</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -418,62 +417,106 @@
 					<aside class="tsd-sources">
 						<p>Overrides <a href="@frontmeans_input-aspects.InElement.html">InElement</a>.<a href="@frontmeans_input-aspects.InElement.html#events">events</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/elements/abstract-element.control.ts#L30">frontmeans/input-aspects/src/elements/abstract-element.control.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/elements/abstract-element.control.ts#L20">frontmeans/input-aspects/src/elements/abstract-element.control.ts:20</a></li>
 						</ul>
 					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
+					<a name="input" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> input</h3>
+					<div class="tsd-signature tsd-kind-icon">input<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/@frontmeans_input-aspects.InElement.Input.html" class="tsd-signature-type">Input</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<p>Overrides <a href="@frontmeans_input-aspects.InElement.html">InElement</a>.<a href="@frontmeans_input-aspects.InElement.html#input">input</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/elements/abstract-element.control.ts#L21">frontmeans/input-aspects/src/elements/abstract-element.control.ts:21</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
+					<a name="on" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> on</h3>
+					<div class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<p>Overrides <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#on">on</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/elements/abstract-element.control.ts#L22">frontmeans/input-aspects/src/elements/abstract-element.control.ts:22</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="read" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> read</h3>
+					<div class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#read">read</a></p>
+						<ul>
+							<li>Defined in proc7ts/fun-events/index.d.ts:1431</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>{@link AfterEvent} keeper of current value.</p>
+						</div>
+						<p>The <code>[AfterEvent__symbol]</code> property is an alias of this one.</p>
+						<dl class="tsd-comment-tags">
+							<dt>returns</dt>
+							<dd><p>Current value keeper.</p>
+							</dd>
+						</dl>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
-					<a name="_EventSupply__symbol_" class="tsd-anchor"></a>
-					<h3>[<wbr>Event<wbr>Supply__symbol]</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> [EventSupply__symbol]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupply</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Overrides <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#_EventSupply__symbol_">[EventSupply__symbol]</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/elements/abstract-element.control.ts#L102">frontmeans/input-aspects/src/elements/abstract-element.control.ts:102</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventSupply</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-overwrite">
 					<a name="it" class="tsd-anchor"></a>
 					<h3>it</h3>
 					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> it<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span></li>
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> it<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> it<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> it<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#it">it</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/elements/abstract-element.control.ts#L106">frontmeans/input-aspects/src/elements/abstract-element.control.ts:106</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/elements/abstract-element.control.ts#L107">frontmeans/input-aspects/src/elements/abstract-element.control.ts:107</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Value</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">TValue</span></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#it">it</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/elements/abstract-element.control.ts#L110">frontmeans/input-aspects/src/elements/abstract-element.control.ts:110</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/elements/abstract-element.control.ts#L111">frontmeans/input-aspects/src/elements/abstract-element.control.ts:111</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>value: <span class="tsd-signature-type">Value</span></h5>
+									<h5>value: <span class="tsd-signature-type">TValue</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+					<a name="supply" class="tsd-anchor"></a>
+					<h3>supply</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> supply<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Supply</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#supply">supply</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/elements/abstract-element.control.ts#L103">frontmeans/input-aspects/src/elements/abstract-element.control.ts:103</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Supply</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -488,7 +531,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@frontmeans_input-aspects.InElement.html">InElement</a>.<a href="@frontmeans_input-aspects.InElement.html#_InAspect__symbol_">[InAspect__symbol]</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/element.control.ts#L41">frontmeans/input-aspects/src/element.control.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/element.control.ts#L31">frontmeans/input-aspects/src/element.control.ts:31</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../modules/@frontmeans_input-aspects.InAspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><a href="@frontmeans_input-aspects.InElement.html" class="tsd-signature-type">InElement</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"element"</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -502,17 +545,17 @@
 					<a name="_AfterEvent__symbol_" class="tsd-anchor"></a>
 					<h3>[<wbr>After<wbr>Event__symbol]</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">[<wbr>After<wbr>Event__symbol]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">[<wbr>After<wbr>Event__symbol]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#_AfterEvent__symbol_">[AfterEvent__symbol]</a></p>
 								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1445</li>
+									<li>Defined in proc7ts/fun-events/index.d.ts:1438</li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -520,17 +563,17 @@
 					<a name="_OnEvent__symbol_" class="tsd-anchor"></a>
 					<h3>[<wbr>OnEvent__symbol]</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">[<wbr>OnEvent__symbol]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">[<wbr>OnEvent__symbol]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#_OnEvent__symbol_">[OnEvent__symbol]</a></p>
 								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1441</li>
+									<li>Defined in proc7ts/fun-events/index.d.ts:1434</li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -538,7 +581,7 @@
 					<a name="_applyAspect" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _apply<wbr>Aspect</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-overwrite tsd-is-inherited tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">_apply<wbr>Aspect&lt;Instance, Kind&gt;<span class="tsd-signature-symbol">(</span>aspect<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+						<li class="tsd-signature tsd-kind-icon">_apply<wbr>Aspect&lt;TInstance, TKind&gt;<span class="tsd-signature-symbol">(</span>aspect<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -546,25 +589,25 @@
 								<p>Inherited from <a href="@frontmeans_input-aspects.InElement.html">InElement</a>.<a href="@frontmeans_input-aspects.InElement.html#_applyAspect">_applyAspect</a></p>
 								<p>Overrides <a href="@frontmeans_input-aspects.AbstractInControl.html">AbstractInControl</a>.<a href="@frontmeans_input-aspects.AbstractInControl.html#_applyAspect">_applyAspect</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/element.control.ts#L61">frontmeans/input-aspects/src/element.control.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/element.control.ts#L50">frontmeans/input-aspects/src/element.control.ts:50</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>Instance</h4>
+									<h4>TInstance</h4>
 								</li>
 								<li>
-									<h4>Kind<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Kind" class="tsd-signature-type">Kind</a></h4>
+									<h4>TKind<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Kind" class="tsd-signature-type">Kind</a></h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>aspect: <a href="../modules/@frontmeans_input-aspects.InAspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>aspect: <a href="../modules/@frontmeans_input-aspects.InAspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -572,14 +615,14 @@
 					<a name="_aspect" class="tsd-anchor"></a>
 					<h3>_aspect</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">_aspect&lt;Instance, Kind&gt;<span class="tsd-signature-symbol">(</span>aspect<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">_aspect&lt;TInstance, TKind&gt;<span class="tsd-signature-symbol">(</span>aspect<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#_aspect">_aspect</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/control.ts#L149">frontmeans/input-aspects/src/control.ts:149</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/control.ts#L139">frontmeans/input-aspects/src/control.ts:139</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -591,19 +634,19 @@
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>Instance</h4>
+									<h4>TInstance</h4>
 								</li>
 								<li>
-									<h4>Kind<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Kind" class="tsd-signature-type">Kind</a></h4>
+									<h4>TKind<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Kind" class="tsd-signature-type">Kind</a></h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>aspect: <a href="../modules/@frontmeans_input-aspects.InAspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>aspect: <a href="../modules/@frontmeans_input-aspects.InAspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Result" class="tsd-signature-type">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -611,14 +654,14 @@
 					<a name="aspect" class="tsd-anchor"></a>
 					<h3>aspect</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">aspect&lt;Instance, Kind&gt;<span class="tsd-signature-symbol">(</span>aspectKey<span class="tsd-signature-symbol">: </span><a href="../interfaces/@frontmeans_input-aspects.InAspect.Key.html" class="tsd-signature-type">Key</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Instance" class="tsd-signature-type">Instance</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">aspect&lt;TInstance, TKind&gt;<span class="tsd-signature-symbol">(</span>aspectKey<span class="tsd-signature-symbol">: </span><a href="../interfaces/@frontmeans_input-aspects.InAspect.Key.html" class="tsd-signature-type">Key</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Instance" class="tsd-signature-type">Instance</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#aspect">aspect</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/control.ts#L63">frontmeans/input-aspects/src/control.ts:63</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/control.ts#L53">frontmeans/input-aspects/src/control.ts:53</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -630,13 +673,13 @@
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>Instance</h4>
+									<h4>TInstance</h4>
 									<div class="tsd-comment tsd-typography">
 										<p>Aspect instance type.</p>
 									</div>
 								</li>
 								<li>
-									<h4>Kind<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Kind" class="tsd-signature-type">Kind</a></h4>
+									<h4>TKind<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Kind" class="tsd-signature-type">Kind</a></h4>
 									<div class="tsd-comment tsd-typography">
 										<p>Aspect application kind.</p>
 									</div>
@@ -645,13 +688,13 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>aspectKey: <a href="../interfaces/@frontmeans_input-aspects.InAspect.Key.html" class="tsd-signature-type">Key</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>aspectKey: <a href="../interfaces/@frontmeans_input-aspects.InAspect.Key.html" class="tsd-signature-type">Key</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>A key of aspect to apply to this control.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Instance" class="tsd-signature-type">Instance</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Instance" class="tsd-signature-type">Instance</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>An applied aspect instance.</p>
 						</li>
 					</ul>
@@ -660,15 +703,15 @@
 					<a name="by" class="tsd-anchor"></a>
 					<h3>by</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">by<span class="tsd-signature-symbol">(</span>supplier<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
-						<li class="tsd-signature tsd-kind-icon">by&lt;S&gt;<span class="tsd-signature-symbol">(</span>supplier<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, extract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, <span class="tsd-signature-symbol">...</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">by<span class="tsd-signature-symbol">(</span>supplier<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">by&lt;TSrcEvent&gt;<span class="tsd-signature-symbol">(</span>supplier<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TSrcEvent</span><span class="tsd-signature-symbol">&gt;</span>, extract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, <span class="tsd-signature-symbol">...</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TSrcEvent</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#by">by</a></p>
 								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1469</li>
+									<li>Defined in proc7ts/fun-events/index.d.ts:1462</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -676,13 +719,13 @@
 									<p>Updates the tracked value by the given value <code>supplier</code>.</p>
 								</div>
 								<p>If the value is already updated by another supplier, then unbinds from the old one first.</p>
-								<p>Call the [[ValueTracker.byNone]] method to unbind the tracked value from the <code>source</code>.</p>
+								<p>Call the {@link ValueTracker.byNone} method to unbind the tracked value from the <code>source</code>.</p>
 								<p>Note that explicitly updating the value would override the value received from the <code>source</code>.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>supplier: <span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>supplier: <span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The source value sender or keeper.</p>
 									</div>
@@ -695,7 +738,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#by">by</a></p>
 								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1488</li>
+									<li>Defined in proc7ts/fun-events/index.d.ts:1481</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -703,28 +746,28 @@
 									<p>Updates the tracked value by value suppliers extracted from events sent by the given <code>supplier</code>.</p>
 								</div>
 								<p>If the value is already updated by another value supplier, then unbinds from the old one first.</p>
-								<p>Call the [[ValueTracker.byNone]] method to unbind the tracked value from the <code>source</code>.</p>
+								<p>Call the {@link ValueTracker.byNone} method to unbind the tracked value from the <code>source</code>.</p>
 								<p>Note that explicitly updating the value would override the value received from the <code>source</code>.</p>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>S<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4>
+									<h4>TSrcEvent<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4>
 									<div class="tsd-comment tsd-typography">
-										<p>Source value type.</p>
+										<p>Source event type.</p>
 									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>supplier: <span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>supplier: <span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TSrcEvent</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The event supplier to extract value suppliers from.</p>
 									</div>
 								</li>
 								<li>
-									<h5>extract: <span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, <span class="tsd-signature-symbol">...</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
+									<h5>extract: <span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, <span class="tsd-signature-symbol">...</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TSrcEvent</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>A function extracting value supplier from event received from <code>supplier</code>.
 										May return <code>undefined</code> to suspend receiving values.</p>
@@ -732,7 +775,7 @@
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-signature">
 											<ul class="tsd-signatures tsd-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, <span class="tsd-signature-symbol">...</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, <span class="tsd-signature-symbol">...</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TSrcEvent</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 											</ul>
 											<ul class="tsd-descriptions">
 												<li class="tsd-description">
@@ -742,10 +785,10 @@
 															<h5>this: <span class="tsd-signature-type">void</span></h5>
 														</li>
 														<li>
-															<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>event: <span class="tsd-signature-type">S</span></h5>
+															<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>event: <span class="tsd-signature-type">TSrcEvent</span></h5>
 														</li>
 													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
 												</li>
 											</ul>
 										</li>
@@ -768,7 +811,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#byNone">byNone</a></p>
 								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1500</li>
+									<li>Defined in proc7ts/fun-events/index.d.ts:1493</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -795,15 +838,15 @@
 					<a name="convert" class="tsd-anchor"></a>
 					<h3>convert</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">convert<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>by<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InConverter.Aspect.html" class="tsd-signature-type">Aspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">convert&lt;To&gt;<span class="tsd-signature-symbol">(</span>by<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InConverter.html" class="tsd-signature-type">InConverter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span>, <span class="tsd-signature-symbol">...</span>and<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InConverter.Aspect.html" class="tsd-signature-type">Aspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">convert<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>by<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InConverter.Aspect.html" class="tsd-signature-type">Aspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">convert&lt;TTo&gt;<span class="tsd-signature-symbol">(</span>by<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InConverter.html" class="tsd-signature-type">InConverter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TTo</span><span class="tsd-signature-symbol">&gt;</span>, <span class="tsd-signature-symbol">...</span>and<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InConverter.Aspect.html" class="tsd-signature-type">Aspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TTo</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TTo</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#convert">convert</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/control.ts#L119">frontmeans/input-aspects/src/control.ts:119</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/control.ts#L109">frontmeans/input-aspects/src/control.ts:109</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -820,20 +863,20 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>by: <a href="../modules/@frontmeans_input-aspects.InConverter.Aspect.html" class="tsd-signature-type">Aspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>by: <a href="../modules/@frontmeans_input-aspects.InConverter.Aspect.html" class="tsd-signature-type">Aspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Input control aspect converters.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>Converted control.</p>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#convert">convert</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/control.ts#L134">frontmeans/input-aspects/src/control.ts:134</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/control.ts#L124">frontmeans/input-aspects/src/control.ts:124</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -845,7 +888,7 @@
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>To</h4>
+									<h4>TTo</h4>
 									<div class="tsd-comment tsd-typography">
 										<p>Converted input value type.</p>
 									</div>
@@ -854,88 +897,20 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>by: <a href="../modules/@frontmeans_input-aspects.InConverter.html" class="tsd-signature-type">InConverter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>by: <a href="../modules/@frontmeans_input-aspects.InConverter.html" class="tsd-signature-type">InConverter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TTo</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Input control converter.</p>
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>and: <a href="../modules/@frontmeans_input-aspects.InConverter.Aspect.html" class="tsd-signature-type">Aspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>and: <a href="../modules/@frontmeans_input-aspects.InConverter.Aspect.html" class="tsd-signature-type">Aspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TTo</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Additional input control aspect converters.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TTo</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>Converted control.</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="done" class="tsd-anchor"></a>
-					<h3>done</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">done<span class="tsd-signature-symbol">(</span>reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#done">done</a></p>
-								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1510</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Removes all registered event receivers and cuts off corresponding event supplies.</p>
-								</div>
-								<p>After this method call they won&#39;t receive events.</p>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> reason: <span class="tsd-signature-type">any</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>A reason to stop sending events.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
-							<p><code>this</code> instance.</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-					<a name="input" class="tsd-anchor"></a>
-					<h3>input</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">input<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/@frontmeans_input-aspects.InElement.Input.html" class="tsd-signature-type">Input</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">input<span class="tsd-signature-symbol">(</span>receiver<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventReceiver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/@frontmeans_input-aspects.InElement.Input.html" class="tsd-signature-type">Input</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupply</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Overrides <a href="@frontmeans_input-aspects.InElement.html">InElement</a>.<a href="@frontmeans_input-aspects.InElement.html#input">input</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/elements/abstract-element.control.ts#L120">frontmeans/input-aspects/src/elements/abstract-element.control.ts:120</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/@frontmeans_input-aspects.InElement.Input.html" class="tsd-signature-type">Input</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Overrides <a href="@frontmeans_input-aspects.InElement.html">InElement</a>.<a href="@frontmeans_input-aspects.InElement.html#input">input</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/elements/abstract-element.control.ts#L121">frontmeans/input-aspects/src/elements/abstract-element.control.ts:121</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>receiver: <span class="tsd-signature-type">EventReceiver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="../interfaces/@frontmeans_input-aspects.InElement.Input.html" class="tsd-signature-type">Input</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventSupply</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -943,13 +918,13 @@
 					<a name="listenForInput" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> listen<wbr>For<wbr>Input</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">listen<wbr>For<wbr>Input<span class="tsd-signature-symbol">(</span>update<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><a href="../interfaces/@frontmeans_input-aspects.InElement.Input.html" class="tsd-signature-type">Input</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">listen<wbr>For<wbr>Input<span class="tsd-signature-symbol">(</span>update<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><a href="../interfaces/@frontmeans_input-aspects.InElement.Input.html" class="tsd-signature-type">Input</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/elements/abstract-element.control.ts#L145">frontmeans/input-aspects/src/elements/abstract-element.control.ts:145</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/elements/abstract-element.control.ts#L129">frontmeans/input-aspects/src/elements/abstract-element.control.ts:129</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -961,7 +936,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>update: <span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><a href="../interfaces/@frontmeans_input-aspects.InElement.Input.html" class="tsd-signature-type">Input</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<h5>update: <span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><a href="../interfaces/@frontmeans_input-aspects.InElement.Input.html" class="tsd-signature-type">Input</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Updates current value by user input and sends update event. This function is to be called by
 										input event listeners.</p>
@@ -969,14 +944,14 @@
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-signature">
 											<ul class="tsd-signatures tsd-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><a href="../interfaces/@frontmeans_input-aspects.InElement.Input.html" class="tsd-signature-type">Input</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><a href="../interfaces/@frontmeans_input-aspects.InElement.Input.html" class="tsd-signature-type">Input</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 											</ul>
 											<ul class="tsd-descriptions">
 												<li class="tsd-description">
 													<h4 class="tsd-parameters-title">Parameters</h4>
 													<ul class="tsd-parameters">
 														<li>
-															<h5>input: <a href="../interfaces/@frontmeans_input-aspects.InElement.Input.html" class="tsd-signature-type">Input</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h5>
+															<h5>input: <a href="../interfaces/@frontmeans_input-aspects.InElement.Input.html" class="tsd-signature-type">Input</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span></h5>
 														</li>
 													</ul>
 													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -990,103 +965,19 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-					<a name="on" class="tsd-anchor"></a>
-					<h3>on</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">(</span>receiver<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventReceiver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupply</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Overrides <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#on">on</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/elements/abstract-element.control.ts#L129">frontmeans/input-aspects/src/elements/abstract-element.control.ts:129</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Overrides <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#on">on</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/elements/abstract-element.control.ts#L130">frontmeans/input-aspects/src/elements/abstract-element.control.ts:130</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>receiver: <span class="tsd-signature-type">EventReceiver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventSupply</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="read" class="tsd-anchor"></a>
-					<h3>read</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">(</span>receiver<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventReceiver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupply</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#read">read</a></p>
-								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1428</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Builds an [[AfterEvent]] keeper of current value.</p>
-								</div>
-								<p>The <code>[AfterEvent__symbol]</code> property is an alias of this one.</p>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>Current value keeper.</p>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#read">read</a></p>
-								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1438</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Registers a receiver of current values.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>receiver: <span class="tsd-signature-type">EventReceiver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>A receiver to register.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventSupply</span></h4>
-							<p>A supply of current value.</p>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 					<a name="setup" class="tsd-anchor"></a>
 					<h3>setup</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">setup<span class="tsd-signature-symbol">(</span>setup<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, control<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
-						<li class="tsd-signature tsd-kind-icon">setup&lt;Instance, Kind&gt;<span class="tsd-signature-symbol">(</span>aspectKey<span class="tsd-signature-symbol">: </span><a href="../interfaces/@frontmeans_input-aspects.InAspect.Key.html" class="tsd-signature-type">Key</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span>, setup<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, aspect<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Instance" class="tsd-signature-type">Instance</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span>, control<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">setup&lt;TInstance, TKind&gt;<span class="tsd-signature-symbol">(</span>aspectKey<span class="tsd-signature-symbol">: </span><a href="../interfaces/@frontmeans_input-aspects.InAspect.Key.html" class="tsd-signature-type">Key</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span>, setup<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, aspect<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Instance" class="tsd-signature-type">Instance</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span>, control<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#setup">setup</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/control.ts#L76">frontmeans/input-aspects/src/control.ts:76</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/control.ts#L66">frontmeans/input-aspects/src/control.ts:66</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1131,7 +1022,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#setup">setup</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/control.ts#L88">frontmeans/input-aspects/src/control.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/control.ts#L78">frontmeans/input-aspects/src/control.ts:78</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1142,13 +1033,13 @@
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>Instance</h4>
+									<h4>TInstance</h4>
 									<div class="tsd-comment tsd-typography">
 										<p>Aspect instance type.</p>
 									</div>
 								</li>
 								<li>
-									<h4>Kind<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Kind" class="tsd-signature-type">Kind</a></h4>
+									<h4>TKind<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Kind" class="tsd-signature-type">Kind</a></h4>
 									<div class="tsd-comment tsd-typography">
 										<p>Aspect application kind.</p>
 									</div>
@@ -1157,13 +1048,13 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>aspectKey: <a href="../interfaces/@frontmeans_input-aspects.InAspect.Key.html" class="tsd-signature-type">Key</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>aspectKey: <a href="../interfaces/@frontmeans_input-aspects.InAspect.Key.html" class="tsd-signature-type">Key</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>A key of aspect to set up.</p>
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> setup: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, aspect<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Instance" class="tsd-signature-type">Instance</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Kind</span><span class="tsd-signature-symbol">&gt;</span>, control<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> setup: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, aspect<span class="tsd-signature-symbol">: </span><a href="../modules/@frontmeans_input-aspects.InAspect.Application.html#Instance" class="tsd-signature-type">Instance</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span>, control<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>A function that accepts the aspect and this control as parameters to configure them.</p>
 									</div>
@@ -1221,11 +1112,20 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 								<a href="@frontmeans_input-aspects.AbstractInElement.html#events" class="tsd-kind-icon">events</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
-								<a href="@frontmeans_input-aspects.AbstractInElement.html#_EventSupply__symbol_" class="tsd-kind-icon">[<wbr>Event<wbr>Supply__symbol]</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
+								<a href="@frontmeans_input-aspects.AbstractInElement.html#input" class="tsd-kind-icon">input</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
+								<a href="@frontmeans_input-aspects.AbstractInElement.html#on" class="tsd-kind-icon">on</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="@frontmeans_input-aspects.AbstractInElement.html#read" class="tsd-kind-icon">read</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-overwrite">
 								<a href="@frontmeans_input-aspects.AbstractInElement.html#it" class="tsd-kind-icon">it</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+								<a href="@frontmeans_input-aspects.AbstractInElement.html#supply" class="tsd-kind-icon">supply</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 								<a href="@frontmeans_input-aspects.AbstractInElement.html#_InAspect__symbol_" class="tsd-kind-icon">[<wbr>InAspect__symbol]</a>
@@ -1254,20 +1154,8 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 								<a href="@frontmeans_input-aspects.AbstractInElement.html#convert" class="tsd-kind-icon">convert</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="@frontmeans_input-aspects.AbstractInElement.html#done" class="tsd-kind-icon">done</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-								<a href="@frontmeans_input-aspects.AbstractInElement.html#input" class="tsd-kind-icon">input</a>
-							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 								<a href="@frontmeans_input-aspects.AbstractInElement.html#listenForInput" class="tsd-kind-icon">listen<wbr>For<wbr>Input</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-								<a href="@frontmeans_input-aspects.AbstractInElement.html#on" class="tsd-kind-icon">on</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="@frontmeans_input-aspects.AbstractInElement.html#read" class="tsd-kind-icon">read</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 								<a href="@frontmeans_input-aspects.AbstractInElement.html#setup" class="tsd-kind-icon">setup</a>
@@ -1299,10 +1187,10 @@
 				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
 				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
 			</ul>
 			<ul class="tsd-legend">

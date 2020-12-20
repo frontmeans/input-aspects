@@ -60,7 +60,7 @@
 					<a href="@frontmeans_input-aspects.InAspect.html">InAspect</a>
 				</li>
 			</ul>
-			<h1>Namespace InAspect&lt;Instance, Kind&gt;</h1>
+			<h1>Namespace InAspect&lt;TInstance, TKind&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -80,7 +80,7 @@
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
-						<h4>Instance</h4>
+						<h4>TInstance</h4>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Aspect instance type.</p>
@@ -88,7 +88,7 @@
 						</div>
 					</li>
 					<li>
-						<h4>Kind<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.InAspect.Application.html#Kind" class="tsd-signature-type">Kind</a> = <span class="tsd-signature-type">"default"</span></h4>
+						<h4>TKind<span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.InAspect.Application.html#Kind" class="tsd-signature-type">Kind</a> = <span class="tsd-signature-type">"default"</span></h4>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Aspect application kind.</p>
@@ -129,13 +129,13 @@
 					<a name="applyTo" class="tsd-anchor"></a>
 					<h3>apply<wbr>To</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-namespace tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">apply<wbr>To&lt;Value&gt;<span class="tsd-signature-symbol">(</span>control<span class="tsd-signature-symbol">: </span><a href="../classes/@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/@frontmeans_input-aspects.InAspect.Applied.html" class="tsd-signature-type">Applied</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">apply<wbr>To&lt;TValue&gt;<span class="tsd-signature-symbol">(</span>control<span class="tsd-signature-symbol">: </span><a href="../classes/@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/@frontmeans_input-aspects.InAspect.Applied.html" class="tsd-signature-type">Applied</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/aspect.ts#L29">frontmeans/input-aspects/src/aspect.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/aspect.ts#L29">frontmeans/input-aspects/src/aspect.ts:29</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -147,7 +147,7 @@
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>Value</h4>
+									<h4>TValue</h4>
 									<div class="tsd-comment tsd-typography">
 										<p>Input value type.</p>
 									</div>
@@ -156,13 +156,13 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>control: <a href="../classes/@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>control: <a href="../classes/@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Input control to apply aspect to.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/@frontmeans_input-aspects.InAspect.Applied.html" class="tsd-signature-type">Applied</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Instance</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/@frontmeans_input-aspects.InAspect.Applied.html" class="tsd-signature-type">Applied</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>An aspect applied to the given <code>control</code>.</p>
 						</li>
 					</ul>

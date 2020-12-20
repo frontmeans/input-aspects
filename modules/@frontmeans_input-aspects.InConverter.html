@@ -60,7 +60,7 @@
 					<a href="@frontmeans_input-aspects.InConverter.html">InConverter</a>
 				</li>
 			</ul>
-			<h1>Namespace InConverter&lt;From, To&gt;</h1>
+			<h1>Namespace InConverter&lt;TFrom, TTo&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -79,7 +79,7 @@
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
-						<h4>From</h4>
+						<h4>TFrom</h4>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Original input value type.</p>
@@ -87,7 +87,7 @@
 						</div>
 					</li>
 					<li>
-						<h4>To</h4>
+						<h4>TTo</h4>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Converted input value type.</p>
@@ -122,10 +122,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-namespace tsd-has-type-parameter">
 					<a name="Conversion" class="tsd-anchor"></a>
 					<h3>Conversion</h3>
-					<div class="tsd-signature tsd-kind-icon">Conversion&lt;From, To&gt;<span class="tsd-signature-symbol">:</span> <a href="../interfaces/@frontmeans_input-aspects.InConverter.Value.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/@frontmeans_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">Conversion&lt;TFrom, TTo&gt;<span class="tsd-signature-symbol">:</span> <a href="../interfaces/@frontmeans_input-aspects.InConverter.Value.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TFrom</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TTo</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/@frontmeans_input-aspects.InConverter.Aspect.Conversion.html" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TTo</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/converter.ts#L43">frontmeans/input-aspects/src/converter.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/converter.ts#L43">frontmeans/input-aspects/src/converter.ts:43</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -136,7 +136,7 @@
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
 					<ul class="tsd-type-parameters">
 						<li>
-							<h4>From</h4>
+							<h4>TFrom</h4>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Original input value type.</p>
@@ -144,7 +144,7 @@
 							</div>
 						</li>
 						<li>
-							<h4>To</h4>
+							<h4>TTo</h4>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Converted input value type.</p>
@@ -156,10 +156,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-namespace tsd-has-type-parameter">
 					<a name="Factory" class="tsd-anchor"></a>
 					<h3>Factory</h3>
-					<div class="tsd-signature tsd-kind-icon">Factory&lt;From, To&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, from<span class="tsd-signature-symbol">: </span><a href="../classes/@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">&gt;</span>, to<span class="tsd-signature-symbol">: </span><a href="../classes/@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="@frontmeans_input-aspects.InConverter.html#Conversion" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">Factory&lt;TFrom, TTo&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, from<span class="tsd-signature-symbol">: </span><a href="../classes/@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TFrom</span><span class="tsd-signature-symbol">&gt;</span>, to<span class="tsd-signature-symbol">: </span><a href="../classes/@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TTo</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="@frontmeans_input-aspects.InConverter.html#Conversion" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TFrom</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TTo</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/converter.ts#L31">frontmeans/input-aspects/src/converter.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/converter.ts#L31">frontmeans/input-aspects/src/converter.ts:31</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -170,7 +170,7 @@
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
 					<ul class="tsd-type-parameters">
 						<li>
-							<h4>From</h4>
+							<h4>TFrom</h4>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Original input value type.</p>
@@ -178,7 +178,7 @@
 							</div>
 						</li>
 						<li>
-							<h4>To</h4>
+							<h4>TTo</h4>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Converted input value type.</p>
@@ -191,7 +191,7 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-signature">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, from<span class="tsd-signature-symbol">: </span><a href="../classes/@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">&gt;</span>, to<span class="tsd-signature-symbol">: </span><a href="../classes/@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.InConverter.html#Conversion" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, from<span class="tsd-signature-symbol">: </span><a href="../classes/@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TFrom</span><span class="tsd-signature-symbol">&gt;</span>, to<span class="tsd-signature-symbol">: </span><a href="../classes/@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TTo</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="@frontmeans_input-aspects.InConverter.html#Conversion" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TFrom</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TTo</span><span class="tsd-signature-symbol">&gt;</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
@@ -201,13 +201,13 @@
 												<h5>this: <span class="tsd-signature-type">void</span></h5>
 											</li>
 											<li>
-												<h5>from: <a href="../classes/@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">&gt;</span></h5>
+												<h5>from: <a href="../classes/@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TFrom</span><span class="tsd-signature-symbol">&gt;</span></h5>
 											</li>
 											<li>
-												<h5>to: <a href="../classes/@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span></h5>
+												<h5>to: <a href="../classes/@frontmeans_input-aspects.InControl.html" class="tsd-signature-type">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TTo</span><span class="tsd-signature-symbol">&gt;</span></h5>
 											</li>
 										</ul>
-										<h4 class="tsd-returns-title">Returns <a href="@frontmeans_input-aspects.InConverter.html#Conversion" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">From</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">To</span><span class="tsd-signature-symbol">&gt;</span></h4>
+										<h4 class="tsd-returns-title">Returns <a href="@frontmeans_input-aspects.InConverter.html#Conversion" class="tsd-signature-type">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TFrom</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TTo</span><span class="tsd-signature-symbol">&gt;</span></h4>
 									</li>
 								</ul>
 							</li>

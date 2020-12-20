@@ -93,7 +93,7 @@
 				<ul class="tsd-hierarchy">
 					<li><span class="tsd-signature-type">EventSender</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					<li><span class="tsd-signature-type">EventKeeper</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
-					<li><span class="tsd-signature-type">EventSupplyPeer</span></li>
+					<li><span class="tsd-signature-type">SupplyPeer</span></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -103,8 +103,10 @@
 						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="@frontmeans_input-aspects.InFocus.html#_EventSupply__symbol_" class="tsd-kind-icon">[<wbr>Event<wbr>Supply__symbol]</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="@frontmeans_input-aspects.InFocus.html#it" class="tsd-kind-icon">it</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="@frontmeans_input-aspects.InFocus.html#on" class="tsd-kind-icon">on</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="@frontmeans_input-aspects.InFocus.html#read" class="tsd-kind-icon">read</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="@frontmeans_input-aspects.InFocus.html#supply" class="tsd-kind-icon">supply</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -120,9 +122,6 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="@frontmeans_input-aspects.InFocus.html#_OnEvent__symbol_" class="tsd-kind-icon">[<wbr>OnEvent__symbol]</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="@frontmeans_input-aspects.InFocus.html#by" class="tsd-kind-icon">by</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="@frontmeans_input-aspects.InFocus.html#byNone" class="tsd-kind-icon">by<wbr>None</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="@frontmeans_input-aspects.InFocus.html#done" class="tsd-kind-icon">done</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="@frontmeans_input-aspects.InFocus.html#on" class="tsd-kind-icon">on</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="@frontmeans_input-aspects.InFocus.html#read" class="tsd-kind-icon">read</a></li>
 							</ul>
 						</section>
 					</div>
@@ -131,34 +130,78 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="_EventSupply__symbol_" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> <span class="tsd-flag ts-flagAbstract">Abstract</span> [<wbr>Event<wbr>Supply__symbol]</h3>
-					<div class="tsd-signature tsd-kind-icon">[<wbr>Event<wbr>Supply__symbol]<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventSupply</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="@frontmeans_input-aspects.InFocus.html">InFocus</a>.<a href="@frontmeans_input-aspects.InFocus.html#_EventSupply__symbol_">[EventSupply__symbol]</a></p>
-						<ul>
-							<li>Defined in proc7ts/fun-events/index.d.ts:1451</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>An event supply of this value tracker.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="it" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> it</h3>
 					<div class="tsd-signature tsd-kind-icon">it<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="@frontmeans_input-aspects.InFocus.html">InFocus</a>.<a href="@frontmeans_input-aspects.InFocus.html#it">it</a></p>
 						<ul>
-							<li>Defined in proc7ts/fun-events/index.d.ts:1455</li>
+							<li>Defined in proc7ts/fun-events/index.d.ts:1448</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>The tracked value.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="on" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> <span class="tsd-flag ts-flagAbstract">Abstract</span> on</h3>
+					<div class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#on">on</a></p>
+						<ul>
+							<li>Defined in proc7ts/fun-events/index.d.ts:1420</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>{@link OnEvent} sender of value changes.</p>
+						</div>
+						<p>The <code>[OnEvent__symbol]</code> property is an alias of this one.</p>
+						<dl class="tsd-comment-tags">
+							<dt>returns</dt>
+							<dd><p>Value changes sender.</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="read" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> read</h3>
+					<div class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#read">read</a></p>
+						<ul>
+							<li>Defined in proc7ts/fun-events/index.d.ts:1431</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>{@link AfterEvent} keeper of current value.</p>
+						</div>
+						<p>The <code>[AfterEvent__symbol]</code> property is an alias of this one.</p>
+						<dl class="tsd-comment-tags">
+							<dt>returns</dt>
+							<dd><p>Current value keeper.</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="supply" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> <span class="tsd-flag ts-flagAbstract">Abstract</span> supply</h3>
+					<div class="tsd-signature tsd-kind-icon">supply<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Supply</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="@frontmeans_input-aspects.InFocus.html">InFocus</a>.<a href="@frontmeans_input-aspects.InFocus.html#supply">supply</a></p>
+						<ul>
+							<li>Defined in proc7ts/fun-events/index.d.ts:1444</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An event supply of this value tracker.</p>
 						</div>
 					</div>
 				</section>
@@ -175,7 +218,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ea5b4a5/src/elements/focus/focus.aspect.ts#L45">frontmeans/input-aspects/src/elements/focus/focus.aspect.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/312d353/src/elements/focus/focus.aspect.ts#L37">frontmeans/input-aspects/src/elements/focus/focus.aspect.ts:37</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../modules/@frontmeans_input-aspects.InAspect.html" class="tsd-signature-type">InAspect</a><span class="tsd-signature-symbol">&lt;</span><a href="@frontmeans_input-aspects.InFocus.html" class="tsd-signature-type">InFocus</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -196,7 +239,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#_AfterEvent__symbol_">[AfterEvent__symbol]</a></p>
 								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1445</li>
+									<li>Defined in proc7ts/fun-events/index.d.ts:1438</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -214,7 +257,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#_OnEvent__symbol_">[OnEvent__symbol]</a></p>
 								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1441</li>
+									<li>Defined in proc7ts/fun-events/index.d.ts:1434</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -226,14 +269,14 @@
 					<h3>by</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
 						<li class="tsd-signature tsd-kind-icon">by<span class="tsd-signature-symbol">(</span>supplier<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
-						<li class="tsd-signature tsd-kind-icon">by&lt;S&gt;<span class="tsd-signature-symbol">(</span>supplier<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span>, extract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, <span class="tsd-signature-symbol">...</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">by&lt;TSrcEvent&gt;<span class="tsd-signature-symbol">(</span>supplier<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TSrcEvent</span><span class="tsd-signature-symbol">&gt;</span>, extract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, <span class="tsd-signature-symbol">...</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TSrcEvent</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#by">by</a></p>
 								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1469</li>
+									<li>Defined in proc7ts/fun-events/index.d.ts:1462</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -241,7 +284,7 @@
 									<p>Updates the tracked value by the given value <code>supplier</code>.</p>
 								</div>
 								<p>If the value is already updated by another supplier, then unbinds from the old one first.</p>
-								<p>Call the [[ValueTracker.byNone]] method to unbind the tracked value from the <code>source</code>.</p>
+								<p>Call the {@link ValueTracker.byNone} method to unbind the tracked value from the <code>source</code>.</p>
 								<p>Note that explicitly updating the value would override the value received from the <code>source</code>.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -260,7 +303,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#by">by</a></p>
 								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1488</li>
+									<li>Defined in proc7ts/fun-events/index.d.ts:1481</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -268,28 +311,28 @@
 									<p>Updates the tracked value by value suppliers extracted from events sent by the given <code>supplier</code>.</p>
 								</div>
 								<p>If the value is already updated by another value supplier, then unbinds from the old one first.</p>
-								<p>Call the [[ValueTracker.byNone]] method to unbind the tracked value from the <code>source</code>.</p>
+								<p>Call the {@link ValueTracker.byNone} method to unbind the tracked value from the <code>source</code>.</p>
 								<p>Note that explicitly updating the value would override the value received from the <code>source</code>.</p>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>S<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4>
+									<h4>TSrcEvent<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4>
 									<div class="tsd-comment tsd-typography">
-										<p>Source value type.</p>
+										<p>Source event type.</p>
 									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>supplier: <span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>supplier: <span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TSrcEvent</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The event supplier to extract value suppliers from.</p>
 									</div>
 								</li>
 								<li>
-									<h5>extract: <span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, <span class="tsd-signature-symbol">...</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
+									<h5>extract: <span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, <span class="tsd-signature-symbol">...</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TSrcEvent</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>A function extracting value supplier from event received from <code>supplier</code>.
 										May return <code>undefined</code> to suspend receiving values.</p>
@@ -297,7 +340,7 @@
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-signature">
 											<ul class="tsd-signatures tsd-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, <span class="tsd-signature-symbol">...</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, <span class="tsd-signature-symbol">...</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TSrcEvent</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 											</ul>
 											<ul class="tsd-descriptions">
 												<li class="tsd-description">
@@ -307,7 +350,7 @@
 															<h5>this: <span class="tsd-signature-type">void</span></h5>
 														</li>
 														<li>
-															<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>event: <span class="tsd-signature-type">S</span></h5>
+															<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>event: <span class="tsd-signature-type">TSrcEvent</span></h5>
 														</li>
 													</ul>
 													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventSupplier</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
@@ -333,7 +376,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#byNone">byNone</a></p>
 								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1500</li>
+									<li>Defined in proc7ts/fun-events/index.d.ts:1493</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -353,141 +396,6 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
 							<p><code>this</code> instance.</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="done" class="tsd-anchor"></a>
-					<h3>done</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">done<span class="tsd-signature-symbol">(</span>reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#done">done</a></p>
-								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1510</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Removes all registered event receivers and cuts off corresponding event supplies.</p>
-								</div>
-								<p>After this method call they won&#39;t receive events.</p>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> reason: <span class="tsd-signature-type">any</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>A reason to stop sending events.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
-							<p><code>this</code> instance.</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="on" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagAbstract">Abstract</span> on</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">(</span>receiver<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventReceiver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupply</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#on">on</a></p>
-								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1404</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns [[OnEvent]] sender of value changes.</p>
-								</div>
-								<p>The <code>[OnEvent__symbol]</code> property is an alias of this one.</p>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>Value changes sender.</p>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#on">on</a></p>
-								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1417</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Registers a receiver of value changes.</p>
-								</div>
-								<p>The new value is sent as first argument, and the old value as a second one.</p>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>receiver: <span class="tsd-signature-type">EventReceiver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>A receiver to register.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventSupply</span></h4>
-							<p>A supply of value changes.</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="read" class="tsd-anchor"></a>
-					<h3>read</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">(</span>receiver<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventReceiver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventSupply</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#read">read</a></p>
-								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1428</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Builds an [[AfterEvent]] keeper of current value.</p>
-								</div>
-								<p>The <code>[AfterEvent__symbol]</code> property is an alias of this one.</p>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>Current value keeper.</p>
-						</li>
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="@frontmeans_input-aspects.InControl.html">InControl</a>.<a href="@frontmeans_input-aspects.InControl.html#read">read</a></p>
-								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1438</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Registers a receiver of current values.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>receiver: <span class="tsd-signature-type">EventReceiver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>A receiver to register.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventSupply</span></h4>
-							<p>A supply of current value.</p>
 						</li>
 					</ul>
 				</section>
@@ -512,10 +420,16 @@
 						<a href="@frontmeans_input-aspects.InFocus.html" class="tsd-kind-icon">In<wbr>Focus</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="@frontmeans_input-aspects.InFocus.html#_EventSupply__symbol_" class="tsd-kind-icon">[<wbr>Event<wbr>Supply__symbol]</a>
+								<a href="@frontmeans_input-aspects.InFocus.html#it" class="tsd-kind-icon">it</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="@frontmeans_input-aspects.InFocus.html#it" class="tsd-kind-icon">it</a>
+								<a href="@frontmeans_input-aspects.InFocus.html#on" class="tsd-kind-icon">on</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="@frontmeans_input-aspects.InFocus.html#read" class="tsd-kind-icon">read</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="@frontmeans_input-aspects.InFocus.html#supply" class="tsd-kind-icon">supply</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
 								<a href="@frontmeans_input-aspects.InFocus.html#_InAspect__symbol_" class="tsd-kind-icon">[<wbr>InAspect__symbol]</a>
@@ -531,15 +445,6 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="@frontmeans_input-aspects.InFocus.html#byNone" class="tsd-kind-icon">by<wbr>None</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="@frontmeans_input-aspects.InFocus.html#done" class="tsd-kind-icon">done</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="@frontmeans_input-aspects.InFocus.html#on" class="tsd-kind-icon">on</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="@frontmeans_input-aspects.InFocus.html#read" class="tsd-kind-icon">read</a>
 							</li>
 						</ul>
 					</li>
