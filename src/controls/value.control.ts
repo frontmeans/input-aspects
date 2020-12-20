@@ -48,20 +48,20 @@ class InValueControl<TValue> extends AbstractInControl<TValue> {
  * This control does not handle actual user input. Instead, it maintains the value set programmatically.
  *
  * @category Control
- * @typeParam Value - Input value type.
+ * @typeParam TValue - Input value type.
  * @param initial - Initial input value.
  * @param aspects - Input aspects applied by default. These are aspect converters to constructed control
  * from the {@link inValueOf same-valued one}.
  *
  * @returns New input control.
  */
-export function inValue<Value>(
-    initial: Value,
+export function inValue<TValue>(
+    initial: TValue,
     {
       aspects,
     }: {
-      readonly aspects?: InConverter.Aspect<Value> | readonly InConverter.Aspect<Value>[];
+      readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[];
     } = {},
-): InControl<Value> {
+): InControl<TValue> {
   return new InValueControl(initial, { aspects });
 }

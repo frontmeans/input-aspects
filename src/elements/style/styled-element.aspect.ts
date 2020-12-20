@@ -46,7 +46,7 @@ export const InStyledElement = {
    * This is useful for controls without elements (such as input groups), or can be used to apply CSS classes to input
    * element wrappers (such as `form-group` in Bootstrap).
    *
-   * @typeParam - Converted control value type.
+   * @typeParam TValue - Converted control value type.
    * @param element - A DOM element to apply styles to. Styles won't be applied when `null` or undefined.
    *
    * @returns Input control aspect converter.

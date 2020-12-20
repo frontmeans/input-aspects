@@ -23,10 +23,10 @@ const InElement__aspect: InAspect<InElement<any> | null, 'element'> = {
  * It is also available as aspect of itself and converted controls with the same value.
  *
  * @category Control
- * @typeParam Value - Input value type.
+ * @typeParam TValue - Input value type.
  * @typeParam TElt - A type of input HTML element.
  */
-export abstract class InElement<Value, TElt = HTMLElement> extends AbstractInControl<Value> {
+export abstract class InElement<TValue, TElt = HTMLElement> extends AbstractInControl<TValue> {
 
   static get [InAspect__symbol](): InAspect<InElement<any> | null, 'element'> {
     return InElement__aspect;
@@ -45,17 +45,17 @@ export abstract class InElement<Value, TElt = HTMLElement> extends AbstractInCon
   /**
    * An `AfterEvent` keeper of user input.
    */
-  abstract readonly input: AfterEvent<[InElement.Input<Value>]>;
+  abstract readonly input: AfterEvent<[InElement.Input<TValue>]>;
 
-  protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
-      aspect: InAspect<Instance, Kind>,
-  ): InAspect.Application.Result<Instance, Value, Kind> | undefined {
+  protected _applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
+      aspect: InAspect<TInstance, TKind>,
+  ): InAspect.Application.Result<TInstance, TValue, TKind> | undefined {
     return aspect as InAspect<any, any> === InElement__aspect
         ? inAspectSameOrNull(
             this,
             InElement,
-            this as InElement<Value, any>,
-        ) as InAspect.Application.Result<Instance, Value, Kind>
+            this as InElement<TValue, any>,
+        ) as InAspect.Application.Result<TInstance, TValue, TKind>
         : super._applyAspect(aspect);
   }
 
@@ -66,14 +66,14 @@ export namespace InElement {
   /**
    * User input.
    *
-   * @typeParam Value - Input value type.
+   * @typeParam TValue - Input value type.
    */
-  export interface Input<Value> {
+  export interface Input<TValue> {
 
     /**
      * The value user entered.
      */
-    value: Value;
+    value: TValue;
 
     /**
      * An event caused the value to be applied.

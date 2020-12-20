@@ -16,7 +16,7 @@ export const inAspectNull: InAspect.Applied<any, any, any> = {
 export function inAspectSameOrBuild<TValue, TInstance, TKind extends InAspect.Application.Kind>(
     control: InControl<TValue>,
     aspectKey: InAspect.Key<TInstance, TKind>,
-    build: <V>(this: void, control: InControl<V>, origin?: InControl<any>) => TInstance,
+    build: <TValue>(this: void, control: InControl<TValue>, origin?: InControl<any>) => TInstance,
     instance?: TInstance,
     origin?: InControl<any>,
 ): InAspect.Applied<TValue, TInstance> {

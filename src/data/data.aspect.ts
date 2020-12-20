@@ -19,9 +19,9 @@ import { InMode } from './mode.aspect';
  * An aspect interface is an `AfterEvent` keeper of input data.
  *
  * @category Aspect
- * @typeParam Value - Input value type.
+ * @typeParam TValue - Input value type.
  */
-export type InData<Value> = AfterEvent<[InData.DataType<Value>?]>;
+export type InData<TValue> = AfterEvent<[InData.DataType<TValue>?]>;
 
 /**
  * @internal
@@ -30,7 +30,7 @@ const InData__aspect: Aspect = {
 
   applyTo<TValue>(control: InControl<TValue>): Applied<TValue> {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    return inAspectSameOrBuild(control, InData, <V>(ctrl: InControl<V>) => afterAll({
+    return inAspectSameOrBuild(control, InData, <TValue>(ctrl: InControl<TValue>) => afterAll({
       value: ctrl,
       mode: ctrl.aspect(InMode),
     }).do(mapAfter(
@@ -47,7 +47,7 @@ const InData__aspect: Aspect = {
  */
 interface Aspect extends InAspect<InData<any>, 'data'> {
 
-  applyTo<Value>(control: InControl<Value>): Applied<Value>;
+  applyTo<TValue>(control: InControl<TValue>): Applied<TValue>;
 
 }
 
