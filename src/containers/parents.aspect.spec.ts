@@ -1,4 +1,5 @@
-import { afterSupplied, EventSupply, onSupplied } from '@proc7ts/fun-events';
+import { afterSupplied, onSupplied } from '@proc7ts/fun-events';
+import { Supply } from '@proc7ts/primitives';
 import { InControl } from '../control';
 import { inValue } from '../controls';
 import { InContainer } from './container.control';
@@ -19,7 +20,7 @@ describe('InParents', () => {
   let parents: InParents;
   let onParents: Mock<void, [InParents.Entry[], InParents.Entry[]]>;
   let readParents: Mock<void, [InParents.All]>;
-  let parentsSupply: EventSupply;
+  let parentsSupply: Supply;
   let allParents: InParents.All;
 
   beforeEach(() => {
@@ -38,19 +39,19 @@ describe('InParents', () => {
 
   describe('[OnEvent__symbol]', () => {
     it('is the same as `on`', () => {
-      expect(onSupplied(parents)).toBe(parents.on());
+      expect(onSupplied(parents)).toBe(parents.on);
     });
   });
 
   describe('[AfterEvent__symbol]', () => {
     it('is the same as `read`', () => {
-      expect(afterSupplied(parents)).toBe(parents.read());
+      expect(afterSupplied(parents)).toBe(parents.read);
     });
   });
 
   describe('add', () => {
 
-    let supply: EventSupply;
+    let supply: Supply;
     let entry: InParents.Entry;
 
     beforeEach(() => {
@@ -75,7 +76,7 @@ describe('InParents', () => {
       expect(readParents).toHaveBeenCalledTimes(2);
     });
     it('removes parent when its input is cut off', () => {
-      parent.done();
+      parent.supply.off();
       expect([...allParents]).toHaveLength(0);
       expect(onParents).toHaveBeenCalledWith([], [entry]);
       expect(readParents).toHaveBeenCalledTimes(2);
@@ -95,7 +96,7 @@ describe('InParents', () => {
 
       const reason = 'test';
 
-      control.done(reason);
+      control.supply.off(reason);
 
       const parent2 = inGroup({});
       const entry2: InParents.Entry = { parent: parent2 };
@@ -110,7 +111,7 @@ describe('InParents', () => {
       const reason = 'test';
       const parent2 = inGroup({});
 
-      parent2.done(reason);
+      parent2.supply.off(reason);
 
       const entry2: InParents.Entry = { parent: parent2 };
       const whenOff = jest.fn();
@@ -127,7 +128,7 @@ describe('InParents', () => {
       const reason = 'test';
       const whenOff = jest.fn();
 
-      control.done(reason);
+      control.supply.off(reason);
       parentsSupply.whenOff(whenOff);
       expect(whenOff).toHaveBeenCalledWith(reason);
     });

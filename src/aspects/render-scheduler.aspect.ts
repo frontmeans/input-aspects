@@ -12,7 +12,7 @@ import { InConverter } from '../converter';
  *
  * It is used e.g. to schedule CSS updates. The control values and attributes are updated instantly.
  *
- * Uses the default render scheduler unless overridden e.g. by [[InRenderScheduler.to]] converter.
+ * Uses the default render scheduler unless overridden e.g. by {@link InRenderScheduler.to} converter.
  *
  * @category Aspect
  */
@@ -41,17 +41,18 @@ export const InRenderScheduler = {
   /**
    * Creates input control aspect converter that assigns the given render scheduler to converted control.
    *
-   * @param scheduler  Target DOM render scheduler.
+   * @typeParam TValue - Converted control value type.
+   * @param scheduler - Target DOM render scheduler.
    *
    * @returns Input control aspect converter.
    */
-  to<Value>(scheduler: InRenderScheduler): InConverter.Aspect<any, Value> {
+  to<TValue>(scheduler: InRenderScheduler): InConverter.Aspect<any, TValue> {
     return {
-      applyAspect<Instance, Kind extends InAspect.Application.Kind>(
+      applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
           aspect: InAspect<any, any>,
-      ): InAspect.Applied<any, InAspect.Application.Instance<Instance, Value, Kind>> | undefined {
+      ): InAspect.Applied<any, InAspect.Application.Instance<TInstance, TValue, TKind>> | undefined {
         return aspect === InRenderScheduler__aspect
-            ? inAspectValue(scheduler) as InAspect.Application.Result<Instance, Value, Kind>
+            ? inAspectValue(scheduler) as InAspect.Application.Result<TInstance, TValue, TKind>
             : undefined;
       },
     };

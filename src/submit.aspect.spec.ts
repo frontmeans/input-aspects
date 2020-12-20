@@ -1,5 +1,5 @@
-import { afterSupplied, EventSupply } from '@proc7ts/fun-events';
-import { noop } from '@proc7ts/primitives';
+import { afterSupplied } from '@proc7ts/fun-events';
+import { noop, Supply } from '@proc7ts/primitives';
 import { InControl } from './control';
 import { inValue } from './controls';
 import { intoInteger } from './conversion';
@@ -13,7 +13,7 @@ describe('InSubmit', () => {
   let control: InControl<string>;
   let submit: InSubmit<string>;
   let flags: InSubmit.Flags;
-  let flagsSupply: EventSupply;
+  let flagsSupply: Supply;
 
   beforeEach(() => {
     control = inValue('test');
@@ -53,7 +53,7 @@ describe('InSubmit', () => {
 
   describe('[AfterEvent__symbol]', () => {
     it('is the same as `read`', () => {
-      expect(afterSupplied(submit)).toBe(submit.read());
+      expect(afterSupplied(submit)).toBe(submit.read);
     });
   });
 
@@ -90,7 +90,7 @@ describe('InSubmit', () => {
 
       const reason = 'some reason';
 
-      control.done(reason);
+      control.supply.off(reason);
       await ensureRejected('noInput');
 
       const done = jest.fn();

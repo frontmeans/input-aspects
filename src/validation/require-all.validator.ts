@@ -11,11 +11,12 @@ import { InValidationMessages } from './validator.impl';
  * Creates input validator that validates using all listed validators.
  *
  * @category Validation
- * @param validators  Validators to validate the input with.
+ * @typeParam TValue - Input value type.
+ * @param validators - Validators to validate the input with.
  *
  * @returns Validator that requires all the given `validators`. Or just the given validator if it is the only one given.
  */
-export function requireAll<Value>(...validators: InValidator<Value>[]): InValidator<Value> {
+export function requireAll<TValue>(...validators: InValidator<TValue>[]): InValidator<TValue> {
 
   const numValidators = validators.length;
 
@@ -26,7 +27,7 @@ export function requireAll<Value>(...validators: InValidator<Value>[]): InValida
     return requireNothing;
   }
 
-  return (control: InControl<Value>) => {
+  return (control: InControl<TValue>) => {
 
     const messages = new InValidationMessages(control);
 

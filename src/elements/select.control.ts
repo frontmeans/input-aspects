@@ -2,7 +2,7 @@
  * @packageDocumentation
  * @module @frontmeans/input-aspects
  */
-import { filterArray, itsEach, itsElements, reverseArray } from '@proc7ts/push-iterator';
+import { itsEach, itsElements, reverseArray, valueArray } from '@proc7ts/push-iterator';
 import { InConverter } from '../converter';
 import { InElement } from '../element.control';
 import { AbstractInElement } from './abstract-element.control';
@@ -21,8 +21,8 @@ export type InSelect = InElement<readonly string[], HTMLSelectElement>;
  * elements. Consider to use `inText()` for single-selects.
  *
  * @category Control
- * @param element  Target select element.
- * @param aspects  Input aspects applied by default. These are aspect converters to constructed control
+ * @param element - Target select element.
+ * @param aspects - Input aspects applied by default. These are aspect converters to constructed control
  * from the {@link inValueOf same-valued one}.
  *
  * @return New select input control instance.
@@ -41,11 +41,10 @@ export function inSelect(
         aspects,
         get(): string[] {
           return itsElements(
-              filterArray(
+              valueArray(
                   this.element.options,
-                  option => option.selected,
+                  option => option.selected && option.value,
               ),
-              option => option.value,
           );
         },
         set(value) {

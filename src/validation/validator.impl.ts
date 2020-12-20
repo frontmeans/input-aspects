@@ -5,10 +5,10 @@ import {
   afterSupplied,
   EventEmitter,
   EventKeeper,
-  EventSupply,
-  eventSupply,
+  shareAfter,
+  supplyAfter,
 } from '@proc7ts/fun-events';
-import { noop, valuesProvider } from '@proc7ts/primitives';
+import { noop, Supply, valuesProvider } from '@proc7ts/primitives';
 import { flatMapIt, itsEach } from '@proc7ts/push-iterator';
 import { InControl } from '../control';
 import { InValidation } from './validation.aspect';
@@ -19,33 +19,33 @@ const dontRemove = {};
 /**
  * @internal
  */
-export class InValidationMessages<Value> implements EventKeeper<InValidation.Message[]> {
+export class InValidationMessages<TValue> implements EventKeeper<InValidation.Message[]> {
 
   readonly _messages: AfterEvent<InValidation.Message[]>;
-  readonly from: (this: void, validator: InValidator<Value>) => EventSupply;
+  readonly from: (this: void, validator: InValidator<TValue>) => Supply;
 
-  constructor(control: InControl<Value>) {
+  constructor(control: InControl<TValue>) {
 
     const emitter = new EventEmitter<InValidation.Message[]>();
-    const validators = new Map<AfterEvent<InValidation.Message[]>, EventSupply>();
-    const validatorMessages = new Map<InValidator<Value>, InValidation.Message[]>();
+    const validators = new Map<AfterEvent<InValidation.Message[]>, Supply>();
+    const validatorMessages = new Map<InValidator<TValue>, InValidation.Message[]>();
     // Sends validation messages
     let send: () => void = noop;
     // Validates using the given validator
-    let validate: (validator: AfterEvent<InValidation.Message[]>, validatorSupply: EventSupply) => void = noop;
+    let validate: (validator: AfterEvent<InValidation.Message[]>, validatorSupply: Supply) => void = noop;
 
     this._messages = afterEventBy<InValidation.Message[]>(receiver => {
 
       // Validation messages supply
-      const resultSupply = afterSupplied(emitter, valuesProvider()).to(receiver).whenOff(() => {
+      const resultSupply = afterSupplied(emitter, valuesProvider())(receiver).whenOff(() => {
         send = noop; // Disable message sending
         validate = noop; // Disable validation
       });
 
       // Enable validation using the given validator
-      validate = (validator: AfterEvent<InValidation.Message[]>, validatorSupply: EventSupply) => {
+      validate = (validator: AfterEvent<InValidation.Message[]>, validatorSupply: Supply) => {
 
-        const supply = validator.to(
+        const supply = validator(
             (...messages) => {
               if (messages.length) {
                 // Replace messages reported by validator.
@@ -83,12 +83,15 @@ export class InValidationMessages<Value> implements EventKeeper<InValidation.Mes
       if (validatorMessages.size) {
         send();
       }
-    }).share().tillOff(control);
+    }).do(
+        shareAfter,
+        supplyAfter(control),
+    );
 
     this.from = validator => {
 
       const source = inValidator(validator)(control);
-      const validatorSupply = eventSupply(() => {
+      const validatorSupply = new Supply(() => {
         validators.delete(source);
       });
 

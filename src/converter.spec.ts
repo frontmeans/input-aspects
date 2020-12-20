@@ -1,3 +1,4 @@
+import { onceAfter } from '@proc7ts/fun-events';
 import { noop } from '@proc7ts/primitives';
 import { InAspect__symbol } from './aspect';
 import { InControl } from './control';
@@ -46,7 +47,7 @@ describe('intoConverterBy', () => {
 
     const converted = control.convert(factory);
 
-    converted.aspect(InData).once(noop);
+    converted.aspect(InData).do(onceAfter)(noop);
     expect(converter1.applyAspect).toHaveBeenCalledWith(InData[InAspect__symbol]);
     expect(converter2.applyAspect).toHaveBeenCalledWith(InData[InAspect__symbol]);
   });

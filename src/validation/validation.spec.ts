@@ -1,6 +1,14 @@
-import { nextArgs } from '@proc7ts/call-thru';
-import { afterSupplied, EventEmitter, EventKeeper, EventSupply, onSupplied, trackValue } from '@proc7ts/fun-events';
-import { asis, noop, valuesProvider } from '@proc7ts/primitives';
+import {
+  afterSupplied,
+  EventEmitter,
+  EventKeeper,
+  mapAfter,
+  mapOn_,
+  onSupplied,
+  trackValue,
+  translateAfter_,
+} from '@proc7ts/fun-events';
+import { asis, noop, Supply, valuesProvider } from '@proc7ts/primitives';
 import { inGroup, InGroup } from '../containers';
 import { InControl } from '../control';
 import { inValue } from '../controls';
@@ -19,19 +27,22 @@ describe('InValidation', () => {
   });
 
   let validator: EventEmitter<InValidation.Message[]>;
-  let validatorSupply: EventSupply;
+  let validatorSupply: Supply;
 
   beforeEach(() => {
     validator = new EventEmitter();
 
-    const tracker = trackValue<InValidation.Message[]>([])
-        .by(onSupplied(validator).thru_((...messages) => messages));
+    const tracker = trackValue<InValidation.Message[]>([]).by(
+        onSupplied(validator).do(mapOn_((...messages) => messages)),
+    );
 
-    validatorSupply = validation.by(tracker.read().keepThru_(messages => nextArgs(...messages)));
+    validatorSupply = validation.by(
+        tracker.read.do(translateAfter_((send, messages) => send(...messages))),
+    );
   });
 
   let receiver: Mock<void, [InValidation.Result]>;
-  let resultSupply: EventSupply;
+  let resultSupply: Supply;
 
   beforeEach(() => {
     receiver = jest.fn();
@@ -157,7 +168,7 @@ describe('InValidation', () => {
 
     const message = { message: 'test message' };
     const tracker = trackValue(message);
-    const validatorFunction = jest.fn<EventKeeper<InValidation.Message[]>, [InControl<string>]>(() => tracker.read());
+    const validatorFunction = jest.fn<EventKeeper<InValidation.Message[]>, [InControl<string>]>(() => tracker.read);
 
     validation.by(validatorFunction);
     expect(validatorFunction).toHaveBeenCalledWith(control);
@@ -228,7 +239,9 @@ describe('InValidation', () => {
 
     const validator2 = new EventEmitter<InValidation.Message[]>();
     const proxy = jest.fn(asis);
-    const supply = validation.by(afterSupplied<InValidation.Message[]>(validator2.on().thru(proxy), valuesProvider()));
+    const supply = validation.by(
+        validator2.on.do(mapAfter(proxy, valuesProvider())),
+    );
     const message1 = { message: 'message1' };
 
     validator2.send(message1);
@@ -270,7 +283,7 @@ describe('InValidation', () => {
 
     const reason = 'some reason';
 
-    control.done(reason);
+    control.supply.off(reason);
 
     const validatorDone = jest.fn();
 
@@ -285,7 +298,7 @@ describe('InValidation', () => {
 
   describe('AfterEvent__symbol', () => {
     it('is an alias of `read`', () => {
-      expect(afterSupplied(validation)).toBe(validation.read());
+      expect(afterSupplied(validation)).toBe(validation.read);
     });
   });
 

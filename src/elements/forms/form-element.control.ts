@@ -2,7 +2,6 @@
  * @packageDocumentation
  * @module @frontmeans/input-aspects
  */
-import { eventSupplyOf } from '@proc7ts/fun-events';
 import { noop } from '@proc7ts/primitives';
 import { InControl } from '../../control';
 import { InConverter, intoConvertedAspects } from '../../converter';
@@ -19,12 +18,12 @@ import { AbstractInElement } from '../abstract-element.control';
  * It is used to update form element state. E.g. to make it read-only when {@link InSubmit.Flags.busy submitting}
  * the form.
  *
- * Form element control can be created by [[inFormElement]] function.
+ * Form element control can be created by {@link inFormElement} function.
  *
  * @category Control
- * @typeparam Elt  A type of HTML form element.
+ * @typeParam TElt - A type of HTML form element.
  */
-export type InFormElement<Elt extends HTMLElement = HTMLElement> = InElement<void, Elt>;
+export type InFormElement<TElt extends HTMLElement = HTMLElement> = InElement<void, TElt>;
 
 export namespace InFormElement {
 
@@ -47,7 +46,7 @@ export namespace InFormElement {
     /**
      * Input modes to derive from submitted control.
      *
-     * Applied to form element control by [[inModeByForm]].
+     * Applied to form element control by {@link inModeByForm}.
      */
     modes?: {
 
@@ -76,18 +75,18 @@ export namespace InFormElement {
  * Creates form element control.
  *
  * @category Control
- * @param element  HTML element to create control for.
- * @param options  Form element control options.
+ * @param element - HTML element to create control for.
+ * @param options - Form element control options.
  *
  * @returns New form element control.
  */
-export function inFormElement<Elt extends HTMLElement>(
-    element: Elt,
+export function inFormElement<TElt extends HTMLElement>(
+    element: TElt,
     options: InFormElement.Options,
-): InFormElement<Elt> {
+): InFormElement<TElt> {
 
   const { form, aspects, modes } = options;
-  const control = new AbstractInElement<void, Elt>(
+  const control = new AbstractInElement<void, TElt>(
       element,
       {
         aspects: [intoConvertedAspects(aspects)],
@@ -96,7 +95,7 @@ export function inFormElement<Elt extends HTMLElement>(
       },
   );
 
-  eventSupplyOf(control).needs(form);
+  control.supply.needs(form);
   control.aspect(InMode).derive(inModeByForm(form, modes));
 
   return control;

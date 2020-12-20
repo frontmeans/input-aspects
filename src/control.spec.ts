@@ -1,4 +1,4 @@
-import { EventSupply } from '@proc7ts/fun-events';
+import { Supply } from '@proc7ts/primitives';
 import { InAspect, InAspect__symbol } from './aspect';
 import { inAspectValue } from './aspect.impl';
 import { InControl } from './control';
@@ -23,15 +23,15 @@ describe('InControl', () => {
       get [InAspect__symbol]() {
         return this;
       },
-      applyTo<V>(ctr: InControl<V>) {
+      applyTo<TValue>(ctr: InControl<TValue>) {
         return applied(ctr, '');
       },
     };
 
-    function applied<V>(ctr: InControl<V>, suffix: string): InAspect.Applied<V, () => string> {
+    function applied<TValue>(ctr: InControl<TValue>, suffix: string): InAspect.Applied<TValue, () => string> {
       return {
         instance: () => `${ctr.it}${suffix}`,
-        convertTo<C>(target: InControl<C>) {
+        convertTo<TTargetValue>(target: InControl<TTargetValue>) {
           // Each conversion applies `!` suffix
           return applied(target, `${suffix}!`);
         },
@@ -161,7 +161,7 @@ describe('InControl', () => {
 
       let receiver: Mock;
       let convertedReceiver: Mock;
-      let convertedSupply: EventSupply;
+      let convertedSupply: Supply;
 
       beforeEach(() => {
         control.on(receiver = jest.fn());
@@ -193,7 +193,7 @@ describe('InControl', () => {
 
         convertedSupply.whenOff(done);
 
-        control.done('reason');
+        control.supply.off('reason');
         expect(done).toHaveBeenCalledWith('reason');
       });
       it('is done when converted is done', () => {
@@ -202,7 +202,7 @@ describe('InControl', () => {
 
         convertedSupply.whenOff(done);
 
-        control.done('reason');
+        control.supply.off('reason');
         expect(done).toHaveBeenCalledWith('reason');
       });
     });

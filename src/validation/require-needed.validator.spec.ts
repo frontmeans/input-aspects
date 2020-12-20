@@ -1,4 +1,4 @@
-import { afterThe } from '@proc7ts/fun-events';
+import { afterThe, onceOn } from '@proc7ts/fun-events';
 import { inValue } from '../controls';
 import { requireNeeded } from './require-needed.validator';
 import { InValidation } from './validation.aspect';
@@ -17,7 +17,7 @@ describe('requireNeeded', () => {
       const validator = inValidator<string>(requireNeeded(afterThe(...messages)));
       let result: InValidation.Message[] = [];
 
-      validator(control).once(
+      validator(control).do(onceOn)(
           (...filtered) => result = filtered,
       );
 

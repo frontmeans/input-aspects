@@ -46,17 +46,18 @@ export const InStyledElement = {
    * This is useful for controls without elements (such as input groups), or can be used to apply CSS classes to input
    * element wrappers (such as `form-group` in Bootstrap).
    *
-   * @param element  A DOM element to apply styles to. Styles won't be applied when `null` or undefined.
+   * @typeParam TValue - Converted control value type.
+   * @param element - A DOM element to apply styles to. Styles won't be applied when `null` or undefined.
    *
    * @returns Input control aspect converter.
    */
-  to<Value>(element: InStyledElement | null = null): InConverter.Aspect<any, Value> {
+  to<TValue>(element: InStyledElement | null = null): InConverter.Aspect<any, TValue> {
     return {
-      applyAspect<Instance, Kind extends InAspect.Application.Kind>(
+      applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
           aspect: InAspect<any, any>,
-      ): InAspect.Applied<any, InAspect.Application.Instance<Instance, Value, Kind>> | undefined {
+      ): InAspect.Applied<any, InAspect.Application.Instance<TInstance, TValue, TKind>> | undefined {
         return aspect === InStyledElement__aspect
-            ? inAspectValue(element) as InAspect.Application.Result<Instance, Value, Kind>
+            ? inAspectValue(element) as InAspect.Application.Result<TInstance, TValue, TKind>
             : undefined;
       },
     };

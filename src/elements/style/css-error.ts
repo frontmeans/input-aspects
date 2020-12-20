@@ -2,7 +2,7 @@
  * @packageDocumentation
  * @module @frontmeans/input-aspects
  */
-import { nextArgs } from '@proc7ts/call-thru';
+import { translateAfter } from '@proc7ts/fun-events';
 import { arrayOfElements } from '@proc7ts/primitives';
 import { InputAspects__NS } from '../../aspects';
 import { InValidation } from '../../validation';
@@ -15,10 +15,10 @@ import { InCssClasses } from './css-classes.aspect';
  * {@link InValidation.Result validation result}.
  *
  * @category Style
- * @param mark  Error mark. Specifies CSS class(es) to apply when requested error present.
+ * @param mark - Error mark. Specifies CSS class(es) to apply when requested error present.
  * A class with `has-error` name in {@link InputAspects__NS input
  * aspects namespace} is used by default.
- * @param when  {@link InValidation.Message Validation message} code(s) to expect.
+ * @param when - {@link InValidation.Message Validation message} code(s) to expect.
  * {@link InValidation.Result.ok Any} error matches by default.
  *
  * @returns A source of CSS class names to apply.
@@ -43,11 +43,9 @@ export function inCssError(
     hasError = errors => errors.has(when);
   }
 
-  return control => control.aspect(InValidation).read().keepThru(
-      errors => hasError(errors)
-          ? nextArgs(...inCssErrorMarks(mark))
-          : nextArgs(),
-  );
+  return control => control.aspect(InValidation).read.do(translateAfter(
+      (send, errors) => hasError(errors) ? send(...inCssErrorMarks(mark)) : send(),
+  ));
 }
 
 /**

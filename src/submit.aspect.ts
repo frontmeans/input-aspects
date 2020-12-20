@@ -2,16 +2,15 @@
  * @packageDocumentation
  * @module @frontmeans/input-aspects
  */
-import { nextArgs } from '@proc7ts/call-thru';
 import {
   afterAll,
   AfterEvent,
   AfterEvent__symbol,
   EventKeeper,
-  EventReceiver,
-  EventSupply,
-  eventSupplyOf,
+  mapAfter,
+  supplyAfter,
   trackValue,
+  translateAfter,
 } from '@proc7ts/fun-events';
 import { itsEvery } from '@proc7ts/push-iterator';
 import { InAspect, InAspect__symbol } from './aspect';
@@ -24,7 +23,7 @@ import { InValidation, inValidationResult } from './validation';
  * @internal
  */
 const InSubmit__aspect: InAspect<InSubmit<any>, 'submit'> = {
-  applyTo<Value>(control: InControl<Value>) {
+  applyTo<TValue>(control: InControl<TValue>) {
     return inAspectSameOrBuild(control, InSubmit, ctrl => new InControlSubmit(ctrl));
   },
 };
@@ -46,7 +45,7 @@ export class InSubmitError extends Error {
   /**
    * Constructs input submit error.
    *
-   * @param errors  Input submit error messages. A `submit` code will be added to each of them, unless already present.
+   * @param errors - Input submit error messages. A `submit` code will be added to each of them, unless already present.
    */
   constructor(...errors: [InValidation.Message, ...InValidation.Message[]]) {
     super();
@@ -69,7 +68,7 @@ export class InSubmitRejectedError extends InSubmitError {
   /**
    * Constructs input submit rejection error.
    *
-   * @param reason  A reason code.
+   * @param reason - A reason code.
    */
   constructor(reason: string) {
     super({ submit: 'rejected', rejected: reason, [reason]: true });
@@ -84,37 +83,24 @@ export class InSubmitRejectedError extends InSubmitError {
  *
  * Implements an `EventKeeper` interface by sending submit status flags to registered receivers.
  *
- * [input data]: InData
- *
  * @category Aspect
- * @typeparam Value  Input value type.
+ * @typeParam TValue - Input value type.
  */
-export abstract class InSubmit<Value> implements EventKeeper<[InSubmit.Flags]> {
+export abstract class InSubmit<TValue> implements EventKeeper<[InSubmit.Flags]> {
 
   static get [InAspect__symbol](): InAspect<InSubmit<any>, 'submit'> {
     return InSubmit__aspect;
   }
 
   /**
-   * Builds an `AfterEvent` keeper of submit status flags.
+   * An `AfterEvent` keeper of submit status flags.
    *
    * The `[AfterEvent__symbol]` property is an alias of this one.
-   *
-   * @returns `AfterEvent` keeper of submit status flags.
    */
-  abstract read(): AfterEvent<[InSubmit.Flags]>;
-
-  /**
-   * Starts sending submit status flags and updates to the given `receiver`
-   *
-   * @param receiver  Target submit status flags receiver.
-   *
-   * @returns Submit status flags supply.
-   */
-  abstract read(receiver: EventReceiver<[InSubmit.Flags]>): EventSupply;
+  abstract readonly read: AfterEvent<[InSubmit.Flags]>;
 
   [AfterEvent__symbol](): AfterEvent<[InSubmit.Flags]> {
-    return this.read();
+    return this.read;
   }
 
   /**
@@ -132,11 +118,12 @@ export abstract class InSubmit<Value> implements EventKeeper<[InSubmit.Flags]> {
    * 5.2. Otherwise, reports submit failure messages.
    * 6. Rejects the result promise.
    *
-   * @param submitter  A submitter function that performs actual submit.
+   * @typeParam TResult - Submit result value type.
+   * @param submitter - A submitter function that performs actual submit.
    *
    * @returns Submit result promise.
    */
-  abstract submit<Result>(submitter: InSubmit.Submitter<Value, Result>): Promise<Result>;
+  abstract submit<TResult>(submitter: InSubmit.Submitter<TValue, TResult>): Promise<TResult>;
 
   /**
    * Resets the submit.
@@ -192,64 +179,59 @@ export namespace InSubmit {
    * [InSubmitError], or arbitrary error. Previously reported submit messages are replaced by the reported ones,
    * and cleared on a new submit.
    *
-   * @typeparam Value  Input value type.
-   * @typeparam Result  Submit result value type.
+   * @typeParam TValue - Input value type.
+   * @typeParam TResult - Submit result value type.
    */
-  export type Submitter<Value, Result> =
+  export type Submitter<TValue, TResult> =
   /**
-   * @param data  Input data to submit.
-   * @param control  Input control the submit is performed for.
+   * @param data - Input data to submit.
+   * @param control - Input control the submit is performed for.
    *
    * @returns Submit result promise.
    */
       (
           this: void,
-          data: Value extends undefined ? never : Value,
-          control: InControl<Value>,
-      ) => Promise<Result>;
+          data: TValue extends undefined ? never : TValue,
+          control: InControl<TValue>,
+      ) => Promise<TResult>;
 
 }
 
-class InControlSubmit<Value> extends InSubmit<Value> {
+class InControlSubmit<TValue> extends InSubmit<TValue> {
 
+  readonly read: AfterEvent<[InSubmit.Flags]>;
   private readonly _flags = trackValue({ submitted: false, busy: false });
   private readonly _errors = trackValue<InValidation.Message[]>([]);
 
-  constructor(private readonly _control: InControl<Value>) {
+  constructor(private readonly _control: InControl<TValue>) {
     super();
-
-    const validation = _control.aspect(InValidation);
-
-    validation.by(this._errors.read().keepThru(
-        messages => nextArgs(...messages),
-    ));
-  }
-
-  read(): AfterEvent<[InSubmit.Flags]>;
-  read(receiver: EventReceiver<[InSubmit.Flags]>): EventSupply;
-  read(receiver?: EventReceiver<[InSubmit.Flags]>): AfterEvent<[InSubmit.Flags]> | EventSupply {
-    return (this.read = afterAll({
+    this.read = afterAll({
       flags: this._flags,
       data: this._control.aspect(InData),
       messages: this._control.aspect(InValidation),
-    })
-        .tillOff(this._control)
-        .keepThru(
-            ({
-              flags: [flags],
-              data: [data],
-              messages: [messages],
-            }): InSubmit.Flags => ({
-              // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-              ready: data !== undefined && (messages.ok || itsEvery(messages, message => message.submit)),
-              submitted: flags.submitted,
-              busy: flags.busy,
-            }),
-        ).F)(receiver);
+    }).do(
+        supplyAfter(this._control),
+        mapAfter(({
+          flags: [flags],
+          data: [data],
+          messages: [messages],
+        }): InSubmit.Flags => ({
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+          ready: data !== undefined && (messages.ok || itsEvery(messages, message => message.submit)),
+          submitted: flags.submitted,
+          busy: flags.busy,
+        })),
+    );
+
+    const validation = _control.aspect(InValidation);
+
+    validation.by(this._errors.read.do(
+        translateAfter((send, messages) => send(...messages)),
+    ));
   }
 
-  async submit<Result>(submitter: InSubmit.Submitter<Value, Result>): Promise<Result> {
-    if (eventSupplyOf(this._control).isOff) {
+  async submit<TResult>(submitter: InSubmit.Submitter<TValue, TResult>): Promise<TResult> {
+    if (this._control.supply.isOff) {
       throw new InSubmitRejectedError('noInput');
     }
     if (this._flags.it.busy) {
@@ -276,19 +258,16 @@ class InControlSubmit<Value> extends InSubmit<Value> {
       }
     }
 
-    function submitData(): Promise<Value extends undefined ? never : Value> {
-      return new Promise((resolve, reject) => {
-        afterAll({
-          data: control.aspect(InData),
-          flags: submit,
-        }).once(({ data: [d], flags: [{ ready }] }) => {
-          if (!ready) {
-            reject(new InSubmitRejectedError('notReady'));
-          } else {
-            resolve(d as any);
-          }
-        });
+    async function submitData(): Promise<TValue extends undefined ? never : TValue> {
+
+      const { data: [d], flags: [{ ready }] } = await afterAll({
+        data: control.aspect(InData),
+        flags: submit,
       });
+
+      return ready
+          ? d as any
+          : Promise.reject(new InSubmitRejectedError('notReady'));
     }
   }
 
@@ -321,12 +300,12 @@ declare module './aspect' {
 
   export namespace InAspect.Application {
 
-    export interface Map<OfInstance, OfValue> {
+    export interface Map<TInstance, TValue> {
 
       /**
        * Input submit aspect application type.
        */
-      submit(): InSubmit<OfValue>;
+      submit(): InSubmit<TValue>;
 
     }
 

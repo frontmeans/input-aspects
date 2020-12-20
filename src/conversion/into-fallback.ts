@@ -12,11 +12,11 @@ import { InConverter } from '../converter';
  * E.g. when receiving JSON from server.
  *
  * @category Converter
- * @typeparam Value  Input value type.
- * @param fallback  A fallback value that is used instead of original one when `undefined` (or`null`) is assigned
+ * @typeParam TValue - Input value type.
+ * @param fallback - A fallback value that is used instead of original one when `undefined` (or`null`) is assigned
  * to converted control.
  */
-export function intoFallback<Value>(fallback: Value): InConverter<Value, Value | undefined> {
+export function intoFallback<TValue>(fallback: TValue): InConverter<TValue, TValue | undefined> {
   return () => ({
     set: asis,
     get(value) {

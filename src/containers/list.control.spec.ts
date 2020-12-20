@@ -1,5 +1,6 @@
 import { newManualRenderScheduler } from '@frontmeans/render-scheduler';
-import { EventSupply } from '@proc7ts/fun-events';
+import { onceAfter } from '@proc7ts/fun-events';
+import { Supply } from '@proc7ts/primitives';
 import { InAspect__symbol } from '../aspect';
 import { InRenderScheduler } from '../aspects';
 import { InControl } from '../control';
@@ -28,7 +29,7 @@ describe('InList', () => {
   let initControls: InControl<string>[];
 
   beforeEach(() => {
-    list.controls.read().once(snapshot => initControls = [...snapshot]);
+    list.controls.read.do(onceAfter)(snapshot => initControls = [...snapshot]);
   });
 
   it('supports aspects', () => {
@@ -85,7 +86,7 @@ describe('InList', () => {
 
       let controls: InControl<any>[] = [];
 
-      list.controls.read().once(snapshot => controls = [...snapshot]);
+      list.controls.read.do(onceAfter)(snapshot => controls = [...snapshot]);
 
       expect(controls).toEqual([initControls[0], initControls[1]]);
       expect(controls[0].it).toBe('111');
@@ -96,7 +97,7 @@ describe('InList', () => {
 
       let controls: InControl<any>[] = [];
 
-      list.controls.read().once(snapshot => controls = [...snapshot]);
+      list.controls.read.do(onceAfter)(snapshot => controls = [...snapshot]);
 
       expect(controls).toEqual([...initControls, expect.any(InControl)]);
       expect(controls[0].it).toBe('111');
@@ -113,9 +114,9 @@ describe('InList', () => {
   describe('controls', () => {
 
     let onUpdate: Mock<void, [InList.Entry<string>[], InList.Entry<string>[]]>;
-    let updatesSupply: EventSupply;
+    let updatesSupply: Supply;
     let readSnapshot: Mock<void, [InList.Snapshot<string>]>;
-    let snapshotSupply: EventSupply;
+    let snapshotSupply: Supply;
     let snapshot: InList.Snapshot<string>;
     let controlValues: string[];
 
@@ -143,7 +144,7 @@ describe('InList', () => {
 
     describe('set', () => {
 
-      let supply: EventSupply;
+      let supply: Supply;
 
       beforeEach(() => {
         supply = list.controls.set(1, ctrl2);
@@ -174,7 +175,7 @@ describe('InList', () => {
         expect(list.it).toEqual(['11', '2', '33']);
       });
       it('registers control parent', () => {
-        ctrl2.aspect(InParents).read().once(parents => expect([...parents]).toEqual([{ parent: list }]));
+        ctrl2.aspect(InParents).read.do(onceAfter)(parents => expect([...parents]).toEqual([{ parent: list }]));
       });
       it('removes control once returned supply cut off', () => {
         supply.off();
@@ -207,7 +208,7 @@ describe('InList', () => {
         expect(list.it).toEqual(['11', '33']);
       });
       it('removes control parent', () => {
-        initControls[1].aspect(InParents).read().once(parents => expect([...parents]).toHaveLength(0));
+        initControls[1].aspect(InParents).read.do(onceAfter)(parents => expect([...parents]).toHaveLength(0));
       });
     });
 
@@ -264,7 +265,7 @@ describe('InList', () => {
 
     describe('insert', () => {
 
-      let supply: EventSupply;
+      let supply: Supply;
 
       beforeEach(() => {
         supply = list.controls.insert(1, ctrl1, ctrl2);
@@ -337,7 +338,7 @@ describe('InList', () => {
 
     describe('control removal', () => {
       beforeEach(() => {
-        initControls[1].done();
+        initControls[1].supply.off();
       });
 
       it('removes control from list', () => {
@@ -355,19 +356,19 @@ describe('InList', () => {
       });
 
       it('sends the same snapshot instance without modifications', () => {
-        list.controls.read().once(shot => expect(shot).toBe(snapshot));
+        list.controls.read.do(onceAfter)(shot => expect(shot).toBe(snapshot));
       });
       it('sends another snapshot instance after modifications', () => {
         list.controls.add(ctrl1);
         list.controls.add(ctrl2);
-        list.controls.read().once(shot => expect(shot).not.toBe(snapshot));
+        list.controls.read.do(onceAfter)(shot => expect(shot).not.toBe(snapshot));
       });
     });
 
     describe('done', () => {
       it('removes all controls', () => {
-        list.done();
-        list.controls.read().once(shot => expect(shot).toHaveLength(0));
+        list.supply.off();
+        list.controls.read.do(onceAfter)(shot => expect(shot).toHaveLength(0));
       });
       it('stops sending updated', () => {
 
@@ -378,13 +379,13 @@ describe('InList', () => {
         snapshotSupply.whenOff(snapshotsDone);
         updatesSupply.whenOff(updatesDone);
 
-        list.done(reason);
+        list.supply.off(reason);
 
         expect(snapshotsDone).toHaveBeenCalledWith(reason);
         expect(updatesDone).toHaveBeenCalledWith(reason);
       });
       it('clears model', () => {
-         list.done();
+         list.supply.off();
          expect(list.it).toHaveLength(0);
       });
     });
@@ -395,7 +396,7 @@ describe('InList', () => {
     let data: InData.DataType<readonly string[]>;
 
     beforeEach(() => {
-      list.aspect(InData).to(d => data = d);
+      list.aspect(InData)(d => data = d);
     });
 
     it('contains all data by default', () => {

@@ -1,5 +1,5 @@
 import { newManualRenderScheduler } from '@frontmeans/render-scheduler';
-import { afterSupplied, onSupplied } from '@proc7ts/fun-events';
+import { afterSupplied, onceAfter, onSupplied } from '@proc7ts/fun-events';
 import { InAspect__symbol } from '../aspect';
 import { InRenderScheduler } from '../aspects';
 import { InControl } from '../control';
@@ -228,13 +228,13 @@ describe('InGroup', () => {
 
     describe('[OnEvent__symbol]', () => {
       it('is the same as `on`', () => {
-        expect(onSupplied(group.controls)).toBe(group.controls.on());
+        expect(onSupplied(group.controls)).toBe(group.controls.on);
       });
     });
 
     describe('[AfterEvent__symbol]', () => {
       it('is the same as `read`', () => {
-        expect(afterSupplied(group.controls)).toBe(group.controls.read());
+        expect(afterSupplied(group.controls)).toBe(group.controls.read);
       });
     });
   });
@@ -274,7 +274,7 @@ describe('InGroup', () => {
 
   describe('done', () => {
     it('removes all controls', () => {
-      group.done();
+      group.supply.off();
 
       let lastSnapshot!: InGroup.Snapshot<TestModel>;
 
@@ -284,7 +284,7 @@ describe('InGroup', () => {
       expect([...lastSnapshot]).toHaveLength(0);
     });
     it('stops model updates', () => {
-      group.done();
+      group.supply.off();
       ctrl1.it = '123';
       expect(group.it).toEqual({ ctrl1: 'some', ctrl2: 'other' });
     });
@@ -295,7 +295,7 @@ describe('InGroup', () => {
     let data: InData.DataType<TestModel>;
 
     beforeEach(() => {
-      group.aspect(InData).to(d => data = d);
+      group.aspect(InData)(d => data = d);
     });
 
     it('contains all data by default', () => {
@@ -322,7 +322,7 @@ describe('InGroup', () => {
 
     let parents: InParents.Entry[] = [];
 
-    control.aspect(InParents).read().once(p => parents = [...p]);
+    control.aspect(InParents).read.do(onceAfter)(p => parents = [...p]);
 
     return parents;
   }

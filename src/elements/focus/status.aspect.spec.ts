@@ -1,4 +1,5 @@
-import { afterSupplied, EventSupply } from '@proc7ts/fun-events';
+import { afterSupplied } from '@proc7ts/fun-events';
+import { Supply } from '@proc7ts/primitives';
 import { InGroup, inGroup } from '../../containers';
 import { inValue } from '../../controls';
 import { intoInteger } from '../../conversion';
@@ -10,7 +11,7 @@ describe('InStatus', () => {
 
   let element: HTMLInputElement;
   let control: InElement<string>;
-  let controlSupply: EventSupply;
+  let controlSupply: Supply;
   let status: InStatus;
   let flags: InStatus.Flags;
 
@@ -25,7 +26,7 @@ describe('InStatus', () => {
   });
 
   let group: InGroup<{ element: string }>;
-  let groupSupply: EventSupply;
+  let groupSupply: Supply;
   let groupStatus: InStatus;
   let groupFlags: InStatus.Flags;
 
@@ -103,7 +104,7 @@ describe('InStatus', () => {
       const reason = 'some reason';
 
       controlSupply.whenOff(done);
-      control.done(reason);
+      control.supply.off(reason);
 
       expect(done).toHaveBeenCalledWith(reason);
     });
@@ -113,7 +114,7 @@ describe('InStatus', () => {
       const reason = 'some reason';
 
       groupSupply.whenOff(done);
-      group.done(reason);
+      group.supply.off(reason);
 
       expect(done).toHaveBeenCalledWith(reason);
     });
@@ -229,7 +230,7 @@ describe('InStatus', () => {
 
   describe('[AfterEvent__symbol]', () => {
     it('is an alias of `read`', () => {
-      expect(afterSupplied(status)).toBe(status.read());
+      expect(afterSupplied(status)).toBe(status.read);
     });
   });
 

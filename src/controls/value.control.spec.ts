@@ -1,6 +1,6 @@
 import { newNamespaceAliaser } from '@frontmeans/namespace-aliaser';
 import { newManualRenderScheduler } from '@frontmeans/render-scheduler';
-import { EventSupply } from '@proc7ts/fun-events';
+import { Supply } from '@proc7ts/primitives';
 import { InNamespaceAliaser, InRenderScheduler } from '../aspects';
 import { InControl } from '../control';
 import { inValue } from './value.control';
@@ -46,7 +46,7 @@ describe('InValue', () => {
   describe('read', () => {
 
     let receiver: Mock;
-    let supply: EventSupply;
+    let supply: Supply;
 
     beforeEach(() => {
       receiver = jest.fn();
@@ -66,7 +66,7 @@ describe('InValue', () => {
 
       supply.whenOff(done);
 
-      control.done('reason');
+      control.supply.off('reason');
       expect(done).toHaveBeenCalledWith('reason');
       expect(supply.isOff).toBe(true);
     });
@@ -75,7 +75,7 @@ describe('InValue', () => {
   describe('on', () => {
 
     let receiver: Mock;
-    let supply: EventSupply;
+    let supply: Supply;
 
     beforeEach(() => {
       receiver = jest.fn();
@@ -94,7 +94,7 @@ describe('InValue', () => {
 
       supply.whenOff(done);
 
-      control.done('reason');
+      control.supply.off('reason');
       expect(done).toHaveBeenCalledWith('reason');
       expect(supply.isOff).toBe(true);
     });

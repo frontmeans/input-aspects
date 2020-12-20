@@ -2,18 +2,8 @@
  * @packageDocumentation
  * @module @frontmeans/input-aspects
  */
-import {
-  EventEmitter,
-  EventReceiver,
-  eventSupply,
-  EventSupply,
-  EventSupply__symbol,
-  eventSupplyOf,
-  OnEvent,
-  trackValue,
-  ValueTracker,
-} from '@proc7ts/fun-events';
-import { asis, noop } from '@proc7ts/primitives';
+import { EventEmitter, OnEvent, trackValue, ValueTracker } from '@proc7ts/fun-events';
+import { asis, noop, Supply } from '@proc7ts/primitives';
 import { InAspect, InAspect__symbol } from './aspect';
 import { InConverter, intoConvertedBy, isInAspectConversion } from './converter';
 
@@ -23,9 +13,9 @@ import { InConverter, intoConvertedBy, isInAspectConversion } from './converter'
  * Maintains input value and various aspects of the user input, such as input focus, validity, etc.
  *
  * @category Control
- * @typeparam Value  Input value type.
+ * @typeParam TValue - Input value type.
  */
-export abstract class InControl<Value> extends ValueTracker<Value> {
+export abstract class InControl<TValue> extends ValueTracker<TValue> {
 
   /**
    * @internal
@@ -35,7 +25,7 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
   /**
    * Input value.
    */
-  abstract it: Value;
+  abstract it: TValue;
 
   /**
    * This control's input supply.
@@ -47,29 +37,29 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
    *
    * After this supply cut off the control should no longer be used.
    */
-  abstract get [EventSupply__symbol](): EventSupply;
+  abstract get supply(): Supply;
 
   /**
    * Retrieves an aspect instance applied to this control.
    *
    * If the given `aspect` is not applied yet, then applies it first.
    *
-   * @typeparam Instance  Aspect instance type.
-   * @typeparam Kind  Aspect application kind.
-   * @param aspectKey  A key of aspect to apply to this control.
+   * @typeParam TInstance - Aspect instance type.
+   * @typeParam TKind - Aspect application kind.
+   * @param aspectKey - A key of aspect to apply to this control.
    *
    * @returns An applied aspect instance.
    */
-  aspect<Instance, Kind extends InAspect.Application.Kind>(
-      aspectKey: InAspect.Key<Instance, Kind>,
-  ): InAspect.Application.Instance<Instance, Value, Kind> {
+  aspect<TInstance, TKind extends InAspect.Application.Kind>(
+      aspectKey: InAspect.Key<TInstance, TKind>,
+  ): InAspect.Application.Instance<TInstance, TValue, TKind> {
     return this._aspect(aspectKey[InAspect__symbol]).instance;
   }
 
   /**
    * Performs additional setup of this control.
    *
-   * @param setup  A function that accepts this control as its only parameter to configure it.
+   * @param setup - A function that accepts this control as its only parameter to configure it.
    *
    * @returns `this` control instance.
    */
@@ -78,23 +68,23 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
   /**
    * Performs additional setup of this control's aspect.
    *
-   * @typeparam Instance  Aspect instance type.
-   * @typeparam Kind  Aspect application kind.
-   * @param aspectKey  A key of aspect to set up.
-   * @param setup  A function that accepts the aspect and this control as parameters to configure them.
+   * @typeParam TInstance - Aspect instance type.
+   * @typeParam TKind - Aspect application kind.
+   * @param aspectKey - A key of aspect to set up.
+   * @param setup - A function that accepts the aspect and this control as parameters to configure them.
    *
    * @returns `this` control instance.
    */
-  setup<Instance, Kind extends InAspect.Application.Kind>(
-      aspectKey: InAspect.Key<Instance, Kind>,
-      setup?: (this: void, aspect: InAspect.Application.Instance<Instance, Value, Kind>, control: this) => void,
+  setup<TInstance, TKind extends InAspect.Application.Kind>(
+      aspectKey: InAspect.Key<TInstance, TKind>,
+      setup?: (this: void, aspect: InAspect.Application.Instance<TInstance, TValue, TKind>, control: this) => void,
   ): this;
 
-  setup<Instance, Kind extends InAspect.Application.Kind>(
-      aspectKeyOrSetup: InAspect.Key<Instance, Kind> | ((this: void, control: this) => void),
+  setup<TInstance, TKind extends InAspect.Application.Kind>(
+      aspectKeyOrSetup: InAspect.Key<TInstance, TKind> | ((this: void, control: this) => void),
       aspectSetup: (
           this: void,
-          aspect: InAspect.Application.Instance<Instance, Value, Kind>,
+          aspect: InAspect.Application.Instance<TInstance, TValue, TKind>,
           control: this,
       ) => void = noop,
   ): this {
@@ -111,71 +101,71 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
    *
    * The converted aspect may have another value and input aspects.
    *
-   * @typeparam To  Converted input value type.
-   * @param by  Input control aspect converters.
+   * @typeParam TTo - Converted input value type.
+   * @param by - Input control aspect converters.
    *
    * @returns Converted control.
    */
   convert(
-      ...by: InConverter.Aspect<Value, Value>[]
-  ): InControl<Value>;
+      ...by: InConverter.Aspect<TValue, TValue>[]
+  ): InControl<TValue>;
 
   /**
    * Converts this control to another one.
    *
    * The converted aspect may have another value and input aspects.
    *
-   * @typeparam To  Converted input value type.
-   * @param by  Input control converter.
-   * @param and  Additional input control aspect converters.
+   * @typeParam TTo - Converted input value type.
+   * @param by - Input control converter.
+   * @param and - Additional input control aspect converters.
    *
    * @returns Converted control.
    */
-  convert<To>(
-      by: InConverter<Value, To>,
-      ...and: InConverter.Aspect<Value, To>[]
-  ): InControl<To>;
+  convert<TTo>(
+      by: InConverter<TValue, TTo>,
+      ...and: InConverter.Aspect<TValue, TTo>[]
+  ): InControl<TTo>;
 
-  convert<To>(
-      by?: InConverter<Value, To>,
-      ...and: InConverter.Aspect<Value, To>[]
-  ): InControl<Value> | InControl<To> {
+  convert<TTo>(
+      by?: InConverter<TValue, TTo>,
+      ...and: InConverter.Aspect<TValue, TTo>[]
+  ): InControl<TValue> | InControl<TTo> {
     return new InConverted(this, intoConvertedBy(by, ...and));
   }
 
   /**
    * @internal
    */
-  _aspect<Instance, Kind extends InAspect.Application.Kind>(
-      aspect: InAspect<Instance, Kind>,
-  ): InAspect.Application.Result<Instance, Value, Kind> {
+  _aspect<TInstance, TKind extends InAspect.Application.Kind>(
+      aspect: InAspect<TInstance, TKind>,
+  ): InAspect.Application.Result<TInstance, TValue, TKind> {
 
     const existing = this._aspects.get(aspect);
 
     if (existing) {
-      return existing as InAspect.Application.Result<Instance, Value, Kind>;
+      return existing as InAspect.Application.Result<TInstance, TValue, TKind>;
     }
 
     const applied = this._applyAspect(aspect) || aspect.applyTo(this);
 
     this._aspects.set(aspect, applied);
 
-    return applied as InAspect.Application.Result<Instance, Value, Kind>;
+    return applied as InAspect.Application.Result<TInstance, TValue, TKind>;
   }
 
   /**
    * Applies the given aspect to this control in a custom way.
    *
-   * @typeparam Instance  Aspect instance type.
-   * @typeparam Kind  Aspect application kind.
-   * @param _aspect  An aspect to apply.
+   * @typeParam TInstance - Aspect instance type.
+   * @typeParam TKind - Aspect application kind.
+   * @param _aspect - An aspect to apply.
    *
    * @returns Either applied aspect instance or `undefined` to apply the aspect in standard way (i.e. using
    * `InAspect.applyTo()` method).
    */
-  protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
-      _aspect: InAspect<Instance, Kind>,
-  ): InAspect.Application.Result<Instance, Value, Kind> | undefined {
+  protected _applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
+      _aspect: InAspect<TInstance, TKind>,
+  ): InAspect.Application.Result<TInstance, TValue, TKind> | undefined {
     return;
   }
 
@@ -184,9 +174,9 @@ export abstract class InControl<Value> extends ValueTracker<Value> {
 /**
  * @internal
  */
-function isAspectKey<Instance, Kind extends InAspect.Application.Kind>(
+function isAspectKey<TInstance, TKind extends InAspect.Application.Kind>(
     value: any,
-): value is InAspect.Key<Instance, Kind> {
+): value is InAspect.Key<TInstance, TKind> {
   return InAspect__symbol in value;
 }
 
@@ -195,43 +185,43 @@ export namespace InControl {
   /**
    * A value type of the given input control type.
    *
-   * @typeparam Control  Input control type.
+   * @typeParam TControl - Input control type.
    */
-  export type ValueType<Control extends InControl<any>> = Control extends InControl<infer Value> ? Value : never;
+  export type ValueType<TControl extends InControl<any>> = TControl extends InControl<infer TValue> ? TValue : never;
 
 }
 
 /**
  * @internal
  */
-class InConverted<From, To> extends InControl<To> {
+class InConverted<TFrom, TTo> extends InControl<TTo> {
 
-  private readonly _supply: EventSupply;
-  private readonly _on = new EventEmitter<[To, To]>();
-  private readonly _it: ValueTracker<[To, number]>;
-  protected readonly _applyAspect: <Instance, Kind extends InAspect.Application.Kind>(
+  readonly supply: Supply;
+  private readonly _on = new EventEmitter<[TTo, TTo]>();
+  private readonly _it: ValueTracker<[TTo, number]>;
+  protected readonly _applyAspect: <TInstance, TKind extends InAspect.Application.Kind>(
       this: this,
-      aspect: InAspect<Instance, Kind>,
-  ) => InAspect.Application.Result<Instance, To, Kind> | undefined;
+      aspect: InAspect<TInstance, TKind>,
+  ) => InAspect.Application.Result<TInstance, TTo, TKind> | undefined;
 
-  constructor(src: InControl<From>, by: InConverter.Factory<From, To>) {
+  constructor(src: InControl<TFrom>, by: InConverter.Factory<TFrom, TTo>) {
     super();
-    this._supply = eventSupply().needs(src);
+    this.supply = new Supply().needs(src);
 
     let lastRev = 0;
-    let backward: From | undefined;
+    let backward: TFrom | undefined;
 
     const conversion = by(src, this);
-    let set: (value: From) => To;
-    let get: (value: To) => From;
-    let convertAspect: <Instance, Kind extends InAspect.Application.Kind>(
-        aspect: InAspect<Instance, Kind>,
-    ) => InAspect.Application.Result<Instance, To, Kind> | undefined;
+    let set: (value: TFrom) => TTo;
+    let get: (value: TTo) => TFrom;
+    let convertAspect: <TInstance, TKind extends InAspect.Application.Kind>(
+        aspect: InAspect<TInstance, TKind>,
+    ) => InAspect.Application.Result<TInstance, TTo, TKind> | undefined;
 
     if (/*#__INLINE__*/ isInAspectConversion(conversion)) {
-      set = asis as (value: From) => To;
-      get = asis as (value: To) => From;
-      convertAspect = <Instance, Kind extends InAspect.Application.Kind>(aspect: InAspect<Instance, Kind>) => {
+      set = asis as (value: TFrom) => TTo;
+      get = asis as (value: TTo) => TFrom;
+      convertAspect = <TInstance, TKind extends InAspect.Application.Kind>(aspect: InAspect<TInstance, TKind>) => {
 
         const fallback: InAspect.Applied<any, any> = src._aspect(aspect);
 
@@ -240,7 +230,7 @@ class InConverted<From, To> extends InControl<To> {
     } else {
       set = conversion.set;
       get = conversion.get;
-      convertAspect = <Instance, Kind extends InAspect.Application.Kind>(aspect: InAspect<Instance, Kind>) => {
+      convertAspect = <TInstance, TKind extends InAspect.Application.Kind>(aspect: InAspect<TInstance, TKind>) => {
 
         const fallback: InAspect.Applied<any, any> = src._aspect(aspect);
 
@@ -250,7 +240,7 @@ class InConverted<From, To> extends InControl<To> {
 
     this._applyAspect = aspect => conversion.applyAspect?.(aspect) || convertAspect(aspect);
     this._it = trackValue([set(src.it), 0]);
-    eventSupplyOf(this._it).needs(this._supply);
+    this._it.supply.needs(this.supply);
     this._it.on(([newValue], [oldValue]) => {
       if (newValue !== oldValue) {
         this._on.send(newValue, oldValue);
@@ -274,15 +264,11 @@ class InConverted<From, To> extends InControl<To> {
     });
   }
 
-  get [EventSupply__symbol](): EventSupply {
-    return this._supply;
-  }
-
-  get it(): To {
+  get it(): TTo {
     return this._it.it[0];
   }
 
-  set it(value: To) {
+  set it(value: TTo) {
 
     const [prevValue, prevRev] = this._it.it;
 
@@ -291,10 +277,8 @@ class InConverted<From, To> extends InControl<To> {
     }
   }
 
-  on(): OnEvent<[To, To]>;
-  on(receiver: EventReceiver<[To, To]>): EventSupply;
-  on(receiver?: EventReceiver<[To, To]>): OnEvent<[To, To]> | EventSupply {
-    return (this.on = this._on.on().F)(receiver);
+  get on(): OnEvent<[TTo, TTo]> {
+    return this._on.on;
   }
 
 }

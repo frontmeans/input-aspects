@@ -2,6 +2,7 @@
  * @packageDocumentation
  * @module @frontmeans/input-aspects
  */
+import { mapAfter } from '@proc7ts/fun-events';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
 import { InConverter } from '../converter';
@@ -15,30 +16,30 @@ import { AbstractInElement } from './abstract-element.control';
  * Radio buttons intended to be added to {@link InRadioGroup radio groups}.
  *
  * @category Control
- * @typeparam Value  Input value type. `boolean` by default.
+ * @typeParam TValue - Input value type. `boolean` by default.
  */
-export type InRadio<Value = true> = InElement<Value | undefined, HTMLInputElement>;
+export type InRadio<TValue = true> = InElement<TValue | undefined, HTMLInputElement>;
 
 export namespace InRadio {
 
   /**
    * Possible radio button control values corresponding to check states.
    *
-   * @typeparam Value  Radio button input value type.
+   * @typeParam TValue - Radio button input value type.
    */
-  export interface Values<Value> {
+  export interface Values<TValue> {
 
     /**
      * Control value of checked radio button.
      */
-    readonly checked: Value;
+    readonly checked: TValue;
 
     /**
      * Input aspects applied by default.
      *
      * These are aspect converters to constructed control from the {@link inValueOf same-valued one}.
      */
-    readonly aspects?: InConverter.Aspect<Value | undefined> | readonly InConverter.Aspect<Value | undefined>[];
+    readonly aspects?: InConverter.Aspect<TValue | undefined> | readonly InConverter.Aspect<TValue | undefined>[];
 
   }
 
@@ -47,14 +48,14 @@ export namespace InRadio {
 /**
  * @internal
  */
-class InRadioControl<Value> extends AbstractInElement<Value | undefined, HTMLInputElement> {
+class InRadioControl<TValue> extends AbstractInElement<TValue | undefined, HTMLInputElement> {
 
   constructor(
       element: HTMLInputElement,
       {
-        checked = true as unknown as Value,
+        checked = true as unknown as TValue,
         aspects,
-      }: Partial<InRadio.Values<Value>> = {},
+      }: Partial<InRadio.Values<TValue>> = {},
   ) {
     super(
         element,
@@ -70,11 +71,11 @@ class InRadioControl<Value> extends AbstractInElement<Value | undefined, HTMLInp
     );
   }
 
-  protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
-      aspect: InAspect<Instance, Kind>,
-  ): InAspect.Application.Result<Instance, Value | undefined, Kind> | undefined {
+  protected _applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
+      aspect: InAspect<TInstance, TKind>,
+  ): InAspect.Application.Result<TInstance, TValue | undefined, TKind> | undefined {
     if (aspect as InAspect<any> === InMode[InAspect__symbol]) {
-      return applyRadioInMode(this) as InAspect.Application.Result<Instance, Value | undefined, Kind>;
+      return applyRadioInMode(this) as InAspect.Application.Result<TInstance, TValue | undefined, TKind>;
     }
     return super._applyAspect(aspect);
   }
@@ -84,13 +85,13 @@ class InRadioControl<Value> extends AbstractInElement<Value | undefined, HTMLInp
 /**
  * @internal
  */
-function applyRadioInMode<Value>(radio: InRadioControl<Value>): InAspect.Applied<Value, InMode> {
+function applyRadioInMode<TValue>(radio: InRadioControl<TValue>): InAspect.Applied<TValue, InMode> {
 
   const { instance: mode } = InMode[InAspect__symbol].applyTo(radio);
 
-  mode.derive(radio.read().keepThru_(value => value !== undefined ? 'on' : '-on'));
+  mode.derive(radio.read.do(mapAfter(value => value !== undefined ? 'on' : '-on')));
 
-  return inAspectValue(mode) as InAspect.Applied<Value, InMode>;
+  return inAspectValue(mode) as InAspect.Applied<TValue, InMode>;
 }
 
 /**
@@ -101,7 +102,7 @@ function applyRadioInMode<Value>(radio: InRadioControl<Value>): InAspect.Applied
  * Sets input mode to `-on` when radio is not checked. Thus making control data `undefined`.
  *
  * @category Control
- * @param element  Target radio button element.
+ * @param element - Target radio button element.
  *
  * @return New radio button input control instance.
  */
@@ -114,8 +115,8 @@ export function inRadio(element: HTMLInputElement): InRadio;
  *
  * Sets input mode to `-on` when radio is not checked. Thus making control data `undefined`.
  *
- * @param element  Target radio button element.
- * @param aspects  Input aspects applied by default. These are aspect converters to constructed control
+ * @param element - Target radio button element.
+ * @param aspects - Input aspects applied by default. These are aspect converters to constructed control
  * from the {@link inValueOf same-valued one}.
  *
  * @return New radio button input control instance.
@@ -135,14 +136,14 @@ export function inRadio(
  *
  * Sets input mode to `-on` when radio is not checked. Thus making control data `undefined`.
  *
- * @typeparam Value  Input value type.
- * @param element  Target radio button element.
- * @param values  Possible values of radio button control.
+ * @typeParam TValue - Input value type.
+ * @param element - Target radio button element.
+ * @param values - Possible values of radio button control.
  *
  * @return New radio button input control instance.
  */
-export function inRadio<Value>(element: HTMLInputElement, values: InRadio.Values<Value>): InRadio<Value>;
+export function inRadio<TValue>(element: HTMLInputElement, values: InRadio.Values<TValue>): InRadio<TValue>;
 
-export function inRadio<Value>(element: HTMLInputElement, values?: Partial<InRadio.Values<Value>>): InRadio<Value> {
-  return new InRadioControl<Value>(element, values);
+export function inRadio<TValue>(element: HTMLInputElement, values?: Partial<InRadio.Values<TValue>>): InRadio<TValue> {
+  return new InRadioControl<TValue>(element, values);
 }

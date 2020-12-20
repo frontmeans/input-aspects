@@ -1,5 +1,5 @@
 import { newNamespaceAliaser } from '@frontmeans/namespace-aliaser';
-import { EventSupply } from '@proc7ts/fun-events';
+import { Supply } from '@proc7ts/primitives';
 import { InNamespaceAliaser } from '../aspects';
 import { inRadioGroup, InRadioGroup } from './radio-group.control';
 import { inRadio, InRadio } from './radio.control';
@@ -22,9 +22,9 @@ describe('InRadioGroup', () => {
   });
 
   let readChecked: Mock<void, [TestValue]>;
-  let checkSupply: EventSupply;
+  let checkSupply: Supply;
   let onCheckUpdate: Mock<void, [TestValue, TestValue]>;
-  let checkUpdatesSupply: EventSupply;
+  let checkUpdatesSupply: Supply;
 
   beforeEach(() => {
     checkSupply = control.read(readChecked = jest.fn());
@@ -101,7 +101,7 @@ describe('InRadioGroup', () => {
 
       const reason = 'some reason';
 
-      control.done(reason);
+      control.supply.off(reason);
 
       expect(checkDone).toHaveBeenCalledWith(reason);
       expect(checkUpdatesDone).toHaveBeenCalledWith(reason);

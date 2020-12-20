@@ -1,7 +1,8 @@
 /* eslint-disable jest/expect-expect */
 import { css__naming, QualifiedName } from '@frontmeans/namespace-aliaser';
 import { immediateRenderScheduler, setRenderScheduler } from '@frontmeans/render-scheduler';
-import { afterThe, EventSupply } from '@proc7ts/fun-events';
+import { afterThe } from '@proc7ts/fun-events';
+import { Supply } from '@proc7ts/primitives';
 import { itsElements, overArray } from '@proc7ts/push-iterator';
 import { InNamespaceAliaser, InputAspects__NS } from '../../aspects';
 import { InControl } from '../../control';
@@ -92,7 +93,7 @@ describe('inCssError', () => {
     control.aspect(InCssClasses).add(inCssError(opts));
   }
 
-  function message(...messages: InValidation.Message[]): EventSupply {
+  function message(...messages: InValidation.Message[]): Supply {
     return control.aspect(InValidation).by(afterThe(...messages));
   }
 
