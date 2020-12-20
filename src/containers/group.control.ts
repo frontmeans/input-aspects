@@ -72,11 +72,11 @@ export abstract class InGroup<TModel extends object> extends InContainer<TModel>
    */
   abstract readonly controls: InGroupControls<TModel>;
 
-  protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
+  protected _applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
       aspect: InAspect<any, any>,
-  ): InAspect.Application.Result<Instance, TModel, Kind> | undefined {
+  ): InAspect.Application.Result<TInstance, TModel, TKind> | undefined {
     return aspect === InGroup__aspect
-        ? inAspectSameOrNull(this, InGroup, this) as InAspect.Application.Result<Instance, TModel, Kind>
+        ? inAspectSameOrNull(this, InGroup, this) as InAspect.Application.Result<TInstance, TModel, TKind>
         : super._applyAspect(aspect);
   }
 

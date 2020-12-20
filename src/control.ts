@@ -199,10 +199,10 @@ class InConverted<TFrom, TTo> extends InControl<TTo> {
   readonly supply: Supply;
   private readonly _on = new EventEmitter<[TTo, TTo]>();
   private readonly _it: ValueTracker<[TTo, number]>;
-  protected readonly _applyAspect: <Instance, Kind extends InAspect.Application.Kind>(
+  protected readonly _applyAspect: <TInstance, TKind extends InAspect.Application.Kind>(
       this: this,
-      aspect: InAspect<Instance, Kind>,
-  ) => InAspect.Application.Result<Instance, TTo, Kind> | undefined;
+      aspect: InAspect<TInstance, TKind>,
+  ) => InAspect.Application.Result<TInstance, TTo, TKind> | undefined;
 
   constructor(src: InControl<TFrom>, by: InConverter.Factory<TFrom, TTo>) {
     super();
@@ -214,14 +214,14 @@ class InConverted<TFrom, TTo> extends InControl<TTo> {
     const conversion = by(src, this);
     let set: (value: TFrom) => TTo;
     let get: (value: TTo) => TFrom;
-    let convertAspect: <Instance, Kind extends InAspect.Application.Kind>(
-        aspect: InAspect<Instance, Kind>,
-    ) => InAspect.Application.Result<Instance, TTo, Kind> | undefined;
+    let convertAspect: <TInstance, TKind extends InAspect.Application.Kind>(
+        aspect: InAspect<TInstance, TKind>,
+    ) => InAspect.Application.Result<TInstance, TTo, TKind> | undefined;
 
     if (/*#__INLINE__*/ isInAspectConversion(conversion)) {
       set = asis as (value: TFrom) => TTo;
       get = asis as (value: TTo) => TFrom;
-      convertAspect = <Instance, Kind extends InAspect.Application.Kind>(aspect: InAspect<Instance, Kind>) => {
+      convertAspect = <TInstance, TKind extends InAspect.Application.Kind>(aspect: InAspect<TInstance, TKind>) => {
 
         const fallback: InAspect.Applied<any, any> = src._aspect(aspect);
 
@@ -230,7 +230,7 @@ class InConverted<TFrom, TTo> extends InControl<TTo> {
     } else {
       set = conversion.set;
       get = conversion.get;
-      convertAspect = <Instance, Kind extends InAspect.Application.Kind>(aspect: InAspect<Instance, Kind>) => {
+      convertAspect = <TInstance, TKind extends InAspect.Application.Kind>(aspect: InAspect<TInstance, TKind>) => {
 
         const fallback: InAspect.Applied<any, any> = src._aspect(aspect);
 

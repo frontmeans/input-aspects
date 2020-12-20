@@ -29,7 +29,7 @@ import { InFocus } from './focus.aspect';
  */
 const InStatus__aspect: InAspect<InStatus> = {
 
-  applyTo<Value>(control: InControl<Value>): InAspect.Applied<Value, InStatus> {
+  applyTo<TValue>(control: InControl<TValue>): InAspect.Applied<TValue, InStatus> {
     return inAspectSameOrBuild(control, InStatus, ctrl => {
 
       const container = ctrl.aspect(InContainer);

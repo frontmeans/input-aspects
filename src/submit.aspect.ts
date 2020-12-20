@@ -230,7 +230,7 @@ class InControlSubmit<TValue> extends InSubmit<TValue> {
     ));
   }
 
-  async submit<Result>(submitter: InSubmit.Submitter<TValue, Result>): Promise<Result> {
+  async submit<TResult>(submitter: InSubmit.Submitter<TValue, TResult>): Promise<TResult> {
     if (this._control.supply.isOff) {
       throw new InSubmitRejectedError('noInput');
     }

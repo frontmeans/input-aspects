@@ -40,7 +40,7 @@ import { InElement } from '../element.control';
  */
 const InMode__aspect: InAspect<InMode> = {
 
-  applyTo<Value>(control: InControl<Value>): InAspect.Applied<Value, InMode> {
+  applyTo<TValue>(control: InControl<TValue>): InAspect.Applied<TValue, InMode> {
     return inAspectSameOrBuild(
         control,
         InMode,

@@ -72,11 +72,11 @@ export abstract class InList<TItem> extends InContainer<readonly TItem[]> {
    */
   abstract readonly controls: InListControls<TItem>;
 
-  protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
+  protected _applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
       aspect: InAspect<any, any>,
-  ): InAspect.Application.Result<Instance, readonly TItem[], Kind> | undefined {
+  ): InAspect.Application.Result<TInstance, readonly TItem[], TKind> | undefined {
     return aspect === InList__aspect
-        ? inAspectSameOrNull(this, InList, this) as InAspect.Application.Result<Instance, readonly TItem[], Kind>
+        ? inAspectSameOrNull(this, InList, this) as InAspect.Application.Result<TInstance, readonly TItem[], TKind>
         : super._applyAspect(aspect);
   }
 
@@ -538,9 +538,9 @@ class InListControl<TItem> extends InList<TItem> {
     return this._model.on;
   }
 
-  protected _applyAspect<Instance, Kind extends InAspect.Application.Kind>(
+  protected _applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
       aspect: InAspect<any, any>,
-  ): InAspect.Application.Result<Instance, readonly TItem[], Kind> | undefined {
+  ): InAspect.Application.Result<TInstance, readonly TItem[], TKind> | undefined {
     if (aspect === InData[InAspect__symbol]) {
       return {
         instance: inListData(this),

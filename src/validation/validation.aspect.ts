@@ -40,9 +40,9 @@ const InValidation__aspect: InAspect<InValidation<any>, 'validation'> = {
     return inAspectSameOrBuild<TValue, InValidation<TValue>, 'validation'>(
         control,
         InValidation,
-        <V>(ctrl: InControl<V>, origin?: InControl<any>): InValidation<any> => {
+        <TValue>(ctrl: InControl<TValue>, origin?: InControl<any>): InValidation<any> => {
 
-          const validation = new InControlValidation<V>(ctrl);
+          const validation = new InControlValidation<TValue>(ctrl);
 
           if (origin) {
             validation.by(

@@ -19,16 +19,16 @@ const dontRemove = {};
 /**
  * @internal
  */
-export class InValidationMessages<Value> implements EventKeeper<InValidation.Message[]> {
+export class InValidationMessages<TValue> implements EventKeeper<InValidation.Message[]> {
 
   readonly _messages: AfterEvent<InValidation.Message[]>;
-  readonly from: (this: void, validator: InValidator<Value>) => Supply;
+  readonly from: (this: void, validator: InValidator<TValue>) => Supply;
 
-  constructor(control: InControl<Value>) {
+  constructor(control: InControl<TValue>) {
 
     const emitter = new EventEmitter<InValidation.Message[]>();
     const validators = new Map<AfterEvent<InValidation.Message[]>, Supply>();
-    const validatorMessages = new Map<InValidator<Value>, InValidation.Message[]>();
+    const validatorMessages = new Map<InValidator<TValue>, InValidation.Message[]>();
     // Sends validation messages
     let send: () => void = noop;
     // Validates using the given validator
