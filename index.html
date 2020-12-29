@@ -7,6 +7,7 @@
 	<meta name="description" content="Documentation for Input Aspects">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
 </head>
 <body>
 <header>
@@ -49,12 +50,7 @@
 	</div>
 	<div class="tsd-page-title">
 		<div class="container">
-			<ul class="tsd-breadcrumb">
-				<li>
-					<a href="globals.html">Globals</a>
-				</li>
-			</ul>
-			<h1>Input Aspects</h1>
+			<h1>Project Input Aspects</h1>
 		</div>
 	</div>
 </header>
@@ -74,82 +70,83 @@
 				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
 					<h2>Example</h2>
 				</a>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> {
-  inCssInfo
-  intoTrimmed,
-  inGroup,
-  inText,
-  InCssClasses,
-  InSubmit,
-  InSubmitError,
-  InValidation,
-  requirePresent,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@frontmeans/input-aspects&#x27;</span>;
-<span class="hljs-keyword">import</span> { DomEventDispatcher } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@proc7ts/fun-events&#x27;</span>;
+				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">inCssInfo</span>
+<span style="color: #000000">  </span><span style="color: #001080">intoTrimmed</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">inGroup</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">inText</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">InCssClasses</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">InSubmit</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">InSubmitError</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">InValidation</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">requirePresent</span><span style="color: #000000">,</span>
+<span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;@frontmeans/input-aspects&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">DomEventDispatcher</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;@proc7ts/fun-events&#039;</span><span style="color: #000000">;</span>
 
-<span class="hljs-keyword">interface</span> Saluted {
-  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
-  salutation: <span class="hljs-built_in">string</span>;
-}
+<span style="color: #0000FF">interface</span><span style="color: #000000"> </span><span style="color: #267F99">Saluted</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">name</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #001080">salutation</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">;</span>
+<span style="color: #000000">}</span>
 
-<span class="hljs-comment">// Create controls for input elements</span>
-<span class="hljs-keyword">const</span> name = inText(<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;name&#x27;</span>)!)
-  .convert(intoTrimmed) <span class="hljs-comment">// Remove whitespace</span>
-  .setup(InValidation, <span class="hljs-function"><span class="hljs-params">validation</span> =&gt;</span> {
-    validation.by(requirePresent); <span class="hljs-comment">// Require `name` to present      </span>
-  })
-  .setup(InCssClasses, <span class="hljs-function"><span class="hljs-params">classes</span> =&gt;</span> classes.add(inCssInfo())); <span class="hljs-comment">// Add validation status CSS classes</span>
-<span class="hljs-keyword">const</span> salutation = inText(<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;salutation&#x27;</span>)!)
-  .setup(InValidation, <span class="hljs-function"><span class="hljs-params">validation</span> =&gt;</span> {
-    validation.by(requirePresent); <span class="hljs-comment">// Require `salutation` to present   </span>
-  })
-  .setup(InCssClasses, <span class="hljs-function"><span class="hljs-params">classes</span> =&gt;</span> classes.add(inCssInfo())); <span class="hljs-comment">// Add validation status CSS classes</span>
+<span style="color: #008000">// Create controls for input elements</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">name</span><span style="color: #000000"> = </span><span style="color: #795E26">inText</span><span style="color: #000000">(</span><span style="color: #001080">document</span><span style="color: #000000">.</span><span style="color: #795E26">getElementById</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;name&#039;</span><span style="color: #000000">)!)</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">convert</span><span style="color: #000000">(</span><span style="color: #001080">intoTrimmed</span><span style="color: #000000">) </span><span style="color: #008000">// Remove whitespace</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">setup</span><span style="color: #000000">(</span><span style="color: #001080">InValidation</span><span style="color: #000000">, </span><span style="color: #001080">validation</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">validation</span><span style="color: #000000">.</span><span style="color: #795E26">by</span><span style="color: #000000">(</span><span style="color: #001080">requirePresent</span><span style="color: #000000">); </span><span style="color: #008000">// Require `name` to present      </span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">setup</span><span style="color: #000000">(</span><span style="color: #001080">InCssClasses</span><span style="color: #000000">, </span><span style="color: #001080">classes</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">classes</span><span style="color: #000000">.</span><span style="color: #795E26">add</span><span style="color: #000000">(</span><span style="color: #795E26">inCssInfo</span><span style="color: #000000">())); </span><span style="color: #008000">// Add validation status CSS classes</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">salutation</span><span style="color: #000000"> = </span><span style="color: #795E26">inText</span><span style="color: #000000">(</span><span style="color: #001080">document</span><span style="color: #000000">.</span><span style="color: #795E26">getElementById</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;salutation&#039;</span><span style="color: #000000">)!)</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">setup</span><span style="color: #000000">(</span><span style="color: #001080">InValidation</span><span style="color: #000000">, </span><span style="color: #001080">validation</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">validation</span><span style="color: #000000">.</span><span style="color: #795E26">by</span><span style="color: #000000">(</span><span style="color: #001080">requirePresent</span><span style="color: #000000">); </span><span style="color: #008000">// Require `salutation` to present   </span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">setup</span><span style="color: #000000">(</span><span style="color: #001080">InCssClasses</span><span style="color: #000000">, </span><span style="color: #001080">classes</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">classes</span><span style="color: #000000">.</span><span style="color: #795E26">add</span><span style="color: #000000">(</span><span style="color: #795E26">inCssInfo</span><span style="color: #000000">())); </span><span style="color: #008000">// Add validation status CSS classes</span>
 
-<span class="hljs-keyword">const</span> form = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;form&#x27;</span>)!;
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">form</span><span style="color: #000000"> = </span><span style="color: #001080">document</span><span style="color: #000000">.</span><span style="color: #795E26">getElementById</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;form&#039;</span><span style="color: #000000">)!;</span>
 
-<span class="hljs-comment">// Create control group</span>
-<span class="hljs-keyword">const</span> group = inGroup&lt;Saluted&gt;({
-  <span class="hljs-comment">// Group value is initially empty</span>
-  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;&#x27;</span>,
-  <span class="hljs-attr">salutation</span>: <span class="hljs-string">&#x27;&#x27;</span>,
-}).setup(<span class="hljs-function"><span class="hljs-params">control</span> =&gt;</span> {
-  control.set({ name, salutation }); <span class="hljs-comment">// Add controls to group</span>
-}).setup(InSubmit, <span class="hljs-function"><span class="hljs-params">submit</span> =&gt;</span> {
+<span style="color: #008000">// Create control group</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">group</span><span style="color: #000000"> = </span><span style="color: #795E26">inGroup</span><span style="color: #000000">&lt;</span><span style="color: #267F99">Saluted</span><span style="color: #000000">&gt;({</span>
+<span style="color: #000000">  </span><span style="color: #008000">// Group value is initially empty</span>
+<span style="color: #000000">  </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">salutation:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">}).</span><span style="color: #795E26">setup</span><span style="color: #000000">(</span><span style="color: #001080">control</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">control</span><span style="color: #000000">.</span><span style="color: #795E26">set</span><span style="color: #000000">({ </span><span style="color: #001080">name</span><span style="color: #000000">, </span><span style="color: #001080">salutation</span><span style="color: #000000"> }); </span><span style="color: #008000">// Add controls to group</span>
+<span style="color: #000000">}).</span><span style="color: #795E26">setup</span><span style="color: #000000">(</span><span style="color: #001080">InSubmit</span><span style="color: #000000">, </span><span style="color: #001080">submit</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
 
-  <span class="hljs-keyword">const</span> button = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;submit-button&#x27;</span>)!;
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">button</span><span style="color: #000000"> = </span><span style="color: #001080">document</span><span style="color: #000000">.</span><span style="color: #795E26">getElementById</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;submit-button&#039;</span><span style="color: #000000">)!;</span>
 
-  submit.read(<span class="hljs-function"><span class="hljs-params">flags</span> =&gt;</span> {
-    <span class="hljs-comment">// Disable submit button when input is invalid or submit is in process.</span>
-    button.disabled = flags.ready &amp;&amp; !flags.busy;  
-  });
+<span style="color: #000000">  </span><span style="color: #001080">submit</span><span style="color: #000000">.</span><span style="color: #795E26">read</span><span style="color: #000000">(</span><span style="color: #001080">flags</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #008000">// Disable submit button when input is invalid or submit is in process.</span>
+<span style="color: #000000">    </span><span style="color: #001080">button</span><span style="color: #000000">.</span><span style="color: #001080">disabled</span><span style="color: #000000"> = </span><span style="color: #001080">flags</span><span style="color: #000000">.</span><span style="color: #001080">ready</span><span style="color: #000000"> &amp;&amp; !</span><span style="color: #001080">flags</span><span style="color: #000000">.</span><span style="color: #001080">busy</span><span style="color: #000000">;  </span>
+<span style="color: #000000">  });</span>
 
-  <span class="hljs-comment">// Submit the form programmatically</span>
-  <span class="hljs-keyword">new</span> DomEventDispatcher(form).on(<span class="hljs-string">&#x27;submit&#x27;</span>).instead(<span class="hljs-keyword">async</span> () =&gt; {
+<span style="color: #000000">  </span><span style="color: #008000">// Submit the form programmatically</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">DomEventDispatcher</span><span style="color: #000000">(</span><span style="color: #001080">form</span><span style="color: #000000">).</span><span style="color: #795E26">on</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;submit&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">instead</span><span style="color: #000000">(</span><span style="color: #0000FF">async</span><span style="color: #000000"> () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
 
-    <span class="hljs-keyword">const</span> responseText = <span class="hljs-keyword">await</span> submit.submit(<span class="hljs-keyword">async</span> (data) =&gt; {
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">responseText</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">submit</span><span style="color: #000000">.</span><span style="color: #795E26">submit</span><span style="color: #000000">(</span><span style="color: #0000FF">async</span><span style="color: #000000"> (</span><span style="color: #001080">data</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
 
-      <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> fetch(
-          <span class="hljs-string">&#x27;/greet&#x27;</span>,
-          {
-            <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;POST&#x27;</span>,
-            <span class="hljs-attr">headers</span>: {
-              <span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;application/json&#x27;</span>,
-            },
-            <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify(data),    
-          });
+<span style="color: #000000">      </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">response</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">fetch</span><span style="color: #000000">(</span>
+<span style="color: #000000">          </span><span style="color: #A31515">&#039;/greet&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">          {</span>
+<span style="color: #000000">            </span><span style="color: #001080">method:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;POST&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">            </span><span style="color: #001080">headers:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">              </span><span style="color: #A31515">&#039;Content-Type&#039;</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;application/json&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">            },</span>
+<span style="color: #000000">            </span><span style="color: #001080">body:</span><span style="color: #000000"> </span><span style="color: #267F99">JSON</span><span style="color: #000000">.</span><span style="color: #795E26">stringify</span><span style="color: #000000">(</span><span style="color: #001080">data</span><span style="color: #000000">),    </span>
+<span style="color: #000000">          });</span>
 
-      <span class="hljs-keyword">if</span> (!response.ok) {
-        <span class="hljs-comment">// Submit failed - report errors</span>
-        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> InSubmitError({ <span class="hljs-attr">submit</span>: <span class="hljs-string">&#x27;Failed&#x27;</span> });
-      } 
+<span style="color: #000000">      </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (!</span><span style="color: #001080">response</span><span style="color: #000000">.</span><span style="color: #001080">ok</span><span style="color: #000000">) {</span>
+<span style="color: #000000">        </span><span style="color: #008000">// Submit failed - report errors</span>
+<span style="color: #000000">        </span><span style="color: #AF00DB">throw</span><span style="color: #000000"> </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">InSubmitError</span><span style="color: #000000">({ </span><span style="color: #001080">submit:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Failed&#039;</span><span style="color: #000000"> });</span>
+<span style="color: #000000">      } </span>
 
-      <span class="hljs-comment">// Submit succeed</span>
-      <span class="hljs-keyword">return</span> response.text();
-    });
+<span style="color: #000000">      </span><span style="color: #008000">// Submit succeed</span>
+<span style="color: #000000">      </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #001080">response</span><span style="color: #000000">.</span><span style="color: #795E26">text</span><span style="color: #000000">();</span>
+<span style="color: #000000">    });</span>
 
-    <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;response-text&#x27;</span>)!.innerText = responseText;  
-  });
-});</code></pre>
+<span style="color: #000000">    </span><span style="color: #001080">document</span><span style="color: #000000">.</span><span style="color: #795E26">getElementById</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;response-text&#039;</span><span style="color: #000000">)!.</span><span style="color: #001080">innerText</span><span style="color: #000000"> = </span><span style="color: #001080">responseText</span><span style="color: #000000">;  </span>
+<span style="color: #000000">  });</span>
+<span style="color: #000000">});</span>
+</code></pre>
 				<a href="#input-control" id="input-control" style="color: inherit; text-decoration: none;">
 					<h2>Input Control</h2>
 				</a>
@@ -175,33 +172,36 @@
 				<p>The value of this control is three-state, corresponding to checked, unchecked, and intermediate values.</p>
 				<p>By default these are <code>true</code>, <code>false</code> and <code>undefined</code>. But can be configured to be arbitrary values by specifying
 				options:</p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { inCheckbox } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@frontmeans/input-aspects&#x27;</span>;
+				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">inCheckbox</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;@frontmeans/input-aspects&#039;</span><span style="color: #000000">;</span>
 
-inCheckbox(checkboxElement, {
-  <span class="hljs-attr">checked</span>: <span class="hljs-string">&#x27;on&#x27;</span>,     <span class="hljs-comment">// The value is `on` when checked</span>
-  <span class="hljs-attr">unchecked</span>: <span class="hljs-string">&#x27;off&#x27;</span>,  <span class="hljs-comment">// The value is `off` when unchecked</span>
-  <span class="hljs-attr">intermediate</span>: <span class="hljs-string">&#x27;?&#x27;</span>,  <span class="hljs-comment">// The value is `?` when intermediate</span>
-});</code></pre>
+<span style="color: #795E26">inCheckbox</span><span style="color: #000000">(</span><span style="color: #001080">checkboxElement</span><span style="color: #000000">, {</span>
+<span style="color: #000000">  </span><span style="color: #001080">checked:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;on&#039;</span><span style="color: #000000">,     </span><span style="color: #008000">// The value is `on` when checked</span>
+<span style="color: #000000">  </span><span style="color: #001080">unchecked:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;off&#039;</span><span style="color: #000000">,  </span><span style="color: #008000">// The value is `off` when unchecked</span>
+<span style="color: #000000">  </span><span style="color: #001080">intermediate:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;?&#039;</span><span style="color: #000000">,  </span><span style="color: #008000">// The value is `?` when intermediate</span>
+<span style="color: #000000">});</span>
+</code></pre>
 				<a href="#ltinput-typequotradioquotgt" id="ltinput-typequotradioquotgt" style="color: inherit; text-decoration: none;">
 					<h3><code>&lt;input type=&quot;radio&quot;&gt;</code></h3>
 				</a>
 				<p>Radio button control is created by <code>inRadio()</code> function.</p>
 				<p>By default the value of this control is <code>true</code> when the radio button is checked. This can be configured though.
 				The value of this control when the radio button is unchecked is always <code>undefined</code>.</p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { inRadio } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@frontmeans/input-aspects&#x27;</span>;
+				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">inRadio</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;@frontmeans/input-aspects&#039;</span><span style="color: #000000">;</span>
 
-inRadio(radioElement, {
-  <span class="hljs-attr">checked</span>: <span class="hljs-string">&#x27;on&#x27;</span>,     <span class="hljs-comment">// The value is `on` when checked</span>
-});</code></pre>
+<span style="color: #795E26">inRadio</span><span style="color: #000000">(</span><span style="color: #001080">radioElement</span><span style="color: #000000">, {</span>
+<span style="color: #000000">  </span><span style="color: #001080">checked:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;on&#039;</span><span style="color: #000000">,     </span><span style="color: #008000">// The value is `on` when checked</span>
+<span style="color: #000000">});</span>
+</code></pre>
 				<p>It is convenient to group the radio buttons into a radio group, that can be created using <code>inRadioGroup()</code> function:</p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { inRadio, inRadioGroup } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@frontmeans/input-aspects&#x27;</span>;
+				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">inRadio</span><span style="color: #000000">, </span><span style="color: #001080">inRadioGroup</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;@frontmeans/input-aspects&#039;</span><span style="color: #000000">;</span>
 
-inRadioGroup({
-  <span class="hljs-comment">// Add radio buttons under unique keys</span>
-  <span class="hljs-attr">first</span>: inRadio(firstRadioElement),
-  <span class="hljs-attr">second</span>: inRadio(secondRadioElement),
-  <span class="hljs-attr">third</span>: inRadio(thirdRadioElement),
-});</code></pre>
+<span style="color: #795E26">inRadioGroup</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #008000">// Add radio buttons under unique keys</span>
+<span style="color: #000000">  </span><span style="color: #001080">first:</span><span style="color: #000000"> </span><span style="color: #795E26">inRadio</span><span style="color: #000000">(</span><span style="color: #001080">firstRadioElement</span><span style="color: #000000">),</span>
+<span style="color: #000000">  </span><span style="color: #001080">second:</span><span style="color: #000000"> </span><span style="color: #795E26">inRadio</span><span style="color: #000000">(</span><span style="color: #001080">secondRadioElement</span><span style="color: #000000">),</span>
+<span style="color: #000000">  </span><span style="color: #001080">third:</span><span style="color: #000000"> </span><span style="color: #795E26">inRadio</span><span style="color: #000000">(</span><span style="color: #001080">thirdRadioElement</span><span style="color: #000000">),</span>
+<span style="color: #000000">});</span>
+</code></pre>
 				<p>The value of radio group control is a string key corresponding to checked radio button. Or <code>undefined</code> when none
 				is checked.</p>
 				<a href="#arbitrary-value-control" id="arbitrary-value-control" style="color: inherit; text-decoration: none;">
@@ -249,10 +249,11 @@ inRadioGroup({
 					<li><code>intoParsedBy()</code> parses and formats input text with the given functions.</li>
 				</ul>
 				<p>Simple conversions can be implemented like this:</p>
-				<pre><code class="language-typescript">control.convert(
-  <span class="hljs-function"><span class="hljs-params">text</span> =&gt;</span> text.length,        <span class="hljs-comment">// Convert a `text` to its length</span>
-  <span class="hljs-function"><span class="hljs-params">stars</span> =&gt;</span> <span class="hljs-string">&#x27;*&#x27;</span>.repeat(stars), <span class="hljs-comment">// Restore the text as several `stars`</span>
-);</code></pre>
+				<pre><code class="language-typescript"><span style="color: #001080">control</span><span style="color: #000000">.</span><span style="color: #795E26">convert</span><span style="color: #000000">(</span>
+<span style="color: #000000">  </span><span style="color: #001080">text</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">text</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000">,        </span><span style="color: #008000">// Convert a `text` to its length</span>
+<span style="color: #000000">  </span><span style="color: #001080">stars</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;*&#039;</span><span style="color: #000000">.</span><span style="color: #795E26">repeat</span><span style="color: #000000">(</span><span style="color: #001080">stars</span><span style="color: #000000">), </span><span style="color: #008000">// Restore the text as several `stars`</span>
+<span style="color: #000000">);</span>
+</code></pre>
 				<a href="#input-aspect" id="input-aspect" style="color: inherit; text-decoration: none;">
 					<h2>Input Aspect</h2>
 				</a>
@@ -339,33 +340,313 @@ inRadioGroup({
 					<li><code>requireRange()</code> applies requirements to numeric value range.</li>
 				</ul>
 				<p>Simple validator can be applied like this:</p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { InValidation } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@frontmeans/input-aspects&#x27;</span>;
+				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">InValidation</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;@frontmeans/input-aspects&#039;</span><span style="color: #000000">;</span>
 
-control.aspect(InValidation).by({
-  <span class="hljs-function"><span class="hljs-title">validate</span>(<span class="hljs-params">{it}: InControl&lt;PasswordAndConfirmation&gt;</span>)</span> {
-    <span class="hljs-keyword">if</span> (it.password !== it.confirmation) {
-      <span class="hljs-comment">// Return error message(s) on validation error</span>
-      <span class="hljs-keyword">return</span> { <span class="hljs-attr">invalid</span>: <span class="hljs-string">&#x27;Password and confirmation do not match&#x27;</span> };    
-    }
-    <span class="hljs-comment">// Return nothing (or `null`, or empty array, or empty message) on validation success</span>
-    <span class="hljs-keyword">return</span>;  
-  }
-});</code></pre>
+<span style="color: #001080">control</span><span style="color: #000000">.</span><span style="color: #795E26">aspect</span><span style="color: #000000">(</span><span style="color: #001080">InValidation</span><span style="color: #000000">).</span><span style="color: #795E26">by</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #795E26">validate</span><span style="color: #000000">({</span><span style="color: #001080">it</span><span style="color: #000000">}: </span><span style="color: #267F99">InControl</span><span style="color: #000000">&lt;</span><span style="color: #267F99">PasswordAndConfirmation</span><span style="color: #000000">&gt;) {</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">it</span><span style="color: #000000">.</span><span style="color: #001080">password</span><span style="color: #000000"> !== </span><span style="color: #001080">it</span><span style="color: #000000">.</span><span style="color: #001080">confirmation</span><span style="color: #000000">) {</span>
+<span style="color: #000000">      </span><span style="color: #008000">// Return error message(s) on validation error</span>
+<span style="color: #000000">      </span><span style="color: #AF00DB">return</span><span style="color: #000000"> { </span><span style="color: #001080">invalid:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Password and confirmation do not match&#039;</span><span style="color: #000000"> };    </span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">    </span><span style="color: #008000">// Return nothing (or `null`, or empty array, or empty message) on validation success</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000">;  </span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">});</span>
+</code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals  ">
-						<a href="globals.html"><em>Globals</em></a>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
 					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/@frontmeans_input-aspects.html">@frontmeans/input-<wbr>aspects</a>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/inaspect.html">In<wbr>Aspect</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/incheckbox.html">In<wbr>Checkbox</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/incontainer.html">In<wbr>Container</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/incontrol.html">In<wbr>Control</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/inconverter.html">In<wbr>Converter</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/incssclasses.html">In<wbr>Css<wbr>Classes</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/indata.html">In<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/inelement.html">In<wbr>Element</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/informelement.html">In<wbr>Form<wbr>Element</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/ingroup.html">In<wbr>Group</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/inlist.html">In<wbr>List</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/inmode.html">In<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/inparents.html">In<wbr>Parents</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/inparser.html">In<wbr>Parser</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/inradio.html">In<wbr>Radio</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/inradiogroup.html">In<wbr>Radio<wbr>Group</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/instatus.html">In<wbr>Status</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/insubmit.html">In<wbr>Submit</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/insubmitbutton.html">In<wbr>Submit<wbr>Button</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/intext.html">In<wbr>Text</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/invalidation.html">In<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/invalidator.html">In<wbr>Validator</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/abstractincontrol.html" class="tsd-kind-icon">Abstract<wbr>InControl</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/abstractinelement.html" class="tsd-kind-icon">Abstract<wbr>InElement</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/incontainer.html" class="tsd-kind-icon">In<wbr>Container</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/incontainercontrols.html" class="tsd-kind-icon">In<wbr>Container<wbr>Controls</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/incontrol.html" class="tsd-kind-icon">In<wbr>Control</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/incssclasses.html" class="tsd-kind-icon">In<wbr>Css<wbr>Classes</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/inelement.html" class="tsd-kind-icon">In<wbr>Element</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/infocus.html" class="tsd-kind-icon">In<wbr>Focus</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/ingroup.html" class="tsd-kind-icon">In<wbr>Group</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/ingroupcontrols.html" class="tsd-kind-icon">In<wbr>Group<wbr>Controls</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/inlist.html" class="tsd-kind-icon">In<wbr>List</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/inlistcontrols.html" class="tsd-kind-icon">In<wbr>List<wbr>Controls</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/inmode.html" class="tsd-kind-icon">In<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/inparents.html" class="tsd-kind-icon">In<wbr>Parents</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/instatus.html" class="tsd-kind-icon">In<wbr>Status</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/insubmit.html" class="tsd-kind-icon">In<wbr>Submit</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/insubmiterror.html" class="tsd-kind-icon">In<wbr>Submit<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/insubmitrejectederror.html" class="tsd-kind-icon">In<wbr>Submit<wbr>Rejected<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/invalidation.html" class="tsd-kind-icon">In<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/inaspect.html" class="tsd-kind-icon">In<wbr>Aspect</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="modules.html#incheckbox" class="tsd-kind-icon">In<wbr>Checkbox</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="modules.html#inconverter" class="tsd-kind-icon">In<wbr>Converter</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="modules.html#indata" class="tsd-kind-icon">In<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="modules.html#informelement" class="tsd-kind-icon">In<wbr>Form<wbr>Element</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#innamespacealiaser" class="tsd-kind-icon">In<wbr>Namespace<wbr>Aliaser</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="modules.html#inparser" class="tsd-kind-icon">In<wbr>Parser</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="modules.html#inradio" class="tsd-kind-icon">In<wbr>Radio</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="modules.html#inradiogroup" class="tsd-kind-icon">In<wbr>Radio<wbr>Group</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#inrenderscheduler" class="tsd-kind-icon">In<wbr>Render<wbr>Scheduler</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#inselect" class="tsd-kind-icon">In<wbr>Select</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#instyledelement" class="tsd-kind-icon">In<wbr>Styled<wbr>Element</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="modules.html#insubmitbutton" class="tsd-kind-icon">In<wbr>Submit<wbr>Button</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#intext" class="tsd-kind-icon">In<wbr>Text</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="modules.html#invalidator" class="tsd-kind-icon">In<wbr>Validator</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="modules.html#inaspect__symbol" class="tsd-kind-icon">In<wbr>Aspect__symbol</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="modules.html#indata" class="tsd-kind-icon">In<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="modules.html#innamespacealiaser" class="tsd-kind-icon">In<wbr>Namespace<wbr>Aliaser</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="modules.html#inparser" class="tsd-kind-icon">In<wbr>Parser</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="modules.html#inrenderscheduler" class="tsd-kind-icon">In<wbr>Render<wbr>Scheduler</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="modules.html#instyledelement" class="tsd-kind-icon">In<wbr>Styled<wbr>Element</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="modules.html#inputaspects__ns" class="tsd-kind-icon">Input<wbr>Aspects__NS</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#incheckbox" class="tsd-kind-icon">in<wbr>Checkbox</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#incsserror" class="tsd-kind-icon">in<wbr>Css<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#incssinfo" class="tsd-kind-icon">in<wbr>Css<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#informelement" class="tsd-kind-icon">in<wbr>Form<wbr>Element</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#ingroup" class="tsd-kind-icon">in<wbr>Group</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#inlist" class="tsd-kind-icon">in<wbr>List</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#inmodebyform" class="tsd-kind-icon">in<wbr>Mode<wbr>ByForm</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#inmodebyvalidity" class="tsd-kind-icon">in<wbr>Mode<wbr>ByValidity</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#inmodevalue" class="tsd-kind-icon">in<wbr>Mode<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#inradio" class="tsd-kind-icon">in<wbr>Radio</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#inradiogroup" class="tsd-kind-icon">in<wbr>Radio<wbr>Group</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#inselect" class="tsd-kind-icon">in<wbr>Select</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#insubmitbutton" class="tsd-kind-icon">in<wbr>Submit<wbr>Button</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#intext" class="tsd-kind-icon">in<wbr>Text</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#invalidationresult" class="tsd-kind-icon">in<wbr>Validation<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#invalidator" class="tsd-kind-icon">in<wbr>Validator</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#invalue" class="tsd-kind-icon">in<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#invalueof" class="tsd-kind-icon">in<wbr>Value<wbr>Of</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#intoconvertedaspects" class="tsd-kind-icon">into<wbr>Converted<wbr>Aspects</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#intoconvertedby" class="tsd-kind-icon">into<wbr>Converted<wbr>By</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#intofallback" class="tsd-kind-icon">into<wbr>Fallback</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#intointeger" class="tsd-kind-icon">into<wbr>Integer</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#intoparsedby" class="tsd-kind-icon">into<wbr>Parsed<wbr>By</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#intotrimmed" class="tsd-kind-icon">into<wbr>Trimmed</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#isinaspectconversion" class="tsd-kind-icon">is<wbr>InAspect<wbr>Conversion</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#requireall" class="tsd-kind-icon">require<wbr>All</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#requirelength" class="tsd-kind-icon">require<wbr>Length</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#requireneeded" class="tsd-kind-icon">require<wbr>Needed</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#requirenothing" class="tsd-kind-icon">require<wbr>Nothing</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#requirepresent" class="tsd-kind-icon">require<wbr>Present</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#requirerange" class="tsd-kind-icon">require<wbr>Range</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
@@ -376,17 +657,24 @@ control.aspect(InValidation).by({
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-namespace"><span class="tsd-kind-icon">Namespace</span></li>
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>
