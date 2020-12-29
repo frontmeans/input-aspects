@@ -13,6 +13,9 @@ import { AbstractInElement } from './abstract-element.control';
  */
 export type InText = InElement<string, InText.Element>;
 
+/**
+ * @category Control
+ */
 export namespace InText {
 
   /**

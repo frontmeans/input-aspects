@@ -107,6 +107,9 @@ export abstract class InValidation<TValue> implements EventKeeper<[InValidation.
 
 }
 
+/**
+ * @category Aspect
+ */
 export namespace InValidation {
 
   /**

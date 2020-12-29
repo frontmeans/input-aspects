@@ -60,6 +60,9 @@ interface Applied<TValue> extends InAspect.Applied<TValue, InData<TValue>, InDat
 
 }
 
+/**
+ * @category Aspect
+ */
 export const InData = {
 
   get [InAspect__symbol](): InAspect<InData<any>, 'data'> {

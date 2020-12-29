@@ -25,6 +25,9 @@ import { AbstractInElement } from '../abstract-element.control';
  */
 export type InFormElement<TElt extends HTMLElement = HTMLElement> = InElement<void, TElt>;
 
+/**
+ * @category Control
+ */
 export namespace InFormElement {
 
   /**

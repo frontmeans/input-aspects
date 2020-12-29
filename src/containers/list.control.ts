@@ -82,6 +82,9 @@ export abstract class InList<TItem> extends InContainer<readonly TItem[]> {
 
 }
 
+/**
+ * @category Control
+ */
 export namespace InList {
 
   /**

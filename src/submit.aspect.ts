@@ -134,6 +134,9 @@ export abstract class InSubmit<TValue> implements EventKeeper<[InSubmit.Flags]> 
 
 }
 
+/**
+ * @category Aspect
+ */
 export namespace InSubmit {
 
   /**

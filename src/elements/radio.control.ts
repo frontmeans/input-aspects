@@ -20,6 +20,9 @@ import { AbstractInElement } from './abstract-element.control';
  */
 export type InRadio<TValue = true> = InElement<TValue | undefined, HTMLInputElement>;
 
+/**
+ * @category Control
+ */
 export namespace InRadio {
 
   /**

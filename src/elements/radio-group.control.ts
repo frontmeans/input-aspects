@@ -19,6 +19,9 @@ import { InConverter } from '../converter';
  */
 export type InRadioGroup<TValue extends string | undefined = string | undefined> = InControl<TValue>;
 
+/**
+ * @category Control
+ */
 export namespace InRadioGroup {
 
   /**

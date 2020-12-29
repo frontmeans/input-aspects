@@ -20,6 +20,9 @@ export type InConverter<TFrom, TTo> =
     | InConverter.Conversion<TFrom, TTo>
     | InConverter.Factory<TFrom, TTo>;
 
+/**
+ * @category Converter
+ */
 export namespace InConverter {
 
   /**
@@ -72,6 +75,9 @@ export namespace InConverter {
 
 }
 
+/**
+ * @category Converter
+ */
 export namespace InConverter.Value {
 
   /**
@@ -141,6 +147,9 @@ export namespace InConverter.Value {
 
 }
 
+/**
+ * @category Converter
+ */
 export namespace InConverter.Aspect {
 
   /**

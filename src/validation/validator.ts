@@ -25,6 +25,9 @@ export type InValidator<TValue> =
     | ((this: void, control: InControl<TValue>) => EventKeeper<InValidation.Message[]>)
     | InValidator.Simple<TValue>;
 
+/**
+ * @category Validation
+ */
 export namespace InValidator {
 
   /**

@@ -94,6 +94,9 @@ export abstract class InStatus implements EventKeeper<[InStatus.Flags]> {
 
 }
 
+/**
+ * @category Aspect
+ */
 export namespace InStatus {
 
   /**

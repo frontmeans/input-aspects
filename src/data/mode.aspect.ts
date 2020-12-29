@@ -139,6 +139,9 @@ export abstract class InMode implements EventSender<[InMode.Value, InMode.Value]
 
 }
 
+/**
+ * @category Aspect
+ */
 export namespace InMode {
 
   /**

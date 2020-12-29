@@ -82,6 +82,9 @@ export abstract class InGroup<TModel extends object> extends InContainer<TModel>
 
 }
 
+/**
+ * @category Control
+ */
 export namespace InGroup {
 
   /**

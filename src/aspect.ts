@@ -37,6 +37,9 @@ export interface InAspect<TInstance, TKind extends InAspect.Application.Kind = '
  */
 export const InAspect__symbol = (/*#__PURE__*/ Symbol('in-aspect'));
 
+/**
+ * @category Aspect
+ */
 export namespace InAspect {
 
   /**

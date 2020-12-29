@@ -180,6 +180,9 @@ function isAspectKey<TInstance, TKind extends InAspect.Application.Kind>(
   return InAspect__symbol in value;
 }
 
+/**
+ * @category Control
+ */
 export namespace InControl {
 
   /**

@@ -82,6 +82,9 @@ export abstract class InParents
 
 }
 
+/**
+ * @category Aspect
+ */
 export namespace InParents {
 
   /**

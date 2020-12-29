@@ -36,6 +36,9 @@ export type InParser<TValue> =
       ((this: void, value: TValue) => string)?
     ];
 
+/**
+ * @category Converter
+ */
 export namespace InParser {
 
   /**
@@ -56,6 +59,9 @@ export namespace InParser {
 
 }
 
+/**
+ * @category Converter
+ */
 export const InParser = {
 
   /**

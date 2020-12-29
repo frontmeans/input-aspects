@@ -24,6 +24,9 @@ import { AbstractInElement } from '../abstract-element.control';
  */
 export type InSubmitButton<TElt extends HTMLElement = HTMLElement> = InElement<void, TElt>;
 
+/**
+ * @category Control
+ */
 export namespace InSubmitButton {
 
   /**

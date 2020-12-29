@@ -61,6 +61,9 @@ export abstract class InElement<TValue, TElt = HTMLElement> extends AbstractInCo
 
 }
 
+/**
+ * @category Control
+ */
 export namespace InElement {
 
   /**

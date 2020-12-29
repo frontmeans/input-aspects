@@ -122,6 +122,9 @@ export abstract class InCssClasses implements EventKeeper<[InCssClasses.Map]> {
 
 }
 
+/**
+ * @category Aspect
+ */
 export namespace InCssClasses {
 
   /**

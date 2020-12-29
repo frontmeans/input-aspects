@@ -14,6 +14,9 @@ import { AbstractInElement } from './abstract-element.control';
  */
 export type InCheckbox<TValue = boolean | undefined> = InElement<TValue, HTMLInputElement & { intermediate?: boolean }>;
 
+/**
+ * @category Control
+ */
 export namespace InCheckbox {
 
   /**

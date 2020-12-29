@@ -53,6 +53,9 @@ export abstract class InContainer<TValue> extends AbstractInControl<TValue> {
 
 }
 
+/**
+ * @category Control
+ */
 export namespace InContainer {
 
   /**

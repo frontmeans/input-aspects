@@ -1,10 +1,7 @@
 {
-  "categorizeByGroup": true,
+  "categorizeByGroup": false,
   "categoryOrder": ["Control", "Aspect", "Validation", "*"],
-  "disableAutoModuleName": true,
-  "exclude": ["**/index.ts", "**/*.impl.ts", "**/*.spec.ts"],
-  "excludeNotExported": true,
-  "mode": "modules",
+  "entryPoints": ["src/index.ts"],
   "name": "Input Aspects",
   "out": "./target/typedoc",
   "tsconfig": "tsconfig.main.json"
