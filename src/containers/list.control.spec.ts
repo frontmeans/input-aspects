@@ -188,7 +188,7 @@ describe('InList', () => {
         const whenOff = jest.fn();
 
         supply.whenOff(whenOff);
-        expect(whenOff).toHaveBeenCalledWith(undefined);
+        expect(whenOff).toHaveBeenCalledWith();
       });
     });
 
