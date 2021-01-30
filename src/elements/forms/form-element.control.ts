@@ -51,7 +51,7 @@ export namespace InFormElement {
      *
      * Applied to form element control by {@link inModeByForm}.
      */
-    modes?: {
+    readonly modes?: {
 
       /**
        * Input mode to set when submit is not ready. E.g. when input is invalid. `on` (enabled) by default.
