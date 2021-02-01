@@ -437,10 +437,7 @@ class InGroupControlControls<TModel extends object> extends InGroupControls<TMod
 
         const [key, [control, supply]] = keyAndEntry as [TKey, [InControl<TModel[TKey]>, Supply]];
 
-        control.aspect(InParents)
-            .add({ parent: group })
-            .needs(supply)
-            .cuts(supply);
+        control.aspect(InParents).add({ parent: group }).as(supply);
 
         const value = control.it;
 

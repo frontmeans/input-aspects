@@ -373,10 +373,7 @@ function readControlValue<TItem>(
     controls: InListControlControls<TItem>,
     [control, supply]: InListEntry<TItem>,
 ): void {
-  control.aspect(InParents)
-      .add({ parent: controls._list })
-      .needs(supply)
-      .cuts(supply);
+  control.aspect(InParents).add({ parent: controls._list }).as(supply);
   control.read({
     supply,
     receive: (_ctx, value) => {
