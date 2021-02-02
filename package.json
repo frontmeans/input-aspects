@@ -30,7 +30,7 @@
   },
   "peerDependencies": {
     "@frontmeans/namespace-aliaser": "^2.3.0",
-    "@proc7ts/fun-events": "^10.1.0"
+    "@proc7ts/fun-events": "^10.1.1"
   },
   "dependencies": {
     "@frontmeans/dom-events": "^1.0.0",
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@frontmeans/namespace-aliaser": "^2.3.0",
-    "@proc7ts/fun-events": "^10.1.0",
+    "@proc7ts/fun-events": "^10.1.1",
     "@rollup/plugin-commonjs": "^17.1.0",
     "@rollup/plugin-node-resolve": "^11.1.1",
     "@run-z/eslint-config": "^1.2.1",
