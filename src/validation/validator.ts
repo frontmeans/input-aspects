@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { AfterEvent, afterSupplied, EventKeeper, isEventKeeper, translateAfter } from '@proc7ts/fun-events';
 import { arrayOfElements, valueProvider } from '@proc7ts/primitives';
 import { InControl } from '../control';

@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { InAspect } from '../aspect';
 import { InControl } from '../control';
 import { InConverter, intoConvertedAspects } from '../converter';

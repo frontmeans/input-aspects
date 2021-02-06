@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { EventKeeper, translateAfter } from '@proc7ts/fun-events';
 import { InControl } from '../control';
 import { InValidation } from './validation.aspect';

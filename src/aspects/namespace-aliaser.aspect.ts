@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { NamespaceAliaser, NamespaceDef, newNamespaceAliaser } from '@frontmeans/namespace-aliaser';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';

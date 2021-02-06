@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { InControl } from '../control';
 import { requireNothing } from './require-nothing.validator';
 import { InValidator } from './validator';

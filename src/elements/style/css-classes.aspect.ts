@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { css__naming, isQualifiedName, QualifiedName } from '@frontmeans/namespace-aliaser';
 import { RenderSchedule } from '@frontmeans/render-scheduler';
 import { DeltaSet } from '@proc7ts/delta-set';

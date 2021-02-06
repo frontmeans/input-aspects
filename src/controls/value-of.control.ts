@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { OnEvent } from '@proc7ts/fun-events';
 import { Supply } from '@proc7ts/primitives';
 import { InControl } from '../control';

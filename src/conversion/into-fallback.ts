@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { asis } from '@proc7ts/primitives';
 import { InConverter } from '../converter';
 

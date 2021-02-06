@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { DomEventDispatcher } from '@frontmeans/dom-events';
 import { AfterEvent } from '@proc7ts/fun-events';
 import { InAspect, InAspect__symbol } from './aspect';

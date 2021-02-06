@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { isPresent, noop, valueProvider } from '@proc7ts/primitives';
 import { filterArray, itsReduction, overElementsOf } from '@proc7ts/push-iterator';
 import { InAspect } from './aspect';

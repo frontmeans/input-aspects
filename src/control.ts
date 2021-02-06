@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { EventEmitter, OnEvent, trackValue, ValueTracker } from '@proc7ts/fun-events';
 import { asis, noop, Supply } from '@proc7ts/primitives';
 import { InAspect, InAspect__symbol } from './aspect';

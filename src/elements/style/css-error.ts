@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { translateAfter } from '@proc7ts/fun-events';
 import { arrayOfElements } from '@proc7ts/primitives';
 import { InputAspects__NS } from '../../aspects';

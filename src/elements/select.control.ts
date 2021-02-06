@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { itsEach, itsElements, reverseArray, valueArray } from '@proc7ts/push-iterator';
 import { InConverter } from '../converter';
 import { InElement } from '../element.control';

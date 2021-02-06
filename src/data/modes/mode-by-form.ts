@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { mapAfter } from '@proc7ts/fun-events';
 import { InControl } from '../../control';
 import { InSubmit } from '../../submit.aspect';

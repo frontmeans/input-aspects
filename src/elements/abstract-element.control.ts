@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { DomEventDispatcher } from '@frontmeans/dom-events';
 import { AfterEvent, EventEmitter, mapAfter, OnEvent, translateOn } from '@proc7ts/fun-events';
 import { asis, Supply } from '@proc7ts/primitives';

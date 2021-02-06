@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { NamespaceDef, QualifiedName } from '@frontmeans/namespace-aliaser';
 import { afterAll, translateAfter } from '@proc7ts/fun-events';
 import { InputAspects__NS } from '../../aspects';

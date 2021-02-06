@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import {
   AfterEvent,
   AfterEvent__symbol,

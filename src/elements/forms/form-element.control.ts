@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { noop } from '@proc7ts/primitives';
 import { InControl } from '../../control';
 import { InConverter, intoConvertedAspects } from '../../converter';

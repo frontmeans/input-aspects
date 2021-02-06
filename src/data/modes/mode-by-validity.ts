@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { mapAfter } from '@proc7ts/fun-events';
 import { InValidation } from '../../validation';
 import { InMode } from '../mode.aspect';

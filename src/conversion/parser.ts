@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { afterSupplied, EventEmitter } from '@proc7ts/fun-events';
 import { valueProvider, valuesProvider } from '@proc7ts/primitives';
 import { InControl } from '../control';

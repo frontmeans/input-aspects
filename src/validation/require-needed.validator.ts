@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { translateAfter } from '@proc7ts/fun-events';
 import { filterIt } from '@proc7ts/push-iterator';
 import { InControl } from '../control';

@@ -1,7 +1,3 @@
-/**
- * @packageDocumentation
- * @module @frontmeans/input-aspects
- */
 import { InAspect, InAspect__symbol } from '../../aspect';
 import { inAspectNull, inAspectValue } from '../../aspect.impl';
 import { InControl } from '../../control';
