@@ -50,7 +50,7 @@
 	</div>
 	<div class="tsd-page-title">
 		<div class="container">
-			<h1>Project Input Aspects</h1>
+			<h1>Input Aspects</h1>
 		</div>
 	</div>
 </header>
@@ -111,19 +111,19 @@
 <span style="color: #000000">}).</span><span style="color: #795E26">setup</span><span style="color: #000000">(</span><span style="color: #001080">control</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
 <span style="color: #000000">  </span><span style="color: #001080">control</span><span style="color: #000000">.</span><span style="color: #795E26">set</span><span style="color: #000000">({ </span><span style="color: #001080">name</span><span style="color: #000000">, </span><span style="color: #001080">salutation</span><span style="color: #000000"> }); </span><span style="color: #008000">// Add controls to group</span>
 <span style="color: #000000">}).</span><span style="color: #795E26">setup</span><span style="color: #000000">(</span><span style="color: #001080">InSubmit</span><span style="color: #000000">, </span><span style="color: #001080">submit</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-
+<span style="color: #000000">  </span>
 <span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">button</span><span style="color: #000000"> = </span><span style="color: #001080">document</span><span style="color: #000000">.</span><span style="color: #795E26">getElementById</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;submit-button&#039;</span><span style="color: #000000">)!;</span>
-
+<span style="color: #000000">  </span>
 <span style="color: #000000">  </span><span style="color: #001080">submit</span><span style="color: #000000">.</span><span style="color: #795E26">read</span><span style="color: #000000">(</span><span style="color: #001080">flags</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
 <span style="color: #000000">    </span><span style="color: #008000">// Disable submit button when input is invalid or submit is in process.</span>
 <span style="color: #000000">    </span><span style="color: #001080">button</span><span style="color: #000000">.</span><span style="color: #001080">disabled</span><span style="color: #000000"> = </span><span style="color: #001080">flags</span><span style="color: #000000">.</span><span style="color: #001080">ready</span><span style="color: #000000"> &amp;&amp; !</span><span style="color: #001080">flags</span><span style="color: #000000">.</span><span style="color: #001080">busy</span><span style="color: #000000">;  </span>
 <span style="color: #000000">  });</span>
-
+<span style="color: #000000">  </span>
 <span style="color: #000000">  </span><span style="color: #008000">// Submit the form programmatically</span>
 <span style="color: #000000">  </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">DomEventDispatcher</span><span style="color: #000000">(</span><span style="color: #001080">form</span><span style="color: #000000">).</span><span style="color: #795E26">on</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;submit&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">instead</span><span style="color: #000000">(</span><span style="color: #0000FF">async</span><span style="color: #000000"> () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-
+<span style="color: #000000">      </span>
 <span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">responseText</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">submit</span><span style="color: #000000">.</span><span style="color: #795E26">submit</span><span style="color: #000000">(</span><span style="color: #0000FF">async</span><span style="color: #000000"> (</span><span style="color: #001080">data</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-
+<span style="color: #000000">  </span>
 <span style="color: #000000">      </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">response</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">fetch</span><span style="color: #000000">(</span>
 <span style="color: #000000">          </span><span style="color: #A31515">&#039;/greet&#039;</span><span style="color: #000000">,</span>
 <span style="color: #000000">          {</span>
@@ -133,16 +133,16 @@
 <span style="color: #000000">            },</span>
 <span style="color: #000000">            </span><span style="color: #001080">body:</span><span style="color: #000000"> </span><span style="color: #267F99">JSON</span><span style="color: #000000">.</span><span style="color: #795E26">stringify</span><span style="color: #000000">(</span><span style="color: #001080">data</span><span style="color: #000000">),    </span>
 <span style="color: #000000">          });</span>
-
+<span style="color: #000000">      </span>
 <span style="color: #000000">      </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (!</span><span style="color: #001080">response</span><span style="color: #000000">.</span><span style="color: #001080">ok</span><span style="color: #000000">) {</span>
 <span style="color: #000000">        </span><span style="color: #008000">// Submit failed - report errors</span>
 <span style="color: #000000">        </span><span style="color: #AF00DB">throw</span><span style="color: #000000"> </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">InSubmitError</span><span style="color: #000000">({ </span><span style="color: #001080">submit:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Failed&#039;</span><span style="color: #000000"> });</span>
 <span style="color: #000000">      } </span>
-
+<span style="color: #000000">      </span>
 <span style="color: #000000">      </span><span style="color: #008000">// Submit succeed</span>
 <span style="color: #000000">      </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #001080">response</span><span style="color: #000000">.</span><span style="color: #795E26">text</span><span style="color: #000000">();</span>
 <span style="color: #000000">    });</span>
-
+<span style="color: #000000">    </span>
 <span style="color: #000000">    </span><span style="color: #001080">document</span><span style="color: #000000">.</span><span style="color: #795E26">getElementById</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;response-text&#039;</span><span style="color: #000000">)!.</span><span style="color: #001080">innerText</span><span style="color: #000000"> = </span><span style="color: #001080">responseText</span><span style="color: #000000">;  </span>
 <span style="color: #000000">  });</span>
 <span style="color: #000000">});</span>

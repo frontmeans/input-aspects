@@ -142,7 +142,7 @@
 					<div class="tsd-signature tsd-kind-icon">instance<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">TInstance</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ecf62b4/src/aspect.ts#L79">frontmeans/input-aspects/src/aspect.ts:79</a></li>
+							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/1fa194e/src/aspect.ts#L75">frontmeans/input-aspects/src/aspect.ts:75</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -157,9 +157,36 @@
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="attachto" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> attach<wbr>To</h3>
-					<div class="tsd-signature tsd-kind-icon">attach<wbr>To<span class="tsd-signature-symbol">:</span></div>
-					<aside class="tsd-sources">
-					</aside>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">attach<wbr>To<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="../classes/incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="inaspect.applied.html" class="tsd-signature-type" data-tsd-kind="Interface">Applied</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/1fa194e/src/aspect.ts#L99">frontmeans/input-aspects/src/aspect.ts:99</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Converts an aspect to the same value type.</p>
+								</div>
+								<p>When defined, this method is called instead of <a href="inaspect.applied.html#convertto">convertTo</a> when converting aspect for converted control
+								with the same value. I.e. when <a href="../modules/inconverter.aspect.html">aspect-only converters</a> used for conversion.</p>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>target: <a href="../classes/incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Target input control.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="inaspect.applied.html" class="tsd-signature-type" data-tsd-kind="Interface">Applied</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The same aspect applied to <code>target</code> control, or <code>undefined</code> if aspect can not be converted.</p>
+						</li>
+					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
 					<a name="convertto" class="tsd-anchor"></a>
@@ -171,7 +198,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/ecf62b4/src/aspect.ts#L91">frontmeans/input-aspects/src/aspect.ts:91</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/1fa194e/src/aspect.ts#L87">frontmeans/input-aspects/src/aspect.ts:87</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
