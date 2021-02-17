@@ -2,9 +2,9 @@ import { onceAfter } from '@proc7ts/fun-events';
 import { noop } from '@proc7ts/primitives';
 import { InAspect__symbol } from './aspect';
 import { InControl } from './control';
-import { inValue } from './controls';
 import { InConverter, intoConvertedBy, isInAspectConversion } from './converter';
 import { InData, InMode } from './data';
+import { inValue } from './value.control';
 import Mocked = jest.Mocked;
 
 describe('intoConverterBy', () => {

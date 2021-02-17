@@ -2,7 +2,7 @@ import { DomEventDispatcher } from '@frontmeans/dom-events';
 import { AfterEvent } from '@proc7ts/fun-events';
 import { InAspect, InAspect__symbol } from './aspect';
 import { inAspectSameOrNull } from './aspect.impl';
-import { AbstractInControl } from './controls';
+import { InControl } from './control';
 
 /**
  * @internal
@@ -22,7 +22,7 @@ const InElement__aspect: InAspect<InElement<any> | null, 'element'> = {
  * @typeParam TValue - Input value type.
  * @typeParam TElt - A type of input HTML element.
  */
-export abstract class InElement<TValue, TElt = HTMLElement> extends AbstractInControl<TValue> {
+export abstract class InElement<TValue, TElt = HTMLElement> extends InControl<TValue> {
 
   static get [InAspect__symbol](): InAspect<InElement<any> | null, 'element'> {
     return InElement__aspect;

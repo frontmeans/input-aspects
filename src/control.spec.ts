@@ -1,10 +1,10 @@
 import { Supply } from '@proc7ts/primitives';
 import { InAspect, InAspect__symbol } from './aspect';
 import { inAspectValue } from './aspect.impl';
-import { InControl } from './control';
-import { inValue } from './controls';
+import { InControl, inValueOf } from './control';
 import { InConverter } from './converter';
 import { InData } from './data';
+import { inValue } from './value.control';
 import Mock = jest.Mock;
 
 describe('InControl', () => {
@@ -205,6 +205,59 @@ describe('InControl', () => {
         control.supply.off('reason');
         expect(done).toHaveBeenCalledWith('reason');
       });
+    });
+  });
+});
+
+describe('inValueOf', () => {
+
+  let original: InControl<string>;
+  let control: InControl<string>;
+
+  beforeEach(() => {
+    original = inValue('test');
+    control = inValueOf(original);
+  });
+
+  describe('it', () => {
+    it('has original value', () => {
+      expect(control.it).toBe('test');
+    });
+    it('updates original value', () => {
+      control.it = 'other';
+      expect(original.it).toBe('other');
+    });
+  });
+
+  describe('on', () => {
+    it('sends updates', () => {
+
+      const receiver = jest.fn();
+
+      control.on(receiver);
+      original.it = 'other';
+      expect(receiver).toHaveBeenCalledWith('other', 'test');
+      expect(receiver).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('[OnEvent__symbol]', () => {
+    it('depends on original one', () => {
+
+      const whenOff = jest.fn();
+
+      control.supply.whenOff(whenOff);
+
+      const reason = 'test reason';
+
+      original.supply.off(reason);
+      expect(whenOff).toHaveBeenCalledWith(reason);
+    });
+    it('is not a dependency of original one', () => {
+      control.supply.off();
+
+      expect(control.supply.isOff).toBe(true);
+      expect(original.supply.isOff).toBe(false);
     });
   });
 });

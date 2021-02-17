@@ -1,5 +1,5 @@
 import { InControl } from '../control';
-import { inValue } from '../controls';
+import { inValue } from '../value.control';
 import { requireRange } from './require-range.validator';
 import { InValidation } from './validation.aspect';
 

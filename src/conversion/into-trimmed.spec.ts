@@ -1,5 +1,5 @@
 import { InControl } from '../control';
-import { inValue } from '../controls';
+import { inValue } from '../value.control';
 import { intoTrimmed } from './into-trimmed';
 
 describe('intoTrimmed', () => {

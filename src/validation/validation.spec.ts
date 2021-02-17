@@ -11,7 +11,7 @@ import {
 import { asis, noop, Supply, valuesProvider } from '@proc7ts/primitives';
 import { inGroup, InGroup } from '../containers';
 import { InControl } from '../control';
-import { inValue } from '../controls';
+import { inValue } from '../value.control';
 import { InValidation } from './validation.aspect';
 import { InValidator } from './validator';
 import Mock = jest.Mock;

@@ -1,7 +1,7 @@
 import { noop, Supply } from '@proc7ts/primitives';
 import { InControl } from '../control';
-import { inValue } from '../controls';
 import { intoInteger } from '../conversion';
+import { inValue } from '../value.control';
 import { InData } from './data.aspect';
 import { InMode } from './mode.aspect';
 

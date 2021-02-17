@@ -8,7 +8,7 @@ import {
 import { afterSupplied, afterThe, onceAfter, trackValue, ValueTracker } from '@proc7ts/fun-events';
 import { Supply } from '@proc7ts/primitives';
 import { InControl } from '../../control';
-import { inValue } from '../../controls';
+import { inValue } from '../../value.control';
 import { inText, InText } from '../text.control';
 import { InCssClasses } from './css-classes.aspect';
 import Mock = jest.Mock;

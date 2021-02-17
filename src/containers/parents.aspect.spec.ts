@@ -1,7 +1,7 @@
 import { afterSupplied, onSupplied } from '@proc7ts/fun-events';
 import { Supply } from '@proc7ts/primitives';
 import { InControl } from '../control';
-import { inValue } from '../controls';
+import { inValue } from '../value.control';
 import { InContainer } from './container.control';
 import { inGroup } from './group.control';
 import { InParents } from './parents.aspect';

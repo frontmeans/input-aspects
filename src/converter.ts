@@ -1,7 +1,8 @@
-import { isPresent, noop, valueProvider } from '@proc7ts/primitives';
+import { arrayOfElements, isPresent, noop, valueProvider } from '@proc7ts/primitives';
 import { filterArray, itsReduction, overElementsOf } from '@proc7ts/push-iterator';
-import { InAspect } from './aspect';
-import { InControl } from './control';
+import type { InAspect } from './aspect';
+import type { InControl } from './control';
+import { noopInConverter } from './noop-converter.impl';
 
 /**
  * Input control converter. Either aspect-only, or value one.
@@ -303,28 +304,8 @@ export function intoConvertedAspects<TValue>(
     aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[],
 ): InConverter.Aspect.Factory<TValue> {
   return aspects
-      ? ((/*#__INLINE__*/ isArray(aspects)) ? intoConvertedBy(...aspects) : intoConvertedBy(aspects))
+      ? intoConvertedBy(...arrayOfElements(aspects))
       : intoConvertedBy<TValue>();
-}
-
-function isArray<T>(value: T | readonly T[] | undefined): value is readonly T[] {
-  return Array.isArray(value);
-}
-
-/**
- * @internal
- */
-const noopInConversion: InConverter.Aspect.Conversion<any> = {
-  applyAspect(): undefined {
-    return;
-  },
-};
-
-/**
- * @internal
- */
-function noopInConverter(): InConverter.Aspect.Conversion<any> {
-  return noopInConversion;
 }
 
 /**

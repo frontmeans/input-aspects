@@ -1,11 +1,11 @@
 import { afterSupplied } from '@proc7ts/fun-events';
 import { noop, Supply } from '@proc7ts/primitives';
 import { InControl } from './control';
-import { inValue } from './controls';
 import { intoInteger } from './conversion';
 import { InMode } from './data';
 import { InSubmit, InSubmitError, InSubmitRejectedError } from './submit.aspect';
 import { InValidation } from './validation';
+import { inValue } from './value.control';
 import Mock = jest.Mock;
 
 describe('InSubmit', () => {
