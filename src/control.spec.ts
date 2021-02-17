@@ -61,12 +61,38 @@ describe('InControl', () => {
       expect(control.setup(setup)).toBe(control);
       expect(setup).toHaveBeenCalledWith(control);
     });
-    it('configures aspect and control', () => {
+    it('configures aspect when it is applied', () => {
 
       const setup = jest.fn();
 
       expect(control.setup(TestAspect, setup)).toBe(control);
+      expect(setup).not.toHaveBeenCalled();
+
+      control.aspect(TestAspect);
       expect(setup).toHaveBeenCalledWith(control.aspect(TestAspect), control);
+    });
+    it('configures aspect more than once when it is applied', () => {
+
+      const setup1 = jest.fn();
+      const setup2 = jest.fn();
+
+      expect(control.setup(TestAspect, setup1)).toBe(control);
+      expect(control.setup(TestAspect, setup2)).toBe(control);
+      expect(setup1).not.toHaveBeenCalled();
+      expect(setup2).not.toHaveBeenCalled();
+
+      const aspect = control.aspect(TestAspect);
+
+      expect(setup1).toHaveBeenCalledWith(aspect, control);
+      expect(setup2).toHaveBeenCalledWith(aspect, control);
+    });
+    it('configures already applied aspect', () => {
+
+      const setup = jest.fn();
+      const aspect = control.aspect(TestAspect);
+
+      expect(control.setup(TestAspect, setup)).toBe(control);
+      expect(setup).toHaveBeenCalledWith(aspect, control);
     });
   });
 

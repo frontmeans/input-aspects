@@ -1,10 +1,9 @@
 import { EventEmitter, OnEvent, trackValue, ValueTracker } from '@proc7ts/fun-events';
 import { arrayOfElements, asis, noop, Supply } from '@proc7ts/primitives';
 import { InAspect, InAspect__symbol } from './aspect';
+import { InControl$Aspects, InControl$Aspects__symbol, InControl$Impl } from './control.impl';
 import { InConverter, intoConvertedAspects, intoConvertedBy, isInAspectConversion } from './converter';
 import { noopInConversion } from './noop-converter.impl';
-
-const InControl$Aspects__symbol = (/*#__PURE__*/ Symbol('InControl.aspects'));
 
 /**
  * User input control.
@@ -19,7 +18,7 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
   /**
    * @internal
    */
-  readonly [InControl$Aspects__symbol]: InControl$Aspects<TValue>;
+  readonly [InControl$Aspects__symbol]: InControl$Aspects<this, TValue>;
 
   /**
    * Constructs user input control.
@@ -35,9 +34,14 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
       } = {},
   ) {
     super();
+
+    const aspectList = arrayOfElements(aspects);
+
     this[InControl$Aspects__symbol] = new InControl$Aspects(
-        this as unknown as InControl$Impl<TValue>,
-        aspects,
+        this as unknown as InControl$Impl<this, TValue>,
+        aspectList.length
+            ? intoConvertedAspects(aspectList)(inValueOf(this), this)
+            : noopInConversion,
     );
   }
 
@@ -78,19 +82,22 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
   /**
    * Performs additional setup of this control.
    *
-   * @param setup - A function that accepts this control as its only parameter to configure it.
+   * @param setup - A function that accepts this control as its only parameter.
    *
    * @returns `this` control instance.
    */
   setup(setup: (this: void, control: this) => void): this;
 
   /**
-   * Performs additional setup of this control's aspect.
+   * Registers additional setup of this control's aspect.
+   *
+   * The setup is performed when the target aspect applied to this control. For applied aspect the setup is performed
+   * immediately.
    *
    * @typeParam TInstance - Aspect instance type.
    * @typeParam TKind - Aspect application kind.
    * @param aspectKey - A key of aspect to set up.
-   * @param setup - A function that accepts the aspect and this control as parameters to configure them.
+   * @param setup - A function that accepts an applied aspect instance and this control as parameters.
    *
    * @returns `this` control instance.
    */
@@ -108,7 +115,7 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
       ) => void = noop,
   ): this {
     if (isAspectKey(aspectKeyOrSetup)) {
-      aspectSetup(this.aspect(aspectKeyOrSetup), this);
+      this[InControl$Aspects__symbol].setup(aspectKeyOrSetup[InAspect__symbol], aspectSetup);
     } else {
       aspectKeyOrSetup(this);
     }
@@ -190,50 +197,6 @@ export namespace InControl {
    * @typeParam TControl - Input control type.
    */
   export type ValueType<TControl extends InControl<any>> = TControl extends InControl<infer TValue> ? TValue : never;
-
-}
-
-type InControl$Impl<TValue> = InControl<TValue> & {
-
-  _applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
-      _aspect: InAspect<TInstance, TKind>,
-  ): InAspect.Application.Result<TInstance, TValue, TKind> | undefined;
-
-};
-
-class InControl$Aspects<TValue> {
-
-  readonly aspects: InConverter.Aspect.Conversion<TValue>;
-  private readonly _applied = new Map<InAspect<any, any>, InAspect.Applied<any, any>>();
-
-  constructor(
-      readonly control: InControl$Impl<TValue>,
-      aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[],
-  ) {
-
-    const aspectList = arrayOfElements(aspects);
-
-    this.aspects = aspectList.length
-        ? intoConvertedAspects(aspectList)(inValueOf(control), control)
-        : noopInConversion;
-  }
-
-  aspect<TInstance, TKind extends InAspect.Application.Kind>(
-      aspect: InAspect<TInstance, TKind>,
-  ): InAspect.Application.Result<TInstance, TValue, TKind> {
-
-    const existing = this._applied.get(aspect);
-
-    if (existing) {
-      return existing as InAspect.Application.Result<TInstance, TValue, TKind>;
-    }
-
-    const applied = this.control._applyAspect(aspect) || aspect.applyTo(this.control);
-
-    this._applied.set(aspect, applied);
-
-    return applied as InAspect.Application.Result<TInstance, TValue, TKind>;
-  }
 
 }
 
