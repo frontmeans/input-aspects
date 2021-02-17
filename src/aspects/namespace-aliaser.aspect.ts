@@ -1,6 +1,6 @@
 import { NamespaceAliaser, NamespaceDef, newNamespaceAliaser } from '@frontmeans/namespace-aliaser';
+import { knownInAspect } from '../applied-aspect';
 import { InAspect, InAspect__symbol } from '../aspect';
-import { inAspectValue } from '../aspect.impl';
 import { InConverter } from '../converter';
 
 /**
@@ -32,7 +32,7 @@ export const InputAspects__NS: NamespaceDef = (/*#__PURE__*/ new NamespaceDef(
 const InNamespaceAliaser__aspect: InAspect<InNamespaceAliaser> = {
 
   applyTo() {
-    return inAspectValue(newNamespaceAliaser());
+    return knownInAspect(newNamespaceAliaser());
   },
 
 };
@@ -60,7 +60,7 @@ export const InNamespaceAliaser = {
           aspect: InAspect<any, any>,
       ): InAspect.Applied<any, InAspect.Application.Instance<TInstance, TValue, TKind>> | undefined {
         return aspect === InNamespaceAliaser__aspect
-            ? inAspectValue(nsAlias) as InAspect.Application.Result<TInstance, TValue, TKind>
+            ? knownInAspect(nsAlias) as InAspect.Application.Result<TInstance, TValue, TKind>
             : undefined;
       },
     };

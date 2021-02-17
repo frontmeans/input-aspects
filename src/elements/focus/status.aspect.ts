@@ -13,8 +13,8 @@ import {
   ValueTracker,
 } from '@proc7ts/fun-events';
 import { itsEach, mapIt } from '@proc7ts/push-iterator';
+import { builtInAspect } from '../../applied-aspect';
 import { InAspect, InAspect__symbol } from '../../aspect';
-import { inAspectSameOrBuild } from '../../aspect.impl';
 import { InContainer } from '../../containers';
 import { InControl } from '../../control';
 import { InElement } from '../../element.control';
@@ -26,7 +26,7 @@ import { InFocus } from './focus.aspect';
 const InStatus__aspect: InAspect<InStatus> = {
 
   applyTo<TValue>(control: InControl<TValue>): InAspect.Applied<TValue, InStatus> {
-    return inAspectSameOrBuild(control, InStatus, ctrl => {
+    return builtInAspect(control, InStatus, ctrl => {
 
       const container = ctrl.aspect(InContainer);
 

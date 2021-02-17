@@ -6,8 +6,8 @@ import {
   OnEvent,
   OnEvent__symbol,
 } from '@proc7ts/fun-events';
+import { inconvertibleInAspect } from '../applied-aspect';
 import { InAspect, InAspect__symbol } from '../aspect';
-import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';
 
 /**
@@ -15,7 +15,7 @@ import { InControl } from '../control';
  */
 const InContainer__aspect: InAspect<InContainer<any> | null, 'container'> = {
   applyTo(control) {
-    return inAspectSameOrNull(control, InContainer);
+    return inconvertibleInAspect(control, InContainer);
   },
 };
 
@@ -42,7 +42,7 @@ export abstract class InContainer<TValue> extends InControl<TValue> {
       aspect: InAspect<TInstance, TKind>,
   ): InAspect.Application.Result<TInstance, TValue, TKind> | undefined {
     return aspect === InContainer__aspect as InAspect<any>
-        ? inAspectSameOrNull(this, InContainer, this) as InAspect.Application.Result<TInstance, TValue, TKind>
+        ? inconvertibleInAspect(this, InContainer, this) as InAspect.Application.Result<TInstance, TValue, TKind>
         : super._applyAspect(aspect);
   }
 

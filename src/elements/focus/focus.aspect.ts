@@ -1,7 +1,7 @@
 import { OnEvent, trackValue, ValueTracker } from '@proc7ts/fun-events';
 import { noop, Supply } from '@proc7ts/primitives';
+import { builtInAspect } from '../../applied-aspect';
 import { InAspect, InAspect__symbol } from '../../aspect';
-import { inAspectSameOrBuild } from '../../aspect.impl';
 import { InControl } from '../../control';
 import { InElement } from '../../element.control';
 
@@ -11,7 +11,7 @@ import { InElement } from '../../element.control';
 const InFocus__aspect: InAspect<InFocus | null> = {
 
   applyTo<TValue>(control: InControl<TValue>): InAspect.Applied<TValue, InFocus | null> {
-    return inAspectSameOrBuild(control, InFocus, ctrl => {
+    return builtInAspect(control, InFocus, ctrl => {
 
       const element = ctrl.aspect(InElement);
 

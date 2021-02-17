@@ -1,5 +1,5 @@
+import { knownInAspect, nullInAspect } from '../../applied-aspect';
 import { InAspect, InAspect__symbol } from '../../aspect';
-import { inAspectNull, inAspectValue } from '../../aspect.impl';
 import { InControl } from '../../control';
 import { InConverter } from '../../converter';
 import { InElement } from '../../element.control';
@@ -22,7 +22,7 @@ const InStyledElement__aspect: InAspect<InStyledElement | null> = {
 
     const element = control.aspect(InElement);
 
-    return element ? inAspectValue(element.element) : inAspectNull as InAspect.Applied<any, InStyledElement | null>;
+    return element ? knownInAspect(element.element) : nullInAspect();
   },
 
 };
@@ -53,7 +53,7 @@ export const InStyledElement = {
           aspect: InAspect<any, any>,
       ): InAspect.Applied<any, InAspect.Application.Instance<TInstance, TValue, TKind>> | undefined {
         return aspect === InStyledElement__aspect
-            ? inAspectValue(element) as InAspect.Application.Result<TInstance, TValue, TKind>
+            ? knownInAspect(element) as InAspect.Application.Result<TInstance, TValue, TKind>
             : undefined;
       },
     };

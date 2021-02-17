@@ -1,6 +1,6 @@
 import { Supply } from '@proc7ts/primitives';
+import { knownInAspect } from './applied-aspect';
 import { InAspect, InAspect__symbol } from './aspect';
-import { inAspectValue } from './aspect.impl';
 import { InControl, inValueOf } from './control';
 import { InConverter } from './converter';
 import { InData } from './data';
@@ -163,7 +163,7 @@ describe('InControl', () => {
 
       const instance = { name: 'data' };
       const applyAspect = jest.fn<any, any[]>(
-          (aspect: any) => aspect === InData[InAspect__symbol] ? inAspectValue(instance) : undefined,
+          (aspect: any) => aspect === InData[InAspect__symbol] ? knownInAspect(instance) : undefined,
       );
 
       converted = control.convert({ set, get, applyAspect });

@@ -1,6 +1,6 @@
 import { newRenderSchedule, RenderScheduler } from '@frontmeans/render-scheduler';
+import { knownInAspect } from '../applied-aspect';
 import { InAspect, InAspect__symbol } from '../aspect';
-import { inAspectValue } from '../aspect.impl';
 import { InConverter } from '../converter';
 
 /**
@@ -20,7 +20,7 @@ export type InRenderScheduler = RenderScheduler;
 const InRenderScheduler__aspect: InAspect<InRenderScheduler> = {
 
   applyTo() {
-    return inAspectValue(newRenderSchedule);
+    return knownInAspect(newRenderSchedule);
   },
 
 };
@@ -48,7 +48,7 @@ export const InRenderScheduler = {
           aspect: InAspect<any, any>,
       ): InAspect.Applied<any, InAspect.Application.Instance<TInstance, TValue, TKind>> | undefined {
         return aspect === InRenderScheduler__aspect
-            ? inAspectValue(scheduler) as InAspect.Application.Result<TInstance, TValue, TKind>
+            ? knownInAspect(scheduler) as InAspect.Application.Result<TInstance, TValue, TKind>
             : undefined;
       },
     };

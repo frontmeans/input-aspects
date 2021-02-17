@@ -1,6 +1,6 @@
 import { afterAll, AfterEvent, mapAfter } from '@proc7ts/fun-events';
+import { builtInAspect } from '../applied-aspect';
 import { InAspect, InAspect__symbol } from '../aspect';
-import { inAspectSameOrBuild } from '../aspect.impl';
 import { InControl } from '../control';
 import { InMode } from './mode.aspect';
 
@@ -26,7 +26,7 @@ const InData__aspect: Aspect = {
 
   applyTo<TValue>(control: InControl<TValue>): Applied<TValue> {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    return inAspectSameOrBuild(control, InData, <TValue>(ctrl: InControl<TValue>) => afterAll({
+    return builtInAspect(control, InData, <TValue>(ctrl: InControl<TValue>) => afterAll({
       value: ctrl,
       mode: ctrl.aspect(InMode),
     }).do(mapAfter(

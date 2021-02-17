@@ -2,6 +2,7 @@
  * @packageDocumentation
  * @module Module @frontmeans/input-aspects
  */
+export * from './applied-aspect';
 export * from './aspect';
 export * from './aspects';
 export * from './containers';

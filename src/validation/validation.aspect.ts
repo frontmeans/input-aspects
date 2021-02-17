@@ -20,8 +20,8 @@ import {
   PushIterator,
   PushIterator__symbol,
 } from '@proc7ts/push-iterator';
+import { builtInAspect } from '../applied-aspect';
 import { InAspect, InAspect__symbol } from '../aspect';
-import { inAspectSameOrBuild } from '../aspect.impl';
 import { InContainer } from '../containers';
 import { InControl } from '../control';
 import { requireAll } from './require-all.validator';
@@ -33,7 +33,7 @@ import { InValidationMessages } from './validator.impl';
  */
 const InValidation__aspect: InAspect<InValidation<any>, 'validation'> = {
   applyTo<TValue>(control: InControl<TValue>) {
-    return inAspectSameOrBuild<TValue, InValidation<TValue>, 'validation'>(
+    return builtInAspect<TValue, InValidation<TValue>, 'validation'>(
         control,
         InValidation,
         <TValue>(ctrl: InControl<TValue>, origin?: InControl<any>): InValidation<any> => {

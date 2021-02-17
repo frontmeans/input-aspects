@@ -1,7 +1,7 @@
 import { DomEventDispatcher } from '@frontmeans/dom-events';
 import { AfterEvent } from '@proc7ts/fun-events';
+import { inconvertibleInAspect } from './applied-aspect';
 import { InAspect, InAspect__symbol } from './aspect';
-import { inAspectSameOrNull } from './aspect.impl';
 import { InControl } from './control';
 
 /**
@@ -9,7 +9,7 @@ import { InControl } from './control';
  */
 const InElement__aspect: InAspect<InElement<any> | null, 'element'> = {
   applyTo(control) {
-    return inAspectSameOrNull(control, InElement);
+    return inconvertibleInAspect(control, InElement);
   },
 };
 
@@ -47,7 +47,7 @@ export abstract class InElement<TValue, TElt = HTMLElement> extends InControl<TV
       aspect: InAspect<TInstance, TKind>,
   ): InAspect.Application.Result<TInstance, TValue, TKind> | undefined {
     return aspect as InAspect<any, any> === InElement__aspect
-        ? inAspectSameOrNull(
+        ? inconvertibleInAspect(
             this,
             InElement,
             this as InElement<TValue, any>,

@@ -1,6 +1,6 @@
 import { mapAfter } from '@proc7ts/fun-events';
+import { knownInAspect } from '../applied-aspect';
 import { InAspect, InAspect__symbol } from '../aspect';
-import { inAspectValue } from '../aspect.impl';
 import { InConverter } from '../converter';
 import { InMode } from '../data';
 import { InElement } from '../element.control';
@@ -90,7 +90,7 @@ function applyRadioInMode<TValue>(radio: InRadioControl<TValue>): InAspect.Appli
 
   mode.derive(radio.read.do(mapAfter(value => value !== undefined ? 'on' : '-on')));
 
-  return inAspectValue(mode) as InAspect.Applied<TValue, InMode>;
+  return knownInAspect(mode) as InAspect.Applied<TValue, InMode>;
 }
 
 /**

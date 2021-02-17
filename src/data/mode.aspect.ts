@@ -24,8 +24,8 @@ import {
 } from '@proc7ts/fun-events';
 import { Supply, valuesProvider } from '@proc7ts/primitives';
 import { itsElements, overElementsOf } from '@proc7ts/push-iterator';
+import { builtInAspect } from '../applied-aspect';
 import { InAspect, InAspect__symbol } from '../aspect';
-import { inAspectSameOrBuild } from '../aspect.impl';
 import { InParents } from '../containers';
 import { InParentsAspect } from '../containers/parents.aspect.impl';
 import { InControl } from '../control';
@@ -37,7 +37,7 @@ import { InElement } from '../element.control';
 const InMode__aspect: InAspect<InMode> = {
 
   applyTo<TValue>(control: InControl<TValue>): InAspect.Applied<TValue, InMode> {
-    return inAspectSameOrBuild(
+    return builtInAspect(
         control,
         InMode,
         ctrl => new InControlMode(ctrl),

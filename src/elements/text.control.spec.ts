@@ -1,7 +1,7 @@
 import { newNamespaceAliaser } from '@frontmeans/namespace-aliaser';
 import { Supply } from '@proc7ts/primitives';
-import { InAspect__symbol } from '../aspect';
-import { inAspectValue } from '../aspect.impl';
+import { knownInAspect } from '../applied-aspect';
+import { InAspect, InAspect__symbol } from '../aspect';
 import { InNamespaceAliaser } from '../aspects';
 import { intoInteger } from '../conversion';
 import { InElement } from '../element.control';
@@ -58,12 +58,12 @@ describe('InText', () => {
     });
     it('retrieves arbitrary aspect', () => {
 
-      const aspect = {
+      const aspect: InAspect.Key<string, any> & InAspect<string, any> = {
         get [InAspect__symbol]() {
           return this;
         },
         applyTo() {
-          return inAspectValue('abc');
+          return knownInAspect('abc');
         },
       };
 

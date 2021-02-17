@@ -27,8 +27,8 @@ import {
   PushIterator,
   PushIterator__symbol,
 } from '@proc7ts/push-iterator';
+import { inconvertibleInAspect } from '../applied-aspect';
 import { InAspect, InAspect__symbol } from '../aspect';
-import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';
 import { InConverter } from '../converter';
 import { InData, InMode } from '../data';
@@ -40,7 +40,7 @@ import { InParents } from './parents.aspect';
  */
 const InGroup__aspect: InAspect<InGroup<any> | null, 'group'> = {
   applyTo(control) {
-    return inAspectSameOrNull(control, InGroup);
+    return inconvertibleInAspect(control, InGroup);
   },
 };
 
@@ -72,7 +72,7 @@ export abstract class InGroup<TModel extends object> extends InContainer<TModel>
       aspect: InAspect<any, any>,
   ): InAspect.Application.Result<TInstance, TModel, TKind> | undefined {
     return aspect === InGroup__aspect
-        ? inAspectSameOrNull(this, InGroup, this) as InAspect.Application.Result<TInstance, TModel, TKind>
+        ? inconvertibleInAspect(this, InGroup, this) as InAspect.Application.Result<TInstance, TModel, TKind>
         : super._applyAspect(aspect);
   }
 

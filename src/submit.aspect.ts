@@ -9,8 +9,8 @@ import {
   translateAfter,
 } from '@proc7ts/fun-events';
 import { itsEvery } from '@proc7ts/push-iterator';
+import { builtInAspect } from './applied-aspect';
 import { InAspect, InAspect__symbol } from './aspect';
-import { inAspectSameOrBuild } from './aspect.impl';
 import { InControl } from './control';
 import { InData } from './data';
 import { InValidation, inValidationResult } from './validation';
@@ -20,7 +20,7 @@ import { InValidation, inValidationResult } from './validation';
  */
 const InSubmit__aspect: InAspect<InSubmit<any>, 'submit'> = {
   applyTo<TValue>(control: InControl<TValue>) {
-    return inAspectSameOrBuild(control, InSubmit, ctrl => new InControlSubmit(ctrl));
+    return builtInAspect(control, InSubmit, ctrl => new InControlSubmit(ctrl));
   },
 };
 

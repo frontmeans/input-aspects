@@ -9,8 +9,8 @@ import {
   OnEvent__symbol,
 } from '@proc7ts/fun-events';
 import { Supply } from '@proc7ts/primitives';
+import { knownInAspect } from '../applied-aspect';
 import { InAspect, InAspect__symbol } from '../aspect';
-import { inAspectValue } from '../aspect.impl';
 import { InControl } from '../control';
 import { InContainer } from './container.control';
 
@@ -19,7 +19,7 @@ import { InContainer } from './container.control';
  */
 const InParents__aspect: InAspect<InParents> = {
   applyTo(control): InAspect.Applied<any, InParents> {
-    return inAspectValue(new InControlParents(control));
+    return knownInAspect(new InControlParents(control));
   },
 };
 
