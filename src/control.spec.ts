@@ -1,5 +1,5 @@
 import { Supply } from '@proc7ts/primitives';
-import { knownInAspect } from './applied-aspect';
+import { knownInAspect, nullInAspect } from './applied-aspect';
 import { InAspect, InAspect__symbol } from './aspect';
 import { InControl, inValueOf } from './control';
 import { InConverter } from './converter';
@@ -93,6 +93,36 @@ describe('InControl', () => {
 
       expect(control.setup(TestAspect, setup)).toBe(control);
       expect(setup).toHaveBeenCalledWith(aspect, control);
+    });
+  });
+
+  describe('addAspect', () => {
+    it('returns `this` instance', () => {
+      expect(control.addAspect()).toBe(control);
+    });
+    it('adds aspect', () => {
+
+      const CustomAspect: InAspect<string | null> & InAspect.Key<string | null> = {
+        get [InAspect__symbol]() {
+          return this;
+        },
+        applyTo() {
+          return nullInAspect();
+        },
+      };
+
+      control.addAspect({
+        applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
+            aspect: InAspect<any, any>,
+        ): InAspect.Application.Result<TInstance, string, TKind> | undefined {
+          if (aspect === CustomAspect) {
+            return knownInAspect('custom') as InAspect.Application.Result<TInstance, string, TKind>;
+          }
+          return;
+        },
+      });
+
+      expect(control.aspect(CustomAspect)).toBe('custom');
     });
   });
 

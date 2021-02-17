@@ -28,8 +28,21 @@ export class InControl$Aspects<TControl extends InControl<TValue>, TValue> {
 
   constructor(
       readonly control: InControl$Impl<TControl, TValue>,
-      readonly aspects: InConverter.Aspect.Conversion<TValue>,
+      public aspects: InConverter.Aspect.Conversion<TValue>,
   ) {}
+
+  add(aspects: InConverter.Aspect.Conversion<TValue>): void {
+
+    const prev = this.aspects;
+
+    this.aspects = {
+      applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
+          aspect: InAspect<TInstance, TKind>,
+      ): InAspect.Application.Result<TInstance, TValue, TKind> | undefined {
+        return prev.applyAspect(aspect) || aspects.applyAspect(aspect);
+      },
+    };
+  }
 
   aspect<TInstance, TKind extends InAspect.Application.Kind>(
       aspect: InAspect<TInstance, TKind>,

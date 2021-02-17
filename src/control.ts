@@ -123,6 +123,19 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
   }
 
   /**
+   * Adds aspects to this control.
+   *
+   * @param aspects - Input aspects to add. These are aspect converters to this control from the {@link inValueOf
+   * same-valued one}.
+   */
+  addAspect(...aspects: InConverter.Aspect<TValue>[]): this {
+    if (aspects.length) {
+      this[InControl$Aspects__symbol].add(intoConvertedAspects(aspects)(inValueOf(this), this));
+    }
+    return this;
+  }
+
+  /**
    * Converts this control to another one without changing its value type.
    *
    * The converted aspect may have another value and input aspects.
