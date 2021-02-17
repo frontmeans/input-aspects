@@ -29,9 +29,9 @@ import {
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';
-import { inValue } from '../controls';
 import { InConverter } from '../converter';
 import { InData, InMode } from '../data';
+import { inValue } from '../value.control';
 import { InContainer, InContainerControls } from './container.control';
 import { InParents } from './parents.aspect';
 

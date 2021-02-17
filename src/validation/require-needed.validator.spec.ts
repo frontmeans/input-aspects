@@ -1,5 +1,5 @@
 import { afterThe, onceOn } from '@proc7ts/fun-events';
-import { inValue } from '../controls';
+import { inValue } from '../value.control';
 import { requireNeeded } from './require-needed.validator';
 import { InValidation } from './validation.aspect';
 import { inValidator } from './validator';

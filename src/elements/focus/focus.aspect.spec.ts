@@ -1,6 +1,6 @@
 import { InControl } from '../../control';
-import { inValue } from '../../controls';
 import { intoInteger } from '../../conversion';
+import { inValue } from '../../value.control';
 import { inText } from '../text.control';
 import { InFocus } from './focus.aspect';
 

@@ -1,7 +1,9 @@
 import { EventEmitter, OnEvent, trackValue, ValueTracker } from '@proc7ts/fun-events';
-import { asis, noop, Supply } from '@proc7ts/primitives';
+import { arrayOfElements, asis, noop, Supply } from '@proc7ts/primitives';
 import { InAspect, InAspect__symbol } from './aspect';
-import { InConverter, intoConvertedBy, isInAspectConversion } from './converter';
+import { InControl$Aspects, InControl$Aspects__symbol, InControl$Impl } from './control.impl';
+import { InConverter, intoConvertedAspects, intoConvertedBy, isInAspectConversion } from './converter';
+import { noopInConversion } from './noop-converter.impl';
 
 /**
  * User input control.
@@ -16,7 +18,32 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
   /**
    * @internal
    */
-  private readonly _aspects = new Map<InAspect<any, any>, InAspect.Applied<any, any>>();
+  readonly [InControl$Aspects__symbol]: InControl$Aspects<this, TValue>;
+
+  /**
+   * Constructs user input control.
+   *
+   * @param aspects - Input aspects applied by default. These are aspect converters to constructed control from the
+   * {@link inValueOf same-valued one}.
+   */
+  constructor(
+      {
+        aspects,
+      }: {
+        readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[];
+      } = {},
+  ) {
+    super();
+
+    const aspectList = arrayOfElements(aspects);
+
+    this[InControl$Aspects__symbol] = new InControl$Aspects(
+        this as unknown as InControl$Impl<this, TValue>,
+        aspectList.length
+            ? intoConvertedAspects(aspectList)(inValueOf(this), this)
+            : noopInConversion,
+    );
+  }
 
   /**
    * Input value.
@@ -49,25 +76,28 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
   aspect<TInstance, TKind extends InAspect.Application.Kind>(
       aspectKey: InAspect.Key<TInstance, TKind>,
   ): InAspect.Application.Instance<TInstance, TValue, TKind> {
-    return this._aspect(aspectKey[InAspect__symbol]).instance;
+    return this[InControl$Aspects__symbol].aspect(aspectKey[InAspect__symbol]).instance;
   }
 
   /**
    * Performs additional setup of this control.
    *
-   * @param setup - A function that accepts this control as its only parameter to configure it.
+   * @param setup - A function that accepts this control as its only parameter.
    *
    * @returns `this` control instance.
    */
   setup(setup: (this: void, control: this) => void): this;
 
   /**
-   * Performs additional setup of this control's aspect.
+   * Registers additional setup of this control's aspect.
+   *
+   * The setup is performed when the target aspect applied to this control. For applied aspect the setup is performed
+   * immediately.
    *
    * @typeParam TInstance - Aspect instance type.
    * @typeParam TKind - Aspect application kind.
    * @param aspectKey - A key of aspect to set up.
-   * @param setup - A function that accepts the aspect and this control as parameters to configure them.
+   * @param setup - A function that accepts an applied aspect instance and this control as parameters.
    *
    * @returns `this` control instance.
    */
@@ -85,7 +115,7 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
       ) => void = noop,
   ): this {
     if (isAspectKey(aspectKeyOrSetup)) {
-      aspectSetup(this.aspect(aspectKeyOrSetup), this);
+      this[InControl$Aspects__symbol].setup(aspectKeyOrSetup[InAspect__symbol], aspectSetup);
     } else {
       aspectKeyOrSetup(this);
     }
@@ -126,27 +156,7 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
       by?: InConverter<TValue, TTo>,
       ...and: InConverter.Aspect<TValue, TTo>[]
   ): InControl<TValue> | InControl<TTo> {
-    return new InConverted(this, intoConvertedBy(by, ...and));
-  }
-
-  /**
-   * @internal
-   */
-  _aspect<TInstance, TKind extends InAspect.Application.Kind>(
-      aspect: InAspect<TInstance, TKind>,
-  ): InAspect.Application.Result<TInstance, TValue, TKind> {
-
-    const existing = this._aspects.get(aspect);
-
-    if (existing) {
-      return existing as InAspect.Application.Result<TInstance, TValue, TKind>;
-    }
-
-    const applied = this._applyAspect(aspect) || aspect.applyTo(this);
-
-    this._aspects.set(aspect, applied);
-
-    return applied as InAspect.Application.Result<TInstance, TValue, TKind>;
+    return new InControl$Converted(this, intoConvertedBy(by, ...and));
   }
 
   /**
@@ -154,15 +164,15 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
    *
    * @typeParam TInstance - Aspect instance type.
    * @typeParam TKind - Aspect application kind.
-   * @param _aspect - An aspect to apply.
+   * @param aspect - An aspect to apply.
    *
    * @returns Either applied aspect instance or `undefined` to apply the aspect in standard way (i.e. using
    * `InAspect.applyTo()` method).
    */
   protected _applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
-      _aspect: InAspect<TInstance, TKind>,
+      aspect: InAspect<TInstance, TKind>,
   ): InAspect.Application.Result<TInstance, TValue, TKind> | undefined {
-    return;
+    return this[InControl$Aspects__symbol].aspects.applyAspect(aspect);
   }
 
 }
@@ -193,7 +203,48 @@ export namespace InControl {
 /**
  * @internal
  */
-class InConverted<TFrom, TTo> extends InControl<TTo> {
+class InControl$SameValued<TValue> extends InControl<TValue> {
+
+  private _supply?: Supply;
+
+  constructor(private readonly _control: InControl<TValue>) {
+    super();
+  }
+
+  get supply(): Supply {
+    return this._supply || (this._supply = new Supply().needs(this._control));
+  }
+
+  get it(): TValue {
+    return this._control.it;
+  }
+
+  set it(value: TValue) {
+    this._control.it = value;
+  }
+
+  get on(): OnEvent<[TValue, TValue]> {
+    return this._control.on;
+  }
+
+}
+
+/**
+ * Constructs input control with the same value as another one.
+ *
+ * The constructed control does not inherit any aspects from original one.
+ *
+ * @category Control
+ * @typeParam TValue - Input value type.
+ * @param control - Original control containing the value.
+ *
+ * @returns New input control that accesses the value of original `control`.
+ */
+export function inValueOf<TValue>(control: InControl<TValue>): InControl<TValue> {
+  return new InControl$SameValued(control);
+}
+
+class InControl$Converted<TFrom, TTo> extends InControl<TTo> {
 
   readonly supply: Supply;
   private readonly _on = new EventEmitter<[TTo, TTo]>();
@@ -222,7 +273,7 @@ class InConverted<TFrom, TTo> extends InControl<TTo> {
       get = asis as (value: TTo) => TFrom;
       convertAspect = <TInstance, TKind extends InAspect.Application.Kind>(aspect: InAspect<TInstance, TKind>) => {
 
-        const fallback: InAspect.Applied<any, any> = src._aspect(aspect);
+        const fallback: InAspect.Applied<any, any> = src[InControl$Aspects__symbol].aspect(aspect);
 
         return fallback.attachTo ? fallback.attachTo(this) : fallback.convertTo(this);
       };
@@ -231,7 +282,7 @@ class InConverted<TFrom, TTo> extends InControl<TTo> {
       get = conversion.get;
       convertAspect = <TInstance, TKind extends InAspect.Application.Kind>(aspect: InAspect<TInstance, TKind>) => {
 
-        const fallback: InAspect.Applied<any, any> = src._aspect(aspect);
+        const fallback: InAspect.Applied<any, any> = src[InControl$Aspects__symbol].aspect(aspect);
 
         return fallback.convertTo(this);
       };

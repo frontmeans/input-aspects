@@ -9,7 +9,6 @@ import {
 import { InAspect, InAspect__symbol } from '../aspect';
 import { inAspectSameOrNull } from '../aspect.impl';
 import { InControl } from '../control';
-import { AbstractInControl } from '../controls';
 
 /**
  * @internal
@@ -28,7 +27,7 @@ const InContainer__aspect: InAspect<InContainer<any> | null, 'container'> = {
  * @category Control
  * @typeParam TValue - Input value type.
  */
-export abstract class InContainer<TValue> extends AbstractInControl<TValue> {
+export abstract class InContainer<TValue> extends InControl<TValue> {
 
   static get [InAspect__symbol](): InAspect<InContainer<any> | null, 'container'> {
     return InContainer__aspect;

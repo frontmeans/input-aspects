@@ -2,7 +2,6 @@ import { afterAll, AfterEvent, mapAfter, OnEvent, trackValue, ValueTracker } fro
 import { Supply } from '@proc7ts/primitives';
 import { itsEach, itsEvery, overEntries } from '@proc7ts/push-iterator';
 import { InControl } from '../control';
-import { AbstractInControl } from '../controls';
 import { InConverter } from '../converter';
 
 /**
@@ -69,7 +68,7 @@ type RequiredInButtons<TValue extends string | undefined> = {
 /**
  * @internal
  */
-class InRadioGroupControl<TValue extends string | undefined> extends AbstractInControl<TValue> {
+class InRadioGroupControl<TValue extends string | undefined> extends InControl<TValue> {
 
   private readonly _unchecked: TValue;
   private readonly _it: ValueTracker<TValue>;

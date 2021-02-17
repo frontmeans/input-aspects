@@ -1,8 +1,8 @@
 import { newNamespaceAliaser } from '@frontmeans/namespace-aliaser';
 import { newManualRenderScheduler } from '@frontmeans/render-scheduler';
 import { Supply } from '@proc7ts/primitives';
-import { InNamespaceAliaser, InRenderScheduler } from '../aspects';
-import { InControl } from '../control';
+import { InNamespaceAliaser, InRenderScheduler } from './aspects';
+import { InControl } from './control';
 import { inValue } from './value.control';
 import Mock = jest.Mock;
 

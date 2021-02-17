@@ -1,7 +1,7 @@
 import { afterThe } from '@proc7ts/fun-events';
 import { InControl } from '../../control';
-import { inValue } from '../../controls';
 import { InValidation } from '../../validation';
+import { inValue } from '../../value.control';
 import { InMode } from '../mode.aspect';
 import { inModeByValidity } from './mode-by-validity';
 

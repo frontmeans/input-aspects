@@ -1,6 +1,6 @@
 import { InControl } from '../../control';
-import { inValue } from '../../controls';
 import { InElement } from '../../element.control';
+import { inValue } from '../../value.control';
 import { inText, InText } from '../text.control';
 import { InStyledElement } from './styled-element.aspect';
 

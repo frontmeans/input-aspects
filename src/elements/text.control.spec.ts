@@ -3,9 +3,9 @@ import { Supply } from '@proc7ts/primitives';
 import { InAspect__symbol } from '../aspect';
 import { inAspectValue } from '../aspect.impl';
 import { InNamespaceAliaser } from '../aspects';
-import { inValue } from '../controls';
 import { intoInteger } from '../conversion';
 import { InElement } from '../element.control';
+import { inValue } from '../value.control';
 import { InText, inText } from './text.control';
 import Mock = jest.Mock;
 

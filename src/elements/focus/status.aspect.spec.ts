@@ -1,9 +1,9 @@
 import { afterSupplied } from '@proc7ts/fun-events';
 import { Supply } from '@proc7ts/primitives';
 import { InGroup, inGroup } from '../../containers';
-import { inValue } from '../../controls';
 import { intoInteger } from '../../conversion';
 import { InElement } from '../../element.control';
+import { inValue } from '../../value.control';
 import { inText } from '../text.control';
 import { InStatus } from './status.aspect';
 

@@ -1,5 +1,5 @@
 import { InControl } from '../control';
-import { inValue } from '../controls';
+import { inValue } from '../value.control';
 import { intoFallback } from './into-fallback';
 
 describe('intoFallback', () => {

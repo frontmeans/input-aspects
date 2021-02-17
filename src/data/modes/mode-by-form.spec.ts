@@ -1,8 +1,8 @@
 import { afterThe } from '@proc7ts/fun-events';
 import { asis, noop } from '@proc7ts/primitives';
 import { InControl } from '../../control';
-import { inValue } from '../../controls';
 import { InSubmit, InSubmitRejectedError } from '../../submit.aspect';
+import { inValue } from '../../value.control';
 import { InMode } from '../mode.aspect';
 import { inModeByForm } from './mode-by-form';
 

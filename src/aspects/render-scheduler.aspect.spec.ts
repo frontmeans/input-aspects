@@ -1,10 +1,10 @@
 import { newManualRenderScheduler, newRenderSchedule } from '@frontmeans/render-scheduler';
 import { InContainer } from '../containers';
 import { InControl } from '../control';
-import { inValue } from '../controls';
 import { InElement } from '../element.control';
 import { inText, InText } from '../elements';
 import { InStyledElement } from '../elements/style';
+import { inValue } from '../value.control';
 import { InRenderScheduler } from './render-scheduler.aspect';
 
 describe('InRenderScheduler', () => {

@@ -1,13 +1,12 @@
 import { OnEvent, trackValue, ValueTracker } from '@proc7ts/fun-events';
 import { Supply } from '@proc7ts/primitives';
-import { InControl } from '../control';
-import { InConverter } from '../converter';
-import { AbstractInControl } from './abstract.control';
+import { InControl } from './control';
+import { InConverter } from './converter';
 
 /**
  * @internal
  */
-class InValueControl<TValue> extends AbstractInControl<TValue> {
+class InValueControl<TValue> extends InControl<TValue> {
 
   private readonly _it: ValueTracker<TValue>;
 

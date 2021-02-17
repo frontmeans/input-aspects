@@ -1,7 +1,7 @@
 import { afterSupplied, EventEmitter } from '@proc7ts/fun-events';
 import { valuesProvider } from '@proc7ts/primitives';
 import { InControl } from '../control';
-import { inValue } from '../controls';
+import { inValue } from '../value.control';
 import { requireAll } from './require-all.validator';
 import { requireNothing } from './require-nothing.validator';
 import { InValidation } from './validation.aspect';

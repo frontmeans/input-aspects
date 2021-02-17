@@ -1,8 +1,8 @@
 import { noop } from '@proc7ts/primitives';
 import { InControl } from '../../control';
-import { inValue } from '../../controls';
 import { InMode } from '../../data';
 import { InSubmit } from '../../submit.aspect';
+import { inValue } from '../../value.control';
 import { inFormElement, InFormElement } from './form-element.control';
 
 describe('inFromElement', () => {
