@@ -94,7 +94,7 @@ export function inSubmitButton<TElt extends HTMLElement>(
   );
 
   control.supply.needs(form);
-  control.aspect(InMode).derive(inModeByForm(form, { notReady, invalid, busy }));
+  control.setup(InMode, mode => mode.derive(inModeByForm(form, { notReady, invalid, busy })));
 
   return control;
 }

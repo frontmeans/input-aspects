@@ -95,7 +95,6 @@ export function inFormElement<TElt extends HTMLElement>(
   );
 
   control.supply.needs(form);
-  control.aspect(InMode).derive(inModeByForm(form, modes));
 
-  return control;
+  return control.setup(InMode, mode => mode.derive(inModeByForm(form, modes)));
 }
