@@ -92,7 +92,7 @@ export function builtInAspect<TValue, TInstance, TKind extends InAspect.Applicat
   return builtInAspect$(control, aspectKey, build);
 }
 
-export function builtInAspect$<TValue, TInstance, TKind extends InAspect.Application.Kind>(
+function builtInAspect$<TValue, TInstance, TKind extends InAspect.Application.Kind>(
     control: InControl<TValue>,
     aspectKey: InAspect.Key<TInstance, TKind>,
     build: <TValue>(this: void, control: InControl<TValue>, origin?: InControl<any>) => TInstance,
