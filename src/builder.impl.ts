@@ -21,9 +21,6 @@ export class InBuilder$Impl<TControl extends InControl<TValue>, TValue> {
 
   private _setup: ((control: TControl) => void) | undefined = undefined;
 
-  constructor(readonly _factory: InControl.Factory<TControl, TValue>) {
-  }
-
   addAspect(aspect: InAspect<any, any>, converter: InConverter.Aspect<TValue>): void {
 
     const prev = this._aspectsByKey.get(aspect);
@@ -72,9 +69,9 @@ export class InBuilder$Impl<TControl extends InControl<TValue>, TValue> {
     }
   }
 
-  build(): TControl {
+  build(factory: InControl.Factory<TControl, TValue>): TControl {
 
-    const control = this._factory({ aspects: this._aspects() });
+    const control = factory({ aspects: this._aspects() });
 
     // Per-aspect setup
     for (const [aspect, setup] of this._setupAspect) {

@@ -16,16 +16,7 @@ export class InBuilder<TControl extends InControl<TValue>, TValue = InControl.Va
   /**
    * @internal
    */
-  private readonly [InBuilder$Impl__symbol]: InBuilder$Impl<TControl, TValue>;
-
-  /**
-   * Constructs control builder.
-   *
-   * @param factory - Control factory.
-   */
-  constructor(factory: InControl.Factory<TControl, TValue>) {
-    this[InBuilder$Impl__symbol] = new InBuilder$Impl(factory);
-  }
+  private readonly [InBuilder$Impl__symbol]: InBuilder$Impl<TControl, TValue> = new InBuilder$Impl();
 
   /**
    * Registers an aspect to add to the built control.
@@ -104,11 +95,13 @@ export class InBuilder<TControl extends InControl<TValue>, TValue = InControl.Va
   /**
    * Builds control.
    *
-   * @returns New user input control constructed by the factory passed to builder constructor, and set up with the given
-   * aspects and setup procedures.
+   * @param factory - Control factory.
+   *
+   * @returns New user input control constructed by the given `factory` and set up with configured aspects and setup
+   * procedures.
    */
-  build(): TControl {
-    return this[InBuilder$Impl__symbol].build();
+  build(factory: InControl.Factory<TControl, TValue>): TControl {
+    return this[InBuilder$Impl__symbol].build(factory);
   }
 
 }

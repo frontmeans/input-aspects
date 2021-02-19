@@ -10,8 +10,12 @@ describe('InBuilder', () => {
   let builder: InBuilder<InControl<string>>;
 
   beforeEach(() => {
-    builder = new InBuilder<InControl<string>>(({ aspects }) => inValue('test', { aspects }));
+    builder = new InBuilder<InControl<string>>();
   });
+
+  function createControl(): InControl<string> {
+    return builder.build(opts => inValue('test', opts));
+  }
 
   let TestAspect: InAspect<() => string> & InAspect.Key<() => string>;
 
@@ -58,7 +62,7 @@ describe('InBuilder', () => {
           },
       );
 
-      const control = builder.build();
+      const control = createControl();
 
       expect(control.aspect(CustomAspect)).toBe('custom');
     });
@@ -80,7 +84,7 @@ describe('InBuilder', () => {
           },
       );
 
-      const control = builder.build();
+      const control = createControl();
 
       expect(control.aspect(CustomAspect)).toBe('custom');
     });
@@ -102,7 +106,7 @@ describe('InBuilder', () => {
         },
       });
 
-      const control = builder.build();
+      const control = createControl();
 
       expect(control.aspect(CustomAspect)).toBe('custom');
     });
@@ -121,7 +125,7 @@ describe('InBuilder', () => {
         },
       });
 
-      const control = builder.build();
+      const control = createControl();
 
       expect(control.aspect(CustomAspect)).toBe('custom');
     });
@@ -148,7 +152,7 @@ describe('InBuilder', () => {
           },
       );
 
-      const control = builder.build();
+      const control = createControl();
 
       expect(control.aspect(CustomAspect)).toBe('concrete');
     });
@@ -165,7 +169,7 @@ describe('InBuilder', () => {
       expect(setup1).not.toHaveBeenCalled();
       expect(setup2).not.toHaveBeenCalled();
 
-      const control = builder.build();
+      const control = createControl();
 
       expect(setup1).toHaveBeenCalledWith(control);
       expect(setup2).toHaveBeenCalledWith(control);
@@ -177,7 +181,7 @@ describe('InBuilder', () => {
       expect(builder.setup(TestAspect, setup)).toBe(builder);
       expect(setup).not.toHaveBeenCalled();
 
-      const control = builder.build();
+      const control = createControl();
 
       expect(setup).not.toHaveBeenCalled();
 
@@ -191,7 +195,7 @@ describe('InBuilder', () => {
       expect(builder.setup(TestAspect, setup)).toBe(builder);
       expect(setup).not.toHaveBeenCalled();
 
-      const control = builder.build();
+      const control = createControl();
 
       expect(setup).not.toHaveBeenCalled();
 
@@ -208,7 +212,7 @@ describe('InBuilder', () => {
       expect(setup1).not.toHaveBeenCalled();
       expect(setup2).not.toHaveBeenCalled();
 
-      const control = builder.build();
+      const control = createControl();
       const aspect = control.aspect(TestAspect);
 
       expect(setup1).toHaveBeenCalledWith(aspect, control);
