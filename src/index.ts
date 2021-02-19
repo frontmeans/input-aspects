@@ -5,6 +5,7 @@
 export * from './applied-aspect';
 export * from './aspect';
 export * from './aspects';
+export * from './builder';
 export * from './containers';
 export * from './control';
 export * from './conversion';

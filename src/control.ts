@@ -1,6 +1,7 @@
 import { EventEmitter, OnEvent, trackValue, ValueTracker } from '@proc7ts/fun-events';
-import { arrayOfElements, asis, noop, Supply } from '@proc7ts/primitives';
+import { arrayOfElements, asis, Supply } from '@proc7ts/primitives';
 import { InAspect, InAspect__symbol } from './aspect';
+import { isAspectKey } from './aspect.impl';
 import { InControl$Aspects, InControl$Aspects__symbol, InControl$Impl } from './control.impl';
 import { InConverter, intoConvertedAspects, intoConvertedBy, isInAspectConversion } from './converter';
 import { noopInConversion } from './noop-converter.impl';
@@ -103,34 +104,21 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
    */
   setup<TInstance, TKind extends InAspect.Application.Kind>(
       aspectKey: InAspect.Key<TInstance, TKind>,
-      setup?: (this: void, aspect: InAspect.Application.Instance<TInstance, TValue, TKind>, control: this) => void,
+      setup: (this: void, aspect: InAspect.Application.Instance<TInstance, TValue, TKind>, control: this) => void,
   ): this;
 
   setup<TInstance, TKind extends InAspect.Application.Kind>(
       aspectKeyOrSetup: InAspect.Key<TInstance, TKind> | ((this: void, control: this) => void),
-      aspectSetup: (
+      aspectSetup?: (
           this: void,
           aspect: InAspect.Application.Instance<TInstance, TValue, TKind>,
           control: this,
-      ) => void = noop,
+      ) => void,
   ): this {
     if (isAspectKey(aspectKeyOrSetup)) {
-      this[InControl$Aspects__symbol].setup(aspectKeyOrSetup[InAspect__symbol], aspectSetup);
+      this[InControl$Aspects__symbol].setup(aspectKeyOrSetup[InAspect__symbol], aspectSetup!);
     } else {
       aspectKeyOrSetup(this);
-    }
-    return this;
-  }
-
-  /**
-   * Adds aspects to this control.
-   *
-   * @param aspects - Input aspects to add. These are aspect converters to this control from the {@link inValueOf
-   * same-valued one}.
-   */
-  addAspect(...aspects: InConverter.Aspect<TValue>[]): this {
-    if (aspects.length) {
-      this[InControl$Aspects__symbol].add(intoConvertedAspects(aspects)(inValueOf(this), this));
     }
     return this;
   }
@@ -191,15 +179,6 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
 }
 
 /**
- * @internal
- */
-function isAspectKey<TInstance, TKind extends InAspect.Application.Kind>(
-    value: any,
-): value is InAspect.Key<TInstance, TKind> {
-  return InAspect__symbol in value;
-}
-
-/**
  * @category Control
  */
 export namespace InControl {
@@ -210,6 +189,28 @@ export namespace InControl {
    * @typeParam TControl - Input control type.
    */
   export type ValueType<TControl extends InControl<any>> = TControl extends InControl<infer TValue> ? TValue : never;
+
+  /**
+   * User input control factory signature.
+   *
+   * @typeParam TControl - Control type.
+   * @typeParam TValue - Input value type.
+   */
+  export type Factory<TControl extends InControl<TValue>, TValue = ValueType<TControl>> =
+  /**
+   * @param aspects - Input aspects applied by default. These are aspect converters to constructed control from the
+   * {@link inValueOf same-valued one}.
+   *
+   * @returns Created control instance.
+   */
+      (
+          this: void,
+          {
+            aspects,
+          }: {
+            readonly aspects?: InConverter.Aspect<TValue>;
+          },
+      ) => TControl;
 
 }
 

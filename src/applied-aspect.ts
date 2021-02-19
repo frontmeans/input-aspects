@@ -10,6 +10,7 @@ const nullInAspect$: InAspect.Applied<any, any> = {
 /**
  * Creates an aspect applied to control with `null` instance value.
  *
+ * @category Aspect
  * @typeParam TValue - Input value type.
  * @typeParam TInstance - Aspect instance type.
  *
@@ -24,6 +25,7 @@ export function nullInAspect<TValue, TInstance>(): InAspect.Applied<TValue, TIns
  *
  * An instance remains as is when converted to another control.
  *
+ * @category Aspect
  * @typeParam TValue - Input value type.
  * @typeParam TInstance - Aspect instance type.
  * @typeParam instance - Known aspect instance type.
@@ -46,6 +48,7 @@ export function knownInAspect<TValue, TInstance>(instance: TInstance): InAspect.
  *
  * When converted to another control with another value, an aspect instance replaced by `null`.
  *
+ * @category Aspect
  * @typeParam TValue - Input value type.
  * @typeParam TInstance - Aspect instance type.
  * @typeParam TKind - Aspect application kind.
@@ -71,6 +74,7 @@ export function inconvertibleInAspect<TValue, TInstance, TKind extends InAspect.
  * When converted to another control with another value, an aspect instance is built again with original control
  * passed to the builder as a second parameter.
  *
+ * @category Aspect
  * @typeParam TValue - Input value type.
  * @typeParam TInstance - Aspect instance type.
  * @typeParam TKind - Aspect application kind.
@@ -88,7 +92,7 @@ export function builtInAspect<TValue, TInstance, TKind extends InAspect.Applicat
   return builtInAspect$(control, aspectKey, build);
 }
 
-export function builtInAspect$<TValue, TInstance, TKind extends InAspect.Application.Kind>(
+function builtInAspect$<TValue, TInstance, TKind extends InAspect.Application.Kind>(
     control: InControl<TValue>,
     aspectKey: InAspect.Key<TInstance, TKind>,
     build: <TValue>(this: void, control: InControl<TValue>, origin?: InControl<any>) => TInstance,
