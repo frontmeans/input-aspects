@@ -16,7 +16,7 @@ import { InCssClasses } from './css-classes.aspect';
  * - `invalid` when input control validation failed,
  * - `missing` when there are validation messages with `missing` code,
  * - `incomplete` when there are validation messages with `incomplete`,
- * - `hasFocus` when input control has input focus,
+ * - `has-focus` when input control has input focus,
  * - `touched` when input control is touched (i.e. had focus already),
  * - `edited` when input control is edited by user.
  *
