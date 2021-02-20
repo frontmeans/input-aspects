@@ -120,7 +120,7 @@
 <span style="color: #000000">  });</span>
 <span style="color: #000000">  </span>
 <span style="color: #000000">  </span><span style="color: #008000">// Submit the form programmatically</span>
-<span style="color: #000000">  </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">DomEventDispatcher</span><span style="color: #000000">(</span><span style="color: #001080">form</span><span style="color: #000000">).</span><span style="color: #795E26">on</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;submit&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">instead</span><span style="color: #000000">(</span><span style="color: #0000FF">async</span><span style="color: #000000"> () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">DomEventDispatcher</span><span style="color: #000000">(</span><span style="color: #001080">form</span><span style="color: #000000">).</span><span style="color: #795E26">on</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;submit&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">instead</span><span style="color: #000000">(</span><span style="color: #0000FF">async</span><span style="color: #000000"> () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
 <span style="color: #000000">      </span>
 <span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">responseText</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">submit</span><span style="color: #000000">.</span><span style="color: #795E26">submit</span><span style="color: #000000">(</span><span style="color: #0000FF">async</span><span style="color: #000000"> (</span><span style="color: #001080">data</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
 <span style="color: #000000">  </span>
@@ -136,7 +136,7 @@
 <span style="color: #000000">      </span>
 <span style="color: #000000">      </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (!</span><span style="color: #001080">response</span><span style="color: #000000">.</span><span style="color: #001080">ok</span><span style="color: #000000">) {</span>
 <span style="color: #000000">        </span><span style="color: #008000">// Submit failed - report errors</span>
-<span style="color: #000000">        </span><span style="color: #AF00DB">throw</span><span style="color: #000000"> </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">InSubmitError</span><span style="color: #000000">({ </span><span style="color: #001080">submit:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Failed&#039;</span><span style="color: #000000"> });</span>
+<span style="color: #000000">        </span><span style="color: #AF00DB">throw</span><span style="color: #000000"> </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">InSubmitError</span><span style="color: #000000">({ </span><span style="color: #001080">submit:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Failed&#039;</span><span style="color: #000000"> });</span>
 <span style="color: #000000">      } </span>
 <span style="color: #000000">      </span>
 <span style="color: #000000">      </span><span style="color: #008000">// Submit succeed</span>
@@ -432,10 +432,10 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-has-type-parameter">
-						<a href="classes/abstractincontrol.html" class="tsd-kind-icon">Abstract<wbr>InControl</a>
+						<a href="classes/abstractinelement.html" class="tsd-kind-icon">Abstract<wbr>InElement</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter">
-						<a href="classes/abstractinelement.html" class="tsd-kind-icon">Abstract<wbr>InElement</a>
+						<a href="classes/inbuilder.html" class="tsd-kind-icon">In<wbr>Builder</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="classes/incontainer.html" class="tsd-kind-icon">In<wbr>Container</a>
@@ -555,6 +555,9 @@
 						<a href="modules.html#inputaspects__ns" class="tsd-kind-icon">Input<wbr>Aspects__NS</a>
 					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#builtinaspect" class="tsd-kind-icon">built<wbr>InAspect</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="modules.html#incheckbox" class="tsd-kind-icon">in<wbr>Checkbox</a>
 					</li>
 					<li class=" tsd-kind-function">
@@ -609,6 +612,9 @@
 						<a href="modules.html#invalueof" class="tsd-kind-icon">in<wbr>Value<wbr>Of</a>
 					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#inconvertibleinaspect" class="tsd-kind-icon">inconvertible<wbr>InAspect</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="modules.html#intoconvertedaspects" class="tsd-kind-icon">into<wbr>Converted<wbr>Aspects</a>
 					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
@@ -628,6 +634,12 @@
 					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="modules.html#isinaspectconversion" class="tsd-kind-icon">is<wbr>InAspect<wbr>Conversion</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#knowninaspect" class="tsd-kind-icon">known<wbr>InAspect</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#nullinaspect" class="tsd-kind-icon">null<wbr>InAspect</a>
 					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="modules.html#requireall" class="tsd-kind-icon">require<wbr>All</a>

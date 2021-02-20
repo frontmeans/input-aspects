@@ -96,7 +96,10 @@
 								<span class="target">InControl</span>
 								<ul class="tsd-hierarchy">
 									<li>
-										<a href="abstractincontrol.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractInControl</a>
+										<a href="incontainer.html" class="tsd-signature-type" data-tsd-kind="Class">InContainer</a>
+									</li>
+									<li>
+										<a href="inelement.html" class="tsd-signature-type" data-tsd-kind="Class">InElement</a>
 									</li>
 								</ul>
 							</li>
@@ -117,7 +120,7 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="incontrol.html#_aspects" class="tsd-kind-icon">_aspects</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="incontrol.html#___incontrol_aspects__symbol_23981" class="tsd-kind-icon">__@<wbr>InControl$<wbr>Aspects__symbol@23981</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="incontrol.html#it" class="tsd-kind-icon">it</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="incontrol.html#on" class="tsd-kind-icon">on</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="incontrol.html#read" class="tsd-kind-icon">read</a></li>
@@ -133,9 +136,8 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="incontrol.html#___afterevent__symbol_22536" class="tsd-kind-icon">__@<wbr>After<wbr>Event__symbol@22536</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="incontrol.html#___onevent__symbol_22591" class="tsd-kind-icon">__@<wbr>OnEvent__symbol@22591</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="incontrol.html#___onevent__symbol_22592" class="tsd-kind-icon">__@<wbr>OnEvent__symbol@22592</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-protected"><a href="incontrol.html#_applyaspect" class="tsd-kind-icon">_apply<wbr>Aspect</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="incontrol.html#_aspect" class="tsd-kind-icon">_aspect</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="incontrol.html#aspect" class="tsd-kind-icon">aspect</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="incontrol.html#by" class="tsd-kind-icon">by</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="incontrol.html#bynone" class="tsd-kind-icon">by<wbr>None</a></li>
@@ -152,16 +154,39 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>InControl&lt;TValue&gt;<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>InControl&lt;TValue&gt;<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{ </span>aspects<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/inconverter.aspect.conversion.html" class="tsd-signature-type" data-tsd-kind="Interface">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="../modules/inconverter.aspect.html#factory" class="tsd-signature-type" data-tsd-kind="Type alias">Factory</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">readonly </span><a href="../modules/inconverter.aspect.html" class="tsd-signature-type" data-tsd-kind="Namespace">Aspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/577d7f1/src/control.ts#L22">frontmeans/input-aspects/src/control.ts:22</a></li>
+								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Constructs user input control.</p>
+								</div>
+							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
 									<h4>TValue</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>__namedParameters: <span class="tsd-signature-symbol">{ </span>aspects<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/inconverter.aspect.conversion.html" class="tsd-signature-type" data-tsd-kind="Interface">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="../modules/inconverter.aspect.html#factory" class="tsd-signature-type" data-tsd-kind="Type alias">Factory</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">readonly </span><a href="../modules/inconverter.aspect.html" class="tsd-signature-type" data-tsd-kind="Namespace">Aspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> = ...</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> aspects<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/inconverter.aspect.conversion.html" class="tsd-signature-type" data-tsd-kind="Interface">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="../modules/inconverter.aspect.html#factory" class="tsd-signature-type" data-tsd-kind="Type alias">Factory</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">readonly </span><a href="../modules/inconverter.aspect.html" class="tsd-signature-type" data-tsd-kind="Namespace">Aspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Input aspects applied by default. These are aspect converters to constructed control from the
+												<a href="../modules.html#invalueof">same-valued one</a>.</p>
+											</div>
+										</li>
+									</ul>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -171,13 +196,13 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_aspects" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> _aspects</h3>
-					<div class="tsd-signature tsd-kind-icon">_aspects<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/inaspect.html" class="tsd-signature-type" data-tsd-kind="Interface">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/inaspect.applied.html" class="tsd-signature-type" data-tsd-kind="Interface">Applied</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="___incontrol_aspects__symbol_23981" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> __@<wbr>InControl$<wbr>Aspects__symbol@23981</h3>
+					<div class="tsd-signature tsd-kind-icon">__@<wbr>InControl$<wbr>Aspects__symbol@23981<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">InControl$Aspects</span><span class="tsd-signature-symbol">&lt;</span><a href="incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/16b102e/src/control.ts#L19">frontmeans/input-aspects/src/control.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/577d7f1/src/control.ts#L22">frontmeans/input-aspects/src/control.ts:22</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -193,7 +218,7 @@
 					<div class="tsd-signature tsd-kind-icon">it<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">TValue</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/16b102e/src/control.ts#L24">frontmeans/input-aspects/src/control.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/577d7f1/src/control.ts#L52">frontmeans/input-aspects/src/control.ts:52</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -208,7 +233,7 @@
 					<div class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in proc7ts/fun-events/index.d.ts:1538</li>
+							<li>Defined in proc7ts/fun-events/index.d.ts:1564</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -229,7 +254,7 @@
 					<div class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in proc7ts/fun-events/index.d.ts:1549</li>
+							<li>Defined in proc7ts/fun-events/index.d.ts:1575</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -257,7 +282,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/16b102e/src/control.ts#L36">frontmeans/input-aspects/src/control.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/577d7f1/src/control.ts#L64">frontmeans/input-aspects/src/control.ts:64</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -286,7 +311,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1556</li>
+									<li>Defined in proc7ts/fun-events/index.d.ts:1582</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AfterEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -294,16 +319,16 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="___onevent__symbol_22591" class="tsd-anchor"></a>
-					<h3>__@<wbr>OnEvent__symbol@22591</h3>
+					<a name="___onevent__symbol_22592" class="tsd-anchor"></a>
+					<h3>__@<wbr>OnEvent__symbol@22592</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">__@<wbr>OnEvent__symbol@22591<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">__@<wbr>OnEvent__symbol@22592<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1552</li>
+									<li>Defined in proc7ts/fun-events/index.d.ts:1578</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">OnEvent</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -314,13 +339,13 @@
 					<a name="_applyaspect" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _apply<wbr>Aspect</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">_apply<wbr>Aspect&lt;TInstance, TKind&gt;<span class="tsd-signature-symbol">(</span>_aspect<span class="tsd-signature-symbol">: </span><a href="../interfaces/inaspect.html" class="tsd-signature-type" data-tsd-kind="Interface">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../modules/inaspect.application.html#result" class="tsd-signature-type" data-tsd-kind="Type alias">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">_apply<wbr>Aspect&lt;TInstance, TKind&gt;<span class="tsd-signature-symbol">(</span>aspect<span class="tsd-signature-symbol">: </span><a href="../interfaces/inaspect.html" class="tsd-signature-type" data-tsd-kind="Interface">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../modules/inaspect.application.html#result" class="tsd-signature-type" data-tsd-kind="Type alias">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/16b102e/src/control.ts#L162">frontmeans/input-aspects/src/control.ts:162</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/577d7f1/src/control.ts#L173">frontmeans/input-aspects/src/control.ts:173</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -346,7 +371,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>_aspect: <a href="../interfaces/inaspect.html" class="tsd-signature-type" data-tsd-kind="Interface">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>aspect: <a href="../interfaces/inaspect.html" class="tsd-signature-type" data-tsd-kind="Interface">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>An aspect to apply.</p>
 									</div>
@@ -355,44 +380,6 @@
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../modules/inaspect.application.html#result" class="tsd-signature-type" data-tsd-kind="Type alias">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>Either applied aspect instance or <code>undefined</code> to apply the aspect in standard way (i.e. using
 							<code>InAspect.applyTo()</code> method).</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a name="_aspect" class="tsd-anchor"></a>
-					<h3>_aspect</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">_aspect&lt;TInstance, TKind&gt;<span class="tsd-signature-symbol">(</span>aspect<span class="tsd-signature-symbol">: </span><a href="../interfaces/inaspect.html" class="tsd-signature-type" data-tsd-kind="Interface">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/inaspect.application.html#result" class="tsd-signature-type" data-tsd-kind="Type alias">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/16b102e/src/control.ts#L135">frontmeans/input-aspects/src/control.ts:135</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>internal</dt>
-									<dd></dd>
-								</dl>
-							</div>
-							<h4 class="tsd-type-parameters-title">Type parameters</h4>
-							<ul class="tsd-type-parameters">
-								<li>
-									<h4>TInstance</h4>
-								</li>
-								<li>
-									<h4>TKind<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;default&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;element&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;container&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;data&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;group&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;list&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;validation&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;submit&quot;</span></h4>
-								</li>
-							</ul>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>aspect: <a href="../interfaces/inaspect.html" class="tsd-signature-type" data-tsd-kind="Interface">InAspect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../modules/inaspect.application.html#result" class="tsd-signature-type" data-tsd-kind="Type alias">Result</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -406,7 +393,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/16b102e/src/control.ts#L49">frontmeans/input-aspects/src/control.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/577d7f1/src/control.ts#L77">frontmeans/input-aspects/src/control.ts:77</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -455,7 +442,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1580</li>
+									<li>Defined in proc7ts/fun-events/index.d.ts:1606</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -481,7 +468,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1599</li>
+									<li>Defined in proc7ts/fun-events/index.d.ts:1625</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -550,7 +537,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in proc7ts/fun-events/index.d.ts:1611</li>
+									<li>Defined in proc7ts/fun-events/index.d.ts:1637</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -584,7 +571,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/16b102e/src/control.ts#L105">frontmeans/input-aspects/src/control.ts:105</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/577d7f1/src/control.ts#L136">frontmeans/input-aspects/src/control.ts:136</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -613,7 +600,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/16b102e/src/control.ts#L120">frontmeans/input-aspects/src/control.ts:120</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/577d7f1/src/control.ts#L151">frontmeans/input-aspects/src/control.ts:151</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -656,13 +643,13 @@
 					<h3>setup</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 						<li class="tsd-signature tsd-kind-icon">setup<span class="tsd-signature-symbol">(</span>setup<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>control<span class="tsd-signature-symbol">: </span><a href="incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">setup&lt;TInstance, TKind&gt;<span class="tsd-signature-symbol">(</span>aspectKey<span class="tsd-signature-symbol">: </span><a href="../interfaces/inaspect.key.html" class="tsd-signature-type" data-tsd-kind="Interface">Key</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span>, setup<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span>aspect<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReturnType</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/inaspect.application.map.html" class="tsd-signature-type" data-tsd-kind="Interface">Map</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span>, control<span class="tsd-signature-symbol">: </span><a href="incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">setup&lt;TInstance, TKind&gt;<span class="tsd-signature-symbol">(</span>aspectKey<span class="tsd-signature-symbol">: </span><a href="../interfaces/inaspect.key.html" class="tsd-signature-type" data-tsd-kind="Interface">Key</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">&gt;</span>, setup<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>aspect<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReturnType</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/inaspect.application.map.html" class="tsd-signature-type" data-tsd-kind="Interface">Map</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span>, control<span class="tsd-signature-symbol">: </span><a href="incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/16b102e/src/control.ts#L62">frontmeans/input-aspects/src/control.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/577d7f1/src/control.ts#L90">frontmeans/input-aspects/src/control.ts:90</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -675,7 +662,7 @@
 								<li>
 									<h5>setup: <span class="tsd-signature-symbol">(</span>control<span class="tsd-signature-symbol">: </span><a href="incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>A function that accepts this control as its only parameter to configure it.</p>
+										<p>A function that accepts this control as its only parameter.</p>
 									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-signature">
@@ -703,13 +690,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/16b102e/src/control.ts#L74">frontmeans/input-aspects/src/control.ts:74</a></li>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/577d7f1/src/control.ts#L105">frontmeans/input-aspects/src/control.ts:105</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Performs additional setup of this control&#39;s aspect.</p>
+									<p>Registers additional setup of this control&#39;s aspect.</p>
 								</div>
+								<p>The setup is performed when the target aspect applied to this control. For applied aspect the setup is performed
+								immediately.</p>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
@@ -735,9 +724,9 @@
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> setup: <span class="tsd-signature-symbol">(</span>aspect<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReturnType</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/inaspect.application.map.html" class="tsd-signature-type" data-tsd-kind="Interface">Map</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span>, control<span class="tsd-signature-symbol">: </span><a href="incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<h5>setup: <span class="tsd-signature-symbol">(</span>aspect<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReturnType</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/inaspect.application.map.html" class="tsd-signature-type" data-tsd-kind="Interface">Map</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TInstance</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TKind</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span>, control<span class="tsd-signature-symbol">: </span><a href="incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>A function that accepts the aspect and this control as parameters to configure them.</p>
+										<p>A function that accepts an applied aspect instance and this control as parameters.</p>
 									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-signature">
@@ -787,8 +776,8 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
 								<a href="incontrol.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="incontrol.html#_aspects" class="tsd-kind-icon">_aspects</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="incontrol.html#___incontrol_aspects__symbol_23981" class="tsd-kind-icon">__@<wbr>InControl$<wbr>Aspects__symbol@23981</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="incontrol.html#it" class="tsd-kind-icon">it</a>
@@ -806,13 +795,10 @@
 								<a href="incontrol.html#___afterevent__symbol_22536" class="tsd-kind-icon">__@<wbr>After<wbr>Event__symbol@22536</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="incontrol.html#___onevent__symbol_22591" class="tsd-kind-icon">__@<wbr>OnEvent__symbol@22591</a>
+								<a href="incontrol.html#___onevent__symbol_22592" class="tsd-kind-icon">__@<wbr>OnEvent__symbol@22592</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-protected">
 								<a href="incontrol.html#_applyaspect" class="tsd-kind-icon">_apply<wbr>Aspect</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="incontrol.html#_aspect" class="tsd-kind-icon">_aspect</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 								<a href="incontrol.html#aspect" class="tsd-kind-icon">aspect</a>
