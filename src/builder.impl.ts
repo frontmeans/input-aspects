@@ -1,4 +1,4 @@
-import { InAspect, InAspect__symbol } from './aspect';
+import { InAspect } from './aspect';
 import { InControl } from './control';
 import { InConverter, intoConvertedBy } from './converter';
 
@@ -14,11 +14,6 @@ export class InBuilder$Impl<TControl extends InControl<TValue>, TValue> {
 
   private readonly _aspectsByKey = new Map<InAspect<any, any>, InConverter.Aspect.Factory<TValue>>();
   private _commonAspects: InConverter.Aspect.Factory<TValue> | undefined = undefined;
-
-  private readonly _setupAspect = new Map<
-      InAspect<any, any>,
-      (aspect: InAspect.Application.Instance<any, TValue, any>, control: TControl) => void>();
-
   private _setup: ((control: TControl) => void) | undefined = undefined;
 
   addAspect(aspect: InAspect<any, any>, converter: InConverter.Aspect<TValue>): void {
@@ -32,27 +27,6 @@ export class InBuilder$Impl<TControl extends InControl<TValue>, TValue> {
     this._commonAspects = this._commonAspects
         ? intoConvertedBy(this._commonAspects, ...aspects)
         : intoConvertedBy(...aspects);
-  }
-
-  setupAspect<TInstance, TKind extends InAspect.Application.Kind>(
-      aspect: InAspect<TInstance, TKind>,
-      setup: (aspect: InAspect.Application.Instance<TInstance, TValue, TKind>, control: TControl) => void,
-  ): void {
-
-    const prev: ((
-        aspect: InAspect.Application.Instance<TInstance, TValue, TKind>,
-        control: TControl,
-    ) => void) | undefined = this._setupAspect.get(aspect);
-
-    this._setupAspect.set(
-        aspect,
-        prev
-            ? (aspect, control): void => {
-              prev(aspect, control);
-              setup(aspect, control);
-            }
-            : setup,
-    );
   }
 
   setup(setup: (control: TControl) => void): void {
@@ -72,11 +46,6 @@ export class InBuilder$Impl<TControl extends InControl<TValue>, TValue> {
   build(factory: InControl.Factory<TControl, TValue>): TControl {
 
     const control = factory({ aspects: this._aspects() });
-
-    // Per-aspect setup
-    for (const [aspect, setup] of this._setupAspect) {
-      control.setup({ [InAspect__symbol]: aspect }, setup);
-    }
 
     // Control setup
     if (this._setup) {

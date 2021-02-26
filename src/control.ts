@@ -90,10 +90,7 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
   setup(setup: (this: void, control: this) => void): this;
 
   /**
-   * Registers additional setup of this control's aspect.
-   *
-   * The setup is performed when the target aspect applied to this control. For applied aspect the setup is performed
-   * immediately.
+   * Performs additional setup of this control's aspect.
    *
    * @typeParam TInstance - Aspect instance type.
    * @typeParam TKind - Aspect application kind.
@@ -116,7 +113,7 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
       ) => void,
   ): this {
     if (isAspectKey(aspectKeyOrSetup)) {
-      this[InControl$Aspects__symbol].setup(aspectKeyOrSetup[InAspect__symbol], aspectSetup!);
+      aspectSetup!(this.aspect(aspectKeyOrSetup), this);
     } else {
       aspectKeyOrSetup(this);
     }

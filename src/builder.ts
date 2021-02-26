@@ -62,7 +62,7 @@ export class InBuilder<TControl extends InControl<TValue>, TValue = InControl.Va
   /**
    * Registers additional setup of the built control's aspect.
    *
-   * The setup is performed when the target aspect applied to the control.
+   * The setup is performed when the control {@link build built}.
    *
    * @typeParam TInstance - Aspect instance type.
    * @typeParam TKind - Aspect application kind.
@@ -85,7 +85,7 @@ export class InBuilder<TControl extends InControl<TValue>, TValue = InControl.Va
       ) => void,
   ): this {
     if (isAspectKey(aspectKeyOrSetup)) {
-      this[InBuilder$Impl__symbol].setupAspect(aspectKeyOrSetup[InAspect__symbol], aspectSetup!);
+      this[InBuilder$Impl__symbol].setup(control => control.setup(aspectKeyOrSetup, aspectSetup!));
     } else {
       this[InBuilder$Impl__symbol].setup(aspectKeyOrSetup);
     }

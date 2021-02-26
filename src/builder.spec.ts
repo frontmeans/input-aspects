@@ -174,35 +174,7 @@ describe('InBuilder', () => {
       expect(setup1).toHaveBeenCalledWith(control);
       expect(setup2).toHaveBeenCalledWith(control);
     });
-    it('configures aspect when it is applied', () => {
-
-      const setup = jest.fn();
-
-      expect(builder.setup(TestAspect, setup)).toBe(builder);
-      expect(setup).not.toHaveBeenCalled();
-
-      const control = createControl();
-
-      expect(setup).not.toHaveBeenCalled();
-
-      control.aspect(TestAspect);
-      expect(setup).toHaveBeenCalledWith(control.aspect(TestAspect), control);
-    });
-    it('accepts no-op aspect when it is applied', () => {
-
-      const setup = jest.fn();
-
-      expect(builder.setup(TestAspect, setup)).toBe(builder);
-      expect(setup).not.toHaveBeenCalled();
-
-      const control = createControl();
-
-      expect(setup).not.toHaveBeenCalled();
-
-      control.aspect(TestAspect);
-      expect(setup).toHaveBeenCalledWith(control.aspect(TestAspect), control);
-    });
-    it('configures aspect more than once when it is applied', () => {
+    it('configures aspect', () => {
 
       const setup1 = jest.fn();
       const setup2 = jest.fn();
@@ -213,10 +185,9 @@ describe('InBuilder', () => {
       expect(setup2).not.toHaveBeenCalled();
 
       const control = createControl();
-      const aspect = control.aspect(TestAspect);
 
-      expect(setup1).toHaveBeenCalledWith(aspect, control);
-      expect(setup2).toHaveBeenCalledWith(aspect, control);
+      expect(setup1).toHaveBeenCalledWith(control.aspect(TestAspect), control);
+      expect(setup2).toHaveBeenCalledWith(control.aspect(TestAspect), control);
     });
   });
 
