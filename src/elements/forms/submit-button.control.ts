@@ -9,11 +9,13 @@ import { AbstractInElement } from '../abstract-element.control';
 /**
  * Form submit button control.
  *
- * It is connected to control to submit (form) and may change submit button state depending on form submit status.
- * E.g. by disabling it when submit is {@link InSubmit.Flags.ready not ready}, or while {@link InSubmit.Flags.busy
- * submitting} the form.
+ * It is connected to submittable control (e.g. a form) and makes a button status reflect a form submit status.
+ * E.g. by disabling the button when submit is {@link InSubmit.Flags.ready not ready}, or while
+ * {@link InSubmit.Flags.busy submitting} the form.
  *
  * Submit button control can be created by {@link inSubmitButton} function.
+ *
+ * The value of the submit button is always `undefined`, so it is never submitted.
  *
  * @category Control
  * @typeParam TElt - A type of submit button element.
