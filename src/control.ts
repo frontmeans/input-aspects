@@ -195,7 +195,7 @@ export namespace InControl {
    */
   export type Factory<TControl extends InControl<TValue>, TValue = ValueType<TControl>> =
   /**
-   * @param aspects - Input aspects applied by default. These are aspect converters to constructed control from the
+   * @param aspects - Input aspects applied by default. This is an aspect converter to constructed control from the
    * {@link inValueOf same-valued one}.
    *
    * @returns Created control instance.
