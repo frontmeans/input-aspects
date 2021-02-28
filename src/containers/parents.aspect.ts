@@ -119,7 +119,9 @@ class InControlParents extends InParents {
     super();
     this._on.supply.needs(this._control);
 
-    const allParents = (): IterableIterator<InParents.Entry> => this._map.keys();
+    const allParents = (): InParents.All => ({
+      [Symbol.iterator]: () => this._map.keys(),
+    });
 
     this.read = this.on.do(mapAfter(allParents, allParents));
   }
