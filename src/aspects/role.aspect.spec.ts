@@ -90,7 +90,7 @@ describe('InRole', () => {
       expect(activationSupply.isOff).toBe(true);
       expect(await activationSupply.whenDone().catch(asis)).toBe('reason');
     });
-    it('deactivates when activator removed', async() => {
+    it('deactivates when activator removed', async () => {
 
       const activationSupply = new Supply();
       const activatorSupply = role.when('test', () => activationSupply);
@@ -101,7 +101,7 @@ describe('InRole', () => {
       expect(activationSupply.isOff).toBe(true);
       expect(await activationSupply.whenDone().catch(asis)).toBe('reason');
     });
-    it('deactivates when control destroyed', async() => {
+    it('deactivates when control destroyed', async () => {
 
       const activationSupply = new Supply();
 
