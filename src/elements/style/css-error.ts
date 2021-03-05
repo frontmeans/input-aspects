@@ -12,8 +12,7 @@ import { InCssClasses } from './css-classes.aspect';
  *
  * @category Style
  * @param mark - Error mark. Specifies CSS class(es) to apply when requested error present.
- * A class with `has-error` name in {@link InputAspects__NS input
- * aspects namespace} is used by default.
+ * A class with `has-error` name in {@link InputAspects__NS input aspects namespace} is used by default.
  * @param when - {@link InValidation.Message Validation message} code(s) to expect.
  * {@link InValidation.Result.ok Any} error matches by default.
  *
