@@ -55,7 +55,7 @@ export abstract class InRole<TValue> implements EventKeeper<[InRole.Active]> {
   abstract add(role: string): Supply;
 
   /**
-   * Registers activator of the given role.
+   * Registers an activator of the given role.
    *
    * The given activator would be issued once the given role {@link add activated}. A supply instance returned
    * by activator call will be cut off once the role deactivated.
@@ -72,7 +72,7 @@ export abstract class InRole<TValue> implements EventKeeper<[InRole.Active]> {
 export namespace InRole {
 
   /**
-   * Role activator signature.
+   * An activator signature of input control role.
    *
    * @typeParam TValue - Input value type.
    */
@@ -82,7 +82,8 @@ export namespace InRole {
    * @param role - Activated role name.
    * @param active - Active control role.
    *
-   * @returns Activation supply peer. Its supply will be cut off once the role deactivated.
+   * @returns Activation supply peer. Its supply will be cut off once the role deactivated or activator removed. It is
+   * expected that this supply performs deactivation once cut off.
    */
       (
           this: void,
@@ -237,6 +238,7 @@ class InControlRole<TValue> extends InRole<TValue> {
   constructor(private readonly _control: InControl<TValue>) {
     super();
     this._active.on(active => active.activate());
+    this._active.supply.needs(_control);
     this.read = this._active.read.do(mapAfter_(({ active }) => active));
   }
 
@@ -271,9 +273,12 @@ class InControlRole<TValue> extends InRole<TValue> {
       this._activators.set(role, activators);
     }
 
-    const supply = new Supply();
+    const supply = new Supply().needs(this._control);
 
-    activators.set(supply, activator);
+    activators.set(
+        supply,
+        (control, role, active) => activator(control, role, active).supply.needs(supply),
+    );
     supply.whenOff(() => {
       activators!.delete(supply);
       if (!activators!.size) {

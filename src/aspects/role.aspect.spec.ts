@@ -80,12 +80,34 @@ describe('InRole', () => {
 
       expect(activator).toHaveBeenCalledTimes(2);
     });
-    it('cuts off activation supply once the role disabled', async () => {
+    it('deactivates once the role disabled', async () => {
 
       const activationSupply = new Supply();
 
       role.when('test', () => activationSupply);
       role.add('test').off('reason');
+
+      expect(activationSupply.isOff).toBe(true);
+      expect(await activationSupply.whenDone().catch(asis)).toBe('reason');
+    });
+    it('deactivates when activator removed', async() => {
+
+      const activationSupply = new Supply();
+      const activatorSupply = role.when('test', () => activationSupply);
+
+      role.add('test');
+      activatorSupply.off('reason');
+
+      expect(activationSupply.isOff).toBe(true);
+      expect(await activationSupply.whenDone().catch(asis)).toBe('reason');
+    });
+    it('deactivates when control destroyed', async() => {
+
+      const activationSupply = new Supply();
+
+      role.when('test', () => activationSupply);
+      role.add('test');
+      control.supply.off('reason');
 
       expect(activationSupply.isOff).toBe(true);
       expect(await activationSupply.whenDone().catch(asis)).toBe('reason');
