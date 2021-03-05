@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Flags | Input Aspects</title>
+	<title>Active | Input Aspects</title>
 	<meta name="description" content="Documentation for Input Aspects">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,13 +55,13 @@
 					<a href="../modules.html">Input Aspects</a>
 				</li>
 				<li>
-					<a href="../modules/insubmit.html">InSubmit</a>
+					<a href="../modules/inrole.html">InRole</a>
 				</li>
 				<li>
-					<a href="insubmit.flags.html">Flags</a>
+					<a href="inrole.active.html">Active</a>
 				</li>
 			</ul>
-			<h1>Interface Flags</h1>
+			<h1>Interface Active</h1>
 		</div>
 	</div>
 </header>
@@ -71,16 +71,22 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Input submit status flags.</p>
+						<p>Active input control role.</p>
 					</div>
-					<p>The flags of nested control are combined with parent ones.</p>
+					<p>Contains all roles <a href="../classes/inrole.html#add">added</a> to control.</p>
+					<p>Implements an <code>Iterable</code> interface by iterating over all active role names.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Flags</span>
+						<span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">Active</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -89,68 +95,65 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Properties</h3>
+							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="insubmit.flags.html#busy" class="tsd-kind-icon">busy</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="insubmit.flags.html#ready" class="tsd-kind-icon">ready</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="insubmit.flags.html#submitted" class="tsd-kind-icon">submitted</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-external"><a href="inrole.active.html#_symbol_iterator_" class="tsd-kind-icon">[<wbr>Symbol.iterator]</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="inrole.active.html#has" class="tsd-kind-icon">has</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="busy" class="tsd-anchor"></a>
-					<h3>busy</h3>
-					<div class="tsd-signature tsd-kind-icon">busy<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/18a711d/src/submit.aspect.ts#L168">frontmeans/input-aspects/src/submit.aspect.ts:168</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Whether the submit is in process.</p>
-						</div>
-						<p>This becomes <code>true</code> when submit is initiated by <code>InSubmit.submit()</code> method call. And becomes <code>false</code> when submit
-						is completed.</p>
-					</div>
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-external">
+					<a name="_symbol_iterator_" class="tsd-anchor"></a>
+					<h3>[<wbr>Symbol.iterator]</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">[<wbr>Symbol.iterator]<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Iterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/typescript/lib/lib.es2015.iterable.d.ts:51</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Iterator</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="ready" class="tsd-anchor"></a>
-					<h3>ready</h3>
-					<div class="tsd-signature tsd-kind-icon">ready<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/18a711d/src/submit.aspect.ts#L153">frontmeans/input-aspects/src/submit.aspect.ts:153</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Whether the input is ready to be submitted.</p>
-						</div>
-						<p>The submit won&#39;t happen until this flag becomes <code>true</code>.</p>
-						<p>This is <code>true</code> when there is a data to submit, and no validation messages (except submit failure messages with
-						<code>submit</code> code).</p>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="submitted" class="tsd-anchor"></a>
-					<h3>submitted</h3>
-					<div class="tsd-signature tsd-kind-icon">submitted<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/18a711d/src/submit.aspect.ts#L160">frontmeans/input-aspects/src/submit.aspect.ts:160</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Whether the input has been submitted.</p>
-						</div>
-						<p>This becomes <code>true</code> on <code>InSubmit.submit()</code> method call. And becomes <code>false</code> on <code>InSubmit.reset()</code> method call.</p>
-					</div>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="has" class="tsd-anchor"></a>
+					<h3>has</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">has<span class="tsd-signature-symbol">(</span>role<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/18a711d/src/aspects/role.aspect.ts#L111">frontmeans/input-aspects/src/aspects/role.aspect.ts:111</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Checks whether the given role is active.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>role: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Target role name.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p><code>true</code> if the given role is <a href="../classes/inrole.html#add">added</a> to controller, or <code>false</code> otherwise.</p>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -208,13 +211,13 @@
 					<li class=" tsd-kind-namespace">
 						<a href="../modules/inradiogroup.html">In<wbr>Radio<wbr>Group</a>
 					</li>
-					<li class=" tsd-kind-namespace">
+					<li class="current tsd-kind-namespace">
 						<a href="../modules/inrole.html">In<wbr>Role</a>
 					</li>
 					<li class=" tsd-kind-namespace">
 						<a href="../modules/instatus.html">In<wbr>Status</a>
 					</li>
-					<li class="current tsd-kind-namespace">
+					<li class=" tsd-kind-namespace">
 						<a href="../modules/insubmit.html">In<wbr>Submit</a>
 					</li>
 					<li class=" tsd-kind-namespace">
@@ -236,23 +239,20 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-namespace">
-						<a href="insubmit.flags.html" class="tsd-kind-icon">Flags</a>
+						<a href="inrole.active.html" class="tsd-kind-icon">Active</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="insubmit.flags.html#busy" class="tsd-kind-icon">busy</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-external">
+								<a href="inrole.active.html#_symbol_iterator_" class="tsd-kind-icon">[<wbr>Symbol.iterator]</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="insubmit.flags.html#ready" class="tsd-kind-icon">ready</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="insubmit.flags.html#submitted" class="tsd-kind-icon">submitted</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="inrole.active.html#has" class="tsd-kind-icon">has</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-type-alias tsd-parent-kind-namespace tsd-has-type-parameter">
-						<a href="../modules/insubmit.html#submitter" class="tsd-kind-icon">Submitter</a>
+						<a href="../modules/inrole.html#activator" class="tsd-kind-icon">Activator</a>
 					</li>
 				</ul>
 			</nav>
@@ -275,7 +275,7 @@
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>

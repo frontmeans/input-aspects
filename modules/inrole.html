@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>InGroup | Input Aspects</title>
+	<title>InRole | Input Aspects</title>
 	<meta name="description" content="Documentation for Input Aspects">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,10 +55,10 @@
 					<a href="../modules.html">Input Aspects</a>
 				</li>
 				<li>
-					<a href="ingroup.html">InGroup</a>
+					<a href="inrole.html">InRole</a>
 				</li>
 			</ul>
-			<h1>Namespace InGroup</h1>
+			<h1>Namespace InRole</h1>
 		</div>
 	</div>
 </header>
@@ -72,14 +72,13 @@
 						<section class="tsd-index-section ">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-namespace tsd-has-type-parameter"><a href="../interfaces/ingroup.snapshot.html" class="tsd-kind-icon">Snapshot</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-namespace"><a href="../interfaces/inrole.active.html" class="tsd-kind-icon">Active</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias tsd-parent-kind-namespace tsd-has-type-parameter"><a href="ingroup.html#controls" class="tsd-kind-icon">Controls</a></li>
-								<li class="tsd-kind-type-alias tsd-parent-kind-namespace tsd-has-type-parameter"><a href="ingroup.html#entry" class="tsd-kind-icon">Entry</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-namespace tsd-has-type-parameter"><a href="inrole.html#activator" class="tsd-kind-icon">Activator</a></li>
 							</ul>
 						</section>
 					</div>
@@ -88,66 +87,71 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Type aliases</h2>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-namespace tsd-has-type-parameter">
-					<a name="controls" class="tsd-anchor"></a>
-					<h3>Controls</h3>
-					<div class="tsd-signature tsd-kind-icon">Controls&lt;TModel&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{</span><span class="tsd-signature-symbol">readonly </span><span class="tsd-signature-symbol">[ </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol"> in </span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">TModel</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">?: </span><a href="../classes/incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TModel</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> }</span></div>
+					<a name="activator" class="tsd-anchor"></a>
+					<h3>Activator</h3>
+					<div class="tsd-signature tsd-kind-icon">Activator&lt;TValue&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, control<span class="tsd-signature-symbol">: </span><a href="../classes/incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span>, role<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, active<span class="tsd-signature-symbol">: </span><a href="../interfaces/inrole.active.html" class="tsd-signature-type" data-tsd-kind="Interface">Active</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">SupplyPeer</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/18a711d/src/containers/group.control.ts#L93">frontmeans/input-aspects/src/containers/group.control.ts:93</a></li>
+							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/18a711d/src/aspects/role.aspect.ts#L79">frontmeans/input-aspects/src/aspects/role.aspect.ts:79</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Input group controls.</p>
+							<p>An activator signature of input control role.</p>
 						</div>
-						<p>This is a read-only object containing an input control per each model property under the same key.</p>
 					</div>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
 					<ul class="tsd-type-parameters">
 						<li>
-							<h4>TModel</h4>
+							<h4>TValue</h4>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Group model type, i.e. its value type.</p>
+									<p>Input value type.</p>
 								</div>
 							</div>
 						</li>
 					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-namespace tsd-has-type-parameter">
-					<a name="entry" class="tsd-anchor"></a>
-					<h3>Entry</h3>
-					<div class="tsd-signature tsd-kind-icon">Entry&lt;TModel, TKey&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">readonly </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TKey</span><span class="tsd-signature-symbol">, </span><a href="../classes/incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TModel</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">TKey</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/18a711d/src/containers/group.control.ts#L105">frontmeans/input-aspects/src/containers/group.control.ts:105</a></li>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, control<span class="tsd-signature-symbol">: </span><a href="../classes/incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span>, role<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, active<span class="tsd-signature-symbol">: </span><a href="../interfaces/inrole.active.html" class="tsd-signature-type" data-tsd-kind="Interface">Active</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SupplyPeer</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>this: <span class="tsd-signature-type">void</span></h5>
+											</li>
+											<li>
+												<h5>control: <a href="../classes/incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TValue</span><span class="tsd-signature-symbol">&gt;</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>A control the role is activate for.</p>
+												</div>
+											</li>
+											<li>
+												<h5>role: <span class="tsd-signature-type">string</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>Activated role name.</p>
+												</div>
+											</li>
+											<li>
+												<h5>active: <a href="../interfaces/inrole.active.html" class="tsd-signature-type" data-tsd-kind="Interface">Active</a></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>Active control role.</p>
+												</div>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">SupplyPeer</span></h4>
+										<p>Activation supply peer. Its supply will be cut off once the role deactivated or activator removed. It is
+										expected that this supply performs deactivation once cut off.</p>
+									</li>
+								</ul>
+							</li>
 						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Input controls group entry.</p>
-						</div>
-						<p>This is a tuple containing model key and corresponding control.</p>
 					</div>
-					<h4 class="tsd-type-parameters-title">Type parameters</h4>
-					<ul class="tsd-type-parameters">
-						<li>
-							<h4>TModel</h4>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Group model type, i.e. its value type.</p>
-								</div>
-							</div>
-						</li>
-						<li>
-							<h4>TKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">TModel</span> = <span class="tsd-signature-type">any</span></h4>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Model keys type.</p>
-								</div>
-							</div>
-						</li>
-					</ul>
 				</section>
 			</section>
 		</div>
@@ -184,7 +188,7 @@
 					<li class=" tsd-kind-namespace">
 						<a href="informelement.html">In<wbr>Form<wbr>Element</a>
 					</li>
-					<li class="current tsd-kind-namespace">
+					<li class=" tsd-kind-namespace">
 						<a href="ingroup.html">In<wbr>Group</a>
 					</li>
 					<li class=" tsd-kind-namespace">
@@ -205,7 +209,7 @@
 					<li class=" tsd-kind-namespace">
 						<a href="inradiogroup.html">In<wbr>Radio<wbr>Group</a>
 					</li>
-					<li class=" tsd-kind-namespace">
+					<li class="current tsd-kind-namespace">
 						<a href="inrole.html">In<wbr>Role</a>
 					</li>
 					<li class=" tsd-kind-namespace">
@@ -230,14 +234,11 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-namespace tsd-has-type-parameter">
-						<a href="../interfaces/ingroup.snapshot.html" class="tsd-kind-icon">Snapshot</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-namespace">
+						<a href="../interfaces/inrole.active.html" class="tsd-kind-icon">Active</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-namespace tsd-has-type-parameter">
-						<a href="ingroup.html#controls" class="tsd-kind-icon">Controls</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-namespace tsd-has-type-parameter">
-						<a href="ingroup.html#entry" class="tsd-kind-icon">Entry</a>
+						<a href="inrole.html#activator" class="tsd-kind-icon">Activator</a>
 					</li>
 				</ul>
 			</nav>
