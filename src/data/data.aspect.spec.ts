@@ -1,4 +1,5 @@
-import { noop, Supply } from '@proc7ts/primitives';
+import { noop } from '@proc7ts/primitives';
+import { Supply } from '@proc7ts/supply';
 import { InControl } from '../control';
 import { intoInteger } from '../conversion';
 import { inValue } from '../value.control';

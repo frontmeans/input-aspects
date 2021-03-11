@@ -1,5 +1,6 @@
 import { EventEmitter, OnEvent, trackValue, ValueTracker } from '@proc7ts/fun-events';
-import { arrayOfElements, asis, Supply } from '@proc7ts/primitives';
+import { arrayOfElements, asis, noop } from '@proc7ts/primitives';
+import { Supply } from '@proc7ts/supply';
 import { InAspect, InAspect__symbol } from './aspect';
 import { isAspectKey } from './aspect.impl';
 import { InControl$Aspects, InControl$Aspects__symbol, InControl$Impl } from './control.impl';
@@ -223,7 +224,7 @@ class InControl$SameValued<TValue> extends InControl<TValue> {
   }
 
   get supply(): Supply {
-    return this._supply || (this._supply = new Supply().needs(this._control));
+    return this._supply || (this._supply = new Supply(noop).needs(this._control));
   }
 
   get it(): TValue {

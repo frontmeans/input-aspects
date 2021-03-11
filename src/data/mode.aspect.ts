@@ -22,8 +22,9 @@ import {
   translateOn,
   ValueTracker,
 } from '@proc7ts/fun-events';
-import { Supply, valuesProvider } from '@proc7ts/primitives';
+import { valuesProvider } from '@proc7ts/primitives';
 import { itsElements, overElementsOf } from '@proc7ts/push-iterator';
+import { Supply } from '@proc7ts/supply';
 import { builtInAspect } from '../applied-aspect';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InParents } from '../containers';

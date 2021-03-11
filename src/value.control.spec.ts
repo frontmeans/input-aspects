@@ -1,6 +1,6 @@
 import { newNamespaceAliaser } from '@frontmeans/namespace-aliaser';
 import { newManualRenderScheduler } from '@frontmeans/render-scheduler';
-import { Supply } from '@proc7ts/primitives';
+import { Supply } from '@proc7ts/supply';
 import { InNamespaceAliaser, InRenderScheduler } from './aspects';
 import { InControl } from './control';
 import { inValue } from './value.control';

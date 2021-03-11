@@ -1,6 +1,7 @@
 import { DomEventDispatcher } from '@frontmeans/dom-events';
 import { AfterEvent, EventEmitter, mapAfter, OnEvent, translateOn } from '@proc7ts/fun-events';
-import { asis, Supply } from '@proc7ts/primitives';
+import { asis } from '@proc7ts/primitives';
+import { Supply } from '@proc7ts/supply';
 import { InConverter } from '../converter';
 import { InElement } from '../element.control';
 

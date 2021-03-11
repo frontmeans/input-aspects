@@ -8,7 +8,8 @@ import {
   trackValue,
   translateAfter_,
 } from '@proc7ts/fun-events';
-import { asis, noop, Supply, valuesProvider } from '@proc7ts/primitives';
+import { asis, noop, valuesProvider } from '@proc7ts/primitives';
+import { Supply } from '@proc7ts/supply';
 import { inGroup, InGroup } from '../containers';
 import { InControl } from '../control';
 import { inValue } from '../value.control';

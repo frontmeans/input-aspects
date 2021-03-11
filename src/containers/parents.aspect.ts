@@ -8,7 +8,7 @@ import {
   OnEvent,
   OnEvent__symbol,
 } from '@proc7ts/fun-events';
-import { Supply } from '@proc7ts/primitives';
+import { Supply } from '@proc7ts/supply';
 import { knownInAspect } from '../applied-aspect';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InControl } from '../control';

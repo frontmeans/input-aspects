@@ -1,5 +1,6 @@
 import { afterSupplied } from '@proc7ts/fun-events';
-import { asis, Supply } from '@proc7ts/primitives';
+import { asis, noop } from '@proc7ts/primitives';
+import { Supply } from '@proc7ts/supply';
 import { InControl } from '../control';
 import { InStyledElement } from '../elements/style';
 import { inValue } from '../value.control';
@@ -82,7 +83,7 @@ describe('InRole', () => {
     });
     it('deactivates once the role disabled', async () => {
 
-      const activationSupply = new Supply();
+      const activationSupply = new Supply(noop);
 
       role.when('test', () => activationSupply);
       role.add('test').off('reason');
@@ -92,7 +93,7 @@ describe('InRole', () => {
     });
     it('deactivates when activator removed', async () => {
 
-      const activationSupply = new Supply();
+      const activationSupply = new Supply(noop);
       const activatorSupply = role.when('test', () => activationSupply);
 
       role.add('test');
@@ -103,7 +104,7 @@ describe('InRole', () => {
     });
     it('deactivates when control destroyed', async () => {
 
-      const activationSupply = new Supply();
+      const activationSupply = new Supply(noop);
 
       role.when('test', () => activationSupply);
       role.add('test');

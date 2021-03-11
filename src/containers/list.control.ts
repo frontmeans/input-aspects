@@ -16,7 +16,7 @@ import {
   translateOn,
   ValueTracker,
 } from '@proc7ts/fun-events';
-import { isDefined, neverSupply, noop, Supply } from '@proc7ts/primitives';
+import { isDefined, noop } from '@proc7ts/primitives';
 import {
   iteratorOf,
   mapArray,
@@ -26,6 +26,7 @@ import {
   PushIterator,
   PushIterator__symbol,
 } from '@proc7ts/push-iterator';
+import { neverSupply, Supply } from '@proc7ts/supply';
 import { inconvertibleInAspect } from '../applied-aspect';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InControl } from '../control';

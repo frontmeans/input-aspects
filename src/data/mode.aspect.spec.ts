@@ -1,5 +1,5 @@
 import { afterSupplied, onceAfter, onSupplied, trackValue, ValueTracker } from '@proc7ts/fun-events';
-import { Supply } from '@proc7ts/primitives';
+import { Supply } from '@proc7ts/supply';
 import { inGroup, InGroup } from '../containers';
 import { intoInteger } from '../conversion';
 import { InElement } from '../element.control';

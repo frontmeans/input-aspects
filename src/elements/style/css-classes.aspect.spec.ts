@@ -6,7 +6,7 @@ import {
   setRenderScheduler,
 } from '@frontmeans/render-scheduler';
 import { afterSupplied, afterThe, onceAfter, trackValue, ValueTracker } from '@proc7ts/fun-events';
-import { Supply } from '@proc7ts/primitives';
+import { Supply } from '@proc7ts/supply';
 import { InControl } from '../../control';
 import { inValue } from '../../value.control';
 import { inText, InText } from '../text.control';
