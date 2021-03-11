@@ -1,5 +1,6 @@
 import { AfterEvent, AfterEvent__symbol, EventKeeper, mapAfter_, trackValue } from '@proc7ts/fun-events';
-import { noop, Supply, SupplyPeer } from '@proc7ts/primitives';
+import { noop } from '@proc7ts/primitives';
+import { Supply, SupplyPeer } from '@proc7ts/supply';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
 

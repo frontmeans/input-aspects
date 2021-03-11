@@ -17,8 +17,9 @@ import {
   supplyAfter,
   trackValue,
 } from '@proc7ts/fun-events';
-import { noop, Supply } from '@proc7ts/primitives';
+import { noop } from '@proc7ts/primitives';
 import { filterIt, itsEach, ObjectEntry, overEntries } from '@proc7ts/push-iterator';
+import { Supply } from '@proc7ts/supply';
 import { InAspect, InAspect__symbol } from '../../aspect';
 import { InNamespaceAliaser, InRenderScheduler } from '../../aspects';
 import { InControl } from '../../control';

@@ -1,5 +1,5 @@
 import { newNamespaceAliaser } from '@frontmeans/namespace-aliaser';
-import { Supply } from '@proc7ts/primitives';
+import { Supply } from '@proc7ts/supply';
 import { knownInAspect } from '../applied-aspect';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InNamespaceAliaser } from '../aspects';

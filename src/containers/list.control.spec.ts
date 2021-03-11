@@ -1,6 +1,6 @@
 import { newManualRenderScheduler } from '@frontmeans/render-scheduler';
 import { onceAfter } from '@proc7ts/fun-events';
-import { Supply } from '@proc7ts/primitives';
+import { Supply } from '@proc7ts/supply';
 import { InAspect__symbol } from '../aspect';
 import { InRenderScheduler } from '../aspects';
 import { InControl } from '../control';

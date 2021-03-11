@@ -1,5 +1,6 @@
 import { OnEvent, trackValue, ValueTracker } from '@proc7ts/fun-events';
-import { noop, Supply } from '@proc7ts/primitives';
+import { noop } from '@proc7ts/primitives';
+import { Supply } from '@proc7ts/supply';
 import { builtInAspect } from '../../applied-aspect';
 import { InAspect, InAspect__symbol } from '../../aspect';
 import { InControl } from '../../control';

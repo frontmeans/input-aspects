@@ -1,6 +1,6 @@
 import { afterAll, AfterEvent, mapAfter, OnEvent, trackValue, ValueTracker } from '@proc7ts/fun-events';
-import { Supply } from '@proc7ts/primitives';
 import { itsEach, itsEvery, overEntries } from '@proc7ts/push-iterator';
+import { Supply } from '@proc7ts/supply';
 import { InControl } from '../control';
 import { InConverter } from '../converter';
 

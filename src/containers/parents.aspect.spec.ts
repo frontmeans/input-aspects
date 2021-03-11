@@ -1,5 +1,6 @@
 import { afterSupplied, onSupplied } from '@proc7ts/fun-events';
-import { Supply } from '@proc7ts/primitives';
+import { noop } from '@proc7ts/primitives';
+import { Supply } from '@proc7ts/supply';
 import { InControl } from '../control';
 import { inValue } from '../value.control';
 import { InContainer } from './container.control';
@@ -31,6 +32,10 @@ describe('InParents', () => {
       allParents = entries;
     }));
     readParents.mockClear();
+  });
+
+  afterEach(() => {
+    Supply.onUnexpectedAbort();
   });
 
   it('reports all parents on receiver registration', () => {
@@ -107,6 +112,7 @@ describe('InParents', () => {
       expect(whenOff).toHaveBeenCalledWith(reason);
     });
     it('rejects parent when parent input is cut off', () => {
+      Supply.onUnexpectedAbort(noop);
 
       const reason = 'test';
       const parent2 = inGroup({});

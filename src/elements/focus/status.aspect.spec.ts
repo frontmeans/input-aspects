@@ -1,5 +1,5 @@
 import { afterSupplied } from '@proc7ts/fun-events';
-import { Supply } from '@proc7ts/primitives';
+import { Supply } from '@proc7ts/supply';
 import { InGroup, inGroup } from '../../containers';
 import { intoInteger } from '../../conversion';
 import { InElement } from '../../element.control';

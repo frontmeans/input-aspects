@@ -8,8 +8,9 @@ import {
   shareAfter,
   supplyAfter,
 } from '@proc7ts/fun-events';
-import { noop, Supply, valuesProvider } from '@proc7ts/primitives';
+import { noop, valuesProvider } from '@proc7ts/primitives';
 import { flatMapIt, itsEach } from '@proc7ts/push-iterator';
+import { Supply } from '@proc7ts/supply';
 import { InControl } from '../control';
 import { InValidation } from './validation.aspect';
 import { inValidator, InValidator } from './validator';
