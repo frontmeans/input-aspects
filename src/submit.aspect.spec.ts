@@ -166,7 +166,9 @@ describe('InSubmit', () => {
       await submit.submit(submitter)
           .then(result => Promise.reject('Result returned: ' + result))
           .catch((err: InSubmitRejectedError) => {
+            // eslint-disable-next-line jest/no-conditional-expect
             expect(err).toBeInstanceOf(InSubmitRejectedError);
+            // eslint-disable-next-line jest/no-conditional-expect
             expect([...err.errors.messages('submit')]).toEqual([
               {
                 submit: 'rejected',
