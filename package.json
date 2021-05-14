@@ -36,7 +36,7 @@
     "@frontmeans/dom-events": "^1.1.0",
     "@frontmeans/render-scheduler": "^1.6.0",
     "@proc7ts/delta-set": "^1.4.2",
-    "@proc7ts/primitives": "^2.0.0",
+    "@proc7ts/primitives": "^2.1.0",
     "@proc7ts/push-iterator": "^2.5.0",
     "@proc7ts/supply": "^1.0.0"
   },
