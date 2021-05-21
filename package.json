@@ -5,10 +5,8 @@
   "keywords": [
     "form-validation",
     "forms",
-    "input-validation",
     "input",
-    "library",
-    "typescript"
+    "input-validation"
   ],
   "homepage": "https://github.com/frontmeans/input-aspects",
   "repository": {
