@@ -1,10 +1,11 @@
 import { newNamespaceAliaser } from '@frontmeans/namespace-aliaser';
 import { newManualRenderScheduler } from '@frontmeans/render-scheduler';
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { Supply } from '@proc7ts/supply';
+import { Mock } from 'jest-mock';
 import { InNamespaceAliaser, InRenderScheduler } from './aspects';
 import { InControl } from './control';
 import { inValue } from './value.control';
-import Mock = jest.Mock;
 
 describe('InValue', () => {
 
@@ -45,7 +46,7 @@ describe('InValue', () => {
 
   describe('read', () => {
 
-    let receiver: Mock;
+    let receiver: Mock<void, [string]>;
     let supply: Supply;
 
     beforeEach(() => {
@@ -74,7 +75,7 @@ describe('InValue', () => {
 
   describe('on', () => {
 
-    let receiver: Mock;
+    let receiver: Mock<void, [string]>;
     let supply: Supply;
 
     beforeEach(() => {

@@ -1,12 +1,13 @@
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { afterSupplied, EventEmitter } from '@proc7ts/fun-events';
 import { valuesProvider } from '@proc7ts/primitives';
+import { Mock } from 'jest-mock';
 import { InControl } from '../control';
 import { inValue } from '../value.control';
 import { requireAll } from './require-all.validator';
 import { requireNothing } from './require-nothing.validator';
 import { InValidation } from './validation.aspect';
 import { InValidator } from './validator';
-import Mock = jest.Mock;
 
 describe('validIfAll', () => {
 
@@ -32,7 +33,7 @@ describe('validIfAll', () => {
     validation.by(all);
   });
 
-  let receiver: Mock;
+  let receiver: Mock<void, [InValidation.Result]>;
 
   beforeEach(() => {
     receiver = jest.fn();

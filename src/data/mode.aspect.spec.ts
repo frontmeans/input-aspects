@@ -1,11 +1,12 @@
+import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { afterSupplied, onceAfter, onSupplied, trackValue, ValueTracker } from '@proc7ts/fun-events';
 import { Supply } from '@proc7ts/supply';
+import { Mock } from 'jest-mock';
 import { inGroup, InGroup } from '../containers';
 import { intoInteger } from '../conversion';
 import { InElement } from '../element.control';
 import { inText } from '../elements';
 import { InMode } from './mode.aspect';
-import Mock = jest.Mock;
 
 describe('InMode', () => {
 
@@ -55,13 +56,13 @@ describe('InMode', () => {
 
   describe('[OnEvent__symbol]', () => {
     it('is the same as `on`', () => {
-      expect(onSupplied(mode)).toBe(mode.on);
+      void expect(onSupplied(mode)).toBe(mode.on);
     });
   });
 
   describe('[AfterEvent__symbol]', () => {
     it('is the same as `read`', () => {
-      expect(afterSupplied(mode)).toBe(mode.read);
+      void expect(afterSupplied(mode)).toBe(mode.read);
     });
   });
 

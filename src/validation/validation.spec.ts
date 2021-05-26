@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import {
   afterSupplied,
   EventEmitter,
@@ -10,12 +11,12 @@ import {
 } from '@proc7ts/fun-events';
 import { asis, noop, valuesProvider } from '@proc7ts/primitives';
 import { Supply } from '@proc7ts/supply';
+import { Mock } from 'jest-mock';
 import { inGroup, InGroup } from '../containers';
 import { InControl } from '../control';
 import { inValue } from '../value.control';
 import { InValidation } from './validation.aspect';
 import { InValidator } from './validator';
-import Mock = jest.Mock;
 
 describe('InValidation', () => {
 
@@ -239,9 +240,11 @@ describe('InValidation', () => {
   it('stops validation when supply is cut off', () => {
 
     const validator2 = new EventEmitter<InValidation.Message[]>();
-    const proxy = jest.fn(asis);
+    const proxy = jest.fn<InValidation.Message, [InValidation.Message]>(asis);
     const supply = validation.by(
-        validator2.on.do(mapAfter(proxy, valuesProvider())),
+        validator2.on.do(
+            mapAfter(proxy, valuesProvider()),
+        ),
     );
     const message1 = { message: 'message1' };
 
@@ -299,7 +302,7 @@ describe('InValidation', () => {
 
   describe('AfterEvent__symbol', () => {
     it('is an alias of `read`', () => {
-      expect(afterSupplied(validation)).toBe(validation.read);
+      void expect(afterSupplied(validation)).toBe(validation.read);
     });
   });
 
@@ -351,7 +354,7 @@ describe('InValidation', () => {
       it('receives validation messages from both origins', () => {
 
         const dcValidation = convertedControl.convert<number>({ get: asis, set: asis }).aspect(InValidation);
-        const dcReceiver = jest.fn();
+        const dcReceiver = jest.fn<void, [InValidation.Result]>();
 
         dcValidation.read(dcReceiver);
 

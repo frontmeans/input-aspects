@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { onceAfter } from '@proc7ts/fun-events';
 import { noop } from '@proc7ts/primitives';
 import { InAspect__symbol } from './aspect';
@@ -5,7 +6,6 @@ import { InControl } from './control';
 import { InConverter, intoConvertedBy, isInAspectConversion } from './converter';
 import { InData, InMode } from './data';
 import { inValue } from './value.control';
-import Mocked = jest.Mocked;
 
 describe('intoConverterBy', () => {
 
@@ -37,8 +37,8 @@ describe('intoConverterBy', () => {
   });
   it('returns aspect conversion factory for aspect converters', () => {
 
-    const converter1: Mocked<InConverter.Aspect<string, string>> = { applyAspect: jest.fn() };
-    const converter2: Mocked<InConverter.Aspect<string, string>> = { applyAspect: jest.fn() };
+    const converter1: InConverter.Aspect<string, string> = { applyAspect: jest.fn() };
+    const converter2: InConverter.Aspect<string, string> = { applyAspect: jest.fn() };
 
     const factory = intoConvertedBy<string>(converter1, converter2);
     const conversion: InConverter.Aspect.Conversion<string> = factory(control, inValue('bar'));

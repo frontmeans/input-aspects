@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it } from '@jest/globals';
 import { afterThe, onceOn } from '@proc7ts/fun-events';
 import { inValue } from '../value.control';
 import { requireNeeded } from './require-needed.validator';

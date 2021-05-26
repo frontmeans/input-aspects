@@ -1,9 +1,10 @@
 import { newNamespaceAliaser } from '@frontmeans/namespace-aliaser';
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { Supply } from '@proc7ts/supply';
+import { Mock } from 'jest-mock';
 import { InNamespaceAliaser } from '../aspects';
 import { inRadioGroup, InRadioGroup } from './radio-group.control';
 import { inRadio, InRadio } from './radio.control';
-import Mock = jest.Mock;
 
 describe('InRadioGroup', () => {
 

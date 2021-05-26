@@ -1,13 +1,14 @@
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { afterSupplied } from '@proc7ts/fun-events';
 import { noop } from '@proc7ts/primitives';
 import { Supply } from '@proc7ts/supply';
+import { Mock } from 'jest-mock';
 import { InControl } from './control';
 import { intoInteger } from './conversion';
 import { InMode } from './data';
 import { InSubmit, InSubmitError, InSubmitRejectedError } from './submit.aspect';
 import { InValidation } from './validation';
 import { inValue } from './value.control';
-import Mock = jest.Mock;
 
 describe('InSubmit', () => {
 
@@ -54,7 +55,7 @@ describe('InSubmit', () => {
 
   describe('[AfterEvent__symbol]', () => {
     it('is the same as `read`', () => {
-      expect(afterSupplied(submit)).toBe(submit.read);
+      void expect(afterSupplied(submit)).toBe(submit.read);
     });
   });
 
