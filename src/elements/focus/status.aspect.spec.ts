@@ -1,3 +1,4 @@
+import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { afterSupplied } from '@proc7ts/fun-events';
 import { Supply } from '@proc7ts/supply';
 import { InGroup, inGroup } from '../../containers';
@@ -230,7 +231,7 @@ describe('InStatus', () => {
 
   describe('[AfterEvent__symbol]', () => {
     it('is an alias of `read`', () => {
-      expect(afterSupplied(status)).toBe(status.read);
+      void expect(afterSupplied(status)).toBe(status.read);
     });
   });
 

@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { noop } from '@proc7ts/primitives';
 import { Supply } from '@proc7ts/supply';
 import { InControl } from '../control';
@@ -44,13 +45,13 @@ describe('InData', () => {
 
     const converted = control.convert();
 
-    expect(converted.aspect(InData)).toBe(data);
+    void expect(converted.aspect(InData)).toBe(data);
   });
   it('is not reused by converted control with another value', () => {
 
     const converted = control.convert(intoInteger);
 
-    expect(converted.aspect(InData)).not.toBe(data);
+    void expect(converted.aspect(InData)).not.toBe(data);
   });
 
   describe('input cut off', () => {

@@ -1,6 +1,8 @@
 import { newManualRenderScheduler } from '@frontmeans/render-scheduler';
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { onceAfter } from '@proc7ts/fun-events';
 import { Supply } from '@proc7ts/supply';
+import { Mock } from 'jest-mock';
 import { InAspect__symbol } from '../aspect';
 import { InRenderScheduler } from '../aspects';
 import { InControl } from '../control';
@@ -10,7 +12,6 @@ import { InContainer } from './container.control';
 import { InGroup } from './group.control';
 import { inList, InList } from './list.control';
 import { InParents } from './parents.aspect';
-import Mock = jest.Mock;
 
 describe('InList', () => {
 

@@ -1,6 +1,7 @@
 /* eslint-disable jest/expect-expect */
 import { css__naming, QualifiedName } from '@frontmeans/namespace-aliaser';
 import { immediateRenderScheduler, setRenderScheduler } from '@frontmeans/render-scheduler';
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals';
 import { afterThe } from '@proc7ts/fun-events';
 import { itsElements, overArray } from '@proc7ts/push-iterator';
 import { Supply } from '@proc7ts/supply';

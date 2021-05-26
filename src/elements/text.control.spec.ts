@@ -1,5 +1,7 @@
 import { newNamespaceAliaser } from '@frontmeans/namespace-aliaser';
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { Supply } from '@proc7ts/supply';
+import { Mock } from 'jest-mock';
 import { knownInAspect } from '../applied-aspect';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InNamespaceAliaser } from '../aspects';
@@ -7,7 +9,6 @@ import { intoInteger } from '../conversion';
 import { InElement } from '../element.control';
 import { inValue } from '../value.control';
 import { InText, inText } from './text.control';
-import Mock = jest.Mock;
 
 describe('InText', () => {
 
@@ -87,9 +88,9 @@ describe('InText', () => {
 
   describe('input', () => {
 
-    let changesReceiver: Mock;
+    let changesReceiver: Mock<void, [string, string]>;
     let changesSupply: Supply;
-    let inputReceiver: Mock;
+    let inputReceiver: Mock<void, [InElement.Input<string>]>;
     let inputSupply: Supply;
 
     beforeEach(() => {

@@ -1,12 +1,13 @@
+import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { afterSupplied, onSupplied } from '@proc7ts/fun-events';
 import { noop } from '@proc7ts/primitives';
 import { Supply } from '@proc7ts/supply';
+import { Mock } from 'jest-mock';
 import { InControl } from '../control';
 import { inValue } from '../value.control';
 import { InContainer } from './container.control';
 import { inGroup } from './group.control';
 import { InParents } from './parents.aspect';
-import Mock = jest.Mock;
 
 describe('InParents', () => {
 
@@ -44,13 +45,13 @@ describe('InParents', () => {
 
   describe('[OnEvent__symbol]', () => {
     it('is the same as `on`', () => {
-      expect(onSupplied(parents)).toBe(parents.on);
+      void expect(onSupplied(parents)).toBe(parents.on);
     });
   });
 
   describe('[AfterEvent__symbol]', () => {
     it('is the same as `read`', () => {
-      expect(afterSupplied(parents)).toBe(parents.read);
+      void expect(afterSupplied(parents)).toBe(parents.read);
     });
   });
 

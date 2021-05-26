@@ -1,5 +1,6 @@
 import { NamespaceDef, newNamespaceAliaser } from '@frontmeans/namespace-aliaser';
 import { immediateRenderScheduler, setRenderScheduler } from '@frontmeans/render-scheduler';
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals';
 import { afterThe } from '@proc7ts/fun-events';
 import { InNamespaceAliaser, InputAspects__NS } from '../../aspects';
 import { InControl } from '../../control';

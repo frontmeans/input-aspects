@@ -1,5 +1,7 @@
 import { newManualRenderScheduler } from '@frontmeans/render-scheduler';
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { afterSupplied, onceAfter, onSupplied } from '@proc7ts/fun-events';
+import { Mock } from 'jest-mock';
 import { InAspect__symbol } from '../aspect';
 import { InRenderScheduler } from '../aspects';
 import { InControl } from '../control';
@@ -11,7 +13,6 @@ import { InContainer } from './container.control';
 import { inGroup, InGroup } from './group.control';
 import { InList } from './list.control';
 import { InParents } from './parents.aspect';
-import Mock = jest.Mock;
 
 describe('InGroup', () => {
 
@@ -228,13 +229,13 @@ describe('InGroup', () => {
 
     describe('[OnEvent__symbol]', () => {
       it('is the same as `on`', () => {
-        expect(onSupplied(group.controls)).toBe(group.controls.on);
+        void expect(onSupplied(group.controls)).toBe(group.controls.on);
       });
     });
 
     describe('[AfterEvent__symbol]', () => {
       it('is the same as `read`', () => {
-        expect(afterSupplied(group.controls)).toBe(group.controls.read);
+        void expect(afterSupplied(group.controls)).toBe(group.controls.read);
       });
     });
   });

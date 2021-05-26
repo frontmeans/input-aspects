@@ -5,13 +5,14 @@ import {
   RenderSchedule,
   setRenderScheduler,
 } from '@frontmeans/render-scheduler';
+import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { afterSupplied, afterThe, onceAfter, trackValue, ValueTracker } from '@proc7ts/fun-events';
 import { Supply } from '@proc7ts/supply';
+import { Mock } from 'jest-mock';
 import { InControl } from '../../control';
 import { inValue } from '../../value.control';
 import { inText, InText } from '../text.control';
 import { InCssClasses } from './css-classes.aspect';
-import Mock = jest.Mock;
 
 describe('InCssClasses', () => {
   beforeEach(() => {
@@ -39,7 +40,7 @@ describe('InCssClasses', () => {
 
   describe('[AfterEvent__symbol]', () => {
     it('is the same as `read`', () => {
-      expect(afterSupplied(cssClasses)).toBe(cssClasses.read);
+      void expect(afterSupplied(cssClasses)).toBe(cssClasses.read);
     });
   });
 
@@ -140,7 +141,7 @@ describe('InCssClasses', () => {
 
     let source: ValueTracker<InCssClasses.Map>;
     let sourceSupply: Supply;
-    let mockReceiver: Mock<void, [string[], string[]]>;
+    let mockReceiver: Mock<void, [readonly string[], readonly string[]]>;
 
     beforeEach(() => {
       source = trackValue({ class1: true });

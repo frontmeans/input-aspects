@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { noop } from '@proc7ts/primitives';
 import { knownInAspect, nullInAspect } from './applied-aspect';
 import { InAspect, InAspect__symbol } from './aspect';

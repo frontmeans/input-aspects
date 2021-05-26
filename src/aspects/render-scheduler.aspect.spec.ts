@@ -1,4 +1,5 @@
 import { newManualRenderScheduler, newRenderSchedule } from '@frontmeans/render-scheduler';
+import { beforeEach, describe, expect, it } from '@jest/globals';
 import { InContainer } from '../containers';
 import { InControl } from '../control';
 import { InElement } from '../element.control';

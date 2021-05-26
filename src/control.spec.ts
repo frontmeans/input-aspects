@@ -1,11 +1,12 @@
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { Supply } from '@proc7ts/supply';
+import { Mock } from 'jest-mock';
 import { knownInAspect } from './applied-aspect';
 import { InAspect, InAspect__symbol } from './aspect';
 import { InControl, inValueOf } from './control';
 import { InConverter } from './converter';
 import { InData } from './data';
 import { inValue } from './value.control';
-import Mock = jest.Mock;
 
 describe('InControl', () => {
 
@@ -141,26 +142,26 @@ describe('InControl', () => {
       );
 
       converted = control.convert({ set, get, applyAspect });
-      expect(converted.aspect(InData)).toBe(instance);
+      void expect(converted.aspect(InData)).toBe(instance);
       expect(applyAspect).toHaveBeenCalledWith(InData[InAspect__symbol]);
     });
     it('converts aspect with default algorithm if `applyAspect` omitted', () => {
       converted = control.convert({ set, get });
-      expect(converted.aspect(InData)).toBeDefined();
+      void expect(converted.aspect(InData)).toBeDefined();
     });
     it('converts aspect with default algorithm if `applyAspect` returns nothing', () => {
 
-      const applyAspect = jest.fn();
+      const applyAspect = jest.fn<any, any[]>();
 
       converted = control.convert({ set, get, applyAspect });
-      expect(converted.aspect(InData)).toBeDefined();
+      void expect(converted.aspect(InData)).toBeDefined();
       expect(applyAspect).toHaveBeenCalledWith(InData[InAspect__symbol]);
     });
 
     describe('on', () => {
 
-      let receiver: Mock;
-      let convertedReceiver: Mock;
+      let receiver: Mock<void, [string]>;
+      let convertedReceiver: Mock<void, [number, number]>;
       let convertedSupply: Supply;
 
       beforeEach(() => {

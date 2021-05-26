@@ -1,4 +1,5 @@
 import { newNamespaceAliaser } from '@frontmeans/namespace-aliaser';
+import { beforeEach, describe, expect, it } from '@jest/globals';
 import { InControl } from '../control';
 import { InElement } from '../element.control';
 import { inText, InText } from '../elements';
