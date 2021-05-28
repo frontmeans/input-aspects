@@ -1,6 +1,6 @@
 {
   "name": "@frontmeans/input-aspects",
-  "version": "4.3.0",
+  "version": "4.4.0",
   "description": "Controls various aspects of user input. Such as value conversion, form validation, etc.",
   "keywords": [
     "form-validation",
