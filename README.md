@@ -3,6 +3,8 @@ HTML Input Aspects
 
 [![NPM][npm-image]][npm-url]
 [![Build Status][build-status-img]][build-status-link]
+[![Code Quality][quality-img]][quality-link]
+[![Coverage][coverage-img]][coverage-link]
 [![GitHub Project][github-image]][github-url]
 [![API Documentation][api-docs-image]][api-docs-url]
 
@@ -12,6 +14,10 @@ Framework-agnostic library controlling various aspects of user input. Such as va
 [npm-url]: https://www.npmjs.com/package/@frontmeans/input-aspects
 [build-status-img]: https://github.com/frontmeans/input-aspects/workflows/Build/badge.svg
 [build-status-link]: https://github.com/frontmeans/input-aspects/actions?query=workflow%3ABuild
+[quality-img]: https://app.codacy.com/project/badge/Grade/7f7fdb9fbd04429a8f8ce28241587e87
+[quality-link]: https://www.codacy.com/gh/frontmeans/input-aspects/dashboard?utm_source=github.com&utm_medium=referral&utm_content=frontmeans/input-aspects&utm_campaign=Badge_Grade
+[coverage-img]: https://app.codacy.com/project/badge/Coverage/7f7fdb9fbd04429a8f8ce28241587e87
+[coverage-link]: https://www.codacy.com/gh/frontmeans/input-aspects/dashboard?utm_source=github.com&utm_medium=referral&utm_content=frontmeans/input-aspects&utm_campaign=Badge_Coverage
 [github-image]: https://img.shields.io/static/v1?logo=github&label=GitHub&message=project&color=informational
 [github-url]: https://github.com/frontmeans/input-aspects
 [api-docs-image]: https://img.shields.io/static/v1?logo=typescript&label=API&message=docs&color=informational
