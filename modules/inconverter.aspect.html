@@ -95,32 +95,21 @@
 					<div class="tsd-signature tsd-kind-icon">Factory&lt;TFrom, TTo&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span>, from<span class="tsd-signature-symbol">: </span><a href="../classes/incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TFrom</span><span class="tsd-signature-symbol">&gt;</span>, to<span class="tsd-signature-symbol">: </span><a href="../classes/incontrol.html" class="tsd-signature-type" data-tsd-kind="Class">InControl</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TTo</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="../interfaces/inconverter.aspect.conversion.html" class="tsd-signature-type" data-tsd-kind="Interface">Conversion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TTo</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/7d2a337/src/converter.ts#L162">frontmeans/input-aspects/src/converter.ts:162</a></li>
+							<li>Defined in <a href="https://github.com/frontmeans/input-aspects/blob/94fe553/src/converter.ts#L162">frontmeans/input-aspects/src/converter.ts:162</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Input control aspect conversion factory signature.</p>
-						</div>
-						<p>Called by <a href="../classes/incontrol.html#convert">InControl.convert</a> to construct an <a href="../interfaces/inconverter.aspect.conversion.html">control aspect conversion</a>.</p>
-						<p>Should not access converted control value as the one does not exist at calling time.</p>
-					</div>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
 					<ul class="tsd-type-parameters">
 						<li>
 							<h4>TFrom</h4>
 							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Original input value type.</p>
-								</div>
+								<p>Original input value type.</p>
 							</div>
 						</li>
 						<li>
 							<h4>TTo = <span class="tsd-signature-type">TFrom</span></h4>
 							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Converted input value type.</p>
-								</div>
+								<p>Converted input value type.</p>
 							</div>
 						</li>
 					</ul>
@@ -133,6 +122,13 @@
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>Input control aspect conversion factory signature.</p>
+											</div>
+											<p>Called by <a href="../classes/incontrol.html#convert">InControl.convert</a> to construct an <a href="../interfaces/inconverter.aspect.conversion.html">control aspect conversion</a>.</p>
+											<p>Should not access converted control value as the one does not exist at calling time.</p>
+										</div>
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
