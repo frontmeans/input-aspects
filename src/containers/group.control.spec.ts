@@ -142,7 +142,7 @@ describe('InGroup', () => {
         const whenOff = jest.fn();
 
         supply.whenOff(whenOff);
-        expect(whenOff).toHaveBeenCalledWith();
+        expect(whenOff).toHaveBeenCalledWith(undefined);
       });
       it('replaces control with itself', () => {
 
