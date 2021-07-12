@@ -27,8 +27,8 @@
   },
   "dependencies": {
     "@frontmeans/dom-events": "^1.2.0",
-    "@frontmeans/namespace-aliaser": "^2.6.1",
-    "@frontmeans/render-scheduler": "^1.8.0",
+    "@frontmeans/namespace-aliaser": "^2.6.2",
+    "@frontmeans/render-scheduler": "^1.8.1",
     "@proc7ts/delta-set": "^1.5.0",
     "@proc7ts/primitives": "^3.0.2",
     "@proc7ts/push-iterator": "^2.6.0",
