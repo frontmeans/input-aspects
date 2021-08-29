@@ -13,7 +13,7 @@ class InValueControl<TValue> extends InControl<TValue> {
   constructor(
       initial: TValue,
       opts: {
-        readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[];
+        readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[] | undefined;
       },
   ) {
     super(opts);
@@ -55,7 +55,7 @@ export function inValue<TValue>(
     {
       aspects,
     }: {
-      readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[];
+      readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[] | undefined;
     } = {},
 ): InControl<TValue> {
   return new InValueControl(initial, { aspects });

@@ -36,7 +36,7 @@ export namespace InRadioGroup {
      *
      * These are aspect converters to constructed control from the {@link inValueOf same-valued one}.
      */
-    readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[];
+    readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[] | undefined;
 
   }
 
@@ -52,7 +52,7 @@ export namespace InRadioGroup {
    */
   export type Buttons<TValue extends string | undefined> = {
 
-    readonly [value in Exclude<TValue, undefined>]?: InControl<true | undefined>;
+    readonly [value in Exclude<TValue, undefined>]?: InControl<true | undefined> | undefined;
 
   };
 
@@ -173,7 +173,7 @@ export function inRadioGroup<TValue extends string>(
     {
       aspects,
     }: {
-      readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[];
+      readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[] | undefined;
     },
 ): InRadioGroup<TValue | undefined>;
 

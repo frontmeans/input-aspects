@@ -39,7 +39,7 @@ export class AbstractInElement<TValue, TElt extends HTMLElement> extends InEleme
         get,
         set,
       }: {
-        readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[];
+        readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[] | undefined;
         readonly get: (this: AbstractInElement<TValue, TElt>) => TValue;
         readonly set: (this: AbstractInElement<TValue, TElt>, value: TValue) => void;
       },

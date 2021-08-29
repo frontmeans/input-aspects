@@ -41,7 +41,7 @@ export namespace InSubmitButton {
      * Additional input aspects to apply. These are aspect converters to constructed control  from the
      * {@link inValueOf same-valued one}.
      */
-    readonly aspects?: InConverter.Aspect<void> | readonly InConverter.Aspect<void>[];
+    readonly aspects?: InConverter.Aspect<void> | readonly InConverter.Aspect<void>[] | undefined;
 
     /**
      * Input modes to derive from submitted control.
@@ -53,17 +53,17 @@ export namespace InSubmitButton {
       /**
        * Input mode to set when submit is not ready. E.g. when input is invalid. `on` (enabled) by default.
        */
-      readonly notReady?: InMode.Value;
+      readonly notReady?: InMode.Value | undefined;
 
       /**
        * Input mode to set when submit is not ready _and_ the form is submitted. `off` (disable) by default.
        */
-      readonly invalid?: InMode.Value;
+      readonly invalid?: InMode.Value | undefined;
 
       /**
        * Input mode to set while submitting. `off` (disabled) by default.
        */
-      readonly busy?: InMode.Value;
+      readonly busy?: InMode.Value | undefined;
 
     };
 

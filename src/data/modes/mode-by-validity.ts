@@ -20,8 +20,8 @@ export function inModeByValidity(
       invalid = '-on',
       ignore = 'submit',
     }: {
-      invalid?: InMode.Value;
-      ignore?: string | string[];
+      invalid?: InMode.Value | undefined;
+      ignore?: string | string[] | undefined;
     } = {},
 ): InMode.Source {
   return control => control.aspect(InValidation).read.do(mapAfter(

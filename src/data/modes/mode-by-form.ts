@@ -27,9 +27,9 @@ export function inModeByForm(
       invalid = 'on',
       busy = 'ro',
     }: {
-      notReady?: InMode.Value;
-      invalid?: InMode.Value;
-      busy?: InMode.Value;
+      notReady?: InMode.Value | undefined;
+      invalid?: InMode.Value | undefined;
+      busy?: InMode.Value | undefined;
     } = {},
 ): InMode.Source {
 

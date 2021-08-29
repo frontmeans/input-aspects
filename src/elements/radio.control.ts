@@ -38,7 +38,10 @@ export namespace InRadio {
      *
      * These are aspect converters to constructed control from the {@link inValueOf same-valued one}.
      */
-    readonly aspects?: InConverter.Aspect<TValue | undefined> | readonly InConverter.Aspect<TValue | undefined>[];
+    readonly aspects?:
+        | InConverter.Aspect<TValue | undefined>
+        | readonly InConverter.Aspect<TValue | undefined>[]
+        | undefined;
 
   }
 
@@ -126,7 +129,10 @@ export function inRadio(
     {
       aspects,
     }: {
-      readonly aspects?: InConverter.Aspect<boolean | undefined> | readonly InConverter.Aspect<boolean | undefined>[];
+      readonly aspects?:
+          | InConverter.Aspect<boolean | undefined>
+          | readonly InConverter.Aspect<boolean | undefined>[]
+          | undefined;
     },
 ): InRadio;
 

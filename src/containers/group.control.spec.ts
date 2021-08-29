@@ -18,8 +18,8 @@ describe('InGroup', () => {
 
   interface TestModel {
     ctrl1: string;
-    ctrl2?: string;
-    ctrl3?: number;
+    ctrl2?: string | undefined;
+    ctrl3?: number | undefined;
   }
 
   let ctrl1: InControl<string>;

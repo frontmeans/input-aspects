@@ -79,7 +79,7 @@ export namespace InElement {
      *
      * The value has been applied programmatically if missing.
      */
-    event?: Event;
+    event?: Event | undefined;
 
   }
 

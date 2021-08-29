@@ -268,7 +268,7 @@ class InListEntries<TItem> {
 
   readonly _supply = new Supply();
   _entries: InListEntry<TItem>[];
-  private _shot?: InListSnapshot<TItem>;
+  private _shot?: InListSnapshot<TItem> | undefined;
 
   constructor(
       readonly _controls: InListControlControls<TItem>,
@@ -510,7 +510,10 @@ class InListControl<TItem> extends InList<TItem> {
   constructor(
       model: readonly TItem[],
       opts: {
-        readonly aspects?: InConverter.Aspect<readonly TItem[]> | readonly InConverter.Aspect<readonly TItem[]>[];
+        readonly aspects?:
+            | InConverter.Aspect<readonly TItem[]>
+            | readonly InConverter.Aspect<readonly TItem[]>[]
+            | undefined;
       },
   ) {
     super(opts);
@@ -600,7 +603,10 @@ export function inList<TItem>(
     {
       aspects,
     }: {
-      readonly aspects?: InConverter.Aspect<readonly TItem[]> | readonly InConverter.Aspect<readonly TItem[]>[];
+      readonly aspects?:
+          | InConverter.Aspect<readonly TItem[]>
+          | readonly InConverter.Aspect<readonly TItem[]>[]
+          | undefined;
     } = {},
 ): InList<TItem> {
   return new InListControl(model, { aspects });

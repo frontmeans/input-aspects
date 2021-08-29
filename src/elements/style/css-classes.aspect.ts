@@ -115,7 +115,7 @@ export abstract class InCssClasses implements EventKeeper<[InCssClasses.Map]> {
    *
    * @returns `this` instance.
    */
-  abstract done(reason?: any): this;
+  abstract done(reason?: unknown): this;
 
 }
 
@@ -154,7 +154,7 @@ export namespace InCssClasses {
    * - The `undefined` value is ignored.
    */
   export type Map = {
-    readonly [name in string]?: boolean;
+    readonly [name in string]?: boolean | undefined;
   };
 
 }
@@ -168,7 +168,7 @@ const UnsubscribeReason__symbol = (/*#__PURE__*/ Symbol('reason'));
  * @internal
  */
 interface UnsubscribeReason {
-  readonly [UnsubscribeReason__symbol]?: any;
+  readonly [UnsubscribeReason__symbol]?: unknown | undefined;
 }
 
 /**
@@ -186,7 +186,7 @@ class InControlCssClasses extends InCssClasses {
   readonly read: AfterEvent<[InCssClasses.Map]>;
   readonly track: AfterEvent<[readonly string[], readonly string[]]>;
   private readonly _sources = trackValue<[Map<AfterEvent<[InCssClasses.Map]>, Supply>]>([new Map()]);
-  private _schedule?: RenderSchedule;
+  private _schedule?: RenderSchedule | undefined;
 
   constructor(private readonly _control: InControl<any>) {
     super();

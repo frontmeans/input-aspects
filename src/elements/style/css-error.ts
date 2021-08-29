@@ -1,5 +1,5 @@
 import { translateAfter } from '@proc7ts/fun-events';
-import { arrayOfElements } from '@proc7ts/primitives';
+import { arrayOfElements, isArrayOfElements } from '@proc7ts/primitives';
 import { InputAspects__NS } from '../../aspects';
 import { InValidation } from '../../validation';
 import { InCssClasses } from './css-classes.aspect';
@@ -23,8 +23,8 @@ export function inCssError(
       mark,
       when,
     }: {
-      mark?: InCssClasses.Spec | readonly InCssClasses.Spec[];
-      when?: string | string[];
+      mark?: InCssClasses.Spec | readonly InCssClasses.Spec[] | undefined;
+      when?: string | readonly string[] | undefined;
     } = {},
 ): InCssClasses.Source {
 
@@ -32,7 +32,7 @@ export function inCssError(
 
   if (!when) {
     hasError = defaultInCssHasError;
-  } else if (Array.isArray(when)) {
+  } else if (isArrayOfElements(when)) {
     hasError = when.length ? errors => when.every(code => errors.has(code)) : defaultInCssHasError;
   } else {
     hasError = errors => errors.has(when);

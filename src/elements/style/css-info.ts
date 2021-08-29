@@ -32,7 +32,7 @@ export function inCssInfo(
     {
       ns = InputAspects__NS,
     }: {
-      ns?: NamespaceDef;
+      ns?: NamespaceDef | undefined;
     } = {},
 ): InCssClasses.Source {
   return (control: InControl<any>) => {

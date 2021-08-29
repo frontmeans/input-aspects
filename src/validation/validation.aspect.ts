@@ -117,7 +117,7 @@ export namespace InValidation {
    * Some message codes are treated specially by convenience.
    */
   export type Message = {
-    readonly [code in Extract<keyof GenericMessage, string>]?: any;
+    readonly [code in Extract<keyof GenericMessage, string>]?: any | undefined;
   };
 
   /**
@@ -130,36 +130,36 @@ export namespace InValidation {
     /**
      * Missing input.
      */
-    readonly missing?: any;
+    readonly missing?: any | undefined;
 
     /**
      * The message with this code would be reported by `requireNeeded()` validator despite there are messages with
      * `missing` code.
      */
-    readonly despiteMissing?: any;
+    readonly despiteMissing?: any | undefined;
 
     /**
      * Incomplete input, except missing one.
      */
-    readonly incomplete?: any;
+    readonly incomplete?: any | undefined;
 
     /**
      * The message with this code would be reported by `requireNeeded()` validator despite there are messages with
      * `incomplete` code.
      */
-    readonly despiteIncomplete?: any;
+    readonly despiteIncomplete?: any | undefined;
 
     /**
      * Invalid input, except missing or incomplete one.
      */
-    readonly invalid?: any;
+    readonly invalid?: any | undefined;
 
     /**
      * Submit failure.
      *
      * This is set by input submit aspect.
      */
-    readonly submit?: any;
+    readonly submit?: any | undefined;
 
   }
 

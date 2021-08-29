@@ -5,7 +5,7 @@ import { InCheckbox, inCheckbox } from './checkbox.control';
 
 describe('InCheckbox', () => {
 
-  let checkbox: HTMLInputElement & { intermediate?: boolean };
+  let checkbox: HTMLInputElement & { intermediate?: boolean | undefined };
 
   beforeEach(() => {
     checkbox = document.createElement('input');

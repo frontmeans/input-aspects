@@ -28,7 +28,10 @@ export function inSelect(
     {
       aspects,
     }: {
-      readonly aspects?: InConverter.Aspect<readonly string[]> | readonly InConverter.Aspect<readonly string[]>[];
+      readonly aspects?:
+          | InConverter.Aspect<readonly string[]>
+          | readonly InConverter.Aspect<readonly string[]>[]
+          | undefined;
     } = {},
 ): InSelect {
   return new AbstractInElement(

@@ -8,7 +8,8 @@ import { AbstractInElement } from './abstract-element.control';
  * @category Control
  * @typeParam TValue - Input value type.
  */
-export type InCheckbox<TValue = boolean | undefined> = InElement<TValue, HTMLInputElement & { intermediate?: boolean }>;
+export type InCheckbox<TValue = boolean | undefined> =
+    InElement<TValue, HTMLInputElement & { intermediate?: boolean | undefined }>;
 
 /**
  * @category Control
@@ -42,7 +43,7 @@ export namespace InCheckbox {
      *
      * These are aspect converters to constructed control from the {@link inValueOf same-valued one}.
      */
-    readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[];
+    readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[] | undefined;
 
   }
 
@@ -83,7 +84,7 @@ export function inCheckbox(
     {
       aspects,
     }: {
-      readonly aspects?: InConverter.Aspect<boolean> | readonly InConverter.Aspect<boolean>[];
+      readonly aspects?: InConverter.Aspect<boolean> | readonly InConverter.Aspect<boolean>[] | undefined;
     },
 ): InCheckbox;
 

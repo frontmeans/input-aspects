@@ -32,7 +32,7 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
       {
         aspects,
       }: {
-        readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[];
+        readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[] | undefined;
       } = {},
   ) {
     super();
@@ -206,7 +206,7 @@ export namespace InControl {
           {
             aspects,
           }: {
-            readonly aspects?: InConverter.Aspect<TValue>;
+            readonly aspects?: InConverter.Aspect<TValue> | undefined;
           },
       ) => TControl;
 
@@ -217,7 +217,7 @@ export namespace InControl {
  */
 class InControl$SameValued<TValue> extends InControl<TValue> {
 
-  private _supply?: Supply;
+  private _supply?: Supply | undefined;
 
   constructor(private readonly _control: InControl<TValue>) {
     super();

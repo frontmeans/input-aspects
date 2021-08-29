@@ -92,7 +92,7 @@ export namespace InGroup {
    * @typeParam TModel - Group model type, i.e. its value type.
    */
   export type Controls<TModel> = {
-    readonly [K in keyof TModel]?: InControl<TModel[K]>;
+    readonly [K in keyof TModel]?: InControl<TModel[K]> | undefined;
   };
 
   /**
@@ -244,7 +244,7 @@ class InGroupMap<TModel extends object> {
 
   readonly _supply = new Supply();
   private _map = new Map<keyof TModel, InGroupEntry>();
-  private _shot?: InGroupSnapshot<TModel>;
+  private _shot?: InGroupSnapshot<TModel> | undefined;
 
   constructor(private readonly _controls: InGroupControlControls<TModel>) {
   }
@@ -501,7 +501,7 @@ class InGroupControl<TModel extends object> extends InGroup<TModel> {
   constructor(
       model: TModel,
       opts: {
-        readonly aspects?: InConverter.Aspect<TModel> | readonly InConverter.Aspect<TModel>[];
+        readonly aspects?: InConverter.Aspect<TModel> | readonly InConverter.Aspect<TModel>[] | undefined;
       },
   ) {
     super(opts);
@@ -611,7 +611,7 @@ export function inGroup<TModel extends object>(
     {
       aspects,
     }: {
-      readonly aspects?: InConverter.Aspect<TModel> | readonly InConverter.Aspect<TModel>[];
+      readonly aspects?: InConverter.Aspect<TModel> | readonly InConverter.Aspect<TModel>[] | undefined;
     } = {},
 ): InGroup<TModel> {
   return new InGroupControl(model, { aspects });
