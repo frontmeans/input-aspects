@@ -24,6 +24,7 @@ export function requireLength(min: number | undefined, max?: number): InValidato
           return { invalid: 'tooLong', tooLong: max };
         }
       }
+
       return;
     },
   };

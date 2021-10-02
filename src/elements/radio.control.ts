@@ -79,6 +79,7 @@ class InRadioControl<TValue> extends AbstractInElement<TValue | undefined, HTMLI
     if (aspect as InAspect<any> === InMode[InAspect__symbol]) {
       return applyRadioInMode(this) as InAspect.Application.Result<TInstance, TValue | undefined, TKind>;
     }
+
     return super._applyAspect(aspect);
   }
 

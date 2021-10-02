@@ -535,6 +535,7 @@ class InGroupControl<TModel extends object> extends InGroup<TModel> {
         convertTo: noop,
       } as InAspect.Application.Result<any, any, any>;
     }
+
     return super._applyAspect(aspect);
   }
 

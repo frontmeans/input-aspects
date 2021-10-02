@@ -28,6 +28,7 @@ export class InBuilder<TControl extends InControl<TValue>, TValue = InControl.Va
    */
   addAspect(aspectKey: InAspect.Key<any, any>, converter: InConverter.Aspect<TValue>): this {
     this[InBuilder$Impl__symbol].addAspect(aspectKey[InAspect__symbol], converter);
+
     return this;
   }
 
@@ -45,6 +46,7 @@ export class InBuilder<TControl extends InControl<TValue>, TValue = InControl.Va
     if (aspects.length) {
       this[InBuilder$Impl__symbol].addAspects(aspects);
     }
+
     return this;
   }
 
@@ -89,6 +91,7 @@ export class InBuilder<TControl extends InControl<TValue>, TValue = InControl.Va
     } else {
       this[InBuilder$Impl__symbol].setup(aspectKeyOrSetup);
     }
+
     return this;
   }
 

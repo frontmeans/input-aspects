@@ -133,6 +133,7 @@ function checkedInValue<TValue extends string | undefined>(
           return true;
         }
         checked = key;
+
         return false;
       },
   );

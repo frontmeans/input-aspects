@@ -159,6 +159,7 @@ class InRole$Active {
     if (named) {
       // Already active.
       ++named.active;
+
       return;
     }
 

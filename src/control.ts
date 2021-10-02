@@ -118,6 +118,7 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
     } else {
       aspectKeyOrSetup(this);
     }
+
     return this;
   }
 

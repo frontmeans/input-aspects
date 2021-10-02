@@ -28,6 +28,7 @@ export function intoTrimmed(
   if (!to) {
     return intoTrimmed;
   }
+
   return {
     set(value) {
       return value.trim();

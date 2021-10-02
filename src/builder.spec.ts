@@ -103,6 +103,7 @@ describe('InBuilder', () => {
           if (aspect === CustomAspect) {
             return knownInAspect('custom') as InAspect.Application.Result<TInstance, string, TKind>;
           }
+
           return;
         },
       });
@@ -122,6 +123,7 @@ describe('InBuilder', () => {
           if (aspect === CustomAspect) {
             return knownInAspect('custom') as InAspect.Application.Result<TInstance, string, TKind>;
           }
+
           return;
         },
       });
@@ -139,6 +141,7 @@ describe('InBuilder', () => {
           if (aspect === CustomAspect) {
             return knownInAspect('common') as InAspect.Application.Result<TInstance, string, TKind>;
           }
+
           return;
         },
       });

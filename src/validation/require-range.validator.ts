@@ -24,6 +24,7 @@ export function requireRange(min: number | undefined, max?: number): InValidator
           return { invalid: 'tooLarge', tooLarge: max };
         }
       }
+
       return;
     },
   };

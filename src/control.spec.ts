@@ -11,6 +11,7 @@ import { inValue } from './value.control';
 describe('InControl', () => {
 
   let control: InControl<string>;
+
   type ConversionFactory = InConverter.Factory<string, number>;
 
   beforeEach(() => {

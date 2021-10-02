@@ -63,6 +63,7 @@ describe('InSubmit', () => {
     it('returns submit result', async () => {
       submitter.mockImplementation(data => {
         expect(flags).toEqual({ ready: true, submitted: true, busy: true });
+
         return Promise.resolve(data);
       });
 
@@ -75,6 +76,7 @@ describe('InSubmit', () => {
 
       submitter.mockImplementation(() => {
         expect(flags).toEqual({ ready: true, submitted: true, busy: true });
+
         return new Promise<string>(r => resolve = r);
       });
 
@@ -158,6 +160,7 @@ describe('InSubmit', () => {
 
       submitter.mockImplementation(() => {
         expect(errors.ok).toBe(true);
+
         return Promise.resolve('result');
       });
       expect(await submit.submit(submitter)).toBe('result');

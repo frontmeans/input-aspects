@@ -37,6 +37,7 @@ class InValueControl<TValue> extends InControl<TValue> {
   }
 
 }
+
 /**
  * Constructs simple input control.
  *

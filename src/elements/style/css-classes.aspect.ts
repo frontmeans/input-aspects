@@ -359,6 +359,7 @@ class InControlCssClasses extends InCssClasses {
         supply => supply.off(reason),
     );
     this._sources.supply.off(reason);
+
     return this;
   }
 

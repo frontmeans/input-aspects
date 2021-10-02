@@ -246,6 +246,7 @@ class InControlSubmit<TValue> extends InSubmit<TValue> {
       if (this._errors.it.length) {
         this._errors.it = [];
       }
+
       return await submitter(await submitData(), control);
     } catch (error) {
       errors = toInSubmitMessages(error);
@@ -291,6 +292,7 @@ function toInSubmitMessages(error: any): InValidation.Message[] {
   if (error instanceof InSubmitError) {
     return [...error.errors];
   }
+
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   return [{ submit: error }];
 }

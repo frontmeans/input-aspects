@@ -291,6 +291,7 @@ class InListEntries<TItem> {
         this._shot = undefined;
         this._entries = this._entries.slice();
       }
+
       return this._entries;
     };
     const extracted = deleteCount == null
@@ -319,6 +320,7 @@ class InListEntries<TItem> {
         ...extracted.map(
             (entry, index) => {
               entry[1].off(inControlReplacedReason);
+
               return [start + index, entry] as [number, InListEntry<TItem>];
             },
         ),
@@ -547,6 +549,7 @@ class InListControl<TItem> extends InList<TItem> {
         convertTo: noop,
       } as InAspect.Application.Result<any, any, any>;
     }
+
     return super._applyAspect(aspect);
   }
 

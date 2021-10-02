@@ -131,6 +131,7 @@ export abstract class InMode implements EventSender<[InMode.Value, InMode.Value]
    */
   done(reason?: any): this {
     this.own.supply.off(reason);
+
     return this;
   }
 
@@ -343,6 +344,7 @@ function applyInMode(element: HTMLElement, value: InMode.Value): void {
   switch (value) {
   case 'off':
     element.setAttribute('disabled', '');
+
     break;
   case 'ro':
   case '-ro':
@@ -350,6 +352,7 @@ function applyInMode(element: HTMLElement, value: InMode.Value): void {
     element.setAttribute('disabled', '');
     element.removeAttribute('disabled');
     element.setAttribute('readonly', '');
+
     break;
   default:
     // Workaround of https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
@@ -404,13 +407,16 @@ export function inModeValue(...modes: InMode.Value[]): InMode.Value {
       return 'off';
     case 'ro':
       ro = true;
+
       break;
     case '-on':
       off = true;
+
       break;
     case '-ro':
       off = true;
       ro = true;
+
       break;
     case 'on':
     }

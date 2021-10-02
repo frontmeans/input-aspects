@@ -123,6 +123,7 @@ describe('inModeByForm', () => {
 
     async failure(): Promise<any> {
       this.resolve('success');
+
       return this.promise.then(
           result => Promise.reject(new Error(`Unexpected result received: ${result}`)),
           asis,

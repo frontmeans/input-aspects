@@ -217,6 +217,7 @@ function updateInStatusFlags(flags: InStatus.Flags, hasFocus: boolean, edited: b
   if (edited) {
     flags = { ...flags, edited, touched: true };
   }
+
   return flags;
 }
 
@@ -237,6 +238,7 @@ class InContainerStatus extends InStatus {
         snapshot,
         control => control.aspect(InStatus).markEdited(edited),
     ));
+
     return this;
   }
 
@@ -245,6 +247,7 @@ class InContainerStatus extends InStatus {
         snapshot,
         control => control.aspect(InStatus).markTouched(touched),
     ));
+
     return this;
   }
 
