@@ -1,6 +1,6 @@
 /**
  * @packageDocumentation
- * @module Module @frontmeans/input-aspects
+ * @module @frontmeans/input-aspects
  */
 export * from './applied-aspect';
 export * from './aspect';
