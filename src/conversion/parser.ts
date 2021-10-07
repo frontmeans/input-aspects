@@ -29,7 +29,7 @@ export type InParser<TValue> =
         to: InControl<TValue>,
     ) => [
       (this: void, value: string, errors: InParser.Errors) => TValue,
-      ((this: void, value: TValue) => string)?
+      ((this: void, value: TValue) => string)?,
     ];
 
 /**
