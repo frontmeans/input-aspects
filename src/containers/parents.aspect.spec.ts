@@ -15,7 +15,7 @@ describe('InParents', () => {
   let control: InControl<string>;
 
   beforeEach(() => {
-    parent = inGroup({});
+    parent = inGroup<Record<string, unknown>>({});
     control = inValue('value');
   });
 
@@ -89,7 +89,7 @@ describe('InParents', () => {
     });
     it('adds another parent entry', () => {
 
-      const parent2 = inGroup({});
+      const parent2 = inGroup<Record<string, unknown>>({});
       const entry2: InParents.Entry = { parent: parent2 };
       const supply2 = parents.add(entry2);
 
@@ -104,7 +104,7 @@ describe('InParents', () => {
 
       control.supply.off(reason);
 
-      const parent2 = inGroup({});
+      const parent2 = inGroup<Record<string, unknown>>({});
       const entry2: InParents.Entry = { parent: parent2 };
       const whenOff = jest.fn();
 
@@ -116,7 +116,7 @@ describe('InParents', () => {
       Supply.onUnexpectedAbort(noop);
 
       const reason = 'test';
-      const parent2 = inGroup({});
+      const parent2 = inGroup<Record<string, unknown>>({});
 
       parent2.supply.off(reason);
 

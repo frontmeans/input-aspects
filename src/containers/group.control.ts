@@ -103,7 +103,7 @@ export namespace InGroup {
    * @typeParam TModel - Group model type, i.e. its value type.
    * @typeParam TKey - Model keys type.
    */
-  export type Entry<TModel, TKey extends keyof TModel = any> = readonly [TKey, InControl<TModel[TKey]>];
+  export type Entry<TModel, TKey extends keyof TModel = keyof TModel> = readonly [TKey, InControl<TModel[TKey]>];
 
   /**
    * A snapshot of input control group controls.
@@ -372,7 +372,7 @@ class InGroupControlControls<TModel extends object> extends InGroupControls<TMod
           }
         });
 
-        itsEach(snapshot.entries(), ([key, control]) => {
+        itsEach(snapshot.entries(), ([key, control]: InGroup.Entry<TModel, keyof TModel>) => {
           if (!withValues.has(key)) {
             control.it = undefined!;
           }
@@ -575,7 +575,7 @@ function readInGroupData<TModel extends object>(
   const csData = {} as { [key in keyof TModel]: InData<any> };
 
   itsEach(controls.entries(), ([key, control]) => {
-    csData[key as keyof TModel] = control.aspect(InData);
+    csData[key] = control.aspect(InData);
   });
 
   return afterAll(csData).do(mapAfter(controlsData => {

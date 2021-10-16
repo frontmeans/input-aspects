@@ -67,7 +67,7 @@ describe('InSubmit', () => {
         return Promise.resolve(data);
       });
 
-      expect(await submit.submit(submitter)).toEqual('test');
+      expect(await submit.submit(submitter)).toBe('test');
       expect(flags).toEqual({ ready: true, submitted: true, busy: false });
     });
     it('rejects if busy', async () => {

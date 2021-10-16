@@ -185,7 +185,10 @@ class InControlCssClasses extends InCssClasses {
 
   readonly read: AfterEvent<[InCssClasses.Map]>;
   readonly track: AfterEvent<[readonly string[], readonly string[]]>;
-  private readonly _sources = trackValue<[Map<AfterEvent<[InCssClasses.Map]>, Supply>]>([new Map()]);
+  private readonly _sources = trackValue<[Map<AfterEvent<[InCssClasses.Map]>, Supply>]>([
+      new Map<AfterEvent<[InCssClasses.Map]>, Supply>(),
+  ]);
+
   private _schedule?: RenderSchedule | undefined;
 
   constructor(private readonly _control: InControl<any>) {
