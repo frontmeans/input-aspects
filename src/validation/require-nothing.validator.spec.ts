@@ -7,6 +7,6 @@ describe('requireNothing', () => {
     const receiver = jest.fn();
 
     requireNothing()(receiver);
-    expect(receiver).toHaveBeenCalledWith();
+    expect(receiver).toHaveBeenCalledWith(...([] as unknown[] as [unknown, unknown[]]));
   });
 });
