@@ -1,5 +1,4 @@
-HTML Input Aspects
-==================
+# HTML Input Aspects
 
 [![NPM][npm-image]][npm-url]
 [![Build Status][build-status-img]][build-status-link]
@@ -23,9 +22,7 @@ Framework-agnostic library controlling various aspects of user input. Such as va
 [api-docs-image]: https://img.shields.io/static/v1?logo=typescript&label=API&message=docs&color=informational
 [api-docs-url]: https://frontmeans.github.io/input-aspects/
 
-
-Example
--------
+## Example
 
 ```typescript
 import {
@@ -50,12 +47,12 @@ interface Saluted {
 const name = inText(document.getElementById('name')!)
   .convert(intoTrimmed) // Remove whitespace
   .setup(InValidation, validation => {
-    validation.by(requirePresent); // Require `name` to present      
+    validation.by(requirePresent); // Require `name` to present
   })
   .setup(InCssClasses, classes => classes.add(inCssInfo())); // Add validation status CSS classes
 const salutation = inText(document.getElementById('salutation')!)
   .setup(InValidation, validation => {
-    validation.by(requirePresent); // Require `salutation` to present   
+    validation.by(requirePresent); // Require `salutation` to present
   })
   .setup(InCssClasses, classes => classes.add(inCssInfo())); // Add validation status CSS classes
 
@@ -69,19 +66,19 @@ const group = inGroup<Saluted>({
 }).setup(control => {
   control.set({ name, salutation }); // Add controls to group
 }).setup(InSubmit, submit => {
-  
+
   const button = document.getElementById('submit-button')!;
-  
+
   submit.read(flags => {
     // Disable submit button when input is invalid or submit is in process.
-    button.disabled = flags.ready && !flags.busy;  
+    button.disabled = flags.ready && !flags.busy;
   });
-  
+
   // Submit the form programmatically
   new DomEventDispatcher(form).on('submit').instead(async () => {
-      
+
     const responseText = await submit.submit(async (data) => {
-  
+
       const response = await fetch(
           '/greet',
           {
@@ -89,25 +86,24 @@ const group = inGroup<Saluted>({
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data),    
+            body: JSON.stringify(data),
           });
-      
+
       if (!response.ok) {
         // Submit failed - report errors
         throw new InSubmitError({ submit: 'Failed' });
-      } 
-      
+      }
+
       // Submit succeed
       return response.text();
     });
-    
-    document.getElementById('response-text')!.innerText = responseText;  
+
+    document.getElementById('response-text')!.innerText = responseText;
   });
 });
 ```
 
-Input Control
--------------
+## Input Control
 
 First, an input control should be created for input element.
 
@@ -118,20 +114,17 @@ the value change.
 
 There are several input control implementations available. They can be used for different input elements.
 
-
-### `<input>`, `<select>`, `<textarea>`  
+### `<input>`, `<select>`, `<textarea>`
 
 Textual input control is created by `inText()` function.
 
 The value of this control is a `string`.
-
 
 ### `<select multiple>`
 
 Multi-select input control is created by `inSelect()` function.
 
 The value of this control is an array of `string`s.
-
 
 ### `<input type="checkbox">`
 
@@ -141,16 +134,16 @@ The value of this control is three-state, corresponding to checked, unchecked, a
 
 By default these are `true`, `false` and `undefined`. But can be configured to be arbitrary values by specifying
 options:
+
 ```typescript
 import { inCheckbox } from '@frontmeans/input-aspects';
 
 inCheckbox(checkboxElement, {
-  checked: 'on',     // The value is `on` when checked
-  unchecked: 'off',  // The value is `off` when unchecked
-  intermediate: '?',  // The value is `?` when intermediate
+  checked: 'on', // The value is `on` when checked
+  unchecked: 'off', // The value is `off` when unchecked
+  intermediate: '?', // The value is `?` when intermediate
 });
 ```
-
 
 ### `<input type="radio">`
 
@@ -163,7 +156,7 @@ The value of this control when the radio button is unchecked is always `undefine
 import { inRadio } from '@frontmeans/input-aspects';
 
 inRadio(radioElement, {
-  checked: 'on',     // The value is `on` when checked
+  checked: 'on', // The value is `on` when checked
 });
 ```
 
@@ -183,16 +176,13 @@ inRadioGroup({
 The value of radio group control is a string key corresponding to checked radio button. Or `undefined` when none
 is checked.
 
-
 ### Arbitrary Value Control
 
 Is created by `inValue()` function.
 
-This control is not associated with any input element. Its value is expected to be set programmatically. 
+This control is not associated with any input element. Its value is expected to be set programmatically.
 
-
-Container
----------
+## Container
 
 An input container is an input control containing other controls.
 
@@ -203,10 +193,9 @@ All containers extend `InContainer` class. A `controls` property of container gr
 
 The are two input containers implemented.
 
-
 ### `InGroup`
 
-A group of input controls is created by `inGroup()` function. 
+A group of input controls is created by `inGroup()` function.
 
 Nested controls are identified by keys and can be added and removed via `controls` property.
 
@@ -214,7 +203,6 @@ Group value (called model) is an object formed by nested control values. The mod
 control with the same key, if present. When model is updated corresponding controls are also updated.
 
 A group model type is passed as a generic type parameter to `inGroup()` function.
-
 
 ### `InList`
 
@@ -227,9 +215,7 @@ of the control with the same index, if present. When model is updated correspond
 
 A model item type type is passed as a generic type parameter to `inList()` function.
 
-
-Input Conversion
-----------------
+## Input Conversion
 
 An input control can be converted. E.g. to the one with another value type.
 
@@ -240,21 +226,22 @@ When original control is updated, the converted one is automatically updated wit
 When converted control is updated, the original one is automatically updated with the value restored from converted one.
 
 There are several converters implemented:
+
 - `intoFallback()` converts an input control to the one replacing `undefined` value with fallback one.
 - `intoInteger()` converts string values to integer ones.
 - `intoTrimmed()` trims input value.
 - `intoParsedBy()` parses and formats input text with the given functions.
 
 Simple conversions can be implemented like this:
+
 ```typescript
 control.convert(
-  text => text.length,        // Convert a `text` to its length
+  text => text.length, // Convert a `text` to its length
   stars => '*'.repeat(stars), // Restore the text as several `stars`
 );
 ```
 
-Input Aspect
-------------
+## Input Aspect
 
 Once control created, input aspects can be attached to it with `InControl.aspect()` method accepting an aspect key
 and returning the attached aspect. An aspect is attached only once and returned on subsequent `InControl.aspect()`
@@ -266,7 +253,7 @@ An input aspect is an arbitrary value. There are several input aspects implement
   Or `null` if not available.
 
 - `InContainer` Input controls container available as an aspect of itself and, possibly, of converted controls.
-  Or `null` if not available. 
+  Or `null` if not available.
 
 - `InParents` Parents of input control.
 
@@ -275,34 +262,34 @@ An input aspect is an arbitrary value. There are several input aspects implement
 
 - `InFocus` Input focus aspect.
 
-   This is a value tracker of element focus flag.  Or `null` when `InElement` aspect is absent.
+  This is a value tracker of element focus flag. Or `null` when `InElement` aspect is absent.
 
 - `InStatus` Aggregate status aspect of user input.
-   
+
   Collects and reports input status flags. Like whether the input ever had focus or being altered.
-   
+
   Supports input elements and containers. For the rest of input controls always sends default status flags.
 
 - `InMode` Input mode aspect of control.
   Control can be either enabled, disabled, or readonly.
-   
+
   Each control maintains its own state, while nested controls respect container ones. I.e. when container is disabled
   all nested ones are also disabled. When container is readonly, all nested ones are also readonly, unless explicitly
   disabled.
-   
+
   When applied to input element this aspect maintains its `disabled` and `readonly` attributes (not properties!).
 
 - `InData` A data aspect of the input.
-  
+
   Represents input control data that will be submitted.
-  
+
   Input data is typically the same as control value with respect to input mode. I.e. when input mode is `off` the
   data is `undefined`.
 
 - `InStyledElement` An input aspect representing HTML element to apply styles to.
 
   This is an HTML element for input element control, and `null` for everything else by default.
-  
+
   An `InStyledElement.to()` converter can be used to convert arbitrary control to the one with the given styled element.
   This is useful for controls without elements (such as input groups), or can be used to apply CSS classes to input
   element wrappers (such as `form-group` in Bootstrap).
@@ -311,26 +298,24 @@ An input aspect is an arbitrary value. There are several input aspects implement
 
   - `inCssInfo()` creates a source of informative CSS classes.
   - `inCssError()` creates a source marker CSS classes applied when particular validation error occur.
-      
+
 - `InNamespaceAliaser` Namespace aliaser aspect.
 
   Used by other aspects to generate unique names.
-  
+
   An `InNamespaceAliaser.to()` converter can be used to convert arbitrary control to the one with the given aliaser.
 
 - `InRenderScheduler` Input elements render scheduler.
 
   It is used e.g. to schedule CSS updates. The control values and attributes are updated instantly.
-  
+
   An `InRenderScheduler.to()` converter can be used to convert arbitrary control to the one with the given scheduler.
 
 - `InValidation` Validation aspect of the input.
 
-  Reports validation messages sent by registered validators. 
+  Reports validation messages sent by registered validators.
 
-
-Input Validation
-----------------
+## Input Validation
 
 Input validation is performed by validators added to `InValidation` aspect.
 
@@ -349,9 +334,10 @@ Validators report validation errors as messages. Each validation message is a ma
 is a message code, while the value is arbitrary.
 
 Validation result is reported as `InValidation.Result` instance, that has methods to request all reported messages,
-or just messages with the given message code. 
+or just messages with the given message code.
 
 There are several validators implemented:
+
 - `requireAll()` validates using all listed validators.
 - `requireLength()` applies requirements on input text length.
 - `requireNeeded()` filters validation messages from the given `validators` according to their codes.
@@ -360,17 +346,18 @@ There are several validators implemented:
 - `requireRange()` applies requirements to numeric value range.
 
 Simple validator can be applied like this:
+
 ```typescript
 import { InValidation } from '@frontmeans/input-aspects';
 
 control.aspect(InValidation).by({
-  validate({it}: InControl<PasswordAndConfirmation>) {
+  validate({ it }: InControl<PasswordAndConfirmation>) {
     if (it.password !== it.confirmation) {
       // Return error message(s) on validation error
-      return { invalid: 'Password and confirmation do not match' };    
+      return { invalid: 'Password and confirmation do not match' };
     }
     // Return nothing (or `null`, or empty array, or empty message) on validation success
-    return;  
-  }
+    return;
+  },
 });
-```   
+```
