@@ -126,7 +126,7 @@ describe('InControl', () => {
     });
     it('converts with conversion factory', () => {
 
-      const by = jest.fn<ReturnType<ConversionFactory>, Parameters<ConversionFactory>>(() => ({ set, get }));
+      const by = jest.fn<ConversionFactory>(() => ({ set, get }));
 
       converted = control.convert(by);
       expect(by).toHaveBeenCalledWith(control, converted);
@@ -138,9 +138,8 @@ describe('InControl', () => {
     it('converts aspect when `applyAspect` specified', () => {
 
       const instance = { name: 'data' };
-      const applyAspect = jest.fn<any, any[]>(
-          (aspect: any) => aspect === InData[InAspect__symbol] ? knownInAspect(instance) : undefined,
-      );
+      const applyAspect = jest.fn<(aspect: unknown) => any>(
+          (aspect: any) => aspect === InData[InAspect__symbol] ? knownInAspect(instance) : undefined);
 
       converted = control.convert({ set, get, applyAspect });
       void expect(converted.aspect(InData)).toBe(instance);
@@ -152,7 +151,7 @@ describe('InControl', () => {
     });
     it('converts aspect with default algorithm if `applyAspect` returns nothing', () => {
 
-      const applyAspect = jest.fn<any, any[]>();
+      const applyAspect = jest.fn<(aspect: unknown) => any>();
 
       converted = control.convert({ set, get, applyAspect });
       void expect(converted.aspect(InData)).toBeDefined();
@@ -161,8 +160,8 @@ describe('InControl', () => {
 
     describe('on', () => {
 
-      let receiver: Mock<void, [string]>;
-      let convertedReceiver: Mock<void, [number, number]>;
+      let receiver: Mock<(arg: string) => void>;
+      let convertedReceiver: Mock<(value1: number, value2: number) => void>;
       let convertedSupply: Supply;
 
       beforeEach(() => {

@@ -33,7 +33,7 @@ describe('validIfAll', () => {
     validation.by(all);
   });
 
-  let receiver: Mock<void, [InValidation.Result]>;
+  let receiver: Mock<(result: InValidation.Result) => void>;
 
   beforeEach(() => {
     receiver = jest.fn();

@@ -79,7 +79,7 @@ export namespace InRole {
    */
   export type Activator<TValue> =
   /**
-   * @param control - A control the role is activate for.
+   * @param control - A control the role is activated for.
    * @param role - Activated role name.
    * @param active - Active control role.
    *

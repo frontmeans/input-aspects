@@ -43,7 +43,7 @@ describe('InValidation', () => {
     );
   });
 
-  let receiver: Mock<void, [InValidation.Result]>;
+  let receiver: Mock<(result: InValidation.Result) => void>;
   let resultSupply: Supply;
 
   beforeEach(() => {
@@ -170,7 +170,8 @@ describe('InValidation', () => {
 
     const message = { message: 'test message' };
     const tracker = trackValue(message);
-    const validatorFunction = jest.fn<EventKeeper<InValidation.Message[]>, [InControl<string>]>(() => tracker.read);
+    const validatorFunction = jest.fn<(control: InControl<string>) => EventKeeper<InValidation.Message[]>>(
+        () => tracker.read);
 
     validation.by(validatorFunction);
     expect(validatorFunction).toHaveBeenCalledWith(control);
@@ -179,7 +180,7 @@ describe('InValidation', () => {
 
   describe('Simple validator', () => {
 
-    let validate: Mock<ReturnType<InValidator.Simple<any>['validate']>, [InControl<string>]>;
+    let validate: Mock<InValidator.Simple<any>['validate']>;
 
     beforeEach(() => {
       validate = jest.fn();
@@ -240,7 +241,7 @@ describe('InValidation', () => {
   it('stops validation when supply is cut off', () => {
 
     const validator2 = new EventEmitter<InValidation.Message[]>();
-    const proxy = jest.fn<InValidation.Message, [InValidation.Message]>(asis);
+    const proxy = jest.fn<(message: InValidation.Message) => InValidation.Message>(asis);
     const supply = validation.by(
         validator2.on.do(
             mapAfter(proxy, valuesProvider()),
@@ -323,7 +324,7 @@ describe('InValidation', () => {
       convertedValidation.by(afterSupplied(convertedValidator, valuesProvider()));
     });
 
-    let convertedReceiver: Mock<void, [InValidation.Result]>;
+    let convertedReceiver: Mock<(result: InValidation.Result) => void>;
 
     beforeEach(() => {
       convertedReceiver = jest.fn();
@@ -354,7 +355,7 @@ describe('InValidation', () => {
       it('receives validation messages from both origins', () => {
 
         const dcValidation = convertedControl.convert<number>({ get: asis, set: asis }).aspect(InValidation);
-        const dcReceiver = jest.fn<void, [InValidation.Result]>();
+        const dcReceiver = jest.fn<(result: InValidation.Result) => void>();
 
         dcValidation.read(dcReceiver);
 
@@ -388,7 +389,7 @@ describe('InValidation', () => {
       groupValidation = group.aspect(InValidation);
     });
 
-    let groupReceiver: Mock<void, [InValidation.Result]>;
+    let groupReceiver: Mock<(result: InValidation.Result) => void>;
 
     beforeEach(() => {
       groupReceiver = jest.fn();

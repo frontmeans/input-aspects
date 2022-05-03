@@ -21,9 +21,9 @@ describe('InMode', () => {
 
   let control: InElement<string>;
   let mode: InMode;
-  let onModeUpdate: Mock<void, [InMode.Value, InMode.Value]>;
+  let onModeUpdate: Mock<(newMode: InMode.Value, oldMode: InMode.Value) => void>;
   let modeUpdatesSupply: Supply;
-  let readMode: Mock<void, [InMode.Value]>;
+  let readMode: Mock<(mode: InMode.Value) => void>;
   let modeSupply: Supply;
 
   beforeEach(() => {
@@ -34,7 +34,7 @@ describe('InMode', () => {
     readMode.mockClear();
   });
 
-  let onOwnUpdate: Mock<void, [InMode.Value, InMode.Value]>;
+  let onOwnUpdate: Mock<(newMode: InMode.Value, oldMode: InMode.Value) => void>;
   let ownUpdatesSupply: Supply;
 
   beforeEach(() => {
@@ -195,7 +195,7 @@ describe('InMode', () => {
 
     let group: InGroup<{ nested: string }>;
     let groupMode: InMode;
-    let readGroupMode: Mock<void, [InMode.Value]>;
+    let readGroupMode: Mock<(mode: InMode.Value) => void>;
 
     beforeEach(() => {
       group = inGroup({ nested: 'some' });

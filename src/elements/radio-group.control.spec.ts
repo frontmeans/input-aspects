@@ -22,9 +22,9 @@ describe('InRadioGroup', () => {
     control = inRadioGroup({ a: radioA, b: radioB, c: radioC });
   });
 
-  let readChecked: Mock<void, [TestValue]>;
+  let readChecked: Mock<(value: TestValue) => void>;
   let checkSupply: Supply;
-  let onCheckUpdate: Mock<void, [TestValue, TestValue]>;
+  let onCheckUpdate: Mock<(newValue: TestValue, oldValue: TestValue) => void>;
   let checkUpdatesSupply: Supply;
 
   beforeEach(() => {

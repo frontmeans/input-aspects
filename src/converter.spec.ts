@@ -37,8 +37,8 @@ describe('intoConverterBy', () => {
   });
   it('returns aspect conversion factory for aspect converters', () => {
 
-    const converter1: InConverter.Aspect<string, string> = { applyAspect: jest.fn() };
-    const converter2: InConverter.Aspect<string, string> = { applyAspect: jest.fn() };
+    const converter1: InConverter.Aspect<string, string> = { applyAspect: jest.fn<(aspect: unknown) => any>() };
+    const converter2: InConverter.Aspect<string, string> = { applyAspect: jest.fn<(aspect: unknown) => any>() };
 
     const factory = intoConvertedBy<string>(converter1, converter2);
     const conversion: InConverter.Aspect.Conversion<string> = factory(control, inValue('bar'));

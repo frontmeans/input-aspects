@@ -31,7 +31,7 @@ describe('InSubmit', () => {
     validation.read(result => errors = result);
   });
 
-  let submitter: Mock<Promise<string>, [string, InControl<string>]>;
+  let submitter: Mock<InSubmit.Submitter<string, string>>;
 
   beforeEach(() => {
     submitter = jest.fn((data, _control) => Promise.resolve(data));

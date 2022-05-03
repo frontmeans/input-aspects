@@ -141,7 +141,7 @@ describe('InCssClasses', () => {
 
     let source: ValueTracker<InCssClasses.Map>;
     let sourceSupply: Supply;
-    let mockReceiver: Mock<void, [readonly string[], readonly string[]]>;
+    let mockReceiver: Mock<(value1: readonly string[], value2: readonly string[]) => void>;
 
     beforeEach(() => {
       source = trackValue({ class1: true });
@@ -182,7 +182,7 @@ describe('InCssClasses', () => {
 
     let source: ValueTracker<InCssClasses.Map>;
     let scheduler: ManualRenderScheduler;
-    let mockSchedule: Mock<void, Parameters<RenderSchedule>>;
+    let mockSchedule: Mock<RenderSchedule>;
     let target: Element;
     let targetSupply: Supply;
 

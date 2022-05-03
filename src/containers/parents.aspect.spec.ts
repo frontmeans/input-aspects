@@ -20,8 +20,8 @@ describe('InParents', () => {
   });
 
   let parents: InParents;
-  let onParents: Mock<void, [InParents.Entry[], InParents.Entry[]]>;
-  let readParents: Mock<void, [InParents.All]>;
+  let onParents: Mock<(added: InParents.Entry[], removed: InParents.Entry[]) => void>;
+  let readParents: Mock<(parents: InParents.All) => void>;
   let parentsSupply: Supply;
   let allParents: InParents.All;
 

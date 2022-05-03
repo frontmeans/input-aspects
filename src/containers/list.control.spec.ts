@@ -114,9 +114,9 @@ describe('InList', () => {
 
   describe('controls', () => {
 
-    let onUpdate: Mock<void, [InList.Entry<string>[], InList.Entry<string>[]]>;
+    let onUpdate: Mock<(added: InList.Entry<string>[], removed: InList.Entry<string>[]) => void>;
     let updatesSupply: Supply;
-    let readSnapshot: Mock<void, [InList.Snapshot<string>]>;
+    let readSnapshot: Mock<(snapshot: InList.Snapshot<string>) => void>;
     let snapshotSupply: Supply;
     let snapshot: InList.Snapshot<string>;
     let controlValues: string[];

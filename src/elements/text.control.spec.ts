@@ -88,9 +88,9 @@ describe('InText', () => {
 
   describe('input', () => {
 
-    let changesReceiver: Mock<void, [string, string]>;
+    let changesReceiver: Mock<(arg1: string, arg2: string) => void>;
     let changesSupply: Supply;
-    let inputReceiver: Mock<void, [InElement.Input<string>]>;
+    let inputReceiver: Mock<(input: InElement.Input<string>) => void>;
     let inputSupply: Supply;
 
     beforeEach(() => {

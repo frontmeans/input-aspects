@@ -78,9 +78,9 @@ describe('InGroup', () => {
 
   describe('controls', () => {
 
-    let onModelUpdate: Mock<void, [TestModel, TestModel]>;
-    let onUpdate: Mock<void, [InGroup.Entry<TestModel>[], InGroup.Entry<TestModel>[]]>;
-    let readSnapshot: Mock<void, [InGroup.Snapshot<TestModel>]>;
+    let onModelUpdate: Mock<(newModel: TestModel, oldModel: TestModel) => void>;
+    let onUpdate: Mock<(added: InGroup.Entry<TestModel>[], removed: InGroup.Entry<TestModel>[]) => void>;
+    let readSnapshot: Mock<(model: InGroup.Snapshot<TestModel>) => void>;
     let lastSnapshot: InGroup.Snapshot<TestModel>;
 
     beforeEach(() => {
