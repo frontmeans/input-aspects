@@ -9,7 +9,7 @@ import {
   trackValue,
   translateAfter_,
 } from '@proc7ts/fun-events';
-import { asis, noop, valuesProvider } from '@proc7ts/primitives';
+import { asis, noop } from '@proc7ts/primitives';
 import { Supply } from '@proc7ts/supply';
 import { Mock } from 'jest-mock';
 import { inGroup, InGroup } from '../containers';
@@ -244,7 +244,7 @@ describe('InValidation', () => {
     const proxy = jest.fn<(message: InValidation.Message) => InValidation.Message>(asis);
     const supply = validation.by(
         validator2.on.do(
-            mapAfter(proxy, valuesProvider()),
+            mapAfter(proxy, () => []),
         ),
     );
     const message1 = { message: 'message1' };
@@ -321,7 +321,7 @@ describe('InValidation', () => {
 
     beforeEach(() => {
       convertedValidator = new EventEmitter();
-      convertedValidation.by(afterSupplied(convertedValidator, valuesProvider()));
+      convertedValidation.by(afterSupplied(convertedValidator, () => []));
     });
 
     let convertedReceiver: Mock<(result: InValidation.Result) => void>;

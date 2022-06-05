@@ -22,7 +22,6 @@ import {
   translateOn,
   ValueTracker,
 } from '@proc7ts/fun-events';
-import { valuesProvider } from '@proc7ts/primitives';
 import { itsElements, overElementsOf } from '@proc7ts/push-iterator';
 import { Supply } from '@proc7ts/supply';
 import { builtInAspect } from '../applied-aspect';
@@ -218,7 +217,7 @@ class DerivedInModes {
 
     const sources: AfterEvent<[Set<AfterEvent<[InMode.Value]>>]> = afterSent(
         this._on.on.do(mapOn(() => this._all)),
-        valuesProvider(this._all),
+        () => [this._all],
     );
 
     this.read = sources.do(
@@ -301,7 +300,7 @@ class InControlMode extends InMode {
             send(last = next);
           }
         },
-        valuesProvider<[InMode.Value]>(last),
+        () => [last],
     ));
 
     let lastUpdate: InMode.Value = 'on';

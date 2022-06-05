@@ -8,7 +8,7 @@ import {
   shareAfter,
   supplyAfter,
 } from '@proc7ts/fun-events';
-import { noop, valuesProvider } from '@proc7ts/primitives';
+import { noop } from '@proc7ts/primitives';
 import { flatMapIt, itsEach } from '@proc7ts/push-iterator';
 import { Supply } from '@proc7ts/supply';
 import { InControl } from '../control';
@@ -38,7 +38,7 @@ export class InValidationMessages<TValue> implements EventKeeper<InValidation.Me
     this._messages = afterEventBy<InValidation.Message[]>(receiver => {
 
       // Validation messages supply
-      const resultSupply = afterSupplied(emitter, valuesProvider())(receiver).whenOff(() => {
+      const resultSupply = afterSupplied(emitter, () => [])(receiver).whenOff(() => {
         send = noop; // Disable message sending
         validate = noop; // Disable validation
       });

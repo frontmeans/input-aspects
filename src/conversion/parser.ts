@@ -1,5 +1,5 @@
 import { afterSupplied, EventEmitter } from '@proc7ts/fun-events';
-import { valueProvider, valuesProvider } from '@proc7ts/primitives';
+import { valueProvider } from '@proc7ts/primitives';
 import { InControl } from '../control';
 import { InConverter } from '../converter';
 import { InValidation } from '../validation';
@@ -74,7 +74,7 @@ export const InParser = {
       const [parse, format = String] = parser(from, to);
       const parseValidator = new EventEmitter<InValidation.Message[]>();
 
-      to.aspect(InValidation).by(afterSupplied(parseValidator, valuesProvider()));
+      to.aspect(InValidation).by(afterSupplied(parseValidator, () => []));
 
       return {
         set(text) {

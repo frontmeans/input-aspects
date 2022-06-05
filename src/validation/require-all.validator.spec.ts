@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { afterSupplied, EventEmitter } from '@proc7ts/fun-events';
-import { valuesProvider } from '@proc7ts/primitives';
 import { Mock } from 'jest-mock';
 import { InControl } from '../control';
 import { inValue } from '../value.control';
@@ -27,8 +26,8 @@ describe('validIfAll', () => {
     validator1 = new EventEmitter();
     validator2 = new EventEmitter();
     all = requireAll(
-        afterSupplied(validator1, valuesProvider()),
-        afterSupplied(validator2, valuesProvider()),
+        afterSupplied(validator1, () => []),
+        afterSupplied(validator2, () => []),
     );
     validation.by(all);
   });
