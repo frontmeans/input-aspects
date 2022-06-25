@@ -128,7 +128,7 @@ export abstract class InMode implements EventSender<[InMode.Value, InMode.Value]
    *
    * @returns `this` instance.
    */
-  done(reason?: any): this {
+  done(reason?: unknown): this {
     this.own.supply.off(reason);
 
     return this;

@@ -32,7 +32,7 @@ const InStyledElement__aspect: InAspect<InStyledElement | null> = {
  */
 export const InStyledElement = {
 
-  get [InAspect__symbol]() {
+  get [InAspect__symbol](): InAspect<InStyledElement | null> {
     return InStyledElement__aspect;
   },
 
