@@ -139,7 +139,7 @@ describe('InControl', () => {
 
       const instance = { name: 'data' };
       const applyAspect = jest.fn<(aspect: unknown) => any>(
-          (aspect: any) => aspect === InData[InAspect__symbol] ? knownInAspect(instance) : undefined);
+          (aspect: unknown) => aspect === InData[InAspect__symbol] ? knownInAspect(instance) : undefined);
 
       converted = control.convert({ set, get, applyAspect });
       void expect(converted.aspect(InData)).toBe(instance);

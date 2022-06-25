@@ -244,7 +244,7 @@ describe('InValidation', () => {
     const proxy = jest.fn<(message: InValidation.Message) => InValidation.Message>(asis);
     const supply = validation.by(
         validator2.on.do(
-            mapAfter(proxy, () => []),
+            mapAfter(proxy, () => ({})),
         ),
     );
     const message1 = { message: 'message1' };

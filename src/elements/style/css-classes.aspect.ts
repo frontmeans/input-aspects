@@ -174,8 +174,8 @@ interface UnsubscribeReason {
 /**
  * @internal
  */
-function isUnsubscribeReason(reason: any): reason is UnsubscribeReason {
-  return reason && typeof reason === 'object' && UnsubscribeReason__symbol in reason;
+function isUnsubscribeReason(reason: unknown): reason is UnsubscribeReason {
+  return !!reason && typeof reason === 'object' && UnsubscribeReason__symbol in reason;
 }
 
 /**
@@ -356,7 +356,7 @@ class InControlCssClasses extends InCssClasses {
     });
   }
 
-  done(reason?: any): this {
+  done(reason?: unknown): this {
     itsEach(
         this._sources.it[0].values(),
         supply => supply.off(reason),

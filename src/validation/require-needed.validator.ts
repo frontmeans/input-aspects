@@ -42,14 +42,12 @@ function nextRequireNeededMessages(
   if (result.has('missing')) {
     filtered = filterIt(
         result,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-        message => !message.incomplete && !message.invalid || message.despiteMissing,
+        message => !message.incomplete && !message.invalid || !!message.despiteMissing,
     );
   } else if (result.has('incomplete')) {
     filtered = filterIt(
         result,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-        message => !message.invalid || message.despiteIncomplete,
+        message => !message.invalid || !!message.despiteIncomplete,
     );
   }
 
