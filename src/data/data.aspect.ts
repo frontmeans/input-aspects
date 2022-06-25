@@ -25,7 +25,6 @@ export type InData<TValue> = AfterEvent<[InData.DataType<TValue>?]>;
 const InData__aspect: Aspect = {
 
   applyTo<TValue>(control: InControl<TValue>): Applied<TValue> {
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return builtInAspect(control, InData, <TValue>(ctrl: InControl<TValue>) => afterAll({
       value: ctrl,
       mode: ctrl.aspect(InMode),
