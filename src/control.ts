@@ -4,7 +4,12 @@ import { Supply } from '@proc7ts/supply';
 import { InAspect, InAspect__symbol } from './aspect';
 import { isAspectKey } from './aspect.impl';
 import { InControl$Aspects, InControl$Aspects__symbol, InControl$Impl } from './control.impl';
-import { InConverter, intoConvertedAspects, intoConvertedBy, isInAspectConversion } from './converter';
+import {
+  InConverter,
+  intoConvertedAspects,
+  intoConvertedBy,
+  isInAspectConversion,
+} from './converter';
 import { noopInConversion } from './noop-converter.impl';
 
 /**
@@ -28,22 +33,23 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
    * @param aspects - Input aspects applied by default. These are aspect converters to constructed control from the
    * {@link inValueOf same-valued one}.
    */
-  constructor(
-      {
-        aspects,
-      }: {
-        readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[] | undefined;
-      } = {},
-  ) {
+  constructor({
+    aspects,
+  }: {
+    readonly aspects?:
+      | InConverter.Aspect<TValue>
+      | readonly InConverter.Aspect<TValue>[]
+      | undefined;
+  } = {}) {
     super();
 
     const aspectList = arrayOfElements(aspects);
 
     this[InControl$Aspects__symbol] = new InControl$Aspects(
-        this as unknown as InControl$Impl<this, TValue>,
-        aspectList.length
-            ? intoConvertedAspects(aspectList)(inValueOf(this), this)
-            : noopInConversion,
+      this as unknown as InControl$Impl<this, TValue>,
+      aspectList.length
+        ? intoConvertedAspects(aspectList)(inValueOf(this), this)
+        : noopInConversion,
     );
   }
 
@@ -76,7 +82,7 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
    * @returns An applied aspect instance.
    */
   aspect<TInstance, TKind extends InAspect.Application.Kind>(
-      aspectKey: InAspect.Key<TInstance, TKind>,
+    aspectKey: InAspect.Key<TInstance, TKind>,
   ): InAspect.Application.Instance<TInstance, TValue, TKind> {
     return this[InControl$Aspects__symbol].aspect(aspectKey[InAspect__symbol]).instance;
   }
@@ -101,20 +107,24 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
    * @returns `this` control instance.
    */
   setup<TInstance, TKind extends InAspect.Application.Kind>(
-      aspectKey: InAspect.Key<TInstance, TKind>,
-      setup: (this: void, aspect: InAspect.Application.Instance<TInstance, TValue, TKind>, control: this) => void,
+    aspectKey: InAspect.Key<TInstance, TKind>,
+    setup: (
+      this: void,
+      aspect: InAspect.Application.Instance<TInstance, TValue, TKind>,
+      control: this,
+    ) => void,
   ): this;
 
   setup<TInstance, TKind extends InAspect.Application.Kind>(
-      aspectKeyOrSetup: InAspect.Key<TInstance, TKind> | ((this: void, control: this) => void),
-      aspectSetup?: (
-          this: void,
-          aspect: InAspect.Application.Instance<TInstance, TValue, TKind>,
-          control: this,
-      ) => void,
+    aspectKeyOrSetup: InAspect.Key<TInstance, TKind> | ((this: void, control: this) => void),
+    aspectSetup?: (
+      this: void,
+      aspect: InAspect.Application.Instance<TInstance, TValue, TKind>,
+      control: this,
+    ) => void,
   ): this {
     if (isAspectKey(aspectKeyOrSetup)) {
-      aspectSetup!(this.aspect(aspectKeyOrSetup), this);
+      aspectSetup!(this.aspect<TInstance, TKind>(aspectKeyOrSetup), this);
     } else {
       aspectKeyOrSetup(this);
     }
@@ -132,9 +142,7 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
    *
    * @returns Converted control.
    */
-  convert(
-      ...by: InConverter.Aspect<TValue, TValue>[]
-  ): InControl<TValue>;
+  convert(...by: InConverter.Aspect<TValue, TValue>[]): InControl<TValue>;
 
   /**
    * Converts this control to another one.
@@ -148,13 +156,13 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
    * @returns Converted control.
    */
   convert<TTo>(
-      by: InConverter<TValue, TTo>,
-      ...and: InConverter.Aspect<TValue, TTo>[]
+    by: InConverter<TValue, TTo>,
+    ...and: InConverter.Aspect<TValue, TTo>[]
   ): InControl<TTo>;
 
   convert<TTo>(
-      by?: InConverter<TValue, TTo>,
-      ...and: InConverter.Aspect<TValue, TTo>[]
+    by?: InConverter<TValue, TTo>,
+    ...and: InConverter.Aspect<TValue, TTo>[]
   ): InControl<TValue> | InControl<TTo> {
     return new InControl$Converted(this, intoConvertedBy(by, ...and));
   }
@@ -170,7 +178,7 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
    * `InAspect.applyTo()` method).
    */
   protected _applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
-      aspect: InAspect<TInstance, TKind>,
+    aspect: InAspect<TInstance, TKind>,
   ): InAspect.Application.Result<TInstance, TValue, TKind> | undefined {
     return this[InControl$Aspects__symbol].aspects.applyAspect(aspect);
   }
@@ -181,13 +189,14 @@ export abstract class InControl<TValue> extends ValueTracker<TValue> {
  * @category Control
  */
 export namespace InControl {
-
   /**
    * A value type of the given input control type.
    *
    * @typeParam TControl - Input control type.
    */
-  export type ValueType<TControl extends InControl<any>> = TControl extends InControl<infer TValue> ? TValue : never;
+  export type ValueType<TControl extends InControl<any>> = TControl extends InControl<infer TValue>
+    ? TValue
+    : never;
 
   /**
    * User input control factory signature.
@@ -196,21 +205,20 @@ export namespace InControl {
    * @typeParam TValue - Input value type.
    */
   export type Factory<TControl extends InControl<TValue>, TValue = ValueType<TControl>> =
-  /**
-   * @param aspects - Input aspects applied by default. This is an aspect converter to constructed control from the
-   * {@link inValueOf same-valued one}.
-   *
-   * @returns Created control instance.
-   */
-      (
-          this: void,
-          {
-            aspects,
-          }: {
-            readonly aspects?: InConverter.Aspect<TValue> | undefined;
-          },
-      ) => TControl;
-
+    /**
+     * @param aspects - Input aspects applied by default. This is an aspect converter to constructed control from the
+     * {@link inValueOf same-valued one}.
+     *
+     * @returns Created control instance.
+     */
+    (
+      this: void,
+      {
+        aspects,
+      }: {
+        readonly aspects?: InConverter.Aspect<TValue> | undefined;
+      },
+    ) => TControl;
 }
 
 /**
@@ -263,8 +271,8 @@ class InControl$Converted<TFrom, TTo> extends InControl<TTo> {
   private readonly _on = new EventEmitter<[TTo, TTo]>();
   private readonly _it: ValueTracker<[TTo, number]>;
   protected readonly _applyAspect: <TInstance, TKind extends InAspect.Application.Kind>(
-      this: this,
-      aspect: InAspect<TInstance, TKind>,
+    this: this,
+    aspect: InAspect<TInstance, TKind>,
   ) => InAspect.Application.Result<TInstance, TTo, TKind> | undefined;
 
   constructor(src: InControl<TFrom>, by: InConverter.Factory<TFrom, TTo>) {
@@ -278,14 +286,15 @@ class InControl$Converted<TFrom, TTo> extends InControl<TTo> {
     let set: (value: TFrom) => TTo;
     let get: (value: TTo) => TFrom;
     let convertAspect: <TInstance, TKind extends InAspect.Application.Kind>(
-        aspect: InAspect<TInstance, TKind>,
+      aspect: InAspect<TInstance, TKind>,
     ) => InAspect.Application.Result<TInstance, TTo, TKind> | undefined;
 
     if (/*#__INLINE__*/ isInAspectConversion(conversion)) {
       set = asis as (value: TFrom) => TTo;
       get = asis as (value: TTo) => TFrom;
-      convertAspect = <TInstance, TKind extends InAspect.Application.Kind>(aspect: InAspect<TInstance, TKind>) => {
-
+      convertAspect = <TInstance, TKind extends InAspect.Application.Kind>(
+        aspect: InAspect<TInstance, TKind>,
+      ) => {
         const fallback: InAspect.Applied<any, any> = src[InControl$Aspects__symbol].aspect(aspect);
 
         return fallback.attachTo ? fallback.attachTo(this) : fallback.convertTo(this);
@@ -293,8 +302,9 @@ class InControl$Converted<TFrom, TTo> extends InControl<TTo> {
     } else {
       set = conversion.set;
       get = conversion.get;
-      convertAspect = <TInstance, TKind extends InAspect.Application.Kind>(aspect: InAspect<TInstance, TKind>) => {
-
+      convertAspect = <TInstance, TKind extends InAspect.Application.Kind>(
+        aspect: InAspect<TInstance, TKind>,
+      ) => {
         const fallback: InAspect.Applied<any, any> = src[InControl$Aspects__symbol].aspect(aspect);
 
         return fallback.convertTo(this);
@@ -304,16 +314,20 @@ class InControl$Converted<TFrom, TTo> extends InControl<TTo> {
     this._applyAspect = aspect => conversion.applyAspect?.(aspect) || convertAspect(aspect);
     this._it = trackValue([set(src.it), 0]);
     this._it.supply.needs(this.supply);
-    this._it.on(([newValue], [oldValue]) => {
-      if (newValue !== oldValue) {
-        this._on.send(newValue, oldValue);
-      }
-    }).cuts(this._on);
-    src.on(value => {
-      if (value !== backward) {
-        this._it.it = [set(value), ++lastRev];
-      }
-    }).cuts(this);
+    this._it
+      .on(([newValue], [oldValue]) => {
+        if (newValue !== oldValue) {
+          this._on.send(newValue, oldValue);
+        }
+      })
+      .cuts(this._on);
+    src
+      .on(value => {
+        if (value !== backward) {
+          this._it.it = [set(value), ++lastRev];
+        }
+      })
+      .cuts(this);
     this._it.on(([value, rev]) => {
       if (rev !== lastRev) {
         lastRev = rev;
@@ -332,7 +346,6 @@ class InControl$Converted<TFrom, TTo> extends InControl<TTo> {
   }
 
   set it(value: TTo) {
-
     const [prevValue, prevRev] = this._it.it;
 
     if (value !== prevValue) {
