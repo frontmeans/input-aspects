@@ -8,7 +8,6 @@ import { InData, InMode } from './data';
 import { inValue } from './value.control';
 
 describe('intoConverterBy', () => {
-
   let control: InControl<string>;
 
   beforeEach(() => {
@@ -16,29 +15,33 @@ describe('intoConverterBy', () => {
   });
 
   it('returns no-op aspect conversion factory without parameters', () => {
-
     const converted = inValue('bar');
-    const conversion: InConverter.Aspect.Conversion<string> = intoConvertedBy<string>()(control, converted);
+    const conversion: InConverter.Aspect.Conversion<string> = intoConvertedBy<string>()(
+      control,
+      converted,
+    );
 
     expect(isInAspectConversion(conversion)).toBe(true);
     expect(conversion.applyAspect(InMode[InAspect__symbol])).toBeUndefined();
   });
   it('returns the only converter', () => {
-
     const converter: InConverter.Aspect<string, string> = { applyAspect: noop };
 
     const converted = inValue('bar');
     const conversion: InConverter.Aspect.Conversion<string> = intoConvertedBy<string>(converter)(
-        control,
-        converted,
+      control,
+      converted,
     );
 
     expect(conversion).toBe(converter);
   });
   it('returns aspect conversion factory for aspect converters', () => {
-
-    const converter1: InConverter.Aspect<string, string> = { applyAspect: jest.fn<(aspect: unknown) => any>() };
-    const converter2: InConverter.Aspect<string, string> = { applyAspect: jest.fn<(aspect: unknown) => any>() };
+    const converter1: InConverter.Aspect<string, string> = {
+      applyAspect: jest.fn<(aspect: unknown) => any>(),
+    };
+    const converter2: InConverter.Aspect<string, string> = {
+      applyAspect: jest.fn<(aspect: unknown) => any>(),
+    };
 
     const factory = intoConvertedBy<string>(converter1, converter2);
     const conversion: InConverter.Aspect.Conversion<string> = factory(control, inValue('bar'));
@@ -52,7 +55,6 @@ describe('intoConverterBy', () => {
     expect(converter2.applyAspect).toHaveBeenCalledWith(InData[InAspect__symbol]);
   });
   it('returns value conversion factory for value and aspect converters', () => {
-
     const converter1: InConverter.Value<string, string> = {
       get: () => 'foo',
       set: () => 'bar',
@@ -60,7 +62,10 @@ describe('intoConverterBy', () => {
     const converter2: InConverter.Aspect<string, string> = { applyAspect: noop };
 
     const factory = intoConvertedBy(converter1, converter2);
-    const conversion: InConverter.Value.Conversion<string, string> = factory(control, inValue('bar'));
+    const conversion: InConverter.Value.Conversion<string, string> = factory(
+      control,
+      inValue('bar'),
+    );
 
     expect(isInAspectConversion(conversion)).toBe(false);
 

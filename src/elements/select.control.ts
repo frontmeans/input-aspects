@@ -24,39 +24,32 @@ export type InSelect = InElement<readonly string[], HTMLSelectElement>;
  * @return New select input control instance.
  */
 export function inSelect(
-    element: HTMLSelectElement,
-    {
-      aspects,
-    }: {
-      readonly aspects?:
-          | InConverter.Aspect<readonly string[]>
-          | readonly InConverter.Aspect<readonly string[]>[]
-          | undefined;
-    } = {},
+  element: HTMLSelectElement,
+  {
+    aspects,
+  }: {
+    readonly aspects?:
+      | InConverter.Aspect<readonly string[]>
+      | readonly InConverter.Aspect<readonly string[]>[]
+      | undefined;
+  } = {},
 ): InSelect {
-  return new AbstractInElement(
-      element,
-      {
-        aspects,
-        get(): string[] {
-          return itsElements(
-              valueArray(
-                  this.element.options,
-                  option => option.selected && option.value,
-              ),
-          );
-        },
-        set(value) {
+  return new AbstractInElement(element, {
+    aspects,
+    get(): string[] {
+      return itsElements(
+        valueArray(this.element.options, option => option.selected && option.value),
+      );
+    },
+    set(value) {
+      const selected = new Set(value);
 
-          const selected = new Set(value);
-
-          // Iterate in reverse order to ensure the first matching option is selected
-          // when `multiple` attribute isn't set.
-          itsEach(
-              reverseArray(this.element.options),
-              option => option.selected = selected.has(option.value),
-          );
-        },
-      },
-  );
+      // Iterate in reverse order to ensure the first matching option is selected
+      // when `multiple` attribute isn't set.
+      itsEach(
+        reverseArray(this.element.options),
+        option => (option.selected = selected.has(option.value)),
+      );
+    },
+  });
 }

@@ -19,7 +19,6 @@ import { InValidation } from './validation.aspect';
 import { InValidator } from './validator';
 
 describe('InValidation', () => {
-
   let control: InControl<string>;
   let validation: InValidation<string>;
 
@@ -35,11 +34,11 @@ describe('InValidation', () => {
     validator = new EventEmitter();
 
     const tracker = trackValue<InValidation.Message[]>([]).by(
-        onSupplied(validator).do(mapOn_((...messages) => messages)),
+      onSupplied(validator).do(mapOn_((...messages) => messages)),
     );
 
     validatorSupply = validation.by(
-        tracker.read.do(translateAfter_((send, messages) => send(...messages))),
+      tracker.read.do(translateAfter_((send, messages) => send(...messages))),
     );
   });
 
@@ -52,7 +51,6 @@ describe('InValidation', () => {
   });
 
   it('sends successful validation result initially', () => {
-
     const result = lastResult();
 
     expect(result.ok).toBe(true);
@@ -61,7 +59,6 @@ describe('InValidation', () => {
     expect([...result]).toHaveLength(0);
   });
   it('sends validation message', () => {
-
     const message = { message: 'some message' };
 
     validator.send(message);
@@ -78,7 +75,6 @@ describe('InValidation', () => {
     expect(result.messages('other')).toHaveLength(0);
   });
   it('sends multiple validation messages', () => {
-
     const message1 = { message: 'message1', code1: 'value2' };
     const message2 = { message: 'message2', code2: 'value2' };
 
@@ -100,7 +96,6 @@ describe('InValidation', () => {
     expect(result.messages('code2')).toEqual([message2]);
   });
   it('ignores falsy message code', () => {
-
     const message1 = { message: 'message1', code1: 'value2' };
     const message2 = { message: '', code2: 'value2' };
 
@@ -120,7 +115,6 @@ describe('InValidation', () => {
     expect(result.messages('code2')).toEqual([message2]);
   });
   it('strips out empty message', () => {
-
     const message1 = { message: 'message1', code1: 'value1' };
     const message2 = { message: false, code2: false };
 
@@ -167,11 +161,11 @@ describe('InValidation', () => {
     expect(receiver).not.toHaveBeenCalled();
   });
   it('accepts function as validator', () => {
-
     const message = { message: 'test message' };
     const tracker = trackValue(message);
-    const validatorFunction = jest.fn<(control: InControl<string>) => EventKeeper<InValidation.Message[]>>(
-        () => tracker.read);
+    const validatorFunction = jest.fn<
+      (control: InControl<string>) => EventKeeper<InValidation.Message[]>
+    >(() => tracker.read);
 
     validation.by(validatorFunction);
     expect(validatorFunction).toHaveBeenCalledWith(control);
@@ -179,7 +173,6 @@ describe('InValidation', () => {
   });
 
   describe('Simple validator', () => {
-
     let validate: Mock<InValidator.Simple<any>['validate']>;
 
     beforeEach(() => {
@@ -197,7 +190,6 @@ describe('InValidation', () => {
       expect([...lastResult()]).toEqual([{ value: 'other' }]);
     });
     it('reports multiple messages', () => {
-
       const messages = [{ message: 1 }, { message: 2 }];
 
       validate.mockImplementation(() => messages);
@@ -218,7 +210,6 @@ describe('InValidation', () => {
   });
 
   it('accepts messages from multiple validators', () => {
-
     const message1 = { message: 'message1' };
     const validator2 = trackValue(message1);
 
@@ -239,14 +230,9 @@ describe('InValidation', () => {
     expect([...lastResult()]).toEqual([message3]);
   });
   it('stops validation when supply is cut off', () => {
-
     const validator2 = new EventEmitter<InValidation.Message[]>();
     const proxy = jest.fn<(message: InValidation.Message) => InValidation.Message>(asis);
-    const supply = validation.by(
-        validator2.on.do(
-            mapAfter(proxy, () => ({})),
-        ),
-    );
+    const supply = validation.by(validator2.on.do(mapAfter(proxy, () => ({}))));
     const message1 = { message: 'message1' };
 
     validator2.send(message1);
@@ -270,7 +256,6 @@ describe('InValidation', () => {
     expect(receiver).not.toHaveBeenCalled();
   });
   it('resumes validation when results receiver registered again', () => {
-
     const message1 = { message: 'message1' };
 
     validator.send(message1);
@@ -285,7 +270,6 @@ describe('InValidation', () => {
     expect([...lastResult()]).toEqual([message2]);
   });
   it('stops validation once input supply cut off', () => {
-
     const reason = 'some reason';
 
     control.supply.off(reason);
@@ -308,12 +292,14 @@ describe('InValidation', () => {
   });
 
   describe('conversion', () => {
-
     let convertedControl: InControl<number>;
     let convertedValidation: InValidation<number>;
 
     beforeEach(() => {
-      convertedControl = control.convert({ set: value => value.length, get: value => '*'.repeat(value) });
+      convertedControl = control.convert({
+        set: value => value.length,
+        get: value => '*'.repeat(value),
+      });
       convertedValidation = convertedControl.aspect(InValidation);
     });
 
@@ -332,7 +318,6 @@ describe('InValidation', () => {
     });
 
     it('receives validation messages from original control', () => {
-
       const message = { name: 'message' };
 
       validator.send(message);
@@ -340,7 +325,6 @@ describe('InValidation', () => {
       expect([...lastResult(convertedReceiver)]).toEqual([message]);
     });
     it('receives validation messages from converted control', () => {
-
       const message1 = { name: 'message1' };
       const message2 = { name: 'message2' };
 
@@ -353,8 +337,9 @@ describe('InValidation', () => {
 
     describe('double converted', () => {
       it('receives validation messages from both origins', () => {
-
-        const dcValidation = convertedControl.convert<number>({ get: asis, set: asis }).aspect(InValidation);
+        const dcValidation = convertedControl
+          .convert<number>({ get: asis, set: asis })
+          .aspect(InValidation);
         const dcReceiver = jest.fn<(result: InValidation.Result) => void>();
 
         dcValidation.read(dcReceiver);
@@ -371,7 +356,6 @@ describe('InValidation', () => {
   });
   describe('converted to the same value', () => {
     it('reuses the same validation instance', () => {
-
       const svValidation = control.convert().aspect(InValidation);
 
       expect(svValidation).toBe(validation);
@@ -379,7 +363,6 @@ describe('InValidation', () => {
   });
 
   describe('container validation', () => {
-
     let group: InGroup<{ ctrl: string }>;
     let groupValidation: InValidation<{ ctrl: string }>;
 
@@ -397,7 +380,6 @@ describe('InValidation', () => {
     });
 
     it('sends nested validation result', () => {
-
       const message = { message: 'some message' };
 
       validator.send(message);

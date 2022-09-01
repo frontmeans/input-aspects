@@ -35,15 +35,9 @@ import { InElement } from '../element.control';
  * @internal
  */
 const InMode__aspect: InAspect<InMode> = {
-
   applyTo<TValue>(control: InControl<TValue>): InAspect.Applied<TValue, InMode> {
-    return builtInAspect(
-        control,
-        InMode,
-        ctrl => new InControlMode(ctrl),
-    );
+    return builtInAspect(control, InMode, ctrl => new InControlMode(ctrl));
   },
-
 };
 
 /**
@@ -63,7 +57,8 @@ const InMode__aspect: InAspect<InMode> = {
  *
  * @category Aspect
  */
-export abstract class InMode implements EventSender<[InMode.Value, InMode.Value]>, EventKeeper<[InMode.Value]> {
+export abstract class InMode
+  implements EventSender<[InMode.Value, InMode.Value]>, EventKeeper<[InMode.Value]> {
 
   static get [InAspect__symbol](): InAspect<InMode> {
     return InMode__aspect;
@@ -140,7 +135,6 @@ export abstract class InMode implements EventSender<[InMode.Value, InMode.Value]
  * @category Aspect
  */
 export namespace InMode {
-
   /**
    * Possible input control mode value:
    *
@@ -159,9 +153,8 @@ export namespace InMode {
    * control as the only parameter.
    */
   export type Source =
-      | EventKeeper<[InMode.Value]>
-      | ((this: void, control: InControl<any>) => EventKeeper<[InMode.Value]>);
-
+    | EventKeeper<[InMode.Value]>
+    | ((this: void, control: InControl<any>) => EventKeeper<[InMode.Value]>);
 }
 
 /**
@@ -186,13 +179,13 @@ class OwnModeTracker extends ValueTracker<InMode.Value> {
 
   set it(value: InMode.Value) {
     switch (value) {
-    case 'off':
-    case 'ro':
-    case '-on':
-    case '-ro':
-      break;
-    default:
-      value = 'on'; // Correct the value.
+      case 'off':
+      case 'ro':
+      case '-on':
+      case '-ro':
+        break;
+      default:
+        value = 'on'; // Correct the value.
     }
 
     this._tracker.it = value;
@@ -214,20 +207,18 @@ class DerivedInModes {
   private readonly _on = new EventEmitter<[]>();
 
   constructor() {
-
     const sources: AfterEvent<[Set<AfterEvent<[InMode.Value]>>]> = afterSent(
-        this._on.on.do(mapOn(() => this._all)),
-        () => [this._all],
+      this._on.on.do(mapOn(() => this._all)),
+      () => [this._all],
     );
 
     this.read = sources.do(
-        digAfter_((set: Set<AfterEvent<[InMode.Value]>>) => afterEach(...set)),
-        mapAfter(mergeInModes),
+      digAfter_((set: Set<AfterEvent<[InMode.Value]>>) => afterEach(...set)),
+      mapAfter(mergeInModes),
     );
   }
 
   add(source: AfterEvent<[InMode.Value]>): Supply {
-
     const supply = new Supply(() => {
       this._all.delete(source);
       this._on.send();
@@ -265,21 +256,14 @@ class InControlMode extends InMode {
     this.read = afterAll({
       derived: this._derived.read,
       own: this.own,
-    }).do(translateAfter(
-        (
-            send,
-            {
-              derived: [derived],
-              own: [own],
-            },
-        ) => {
-
+    }).do(
+      translateAfter(
+        (send, { derived: [derived], own: [own] }) => {
           let next: InMode.Value;
 
           if (own === 'off' || derived === 'off') {
             next = 'off';
           } else {
-
             let off = false;
 
             if (own[0] === '-') {
@@ -292,27 +276,29 @@ class InControlMode extends InMode {
             }
             next = derived === 'ro' ? 'ro' : own;
             if (off) {
-              next = '-' + next as InMode.Value;
+              next = ('-' + next) as InMode.Value;
             }
           }
 
           if (last !== next) {
-            send(last = next);
+            send((last = next));
           }
         },
         () => [last],
-    ));
+      ),
+    );
 
     let lastUpdate: InMode.Value = 'on';
 
-    this.on = this.read.do(translateOn((send, value) => {
+    this.on = this.read.do(
+      translateOn((send, value) => {
+        const old = lastUpdate;
 
-      const old = lastUpdate;
-
-      if (old !== value) {
-        send(lastUpdate = value, old);
-      }
-    }));
+        if (old !== value) {
+          send((lastUpdate = value), old);
+        }
+      }),
+    );
 
     if (element) {
       this.read(value => applyInMode(element.element, value));
@@ -320,9 +306,13 @@ class InControlMode extends InMode {
   }
 
   derive(source: InMode.Source): Supply {
-    return this._derived.add(
-        afterSupplied(isEventKeeper(source) ? source : source(this._control)).do(supplyAfter(this._control)),
-    ).needs(this._control);
+    return this._derived
+      .add(
+        afterSupplied(isEventKeeper(source) ? source : source(this._control)).do(
+          supplyAfter(this._control),
+        ),
+      )
+      .needs(this._control);
   }
 
 }
@@ -332,8 +322,10 @@ class InControlMode extends InMode {
  */
 function initialInMode(element: HTMLElement): InMode.Value {
   return element.getAttribute('disabled') != null
-      ? 'off'
-      : (element.getAttribute('readonly') != null ? 'ro' : 'on');
+    ? 'off'
+    : element.getAttribute('readonly') != null
+    ? 'ro'
+    : 'on';
 }
 
 /**
@@ -341,25 +333,25 @@ function initialInMode(element: HTMLElement): InMode.Value {
  */
 function applyInMode(element: HTMLElement, value: InMode.Value): void {
   switch (value) {
-  case 'off':
-    element.setAttribute('disabled', '');
+    case 'off':
+      element.setAttribute('disabled', '');
 
-    break;
-  case 'ro':
-  case '-ro':
-    // Workaround of https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
-    element.setAttribute('disabled', '');
-    element.removeAttribute('disabled');
-    element.setAttribute('readonly', '');
+      break;
+    case 'ro':
+    case '-ro':
+      // Workaround of https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
+      element.setAttribute('disabled', '');
+      element.removeAttribute('disabled');
+      element.setAttribute('readonly', '');
 
-    break;
-  default:
-    // Workaround of https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
-    element.setAttribute('disabled', '');
-    element.removeAttribute('disabled');
-    // Workaround of https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
-    element.setAttribute('readonly', '');
-    element.removeAttribute('readonly');
+      break;
+    default:
+      // Workaround of https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
+      element.setAttribute('disabled', '');
+      element.removeAttribute('disabled');
+      // Workaround of https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12087679/
+      element.setAttribute('readonly', '');
+      element.removeAttribute('readonly');
   }
 }
 
@@ -367,7 +359,6 @@ function applyInMode(element: HTMLElement, value: InMode.Value): void {
  * @internal
  */
 function parentsInMode(parents: InParents.All): AfterEvent<[InMode.Value]> {
-
   const parentList = itsElements(parents);
 
   if (!parentList.length) {
@@ -396,30 +387,29 @@ function mergeInModes(...modes: [InMode.Value][]): InMode.Value {
  * @returns Merged input mode value.
  */
 export function inModeValue(...modes: InMode.Value[]): InMode.Value {
-
   let ro = false;
   let off = false;
 
   for (const mode of modes) {
     switch (mode) {
-    case 'off':
-      return 'off';
-    case 'ro':
-      ro = true;
+      case 'off':
+        return 'off';
+      case 'ro':
+        ro = true;
 
-      break;
-    case '-on':
-      off = true;
+        break;
+      case '-on':
+        off = true;
 
-      break;
-    case '-ro':
-      off = true;
-      ro = true;
+        break;
+      case '-ro':
+        off = true;
+        ro = true;
 
-      break;
-    case 'on':
+        break;
+      case 'on':
     }
   }
 
-  return off ? (ro ? '-ro' : '-on') : (ro ? 'ro' : 'on');
+  return off ? (ro ? '-ro' : '-on') : ro ? 'ro' : 'on';
 }

@@ -31,19 +31,24 @@ export function intoInteger(radix?: number): InConverter<string, number>;
  *
  * Reports invalid numbers with `invalid`, `NaN`, and `notInteger` message codes.
  */
-export function intoInteger(from: InControl<string>, to: InControl<number>): InConverter.Conversion<string, number>;
+export function intoInteger(
+  from: InControl<string>,
+  to: InControl<number>,
+): InConverter.Conversion<string, number>;
 
 export function intoInteger(
-    radixOrFrom: number | InControl<string> = 10,
-    optTo?: InControl<number>,
+  radixOrFrom: number | InControl<string> = 10,
+  optTo?: InControl<number>,
 ): InConverter<string, number> {
   if (typeof radixOrFrom !== 'number') {
-    return (intoInteger() as InConverter.Factory<string, number>)(radixOrFrom, optTo as InControl<number>);
+    return (intoInteger() as InConverter.Factory<string, number>)(
+      radixOrFrom,
+      optTo as InControl<number>,
+    );
   }
 
   return InParser.converter<number>((_from, to) => [
     (text, errors) => {
-
       const result = parseInt(text, radixOrFrom);
 
       if (isNaN(result)) {

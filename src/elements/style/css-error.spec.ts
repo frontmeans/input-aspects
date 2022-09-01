@@ -103,7 +103,8 @@ describe('inCssError', () => {
   }
 
   function expectCssClass(name: QualifiedName): void {
-    expect(itsElements(overArray(element.classList)))
-        .toContain(css__naming.name(name, control.aspect(InNamespaceAliaser)));
+    expect(itsElements(overArray(element.classList))).toContain(
+      css__naming.name(name, control.aspect(InNamespaceAliaser)),
+    );
   }
 });

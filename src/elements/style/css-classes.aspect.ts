@@ -29,14 +29,12 @@ import { InStyledElement } from './styled-element.aspect';
  * @internal
  */
 const InCssClasses__aspect: InAspect<InCssClasses> = {
-
   applyTo(control: InControl<any>): InAspect.Applied<any, InCssClasses> {
     return {
       instance: new InControlCssClasses(control),
       convertTo: noop,
     };
   },
-
 };
 
 /**
@@ -123,7 +121,6 @@ export abstract class InCssClasses implements EventKeeper<[InCssClasses.Map]> {
  * @category Aspect
  */
 export namespace InCssClasses {
-
   /**
    * A source of CSS class names for styled element.
    *
@@ -131,8 +128,8 @@ export namespace InCssClasses {
    * control as the only parameter.
    */
   export type Source =
-      | EventKeeper<Spec[]>
-      | ((this: void, control: InControl<any>) => EventKeeper<Spec[]>);
+    | EventKeeper<Spec[]>
+    | ((this: void, control: InControl<any>) => EventKeeper<Spec[]>);
 
   /**
    * A specifier of CSS classes for styled element.
@@ -141,9 +138,7 @@ export namespace InCssClasses {
    *
    * Qualified names are converted to simple ones by {@link InNamespaceAliaser} aspect.
    */
-  export type Spec =
-      | QualifiedName
-      | Map;
+  export type Spec = QualifiedName | Map;
 
   /**
    * A map of CSS class names for styled element.
@@ -156,13 +151,12 @@ export namespace InCssClasses {
   export type Map = {
     readonly [name in string]?: boolean | undefined;
   };
-
 }
 
 /**
  * @internal
  */
-const UnsubscribeReason__symbol = (/*#__PURE__*/ Symbol('reason'));
+const UnsubscribeReason__symbol = /*#__PURE__*/ Symbol('reason');
 
 /**
  * @internal
@@ -186,7 +180,7 @@ class InControlCssClasses extends InCssClasses {
   readonly read: AfterEvent<[InCssClasses.Map]>;
   readonly track: AfterEvent<[readonly string[], readonly string[]]>;
   private readonly _sources = trackValue<[Map<AfterEvent<[InCssClasses.Map]>, Supply>]>([
-      new Map<AfterEvent<[InCssClasses.Map]>, Supply>(),
+    new Map<AfterEvent<[InCssClasses.Map]>, Supply>(),
   ]);
 
   private _schedule?: RenderSchedule | undefined;
@@ -197,16 +191,15 @@ class InControlCssClasses extends InCssClasses {
     _control.supply.whenOff(reason => this.done(reason));
 
     this.read = this._sources.read.do(
-        supplyAfter(this._control),
-        digAfter_(([sources]) => afterEach(...sources.keys())),
-        mapAfter_((...classes: [InCssClasses.Map][]) => {
+      supplyAfter(this._control),
+      digAfter_(([sources]) => afterEach(...sources.keys())),
+      mapAfter_((...classes: [InCssClasses.Map][]) => {
+        const result: { [name: string]: boolean } = {};
 
-          const result: { [name: string]: boolean } = {};
+        classes.forEach(([map]) => mergeInCssClassesMap(map, result));
 
-          classes.forEach(([map]) => mergeInCssClassesMap(map, result));
-
-          return result;
-        }),
+        return result;
+      }),
     );
 
     this.track = afterEventBy<[readonly string[], readonly string[]]>(receiver => {
@@ -217,28 +210,25 @@ class InControlCssClasses extends InCssClasses {
       let classesSent = false;
       const sendClasses = (): void => {
         classesSent = true;
-        classes.redelta(
-            (add, remove) => emitter.send(add, remove),
-        ).undelta();
+        classes.redelta((add, remove) => emitter.send(add, remove)).undelta();
       };
 
       emitter.on(receiver);
 
       return this.read(map => {
-
         const remove = new Set(classes);
         const add: string[] = [];
 
         itsEach(
-            filterIt<ObjectEntry<InCssClasses.Map>>(
-                overEntries<InCssClasses.Map>(map),
-                ([, flag]) => !!flag,
-            ),
-            ([name]) => {
-              if (!remove.delete(name)) {
-                add.push(name);
-              }
-            },
+          filterIt<ObjectEntry<InCssClasses.Map>>(
+            overEntries<InCssClasses.Map>(map),
+            ([, flag]) => !!flag,
+          ),
+          ([name]) => {
+            if (!remove.delete(name)) {
+              add.push(name);
+            }
+          },
         );
 
         if (!classesSent || add.length || remove.size) {
@@ -256,10 +246,10 @@ class InControlCssClasses extends InCssClasses {
   }
 
   get schedule(): RenderSchedule {
-    return this._schedule || (this._schedule = controlSchedule(
-        this._control,
-        this._control.aspect(InStyledElement)!,
-    ));
+    return (
+      this._schedule
+      || (this._schedule = controlSchedule(this._control, this._control.aspect(InStyledElement)!))
+    );
   }
 
   specs(source: InCssClasses.Source): AfterEvent<InCssClasses.Spec[]> {
@@ -267,29 +257,26 @@ class InControlCssClasses extends InCssClasses {
   }
 
   resolve(source: InCssClasses.Source): AfterEvent<[InCssClasses.Map]> {
-
     const nsAlias = this._control.aspect(InNamespaceAliaser);
 
     return this.specs(source).do(
-        mapAfter((...names) => {
+      mapAfter((...names) => {
+        const result: { [name: string]: boolean } = {};
 
-          const result: { [name: string]: boolean } = {};
+        names.forEach(name => {
+          if (isQualifiedName(name)) {
+            result[css__naming.name(name, nsAlias)] = true;
+          } else {
+            mergeInCssClassesMap(name, result);
+          }
+        });
 
-          names.forEach(name => {
-            if (isQualifiedName(name)) {
-              result[css__naming.name(name, nsAlias)] = true;
-            } else {
-              mergeInCssClassesMap(name, result);
-            }
-          });
-
-          return result;
-        }),
+        return result;
+      }),
     );
   }
 
   add(source: InCssClasses.Source): Supply {
-
     const inSupply = this._control.supply;
 
     if (inSupply.isOff) {
@@ -298,7 +285,6 @@ class InControlCssClasses extends InCssClasses {
 
     const classesSupply = new Supply();
     const src = afterEventBy<[InCssClasses.Map]>(receiver => {
-
       const supply = this.resolve(source)({
         receive(context, ...event) {
           receiver.receive(context, ...event);
@@ -332,17 +318,18 @@ class InControlCssClasses extends InCssClasses {
   }
 
   applyTo(
-      element: Element,
-      schedule: RenderSchedule = controlSchedule(this._control, element),
+    element: Element,
+    schedule: RenderSchedule = controlSchedule(this._control, element),
   ): Supply {
-
     const { classList } = element;
     const classes = new DeltaSet<string>();
     const updateClasses = (): void => {
-      classes.redelta((add, remove) => {
-        classList.remove(...remove);
-        classList.add(...add);
-      }).undelta();
+      classes
+        .redelta((add, remove) => {
+          classList.remove(...remove);
+          classList.add(...add);
+        })
+        .undelta();
     };
 
     return this.track((add, remove) => {
@@ -357,10 +344,7 @@ class InControlCssClasses extends InCssClasses {
   }
 
   done(reason?: unknown): this {
-    itsEach(
-        this._sources.it[0].values(),
-        supply => supply.off(reason),
-    );
+    itsEach(this._sources.it[0].values(), supply => supply.off(reason));
     this._sources.supply.off(reason);
 
     return this;
@@ -372,14 +356,11 @@ class InControlCssClasses extends InCssClasses {
  * @internal
  */
 function mergeInCssClassesMap(map: InCssClasses.Map, result: { [name: string]: boolean }): void {
-  itsEach(
-      overEntries(map),
-      ([name, flag]) => {
-        if (flag != null) {
-          result[name] = flag;
-        }
-      },
-  );
+  itsEach(overEntries(map), ([name, flag]) => {
+    if (flag != null) {
+      result[name] = flag;
+    }
+  });
 }
 
 /**

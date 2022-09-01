@@ -36,7 +36,9 @@ const InParents__aspect: InAspect<InParents> = {
  * @category Aspect
  */
 export abstract class InParents
-    implements EventKeeper<[Iterable<InParents.Entry>]>, EventSender<[InParents.Entry[], InParents.Entry[]]> {
+  implements
+    EventKeeper<[Iterable<InParents.Entry>]>,
+    EventSender<[InParents.Entry[], InParents.Entry[]]> {
 
   static get [InAspect__symbol](): InAspect<InParents> {
     return InParents__aspect;
@@ -82,28 +84,22 @@ export abstract class InParents
  * @category Aspect
  */
 export namespace InParents {
-
   /**
    * Parent container entry of input control.
    */
   export interface Entry {
-
     /**
      * Parent container.
      */
     readonly parent: InContainer<any>;
-
   }
 
   /**
    * All control parents as iterable instance.
    */
   export interface All extends Iterable<Entry> {
-
     [Symbol.iterator](): IterableIterator<Entry>;
-
   }
-
 }
 
 /**
@@ -127,7 +123,6 @@ class InControlParents extends InParents {
   }
 
   add(entry: InParents.Entry): Supply {
-
     const existingSupply = this._map.get(entry);
 
     if (existingSupply) {
@@ -144,9 +139,7 @@ class InControlParents extends InParents {
     this._map.set(entry, supply);
     this._on.send([entry], []);
 
-    return supply
-        .needs(this._control)
-        .needs(entry.parent);
+    return supply.needs(this._control).needs(entry.parent);
   }
 
   get on(): OnEvent<[InParents.Entry[], InParents.Entry[]]> {

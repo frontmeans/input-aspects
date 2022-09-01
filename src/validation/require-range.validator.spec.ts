@@ -5,7 +5,6 @@ import { requireRange } from './require-range.validator';
 import { InValidation } from './validation.aspect';
 
 describe('requireRange', () => {
-
   let control: InControl<number>;
   let validation: InValidation<number>;
 
@@ -17,7 +16,7 @@ describe('requireRange', () => {
   let validationResult: InValidation.Result;
 
   beforeEach(() => {
-    validation.read(result => validationResult = result);
+    validation.read(result => (validationResult = result));
   });
 
   it('ignores NaN value', () => {

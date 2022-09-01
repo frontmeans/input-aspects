@@ -13,7 +13,6 @@ describe('InRenderScheduler', () => {
     expect(inValue(1).aspect(InRenderScheduler)).toBe(newRenderSchedule);
   });
   it('is preserved when converted by default', () => {
-
     const control = inValue(1);
     const converted = control.convert();
 
@@ -21,7 +20,6 @@ describe('InRenderScheduler', () => {
   });
 
   describe('to', () => {
-
     let input: HTMLInputElement;
     let control: InText;
     let scheduler: InRenderScheduler;
@@ -41,13 +39,9 @@ describe('InRenderScheduler', () => {
       expect(converted.aspect(InElement)).toBe(control.aspect(InElement));
     });
     it('assigns render scheduler along with styled element', () => {
-
       const styled = document.createElement('div');
 
-      converted = control.convert(
-          InStyledElement.to(styled),
-          InRenderScheduler.to(scheduler),
-      );
+      converted = control.convert(InStyledElement.to(styled), InRenderScheduler.to(scheduler));
 
       expect(converted.aspect(InContainer)).toBeNull();
       expect(converted.aspect(InStyledElement)).toBe(styled);

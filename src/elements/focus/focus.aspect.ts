@@ -10,16 +10,13 @@ import { InElement } from '../../element.control';
  * @internal
  */
 const InFocus__aspect: InAspect<InFocus | null> = {
-
   applyTo<TValue>(control: InControl<TValue>): InAspect.Applied<TValue, InFocus | null> {
     return builtInAspect(control, InFocus, ctrl => {
-
       const element = ctrl.aspect(InElement);
 
       return element && new InControlFocus(element);
     });
   },
-
 };
 
 /**
@@ -49,14 +46,14 @@ class InControlFocus extends InFocus {
 
     const { element, events } = inElement;
     const owner: DocumentOrShadowRoot = element.getRootNode
-        ? element.getRootNode() as unknown as DocumentOrShadowRoot
-        : element.ownerDocument;
+      ? (element.getRootNode() as unknown as DocumentOrShadowRoot)
+      : element.ownerDocument;
 
     this._it = trackValue(owner.activeElement === element);
     this.supply.needs(inElement);
 
-    events.on('focus')(() => this._it.it = true);
-    events.on('blur')(() => this._it.it = false);
+    events.on('focus')(() => (this._it.it = true));
+    events.on('blur')(() => (this._it.it = false));
     this.on({
       receive(ctx, newValue) {
         ctx.onRecurrent(noop);

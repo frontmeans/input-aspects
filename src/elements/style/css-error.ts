@@ -18,16 +18,13 @@ import { InCssClasses } from './css-classes.aspect';
  *
  * @returns A source of CSS class names to apply.
  */
-export function inCssError(
-    {
-      mark,
-      when,
-    }: {
-      mark?: InCssClasses.Spec | readonly InCssClasses.Spec[] | undefined;
-      when?: string | readonly string[] | undefined;
-    } = {},
-): InCssClasses.Source {
-
+export function inCssError({
+  mark,
+  when,
+}: {
+  mark?: InCssClasses.Spec | readonly InCssClasses.Spec[] | undefined;
+  when?: string | readonly string[] | undefined;
+} = {}): InCssClasses.Source {
   let hasError: (errors: InValidation.Result) => boolean;
 
   if (!when) {
@@ -38,9 +35,11 @@ export function inCssError(
     hasError = errors => errors.has(when);
   }
 
-  return control => control.aspect(InValidation).read.do(translateAfter(
-      (send, errors) => hasError(errors) ? send(...inCssErrorMarks(mark)) : send(),
-  ));
+  return control => control
+      .aspect(InValidation)
+      .read.do(
+        translateAfter((send, errors) => hasError(errors) ? send(...inCssErrorMarks(mark)) : send()),
+      );
 }
 
 /**
@@ -58,7 +57,9 @@ const defaultInCssErrorMarks: readonly InCssClasses.Spec[] = [['has-error', Inpu
 /**
  * @internal
  */
-function inCssErrorMarks(mark?: InCssClasses.Spec | readonly InCssClasses.Spec[]): readonly InCssClasses.Spec[] {
+function inCssErrorMarks(
+  mark?: InCssClasses.Spec | readonly InCssClasses.Spec[],
+): readonly InCssClasses.Spec[] {
   if (!mark) {
     return defaultInCssErrorMarks;
   }

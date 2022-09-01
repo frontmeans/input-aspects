@@ -5,7 +5,6 @@ import { requireLength } from './require-length.validator';
 import { InValidation } from './validation.aspect';
 
 describe('requireLength', () => {
-
   let control: InControl<string>;
   let validation: InValidation<string>;
 
@@ -17,7 +16,7 @@ describe('requireLength', () => {
   let validationResult: InValidation.Result;
 
   beforeEach(() => {
-    validation.read(result => validationResult = result);
+    validation.read(result => (validationResult = result));
   });
 
   it('ignores empty value', () => {

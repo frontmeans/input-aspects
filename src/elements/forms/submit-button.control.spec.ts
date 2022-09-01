@@ -8,7 +8,6 @@ import { inValue } from '../../value.control';
 import { inSubmitButton, InSubmitButton } from './submit-button.control';
 
 describe('InSubmitButton', () => {
-
   let element: HTMLButtonElement;
   let form: InControl<string>;
   let control: InSubmitButton<HTMLButtonElement>;
@@ -20,7 +19,6 @@ describe('InSubmitButton', () => {
   });
 
   it('depends on form', () => {
-
     const reason = 'test reason';
 
     form.supply.off(reason);
@@ -32,17 +30,15 @@ describe('InSubmitButton', () => {
   });
 
   describe('mode', () => {
-
     let mode: InMode.Value;
 
     beforeEach(() => {
-      control.aspect(InMode).read(m => mode = m);
+      control.aspect(InMode).read(m => (mode = m));
     });
 
     it('is disabled while submitting', async () => {
-
       let resolve: () => void = noop;
-      const submitter = new Promise<void>(r => resolve = r);
+      const submitter = new Promise<void>(r => (resolve = r));
       const promise = form.aspect(InSubmit).submit(() => submitter);
 
       expect(mode).toBe('off');
@@ -52,15 +48,15 @@ describe('InSubmitButton', () => {
       expect(mode).toBe('on');
     });
     it('is enabled if submit is not ready, but not submitted yet', () => {
-       form.aspect(InMode).derive(afterThe('off'));
+      form.aspect(InMode).derive(afterThe('off'));
 
-       expect(mode).toBe('on');
+      expect(mode).toBe('on');
     });
     it('is disabled on submit if the form is not ready', async () => {
       form.aspect(InMode).derive(afterThe('off'));
 
       let resolve: () => void = noop;
-      const submitter = new Promise<void>(r => resolve = r);
+      const submitter = new Promise<void>(r => (resolve = r));
       const promise = form.aspect(InSubmit).submit(() => submitter);
 
       expect(mode).toBe('off');

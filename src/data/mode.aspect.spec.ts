@@ -1,5 +1,11 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
-import { afterSupplied, onceAfter, onSupplied, trackValue, ValueTracker } from '@proc7ts/fun-events';
+import {
+  afterSupplied,
+  onceAfter,
+  onSupplied,
+  trackValue,
+  ValueTracker,
+} from '@proc7ts/fun-events';
 import { Supply } from '@proc7ts/supply';
 import { Mock } from 'jest-mock';
 import { inGroup, InGroup } from '../containers';
@@ -9,7 +15,6 @@ import { inText } from '../elements';
 import { InMode } from './mode.aspect';
 
 describe('InMode', () => {
-
   let element: HTMLInputElement;
 
   beforeEach(() => {
@@ -29,8 +34,8 @@ describe('InMode', () => {
   beforeEach(() => {
     control = inText(element);
     mode = control.aspect(InMode);
-    modeUpdatesSupply = mode.on(onModeUpdate = jest.fn());
-    modeSupply = mode.read(readMode = jest.fn());
+    modeUpdatesSupply = mode.on((onModeUpdate = jest.fn()));
+    modeSupply = mode.read((readMode = jest.fn()));
     readMode.mockClear();
   });
 
@@ -38,17 +43,15 @@ describe('InMode', () => {
   let ownUpdatesSupply: Supply;
 
   beforeEach(() => {
-    ownUpdatesSupply = mode.own.on(onOwnUpdate = jest.fn());
+    ownUpdatesSupply = mode.own.on((onOwnUpdate = jest.fn()));
   });
 
   it('is reused by converted control with the same value', () => {
-
     const converted = control.convert();
 
     expect(converted.aspect(InMode)).toBe(mode);
   });
   it('is not reused by converted control with another value', () => {
-
     const converted = control.convert(intoInteger);
 
     expect(converted.aspect(InMode)).not.toBe(mode);
@@ -68,7 +71,6 @@ describe('InMode', () => {
 
   describe('done', () => {
     it('stops sending updates', () => {
-
       const reason = 'some reason';
       const updatesDone = jest.fn();
       const modeDone = jest.fn();
@@ -84,7 +86,6 @@ describe('InMode', () => {
 
   describe('input cut off', () => {
     it('stops sending updates', () => {
-
       const reason = 'some reason';
       const updatesDone = jest.fn();
       const modeDone = jest.fn();
@@ -179,7 +180,6 @@ describe('InMode', () => {
 
     describe('done', () => {
       it('stops sending updates', () => {
-
         const reason = 'some reason';
         const updatesDone = jest.fn();
 
@@ -192,7 +192,6 @@ describe('InMode', () => {
   });
 
   describe('parent mode', () => {
-
     let group: InGroup<{ nested: string }>;
     let groupMode: InMode;
     let readGroupMode: Mock<(mode: InMode.Value) => void>;
@@ -201,7 +200,7 @@ describe('InMode', () => {
       group = inGroup({ nested: 'some' });
       group.controls.set('nested', control);
       groupMode = group.aspect(InMode);
-      groupMode.read(readGroupMode = jest.fn());
+      groupMode.read((readGroupMode = jest.fn()));
     });
 
     it('is initially `on`', () => {
@@ -287,7 +286,6 @@ describe('InMode', () => {
   });
 
   describe('derived mode', () => {
-
     let source: ValueTracker<InMode.Value>;
     let sourceSupply: Supply;
 

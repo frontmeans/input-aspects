@@ -21,24 +21,23 @@ import { InMode, inModeValue } from '../mode.aspect';
  * @returns A source of input mode.
  */
 export function inModeByForm(
-    form: InControl<any>,
-    {
-      notReady = 'on',
-      invalid = 'on',
-      busy = 'ro',
-    }: {
-      notReady?: InMode.Value | undefined;
-      invalid?: InMode.Value | undefined;
-      busy?: InMode.Value | undefined;
-    } = {},
+  form: InControl<any>,
+  {
+    notReady = 'on',
+    invalid = 'on',
+    busy = 'ro',
+  }: {
+    notReady?: InMode.Value | undefined;
+    invalid?: InMode.Value | undefined;
+    busy?: InMode.Value | undefined;
+  } = {},
 ): InMode.Source {
-
   const submit = form.aspect(InSubmit);
 
-  return submit.read.do(mapAfter(
-      flags => inModeValue(
-          flags.busy ? busy : 'on',
-          flags.ready ? 'on' : (flags.submitted ? invalid : notReady),
-      ),
-  ));
+  return submit.read.do(
+    mapAfter(flags => inModeValue(
+        flags.busy ? busy : 'on',
+        flags.ready ? 'on' : flags.submitted ? invalid : notReady,
+      )),
+  );
 }

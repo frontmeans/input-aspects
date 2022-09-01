@@ -31,7 +31,7 @@ describe('InCssClasses', () => {
     element = document.createElement('input');
     control = inText(element);
     cssClasses = control.aspect(InCssClasses);
-    cssClasses.read(map => classMap = map);
+    cssClasses.read(map => (classMap = map));
   });
 
   it('is empty by default', () => {
@@ -45,7 +45,6 @@ describe('InCssClasses', () => {
   });
 
   describe('add', () => {
-
     let source: ValueTracker<InCssClasses.Map>;
     let sourceSupply: Supply;
 
@@ -59,7 +58,6 @@ describe('InCssClasses', () => {
       expect(element.classList.contains('class1')).toBe(true);
     });
     it('combines CSS classes from different sources', () => {
-
       const source2 = trackValue({ class2: true });
 
       cssClasses.add(source2);
@@ -68,7 +66,6 @@ describe('InCssClasses', () => {
       expect(element.classList.contains('class2')).toBe(true);
     });
     it('appends CSS classes from source function', () => {
-
       const source2 = jest.fn((_control: InControl<any>) => afterThe({ class2: true }));
 
       cssClasses.add(source2);
@@ -78,7 +75,6 @@ describe('InCssClasses', () => {
       expect(source2).toHaveBeenCalledWith(control);
     });
     it('overwrites CSS classes by most recent source', () => {
-
       const source2 = trackValue({ class1: false, class2: true });
 
       cssClasses.add(source2);
@@ -87,7 +83,6 @@ describe('InCssClasses', () => {
       expect(element.classList.contains('class2')).toBe(true);
     });
     it('ignores `undefined` CSS classes', () => {
-
       const source2 = trackValue({ class1: undefined, class2: true });
 
       cssClasses.add(source2);
@@ -101,7 +96,6 @@ describe('InCssClasses', () => {
       expect(element.classList.contains('class1')).toBe(false);
     });
     it('removes CSS classes when source supply is cut off', () => {
-
       const reason = 'some reason';
       const sourceDone = jest.fn();
 
@@ -113,7 +107,6 @@ describe('InCssClasses', () => {
       expect(element.classList.contains('class1')).toBe(false);
     });
     it('removes CSS classes when input supply is cut off', () => {
-
       const reason = 'some reason';
       const sourceDone = jest.fn();
 
@@ -124,7 +117,6 @@ describe('InCssClasses', () => {
       expect(element.classList.contains('class1')).toBe(false);
     });
     it('does not add CSS classes when input supply is cut off', () => {
-
       const reason = 'some reason';
       const sourceDone = jest.fn();
 
@@ -138,7 +130,6 @@ describe('InCssClasses', () => {
   });
 
   describe('track', () => {
-
     let source: ValueTracker<InCssClasses.Map>;
     let sourceSupply: Supply;
     let mockReceiver: Mock<(value1: readonly string[], value2: readonly string[]) => void>;
@@ -146,7 +137,7 @@ describe('InCssClasses', () => {
     beforeEach(() => {
       source = trackValue({ class1: true });
       sourceSupply = cssClasses.add(source);
-      cssClasses.track(mockReceiver = jest.fn());
+      cssClasses.track((mockReceiver = jest.fn()));
     });
 
     it('reports initial classes as added', () => {
@@ -179,7 +170,6 @@ describe('InCssClasses', () => {
   });
 
   describe('applyTo', () => {
-
     let source: ValueTracker<InCssClasses.Map>;
     let scheduler: ManualRenderScheduler;
     let mockSchedule: Mock<RenderSchedule>;
@@ -211,7 +201,6 @@ describe('InCssClasses', () => {
       });
 
       it('is used by default', () => {
-
         const element3 = document.createElement('third');
 
         cssClasses.applyTo(element3);
@@ -253,7 +242,6 @@ describe('InCssClasses', () => {
   });
 
   describe('done', () => {
-
     let source: ValueTracker<InCssClasses.Map>;
     let supply: Supply;
 
@@ -263,7 +251,6 @@ describe('InCssClasses', () => {
     });
 
     it('removes all CSS classes', () => {
-
       const reason = 'some reason';
       const sourceDone = jest.fn();
 
@@ -277,7 +264,6 @@ describe('InCssClasses', () => {
   });
 
   describe('without element', () => {
-
     let valueControl: InControl<string>;
     let valueClasses: InCssClasses;
 
@@ -290,7 +276,6 @@ describe('InCssClasses', () => {
       expect(valueClasses).toBeDefined();
     });
     it('reports added CSS classes', () => {
-
       const source = trackValue<InCssClasses.Map>({ class1: true });
 
       valueClasses.add(source);

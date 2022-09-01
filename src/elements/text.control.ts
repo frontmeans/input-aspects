@@ -13,14 +13,12 @@ export type InText = InElement<string, InText.Element>;
  * @category Control
  */
 export namespace InText {
-
   /**
    * Text input element.
    *
    * Either `<input>`, `<textarea>`, or `<select>`.
    */
   export type Element = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
-
 }
 
 /**
@@ -38,26 +36,23 @@ export namespace InText {
  * @return New textual input control instance.
  */
 export function inText(
-    element: InText.Element,
-    {
-      aspects,
-    }: {
-      readonly aspects?:
-          | InConverter.Aspect<string>
-          | readonly InConverter.Aspect<string>[]
-          | undefined;
-    } = {},
+  element: InText.Element,
+  {
+    aspects,
+  }: {
+    readonly aspects?:
+      | InConverter.Aspect<string>
+      | readonly InConverter.Aspect<string>[]
+      | undefined;
+  } = {},
 ): InText {
-  return new AbstractInElement(
-      element,
-      {
-        get(): string {
-          return this.element.value;
-        },
-        set(value) {
-          this.element.value = value;
-        },
-        aspects,
-      },
-  );
+  return new AbstractInElement(element, {
+    get(): string {
+      return this.element.value;
+    },
+    set(value) {
+      this.element.value = value;
+    },
+    aspects,
+  });
 }

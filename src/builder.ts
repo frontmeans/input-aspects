@@ -16,7 +16,8 @@ export class InBuilder<TControl extends InControl<TValue>, TValue = InControl.Va
   /**
    * @internal
    */
-  private readonly [InBuilder$Impl__symbol]: InBuilder$Impl<TControl, TValue> = new InBuilder$Impl();
+  private readonly [InBuilder$Impl__symbol]: InBuilder$Impl<TControl, TValue>
+    = new InBuilder$Impl();
 
   /**
    * Registers an aspect to add to the built control.
@@ -74,17 +75,21 @@ export class InBuilder<TControl extends InControl<TValue>, TValue = InControl.Va
    * @returns `this` builder instance.
    */
   setup<TInstance, TKind extends InAspect.Application.Kind>(
-      aspectKey: InAspect.Key<TInstance, TKind>,
-      setup: (this: void, aspect: InAspect.Application.Instance<TInstance, TValue, TKind>, control: TControl) => void,
+    aspectKey: InAspect.Key<TInstance, TKind>,
+    setup: (
+      this: void,
+      aspect: InAspect.Application.Instance<TInstance, TValue, TKind>,
+      control: TControl,
+    ) => void,
   ): this;
 
   setup<TInstance, TKind extends InAspect.Application.Kind>(
-      aspectKeyOrSetup: InAspect.Key<TInstance, TKind> | ((this: void, control: TControl) => void),
-      aspectSetup?: (
-          this: void,
-          aspect: InAspect.Application.Instance<TInstance, TValue, TKind>,
-          control: TControl,
-      ) => void,
+    aspectKeyOrSetup: InAspect.Key<TInstance, TKind> | ((this: void, control: TControl) => void),
+    aspectSetup?: (
+      this: void,
+      aspect: InAspect.Application.Instance<TInstance, TValue, TKind>,
+      control: TControl,
+    ) => void,
   ): this {
     if (isAspectKey(aspectKeyOrSetup)) {
       this[InBuilder$Impl__symbol].setup(control => control.setup(aspectKeyOrSetup, aspectSetup!));

@@ -20,11 +20,11 @@ export function requirePresent(): InValidator<any>;
 export function requirePresent(control: InControl<any>): EventKeeper<InValidation.Message[]>;
 
 export function requirePresent(
-    control?: InControl<any>,
+  control?: InControl<any>,
 ): InValidator<any> | EventKeeper<InValidation.Message[]> {
   return control
-      ? control.read.do(
-          translateAfter((send, value) => value ? send() : send({ missing: 'missing' })),
+    ? control.read.do(
+        translateAfter((send, value) => (value ? send() : send({ missing: 'missing' }))),
       )
-      : requirePresent;
+    : requirePresent;
 }

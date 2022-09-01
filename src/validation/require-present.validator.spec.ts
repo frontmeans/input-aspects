@@ -5,7 +5,6 @@ import { requirePresent } from './require-present.validator';
 import { InValidation } from './validation.aspect';
 
 describe('requirePresent', () => {
-
   let control: InControl<string>;
   let validation: InValidation<string>;
 
@@ -18,7 +17,7 @@ describe('requirePresent', () => {
   let validationResult: InValidation.Result;
 
   beforeEach(() => {
-    validation.read(result => validationResult = result);
+    validation.read(result => (validationResult = result));
   });
 
   it('reports missing value', () => {
@@ -32,7 +31,7 @@ describe('requirePresent', () => {
     control = inValue('');
     validation = control.aspect(InValidation);
     validation.by(requirePresent());
-    validation.read(result => validationResult = result);
+    validation.read(result => (validationResult = result));
 
     control.it = '';
     expect(validationResult.ok).toBe(false);

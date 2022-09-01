@@ -8,7 +8,6 @@ import { inValue } from '../value.control';
 import { InRole } from './role.aspect';
 
 describe('InRole', () => {
-
   let control: InControl<string>;
   let role: InRole<string>;
 
@@ -28,7 +27,6 @@ describe('InRole', () => {
 
   describe('add', () => {
     it('enables role', async () => {
-
       role.add('test');
 
       const active = await control.aspect(InRole).read;
@@ -37,7 +35,6 @@ describe('InRole', () => {
       expect([...active]).toEqual(['test']);
     });
     it('disables role when all supplies cut off', async () => {
-
       const supply1 = role.add('test');
       const supply2 = role.add('test');
 
@@ -53,7 +50,6 @@ describe('InRole', () => {
 
   describe('when', () => {
     it('activates already enabled role', async () => {
-
       const activator = jest.fn(() => new Supply());
 
       role.add('test');
@@ -62,17 +58,19 @@ describe('InRole', () => {
       expect(activator).toHaveBeenCalledWith(control, 'test', await role.read);
     });
     it('activates the role when it is added', () => {
-
       const activator = jest.fn(() => new Supply());
 
       role.when('test', activator);
       expect(activator).not.toHaveBeenCalled();
 
       role.add('test');
-      expect(activator).toHaveBeenCalledWith(control, 'test', expect.objectContaining({ has: expect.any(Function) }));
+      expect(activator).toHaveBeenCalledWith(
+        control,
+        'test',
+        expect.objectContaining({ has: expect.any(Function) }),
+      );
     });
     it('re-activates the role when it is added again', () => {
-
       const activator = jest.fn(() => new Supply());
 
       role.when('test', activator);
@@ -83,7 +81,6 @@ describe('InRole', () => {
       expect(activator).toHaveBeenCalledTimes(2);
     });
     it('deactivates once the role disabled', async () => {
-
       const activationSupply = new Supply(noop);
 
       role.when('test', () => activationSupply);
@@ -93,7 +90,6 @@ describe('InRole', () => {
       expect(await activationSupply.whenDone().catch(asis)).toBe('reason');
     });
     it('deactivates when activator removed', async () => {
-
       const activationSupply = new Supply(noop);
       const activatorSupply = role.when('test', () => activationSupply);
 
@@ -104,7 +100,6 @@ describe('InRole', () => {
       expect(await activationSupply.whenDone().catch(asis)).toBe('reason');
     });
     it('deactivates when control destroyed', async () => {
-
       const activationSupply = new Supply(noop);
 
       role.when('test', () => activationSupply);
@@ -115,7 +110,6 @@ describe('InRole', () => {
       expect(await activationSupply.whenDone().catch(asis)).toBe('reason');
     });
     it('does not call removed activator', () => {
-
       const activator1 = jest.fn(() => new Supply());
       const activator2 = jest.fn(() => new Supply());
 
@@ -135,7 +129,6 @@ describe('InRole', () => {
 
   describe('default role', () => {
     it('is active by default', async () => {
-
       const active = await control.aspect(InRole).read;
 
       expect(active.has('default')).toBe(true);
@@ -151,7 +144,6 @@ describe('InRole', () => {
       expect([...active]).toEqual(['test']);
     });
     it('becomes active when all other roles removed', async () => {
-
       const supply1 = role.add('test');
       const supply2 = role.add('test');
       const supply3 = role.add('test3');
@@ -168,7 +160,6 @@ describe('InRole', () => {
       expect([...active]).toEqual(['default']);
     });
     it('can be enabled explicitly', async () => {
-
       role.add('test1');
       role.add('default');
       role.add('test2');
@@ -181,7 +172,6 @@ describe('InRole', () => {
       expect([...active]).toEqual(['test1', 'default', 'test2']);
     });
     it('becomes active when `default` role removed', async () => {
-
       const supply = role.add('default');
 
       const active1 = await control.aspect(InRole).read;
@@ -197,7 +187,6 @@ describe('InRole', () => {
       expect([...active2]).toEqual(['default']);
     });
     it('remains active when explicitly enabled and other roles removed', async () => {
-
       const supply1 = role.add('default');
       const supply2 = role.add('test');
       const supply3 = role.add('default');
@@ -219,14 +208,12 @@ describe('InRole', () => {
 
     describe('when', () => {
       it('activates immediately', async () => {
-
         const activator = jest.fn(() => new Supply());
 
         role.when('default', activator);
         expect(activator).toHaveBeenCalledWith(control, 'default', await role.read);
       });
       it('deactivates when another role added', () => {
-
         const activationSupply = new Supply();
         const activator = jest.fn(() => activationSupply);
 
@@ -235,7 +222,6 @@ describe('InRole', () => {
         expect(activationSupply.isOff).toBe(true);
       });
       it('re-activates when another role removed', () => {
-
         const activator = jest.fn(() => new Supply());
 
         role.when('default', activator);

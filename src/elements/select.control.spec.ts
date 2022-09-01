@@ -4,7 +4,6 @@ import { InNamespaceAliaser } from '../aspects';
 import { InSelect, inSelect } from './select.control';
 
 describe('InSelect', () => {
-
   let select: HTMLSelectElement;
   let control: InSelect;
 
@@ -28,7 +27,6 @@ describe('InSelect', () => {
   });
 
   it('accepts default aspects', () => {
-
     const nsAlias = newNamespaceAliaser();
     const control = inSelect(select, { aspects: InNamespaceAliaser.to(nsAlias) });
 

@@ -4,7 +4,6 @@ import { inValue } from '../value.control';
 import { intoTrimmed } from './into-trimmed';
 
 describe('intoTrimmed', () => {
-
   let control: InControl<string>;
   let trimmed: InControl<string>;
 

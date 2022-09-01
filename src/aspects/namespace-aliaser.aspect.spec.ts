@@ -12,7 +12,6 @@ describe('InNamespaceAliaser', () => {
   });
 
   describe('to', () => {
-
     let input: HTMLInputElement;
     let control: InText;
     let nsAlias: InNamespaceAliaser;

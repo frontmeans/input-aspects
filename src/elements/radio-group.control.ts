@@ -1,4 +1,11 @@
-import { afterAll, AfterEvent, mapAfter, OnEvent, trackValue, ValueTracker } from '@proc7ts/fun-events';
+import {
+  afterAll,
+  AfterEvent,
+  mapAfter,
+  OnEvent,
+  trackValue,
+  ValueTracker,
+} from '@proc7ts/fun-events';
 import { itsEach, itsEvery, overEntries } from '@proc7ts/push-iterator';
 import { Supply } from '@proc7ts/supply';
 import { InControl } from '../control';
@@ -12,20 +19,19 @@ import { InConverter } from '../converter';
  * @category Control
  * @typeParam TValue - Input value type. A `string` type that optionally accepting `undefined` values.
  */
-export type InRadioGroup<TValue extends string | undefined = string | undefined> = InControl<TValue>;
+export type InRadioGroup<TValue extends string | undefined = string | undefined> =
+  InControl<TValue>;
 
 /**
  * @category Control
  */
 export namespace InRadioGroup {
-
   /**
    * Possible radio group control values corresponding to check states.
    *
    * @typeParam TValue - Radio button input value type.
    */
   export interface Values<TValue extends string | undefined> {
-
     /**
      * Control value of radio group to use when none of the radio buttons is checked.
      */
@@ -36,8 +42,10 @@ export namespace InRadioGroup {
      *
      * These are aspect converters to constructed control from the {@link inValueOf same-valued one}.
      */
-    readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[] | undefined;
-
+    readonly aspects?:
+      | InConverter.Aspect<TValue>
+      | readonly InConverter.Aspect<TValue>[]
+      | undefined;
   }
 
   /**
@@ -51,11 +59,8 @@ export namespace InRadioGroup {
    * @typeParam TValue - Radio buttons input value type.
    */
   export type Buttons<TValue extends string | undefined> = {
-
     readonly [value in Exclude<TValue, undefined>]?: InControl<true | undefined> | undefined;
-
   };
-
 }
 
 /**
@@ -74,27 +79,21 @@ class InRadioGroupControl<TValue extends string | undefined> extends InControl<T
   private readonly _it: ValueTracker<TValue>;
 
   constructor(
-      private readonly _buttons: RequiredInButtons<TValue>,
-      {
-        unchecked,
-        aspects,
-      }: Partial<InRadioGroup.Values<TValue>> = {},
+    private readonly _buttons: RequiredInButtons<TValue>,
+    { unchecked, aspects }: Partial<InRadioGroup.Values<TValue>> = {},
   ) {
     super({ aspects });
     this._unchecked = unchecked as TValue;
 
     const read: AfterEvent<[TValue]> = afterAll(_buttons).do(
-        mapAfter(values => checkedInValue(values, unchecked) as TValue),
+      mapAfter(values => checkedInValue(values, unchecked) as TValue),
     );
 
     this._it = trackValue(unchecked as TValue).by(read);
     this._it.on(value => {
-      itsEach(
-          overEntries(_buttons),
-          ([key, button]) => {
-            button.it = value === key || undefined;
-          },
-      );
+      itsEach(overEntries(_buttons), ([key, button]) => {
+        button.it = value === key || undefined;
+      });
     });
   }
 
@@ -107,7 +106,10 @@ class InRadioGroupControl<TValue extends string | undefined> extends InControl<T
   }
 
   set it(value: TValue) {
-    this._it.it = value != null && this._buttons[value as keyof RequiredInButtons<TValue>] ? value : this._unchecked;
+    this._it.it
+      = value != null && this._buttons[value as keyof RequiredInButtons<TValue>]
+        ? value
+        : this._unchecked;
   }
 
   get on(): OnEvent<[TValue, TValue]> {
@@ -120,23 +122,19 @@ class InRadioGroupControl<TValue extends string | undefined> extends InControl<T
  * @internal
  */
 function checkedInValue<TValue extends string | undefined>(
-    values: { readonly [key in Exclude<TValue, undefined>]: [true | undefined] },
-    unchecked: TValue,
+  values: { readonly [key in Exclude<TValue, undefined>]: [true | undefined] },
+  unchecked: TValue,
 ): TValue {
-
   let checked: TValue = unchecked;
 
-  itsEvery(
-      overEntries(values),
-      ([key, [value]]) => {
-        if (value === undefined) {
-          return true;
-        }
-        checked = key;
+  itsEvery(overEntries(values), ([key, [value]]) => {
+    if (value === undefined) {
+      return true;
+    }
+    checked = key;
 
-        return false;
-      },
-  );
+    return false;
+  });
 
   return checked;
 }
@@ -153,7 +151,7 @@ function checkedInValue<TValue extends string | undefined>(
  * @returns New radio group control instance.
  */
 export function inRadioGroup<TValue extends string>(
-    buttons: InRadioGroup.Buttons<TValue>,
+  buttons: InRadioGroup.Buttons<TValue>,
 ): InRadioGroup<TValue | undefined>;
 
 /**
@@ -169,13 +167,16 @@ export function inRadioGroup<TValue extends string>(
  * @returns New radio group control instance.
  */
 export function inRadioGroup<TValue extends string>(
-    buttons: InRadioGroup.Buttons<TValue>,
-    // eslint-disable-next-line @typescript-eslint/unified-signatures
-    {
-      aspects,
-    }: {
-      readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[] | undefined;
-    },
+  buttons: InRadioGroup.Buttons<TValue>,
+  // eslint-disable-next-line @typescript-eslint/unified-signatures
+  {
+    aspects,
+  }: {
+    readonly aspects?:
+      | InConverter.Aspect<TValue>
+      | readonly InConverter.Aspect<TValue>[]
+      | undefined;
+  },
 ): InRadioGroup<TValue | undefined>;
 
 /**
@@ -188,13 +189,13 @@ export function inRadioGroup<TValue extends string>(
  * @returns New radio group control instance.
  */
 export function inRadioGroup<TValue extends string | undefined>(
-    buttons: InRadioGroup.Buttons<TValue>,
-    values: InRadioGroup.Values<TValue>,
+  buttons: InRadioGroup.Buttons<TValue>,
+  values: InRadioGroup.Values<TValue>,
 ): InRadioGroup<TValue>;
 
 export function inRadioGroup<TValue extends string | undefined>(
-    buttons: InRadioGroup.Buttons<TValue>,
-    values?: Partial<InRadioGroup.Values<TValue>>,
+  buttons: InRadioGroup.Buttons<TValue>,
+  values?: Partial<InRadioGroup.Values<TValue>>,
 ): InRadioGroup<TValue> {
   return new InRadioGroupControl(buttons as RequiredInButtons<TValue>, values);
 }

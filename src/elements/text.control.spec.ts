@@ -11,7 +11,6 @@ import { inValue } from '../value.control';
 import { InText, inText } from './text.control';
 
 describe('InText', () => {
-
   let input: HTMLInputElement;
   let control: InText;
 
@@ -22,7 +21,6 @@ describe('InText', () => {
   });
 
   it('accepts default aspects', () => {
-
     const nsAlias = newNamespaceAliaser();
 
     control = inText(input, { aspects: InNamespaceAliaser.to(nsAlias) });
@@ -40,13 +38,11 @@ describe('InText', () => {
       expect(control.aspect(InElement)).toBe(control);
     });
     it('is available as aspect of converted control with the same value', () => {
-
       const converted = control.convert();
 
       expect(converted.aspect(InElement)).toBe(control);
     });
     it('is not available as aspect of converted control with another value', () => {
-
       const converted = control.convert(intoInteger());
 
       expect(converted.aspect(InElement)).toBeNull();
@@ -58,7 +54,6 @@ describe('InText', () => {
       expect(inValue('some').convert().aspect(InElement)).toBeNull();
     });
     it('retrieves arbitrary aspect', () => {
-
       const aspect: InAspect.Key<string, any> & InAspect<string, any> = {
         get [InAspect__symbol]() {
           return this;
@@ -87,22 +82,20 @@ describe('InText', () => {
   });
 
   describe('input', () => {
-
     let changesReceiver: Mock<(arg1: string, arg2: string) => void>;
     let changesSupply: Supply;
     let inputReceiver: Mock<(input: InElement.Input<string>) => void>;
     let inputSupply: Supply;
 
     beforeEach(() => {
-      changesSupply = control.on(changesReceiver = jest.fn());
-      inputSupply = control.input(inputReceiver = jest.fn());
+      changesSupply = control.on((changesReceiver = jest.fn()));
+      inputSupply = control.input((inputReceiver = jest.fn()));
     });
 
     it('sends initial value', () => {
       expect(inputReceiver).toHaveBeenLastCalledWith({ value: 'old' });
     });
     it('sends update on input event', () => {
-
       const event = new Event('input', { bubbles: true });
 
       input.value = 'new';
@@ -111,7 +104,6 @@ describe('InText', () => {
       expect(inputReceiver).toHaveBeenLastCalledWith({ value: 'new', event });
     });
     it('sends update on change event', () => {
-
       const event = new Event('change', { bubbles: true });
 
       input.value = 'new';
@@ -120,7 +112,6 @@ describe('InText', () => {
       expect(inputReceiver).toHaveBeenLastCalledWith({ value: 'new', event });
     });
     it('does not send update for unchanged value', () => {
-
       const event = new Event('input', { bubbles: true });
 
       input.dispatchEvent(event);

@@ -11,7 +11,6 @@ import { InValidation } from './validation';
 import { inValue } from './value.control';
 
 describe('InSubmit', () => {
-
   let control: InControl<string>;
   let submit: InSubmit<string>;
   let flags: InSubmit.Flags;
@@ -20,7 +19,7 @@ describe('InSubmit', () => {
   beforeEach(() => {
     control = inValue('test');
     submit = control.aspect(InSubmit);
-    flagsSupply = submit.read(f => flags = f);
+    flagsSupply = submit.read(f => (flags = f));
   });
 
   let validation: InValidation<string>;
@@ -28,7 +27,7 @@ describe('InSubmit', () => {
 
   beforeEach(() => {
     validation = control.aspect(InValidation);
-    validation.read(result => errors = result);
+    validation.read(result => (errors = result));
   });
 
   let submitter: Mock<InSubmit.Submitter<string, string>>;
@@ -41,13 +40,11 @@ describe('InSubmit', () => {
     expect(flags).toEqual({ ready: true, submitted: false, busy: false });
   });
   it('is reused by converted control with the same value', () => {
-
     const converted = control.convert();
 
     expect(converted.aspect(InSubmit)).toBe(submit);
   });
   it('is not reused by converted control with another value', () => {
-
     const converted = control.convert(intoInteger);
 
     expect(converted.aspect(InSubmit)).not.toBe(submit);
@@ -71,13 +68,12 @@ describe('InSubmit', () => {
       expect(flags).toEqual({ ready: true, submitted: true, busy: false });
     });
     it('rejects if busy', async () => {
-
       let resolve: (value: string) => void = noop;
 
       submitter.mockImplementation(() => {
         expect(flags).toEqual({ ready: true, submitted: true, busy: true });
 
-        return new Promise<string>(r => resolve = r);
+        return new Promise<string>(r => (resolve = r));
       });
 
       const firstSubmit: Promise<string> = submit.submit(submitter);
@@ -91,7 +87,6 @@ describe('InSubmit', () => {
       expect(flags).toEqual({ ready: true, submitted: true, busy: false });
     });
     it('rejects if input cut off', async () => {
-
       const reason = 'some reason';
 
       control.supply.off(reason);
@@ -103,7 +98,11 @@ describe('InSubmit', () => {
       expect(done).toHaveBeenCalledWith(reason);
     });
     it('rejects on validation errors', async () => {
-      validation.by({ validate() { return { invalid: 'test' }; } });
+      validation.by({
+        validate() {
+          return { invalid: 'test' };
+        },
+      });
       await ensureRejected('notReady');
       expect(flags).toEqual({ ready: false, submitted: true, busy: false });
     });
@@ -113,7 +112,6 @@ describe('InSubmit', () => {
       expect(flags).toEqual({ ready: false, submitted: true, busy: false });
     });
     it('reports submit error', async () => {
-
       const error = { error: 'some error' };
 
       submitter.mockImplementation(() => {
@@ -121,18 +119,17 @@ describe('InSubmit', () => {
       });
 
       await submit.submit(submitter).then(
-          result => Promise.reject('Result returned: ' + result),
-          (err: InSubmitError) => {
-            expect(err).toBeInstanceOf(InSubmitError);
-            expect([...err.errors.messages('submit')]).toEqual([{ ...error, submit: true }]);
-          },
+        result => Promise.reject('Result returned: ' + result),
+        (err: InSubmitError) => {
+          expect(err).toBeInstanceOf(InSubmitError);
+          expect([...err.errors.messages('submit')]).toEqual([{ ...error, submit: true }]);
+        },
       );
 
       expect([...errors]).toEqual([{ ...error, submit: true }]);
       expect(flags).toEqual({ ready: true, submitted: true, busy: false });
     });
     it('reports submit failure', async () => {
-
       const failure = new Error('some error');
 
       submitter.mockImplementation(() => {
@@ -140,10 +137,10 @@ describe('InSubmit', () => {
       });
 
       await submit.submit(submitter).then(
-          result => Promise.reject('Result returned: ' + result),
-          err => {
-            expect(err).toBe(failure);
-          },
+        result => Promise.reject('Result returned: ' + result),
+        err => {
+          expect(err).toBe(failure);
+        },
       );
 
       expect([...errors]).toEqual([{ submit: failure }]);
@@ -153,10 +150,9 @@ describe('InSubmit', () => {
       submitter.mockImplementation(() => {
         throw new Error('');
       });
-      await submit.submit(submitter).then(
-          result => Promise.reject('Result returned: ' + result),
-          noop,
-      );
+      await submit
+        .submit(submitter)
+        .then(result => Promise.reject('Result returned: ' + result), noop);
 
       submitter.mockImplementation(() => {
         expect(errors.ok).toBe(true);
@@ -167,20 +163,21 @@ describe('InSubmit', () => {
     });
 
     async function ensureRejected(reason: string): Promise<void> {
-      await submit.submit(submitter)
-          .then(result => Promise.reject('Result returned: ' + result))
-          .catch((err: InSubmitRejectedError) => {
-            // eslint-disable-next-line jest/no-conditional-expect
-            expect(err).toBeInstanceOf(InSubmitRejectedError);
-            // eslint-disable-next-line jest/no-conditional-expect
-            expect([...err.errors.messages('submit')]).toEqual([
-              {
-                submit: 'rejected',
-                rejected: reason,
-                [reason]: true,
-              },
-            ]);
-          });
+      await submit
+        .submit(submitter)
+        .then(result => Promise.reject('Result returned: ' + result))
+        .catch((err: InSubmitRejectedError) => {
+          // eslint-disable-next-line jest/no-conditional-expect
+          expect(err).toBeInstanceOf(InSubmitRejectedError);
+          // eslint-disable-next-line jest/no-conditional-expect
+          expect([...err.errors.messages('submit')]).toEqual([
+            {
+              submit: 'rejected',
+              rejected: reason,
+              [reason]: true,
+            },
+          ]);
+        });
     }
   });
 
@@ -191,7 +188,6 @@ describe('InSubmit', () => {
       expect(flags).toEqual({ submitted: false, busy: false, ready: true });
     });
     it('does not reset submitted flag if not submitted yet', () => {
-
       const readFlags = jest.fn();
 
       submit.read(readFlags);
@@ -203,16 +199,14 @@ describe('InSubmit', () => {
       submitter.mockImplementation(() => {
         throw new Error('');
       });
-      await submit.submit(submitter).then(
-          result => Promise.reject('Result returned: ' + result),
-          noop,
-      );
+      await submit
+        .submit(submitter)
+        .then(result => Promise.reject('Result returned: ' + result), noop);
 
       submit.reset();
       expect(errors.ok).toBe(true);
     });
     it('does not clear absent submit errors', () => {
-
       const readErrors = jest.fn();
 
       validation.read(readErrors);

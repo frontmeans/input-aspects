@@ -19,11 +19,14 @@ export function intoTrimmed(): InConverter<string, string>;
  *
  * Can be applied to input controls with string values only.
  */
-export function intoTrimmed(from: InControl<string>, to: InControl<string>): InConverter.Conversion<string, string>;
+export function intoTrimmed(
+  from: InControl<string>,
+  to: InControl<string>,
+): InConverter.Conversion<string, string>;
 
 export function intoTrimmed(
-    _from?: InControl<string>,
-    to?: InControl<string>,
+  _from?: InControl<string>,
+  to?: InControl<string>,
 ): InConverter<string, string> | InConverter.Conversion<string, string> {
   if (!to) {
     return intoTrimmed;
@@ -34,7 +37,7 @@ export function intoTrimmed(
       return value.trim();
     },
     get(value) {
-      return to.it = value.trim();
+      return (to.it = value.trim());
     },
   };
 }

@@ -4,7 +4,6 @@ import { InNamespaceAliaser } from '../aspects';
 import { InCheckbox, inCheckbox } from './checkbox.control';
 
 describe('InCheckbox', () => {
-
   let checkbox: HTMLInputElement & { intermediate?: boolean | undefined };
 
   beforeEach(() => {
@@ -13,7 +12,6 @@ describe('InCheckbox', () => {
   });
 
   it('accepts default aspects', () => {
-
     const nsAlias = newNamespaceAliaser();
     const control = inCheckbox(checkbox, { aspects: InNamespaceAliaser.to(nsAlias) });
 
@@ -21,7 +19,6 @@ describe('InCheckbox', () => {
   });
 
   describe('default', () => {
-
     let control: InCheckbox;
 
     beforeEach(() => {
@@ -66,7 +63,6 @@ describe('InCheckbox', () => {
   });
 
   describe('fully customized', () => {
-
     let control: InCheckbox<'+' | '-' | '*'>;
 
     beforeEach(() => {
@@ -119,7 +115,6 @@ describe('InCheckbox', () => {
   });
 
   describe('partially customized', () => {
-
     let control: InCheckbox<'+' | '-' | undefined>;
 
     beforeEach(() => {

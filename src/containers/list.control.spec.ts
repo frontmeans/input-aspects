@@ -14,7 +14,6 @@ import { inList, InList } from './list.control';
 import { InParents } from './parents.aspect';
 
 describe('InList', () => {
-
   let ctrl1: InControl<string>;
   let ctrl2: InControl<string>;
   let ctrl3: InControl<string>;
@@ -30,7 +29,7 @@ describe('InList', () => {
   let initControls: InControl<string>[];
 
   beforeEach(() => {
-    list.controls.read.do(onceAfter)(snapshot => initControls = [...snapshot]);
+    list.controls.read.do(onceAfter)(snapshot => (initControls = [...snapshot]));
   });
 
   it('supports aspects', () => {
@@ -45,14 +44,12 @@ describe('InList', () => {
     expect(InList[InAspect__symbol]).not.toBe(InContainer[InAspect__symbol]);
   });
   it('is available as aspect of converted control with the same value', () => {
-
     const converted = list.convert();
 
     expect(converted.aspect(InContainer)).toBe(list);
     expect(converted.aspect(InList)).toBe(list);
   });
   it('is not available as aspect of converted control with another value', () => {
-
     const converted = list.convert<string>({
       set: () => 'foo',
       get: () => [],
@@ -62,13 +59,9 @@ describe('InList', () => {
     expect(converted.aspect(InList)).toBeNull();
   });
   it('allows to specify default aspects', () => {
-
     const scheduler = newManualRenderScheduler();
 
-    list = inList<string>(
-        [],
-        { aspects: InRenderScheduler.to(scheduler) },
-    );
+    list = inList<string>([], { aspects: InRenderScheduler.to(scheduler) });
     expect(list.aspect(InRenderScheduler)).toBe(scheduler);
   });
 
@@ -87,7 +80,7 @@ describe('InList', () => {
 
       let controls: InControl<any>[] = [];
 
-      list.controls.read.do(onceAfter)(snapshot => controls = [...snapshot]);
+      list.controls.read.do(onceAfter)(snapshot => (controls = [...snapshot]));
 
       expect(controls).toEqual([initControls[0], initControls[1]]);
       expect(controls[0].it).toBe('111');
@@ -98,7 +91,7 @@ describe('InList', () => {
 
       let controls: InControl<any>[] = [];
 
-      list.controls.read.do(onceAfter)(snapshot => controls = [...snapshot]);
+      list.controls.read.do(onceAfter)(snapshot => (controls = [...snapshot]));
 
       expect(controls).toEqual([...initControls, expect.any(InControl)]);
       expect(controls[0].it).toBe('111');
@@ -113,7 +106,6 @@ describe('InList', () => {
   });
 
   describe('controls', () => {
-
     let onUpdate: Mock<(added: InList.Entry<string>[], removed: InList.Entry<string>[]) => void>;
     let updatesSupply: Supply;
     let readSnapshot: Mock<(snapshot: InList.Snapshot<string>) => void>;
@@ -122,12 +114,14 @@ describe('InList', () => {
     let controlValues: string[];
 
     beforeEach(() => {
-      updatesSupply = list.controls.on(onUpdate = jest.fn());
+      updatesSupply = list.controls.on((onUpdate = jest.fn()));
       snapshot = undefined!;
-      snapshotSupply = list.controls.read(readSnapshot = jest.fn(shot => {
-        snapshot = shot;
-        controlValues = [...shot].map(c => c.it);
-      }));
+      snapshotSupply = list.controls.read(
+        (readSnapshot = jest.fn(shot => {
+          snapshot = shot;
+          controlValues = [...shot].map(c => c.it);
+        })),
+      );
       readSnapshot.mockClear();
     });
 
@@ -135,7 +129,11 @@ describe('InList', () => {
       expect(controlValues).toEqual(['11', '22', '33']);
       expect(snapshot).toHaveLength(3);
       expect(initControls).toHaveLength(3);
-      expect([...snapshot.entries()]).toEqual([[0, initControls[0]], [1, initControls[1]], [2, initControls[2]]]);
+      expect([...snapshot.entries()]).toEqual([
+        [0, initControls[0]],
+        [1, initControls[1]],
+        [2, initControls[2]],
+      ]);
       expect(snapshot.item(0)).toBe(initControls[0]);
       expect(snapshot.item(1)).toBe(initControls[1]);
       expect(snapshot.item(2)).toBe(initControls[2]);
@@ -144,7 +142,6 @@ describe('InList', () => {
     });
 
     describe('set', () => {
-
       let supply: Supply;
 
       beforeEach(() => {
@@ -157,7 +154,6 @@ describe('InList', () => {
         expect([...snapshot]).toEqual([initControls[0], ctrl2, initControls[2]]);
       });
       it('replaces control with itself', () => {
-
         const newSupply = list.controls.set(1, ctrl2);
 
         expect(supply.isOff).toBe(true);
@@ -223,7 +219,13 @@ describe('InList', () => {
         expect([...snapshot]).toEqual([initControls[0]]);
       });
       it('sends update', () => {
-        expect(onUpdate).toHaveBeenCalledWith([], [[1, initControls[1]], [2, initControls[2]]]);
+        expect(onUpdate).toHaveBeenCalledWith(
+          [],
+          [
+            [1, initControls[1]],
+            [2, initControls[2]],
+          ],
+        );
       });
       it('updates model', () => {
         expect(list.it).toEqual(['11']);
@@ -243,13 +245,19 @@ describe('InList', () => {
         expect([...snapshot]).toEqual([...initControls, ctrl1, ctrl2, ctrl3]);
       });
       it('sends update', () => {
-        expect(onUpdate).toHaveBeenCalledWith([[3, ctrl1], [4, ctrl2], [5, ctrl3]], []);
+        expect(onUpdate).toHaveBeenCalledWith(
+          [
+            [3, ctrl1],
+            [4, ctrl2],
+            [5, ctrl3],
+          ],
+          [],
+        );
       });
       it('updates model', () => {
         expect(list.it).toEqual(['11', '22', '33', '1', '2', '3']);
       });
       it('appends the same control again', () => {
-
         const supply1 = list.controls.add(ctrl2);
         const supply2 = list.controls.add(ctrl2);
 
@@ -265,7 +273,6 @@ describe('InList', () => {
     });
 
     describe('insert', () => {
-
       let supply: Supply;
 
       beforeEach(() => {
@@ -276,10 +283,22 @@ describe('InList', () => {
         expect(snapshot).toHaveLength(5);
         expect(snapshot.item(1)).toBe(ctrl1);
         expect(snapshot.item(2)).toBe(ctrl2);
-        expect([...snapshot]).toEqual([initControls[0], ctrl1, ctrl2, initControls[1], initControls[2]]);
+        expect([...snapshot]).toEqual([
+          initControls[0],
+          ctrl1,
+          ctrl2,
+          initControls[1],
+          initControls[2],
+        ]);
       });
       it('sends update', () => {
-        expect(onUpdate).toHaveBeenCalledWith([[1, ctrl1], [2, ctrl2]], []);
+        expect(onUpdate).toHaveBeenCalledWith(
+          [
+            [1, ctrl1],
+            [2, ctrl2],
+          ],
+          [],
+        );
       });
       it('updates model', () => {
         expect(list.it).toEqual(['11', '1', '2', '22', '33']);
@@ -302,7 +321,16 @@ describe('InList', () => {
         expect([...snapshot]).toEqual([initControls[0], ctrl1, ctrl2]);
       });
       it('sends update', () => {
-        expect(onUpdate).toHaveBeenCalledWith([[1, ctrl1], [2, ctrl2]], [[1, initControls[1]], [2, initControls[2]]]);
+        expect(onUpdate).toHaveBeenCalledWith(
+          [
+            [1, ctrl1],
+            [2, ctrl2],
+          ],
+          [
+            [1, initControls[1]],
+            [2, initControls[2]],
+          ],
+        );
       });
       it('updates model', () => {
         expect(list.it).toEqual(['11', '1', '2']);
@@ -328,8 +356,8 @@ describe('InList', () => {
       });
       it('sends update', () => {
         expect(onUpdate).toHaveBeenCalledWith(
-            [],
-            initControls.map((ctrl, i) => [i, ctrl] as const),
+          [],
+          initControls.map((ctrl, i) => [i, ctrl] as const),
         );
       });
       it('updates model', () => {
@@ -372,7 +400,6 @@ describe('InList', () => {
         list.controls.read.do(onceAfter)(shot => expect(shot).toHaveLength(0));
       });
       it('stops sending updated', () => {
-
         const reason = 'some reason';
         const snapshotsDone = jest.fn();
         const updatesDone = jest.fn();
@@ -386,18 +413,17 @@ describe('InList', () => {
         expect(updatesDone).toHaveBeenCalledWith(reason);
       });
       it('clears model', () => {
-         list.supply.off();
-         expect(list.it).toHaveLength(0);
+        list.supply.off();
+        expect(list.it).toHaveLength(0);
       });
     });
   });
 
   describe('InData', () => {
-
     let data: InData.DataType<readonly string[]>;
 
     beforeEach(() => {
-      list.aspect(InData)(d => data = d);
+      list.aspect(InData)(d => (data = d));
     });
 
     it('contains all data by default', () => {
@@ -412,5 +438,4 @@ describe('InList', () => {
       expect(data).toEqual(['11', '33']);
     });
   });
-
 });

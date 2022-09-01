@@ -24,16 +24,13 @@ import { InFocus } from './focus.aspect';
  * @internal
  */
 const InStatus__aspect: InAspect<InStatus> = {
-
   applyTo<TValue>(control: InControl<TValue>): InAspect.Applied<TValue, InStatus> {
     return builtInAspect(control, InStatus, ctrl => {
-
       const container = ctrl.aspect(InContainer);
 
       return container != null ? new InContainerStatus(container) : new InControlStatus(ctrl);
     });
   },
-
 };
 
 /**
@@ -94,12 +91,10 @@ export abstract class InStatus implements EventKeeper<[InStatus.Flags]> {
  * @category Aspect
  */
 export namespace InStatus {
-
   /**
    * A flags representing aggregated input status.
    */
   export interface Flags {
-
     /**
      * Whether the input has focus currently.
      */
@@ -118,9 +113,7 @@ export namespace InStatus {
      * This flag can be set using `InStatus.markEdited()`.
      */
     readonly edited: boolean;
-
   }
-
 }
 
 /**
@@ -150,7 +143,6 @@ class InControlStatus extends InStatus {
   }
 
   markTouched(touched = true): this {
-
     const flags = this._flags.it;
 
     if (!touched) {
@@ -168,7 +160,6 @@ class InControlStatus extends InStatus {
   }
 
   markEdited(edited = true): this {
-
     const flags = this._flags.it;
 
     if (edited) {
@@ -190,25 +181,28 @@ class InControlStatus extends InStatus {
  * @internal
  */
 function elementInStatusFlags(
-    origin: ValueTracker<InStatus.Flags>,
-    control: InControl<any>,
+  origin: ValueTracker<InStatus.Flags>,
+  control: InControl<any>,
 ): AfterEvent<[InStatus.Flags]> {
-
   const element = control.aspect(InElement);
   const focus = control.aspect(InFocus);
 
   return afterAll({
     hasFocus: focus || afterThe(false),
     edited: element ? element.input.do(mapAfter(({ event }) => !!event)) : afterThe(false),
-  }).do(mapAfter(
-      ({ hasFocus: [hasFocus], edited: [edited] }) => updateInStatusFlags(origin.it, hasFocus, edited),
-  ));
+  }).do(
+    mapAfter(({ hasFocus: [hasFocus], edited: [edited] }) => updateInStatusFlags(origin.it, hasFocus, edited)),
+  );
 }
 
 /**
  * @internal
  */
-function updateInStatusFlags(flags: InStatus.Flags, hasFocus: boolean, edited: boolean): InStatus.Flags {
+function updateInStatusFlags(
+  flags: InStatus.Flags,
+  hasFocus: boolean,
+  edited: boolean,
+): InStatus.Flags {
   if (hasFocus) {
     flags = { ...flags, hasFocus, touched: true };
   } else {
@@ -234,19 +228,17 @@ class InContainerStatus extends InStatus {
   }
 
   markEdited(edited?: boolean): this {
-    this._container.controls.read.do(onceAfter)(snapshot => itsEach(
-        snapshot,
-        control => control.aspect(InStatus).markEdited(edited),
-    ));
+    this._container.controls.read.do(onceAfter)(snapshot => {
+      itsEach(snapshot, control => control.aspect(InStatus).markEdited(edited));
+    });
 
     return this;
   }
 
   markTouched(touched?: boolean): this {
-    this._container.controls.read.do(onceAfter)(snapshot => itsEach(
-        snapshot,
-        control => control.aspect(InStatus).markTouched(touched),
-    ));
+    this._container.controls.read.do(onceAfter)(snapshot => {
+      itsEach(snapshot, control => control.aspect(InStatus).markTouched(touched));
+    });
 
     return this;
   }
@@ -258,9 +250,9 @@ class InContainerStatus extends InStatus {
  */
 function containerInStatusFlags(container: InContainer<any>): AfterEvent<[InStatus.Flags]> {
   return container.controls.read.do(
-      supplyAfter(container),
-      digAfter_((snapshot: InContainer.Snapshot) => afterEach(...inControlStatuses(snapshot))),
-      mapAfter(combineInStatusFlags),
+    supplyAfter(container),
+    digAfter_((snapshot: InContainer.Snapshot) => afterEach(...inControlStatuses(snapshot))),
+    mapAfter(combineInStatusFlags),
   );
 }
 
@@ -275,28 +267,23 @@ function inControlStatuses(snapshot: InContainer.Snapshot): Iterable<InStatus> {
  * @internal
  */
 function combineInStatusFlags(...flags: [InStatus.Flags][]): InStatus.Flags {
-
   const result: { -readonly [K in keyof InStatus.Flags]: InStatus.Flags[K] } = {
     hasFocus: false,
     touched: false,
     edited: false,
   };
 
-  itsEach(
-      flags,
-      (([{ hasFocus, touched, edited }]) => {
-            if (touched) {
-              result.touched = true;
-            }
-            if (hasFocus) {
-              result.hasFocus = result.touched = true;
-            }
-            if (edited) {
-              result.edited = result.touched = true;
-            }
-          }
-      ),
-  );
+  itsEach(flags, ([{ hasFocus, touched, edited }]) => {
+    if (touched) {
+      result.touched = true;
+    }
+    if (hasFocus) {
+      result.hasFocus = result.touched = true;
+    }
+    if (edited) {
+      result.edited = result.touched = true;
+    }
+  });
 
   return result;
 }

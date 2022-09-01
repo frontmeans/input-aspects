@@ -3,7 +3,7 @@ import { AfterEvent, afterThe } from '@proc7ts/fun-events';
 /**
  * @internal
  */
-const RequireNothing$ = (/*#__PURE__*/ afterThe<[]>());
+const RequireNothing$ = /*#__PURE__*/ afterThe<[]>();
 
 /**
  * Input validator that requires nothing.

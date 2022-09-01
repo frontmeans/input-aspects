@@ -7,7 +7,6 @@ import { InStyledElement } from './styled-element.aspect';
 
 describe('InStyledElement', () => {
   it('is HTML element for input element control', () => {
-
     const element = document.createElement('input');
 
     expect(inText(element).aspect(InStyledElement)).toBe(element);
@@ -17,7 +16,6 @@ describe('InStyledElement', () => {
   });
 
   describe('to', () => {
-
     let input: HTMLInputElement;
     let control: InText;
     let styled: HTMLElement;
@@ -43,7 +41,6 @@ describe('InStyledElement', () => {
       expect(converted.aspect(InElement)).toBe(control.aspect(InElement));
     });
     it('converts to element without styled element without parameter', () => {
-
       const noWrapControl = converted.convert(InStyledElement.to());
 
       expect(noWrapControl.aspect(InStyledElement)).toBeNull();

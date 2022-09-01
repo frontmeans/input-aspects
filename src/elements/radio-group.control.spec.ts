@@ -7,7 +7,6 @@ import { inRadioGroup, InRadioGroup } from './radio-group.control';
 import { inRadio, InRadio } from './radio.control';
 
 describe('InRadioGroup', () => {
-
   type TestValue = 'a' | 'b' | 'c' | undefined;
 
   let control: InRadioGroup<TestValue>;
@@ -28,17 +27,16 @@ describe('InRadioGroup', () => {
   let checkUpdatesSupply: Supply;
 
   beforeEach(() => {
-    checkSupply = control.read(readChecked = jest.fn());
-    checkUpdatesSupply = control.on(onCheckUpdate = jest.fn());
+    checkSupply = control.read((readChecked = jest.fn()));
+    checkUpdatesSupply = control.on((onCheckUpdate = jest.fn()));
   });
 
   it('accepts default aspects', () => {
-
     const nsAlias = newNamespaceAliaser();
 
     control = inRadioGroup(
-        { a: radioA, b: radioB, c: radioC },
-        { aspects: InNamespaceAliaser.to(nsAlias) },
+      { a: radioA, b: radioB, c: radioC },
+      { aspects: InNamespaceAliaser.to(nsAlias) },
     );
     expect(control.aspect(InNamespaceAliaser)).toBe(nsAlias);
   });
@@ -93,7 +91,6 @@ describe('InRadioGroup', () => {
 
   describe('done', () => {
     it('stops updates reporting', () => {
-
       const checkDone = jest.fn();
       const checkUpdatesDone = jest.fn();
 
@@ -110,7 +107,6 @@ describe('InRadioGroup', () => {
   });
 
   describe('with customized values', () => {
-
     let control2: InRadioGroup<'a' | 'b' | 'c' | '_'>;
 
     beforeEach(() => {
@@ -131,12 +127,10 @@ describe('InRadioGroup', () => {
   });
 
   function newRadio(): InRadio {
-
     const input = document.createElement('input');
 
     input.type = 'radio';
 
     return inRadio(input);
   }
-
 });

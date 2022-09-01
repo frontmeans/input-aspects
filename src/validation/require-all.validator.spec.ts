@@ -9,7 +9,6 @@ import { InValidation } from './validation.aspect';
 import { InValidator } from './validator';
 
 describe('validIfAll', () => {
-
   let control: InControl<string>;
   let validation: InValidation<string>;
 
@@ -26,8 +25,8 @@ describe('validIfAll', () => {
     validator1 = new EventEmitter();
     validator2 = new EventEmitter();
     all = requireAll(
-        afterSupplied(validator1, () => []),
-        afterSupplied(validator2, () => []),
+      afterSupplied(validator1, () => []),
+      afterSupplied(validator2, () => []),
     );
     validation.by(all);
   });
@@ -41,8 +40,11 @@ describe('validIfAll', () => {
   });
 
   it('returns the only validator', () => {
-
-    const validator = { validate() { return null; } };
+    const validator = {
+      validate() {
+        return null;
+      },
+    };
 
     expect(requireAll(validator)).toBe(validator);
   });
@@ -50,7 +52,6 @@ describe('validIfAll', () => {
     expect(requireAll()).toBe(requireNothing);
   });
   it('sends messages from all validators', () => {
-
     const message1 = { message: 1 };
     const message2 = { message: 2 };
 
@@ -60,7 +61,6 @@ describe('validIfAll', () => {
     expect([...lastResult()]).toEqual([message1, message2]);
   });
   it('sends messages when one validator removed', () => {
-
     const message1 = { message: 1 };
     const message2 = { message: 2 };
 
@@ -76,7 +76,6 @@ describe('validIfAll', () => {
     expect([...lastResult()]).toEqual([message3]);
   });
   it('stops sending messages when last validator removed', () => {
-
     const message1 = { message: 1 };
     const message2 = { message: 2 };
 

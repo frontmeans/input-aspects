@@ -14,14 +14,13 @@ import { noopInConverter } from './noop-converter.impl';
  * @typeParam TTo - Converted input value type.
  */
 export type InConverter<TFrom, TTo> =
-    | InConverter.Conversion<TFrom, TTo>
-    | InConverter.Factory<TFrom, TTo>;
+  | InConverter.Conversion<TFrom, TTo>
+  | InConverter.Factory<TFrom, TTo>;
 
 /**
  * @category Converter
  */
 export namespace InConverter {
-
   /**
    * Input control conversion factory signature. Either aspect-only, or value one.
    *
@@ -29,9 +28,9 @@ export namespace InConverter {
    * @typeParam TTo - Converted input value type.
    */
   export type Factory<TFrom, TTo> = (
-      this: void,
-      from: InControl<TFrom>,
-      to: InControl<TTo>,
+    this: void,
+    from: InControl<TFrom>,
+    to: InControl<TTo>,
   ) => Conversion<TFrom, TTo>;
 
   /**
@@ -41,8 +40,8 @@ export namespace InConverter {
    * @typeParam TTo - Converted input value type.
    */
   export type Conversion<TFrom, TTo> =
-      | InConverter.Value.Conversion<TFrom, TTo>
-      | InConverter.Aspect.Conversion<TTo>;
+    | InConverter.Value.Conversion<TFrom, TTo>
+    | InConverter.Aspect.Conversion<TTo>;
 
   /**
    * Input control value converter.
@@ -54,8 +53,8 @@ export namespace InConverter {
    * @typeParam TTo - Converted input value type.
    */
   export type Value<TFrom, TTo> =
-      | InConverter.Value.Factory<TFrom, TTo>
-      | InConverter.Value.Conversion<TFrom, TTo>;
+    | InConverter.Value.Factory<TFrom, TTo>
+    | InConverter.Value.Conversion<TFrom, TTo>;
 
   /**
    * Input control aspect converter.
@@ -67,16 +66,14 @@ export namespace InConverter {
    * @typeParam TTo - Converted input value type.
    */
   export type Aspect<TFrom, TTo = TFrom> =
-      | InConverter.Aspect.Conversion<TTo>
-      | InConverter.Aspect.Factory<TFrom, TTo>;
-
+    | InConverter.Aspect.Conversion<TTo>
+    | InConverter.Aspect.Factory<TFrom, TTo>;
 }
 
 /**
  * @category Converter
  */
 export namespace InConverter.Value {
-
   /**
    * Input control value conversion factory signature.
    *
@@ -86,19 +83,16 @@ export namespace InConverter.Value {
    *
    * @typeParam TFrom - Original input value type.
    * @typeParam TTo - Converted input value type.
-   */
-  export type Factory<TFrom, TTo> =
-  /**
    * @param from - Original input control.
    * @param to - Converted input control.
    *
    * @returns Control conversion.
    */
-      (
-          this: void,
-          from: InControl<TFrom>,
-          to: InControl<TTo>,
-      ) => Conversion<TFrom, TTo>;
+  export type Factory<TFrom, TTo> = (
+    this: void,
+    from: InControl<TFrom>,
+    to: InControl<TTo>,
+  ) => Conversion<TFrom, TTo>;
 
   /**
    * Input control value conversion.
@@ -107,7 +101,6 @@ export namespace InConverter.Value {
    * @typeParam TTo - Converted input value type.
    */
   export interface Conversion<TFrom, TTo> {
-
     /**
      * Applies the given aspect to converted control in a custom way.
      *
@@ -119,7 +112,7 @@ export namespace InConverter.Value {
      * it from corresponding aspect of original control).
      */
     applyAspect?<TInstance, TKind extends InAspect.Application.Kind>(
-        aspect: InAspect<TInstance, TKind>,
+      aspect: InAspect<TInstance, TKind>,
     ): InAspect.Application.Result<TInstance, TTo, TKind> | undefined;
 
     /**
@@ -139,16 +132,13 @@ export namespace InConverter.Value {
      * @returns New value of original control.
      */
     get(value: TTo): TFrom;
-
   }
-
 }
 
 /**
  * @category Converter
  */
 export namespace InConverter.Aspect {
-
   /**
    * Input control aspect conversion factory signature.
    *
@@ -160,9 +150,9 @@ export namespace InConverter.Aspect {
    * @typeParam TTo - Converted input value type.
    */
   export type Factory<TFrom, TTo = TFrom> = (
-      this: void,
-      from: InControl<TFrom>,
-      to: InControl<TTo>,
+    this: void,
+    from: InControl<TFrom>,
+    to: InControl<TTo>,
   ) => Conversion<TTo>;
 
   /**
@@ -171,7 +161,6 @@ export namespace InConverter.Aspect {
    * @typeParam TValue - Input value type.
    */
   export interface Conversion<TValue> {
-
     /**
      * Applies the given aspect to converted control in a custom way.
      *
@@ -183,11 +172,9 @@ export namespace InConverter.Aspect {
      * it from corresponding aspect of original control).
      */
     applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
-        aspect: InAspect<TInstance, TKind>,
+      aspect: InAspect<TInstance, TKind>,
     ): InAspect.Application.Result<TInstance, TValue, TKind> | undefined;
-
   }
-
 }
 
 /**
@@ -199,7 +186,7 @@ export namespace InConverter.Aspect {
  * @returns Input control aspect conversion factory.
  */
 export function intoConvertedBy<TValue>(
-    ...converters: InConverter.Aspect<TValue, TValue>[]
+  ...converters: InConverter.Aspect<TValue, TValue>[]
 ): InConverter.Aspect.Factory<TValue, TValue>;
 
 /**
@@ -214,8 +201,8 @@ export function intoConvertedBy<TValue>(
  * @returns Input control value conversion factory.
  */
 export function intoConvertedBy<TFrom, TTo>(
-    converter: InConverter.Value<TFrom, TTo>,
-    ...converters: InConverter.Aspect<TFrom, TTo>[]
+  converter: InConverter.Value<TFrom, TTo>,
+  ...converters: InConverter.Aspect<TFrom, TTo>[]
 ): InConverter.Value.Factory<TFrom, TTo>;
 
 /**
@@ -230,17 +217,16 @@ export function intoConvertedBy<TFrom, TTo>(
  * @returns Input control conversion factory.
  */
 export function intoConvertedBy<TFrom, TTo>(
-    converter?: InConverter<TFrom, TTo>,
-    ...converters: InConverter.Aspect<TFrom, TTo>[]
+  converter?: InConverter<TFrom, TTo>,
+  ...converters: InConverter.Aspect<TFrom, TTo>[]
 ): InConverter.Factory<TFrom, TTo>;
 
 export function intoConvertedBy<TFrom, TTo>(
-    valueOrAspectConverter?: InConverter<TFrom, TTo> | InConverter.Aspect<TFrom, TTo>,
-    ...converters: InConverter.Aspect<TFrom, TTo>[]
+  valueOrAspectConverter?: InConverter<TFrom, TTo> | InConverter.Aspect<TFrom, TTo>,
+  ...converters: InConverter.Aspect<TFrom, TTo>[]
 ): InConverter.Factory<TFrom, TTo> {
-
   type AspectApplicator = <TInstance, TKind extends InAspect.Application.Kind>(
-      aspect: InAspect<TInstance, TKind>,
+    aspect: InAspect<TInstance, TKind>,
   ) => InAspect.Application.Result<TInstance, TTo, TKind> | undefined;
 
   if (!valueOrAspectConverter) {
@@ -255,26 +241,29 @@ export function intoConvertedBy<TFrom, TTo>(
 
   const aspectConverters = converters.map<InConverter.Aspect.Factory<TFrom, TTo>>(inConverter);
 
-  return (
-      from,
-      to,
-  ): InConverter.Conversion<TFrom, TTo> => {
-
+  return (from, to): InConverter.Conversion<TFrom, TTo> => {
     const conversion = converter(from, to);
     const conversions = overElementsOf<InConverter.Conversion<TFrom, TTo>>(
-        [conversion],
-        filterArray<InConverter.Aspect.Conversion<TTo> | undefined, InConverter.Aspect.Conversion<TTo>>(
-            aspectConverters.map(acf => acf(from, to)),
-            isPresent,
-        ),
+      [conversion],
+      filterArray<
+        InConverter.Aspect.Conversion<TTo> | undefined,
+        InConverter.Aspect.Conversion<TTo>
+      >(
+        aspectConverters.map(acf => acf(from, to)),
+        isPresent,
+      ),
     );
 
     const applyAspect: AspectApplicator = itsReduction(
-        conversions,
-        (prev: AspectApplicator, cv: InConverter.Conversion<TFrom, TTo>) => cv.applyAspect
-            ? (aspect => prev(aspect) || cv.applyAspect!(aspect))
-            : prev,
-        noop,
+      conversions,
+      (prev: AspectApplicator, cv: InConverter.Conversion<TFrom, TTo>) => {
+        if (cv.applyAspect) {
+          return aspect => prev(aspect) || cv.applyAspect!(aspect);
+        }
+
+        return prev;
+      },
+      noop,
     );
 
     if (/*#__INLINE__*/ isInAspectConversion(conversion)) {
@@ -301,11 +290,9 @@ export function intoConvertedBy<TFrom, TTo>(
  * @returns Input aspect conversion factory.
  */
 export function intoConvertedAspects<TValue>(
-    aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[],
+  aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[],
 ): InConverter.Aspect.Factory<TValue> {
-  return aspects
-      ? intoConvertedBy(...arrayOfElements(aspects))
-      : intoConvertedBy<TValue>();
+  return aspects ? intoConvertedBy(...arrayOfElements(aspects)) : intoConvertedBy<TValue>();
 }
 
 /**
@@ -318,7 +305,7 @@ export function intoConvertedAspects<TValue>(
  * or `true` if there is no one.
  */
 export function isInAspectConversion<TFrom, TTo>(
-    conversion: InConverter.Conversion<TFrom, TTo>,
+  conversion: InConverter.Conversion<TFrom, TTo>,
 ): conversion is InConverter.Aspect.Conversion<TTo> {
   return !(conversion as Partial<InConverter.Value.Conversion<TFrom, TTo>>).set;
 }
@@ -327,25 +314,25 @@ export function isInAspectConversion<TFrom, TTo>(
  * @internal
  */
 function inConverter<TFrom, TTo>(
-    converter: InConverter.Value<TFrom, TTo>,
+  converter: InConverter.Value<TFrom, TTo>,
 ): InConverter.Value.Factory<TFrom, TTo>;
 
 /**
  * @internal
  */
 function inConverter<TFrom, TTo>(
-    converter: InConverter.Aspect<TFrom, TTo>,
+  converter: InConverter.Aspect<TFrom, TTo>,
 ): InConverter.Aspect.Factory<TFrom, TTo>;
 
 /**
  * @internal
  */
 function inConverter<TFrom, TTo>(
-    converter: InConverter<TFrom, TTo>,
+  converter: InConverter<TFrom, TTo>,
 ): InConverter.Factory<TFrom, TTo>;
 
 function inConverter<TFrom, TTo>(
-    converter: InConverter<TFrom, TTo> | InConverter.Aspect<TFrom, TTo>,
+  converter: InConverter<TFrom, TTo> | InConverter.Aspect<TFrom, TTo>,
 ): InConverter.Factory<TFrom, TTo> | InConverter.Aspect.Factory<TFrom, TTo> {
   return typeof converter === 'function' ? converter : valueProvider<any>(converter);
 }

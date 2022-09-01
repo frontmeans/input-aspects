@@ -68,7 +68,6 @@ describe('inCssInfo', () => {
     expect(element.classList.contains('edited@inasp')).toBe(true);
   });
   it('qualifies class names with custom namespace', () => {
-
     const ns = new NamespaceDef('http://localhost/test/ns', 'test');
 
     control.aspect(InCssClasses).add(inCssInfo({ ns }));
@@ -76,7 +75,6 @@ describe('inCssInfo', () => {
     expect(element.classList.contains('disabled@test')).toBe(true);
   });
   it('utilizes `InNamespaceAliases`', () => {
-
     const nsAlias = newNamespaceAliaser();
     const ns = new NamespaceDef('http://localhost/test/ns', InputAspects__NS.alias);
 

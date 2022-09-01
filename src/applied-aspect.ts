@@ -32,7 +32,9 @@ export function nullInAspect<TValue, TInstance>(): InAspect.Applied<TValue, TIns
  *
  * @returns Applied input aspect.
  */
-export function knownInAspect<TValue, TInstance>(instance: TInstance): InAspect.Applied<TValue, TInstance> {
+export function knownInAspect<TValue, TInstance>(
+  instance: TInstance,
+): InAspect.Applied<TValue, TInstance> {
   return {
     instance,
     convertTo(_target) {
@@ -59,9 +61,9 @@ export function knownInAspect<TValue, TInstance>(instance: TInstance): InAspect.
  * @returns Applied input aspect.
  */
 export function inconvertibleInAspect<TValue, TInstance, TKind extends InAspect.Application.Kind>(
-    control: InControl<TValue>,
-    aspectKey: InAspect.Key<TInstance | null, TKind>,
-    instance: TInstance | null = null,
+  control: InControl<TValue>,
+  aspectKey: InAspect.Key<TInstance | null, TKind>,
+  instance: TInstance | null = null,
 ): InAspect.Applied<TValue, TInstance | null> {
   return builtInAspect$(control, aspectKey, valueProvider(null), instance);
 }
@@ -85,19 +87,19 @@ export function inconvertibleInAspect<TValue, TInstance, TKind extends InAspect.
  * @returns Applied input aspect.
  */
 export function builtInAspect<TValue, TInstance, TKind extends InAspect.Application.Kind>(
-    control: InControl<TValue>,
-    aspectKey: InAspect.Key<TInstance, TKind>,
-    build: <TValue>(this: void, control: InControl<TValue>, origin?: InControl<any>) => TInstance,
+  control: InControl<TValue>,
+  aspectKey: InAspect.Key<TInstance, TKind>,
+  build: <TValue>(this: void, control: InControl<TValue>, origin?: InControl<any>) => TInstance,
 ): InAspect.Applied<TValue, TInstance> {
   return builtInAspect$(control, aspectKey, build);
 }
 
 function builtInAspect$<TValue, TInstance, TKind extends InAspect.Application.Kind>(
-    control: InControl<TValue>,
-    aspectKey: InAspect.Key<TInstance, TKind>,
-    build: <TValue>(this: void, control: InControl<TValue>, origin?: InControl<any>) => TInstance,
-    instance?: TInstance,
-    origin?: InControl<any>,
+  control: InControl<TValue>,
+  aspectKey: InAspect.Key<TInstance, TKind>,
+  build: <TValue>(this: void, control: InControl<TValue>, origin?: InControl<any>) => TInstance,
+  instance?: TInstance,
+  origin?: InControl<any>,
 ): InAspect.Applied<TValue, TInstance> {
   if (instance === undefined) {
     instance = build(control, origin);
@@ -106,20 +108,14 @@ function builtInAspect$<TValue, TInstance, TKind extends InAspect.Application.Ki
   return {
     instance,
     convertTo<TTo>(target: InControl<TTo>): InAspect.Applied<TTo, TInstance> {
-      return builtInAspect$<TTo, TInstance, TKind>(
-          target,
-          aspectKey,
-          build,
-          undefined,
-          control,
-      );
+      return builtInAspect$<TTo, TInstance, TKind>(target, aspectKey, build, undefined, control);
     },
     attachTo(target: InControl<TValue>): InAspect.Applied<TValue, TInstance> | undefined {
       return builtInAspect$(
-          target,
-          aspectKey,
-          build,
-          (control.aspect(aspectKey) as TInstance | undefined) || build(target),
+        target,
+        aspectKey,
+        build,
+        (control.aspect(aspectKey) as TInstance | undefined) || build(target),
       );
     },
   };

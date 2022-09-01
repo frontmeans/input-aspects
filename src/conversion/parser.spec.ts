@@ -4,13 +4,17 @@ import { inValue } from '../value.control';
 import { intoParsedBy } from './parser';
 
 describe('intoParsedBy', () => {
-
   let textControl: InControl<string>;
   let parsedControl: InControl<number>;
 
   beforeEach(() => {
     textControl = inValue('old');
-    parsedControl = textControl.convert(intoParsedBy(text => text.length, value => '*'.repeat(value)));
+    parsedControl = textControl.convert(
+      intoParsedBy(
+        text => text.length,
+        value => '*'.repeat(value),
+      ),
+    );
   });
 
   it('parses value', () => {

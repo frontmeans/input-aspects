@@ -11,10 +11,13 @@ class InValueControl<TValue> extends InControl<TValue> {
   private readonly _it: ValueTracker<TValue>;
 
   constructor(
-      initial: TValue,
-      opts: {
-        readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[] | undefined;
-      },
+    initial: TValue,
+    opts: {
+      readonly aspects?:
+        | InConverter.Aspect<TValue>
+        | readonly InConverter.Aspect<TValue>[]
+        | undefined;
+    },
   ) {
     super(opts);
     this._it = trackValue(initial);
@@ -52,12 +55,15 @@ class InValueControl<TValue> extends InControl<TValue> {
  * @returns New input control.
  */
 export function inValue<TValue>(
-    initial: TValue,
-    {
-      aspects,
-    }: {
-      readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[] | undefined;
-    } = {},
+  initial: TValue,
+  {
+    aspects,
+  }: {
+    readonly aspects?:
+      | InConverter.Aspect<TValue>
+      | readonly InConverter.Aspect<TValue>[]
+      | undefined;
+  } = {},
 ): InControl<TValue> {
   return new InValueControl(initial, { aspects });
 }

@@ -13,7 +13,6 @@ import { InValidationMessages } from './validator.impl';
  * @returns Validator that requires all the given `validators`. Or just the given validator if it is the only one given.
  */
 export function requireAll<TValue>(...validators: InValidator<TValue>[]): InValidator<TValue> {
-
   const numValidators = validators.length;
 
   if (numValidators === 1) {
@@ -24,7 +23,6 @@ export function requireAll<TValue>(...validators: InValidator<TValue>[]): InVali
   }
 
   return (control: InControl<TValue>) => {
-
     const messages = new InValidationMessages(control);
 
     validators.forEach(validator => messages.from(validator));

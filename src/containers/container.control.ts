@@ -39,11 +39,15 @@ export abstract class InContainer<TValue> extends InControl<TValue> {
   abstract readonly controls: InContainerControls;
 
   protected _applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
-      aspect: InAspect<TInstance, TKind>,
+    aspect: InAspect<TInstance, TKind>,
   ): InAspect.Application.Result<TInstance, TValue, TKind> | undefined {
-    return aspect === InContainer__aspect as InAspect<any>
-        ? inconvertibleInAspect(this, InContainer, this) as InAspect.Application.Result<TInstance, TValue, TKind>
-        : super._applyAspect(aspect);
+    return aspect === (InContainer__aspect as InAspect<any>)
+      ? (inconvertibleInAspect(this, InContainer, this) as InAspect.Application.Result<
+          TInstance,
+          TValue,
+          TKind
+        >)
+      : super._applyAspect(aspect);
   }
 
 }
@@ -52,7 +56,6 @@ export abstract class InContainer<TValue> extends InControl<TValue> {
  * @category Control
  */
 export namespace InContainer {
-
   /**
    * Input controls container entry.
    *
@@ -68,7 +71,6 @@ export namespace InContainer {
    * Extends an `Iterable` interface by iterating over all nested controls.
    */
   export interface Snapshot extends Iterable<InControl<any>> {
-
     [Symbol.iterator](): IterableIterator<InControl<any>>;
 
     /**
@@ -77,9 +79,7 @@ export namespace InContainer {
      * @returns An iterable iterator over entries.
      */
     entries(): IterableIterator<InContainer.Entry>;
-
   }
-
 }
 
 /**
@@ -94,7 +94,9 @@ export namespace InContainer {
  * @category Control
  */
 export abstract class InContainerControls
-     implements EventSender<[InContainer.Entry[], InContainer.Entry[]]>, EventKeeper<[InContainer.Snapshot]> {
+  implements
+    EventSender<[InContainer.Entry[], InContainer.Entry[]]>,
+    EventKeeper<[InContainer.Snapshot]> {
 
   /**
    * An `OnEvent` sender of container updates.
@@ -124,18 +126,12 @@ export abstract class InContainerControls
 }
 
 declare module '../aspect' {
-
   export namespace InAspect.Application {
-
     export interface Map<TInstance, TValue> {
-
       /**
        * Input controls container application type.
        */
       container(): InContainer<TValue> | null;
-
     }
-
   }
-
 }

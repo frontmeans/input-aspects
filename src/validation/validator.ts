@@ -1,4 +1,10 @@
-import { AfterEvent, afterSupplied, EventKeeper, isEventKeeper, translateAfter } from '@proc7ts/fun-events';
+import {
+  AfterEvent,
+  afterSupplied,
+  EventKeeper,
+  isEventKeeper,
+  translateAfter,
+} from '@proc7ts/fun-events';
 import { arrayOfElements, valueProvider } from '@proc7ts/primitives';
 import { InControl } from '../control';
 import { InValidation } from './validation.aspect';
@@ -17,22 +23,20 @@ import { InValidation } from './validation.aspect';
  * @typeParam TValue - Input value type.
  */
 export type InValidator<TValue> =
-    | EventKeeper<InValidation.Message[]>
-    | ((this: void, control: InControl<TValue>) => EventKeeper<InValidation.Message[]>)
-    | InValidator.Simple<TValue>;
+  | EventKeeper<InValidation.Message[]>
+  | ((this: void, control: InControl<TValue>) => EventKeeper<InValidation.Message[]>)
+  | InValidator.Simple<TValue>;
 
 /**
  * @category Validation
  */
 export namespace InValidator {
-
   /**
    * Simple input validator.
    *
    * @typeParam TValue - Input value type.
    */
   export interface Simple<TValue> {
-
     /**
      * Validates the user input.
      *
@@ -43,10 +47,10 @@ export namespace InValidator {
      *
      * @returns Either validation message, array of validation messages, or `null`/`unknown` to indicate their absence.
      */
-    validate(control: InControl<TValue>): InValidation.Message | InValidation.Message[] | null | undefined;
-
+    validate(
+      control: InControl<TValue>,
+    ): InValidation.Message | InValidation.Message[] | null | undefined;
   }
-
 }
 
 /**
@@ -60,7 +64,7 @@ export namespace InValidator {
  * messages.
  */
 export function inValidator<TValue>(
-    validator: InValidator<TValue>,
+  validator: InValidator<TValue>,
 ): (this: void, control: InControl<TValue>) => AfterEvent<InValidation.Message[]> {
   if (isEventKeeper(validator)) {
     return valueProvider(afterSupplied(validator));
@@ -69,7 +73,5 @@ export function inValidator<TValue>(
     return control => afterSupplied(validator(control));
   }
 
-  return control => control.read.do(
-      translateAfter(send => send(...arrayOfElements(validator.validate(control)))),
-  );
+  return control => control.read.do(translateAfter(send => send(...arrayOfElements(validator.validate(control)))));
 }

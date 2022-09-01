@@ -1,18 +1,22 @@
-import { AfterEvent, AfterEvent__symbol, EventKeeper, mapAfter_, trackValue } from '@proc7ts/fun-events';
+import {
+  AfterEvent,
+  AfterEvent__symbol,
+  EventKeeper,
+  mapAfter_,
+  trackValue,
+} from '@proc7ts/fun-events';
 import { noop } from '@proc7ts/primitives';
 import { Supply, SupplyPeer } from '@proc7ts/supply';
 import { InAspect, InAspect__symbol } from '../aspect';
 import { InControl } from '../control';
 
 const InRole__aspect: InAspect<InRole<any>, 'role'> = {
-
   applyTo<TValue>(control: InControl<TValue>): InAspect.Applied<TValue, InRole<TValue>> {
     return {
       instance: new InControlRole<TValue>(control),
       convertTo: noop,
     };
   },
-
 };
 
 /**
@@ -71,27 +75,21 @@ export abstract class InRole<TValue> implements EventKeeper<[InRole.Active]> {
 }
 
 export namespace InRole {
-
   /**
    * An activator signature of input control role.
    *
    * @typeParam TValue - Input value type.
    */
   export type Activator<TValue> =
-  /**
-   * @param control - A control the role is activated for.
-   * @param role - Activated role name.
-   * @param active - Active control role.
-   *
-   * @returns Activation supply peer. Its supply will be cut off once the role deactivated or activator removed. It is
-   * expected that this supply performs deactivation once cut off.
-   */
-      (
-          this: void,
-          control: InControl<TValue>,
-          role: string,
-          active: Active,
-      ) => SupplyPeer;
+    /**
+     * @param control - A control the role is activated for.
+     * @param role - Activated role name.
+     * @param active - Active control role.
+     *
+     * @returns Activation supply peer. Its supply will be cut off once the role deactivated or activator removed. It is
+     * expected that this supply performs deactivation once cut off.
+     */
+    (this: void, control: InControl<TValue>, role: string, active: Active) => SupplyPeer;
 
   /**
    * Active input control role.
@@ -101,7 +99,6 @@ export namespace InRole {
    * Implements an `Iterable` interface by iterating over all active role names.
    */
   export interface Active extends Iterable<string> {
-
     /**
      * Checks whether the given role is active.
      *
@@ -110,15 +107,12 @@ export namespace InRole {
      * @returns `true` if the given role is {@link InRole.add added} to controller, or `false` otherwise.
      */
     has(role: string): boolean;
-
   }
-
 }
 
 class InRole$Active {
 
   static create(): InRole$Active {
-
     const result = new InRole$Active(new Map());
 
     result.add('default', true);
@@ -130,9 +124,7 @@ class InRole$Active {
   private _activate: (this: void) => void = noop;
   private _defaultSupply!: Supply;
 
-  private constructor(
-      readonly roles: Map<string, InRole$Named>,
-  ) {
+  private constructor(readonly roles: Map<string, InRole$Named>) {
     this.active = {
       [Symbol.iterator]() {
         return roles.keys();
@@ -144,7 +136,6 @@ class InRole$Active {
   }
 
   modify(): InRole$Active {
-
     const result = new InRole$Active(this.roles);
 
     result._defaultSupply = this._defaultSupply;
@@ -153,7 +144,6 @@ class InRole$Active {
   }
 
   add(role: string, isDefault: boolean): Supply | undefined {
-
     const named = this.roles.get(role);
 
     if (named) {
@@ -165,17 +155,13 @@ class InRole$Active {
 
     const supply = new Supply();
 
-    this.roles.set(
-        role,
-        {
-          active: 1,
-          supply,
-        },
-    );
+    this.roles.set(role, {
+      active: 1,
+      supply,
+    });
 
     if (isDefault) {
       this._defaultSupply = supply.whenOff(() => {
-
         const toRemove = this.roles.get(role)!;
 
         if (!--toRemove.active) {
@@ -183,7 +169,6 @@ class InRole$Active {
         }
       });
     } else {
-
       const defaultSupply = this._defaultSupply;
 
       this.activateBy(() => defaultSupply.off());
@@ -193,7 +178,6 @@ class InRole$Active {
   }
 
   remove(role: string, reason: unknown): void {
-
     const named = this.roles.get(role)!;
 
     if (--named.active) {
@@ -206,7 +190,6 @@ class InRole$Active {
   }
 
   activateBy(activator: () => void): void {
-
     const prevActivator = this._activate;
 
     this._activate = () => {
@@ -216,7 +199,6 @@ class InRole$Active {
   }
 
   activate(): void {
-
     const activator = this._activate;
 
     this._activate = noop;
@@ -245,14 +227,12 @@ class InControlRole<TValue> extends InRole<TValue> {
   }
 
   add(role: string): Supply {
-
     const active = this._active.it.modify();
 
     this._add(active, role);
     this._active.it = active;
 
     return new Supply(reason => {
-
       const active = this._active.it.modify();
 
       active.remove(role, reason);
@@ -267,7 +247,6 @@ class InControlRole<TValue> extends InRole<TValue> {
   }
 
   when(role: string, activator: InRole.Activator<TValue>): Supply {
-
     let activators = this._activators.get(role);
 
     if (!activators) {
@@ -277,10 +256,7 @@ class InControlRole<TValue> extends InRole<TValue> {
 
     const supply = new Supply().needs(this._control);
 
-    activators.set(
-        supply,
-        (control, role, active) => activator(control, role, active).supply.needs(supply),
-    );
+    activators.set(supply, (control, role, active) => activator(control, role, active).supply.needs(supply));
     supply.whenOff(() => {
       activators!.delete(supply);
       if (!activators!.size) {
@@ -300,7 +276,6 @@ class InControlRole<TValue> extends InRole<TValue> {
   }
 
   private _add(active: InRole$Active, role: string, isDefault = false): void {
-
     const activatedSupply = active.add(role, isDefault);
 
     if (activatedSupply) {
@@ -320,18 +295,12 @@ class InControlRole<TValue> extends InRole<TValue> {
 }
 
 declare module '../aspect' {
-
   export namespace InAspect.Application {
-
     export interface Map<TInstance, TValue> {
-
       /**
        * Input role application type.
        */
       role(): InRole<TValue>;
-
     }
-
   }
-
 }

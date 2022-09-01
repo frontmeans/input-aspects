@@ -26,12 +26,10 @@ export type InSubmitButton<TElt extends HTMLElement = HTMLElement> = InElement<v
  * @category Control
  */
 export namespace InSubmitButton {
-
   /**
    * Submit button control options.
    */
   export interface Options {
-
     /**
      * Submitted control. Typically a {@link InContainer container}.
      */
@@ -49,7 +47,6 @@ export namespace InSubmitButton {
      * Applied to submit button control by {@link inModeByForm}.
      */
     modes?: {
-
       /**
        * Input mode to set when submit is not ready. E.g. when input is invalid. `on` (enabled) by default.
        */
@@ -64,11 +61,8 @@ export namespace InSubmitButton {
        * Input mode to set while submitting. `off` (disabled) by default.
        */
       readonly busy?: InMode.Value | undefined;
-
     };
-
   }
-
 }
 
 /**
@@ -81,19 +75,15 @@ export namespace InSubmitButton {
  * @returns New submit button control.
  */
 export function inSubmitButton<TElt extends HTMLElement>(
-    element: TElt,
-    options: InSubmitButton.Options,
+  element: TElt,
+  options: InSubmitButton.Options,
 ): InSubmitButton<TElt> {
-
   const { form, aspects, modes: { notReady = 'on', invalid = 'off', busy = 'off' } = {} } = options;
-  const control = new AbstractInElement<void, TElt>(
-      element,
-      {
-        aspects: [intoConvertedAspects(aspects)],
-        get: noop,
-        set: noop,
-      },
-  );
+  const control = new AbstractInElement<void, TElt>(element, {
+    aspects: [intoConvertedAspects(aspects)],
+    get: noop,
+    set: noop,
+  });
 
   control.supply.needs(form);
   control.setup(InMode, mode => mode.derive(inModeByForm(form, { notReady, invalid, busy })));

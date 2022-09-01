@@ -15,7 +15,6 @@ import { InList } from './list.control';
 import { InParents } from './parents.aspect';
 
 describe('InGroup', () => {
-
   interface TestModel {
     ctrl1: string;
     ctrl2?: string | undefined;
@@ -31,8 +30,9 @@ describe('InGroup', () => {
     ctrl1 = inValue('some');
     ctrl2 = inValue('other').convert(intoFallback(''));
     ctrl3 = inValue(99).convert(intoFallback(0));
-    group = inGroup<TestModel>({ ctrl1: ctrl1.it, ctrl2: ctrl2.it })
-        .setup(({ controls }) => controls.set({ ctrl1, ctrl2 }));
+    group = inGroup<TestModel>({ ctrl1: ctrl1.it, ctrl2: ctrl2.it }).setup(({ controls }) => {
+      controls.set({ ctrl1, ctrl2 });
+    });
   });
 
   it('supports aspects', () => {
@@ -47,14 +47,12 @@ describe('InGroup', () => {
     expect(InGroup[InAspect__symbol]).not.toBe(InContainer[InAspect__symbol]);
   });
   it('is available as aspect of converted control with the same value', () => {
-
     const converted = group.convert();
 
     expect(converted.aspect(InContainer)).toBe(group);
     expect(converted.aspect(InGroup)).toBe(group);
   });
   it('is not available as aspect of converted control with another value', () => {
-
     const converted = group.convert<string>({
       set: () => 'foo',
       get: () => ({ ctrl1: 'foo' }),
@@ -64,37 +62,42 @@ describe('InGroup', () => {
     expect(converted.aspect(InGroup)).toBeNull();
   });
   it('allows to specify default aspects', () => {
-
     const styled = document.createElement('span');
     const scheduler = newManualRenderScheduler();
 
     group = inGroup<TestModel>(
-        { ctrl1: '' },
-        { aspects: [InStyledElement.to(styled), InRenderScheduler.to(scheduler)] },
+      { ctrl1: '' },
+      { aspects: [InStyledElement.to(styled), InRenderScheduler.to(scheduler)] },
     );
     expect(group.aspect(InStyledElement)).toBe(styled);
     expect(group.aspect(InRenderScheduler)).toBe(scheduler);
   });
 
   describe('controls', () => {
-
     let onModelUpdate: Mock<(newModel: TestModel, oldModel: TestModel) => void>;
-    let onUpdate: Mock<(added: InGroup.Entry<TestModel>[], removed: InGroup.Entry<TestModel>[]) => void>;
+    let onUpdate: Mock<
+      (added: InGroup.Entry<TestModel>[], removed: InGroup.Entry<TestModel>[]) => void
+    >;
     let readSnapshot: Mock<(model: InGroup.Snapshot<TestModel>) => void>;
     let lastSnapshot: InGroup.Snapshot<TestModel>;
 
     beforeEach(() => {
-      group.on(onModelUpdate = jest.fn());
-      group.controls.on(onUpdate = jest.fn());
-      group.controls.read(readSnapshot = jest.fn(snapshot => {
-        lastSnapshot = snapshot;
-      }));
+      group.on((onModelUpdate = jest.fn()));
+      group.controls.on((onUpdate = jest.fn()));
+      group.controls.read(
+        (readSnapshot = jest.fn(snapshot => {
+          lastSnapshot = snapshot;
+        })),
+      );
       readSnapshot.mockClear();
     });
 
     it('contain initial controls', () => {
       expect([...lastSnapshot]).toEqual([ctrl1, ctrl2]);
-      expect([...lastSnapshot.entries()]).toEqual([['ctrl1', ctrl1], ['ctrl2', ctrl2]]);
+      expect([...lastSnapshot.entries()]).toEqual([
+        ['ctrl1', ctrl1],
+        ['ctrl2', ctrl2],
+      ]);
       expect(lastSnapshot.get('ctrl1')).toBe(ctrl1);
       expect(lastSnapshot.get('ctrl2')).toBe(ctrl2);
       expect(lastSnapshot.get('ctrl3')).toBeUndefined();
@@ -107,11 +110,14 @@ describe('InGroup', () => {
 
     describe('set', () => {
       it('adds control', () => {
-
         const supply = group.controls.set('ctrl3', ctrl3);
 
         expect([...lastSnapshot]).toEqual([ctrl1, ctrl2, ctrl3]);
-        expect([...lastSnapshot.entries()]).toEqual([['ctrl1', ctrl1], ['ctrl2', ctrl2], ['ctrl3', ctrl3]]);
+        expect([...lastSnapshot.entries()]).toEqual([
+          ['ctrl1', ctrl1],
+          ['ctrl2', ctrl2],
+          ['ctrl3', ctrl3],
+        ]);
         expect(lastSnapshot.get('ctrl1')).toBe(ctrl1);
         expect(lastSnapshot.get('ctrl2')).toBe(ctrl2);
         expect(lastSnapshot.get('ctrl3')).toBe(ctrl3);
@@ -123,12 +129,14 @@ describe('InGroup', () => {
         expect([...lastSnapshot]).toEqual([ctrl1, ctrl2]);
       });
       it('replaces control', () => {
-
         const ctrl4 = inValue('third');
         const supply = group.controls.set('ctrl1', ctrl4);
 
         expect([...lastSnapshot]).toEqual([ctrl4, ctrl2]);
-        expect([...lastSnapshot.entries()]).toEqual([['ctrl1', ctrl4], ['ctrl2', ctrl2]]);
+        expect([...lastSnapshot.entries()]).toEqual([
+          ['ctrl1', ctrl4],
+          ['ctrl2', ctrl2],
+        ]);
         expect(lastSnapshot.get('ctrl1')).toBe(ctrl4);
         expect(lastSnapshot.get('ctrl2')).toBe(ctrl2);
         expect(lastSnapshot.get('ctrl3')).toBeUndefined();
@@ -145,7 +153,6 @@ describe('InGroup', () => {
         expect(whenOff).toHaveBeenCalledWith(undefined);
       });
       it('replaces control with itself', () => {
-
         const supply1 = group.controls.set('ctrl1', ctrl1);
         const supply2 = group.controls.set('ctrl1', ctrl1);
 
@@ -156,18 +163,16 @@ describe('InGroup', () => {
         expect(readSnapshot).not.toHaveBeenCalled();
       });
       it('updates container model', () => {
-
         const ctrl4 = inValue('third');
 
         group.controls.set('ctrl1', ctrl4);
         expect(group.it).toEqual({ ctrl1: 'third', ctrl2: 'other' });
         expect(onModelUpdate).toHaveBeenCalledWith(
-            { ctrl1: 'third', ctrl2: 'other' },
-            { ctrl1: 'some', ctrl2: 'other' },
+          { ctrl1: 'third', ctrl2: 'other' },
+          { ctrl1: 'some', ctrl2: 'other' },
         );
       });
       it('sets multiple controls', () => {
-
         const ctrl4 = inValue('third');
         const supply = group.controls.set({
           ctrl1: ctrl4,
@@ -175,11 +180,21 @@ describe('InGroup', () => {
         });
 
         expect([...lastSnapshot]).toEqual([ctrl4, ctrl2, ctrl3]);
-        expect([...lastSnapshot.entries()]).toEqual([['ctrl1', ctrl4], ['ctrl2', ctrl2], ['ctrl3', ctrl3]]);
+        expect([...lastSnapshot.entries()]).toEqual([
+          ['ctrl1', ctrl4],
+          ['ctrl2', ctrl2],
+          ['ctrl3', ctrl3],
+        ]);
         expect(lastSnapshot.get('ctrl1')).toBe(ctrl4);
         expect(lastSnapshot.get('ctrl2')).toBe(ctrl2);
         expect(lastSnapshot.get('ctrl3')).toBe(ctrl3);
-        expect(onUpdate).toHaveBeenCalledWith([['ctrl1', ctrl4], ['ctrl3', ctrl3]], [['ctrl1', ctrl1]]);
+        expect(onUpdate).toHaveBeenCalledWith(
+          [
+            ['ctrl1', ctrl4],
+            ['ctrl3', ctrl3],
+          ],
+          [['ctrl1', ctrl1]],
+        );
         expect(readSnapshot).toHaveBeenCalledTimes(1);
 
         supply.off();
@@ -201,7 +216,7 @@ describe('InGroup', () => {
         expect(parentsOf(ctrl2)).toHaveLength(0);
       });
       it('does nothing when there is no such control', () => {
-        group.controls.remove(('ctrl3'));
+        group.controls.remove('ctrl3');
         expect(onUpdate).not.toHaveBeenCalled();
       });
       it('does not update container model', () => {
@@ -215,7 +230,13 @@ describe('InGroup', () => {
       it('removes all controls', () => {
         group.controls.clear();
         expect([...lastSnapshot]).toHaveLength(0);
-        expect(onUpdate).toHaveBeenCalledWith([], [['ctrl1', ctrl1], ['ctrl2', ctrl2]]);
+        expect(onUpdate).toHaveBeenCalledWith(
+          [],
+          [
+            ['ctrl1', ctrl1],
+            ['ctrl2', ctrl2],
+          ],
+        );
         expect(onUpdate).toHaveBeenCalledTimes(1);
         expect(readSnapshot).toHaveBeenCalledTimes(1);
       });
@@ -245,7 +266,6 @@ describe('InGroup', () => {
       expect(group.it).toEqual({ ctrl1: 'some', ctrl2: 'other' });
     });
     it('updates existing control values', () => {
-
       const newValue = { ctrl1: 'some2', ctrl2: 'other2' };
 
       group.it = newValue;
@@ -254,7 +274,6 @@ describe('InGroup', () => {
       expect(ctrl2.it).toBe(newValue.ctrl2);
     });
     it('updates missing control model', () => {
-
       const newValue: TestModel = { ctrl1: 'some2', ctrl2: 'other2', ctrl3: 13 };
 
       group.it = newValue;
@@ -263,7 +282,6 @@ describe('InGroup', () => {
       expect(ctrl2.it).toBe(newValue.ctrl2);
     });
     it('resets control with missing values', () => {
-
       const newValue: TestModel = { ctrl1: 'some2' };
 
       group.it = newValue;
@@ -279,7 +297,7 @@ describe('InGroup', () => {
 
       let lastSnapshot!: InGroup.Snapshot<TestModel>;
 
-      group.controls.read(snapshot => lastSnapshot = snapshot);
+      group.controls.read(snapshot => (lastSnapshot = snapshot));
 
       // noinspection JSUnusedAssignment
       expect([...lastSnapshot]).toHaveLength(0);
@@ -292,11 +310,10 @@ describe('InGroup', () => {
   });
 
   describe('InData', () => {
-
     let data: InData.DataType<TestModel>;
 
     beforeEach(() => {
-      group.aspect(InData)(d => data = d);
+      group.aspect(InData)(d => (data = d));
     });
 
     it('contains all data by default', () => {
@@ -311,7 +328,6 @@ describe('InGroup', () => {
       expect(data).toEqual({ ctrl1: 'some' });
     });
     it('contains data without control', () => {
-
       const value: TestModel = { ctrl1: '1', ctrl2: '2', ctrl3: 3 };
 
       group.it = value;
@@ -320,12 +336,10 @@ describe('InGroup', () => {
   });
 
   function parentsOf(control: InControl<any>): InParents.Entry[] {
-
     let parents: InParents.Entry[] = [];
 
-    control.aspect(InParents).read.do(onceAfter)(p => parents = [...p]);
+    control.aspect(InParents).read.do(onceAfter)(p => (parents = [...p]));
 
     return parents;
   }
-
 });

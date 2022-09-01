@@ -28,53 +28,49 @@ import { InCssClasses } from './css-classes.aspect';
  *
  * @returns A source of CSS class names to apply.
  */
-export function inCssInfo(
-    {
-      ns = InputAspects__NS,
-    }: {
-      ns?: NamespaceDef | undefined;
-    } = {},
-): InCssClasses.Source {
+export function inCssInfo({
+  ns = InputAspects__NS,
+}: {
+  ns?: NamespaceDef | undefined;
+} = {}): InCssClasses.Source {
   return (control: InControl<any>) => {
-
     const cls = (name: string) => [name, ns] as const;
 
     return afterAll({
       md: control.aspect(InMode),
       vl: control.aspect(InValidation),
       st: control.aspect(InStatus),
-    }).do(translateAfter(
-        (send, { md: [mode], vl: [valid], st: [{ hasFocus, touched, edited }] }) => {
+    }).do(
+      translateAfter((send, { md: [mode], vl: [valid], st: [{ hasFocus, touched, edited }] }) => {
+        const names: QualifiedName[] = [];
 
-          const names: QualifiedName[] = [];
+        if (!InMode.hasData(mode)) {
+          names.push(cls('disabled'));
+        }
+        if (mode === 'ro' || mode === '-ro') {
+          names.push(cls('readonly'));
+        }
+        if (!valid.ok) {
+          names.push(cls('invalid'));
+        }
+        if (valid.has('missing')) {
+          names.push(cls('missing'));
+        }
+        if (valid.has('incomplete')) {
+          names.push(cls('incomplete'));
+        }
+        if (hasFocus) {
+          names.push(cls('has-focus'));
+        }
+        if (touched) {
+          names.push(cls('touched'));
+        }
+        if (edited) {
+          names.push(cls('edited'));
+        }
 
-          if (!InMode.hasData(mode)) {
-            names.push(cls('disabled'));
-          }
-          if (mode === 'ro' || mode === '-ro') {
-            names.push(cls('readonly'));
-          }
-          if (!valid.ok) {
-            names.push(cls('invalid'));
-          }
-          if (valid.has('missing')) {
-            names.push(cls('missing'));
-          }
-          if (valid.has('incomplete')) {
-            names.push(cls('incomplete'));
-          }
-          if (hasFocus) {
-            names.push(cls('has-focus'));
-          }
-          if (touched) {
-            names.push(cls('touched'));
-          }
-          if (edited) {
-            names.push(cls('edited'));
-          }
-
-          send(...names);
-        },
-    ));
+        send(...names);
+      }),
+    );
   };
 }

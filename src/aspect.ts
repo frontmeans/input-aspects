@@ -11,7 +11,6 @@ import { InControl } from './control';
  * @typeParam TKind - Aspect application kind.
  */
 export interface InAspect<TInstance, TKind extends InAspect.Application.Kind = 'default'> {
-
   /**
    * Applies this aspect to the given input `control`.
    *
@@ -23,7 +22,6 @@ export interface InAspect<TInstance, TKind extends InAspect.Application.Kind = '
    * @returns An aspect applied to the given `control`.
    */
   applyTo<TValue>(control: InControl<TValue>): InAspect.Applied<TValue, TInstance>;
-
 }
 
 /**
@@ -31,13 +29,12 @@ export interface InAspect<TInstance, TKind extends InAspect.Application.Kind = '
  *
  * @category Aspect
  */
-export const InAspect__symbol = (/*#__PURE__*/ Symbol('in-aspect'));
+export const InAspect__symbol = /*#__PURE__*/ Symbol('in-aspect');
 
 /**
  * @category Aspect
  */
 export namespace InAspect {
-
   /**
    * A key of the aspect of user input.
    *
@@ -49,12 +46,10 @@ export namespace InAspect {
    * @typeParam TKind - Aspect application kind.
    */
   export interface Key<TInstance, TKind extends Application.Kind = 'default'> {
-
     /**
      * A referenced aspect of user input.
      */
     [InAspect__symbol]: InAspect<TInstance, TKind>;
-
   }
 
   /**
@@ -68,7 +63,6 @@ export namespace InAspect {
    * The same as `Instance` by default.
    */
   export interface Applied<TValue, TInstance, TConvertedInstance extends TInstance = TInstance> {
-
     /**
      * Input aspect instance.
      */
@@ -84,7 +78,9 @@ export namespace InAspect {
      *
      * @returns The same aspect applied to `target` control, or `undefined` if aspect can not be converted.
      */
-    convertTo<TTargetValue>(target: InControl<TTargetValue>): Applied<TTargetValue, TConvertedInstance> | undefined;
+    convertTo<TTargetValue>(
+      target: InControl<TTargetValue>,
+    ): Applied<TTargetValue, TConvertedInstance> | undefined;
 
     /**
      * Converts an aspect to the same value type.
@@ -97,11 +93,9 @@ export namespace InAspect {
      * @returns The same aspect applied to `target` control, or `undefined` if aspect can not be converted.
      */
     attachTo?(target: InControl<TValue>): Applied<TValue, TInstance> | undefined;
-
   }
 
   export namespace Application {
-
     /**
      * A kind of input aspect application.
      *
@@ -116,8 +110,10 @@ export namespace InAspect {
      * @typeParam TValue - Input value type.
      * @typeParam TKind - Aspect application kind.
      */
-    export type Result<TInstance, TValue, TKind extends Kind> =
-        Applied<TValue, Instance<TInstance, TValue, TKind>>;
+    export type Result<TInstance, TValue, TKind extends Kind> = Applied<
+      TValue,
+      Instance<TInstance, TValue, TKind>
+    >;
 
     /**
      * A type of applied aspect instance of the given application kind and input value type.
@@ -126,8 +122,9 @@ export namespace InAspect {
      * @typeParam TValue - Input value type.
      * @typeParam TKind - Aspect application kind.
      */
-    export type Instance<TInstance, TValue, TKind extends Kind> =
-        ReturnType<Map<TInstance, TValue>[TKind]>;
+    export type Instance<TInstance, TValue, TKind extends Kind> = ReturnType<
+      Map<TInstance, TValue>[TKind]
+    >;
 
     /**
      * A map implementing application result detection algorithms.
@@ -139,14 +136,10 @@ export namespace InAspect {
      * @typeParam TValue - Input value type.
      */
     export interface Map<TInstance, TValue> {
-
       /**
        * Default aspect application type. Just an aspect instance type.
        */
       default(): TInstance;
-
     }
-
   }
-
 }

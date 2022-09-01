@@ -25,12 +25,10 @@ export type InFormElement<TElt extends HTMLElement = HTMLElement> = InElement<vo
  * @category Control
  */
 export namespace InFormElement {
-
   /**
    * Form element control options.
    */
   export interface Options {
-
     /**
      * Submitted control. Typically a {@link InContainer container}.
      */
@@ -48,7 +46,6 @@ export namespace InFormElement {
      * Applied to form element control by {@link inModeByForm}.
      */
     readonly modes?: {
-
       /**
        * Input mode to set when submit is not ready. E.g. when input is invalid. `on` (enabled) by default.
        */
@@ -63,11 +60,8 @@ export namespace InFormElement {
        * Input mode to set while submitting. `ro` (read-only) by default.
        */
       readonly busy?: InMode.Value | undefined;
-
     };
-
   }
-
 }
 
 /**
@@ -80,19 +74,15 @@ export namespace InFormElement {
  * @returns New form element control.
  */
 export function inFormElement<TElt extends HTMLElement>(
-    element: TElt,
-    options: InFormElement.Options,
+  element: TElt,
+  options: InFormElement.Options,
 ): InFormElement<TElt> {
-
   const { form, aspects, modes } = options;
-  const control = new AbstractInElement<void, TElt>(
-      element,
-      {
-        aspects: [intoConvertedAspects(aspects)],
-        get: noop,
-        set: noop,
-      },
-  );
+  const control = new AbstractInElement<void, TElt>(element, {
+    aspects: [intoConvertedAspects(aspects)],
+    get: noop,
+    set: noop,
+  });
 
   control.supply.needs(form);
 

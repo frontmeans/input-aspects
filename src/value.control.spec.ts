@@ -8,7 +8,6 @@ import { InControl } from './control';
 import { inValue } from './value.control';
 
 describe('InValue', () => {
-
   let control: InControl<string>;
 
   beforeEach(() => {
@@ -17,18 +16,18 @@ describe('InValue', () => {
 
   describe('aspects', () => {
     it('accepts default aspect', () => {
-
       const nsAlias = newNamespaceAliaser();
 
       control = inValue('test', { aspects: InNamespaceAliaser.to(nsAlias) });
       expect(control.aspect(InNamespaceAliaser)).toBe(nsAlias);
     });
     it('accepts default aspects', () => {
-
       const nsAlias = newNamespaceAliaser();
       const scheduler = newManualRenderScheduler();
 
-      control = inValue('test', { aspects: [InNamespaceAliaser.to(nsAlias), InRenderScheduler.to(scheduler)] });
+      control = inValue('test', {
+        aspects: [InNamespaceAliaser.to(nsAlias), InRenderScheduler.to(scheduler)],
+      });
       expect(control.aspect(InNamespaceAliaser)).toBe(nsAlias);
       expect(control.aspect(InRenderScheduler)).toBe(scheduler);
     });
@@ -45,7 +44,6 @@ describe('InValue', () => {
   });
 
   describe('read', () => {
-
     let receiver: Mock<(arg: string) => void>;
     let supply: Supply;
 
@@ -62,7 +60,6 @@ describe('InValue', () => {
       expect(receiver).toHaveBeenCalledWith('new');
     });
     it('receives nothing when done', () => {
-
       const done = jest.fn();
 
       supply.whenOff(done);
@@ -74,7 +71,6 @@ describe('InValue', () => {
   });
 
   describe('on', () => {
-
     let receiver: Mock<(arg: string) => void>;
     let supply: Supply;
 
@@ -90,7 +86,6 @@ describe('InValue', () => {
       expect(receiver).toHaveBeenCalledWith('third', 'new');
     });
     it('receives nothing when done', () => {
-
       const done = jest.fn();
 
       supply.whenOff(done);

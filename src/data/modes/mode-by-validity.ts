@@ -15,16 +15,16 @@ import { InMode } from '../mode.aspect';
  *
  * @returns A source of input mode.
  */
-export function inModeByValidity(
-    {
-      invalid = '-on',
-      ignore = 'submit',
-    }: {
-      invalid?: InMode.Value | undefined;
-      ignore?: string | string[] | undefined;
-    } = {},
-): InMode.Source {
-  return control => control.aspect(InValidation).read.do(mapAfter(
-      validity => validity.hasBut(...(typeof ignore === 'string' ? [ignore] : ignore)) ? invalid : 'on',
-  ));
+export function inModeByValidity({
+  invalid = '-on',
+  ignore = 'submit',
+}: {
+  invalid?: InMode.Value | undefined;
+  ignore?: string | string[] | undefined;
+} = {}): InMode.Source {
+  return control => control
+      .aspect(InValidation)
+      .read.do(
+        mapAfter(validity => validity.hasBut(...(typeof ignore === 'string' ? [ignore] : ignore)) ? invalid : 'on'),
+      );
 }

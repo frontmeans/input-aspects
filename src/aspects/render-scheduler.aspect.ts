@@ -18,18 +18,15 @@ export type InRenderScheduler = RenderScheduler;
  * @internal
  */
 const InRenderScheduler__aspect: InAspect<InRenderScheduler> = {
-
   applyTo() {
     return knownInAspect(newRenderSchedule);
   },
-
 };
 
 /**
  * @category Aspect
  */
 export const InRenderScheduler = {
-
   get [InAspect__symbol](): InAspect<InRenderScheduler> {
     return InRenderScheduler__aspect;
   },
@@ -45,13 +42,14 @@ export const InRenderScheduler = {
   to<TValue>(scheduler: InRenderScheduler): InConverter.Aspect<any, TValue> {
     return {
       applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
-          aspect: InAspect<any, any>,
-      ): InAspect.Applied<any, InAspect.Application.Instance<TInstance, TValue, TKind>> | undefined {
+        aspect: InAspect<any, any>,
+      ):
+        | InAspect.Applied<any, InAspect.Application.Instance<TInstance, TValue, TKind>>
+        | undefined {
         return aspect === InRenderScheduler__aspect
-            ? knownInAspect(scheduler) as InAspect.Application.Result<TInstance, TValue, TKind>
-            : undefined;
+          ? (knownInAspect(scheduler) as InAspect.Application.Result<TInstance, TValue, TKind>)
+          : undefined;
       },
     };
   },
-
 };

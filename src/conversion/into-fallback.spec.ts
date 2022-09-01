@@ -4,7 +4,6 @@ import { inValue } from '../value.control';
 import { intoFallback } from './into-fallback';
 
 describe('intoFallback', () => {
-
   let source: InControl<number>;
   let converted: InControl<number | undefined>;
 

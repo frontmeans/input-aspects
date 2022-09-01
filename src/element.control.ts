@@ -44,15 +44,15 @@ export abstract class InElement<TValue, TElt = HTMLElement> extends InControl<TV
   abstract readonly input: AfterEvent<[InElement.Input<TValue>]>;
 
   protected _applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
-      aspect: InAspect<TInstance, TKind>,
+    aspect: InAspect<TInstance, TKind>,
   ): InAspect.Application.Result<TInstance, TValue, TKind> | undefined {
-    return aspect as InAspect<any, any> === InElement__aspect
-        ? inconvertibleInAspect(
-            this,
-            InElement,
-            this as InElement<TValue, any>,
-        ) as InAspect.Application.Result<TInstance, TValue, TKind>
-        : super._applyAspect(aspect);
+    return (aspect as InAspect<any, any>) === InElement__aspect
+      ? (inconvertibleInAspect(
+          this,
+          InElement,
+          this as InElement<TValue, any>,
+        ) as InAspect.Application.Result<TInstance, TValue, TKind>)
+      : super._applyAspect(aspect);
   }
 
 }
@@ -61,14 +61,12 @@ export abstract class InElement<TValue, TElt = HTMLElement> extends InControl<TV
  * @category Control
  */
 export namespace InElement {
-
   /**
    * User input.
    *
    * @typeParam TValue - Input value type.
    */
   export interface Input<TValue> {
-
     /**
      * The value user entered.
      */
@@ -80,24 +78,16 @@ export namespace InElement {
      * The value has been applied programmatically if missing.
      */
     event?: Event | undefined;
-
   }
-
 }
 
 declare module './aspect' {
-
   export namespace InAspect.Application {
-
     export interface Map<TInstance, TValue> {
-
       /**
        * Input element application type.
        */
       element(): InElement<TValue> | null;
-
     }
-
   }
-
 }

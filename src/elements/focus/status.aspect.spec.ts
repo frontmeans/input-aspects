@@ -9,7 +9,6 @@ import { inText } from '../text.control';
 import { InStatus } from './status.aspect';
 
 describe('InStatus', () => {
-
   let element: HTMLInputElement;
   let control: InElement<string>;
   let controlSupply: Supply;
@@ -20,7 +19,7 @@ describe('InStatus', () => {
     element = document.body.appendChild(document.createElement('input'));
     control = inText(element);
     status = control.aspect(InStatus);
-    controlSupply = status.read(f => flags = f);
+    controlSupply = status.read(f => (flags = f));
   });
   afterEach(() => {
     element.remove();
@@ -32,16 +31,15 @@ describe('InStatus', () => {
   let groupFlags: InStatus.Flags;
 
   beforeEach(() => {
-    group = inGroup({ element: '' })
-        .setup(({ controls }) => controls.set('element', control));
+    group = inGroup({ element: '' }).setup(({ controls }) => controls.set('element', control));
     groupStatus = group.aspect(InStatus);
-    groupSupply = groupStatus.read(f => groupFlags = f);
+    groupSupply = groupStatus.read(f => (groupFlags = f));
   });
 
   describe('for empty group', () => {
     it('has default flags initially', () => {
       group = inGroup({ element: '' });
-      group.aspect(InStatus).read(flags => groupFlags = flags);
+      group.aspect(InStatus).read(flags => (groupFlags = flags));
       expect(groupFlags).toEqual({ hasFocus: false, touched: false, edited: false });
     });
     it('has default flags when last element removed', () => {
@@ -51,13 +49,11 @@ describe('InStatus', () => {
   });
 
   it('is reused by converted control with the same value', () => {
-
     const converted = control.convert();
 
     expect(converted.aspect(InStatus)).toBe(status);
   });
   it('is not reused by converted control with another value', () => {
-
     const converted = control.convert(intoInteger);
 
     expect(converted.aspect(InStatus)).not.toBe(status);
@@ -65,7 +61,6 @@ describe('InStatus', () => {
 
   describe('read', () => {
     it('sends default flags when element is absent', () => {
-
       const value = inValue('some');
       const receiver = jest.fn();
 
@@ -100,7 +95,6 @@ describe('InStatus', () => {
       expect(groupFlags).toEqual({ hasFocus: false, touched: true, edited: true });
     });
     it('is cut off once control input cut off', () => {
-
       const done = jest.fn();
       const reason = 'some reason';
 
@@ -110,7 +104,6 @@ describe('InStatus', () => {
       expect(done).toHaveBeenCalledWith(reason);
     });
     it('is cut off once group input cut off', () => {
-
       const done = jest.fn();
       const reason = 'some reason';
 
@@ -165,7 +158,6 @@ describe('InStatus', () => {
       expect(flags).toEqual({ hasFocus: true, touched: true, edited: false });
     });
     it('does not reset `touched` if not set', () => {
-
       const receiver = jest.fn();
 
       status.read(receiver);
@@ -215,7 +207,6 @@ describe('InStatus', () => {
       expect(groupFlags).toEqual({ hasFocus: false, touched: true, edited: false });
     });
     it('does not reset `edited` if not set', () => {
-
       const receiver = jest.fn();
 
       status.read(receiver);

@@ -23,54 +23,43 @@ export type InData<TValue> = AfterEvent<[InData.DataType<TValue>?]>;
  * @internal
  */
 const InData__aspect: Aspect = {
-
   applyTo<TValue>(control: InControl<TValue>): Applied<TValue> {
     return builtInAspect(control, InData, <TValue>(ctrl: InControl<TValue>) => afterAll({
-      value: ctrl,
-      mode: ctrl.aspect(InMode),
-    }).do(mapAfter(
-        ({ value: [value], mode: [mode] }) => InMode.hasData(mode)
-            ? value as any
-            : undefined,
-    )));
+        value: ctrl,
+        mode: ctrl.aspect(InMode),
+      }).do(
+        mapAfter(({ value: [value], mode: [mode] }) => InMode.hasData(mode) ? (value as any) : undefined),
+      ));
   },
-
 };
 
 /**
  * Input data aspect.
  */
 interface Aspect extends InAspect<InData<any>, 'data'> {
-
   applyTo<TValue>(control: InControl<TValue>): Applied<TValue>;
-
 }
 
 /**
  * An input data aspect applied to control.
  */
 interface Applied<TValue> extends InAspect.Applied<TValue, InData<TValue>, InData<any>> {
-
   convertTo<TTo>(target: InControl<TTo>): Applied<TTo> | undefined;
-
 }
 
 /**
  * @category Aspect
  */
 export const InData = {
-
   get [InAspect__symbol](): InAspect<InData<any>, 'data'> {
     return InData__aspect;
   },
-
 };
 
 /**
  * @category Aspect
  */
 export namespace InData {
-
   /**
    * Input data type.
    *
@@ -79,24 +68,17 @@ export namespace InData {
    * @typeParam TValue - Input value type.
    */
   export type DataType<TValue> =
-      | (TValue extends object ? { [K in keyof TValue]?: DataType<TValue[K]> } : TValue)
-      | undefined;
-
+    | (TValue extends object ? { [K in keyof TValue]?: DataType<TValue[K]> } : TValue)
+    | undefined;
 }
 
 declare module '../aspect' {
-
   export namespace InAspect.Application {
-
     export interface Map<TInstance, TValue> {
-
       /**
        * Input data aspect application type.
        */
       data(): InData<TValue>;
-
     }
-
   }
-
 }

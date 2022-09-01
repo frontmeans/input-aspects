@@ -5,7 +5,6 @@ import { inValue } from '../value.control';
 import { intoInteger } from './into-integer';
 
 describe('intoInteger', () => {
-
   let textControl: InControl<string>;
   let intControl: InControl<number>;
 
@@ -17,7 +16,7 @@ describe('intoInteger', () => {
   let validationResult: InValidation.Result;
 
   beforeEach(() => {
-    intControl.aspect(InValidation).read(result => validationResult = result);
+    intControl.aspect(InValidation).read(result => (validationResult = result));
   });
 
   it('converts to integer', () => {
@@ -26,7 +25,6 @@ describe('intoInteger', () => {
     expect(validationResult.ok).toBe(true);
   });
   it('converts to integer with custom radix', () => {
-
     const hexControl = textControl.convert(intoInteger(16));
 
     textControl.it = 'ff';
@@ -41,11 +39,13 @@ describe('intoInteger', () => {
     textControl.it = 'abc';
     expect(intControl.it).toBeNaN();
     expect(validationResult.ok).toBe(false);
-    expect([...validationResult]).toEqual([{
-      invalid: 'notInteger',
-      NaN: 'notInteger',
-      notInteger: 'notInteger',
-    }]);
+    expect([...validationResult]).toEqual([
+      {
+        invalid: 'notInteger',
+        NaN: 'notInteger',
+        notInteger: 'notInteger',
+      },
+    ]);
   });
   it('converts back from integer', () => {
     intControl.it = 321;
@@ -53,7 +53,6 @@ describe('intoInteger', () => {
     expect(textControl.it).toBe('321');
   });
   it('converts back from integer with custom radix', () => {
-
     const hexControl = textControl.convert(intoInteger(16));
 
     hexControl.it = 0xabc;

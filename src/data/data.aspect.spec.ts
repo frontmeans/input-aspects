@@ -8,7 +8,6 @@ import { InData } from './data.aspect';
 import { InMode } from './mode.aspect';
 
 describe('InData', () => {
-
   let control: InControl<string>;
   let mode: InMode;
   let data: InData<string>;
@@ -19,7 +18,7 @@ describe('InData', () => {
     control = inValue('value');
     mode = control.aspect(InMode);
     data = control.aspect(InData);
-    dataSupply = data(d => lastData = d);
+    dataSupply = data(d => (lastData = d));
   });
 
   it('is equal to the value initially', () => {
@@ -42,13 +41,11 @@ describe('InData', () => {
     expect(lastData).toBeUndefined();
   });
   it('is reused by converted control with the same value', () => {
-
     const converted = control.convert();
 
     void expect(converted.aspect(InData)).toBe(data);
   });
   it('is not reused by converted control with another value', () => {
-
     const converted = control.convert(intoInteger);
 
     void expect(converted.aspect(InData)).not.toBe(data);
@@ -56,7 +53,6 @@ describe('InData', () => {
 
   describe('input cut off', () => {
     it('cuts off the data supply', () => {
-
       const reason = 'some reason';
       const dataDone = jest.fn();
 
@@ -66,7 +62,6 @@ describe('InData', () => {
       expect(dataDone).toHaveBeenCalledWith(reason);
     });
     it('cuts off new data supply', () => {
-
       const reason = 'some reason';
 
       control.supply.off(reason);

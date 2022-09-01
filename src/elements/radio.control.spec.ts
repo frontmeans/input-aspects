@@ -5,7 +5,6 @@ import { InMode } from '../data';
 import { InRadio, inRadio } from './radio.control';
 
 describe('InRadio', () => {
-
   let radio: HTMLInputElement;
 
   beforeEach(() => {
@@ -14,7 +13,6 @@ describe('InRadio', () => {
   });
 
   it('accepts default aspects', () => {
-
     const nsAlias = newNamespaceAliaser();
     const control = inRadio(radio, { aspects: InNamespaceAliaser.to(nsAlias) });
 
@@ -22,13 +20,12 @@ describe('InRadio', () => {
   });
 
   describe('default', () => {
-
     let control: InRadio;
     let mode: InMode.Value;
 
     beforeEach(() => {
       control = inRadio(radio);
-      control.aspect(InMode).read(value => mode = value);
+      control.aspect(InMode).read(value => (mode = value));
     });
 
     describe('element', () => {
@@ -65,13 +62,12 @@ describe('InRadio', () => {
   });
 
   describe('customized', () => {
-
     let control: InRadio<'+'>;
     let mode: InMode.Value;
 
     beforeEach(() => {
       control = inRadio(radio, { checked: '+' });
-      control.aspect(InMode).read(value => mode = value);
+      control.aspect(InMode).read(value => (mode = value));
     });
 
     describe('element', () => {

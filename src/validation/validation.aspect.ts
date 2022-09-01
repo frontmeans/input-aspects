@@ -34,22 +34,21 @@ import { InValidationMessages } from './validator.impl';
 const InValidation__aspect: InAspect<InValidation<any>, 'validation'> = {
   applyTo<TValue>(control: InControl<TValue>) {
     return builtInAspect<TValue, InValidation<TValue>, 'validation'>(
-        control,
-        InValidation,
-        <TValue>(ctrl: InControl<TValue>, origin?: InControl<any>): InValidation<any> => {
+      control,
+      InValidation,
+      <TValue>(ctrl: InControl<TValue>, origin?: InControl<any>): InValidation<any> => {
+        const validation = new InControlValidation<TValue>(ctrl);
 
-          const validation = new InControlValidation<TValue>(ctrl);
+        if (origin) {
+          validation.by(
+            origin
+              .aspect(InValidation)
+              .read.do(translateAfter((send, result) => send(...result.messages()))),
+          );
+        }
 
-          if (origin) {
-            validation.by(
-                origin.aspect(InValidation).read.do(
-                    translateAfter((send, result) => send(...result.messages())),
-                ),
-            );
-          }
-
-          return validation;
-        },
+        return validation;
+      },
     );
   },
 };
@@ -107,7 +106,6 @@ export abstract class InValidation<TValue> implements EventKeeper<[InValidation.
  * @category Aspect
  */
 export namespace InValidation {
-
   /**
    * Input validation messages.
    *
@@ -124,7 +122,6 @@ export namespace InValidation {
    * Generic input validation messages.
    */
   export interface GenericMessage {
-
     readonly [code: string]: unknown;
 
     /**
@@ -160,7 +157,6 @@ export namespace InValidation {
      * This is set by input submit aspect.
      */
     readonly submit?: unknown | undefined;
-
   }
 
   /**
@@ -171,7 +167,6 @@ export namespace InValidation {
    * Implements `Iterable` interface by iterating over all validation messages.
    */
   export interface Result extends Iterable<Message> {
-
     /**
      * Whether validation succeed.
      *
@@ -207,27 +202,21 @@ export namespace InValidation {
     hasBut(...codes: string[]): boolean;
 
     [Symbol.iterator](): IterableIterator<Message>;
-
   }
 
   /**
    * Successful input validation result.
    */
   export interface Ok extends Result {
-
     readonly ok: true;
-
   }
 
   /**
    * Unsuccessful input validation result.
    */
   export interface Errors extends Result {
-
     readonly ok: false;
-
   }
-
 }
 
 /**
@@ -267,7 +256,6 @@ class InValidationErrors implements InValidation.Result, PushIterable<InValidati
     this._all = [];
     this._it = overArray(this._all);
     messages.forEach(message => {
-
       let nonEmpty = false;
 
       itsEach(overEntries(message), ([code, codePresent]) => {
@@ -304,16 +292,16 @@ class InValidationErrors implements InValidation.Result, PushIterable<InValidati
   }
 
   hasBut(...codes: string[]): boolean {
-    return this._all.some(
-        message => codes.every(code => !message[code]),
-    );
+    return this._all.some(message => codes.every(code => !message[code]));
   }
 
   [Symbol.iterator](): PushIterator<InValidation.Message> {
     return this[PushIterator__symbol]();
   }
 
-  [PushIterator__symbol](accept?: PushIterator.Acceptor<InValidation.Message>): PushIterator<InValidation.Message> {
+  [PushIterator__symbol](
+    accept?: PushIterator.Acceptor<InValidation.Message>,
+  ): PushIterator<InValidation.Message> {
     return this._it[PushIterator__symbol](accept);
   }
 
@@ -353,7 +341,7 @@ class InControlValidation<TValue> extends InValidation<TValue> {
     this._messages = new InValidationMessages(control);
 
     this.read = afterSupplied(this._messages).do<AfterEvent<[InValidation.Result]>>(
-        mapAfter(inValidationResult),
+      mapAfter(inValidationResult),
     );
 
     const container = control.aspect(InContainer);
@@ -372,26 +360,22 @@ class InControlValidation<TValue> extends InValidation<TValue> {
 /**
  * @internal
  */
-function nestedInValidationMessages(container: InContainer<any>): EventKeeper<InValidation.Message[]> {
+function nestedInValidationMessages(
+  container: InContainer<any>,
+): EventKeeper<InValidation.Message[]> {
   return container.controls.read.do(
-      digAfter_(controls => afterEach(...mapIt(controls, control => control.aspect(InValidation)))),
-      translateAfter((send, ...results) => send(...flatMapArray(results, ([result]) => result))),
+    digAfter_(controls => afterEach(...mapIt(controls, control => control.aspect(InValidation)))),
+    translateAfter((send, ...results) => send(...flatMapArray(results, ([result]) => result))),
   );
 }
 
 declare module '../aspect' {
-
   export namespace InAspect.Application {
-
     export interface Map<TInstance, TValue> {
-
       /**
        * Input validation aspect application type.
        */
       validation(): InValidation<TValue>;
-
     }
-
   }
-
 }

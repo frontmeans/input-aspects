@@ -8,7 +8,6 @@ import { InMode } from '../mode.aspect';
 import { inModeByForm } from './mode-by-form';
 
 describe('inModeByForm', () => {
-
   let form: InControl<string>;
   let submit: InSubmit<string>;
   let submitFlags: InSubmit.Flags;
@@ -19,10 +18,10 @@ describe('inModeByForm', () => {
   beforeEach(() => {
     form = inValue('form');
     submit = form.aspect(InSubmit);
-    submit.read(f => submitFlags = f);
+    submit.read(f => (submitFlags = f));
     control = inValue('control');
     mode = control.aspect(InMode);
-    mode.read(v => modeValue = v);
+    mode.read(v => (modeValue = v));
   });
 
   it('preserves `on` mode by default', () => {
@@ -34,7 +33,7 @@ describe('inModeByForm', () => {
     mode.derive(inModeByForm(form));
 
     let resolve: () => void = noop;
-    const submitted = new Promise<void>(r => resolve = r);
+    const submitted = new Promise<void>(r => (resolve = r));
     const promise = submit.submit(() => submitted);
 
     expect(modeValue).toBe('ro');
@@ -110,8 +109,7 @@ describe('inModeByForm', () => {
     private readonly promise: Promise<string>;
 
     constructor() {
-
-      const submitted = new Promise<string>(resolve => this.resolve = resolve);
+      const submitted = new Promise<string>(resolve => (this.resolve = resolve));
 
       this.promise = submit.submit(() => submitted);
     }
@@ -125,10 +123,10 @@ describe('inModeByForm', () => {
       this.resolve('success');
 
       return this.promise.then(
-          result => Promise.reject(new Error(`Unexpected result received: ${result}`)),
-          asis,
+        result => Promise.reject(new Error(`Unexpected result received: ${result}`)),
+        asis,
       );
     }
 
-  }
+}
 });

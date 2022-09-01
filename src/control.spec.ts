@@ -9,7 +9,6 @@ import { InData } from './data';
 import { inValue } from './value.control';
 
 describe('InControl', () => {
-
   let control: InControl<string>;
 
   type ConversionFactory = InConverter.Factory<string, number>;
@@ -30,7 +29,10 @@ describe('InControl', () => {
       },
     };
 
-    function applied<TValue>(ctr: InControl<TValue>, suffix: string): InAspect.Applied<TValue, () => string> {
+    function applied<TValue>(
+      ctr: InControl<TValue>,
+      suffix: string,
+    ): InAspect.Applied<TValue, () => string> {
       return {
         instance: () => `${ctr.it}${suffix}`,
         convertTo<TTargetValue>(target: InControl<TTargetValue>) {
@@ -43,7 +45,6 @@ describe('InControl', () => {
 
   describe('aspect', () => {
     it('retrieves aspect', () => {
-
       const aspect = control.aspect(TestAspect);
 
       expect(aspect()).toBe('old');
@@ -57,14 +58,12 @@ describe('InControl', () => {
 
   describe('setup', () => {
     it('configures control', () => {
-
       const setup = jest.fn();
 
       expect(control.setup(setup)).toBe(control);
       expect(setup).toHaveBeenCalledWith(control);
     });
     it('configures aspect', () => {
-
       const setup = jest.fn();
 
       expect(control.setup(TestAspect, setup)).toBe(control);
@@ -73,7 +72,6 @@ describe('InControl', () => {
   });
 
   describe('convert', () => {
-
     let converted: InControl<number>;
     let set: (from: string) => number;
     let get: (from: number) => string;
@@ -104,7 +102,6 @@ describe('InControl', () => {
       expect(converted.aspect(TestAspect)()).toBe('5!');
     });
     it('converts converted aspect', () => {
-
       const converted2 = converted.convert();
 
       expect(converted2.aspect(TestAspect)()).toBe('3!!');
@@ -112,7 +109,6 @@ describe('InControl', () => {
       expect(converted2.aspect(TestAspect)()).toBe('5!!');
     });
     it('does not convert value without converters', () => {
-
       const converted2 = control.convert();
 
       expect(converted2).not.toBe(control);
@@ -125,7 +121,6 @@ describe('InControl', () => {
       expect(converted2.it).toBe(control.it);
     });
     it('converts with conversion factory', () => {
-
       const by = jest.fn<ConversionFactory>(() => ({ set, get }));
 
       converted = control.convert(by);
@@ -136,10 +131,14 @@ describe('InControl', () => {
       expect(control.it).toBe('*****');
     });
     it('converts aspect when `applyAspect` specified', () => {
-
       const instance = { name: 'data' };
-      const applyAspect = jest.fn<(aspect: unknown) => any>(
-          (aspect: unknown) => aspect === InData[InAspect__symbol] ? knownInAspect(instance) : undefined);
+      const applyAspect = jest.fn<(aspect: unknown) => any>((aspect: unknown) => {
+        if (aspect === InData[InAspect__symbol]) {
+          return knownInAspect(instance);
+        }
+
+        return;
+      });
 
       converted = control.convert({ set, get, applyAspect });
       void expect(converted.aspect(InData)).toBe(instance);
@@ -150,7 +149,6 @@ describe('InControl', () => {
       void expect(converted.aspect(InData)).toBeDefined();
     });
     it('converts aspect with default algorithm if `applyAspect` returns nothing', () => {
-
       const applyAspect = jest.fn<(aspect: unknown) => any>();
 
       converted = control.convert({ set, get, applyAspect });
@@ -159,14 +157,13 @@ describe('InControl', () => {
     });
 
     describe('on', () => {
-
       let receiver: Mock<(arg: string) => void>;
       let convertedReceiver: Mock<(value1: number, value2: number) => void>;
       let convertedSupply: Supply;
 
       beforeEach(() => {
-        control.on(receiver = jest.fn());
-        convertedSupply = converted.on(convertedReceiver = jest.fn());
+        control.on((receiver = jest.fn()));
+        convertedSupply = converted.on((convertedReceiver = jest.fn()));
       });
 
       it('receives updates from origin', () => {
@@ -189,7 +186,6 @@ describe('InControl', () => {
         expect(convertedReceiver).not.toHaveBeenCalled();
       });
       it('is done when origin is done', () => {
-
         const done = jest.fn();
 
         convertedSupply.whenOff(done);
@@ -198,7 +194,6 @@ describe('InControl', () => {
         expect(done).toHaveBeenCalledWith('reason');
       });
       it('is done when converted is done', () => {
-
         const done = jest.fn();
 
         convertedSupply.whenOff(done);
@@ -211,7 +206,6 @@ describe('InControl', () => {
 });
 
 describe('inValueOf', () => {
-
   let original: InControl<string>;
   let control: InControl<string>;
 
@@ -232,7 +226,6 @@ describe('inValueOf', () => {
 
   describe('on', () => {
     it('sends updates', () => {
-
       const receiver = jest.fn();
 
       control.on(receiver);
@@ -244,7 +237,6 @@ describe('inValueOf', () => {
 
   describe('[OnEvent__symbol]', () => {
     it('depends on original one', () => {
-
       const whenOff = jest.fn();
 
       control.supply.whenOff(whenOff);

@@ -33,16 +33,19 @@ export class AbstractInElement<TValue, TElt extends HTMLElement> extends InEleme
    * @param set - Input value setter.
    */
   constructor(
-      readonly element: TElt,
-      {
-        aspects,
-        get,
-        set,
-      }: {
-        readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[] | undefined;
-        readonly get: (this: AbstractInElement<TValue, TElt>) => TValue;
-        readonly set: (this: AbstractInElement<TValue, TElt>, value: TValue) => void;
-      },
+    readonly element: TElt,
+    {
+      aspects,
+      get,
+      set,
+    }: {
+      readonly aspects?:
+        | InConverter.Aspect<TValue>
+        | readonly InConverter.Aspect<TValue>[]
+        | undefined;
+      readonly get: (this: AbstractInElement<TValue, TElt>) => TValue;
+      readonly set: (this: AbstractInElement<TValue, TElt>, value: TValue) => void;
+    },
   ) {
     super({ aspects });
 
@@ -52,18 +55,16 @@ export class AbstractInElement<TValue, TElt extends HTMLElement> extends InEleme
     this._set = set;
     this._value = this.it;
 
-    const doUpdate = this._update = (value: TValue, oldValue: TValue): void => update({ value }, oldValue);
+    const doUpdate = (this._update = (value: TValue, oldValue: TValue): void => update({ value }, oldValue));
 
     this.events = new DomEventDispatcher(element);
     this.events.supply.needs(this);
     this.listenForInput(input => update(input, this._value));
 
     this.on = this._input.on.do(
-        translateOn((
-            send,
-            { value: newValue },
-            oldValue,
-        ) => newValue !== oldValue && send(newValue, oldValue)),
+      translateOn(
+        (send, { value: newValue }, oldValue) => newValue !== oldValue && send(newValue, oldValue),
+      ),
     );
     this.input = this._input.on.do(mapAfter(asis, () => ({ value: this.it })));
 
@@ -106,7 +107,6 @@ export class AbstractInElement<TValue, TElt extends HTMLElement> extends InEleme
   }
 
   set it(value: TValue) {
-
     const oldValue = this.it;
 
     if (value !== oldValue) {
@@ -124,7 +124,6 @@ export class AbstractInElement<TValue, TElt extends HTMLElement> extends InEleme
    * input event listeners.
    */
   protected listenForInput(update: (input: InElement.Input<TValue>) => void): void {
-
     const onInput = (event: Event): void => update({ value: this.it, event });
 
     this.events.on('input')(onInput);

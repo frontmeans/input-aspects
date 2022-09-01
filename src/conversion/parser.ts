@@ -16,50 +16,45 @@ import { InValidation } from '../validation';
  * @typeParam TValue - Parsed value type.
  */
 export type InParser<TValue> =
-/**
- * @param from - Text input control.
- * @param to - Parsed value control.
- *
- * @returns A tuple containing text parser and text formatter functions. A standard to string conversion
- * will be used if the latter is missing.
- */
-    (
-        this: void,
-        from: InControl<string>,
-        to: InControl<TValue>,
-    ) => [
-      (this: void, value: string, errors: InParser.Errors) => TValue,
-      ((this: void, value: TValue) => string)?,
-    ];
+  /**
+   * @param from - Text input control.
+   * @param to - Parsed value control.
+   *
+   * @returns A tuple containing text parser and text formatter functions. A standard to string conversion
+   * will be used if the latter is missing.
+   */
+  (
+    this: void,
+    from: InControl<string>,
+    to: InControl<TValue>,
+  ) => [
+    (this: void, value: string, errors: InParser.Errors) => TValue,
+    ((this: void, value: TValue) => string)?,
+  ];
 
 /**
  * @category Converter
  */
 export namespace InParser {
-
   /**
    * Parse errors.
    *
    * An instance of this interface is passed to text parser function. It can be used to report parse errors.
    */
   export interface Errors {
-
     /**
      * Appends parse errors.
      *
      * @param errors - Validation messages representing errors to report.
      */
     report(...errors: InValidation.Message[]): void;
-
   }
-
 }
 
 /**
  * @category Converter
  */
 export const InParser = {
-
   /**
    * Creates input control converter out of input text parser.
    *
@@ -70,7 +65,6 @@ export const InParser = {
    */
   converter<TValue>(parser: InParser<TValue>): InConverter<string, TValue> {
     return (from: InControl<string>, to: InControl<TValue>) => {
-
       const [parse, format = String] = parser(from, to);
       const parseValidator = new EventEmitter<InValidation.Message[]>();
 
@@ -78,7 +72,6 @@ export const InParser = {
 
       return {
         set(text) {
-
           const errorList: InValidation.Message[] = [];
           const parserErrors: InParser.Errors = {
             report(...errors: InValidation.Message[]) {
@@ -93,7 +86,6 @@ export const InParser = {
           return result;
         },
         get(value) {
-
           const text = String(format(value));
 
           parseValidator.send();
@@ -103,7 +95,6 @@ export const InParser = {
       };
     };
   },
-
 };
 
 /**
@@ -118,8 +109,8 @@ export const InParser = {
  * @returns New input converter.
  */
 export function intoParsedBy<TValue>(
-    parse: (this: void, text: string, errors: InParser.Errors) => TValue,
-    format?: (this: void, value: TValue) => string,
+  parse: (this: void, text: string, errors: InParser.Errors) => TValue,
+  format?: (this: void, value: TValue) => string,
 ): InConverter<string, TValue> {
   return InParser.converter(valueProvider([parse, format]));
 }

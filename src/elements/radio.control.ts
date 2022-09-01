@@ -20,14 +20,12 @@ export type InRadio<TValue = true> = InElement<TValue | undefined, HTMLInputElem
  * @category Control
  */
 export namespace InRadio {
-
   /**
    * Possible radio button control values corresponding to check states.
    *
    * @typeParam TValue - Radio button input value type.
    */
   export interface Values<TValue> {
-
     /**
      * Control value of checked radio button.
      */
@@ -39,12 +37,10 @@ export namespace InRadio {
      * These are aspect converters to constructed control from the {@link inValueOf same-valued one}.
      */
     readonly aspects?:
-        | InConverter.Aspect<TValue | undefined>
-        | readonly InConverter.Aspect<TValue | undefined>[]
-        | undefined;
-
+      | InConverter.Aspect<TValue | undefined>
+      | readonly InConverter.Aspect<TValue | undefined>[]
+      | undefined;
   }
-
 }
 
 /**
@@ -53,31 +49,29 @@ export namespace InRadio {
 class InRadioControl<TValue> extends AbstractInElement<TValue | undefined, HTMLInputElement> {
 
   constructor(
-      element: HTMLInputElement,
-      {
-        checked = true as unknown as TValue,
-        aspects,
-      }: Partial<InRadio.Values<TValue>> = {},
+    element: HTMLInputElement,
+    { checked = true as unknown as TValue, aspects }: Partial<InRadio.Values<TValue>> = {},
   ) {
-    super(
-        element,
-        {
-          aspects,
-          get() {
-            return this.element.checked ? checked : undefined;
-          },
-          set(value) {
-            this.element.checked = value === checked;
-          },
-        },
-    );
+    super(element, {
+      aspects,
+      get() {
+        return this.element.checked ? checked : undefined;
+      },
+      set(value) {
+        this.element.checked = value === checked;
+      },
+    });
   }
 
   protected _applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
-      aspect: InAspect<TInstance, TKind>,
+    aspect: InAspect<TInstance, TKind>,
   ): InAspect.Application.Result<TInstance, TValue | undefined, TKind> | undefined {
-    if (aspect as InAspect<any> === InMode[InAspect__symbol]) {
-      return applyRadioInMode(this) as InAspect.Application.Result<TInstance, TValue | undefined, TKind>;
+    if ((aspect as InAspect<any>) === InMode[InAspect__symbol]) {
+      return applyRadioInMode(this) as InAspect.Application.Result<
+        TInstance,
+        TValue | undefined,
+        TKind
+      >;
     }
 
     return super._applyAspect(aspect);
@@ -89,10 +83,9 @@ class InRadioControl<TValue> extends AbstractInElement<TValue | undefined, HTMLI
  * @internal
  */
 function applyRadioInMode<TValue>(radio: InRadioControl<TValue>): InAspect.Applied<TValue, InMode> {
-
   const { instance: mode } = InMode[InAspect__symbol].applyTo(radio);
 
-  mode.derive(radio.read.do(mapAfter(value => value !== undefined ? 'on' : '-on')));
+  mode.derive(radio.read.do(mapAfter(value => (value !== undefined ? 'on' : '-on'))));
 
   return knownInAspect(mode);
 }
@@ -125,16 +118,16 @@ export function inRadio(element: HTMLInputElement): InRadio;
  * @return New radio button input control instance.
  */
 export function inRadio(
-    element: HTMLInputElement,
-    // eslint-disable-next-line @typescript-eslint/unified-signatures
-    {
-      aspects,
-    }: {
-      readonly aspects?:
-          | InConverter.Aspect<boolean | undefined>
-          | readonly InConverter.Aspect<boolean | undefined>[]
-          | undefined;
-    },
+  element: HTMLInputElement,
+  // eslint-disable-next-line @typescript-eslint/unified-signatures
+  {
+    aspects,
+  }: {
+    readonly aspects?:
+      | InConverter.Aspect<boolean | undefined>
+      | readonly InConverter.Aspect<boolean | undefined>[]
+      | undefined;
+  },
 ): InRadio;
 
 /**
@@ -148,8 +141,14 @@ export function inRadio(
  *
  * @return New radio button input control instance.
  */
-export function inRadio<TValue>(element: HTMLInputElement, values: InRadio.Values<TValue>): InRadio<TValue>;
+export function inRadio<TValue>(
+  element: HTMLInputElement,
+  values: InRadio.Values<TValue>,
+): InRadio<TValue>;
 
-export function inRadio<TValue>(element: HTMLInputElement, values?: Partial<InRadio.Values<TValue>>): InRadio<TValue> {
+export function inRadio<TValue>(
+  element: HTMLInputElement,
+  values?: Partial<InRadio.Values<TValue>>,
+): InRadio<TValue> {
   return new InRadioControl<TValue>(element, values);
 }

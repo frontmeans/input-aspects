@@ -46,7 +46,7 @@ export class InSubmitError extends Error {
   constructor(...errors: [InValidation.Message, ...InValidation.Message[]]) {
     super();
     this.errors = inValidationResult(
-        ...errors.map(message => message.submit ? message : { ...message, submit: true }),
+      ...errors.map(message => (message.submit ? message : { ...message, submit: true })),
     ) as InValidation.Errors;
   }
 
@@ -134,14 +134,12 @@ export abstract class InSubmit<TValue> implements EventKeeper<[InSubmit.Flags]> 
  * @category Aspect
  */
 export namespace InSubmit {
-
   /**
    * Input submit status flags.
    *
    * The flags of nested control are combined with parent ones.
    */
   export interface Flags {
-
     /**
      * Whether the input is ready to be submitted.
      *
@@ -166,7 +164,6 @@ export namespace InSubmit {
      * is completed.
      */
     busy: boolean;
-
   }
 
   /**
@@ -182,18 +179,17 @@ export namespace InSubmit {
    * @typeParam TResult - Submit result value type.
    */
   export type Submitter<TValue, TResult> =
-  /**
-   * @param data - Input data to submit.
-   * @param control - Input control the submit is performed for.
-   *
-   * @returns Submit result promise.
-   */
-      (
-          this: void,
-          data: TValue extends undefined ? never : TValue,
-          control: InControl<TValue>,
-      ) => Promise<TResult>;
-
+    /**
+     * @param data - Input data to submit.
+     * @param control - Input control the submit is performed for.
+     *
+     * @returns Submit result promise.
+     */
+    (
+      this: void,
+      data: TValue extends undefined ? never : TValue,
+      control: InControl<TValue>,
+    ) => Promise<TResult>;
 }
 
 class InControlSubmit<TValue> extends InSubmit<TValue> {
@@ -209,24 +205,21 @@ class InControlSubmit<TValue> extends InSubmit<TValue> {
       data: this._control.aspect(InData),
       messages: this._control.aspect(InValidation),
     }).do(
-        supplyAfter(this._control),
-        mapAfter(({
-          flags: [flags],
-          data: [data],
-          messages: [messages],
-        }): InSubmit.Flags => ({
+      supplyAfter(this._control),
+      mapAfter(
+        ({ flags: [flags], data: [data], messages: [messages] }): InSubmit.Flags => ({
           // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-          ready: data !== undefined && (messages.ok || itsEvery(messages, message => !!message.submit)),
+          ready:
+            data !== undefined && (messages.ok || itsEvery(messages, message => !!message.submit)),
           submitted: flags.submitted,
           busy: flags.busy,
-        })),
+        }),
+      ),
     );
 
     const validation = _control.aspect(InValidation);
 
-    validation.by(this._errors.read.do(
-        translateAfter((send, messages) => send(...messages)),
-    ));
+    validation.by(this._errors.read.do(translateAfter((send, messages) => send(...messages))));
   }
 
   async submit<TResult>(submitter: InSubmit.Submitter<TValue, TResult>): Promise<TResult> {
@@ -259,20 +252,19 @@ class InControlSubmit<TValue> extends InSubmit<TValue> {
     }
 
     async function submitData(): Promise<TValue extends undefined ? never : TValue> {
-
-      const { data: [d], flags: [{ ready }] } = await afterAll({
+      const {
+        data: [d],
+        flags: [{ ready }],
+      } = await afterAll({
         data: control.aspect(InData),
         flags: submit,
       });
 
-      return ready
-          ? d as any
-          : Promise.reject(new InSubmitRejectedError('notReady'));
+      return ready ? (d as any) : Promise.reject(new InSubmitRejectedError('notReady'));
     }
   }
 
   reset(): void {
-
     const flags = this._flags.it;
 
     if (flags.submitted) {
@@ -298,18 +290,12 @@ function toInSubmitMessages(error: unknown): InValidation.Message[] {
 }
 
 declare module './aspect' {
-
   export namespace InAspect.Application {
-
     export interface Map<TInstance, TValue> {
-
       /**
        * Input submit aspect application type.
        */
       submit(): InSubmit<TValue>;
-
     }
-
   }
-
 }

@@ -7,7 +7,6 @@ import { InMode } from '../mode.aspect';
 import { inModeByValidity } from './mode-by-validity';
 
 describe('inModeByValidity', () => {
-
   let form: InControl<any>;
   let validation: InValidation<any>;
   let mode: InMode;
@@ -17,7 +16,7 @@ describe('inModeByValidity', () => {
     form = inValue('form');
     validation = form.aspect(InValidation);
     mode = form.aspect(InMode);
-    mode.read(m => modeValue = m);
+    mode.read(m => (modeValue = m));
   });
 
   it('is enabled for valid form', () => {

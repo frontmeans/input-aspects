@@ -8,21 +8,21 @@ import { AbstractInElement } from './abstract-element.control';
  * @category Control
  * @typeParam TValue - Input value type.
  */
-export type InCheckbox<TValue = boolean | undefined> =
-    InElement<TValue, HTMLInputElement & { intermediate?: boolean | undefined }>;
+export type InCheckbox<TValue = boolean | undefined> = InElement<
+  TValue,
+  HTMLInputElement & { intermediate?: boolean | undefined }
+>;
 
 /**
  * @category Control
  */
 export namespace InCheckbox {
-
   /**
    * Possible checkbox control values corresponding to different checkbox states.
    *
    * @typeParam TValue - Checkbox input value type.
    */
   export interface Values<TValue> {
-
     /**
      * Control value of checked checkbox.
      */
@@ -43,10 +43,11 @@ export namespace InCheckbox {
      *
      * These are aspect converters to constructed control from the {@link inValueOf same-valued one}.
      */
-    readonly aspects?: InConverter.Aspect<TValue> | readonly InConverter.Aspect<TValue>[] | undefined;
-
+    readonly aspects?:
+      | InConverter.Aspect<TValue>
+      | readonly InConverter.Aspect<TValue>[]
+      | undefined;
   }
-
 }
 
 /**
@@ -79,13 +80,16 @@ export function inCheckbox(element: HTMLInputElement): InCheckbox;
  * @return New input element control instance.
  */
 export function inCheckbox(
-    element: HTMLInputElement,
-    // eslint-disable-next-line @typescript-eslint/unified-signatures
-    {
-      aspects,
-    }: {
-      readonly aspects?: InConverter.Aspect<boolean> | readonly InConverter.Aspect<boolean>[] | undefined;
-    },
+  element: HTMLInputElement,
+  // eslint-disable-next-line @typescript-eslint/unified-signatures
+  {
+    aspects,
+  }: {
+    readonly aspects?:
+      | InConverter.Aspect<boolean>
+      | readonly InConverter.Aspect<boolean>[]
+      | undefined;
+  },
 ): InCheckbox;
 
 /**
@@ -98,8 +102,8 @@ export function inCheckbox(
  * @return New radio input control instance.
  */
 export function inCheckbox<TValue>(
-    element: HTMLInputElement,
-    values: InCheckbox.Values<TValue>,
+  element: HTMLInputElement,
+  values: InCheckbox.Values<TValue>,
 ): InCheckbox<TValue>;
 
 /**
@@ -117,36 +121,27 @@ export function inCheckbox<TValue>(
  * @return New input element control instance.
  */
 export function inCheckbox<TValue>(
-    element: HTMLInputElement,
-    {
-      checked,
-      unchecked,
-      aspects,
-    }: Omit<InCheckbox.Values<TValue>, 'intermediate'>,
+  element: HTMLInputElement,
+  { checked, unchecked, aspects }: Omit<InCheckbox.Values<TValue>, 'intermediate'>,
 ): InCheckbox<TValue | undefined>;
 
 export function inCheckbox<TValue>(
-    element: HTMLInputElement,
-    {
-      checked = true as unknown as TValue,
-      unchecked = false as unknown as TValue,
-      intermediate = undefined as unknown as TValue,
-      aspects,
-    }: Partial<InCheckbox.Values<TValue>> = {},
+  element: HTMLInputElement,
+  {
+    checked = true as unknown as TValue,
+    unchecked = false as unknown as TValue,
+    intermediate = undefined as unknown as TValue,
+    aspects,
+  }: Partial<InCheckbox.Values<TValue>> = {},
 ): InCheckbox<TValue> {
-  return new AbstractInElement<TValue, HTMLInputElement & { intermediate?: boolean }>(
-      element,
-      {
-        get() {
-          return this.element.intermediate
-              ? intermediate
-              : this.element.checked ? checked : unchecked;
-        },
-        set(value) {
-          this.element.checked = value === checked;
-          this.element.intermediate = value !== checked && value !== unchecked;
-        },
-        aspects,
-      },
-  );
+  return new AbstractInElement<TValue, HTMLInputElement & { intermediate?: boolean }>(element, {
+    get() {
+      return this.element.intermediate ? intermediate : this.element.checked ? checked : unchecked;
+    },
+    set(value) {
+      this.element.checked = value === checked;
+      this.element.intermediate = value !== checked && value !== unchecked;
+    },
+    aspects,
+  });
 }

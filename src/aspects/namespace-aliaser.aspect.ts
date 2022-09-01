@@ -20,28 +20,25 @@ export type InNamespaceAliaser = NamespaceAliaser;
  *
  * @category Aspect
  */
-export const InputAspects__NS: NamespaceDef = (/*#__PURE__*/ new NamespaceDef(
-    'https://surol.github.io/input-aspects/ns',
-    'inasp',
-    'input-aspects',
-));
+export const InputAspects__NS: NamespaceDef = /*#__PURE__*/ new NamespaceDef(
+  'https://surol.github.io/input-aspects/ns',
+  'inasp',
+  'input-aspects',
+);
 
 /**
  * @internal
  */
 const InNamespaceAliaser__aspect: InAspect<InNamespaceAliaser> = {
-
   applyTo() {
     return knownInAspect(newNamespaceAliaser());
   },
-
 };
 
 /**
  * @category Aspect
  */
 export const InNamespaceAliaser = {
-
   get [InAspect__symbol](): InAspect<InNamespaceAliaser> {
     return InNamespaceAliaser__aspect;
   },
@@ -57,13 +54,14 @@ export const InNamespaceAliaser = {
   to<TValue>(nsAlias: InNamespaceAliaser): InConverter.Aspect<any, TValue> {
     return {
       applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
-          aspect: InAspect<any, any>,
-      ): InAspect.Applied<any, InAspect.Application.Instance<TInstance, TValue, TKind>> | undefined {
+        aspect: InAspect<any, any>,
+      ):
+        | InAspect.Applied<any, InAspect.Application.Instance<TInstance, TValue, TKind>>
+        | undefined {
         return aspect === InNamespaceAliaser__aspect
-            ? knownInAspect(nsAlias) as InAspect.Application.Result<TInstance, TValue, TKind>
-            : undefined;
+          ? (knownInAspect(nsAlias) as InAspect.Application.Result<TInstance, TValue, TKind>)
+          : undefined;
       },
     };
   },
-
 };

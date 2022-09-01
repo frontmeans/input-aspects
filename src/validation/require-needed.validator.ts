@@ -22,7 +22,6 @@ import { inValidator, InValidator } from './validator';
  * @returns Validator that requires all the given `validators` and filters their output.
  */
 export function requireNeeded<TValue>(...validators: InValidator<TValue>[]): InValidator<TValue> {
-
   const validate = inValidator(requireAll(...validators));
 
   return (control: InControl<TValue>) => validate(control).do(translateAfter(nextRequireNeededMessages));
@@ -32,23 +31,19 @@ export function requireNeeded<TValue>(...validators: InValidator<TValue>[]): InV
  * @internal
  */
 function nextRequireNeededMessages(
-    send: (...messages: InValidation.Message[]) => void,
-    ...messages: InValidation.Message[]
+  send: (...messages: InValidation.Message[]) => void,
+  ...messages: InValidation.Message[]
 ): void {
-
   const result = inValidationResult(...messages);
   let filtered: Iterable<InValidation.Message> = result;
 
   if (result.has('missing')) {
     filtered = filterIt(
-        result,
-        message => !message.incomplete && !message.invalid || !!message.despiteMissing,
+      result,
+      message => (!message.incomplete && !message.invalid) || !!message.despiteMissing,
     );
   } else if (result.has('incomplete')) {
-    filtered = filterIt(
-        result,
-        message => !message.invalid || !!message.despiteIncomplete,
-    );
+    filtered = filterIt(result, message => !message.invalid || !!message.despiteIncomplete);
   }
 
   return send(...filtered);

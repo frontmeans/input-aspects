@@ -10,7 +10,6 @@ import { inGroup } from './group.control';
 import { InParents } from './parents.aspect';
 
 describe('InParents', () => {
-
   let parent: InContainer<Record<string, unknown>>;
   let control: InControl<string>;
 
@@ -27,11 +26,13 @@ describe('InParents', () => {
 
   beforeEach(() => {
     parents = control.aspect(InParents);
-    parents.on(onParents = jest.fn());
+    parents.on((onParents = jest.fn()));
     allParents = undefined!;
-    parentsSupply = parents.read(readParents = jest.fn(entries => {
-      allParents = entries;
-    }));
+    parentsSupply = parents.read(
+      (readParents = jest.fn(entries => {
+        allParents = entries;
+      })),
+    );
     readParents.mockClear();
   });
 
@@ -40,7 +41,7 @@ describe('InParents', () => {
   });
 
   it('reports all parents on receiver registration', () => {
-     expect(allParents).toBeDefined();
+    expect(allParents).toBeDefined();
   });
 
   describe('[OnEvent__symbol]', () => {
@@ -56,7 +57,6 @@ describe('InParents', () => {
   });
 
   describe('add', () => {
-
     let supply: Supply;
     let entry: InParents.Entry;
 
@@ -88,7 +88,6 @@ describe('InParents', () => {
       expect(readParents).toHaveBeenCalledTimes(2);
     });
     it('adds another parent entry', () => {
-
       const parent2 = inGroup<Record<string, unknown>>({});
       const entry2: InParents.Entry = { parent: parent2 };
       const supply2 = parents.add(entry2);
@@ -99,7 +98,6 @@ describe('InParents', () => {
       expect([...allParents]).toEqual([entry]);
     });
     it('rejects parent when control input is cut off', () => {
-
       const reason = 'test';
 
       control.supply.off(reason);
@@ -131,7 +129,6 @@ describe('InParents', () => {
 
   describe('read', () => {
     it('is cut off when input is cut off', () => {
-
       const reason = 'test';
       const whenOff = jest.fn();
 

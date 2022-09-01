@@ -17,21 +17,17 @@ export type InStyledElement = Element;
  * @internal
  */
 const InStyledElement__aspect: InAspect<InStyledElement | null> = {
-
   applyTo(control: InControl<any>): InAspect.Applied<any, InStyledElement | null> {
-
     const element = control.aspect(InElement);
 
     return element ? knownInAspect(element.element) : nullInAspect();
   },
-
 };
 
 /**
  * @category Aspect
  */
 export const InStyledElement = {
-
   get [InAspect__symbol](): InAspect<InStyledElement | null> {
     return InStyledElement__aspect;
   },
@@ -50,13 +46,14 @@ export const InStyledElement = {
   to<TValue>(element: InStyledElement | null = null): InConverter.Aspect<any, TValue> {
     return {
       applyAspect<TInstance, TKind extends InAspect.Application.Kind>(
-          aspect: InAspect<any, any>,
-      ): InAspect.Applied<any, InAspect.Application.Instance<TInstance, TValue, TKind>> | undefined {
+        aspect: InAspect<any, any>,
+      ):
+        | InAspect.Applied<any, InAspect.Application.Instance<TInstance, TValue, TKind>>
+        | undefined {
         return aspect === InStyledElement__aspect
-            ? knownInAspect(element) as InAspect.Application.Result<TInstance, TValue, TKind>
-            : undefined;
+          ? (knownInAspect(element) as InAspect.Application.Result<TInstance, TValue, TKind>)
+          : undefined;
       },
     };
   },
-
 };
