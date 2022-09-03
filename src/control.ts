@@ -203,22 +203,19 @@ export namespace InControl {
    *
    * @typeParam TControl - Control type.
    * @typeParam TValue - Input value type.
+   * @param aspects - Input aspects applied by default. This is an aspect converter to constructed control from the
+   * {@link inValueOf same-valued one}.
+   *
+   * @returns Created control instance.
    */
-  export type Factory<TControl extends InControl<TValue>, TValue = ValueType<TControl>> =
-    /**
-     * @param aspects - Input aspects applied by default. This is an aspect converter to constructed control from the
-     * {@link inValueOf same-valued one}.
-     *
-     * @returns Created control instance.
-     */
-    (
-      this: void,
-      {
-        aspects,
-      }: {
-        readonly aspects?: InConverter.Aspect<TValue> | undefined;
-      },
-    ) => TControl;
+  export type Factory<TControl extends InControl<TValue>, TValue = ValueType<TControl>> = (
+    this: void,
+    {
+      aspects,
+    }: {
+      readonly aspects?: InConverter.Aspect<TValue> | undefined;
+    },
+  ) => TControl;
 }
 
 /**
