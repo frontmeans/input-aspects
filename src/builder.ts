@@ -16,8 +16,8 @@ export class InBuilder<TControl extends InControl<TValue>, TValue = InControl.Va
   /**
    * @internal
    */
-  private readonly [InBuilder$Impl__symbol]: InBuilder$Impl<TControl, TValue>
-    = new InBuilder$Impl();
+  private readonly [InBuilder$Impl__symbol]: InBuilder$Impl<TControl, TValue> =
+    new InBuilder$Impl();
 
   /**
    * Registers an aspect to add to the built control.

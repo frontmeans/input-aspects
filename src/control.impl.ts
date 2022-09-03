@@ -39,8 +39,8 @@ export class InControl$Aspects<TControl extends InControl<TValue>, TValue> {
       return applied;
     }
 
-    const application
-      = this.control._applyAspect(aspect)
+    const application =
+      this.control._applyAspect(aspect)
       || (aspect.applyTo(this.control) as InAspect.Application.Result<TInstance, TValue, TKind>);
 
     this._byKey.set(aspect, application);

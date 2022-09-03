@@ -106,8 +106,8 @@ class InRadioGroupControl<TValue extends string | undefined> extends InControl<T
   }
 
   set it(value: TValue) {
-    this._it.it
-      = value != null && this._buttons[value as keyof RequiredInButtons<TValue>]
+    this._it.it =
+      value != null && this._buttons[value as keyof RequiredInButtons<TValue>]
         ? value
         : this._unchecked;
   }

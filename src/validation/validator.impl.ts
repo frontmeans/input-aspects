@@ -32,8 +32,8 @@ export class InValidationMessages<TValue> implements EventKeeper<InValidation.Me
     // Sends validation messages
     let send: () => void = noop;
     // Validates using the given validator
-    let validate: (validator: AfterEvent<InValidation.Message[]>, validatorSupply: Supply) => void
-      = noop;
+    let validate: (validator: AfterEvent<InValidation.Message[]>, validatorSupply: Supply) => void =
+      noop;
 
     this._messages = afterEventBy<InValidation.Message[]>(receiver => {
       // Validation messages supply

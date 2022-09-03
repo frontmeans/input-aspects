@@ -289,8 +289,8 @@ class InListEntries<TItem> {
 
       return this._entries;
     };
-    const extracted
-      = deleteCount == null
+    const extracted =
+      deleteCount == null
         ? modify().splice(start)
         : modify().splice(
             start,
