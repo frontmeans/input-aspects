@@ -71,7 +71,7 @@ describe('InValue', () => {
   });
 
   describe('on', () => {
-    let receiver: Mock<(arg: string) => void>;
+    let receiver: Mock<(newValue: string, oldValue: string) => void>;
     let supply: Supply;
 
     beforeEach(() => {

@@ -50,7 +50,7 @@ describe('InRole', () => {
 
   describe('when', () => {
     it('activates already enabled role', async () => {
-      const activator = jest.fn(() => new Supply());
+      const activator = jest.fn<InRole.Activator<string>>(() => new Supply());
 
       role.add('test');
 
@@ -58,7 +58,7 @@ describe('InRole', () => {
       expect(activator).toHaveBeenCalledWith(control, 'test', await role.read);
     });
     it('activates the role when it is added', () => {
-      const activator = jest.fn(() => new Supply());
+      const activator = jest.fn<InRole.Activator<string>>(() => new Supply());
 
       role.when('test', activator);
       expect(activator).not.toHaveBeenCalled();
@@ -67,7 +67,7 @@ describe('InRole', () => {
       expect(activator).toHaveBeenCalledWith(
         control,
         'test',
-        expect.objectContaining({ has: expect.any(Function) }),
+        expect.objectContaining({ has: expect.any(Function) }) as unknown as InRole.Active,
       );
     });
     it('re-activates the role when it is added again', () => {
@@ -208,7 +208,7 @@ describe('InRole', () => {
 
     describe('when', () => {
       it('activates immediately', async () => {
-        const activator = jest.fn(() => new Supply());
+        const activator = jest.fn<InRole.Activator<string>>(() => new Supply());
 
         role.when('default', activator);
         expect(activator).toHaveBeenCalledWith(control, 'default', await role.read);

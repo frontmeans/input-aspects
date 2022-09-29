@@ -121,7 +121,10 @@ describe('InGroup', () => {
         expect(lastSnapshot.get('ctrl1')).toBe(ctrl1);
         expect(lastSnapshot.get('ctrl2')).toBe(ctrl2);
         expect(lastSnapshot.get('ctrl3')).toBe(ctrl3);
-        expect(onUpdate).toHaveBeenCalledWith([['ctrl3', ctrl3]], []);
+        expect(onUpdate).toHaveBeenCalledWith(
+          [['ctrl3', ctrl3 as InControl<string | number | undefined>]],
+          [],
+        );
         expect(readSnapshot).toHaveBeenCalledTimes(1);
         expect(parentsOf(ctrl3)).toEqual([{ parent: group }]);
 
@@ -140,7 +143,10 @@ describe('InGroup', () => {
         expect(lastSnapshot.get('ctrl1')).toBe(ctrl4);
         expect(lastSnapshot.get('ctrl2')).toBe(ctrl2);
         expect(lastSnapshot.get('ctrl3')).toBeUndefined();
-        expect(onUpdate).toHaveBeenCalledWith([['ctrl1', ctrl4]], [['ctrl1', ctrl1]]);
+        expect(onUpdate).toHaveBeenCalledWith(
+          [['ctrl1', ctrl4 as InControl<string | number | undefined>]],
+          [['ctrl1', ctrl1 as InControl<string | number | undefined>]],
+        );
         expect(readSnapshot).toHaveBeenCalledTimes(1);
         expect(parentsOf(ctrl1)).toHaveLength(0);
         expect(parentsOf(ctrl4)).toEqual([{ parent: group }]);
@@ -190,10 +196,10 @@ describe('InGroup', () => {
         expect(lastSnapshot.get('ctrl3')).toBe(ctrl3);
         expect(onUpdate).toHaveBeenCalledWith(
           [
-            ['ctrl1', ctrl4],
-            ['ctrl3', ctrl3],
+            ['ctrl1', ctrl4 as InControl<string | number | undefined>],
+            ['ctrl3', ctrl3 as InControl<string | number | undefined>],
           ],
-          [['ctrl1', ctrl1]],
+          [['ctrl1', ctrl1 as InControl<string | number | undefined>]],
         );
         expect(readSnapshot).toHaveBeenCalledTimes(1);
 
@@ -210,7 +216,10 @@ describe('InGroup', () => {
         expect(lastSnapshot.get('ctrl1')).toBe(ctrl1);
         expect(lastSnapshot.get('ctrl2')).toBeUndefined();
         expect(lastSnapshot.get('ctrl3')).toBeUndefined();
-        expect(onUpdate).toHaveBeenCalledWith([], [['ctrl2', ctrl2]]);
+        expect(onUpdate).toHaveBeenCalledWith(
+          [],
+          [['ctrl2', ctrl2 as InControl<string | number | undefined>]],
+        );
         expect(onUpdate).toHaveBeenCalledTimes(1);
         expect(readSnapshot).toHaveBeenCalledTimes(1);
         expect(parentsOf(ctrl2)).toHaveLength(0);
@@ -233,8 +242,8 @@ describe('InGroup', () => {
         expect(onUpdate).toHaveBeenCalledWith(
           [],
           [
-            ['ctrl1', ctrl1],
-            ['ctrl2', ctrl2],
+            ['ctrl1', ctrl1 as InControl<string | number | undefined>],
+            ['ctrl2', ctrl2 as InControl<string | number | undefined>],
           ],
         );
         expect(onUpdate).toHaveBeenCalledTimes(1);

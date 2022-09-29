@@ -157,7 +157,7 @@ describe('InControl', () => {
     });
 
     describe('on', () => {
-      let receiver: Mock<(arg: string) => void>;
+      let receiver: Mock<(arg1: string, arg2: string) => void>;
       let convertedReceiver: Mock<(value1: number, value2: number) => void>;
       let convertedSupply: Supply;
 

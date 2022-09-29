@@ -79,17 +79,19 @@ export namespace InRole {
    * An activator signature of input control role.
    *
    * @typeParam TValue - Input value type.
+   * @param control - A control the role is activated for.
+   * @param role - Activated role name.
+   * @param active - Active control role.
+   *
+   * @returns Activation supply peer. Its supply will be cut off once the role deactivated or activator removed. It is
+   * expected that this supply performs deactivation once cut off.
    */
-  export type Activator<TValue> =
-    /**
-     * @param control - A control the role is activated for.
-     * @param role - Activated role name.
-     * @param active - Active control role.
-     *
-     * @returns Activation supply peer. Its supply will be cut off once the role deactivated or activator removed. It is
-     * expected that this supply performs deactivation once cut off.
-     */
-    (this: void, control: InControl<TValue>, role: string, active: Active) => SupplyPeer;
+  export type Activator<TValue> = (
+    this: void,
+    control: InControl<TValue>,
+    role: string,
+    active: Active,
+  ) => SupplyPeer;
 
   /**
    * Active input control role.
