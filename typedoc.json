@@ -3,6 +3,5 @@
   "categoryOrder": ["Control", "Aspect", "Validation", "*"],
   "entryPoints": ["src/index.ts"],
   "name": "Input Aspects",
-  "out": "./target/typedoc",
-  "tsconfig": "tsconfig.main.json"
+  "out": "./target/typedoc"
 }
