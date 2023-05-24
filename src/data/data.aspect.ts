@@ -56,9 +56,6 @@ export const InData = {
   },
 };
 
-/**
- * @category Aspect
- */
 export namespace InData {
   /**
    * Input data type.

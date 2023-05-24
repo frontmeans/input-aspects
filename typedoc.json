@@ -2,6 +2,8 @@
   "categorizeByGroup": false,
   "categoryOrder": ["Control", "Aspect", "Validation", "*"],
   "entryPoints": ["src/index.ts"],
+  "excludeInternal": true,
+  "excludePrivate": true,
   "name": "Input Aspects",
   "out": "./target/typedoc"
 }

@@ -51,9 +51,6 @@ export namespace InParser {
   }
 }
 
-/**
- * @category Converter
- */
 export const InParser = {
   /**
    * Creates input control converter out of input text parser.
