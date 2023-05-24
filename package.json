@@ -24,6 +24,7 @@
     "types": "./dist/input-aspects.d.ts",
     "default": "./dist/input-aspects.js"
   },
+  "sideEffects": false,
   "peerDependencies": {
     "@proc7ts/fun-events": "^10.5.1"
   },
