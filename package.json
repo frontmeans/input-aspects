@@ -73,6 +73,6 @@
     "format": "run-z +z --then prettier-eslint --write --include-dot-files \"src/**/*.*\" \"*.{js,cjs,json,md}\"",
     "lint": "run-z +z --then eslint .",
     "test": "run-z +z env:NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" --then test-z",
-    "z": "run-z +cmd:build-z,+cmd:typedoc,+cmd:eslint,+cmd:test-z"
+    "z": "run-z +cmd:build-z,+cmd:typedoc,+cmd:eslint,+cmd:test-z/env:RUNZ_TEST_RUNNER=ts-jest"
   }
 }
